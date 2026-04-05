@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vulnerability Intelligence Feed</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 15px; color: #1a1d27; background: #f5f6fa;
+    }
+    .feed-header { background:#fff; border-bottom:1px solid #e2e4ed; padding:18px 20px 14px; }
+    .feed-title  { font-size:18px; font-weight:700; color:#0a2342; margin-bottom:2px; }
+    .feed-subtitle { font-size:12px; color:#7a8099; margin-bottom:14px; }
+    .feed-tabs { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+    .feed-tab {
+      background:#f0f2f8; border:1px solid #e2e4ed; border-radius:4px;
+      padding:4px 12px; font-size:12px; font-weight:600; cursor:pointer;
+      color:#4a5068; font-family:inherit; transition:all 0.12s;
+    }
+    .feed-tab:hover { background:#e4e8f5; color:#1a1d27; }
+    .feed-tab--active { background:#0a2342; border-color:#0a2342; color:#fff; }
+    .feed-tab--emergency { }
+    .feed-search {
+      width:100%; padding:8px 12px; font-size:13px; font-family:inherit;
+      border:1px solid #e2e4ed; border-radius:4px; background:#f5f6fa;
+      color:#1a1d27; outline:none;
+    }
+    .feed-search:focus { border-color:#04A1D6; background:#fff; }
+    .feed-search::placeholder { color:#aab0c8; }
+    #feed-list { padding:0 20px; background:#fff; }
+    .feed-item { display:flex; flex-direction:column; gap:5px; padding:13px 0; border-bottom:1px solid #eef0f7; }
+    .feed-item:last-child { border-bottom:none; }
+    .feed-item-title { font-size:14px; font-weight:600; line-height:1.4; color:#0a2342; text-decoration:none; }
+    .feed-item-title:hover { color:#04A1D6; text-decoration:underline; text-underline-offset:2px; }
+    .feed-item-meta { display:flex; flex-wrap:wrap; align-items:center; gap:7px; font-size:11px; color:#7a8099; }
+    .feed-source { font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#4a5068; }
+    .feed-cat {
+      display:inline-block; padding:1px 7px; border-radius:3px;
+      font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    }
+    .feed-cat--emergency      { background:#fde8ec; color:#b01c35; }
+    .feed-cat--infrastructure { background:#fef0e0; color:#9a5000; }
+    .feed-cat--web_app        { background:#e8f0fe; color:#1a5fb0; }
+    .feed-cat--cloud          { background:#e8f8f0; color:#1a7a46; }
+    .feed-cvss {
+      display:inline-block; padding:1px 7px; border-radius:3px;
+      font-size:10px; font-weight:700; font-family:monospace; background:#f0f2f8;
+    }
+    .feed-cvss--critical { background:#fde8ec; color:#b01c35; }
+    .feed-cvss--high     { background:#fef0e0; color:#9a5000; }
+    .feed-cvss--medium   { background:#fefbe0; color:#7a6000; }
+    .feed-cve-list { display:flex; flex-wrap:wrap; gap:5px; }
+    .feed-cve {
+      background:#f0f2f8; border-radius:3px; padding:1px 6px;
+      font-family:monospace; font-size:11px; font-weight:600; color:#4a5068;
+    }
+    .feed-item-summary { font-size:12px; color:#6a7090; line-height:1.5;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .feed-related { font-size:11px; color:#7a8099; }
+    .feed-related a { margin-right:8px; color:#04A1D6; }
+    .feed-pagination {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 20px; background:#fff; border-top:1px solid #eef0f7;
+    }
+    .feed-page-btn {
+      background:#f0f2f8; border:1px solid #e2e4ed; border-radius:4px;
+      padding:6px 16px; font-size:12px; font-weight:600; cursor:pointer;
+      color:#4a5068; font-family:inherit; transition:all 0.12s;
+    }
+    .feed-page-btn:hover:not(:disabled) { background:#0a2342; border-color:#0a2342; color:#fff; }
+    .feed-page-btn:disabled { opacity:.3; cursor:default; }
+    .feed-page-info { font-size:12px; color:#7a8099; }
+    .feed-status { padding:40px 20px; text-align:center; color:#7a8099; font-size:13px; background:#fff; }
+    .feed-footer { padding:10px 20px 14px; font-size:11px; color:#aab0c8; background:#fff; border-top:1px solid #eef0f7; }
+    .feed-footer a { color:#7a8099; }
+    .feed-footer a:hover { color:#04A1D6; }
+    .feed-ad { padding:10px 20px; background:#f5f6fa; text-align:center; border-bottom:1px solid #e2e4ed; }
+    .feed-spinner {
+      display:inline-block; width:16px; height:16px;
+      border:2px solid #e2e4ed; border-top-color:#04A1D6;
+      border-radius:50%; animation:spin .7s linear infinite;
+      vertical-align:middle; margin-right:8px;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    @media (max-width:480px) {
+      .feed-header, #feed-list, .feed-pagination, .feed-footer, .feed-ad
+        { padding-left:14px; padding-right:14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- <div class="feed-ad">YOUR AD CODE HERE</div> -->
+
+  <div class="feed-header">
+    <div class="feed-title">Vulnerability Intelligence</div>
+    <div class="feed-subtitle">Active exploits, CVEs &amp; zero-days · Updated every 4 hours</div>
+    <div class="feed-tabs" id="feed-tabs" role="tablist">
+      <button class="feed-tab feed-tab--active" data-cat="all"            role="tab" aria-pressed="true">All</button>
+      <button class="feed-tab"                   data-cat="emergency"      role="tab" aria-pressed="false">⚠ Emergency</button>
+      <button class="feed-tab"                   data-cat="infrastructure" role="tab" aria-pressed="false">Infrastructure</button>
+      <button class="feed-tab"                   data-cat="web_app"        role="tab" aria-pressed="false">Web / App</button>
+      <button class="feed-tab"                   data-cat="cloud"          role="tab" aria-pressed="false">Cloud</button>
+    </div>
+    <input id="feed-search" class="feed-search" type="search"
+           placeholder="Search CVE, product, keyword…" aria-label="Search vulnerabilities" />
+  </div>
+
+  <div id="feed-list">
+    <div class="feed-status"><span class="feed-spinner"></span>Loading…</div>
+  </div>
+
+  <div class="feed-pagination" id="feed-pagination">
+    <button class="feed-page-btn" id="feed-prev" disabled>← Previous</button>
+    <span class="feed-page-info" id="feed-page-info"></span>
+    <button class="feed-page-btn" id="feed-next" disabled>Next →</button>
+  </div>
+
+  <div class="feed-footer">
+    <span id="feed-updated"></span> &nbsp;·&nbsp;
+    <a id="feed-link" href="#" target="_blank" rel="noopener noreferrer">Feed source</a>
+    &nbsp;·&nbsp; CVE data from NVD, CISA, and community disclosures.
+  </div>
+
+  <script>
+  (function () {
+    'use strict';
+    const FEED_BASE = 'https://YOUR-VULN-PROJECT.vercel.app';
+    function pageUrl(n) { return n===1 ? FEED_BASE+'/feed.json' : FEED_BASE+'/feed-'+n+'.json'; }
+
+    let articles=[], currentPage=1, totalPages=1, activeCategory='all', searchQuery='';
+    const listEl=document.getElementById('feed-list');
+    const tabs=document.querySelectorAll('#feed-tabs .feed-tab');
+    const searchEl=document.getElementById('feed-search');
+    const updatedEl=document.getElementById('feed-updated');
+    const feedLink=document.getElementById('feed-link');
+    const prevBtn=document.getElementById('feed-prev');
+    const nextBtn=document.getElementById('feed-next');
+    const pageInfo=document.getElementById('feed-page-info');
+
+    function esc(s){const d=document.createElement('div');d.textContent=String(s);return d.innerHTML;}
+    function fmtDate(iso){try{return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}catch(_){return '';}}
+    function cvssClass(v){if(!v)return '';if(v>=9)return 'feed-cvss--critical';if(v>=7)return 'feed-cvss--high';return 'feed-cvss--medium';}
+
+    function render(){
+      const q=searchQuery.trim().toLowerCase();
+      const visible=articles.filter(a=>{
+        const catOk=activeCategory==='all'||a.category===activeCategory;
+        const cveOk=(a.cve_ids||[]).some(c=>c.toLowerCase().includes(q));
+        const srchOk=!q||cveOk||a.title.toLowerCase().includes(q)||(a.summary||'').toLowerCase().includes(q)||a.source.toLowerCase().includes(q);
+        return catOk&&srchOk;
+      });
+      if(!visible.length){listEl.innerHTML='<div class="feed-status">No entries match this filter.</div>';return;}
+      listEl.innerHTML=visible.map(a=>{
+        const cves=(a.cve_ids||[]).map(c=>`<span class="feed-cve">${esc(c)}</span>`).join('');
+        const cvss=a.cvss?`<span class="feed-cvss ${cvssClass(a.cvss)}">CVSS ${parseFloat(a.cvss).toFixed(1)}</span>`:'';
+        const related=(a.related_links||[]).length
+          ?`<div class="feed-related">Also: ${a.related_links.slice(0,4).map((u,i)=>`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer nofollow">Source ${i+2}</a>`).join('')}</div>`:'';
+        return `<div class="feed-item">
+          <a class="feed-item-title" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer nofollow">${esc(a.title)}</a>
+          <div class="feed-item-meta">
+            <span class="feed-source">${esc(a.source)}</span>·
+            <span class="feed-cat feed-cat--${esc(a.category)}">${esc(a.category.replace('_',' '))}</span>
+            ${cvss}·<time datetime="${esc(a.date)}">${fmtDate(a.date)}</time>
+          </div>
+          ${cves?`<div class="feed-cve-list">${cves}</div>`:''}
+          ${a.summary?`<p class="feed-item-summary">${esc(a.summary)}</p>`:''}
+          ${related}
+        </div>`;
+      }).join('');
+      prevBtn.disabled=currentPage<=1; nextBtn.disabled=currentPage>=totalPages;
+      pageInfo.textContent=totalPages>1?`Page ${currentPage} of ${totalPages}`:'';
+    }
+
+    async function loadPage(n){
+      listEl.innerHTML='<div class="feed-status"><span class="feed-spinner"></span>Loading…</div>';
+      prevBtn.disabled=true; nextBtn.disabled=true;
+      try{
+        const res=await fetch(pageUrl(n),{cache:'no-cache'});
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        const data=await res.json();
+        articles=data.articles||[]; currentPage=data.page||n; totalPages=data.total_pages||1;
+        if(data.updated) updatedEl.textContent='Last updated '+fmtDate(data.updated);
+        feedLink.href=pageUrl(1); searchEl.value=''; searchQuery=''; render();
+      }catch(err){
+        listEl.innerHTML=`<div class="feed-status">Could not load feed.<br><small>${esc(String(err))}</small></div>`;
+        prevBtn.disabled=currentPage<=1; nextBtn.disabled=currentPage>=totalPages;
+      }
+    }
+
+    tabs.forEach(t=>t.addEventListener('click',()=>{
+      tabs.forEach(x=>{x.classList.remove('feed-tab--active');x.setAttribute('aria-pressed','false');});
+      t.classList.add('feed-tab--active'); t.setAttribute('aria-pressed','true');
+      activeCategory=t.dataset.cat; render();
+    }));
+    let dbt;
+    searchEl.addEventListener('input',()=>{clearTimeout(dbt);dbt=setTimeout(()=>{searchQuery=searchEl.value;render();},250);});
+    prevBtn.addEventListener('click',()=>{if(currentPage>1)loadPage(currentPage-1);});
+    nextBtn.addEventListener('click',()=>{if(currentPage<totalPages)loadPage(currentPage+1);});
+    loadPage(1);
+  }());
+  </script>
+</body>
+</html>
