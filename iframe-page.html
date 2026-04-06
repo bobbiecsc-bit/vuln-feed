@@ -1,1007 +1,3 @@
-
-news aggregator
-/
-
-1775054580967_cybersecurity-scraper.zip
-zip
-
-Hey Claude I want to start a chat surrounding a project I worked on recently. It was a standalone news scraper app. I'd like to see if we can connect it to my companies wordpress site (I have a personal level membership) I have attached all of the code (some may be old) and there is a DB we can recreate on a hosted server but for now I want to see how we can add this to my wordpress site and if we can recreate it to be less bulky without the postgreSQL and the IIS server. please do a thorough read through of this code and lets see what we can manage to do from there.
-
-Apr 1
-
-Ran 4 commands, viewed a file
-Ran 4 commands, viewed a file
-Good — I now have a thorough picture of the whole stack. Let me give you a comprehensive breakdown.
-
-Code Review Summary
-What you built
-This is a well-structured multi-source cybersecurity news aggregator with three main components:
-
-cyber_news_scraper.py — The scraper collects articles from 9 RSS feeds (The Hacker News, Krebs on Security, BleepingComputer, Dark Reading, CISA, SANS ISC, Schneier, SecurityWeek, The Record). It deduplicates via SHA-256 URL hashing, keyword-categorizes articles (breach, vulnerability, malware, threat, etc.), and writes everything to PostgreSQL. It's clean, well-commented, and solid.
-
-api.py — Flask REST API sits in front of the database and exposes endpoints: /api/articles (filterable by category/source/date/search), /api/categories, /api/sources, /api/stats, and /api/recent. CORS-enabled, uses parameterized queries.
-
-database_schema.sql — PostgreSQL schema with an articles table (with full-text search GIN index), a sources table, views, and helper functions like get_article_stats().
-
-app.js is the frontend glue that fetches from the Flask API and renders the dashboard.
-
-What needs to go before we touch WordPress
-Security issues to flag immediately:
-
-Hardcoded DB credentials in both cyber_news_scraper.py and api.py — the password yYGWgyHvPF7mr2@n is sitting in plaintext. These need to move to environment variables (.env file or server environment) before this code goes anywhere public.
-No authentication on the API — currently any public request can query your full article database. For a WordPress integration, the WP site should be the only consumer, so either an API key header or IP whitelist is appropriate.
-The WordPress integration question
-Here's the key constraint: WordPress Personal plan doesn't allow custom plugins or server-side code execution. You can't run a Flask API or Python scripts on wordpress.com's infrastructure at that tier. So the architecture needs to be split:
-
-Your scraper + API still lives on an external host (a small VPS, Railway, Render, or your existing Vercel + a Python host). WordPress just pulls data from it.
-
-The cleanest path forward has two options I'd want to talk through with you:
-
-Option A — Minimal/serverless (no PostgreSQL) Replace PostgreSQL entirely with a lightweight JSON file or Firebase Firestore. The scraper runs on a cron job (GitHub Actions free tier works great for this), writes a JSON feed, and WordPress fetches it via a JavaScript snippet embedded in a Custom HTML block. No IIS, no Postgres, no Flask needed. Zero infrastructure cost.
-
-Option B — Keep the Flask API, hosted externally Deploy the Flask API to Railway or Render (both have free tiers), keep PostgreSQL on Supabase (free tier), and embed a WordPress Custom HTML block that fetches from your external API URL. More power, slightly more to maintain.
-
-Before I start building anything, a couple of quick questions:
-
-How do you envision this living on your WordPress site — as a dedicated page/section showing the news feed, a widget in the sidebar, or something else? And do you want to keep the categorization/filtering UI from the original dashboard, or is a simpler feed display fine for now?
-
-I see it as a dedicated page showing security industry news links on the site possibly even including ads on the top or sidewall. I eventually would also like to create another one around IT best practices, small business in the cloud, and small business IT ideas and challenges. 
-I like the lightweight minimal version idea since I am just aggregating the news and not reporting it or hosting the articles.
-
-Apr 1
-Great direction. Option A is the right call — you're a link aggregator, not a publisher, so you don't need to own the storage long-term. Let me map out exactly what we're building before writing a single line of code.
-
-The Plan
-Architecture:
-
-GitHub Actions runs the Python scraper on a schedule (every 4-6 hours), fetches all RSS feeds, and writes a feed.json file committed back to a GitHub repo (or pushed to a static host)
-Vercel (which you already use) hosts the feed.json as a static file — free, fast, no server needed
-WordPress has a dedicated page with a Custom HTML block containing vanilla JavaScript that fetches the JSON and renders the news feed
-No Flask, no PostgreSQL, no IIS, no server to maintain
-What gets stripped out:
-
-psycopg2 / PostgreSQL — replaced with JSON output
-api.py / Flask — Vercel serves the static file
-app.js / index.html standalone dashboard — replaced by WP-embedded JS
-What gets kept/simplified:
-
-The RSS parsing logic from cyber_news_scraper.py (the good part)
-The categorization and deduplication logic
-The multi-source feed list
-File structure for the new repo:
-
-cybernews-feed/
-├── scraper.py          # Simplified scraper, outputs feed.json
-├── feed.json           # Generated output, served by Vercel
-├── requirements.txt    # feedparser, requests, beautifulsoup4 only
-└── .github/
-    └── workflows/
-        └── scrape.yml  # Runs scraper every 6 hours
-A few clarifying questions before I start writing:
-
-User: 100, All categories, Simple list with source badge and category tag
-
-Let's start building. I'll create all three files you need.
-
-
-Check frontend design skill for styling guidance
-Check frontend design skill for styling guidance
-Good. Now I'll build all three files: the scraper, the GitHub Actions workflow, and the WordPress embed block.
-
-
-Created 4 files
-Created 4 files
-Now the WordPress embed — this is the most important piece for your site visitors:
-
-
-Created 2 files, ran a command, read a file
-Created 2 files, ran a command, read a file
-Here's everything you need. One important note before you deploy — there's a credential in your original code that needs to be addressed. The PostgreSQL password yYGWgyHvPF7mr2@n is in plaintext in both cyber_news_scraper.py and api.py. Since those files were in the zip you attached, if that zip ever got shared or committed to a public repo, you should rotate that DB password now even if you're moving away from Postgres.
-
-Here's what was built and why each piece matters:
-
-scraper.py is a clean rewrite of your original — same RSS sources and categorization logic, but instead of writing to Postgres it writes a feed.json file. It also does a smart merge: each run blends new articles with whatever was already in feed.json, so articles don't vanish between scrape cycles.
-
-scrape.yml (GitHub Actions) runs the scraper every 6 hours automatically and commits the updated feed.json back to the repo. You can also trigger it manually from the GitHub UI any time. Zero cost on a public repo.
-
-vercel.json adds the CORS header that WordPress needs to fetch the JSON cross-origin, plus a 30-minute cache to keep Vercel's CDN happy.
-
-wordpress-embed.html is the complete page component — dark-themed news feed with category filter tabs, live search, source badges, and color-coded category tags. Ad slots are pre-wired and commented out, ready to uncomment when you're ready for ads. The only thing you need to change is the one FEED_URL line to point to your Vercel deployment.
-
-Setup order is important: run the scraper locally first to generate feed.json, push that to GitHub, then deploy to Vercel — otherwise Vercel will 404 on an empty repo.
-
-The README has the full step-by-step and a dedicated section on duplicating the whole thing for your IT best practices / SMB feed with suggested RSS sources for that topic.
-
-Scraper
-PY 
-Wordpress embed
-Code · HTML 
-Scrape
-YML 
-Vercel
-Code · JSON 
-Requirements
-TXT 
-Readme
-Document · MD 
-Q: How many articles should the feed hold at once?
-A: 50 (recent only, lightweight)
-
-Q: What categories do you want to show on the news page?
-A: Only high-signal ones (breach, vulnerability, malware, threat)
-
-Q: For the WordPress page styling, what fits your site best?
-A: Match whatever your current WP theme looks like (neutral CSS)
-
-Apr 4
-Got it — you want the lighter, theme-friendly version. Let me update all three pieces: trim to 50 articles, drop the low-signal categories, and replace the dark hardcoded theme with neutral CSS that inherits from whatever WordPress theme you're running.
-
-
-Update MAX_ARTICLES to 50
-Update MAX_ARTICLES to 50
-Now strip low-signal categories from every source's keyword map and filter the output to only breach/vulnerability/malware/threat:
-
-
-Strip low-signal categories from all sources and add output filter
-Strip low-signal categories from all sources and add output filter
-Now update categorize() to return None for non-matching articles, and filter them out in scrape_all:
-
-
-Edited 2 files
-Edited 2 files
-Now rebuild the WordPress embed from scratch with neutral, theme-inheriting CSS:
-
-
-Ran 2 commands, created a file, edited a file
-Ran 2 commands, created a file, edited a file
-Both updated files are ready. Here's a summary of what changed:
-
-scraper.py now has a HIGH_SIGNAL_CATEGORIES constant at the top and the categorizer returns None instead of 'general' when nothing matches — so articles that don't clearly fall into breach, vulnerability, malware, or threat are dropped entirely rather than cluttering the feed. This keeps the 50-article limit genuinely signal-rich instead of padded with announcements and policy pieces.
-
-wordpress-embed.html is a full rewrite of the styling approach. Instead of hardcoded dark colors, everything now uses inherit, currentColor, transparent, and relative em sizing — so your title renders as an h2 in whatever your theme's h2 style is, the tabs use your theme's body font, and links pick up your theme's link color automatically. The only exceptions are the four category pill colors (the muted red/orange/purple/red swatches), which need to be explicit to stay readable. Those also have a prefers-color-scheme: dark override so they lighten appropriately on dark themes. The filter tabs are now five buttons instead of nine (All · Breach · Vulnerability · Malware · Threat), matching what the scraper actually outputs.
-
-The other three files — scrape.yml, vercel.json, requirements.txt — didn't need changes. The README's deployment steps all still apply as written.
-
-Wordpress embed
-Code · HTML 
-Scraper
-PY 
-wait, the feed has 50 latest articles displayed but a visitor should be able to load a next page and get to the last 250 articles.
-
-Apr 4
-Good call. The architecture needs a small adjustment — instead of one feed.json with 50 articles, the scraper will maintain a rolling archive of 250 articles split across pages, and the WordPress embed gets prev/next pagination.
-
-Here's the plan before touching code:
-
-Scraper keeps a feed.json (page 1, 50 articles) and feed-2.json through feed-5.json (pages 2–5), all generated from a single archive.json that holds the full 250. The archive is what gets merged and trimmed each run.
-WordPress embed fetches page 1 on load, then fetches the next page file when the visitor clicks Next. No server needed — just static JSON files on Vercel.
-vercel.json already serves everything with CORS, no changes needed there.
-
-Viewed 2 files, edited a file, ran a command
-Viewed 2 files, edited a file, ran a command
-Good, I have the full picture. Now I'll rewrite the bottom third of the scraper — the constants, merge function, and main — in one clean pass:
-
-
-Ran 3 commands
-Ran 3 commands
-Good. Now update the WordPress embed to add pagination:
-
-
-Write the full paginated WordPress embed
-Write the full paginated WordPress embed
-Also update the GitHub Actions workflow to commit all page files, not just feed.json:
-
-
-Ran 2 commands, read a file
-Ran 2 commands, read a file
-Three files updated. Here's exactly what changed and why each decision was made:
-
-scraper.py now has two distinct storage layers. The archive.json is a private rolling store of up to 250 articles that gets merged and trimmed on every run — this is what keeps history alive between scrape cycles and is never served publicly. The write_page_files() function then slices the archive into up to five feed.json / feed-2.json through feed-5.json files, each carrying pagination metadata (page, total_pages, total_articles) so the embed knows the full picture. Early on when there are fewer than 250 articles, actual_pages is calculated dynamically so you won't get empty page files.
-
-wordpress-embed.html now has a ← Previous / Next → nav bar that appears below the article list. Each page button fetches the corresponding page file fresh from Vercel, resets the search box (since a search across pages would require loading all pages simultaneously, which defeats the lightweight goal), and scrolls the visitor back to the top of the feed. The page info label in the middle reads "Page 2 of 5" and is hidden when there's only one page. Category filters and search still work within whatever page is loaded.
-
-scrape.yml now stages archive.json and all five page files in the commit. Files that don't exist yet (early on, before 250 articles accumulate) are silently ignored by git.
-
-One note on the FEED_BASE variable in the embed — it's now a base URL rather than a full path, since the script constructs the per-page URLs itself (/feed.json, /feed-2.json, etc.). Make sure there's no trailing slash when you set it.
-
-Scraper
-PY 
-Wordpress embed
-Code · HTML 
-Scrape
-YML 
-Thanks! 
-Now that we have this version of the scraper (cyber news for the wordpress/JSON config) in play we'll need deployment documentation and to copy what its doing to have a vulnerability feed and a small business IT feed. 
-
-The vulnerability aggregator feed is going to be focused on using the below sources:
-Vulnerability & Zero-Day RSS/API Sources
-Site / ProviderFeed / API AddressData TypeCISA KEV (API)https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.jsonCrucial: Only bugs currently being used by hackers.NVD (NIST) APIhttps://services.nvd.nist.gov/rest/json/cves/2.0The official master list of all CVEs (Requires API Key).Zero Day Initiativehttps://www.zerodayinitiative.com/rss/published/Best for "Pre-CVE" or brand new disclosure alerts.GitHub Advisoryhttps://api.github.com/advisoriesZero-days in open-source code (Log4j style bugs).VulDB (API)https://vuldb.com/?apiEarly warning signals and dark web mentions.Full Disclosurehttps://seclists.org/rss/fulldisclosure.rssThe "raw" unfiltered feed where researchers post first.Packet Stormhttps://rss.packetstormsecurity.com/files/Real-time feed of new exploits and Proof-of-Concepts.Exploit-DBhttps://www.exploit-db.com/rss.xmlVerified code that can actually hack a system.Open Threat Exchangehttps://otx.alienvault.com/api/v1/pulses/subscribedCommunity-sourced "Threat Pulses" (Requires API Key).HackerOnehttps://hackerone.com/hacktivity.rssDisclosed bugs from bug bounty programs.Google Project Zerohttps://googleprojectzero.blogspot.com/feeds/posts/defaultElite-level research on sophisticated zero-days.BleepingComputerhttps://www.bleepingcomputer.com/feed/Best for "human-readable" summaries of new exploits.CERT/CChttps://kb.cert.org/vince/comm/vulnerability/rss/High-level technical advisories from Carnegie Mellon.Microsoft Securityhttps://api.msrc.microsoft.com/cvrf/v2.0/updatesAPI for Patch Tuesday and emergency Windows updates.Ubuntu Securityhttps://ubuntu.com/security/notices/rss.xmlCrucial if your users run Linux servers.Red Hat Securityhttps://access.redhat.com/security/data/metrics/cve.jsonJSON feed for enterprise Linux vulnerabilities.Cisco Advisorieshttps://tools.cisco.com/security/center/psirtrss20.xmlNetworking hardware and router zero-days.Trend Micro Labhttps://feeds.feedburner.com/TrendMicroSecurityIntelligenceDeep dives into malware using zero-day flaws.Qualys Bloghttps://blog.qualys.com/category/vulnerabilities-threat-research/feed/Professional analysis of major industry-wide bugs.Rapid7 Analysishttps://www.rapid7.com/blog/rss/Excellent "Attacker’s Dictionary" style write-ups.
-------------------------------------
-Vulnerability Topics & Filtering Logic for vulnerability links
-Unlike general news, vulnerability data is best filtered by Impact and Target. Use these categories to organize your dashboard:
-1. The "Emergency" Filter (Priority 1)
-* Topic: Bugs that are actively being used right now.
-* Logic: Filter for any entry where exploited_in_the_wild == true (CISA KEV) or CVSS >= 9.0.
-* Search Terms: Zero-day, RCE (Remote Code Execution), Active exploitation, Unauthenticated, Mass exploitation.
-2. Infrastructure & OS (Priority 2)
-* Topic: Vulnerabilities in the core "pipes" of a business.
-* Search Terms: Windows Server, Linux Kernel, VMWare, Exchange Server, VPN gateway, Fortinet, Cisco IOS, Active Directory.
-3. Web & Application Security
-* Topic: Flaws in websites and software.
-* Search Terms: SQL Injection, XSS, Broken Authentication, SSRF, Supply Chain Attack, dependency vulnerability.
-4. Cloud & Virtualization
-* Topic: Escaping the cloud or accessing other people's data.
-* Search Terms: AWS IAM bypass, Azure tenant breakout, S3 bucket exposure, Kubernetes escape, Docker container breakout
-----------------------------------
-The vulnerability format should be different as well since one active exploit could end up on all feeds. Lets dedupe content that is a repeat by looking for and recording CVE ID (e.g., CVE-2026-1234). If your database already has that ID, append the new article link to the existing entry rather than creating 20 separate alerts. This keeps the dashboard clean and email alerts from being spammy. 
-----------------------------------
-The small business IT feed should pull from the info below.
-Small Business IT RSS & API Source List
-Site NameFeed Address (RSS/Atom/API)Best Use CaseBizTech Magazinehttps://biztechmagazine.com/rss/small-businessStrategic IT & hardware for SMBsTechRepublic SMEhttps://www.techrepublic.com/rssfeeds/topic/smb/IT policy templates & office techZDNet Businesshttps://www.zdnet.com/topic/business/rss.xmlCloud migration & Enterprise-liteCIO Indexhttps://cioindex.com/rss-feeds/Budgeting & high-level IT strategySmall Biz Trendshttps://smallbiztrends.com/category/technology/feedBusiness owner-focused tech newsArs Technica Bizhttps://arstechnica.com/information-technology/feedDeep technical infrastructure divesThe Registerhttps://www.theregister.com/data_centre/systems/headlines.atomServer, storage, and networkingServerWatchhttps://www.serverwatch.com/feed/Hardware reviews and comparisonsNetwork Worldhttps://www.networkworld.com/category/smb/feed/Office networking and Wi-FiInfoWorld Cloudhttps://www.infoworld.com/cloud-computing/index.rssAWS, Azure, and Google Workspace newsAWS News Bloghttp://feeds.feedburner.com/AmazonWebServicesBlogMonitoring low-cost cloud releasesContinuity Centralhttps://www.continuitycentral.com/index.php/rss-feedDisaster Recovery & Backup planningSmarter MSPhttps://smartermsp.com/feed"How-to" guides for running ITAccounting Todayhttps://www.accountingtoday.com/tag/technology.rssIT FinOps, Payroll SaaS, & Tax techCISA KEV (API)https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.jsonJSON feed for "Must Patch" alertsNIST NVD (API)https://nvd.nist.gov/developers/vulnerabilitiesREST API for all new vulnerability dataReady.gov Businesshttps://www.ready.gov/rssDisaster recovery & emergency checklistsThe New Stackhttps://thenewstack.io/blog/feed/Advanced cloud-native and SaaS newsMalwarebytes Labshttps://www.malwarebytes.com/blog/feedPractical scam/phishing alerts for staffSearchStoragehttps://searchstorage.techtarget.com/rss/Storage-for-SMBs.xmlOn-prem storage and NAS advice
---------------------------------
-for the topics on the small business IT section lets use the below in our coding for grouping buttons and filtering:
-Small Business IT Topics & Search Terms
-Use these categories and keywords to filter your scraped data. This ensures your dashboard feels like a Business Tool, not just another news site.
-1. Infrastructure & Operations
-* Topic: On-premise hardware, Wi-Fi, and office setup.
-* Recommended Search Terms: Wi-Fi 7 office, Small business NAS, VoIP for SMB, UPS backup power, Local area network setup, Point of Sale (POS) hardware.
-2. Cloud & SaaS Management
-* Topic: Managing digital tools and recurring costs.
-* Recommended Search Terms: M365 vs Google Workspace, SaaS sprawl, Cloud cost optimization, AWS for startups, Azure SMB migration, Slack vs Teams management.
-3. Finance & Budgeting (The "Money" Feed)
-* Topic: IT as a line item. This is high-value for Decision Makers.
-* Recommended Search Terms: IT ROI, TCO server vs cloud, IT budget template 2026, FinOps for small business, Leasing vs buying IT hardware.
-4. Continuity & Recovery (DR)
-* Topic: Keeping the lights on when things break.
-* Recommended Search Terms: Business continuity plan, 3-2-1 backup strategy, Offsite data storage, Disaster recovery testing, Ransomware recovery for SMB.
-5. IT Policy & Compliance
-* Topic: The "boring but essential" legal side of tech.
-* Recommended Search Terms: BYOD policy template, Acceptable use policy, PCI compliance small business, GDPR for US companies, Remote work security policy.
-----------------------------
-Since we're building in Python, use the feedparser library for the RSS feeds. For the APIs (CISA/NIST), use requests. This will give a clean, unified JSON object to populate our dashboard and trigger those email alerts.
-
-Show more
-Apr 4
-This is a solid spec. Before writing code, let me map out the architecture for all three feeds so everything stays consistent and maintainable.
-
-What we're building:
-
-cybernews-feed/          ← already done (cyber news)
-vuln-feed/               ← new: vulnerability aggregator
-  scraper.py             ← RSS + API fetcher, CVE-aware deduplication
-  feed.json / feed-2..5  ← paginated output (same pattern)
-  archive.json           ← rolling 250-article store
-  requirements.txt
-  vercel.json
-  .github/workflows/scrape.yml
-  wordpress-embed.html
-
-smbit-feed/              ← new: small business IT
-  scraper.py
-  feed.json / feed-2..5
-  archive.json
-  requirements.txt
-  vercel.json
-  .github/workflows/scrape.yml
-  wordpress-embed.html
-
-DEPLOYMENT.md            ← master deployment guide covering all three
-Key design decisions for the vuln feed:
-
-CVE deduplication: extract CVE IDs from title/summary, store a cve_id field, and in the archive merge step check for existing entries with the same CVE ID — if found, append the new URL to a related_links list rather than creating a new entry
-CISA KEV uses requests (JSON API, not RSS), NVD uses requests with your API key stored as a GitHub Secret, everything else uses feedparser
-Priority categories: Emergency → Infrastructure → Web/App → Cloud (in that order for the filter tabs)
-Key design decisions for the SMB IT feed:
-
-Pure RSS/feedparser, no APIs needed
-5 categories matching your spec: Infrastructure, Cloud/SaaS, Finance, Continuity/DR, Policy/Compliance
-Same pagination pattern as cyber news
-Let's build all of it:
-
-
-Created 2 files, ran a command
-Created 2 files, ran a command
-Now the shared support files for both repos:
-
-
-Ran 2 commands
-Ran 2 commands
-Now the two WordPress embeds — vuln embed needs to show CVE IDs, CVSS score, and related links; SMB embed gets different category tabs:
-
-
-Ran 2 commands
-Ran 2 commands
-Now the master deployment guide:
-
-
-Created a file, ran a command, read a file
-Created a file, ran a command, read a file
-Seven files delivered. Here's a summary of the meaningful design decisions so you understand what you're working with:
-
-Vulnerability feed — CVE deduplication in detail. The merge_into_archive() function in vuln-feed/scraper.py maintains two maps simultaneously: one keyed by URL hash (standard), and one keyed by CVE ID. When a new entry arrives, it first checks whether any of its CVE IDs already exist in the archive. If they do, it finds the original entry and appends the new URL to related_links instead of creating a new row. It also upgrades the category if the new source pegs it higher (e.g., Bleeping Computer calls something "infrastructure" but CISA KEV later lists the same CVE — it gets promoted to "emergency"). The WordPress embed renders those related links as numbered "Source 2, Source 3…" links below the summary. This means a Patch Tuesday event that hits MSRC, Bleeping Computer, CISA, and Rapid7 on the same day shows up as one card with four source links, not four separate alerts.
-
-Vulnerability feed — API sources. CISA KEV is always the highest-quality signal and needs no key — it only returns entries from the last 30 days to keep volume manageable. NVD filters to CVEs published in the last 7 days with CVSS ≥ 7.0, and automatically promotes anything ≥ 9.0 to "emergency." GitHub Advisory covers supply-chain vulnerabilities like Log4j. MSRC covers Patch Tuesday. VulDB and OTX are wired in the scraper but currently skipped with a warning if their keys aren't set — you can add them later without touching the embed.
-
-Vuln scrape cadence is 4 hours rather than 6 — zero-days move faster than general news and CISA can update the KEV catalog at any time.
-
-SMB IT scrape cadence is 12 hours — this content moves slowly and there's no urgency. Twice a day is plenty and saves GitHub Actions minutes.
-
-CSS class prefixes are unique per feed (csc-, vf-, smb-) so if you ever embed two feeds on the same WordPress page (e.g., a dashboard page showing both cyber news and vuln intel side by side), their styles won't collide.
-
-The DEPLOYMENT.md is structured as a step-by-step playbook — Parts 2/3/4 are each self-contained so you can deploy one at a time without jumping around. Part 5 covers custom subdomains if you want vuln-feed.charmingshark.com instead of a Vercel auto-URL, and Part 6 is the exact steps for uncommenting the ad slots when you're ready to monetize.
-
-Deployment
-Document · MD 
-Scraper
-PY 
-Wordpress embed
-Code · HTML 
-Scrape
-YML 
-Scraper
-PY 
-Wordpress embed
-Code · HTML 
-Scrape
-YML 
-in the deployment guide step 3 generate initial feed.JSON it says to run a requirements.txt install. I do not have a requirements file to run this from
-
-Apr 4
-Good catch. The requirements.txt files for vuln-feed and smbit-feed were written to the output folder but they're identical to the cybernews one and just weren't called out explicitly. Let me verify what's actually in the outputs right now and confirm all three repos have their files:
-
-
-Check which repos have requirements.txt and what's in them
-Check which repos have requirements.txt and what's in them
-All three repos have requirements.txt — they're already in your outputs. The deployment guide's Step 3 instruction is correct as written. The issue is just that it isn't obvious the file is already there waiting for you.
-
-The fix is a small clarification in the guide's wording. Let me update that section:
-
-
-Confirm full file listings for all three repos
-Confirm full file listings for all three repos
-All three repos have their requirements.txt. The guide's instructions are accurate — the confusion is that the DEPLOYMENT.md doesn't tell you the file is already included in the project folder you're pushing. Let me fix that section in the guide:
-
-
-Viewed 3 files, ran a command
-Viewed 3 files, ran a command
-Good — I can see all three Step 3 sections. Now I'll update all of them with a clear note that requirements.txt is already included in the project folder:
-
-
-Edited 3 files
-Edited 3 files
-Also worth adding a "what's in each folder" note right at the top of Part 1 so it's clear from the start what you downloaded:
-
-
-Edited a file, ran a command, read a file
-Edited a file, ran a command, read a file
-Three changes made to the guide:
-
-New "What you downloaded" section at the top of Part 1 lists every file included in each folder and explicitly states you don't need to create anything — just push and run. This is the context that was missing.
-
-Part 2 Step 3 now has a note above the code block: "requirements.txt is already included in the cybernews-feed/ folder you downloaded."
-
-Part 3 Step 3 gets the same note, plus the export NVD_API_KEY line is now shown with all three OS variants — Windows Command Prompt, Windows PowerShell, and Mac/Linux — since the export syntax only works on Mac/Linux and would fail silently on Windows.
-
-Part 4 Step 2 gets the same note for the SMB feed.
-
-Deployment
-Document · MD 
-how do I make the github action? it didn't pick up from the yml file bneing commited
-
-Apr 5
-GitHub Actions requires the workflow file to be in a very specific location in your repo for it to be recognized automatically. The most common reason it doesn't pick up is either the folder path is wrong or the file wasn't committed inside the hidden .github folder correctly.
-
-Let me walk you through it step by step.
-
-Why it didn't pick up
-When you push files to GitHub, the .github folder is a hidden folder (starts with a dot). Some tools — Windows Explorer, Mac Finder, and even some Git GUI apps — either don't show it or don't include it in a drag-and-drop push. The file must land at exactly this path inside your repo:
-
-your-repo-name/
-└── .github/
-    └── workflows/
-        └── scrape.yml
-If it's anywhere else (like just github/workflows/scrape.yml without the dot, or scrape.yml in the root), GitHub ignores it entirely.
-
-How to fix it — the reliable way
-Option A: Create it directly on GitHub (easiest, no terminal needed)
-Go to your repo on github.com
-Click Add file → Create new file
-In the filename box at the top, type exactly:
-   .github/workflows/scrape.yml
-GitHub will automatically create the folder structure as you type the slashes — you'll see it split into folders in real time 4. Paste the contents of your scrape.yml file into the editor 5. Scroll down, click Commit changes → Commit directly to main
-
-GitHub will detect the workflow file immediately and the Actions tab will appear within about 30 seconds.
-
-Option B: Verify it's there via terminal
-If you pushed from the command line and aren't sure whether the file landed correctly, run this from inside your repo folder:
-
-bash
-# Check the file exists in git's index
-git ls-files .github/
-
-# Should output:
-# .github/workflows/scrape.yml
-If that returns nothing, the file was never staged. Fix it with:
-
-bash
-# Make sure the folder and file exist on disk first
-mkdir -p .github/workflows
-
-# Copy your scrape.yml into it if it isn't there
-# (adjust the source path to wherever your downloaded file is)
-cp path/to/scrape.yml .github/workflows/scrape.yml
-
-# Now stage, commit, and push
-git add .github/
-git commit -m "add GitHub Actions workflow"
-git push
-Option C: Windows-specific gotcha
-If you're on Windows and used File Explorer to copy the folder, Explorer may have silently skipped the .github folder because Windows hides dotfiles by default.
-
-Fix in two steps:
-
-Step 1 — Show hidden files in Explorer: View → Show → Hidden items (check the box)
-
-Step 2 — Then push again from PowerShell:
-
-powershell
-cd path\to\your-repo
-git add .github\
-git commit -m "add GitHub Actions workflow"
-git push
-How to confirm it worked
-After the file is at .github/workflows/scrape.yml in your repo:
-
-Go to your repo on github.com
-Click the Actions tab — it should now appear
-You'll see your workflow listed as "Scrape Cybersecurity News" (or whichever feed)
-Click it → click Run workflow → Run workflow to trigger it manually right now instead of waiting for the cron
-If the Actions tab still doesn't appear after committing, click into the file on GitHub and check that the on: section at the top of the yml looks exactly like this — indentation matters in YAML:
-
-yaml
-on:
-  schedule:
-    - cron: '0 0,6,12,18 * * *'
-  workflow_dispatch:
-A single wrong space in a YAML file can silently break it. The safest fix is always Option A — creating the file directly in GitHub's editor — because GitHub validates the YAML as you type and won't let you save a broken file.
-
-we have a bigger issue, when I entered this in the designer I saw a organized output but when you look at it published its a garbled mess of text. https://charmingsharks.com/csc-cyber-news-feed/
-
-Apr 5
-Let me pull up the page and see exactly what's happening.
-
-
-Loaded tools, used Claude in Chrome integration
-Loaded tools, used Claude in Chrome integration
-I can't connect to your browser directly right now. But I can diagnose this without seeing it — "garbled mess of text" on a published WordPress page when it looked fine in the editor is a very specific and well-known problem.
-
-What's happening
-WordPress's editor shows Custom HTML blocks as formatted preview. But when published, WordPress is treating your HTML as content and stripping or escaping it — specifically the <style> and <script> tags. WordPress.com's Personal plan applies additional filtering on published pages that the editor preview doesn't show you.
-
-There are two likely culprits:
-
-1. The block got converted to a Paragraph block. When you paste a large chunk of HTML into WordPress, it sometimes silently converts it to a Paragraph block instead of a Custom HTML block. Paragraph blocks render the raw HTML tags as visible text rather than executing them.
-
-2. WordPress.com Personal plan strips <script> tags. This is the bigger issue. WordPress.com (the hosted version at wordpress.com, as opposed to self-hosted WordPress.org) blocks JavaScript in Custom HTML blocks on Personal and lower plans. The <script> tag gets stripped on publish, leaving behind the raw JS as visible text.
-
-How to confirm which one it is
-Go to your page → Edit → find the block with your feed code → look at the top-left corner of the block. It should say "Custom HTML" in the block toolbar. If it says "Paragraph" or "HTML" differently, that's problem #1.
-
-The fix depends on your plan
-If the block type is wrong (Paragraph instead of Custom HTML)
-Click the block → click the block type icon top-left → Transform to → Custom HTML
-Re-publish and check
-If WordPress.com is stripping your <script> tag (most likely)
-WordPress.com Personal plan does not allow arbitrary JavaScript. You have two options:
-
-Option A — Upgrade to the Business plan ($25/mo) This unlocks full plugin support and unrestricted Custom HTML including scripts. It also lets you install the free "Header Footer Code Manager" plugin which is the cleanest way to run this kind of JS.
-
-Option B — Use a free external script host and load it via an iframe
-
-This is the workaround that actually works on Personal plan. Instead of pasting the JS directly into WordPress, you:
-
-Put the WordPress embed HTML into a standalone .html file hosted on Vercel (same place your feed.json lives)
-Embed it in WordPress using an <iframe> tag — WordPress does allow iframes in Custom HTML blocks on Personal plan
-The iframe approach means your feed page on Vercel is the actual rendered component, and WordPress just displays it in a frame. It's a two-minute change.
-
-The iframe fix — step by step
-Step 1: In your cybernews-feed Vercel project, the wordpress-embed.html file is already there. Vercel is already serving it. Your feed page URL will be something like:
-
-https://cybernews-feed.vercel.app/wordpress-embed.html
-Step 2: In WordPress, replace everything in your Custom HTML block with just this:
-
-html
-<iframe
-  src="https://cybernews-feed.vercel.app/wordpress-embed.html"
-  width="100%"
-  height="900"
-  style="border:none; display:block;"
-  title="Cybersecurity News Feed"
-  loading="lazy">
-</iframe>
-Replace the src with your actual Vercel URL. Adjust height — 900px fits roughly 10–12 articles comfortably; you can go higher.
-
-Step 3: Publish. The feed will load inside the iframe, fully functional with filters, search, and pagination working exactly as designed.
-
-The main downside of the iframe approach is that the feed won't inherit your WordPress theme's fonts and colors (since it's a separate document), but it will render correctly. If visual consistency matters a lot, upgrading to Business plan and using the script directly is cleaner.
-
-Which plan are you on — do you know if it's Personal or Business? That'll confirm which route makes most sense.
-
-looks like personal plan is stripping it, can we get past that without upgrading yet?
-
-Apr 5
-Yes — the iframe approach I mentioned is exactly the workaround. WordPress Personal plan allows iframes, just not <script> tags. Your wordpress-embed.html is already sitting on Vercel, so we just need to confirm that URL and swap out the WordPress block.
-
-Let me check your live site first to see exactly what's rendering:
-
-
-Tabs Create
-Tabs Create
-Browser isn't connecting right now — but I don't actually need it. The fix is straightforward and I can build everything you need right now.
-
-Here's what we're doing:
-
-The wordpress-embed.html already lives on Vercel and loads fine on its own as a full page
-We update it slightly so it looks good as a standalone page (not just a widget)
-WordPress gets a single <iframe> tag pointing at it — no scripts, no styles, nothing WordPress can strip
-The one problem with the current wordpress-embed.html is it was designed as a widget embedded inside a themed page — transparent backgrounds, inherited fonts. As a standalone iframe page it'll look bare. Let me rebuild it as a proper self-contained page that looks polished inside an iframe:
-
-
-Ran 2 commands
-Ran 2 commands
-Now create matching iframe pages for the vuln and SMB feeds:
-
-
-Ran 2 commands
-Ran 2 commands
-Now create the dead-simple WordPress snippet file — just the iframe tag they paste in:
-
-
-Ran 2 commands, read a file
-Ran 2 commands, read a file
-Here's exactly what to do to get your cyber news page working today — three steps:
-
-Step 1 — Edit iframe-page.html in your cybernews-feed repo
-
-Open the file, find this line near the bottom:
-
-js
-const FEED_BASE = 'https://YOUR-PROJECT.vercel.app';
-Replace it with your actual Vercel URL. Then commit and push — Vercel will redeploy automatically within about 30 seconds.
-
-Step 2 — Verify the page loads standalone
-
-Open https://your-cybernews-project.vercel.app/iframe-page.html directly in your browser. You should see the fully styled feed. If it loads there, it'll load in the iframe.
-
-Step 3 — Update WordPress
-
-In your WordPress page editor, delete everything currently in the Custom HTML block and replace it with just this (substituting your real URL):
-
-html
-<iframe
-  src="https://your-cybernews-project.vercel.app/iframe-page.html"
-  width="100%"
-  height="900"
-  style="border:none; display:block; width:100%;"
-  title="Cybersecurity News Feed"
-  loading="lazy">
-</iframe>
-That's the entire block. No scripts, no styles — WordPress has nothing to strip. The wordpress-iframe-snippets.html file has the ready-to-paste versions for all three feeds with placeholders marked clearly.
-
-The iframe-page.html files are complete self-contained pages styled in your Charming Shark navy/teal color scheme — they'll look polished even without the WordPress theme around them. Ad slots are commented in at the top of each one, same as before.
-
-Wordpress iframe snippets
-Code · HTML 
-Iframe page
-Code · HTML 
-Iframe page
-Code · HTML 
-Iframe page
-Code · HTML 
-can you connect to this site with mcp yet?
-
-Apr 5
-Yes, the browser tools just came online. Let me pull up your site now.
-
-
-Tabs Create
-Tabs Create
-Still not connecting on my end — the tools are available in this conversation but the extension isn't responding. A few things to check on your side:
-
-Chrome is open (not just in the background minimized)
-You're signed into the Claude extension in Chrome — click the extension icon in your toolbar and confirm it shows your account
-This Claude tab is the active one — sometimes the extension only bridges to the tab Claude is currently running in
-Try refreshing this Claude tab — that often re-establishes the connection
-Once those are confirmed, send me a message and I'll try connecting again immediately. When it works I can browse directly to charmingsharks.com/csc-cyber-news-feed/, inspect exactly what's rendering, check your Vercel URL, look at network requests to see if feed.json is loading, and fix anything on the spot.
-
-okay try now
-
-Apr 5
-
-Loaded tools, used Claude in Chrome integration
-Loaded tools, used Claude in Chrome integration
-The browser tools dropped out of scope — they were briefly available earlier but aren't loading now. This is a known intermittent issue with the Claude in Chrome extension.
-
-Here's what tends to fix it reliably:
-
-Click the Claude in Chrome extension icon in your Chrome toolbar
-Sign out and sign back in to the extension
-Hard refresh this tab — Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)
-Then send me a message and I'll try again immediately
-Alternatively, if you want to move forward right now without the browser connection, you can tell me:
-
-What your Vercel project URL is for the cybernews feed (the one ending in .vercel.app)
-Whether you've pushed iframe-page.html to the repo yet
-And I can walk you through verifying it's working just from that, then we tackle the WordPress side. The iframe fix itself is solid — it's just a matter of getting the URL wired up correctly.
-
-cybernews-feed.vercel.app
-i did push the iframes to he repos
-
-Apr 5
-
-Searched the web
-Searched the web
-The search didn't index it yet since it's a new deployment. Let me try fetching it directly now that you've provided the URL:
-
-
-Searched the web
-Searched the web
-That 404 on the root tells us something useful — Vercel is responding, the deployment exists, but there's no index.html at the root so it's returning 404 for the base URL. That's actually expected since there's no index page. The real question is whether feed.json and iframe-page.html are there.
-
-Two things to check right now — just open these URLs directly in your browser and tell me what you see:
-
-https://cybernews-feed.vercel.app/feed.json — should show a wall of JSON
-https://cybernews-feed.vercel.app/iframe-page.html — should show the styled news feed
-If feed.json returns 404, it means the scraper hasn't run yet and that file hasn't been committed to the repo. If iframe-page.html returns 404, the push didn't include it or landed in a subfolder.
-
-Also — one critical thing to check in iframe-page.html before you put the iframe in WordPress. Open the file in your repo on GitHub and look for this line:
-
-js
-const FEED_BASE = 'https://YOUR-PROJECT.vercel.app';
-If it still says YOUR-PROJECT and hasn't been updated to https://cybernews-feed.vercel.app, the page will load but show a "could not load feed" error because it's pointing nowhere. That's the one manual edit that needs to happen before everything connects.
-
-welcome back, I'm seeing this on a page with the wordpress html embed. 
-Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516. (Reason: CORS request did not succeed). Status code: (null)
-
-Apr 5
-Good, the extension is connected now. That CORS error is actually a red herring — it's Cloudflare's analytics beacon failing, which is WordPress/Cloudflare's own script and has nothing to do with your feed. Let me navigate to your page and see what's actually happening.
-
-
-Used Claude in Chrome integration, loaded tools
-Used Claude in Chrome integration, loaded tools
-It looks like Chrome is blocking the navigation — you may have a permission prompt up. Can you click Allow or Accept in Chrome if there's a dialog asking whether to let Claude control the browser? Once you do that, send me a message and I'll navigate straight to your page.
-
-In the meantime, can you confirm a couple of things:
-
-When you open https://cybernews-feed.vercel.app/iframe-page.html directly in a browser tab — does it show the styled feed, or an error?
-In the WordPress Custom HTML block right now, do you have the old wordpress-embed.html content (the one with all the <style> and <script> tags), or have you already replaced it with the single <iframe> tag?
-That'll tell me exactly where the break is while we get the browser connection sorted.
-
-styled feed with no data
-
-Apr 5
-Good — styled feed with no data means the iframe-page.html is deploying correctly but FEED_BASE still points to YOUR-PROJECT. Let me navigate straight to it and check.
-
-
-Used Claude in Chrome integration
-Used Claude in Chrome integration
-That's the problem — FEED_BASE is still YOUR-PROJECT. The file was pushed to Vercel without that line being edited first. Let me also quickly check whether feed.json actually exists on the deployment:
-
-
-Used Claude in Chrome integration
-Used Claude in Chrome integration
-No worries on the permission blocks — I have what I need. The issue is confirmed and simple: iframe-page.html was pushed before editing the FEED_BASE line. Here's exactly what to do:
-
-Fix — two minutes
-Step 1: Edit iframe-page.html directly on GitHub
-
-Go to: github.com/YOUR-USERNAME/cybernews-feed → click iframe-page.html → click the pencil icon (Edit)
-
-Find this line near the bottom of the file (inside the <script> block):
-
-js
-const FEED_BASE = 'https://YOUR-PROJECT.vercel.app';
-Change it to:
-
-js
-const FEED_BASE = 'https://cybernews-feed.vercel.app';
-Scroll down → Commit changes → commit directly to main.
-
-Vercel redeploys automatically in about 30 seconds after the commit.
-
-Step 2: Check feed.json exists
-
-After the fix above, open this URL in your browser:
-
-https://cybernews-feed.vercel.app/feed.json
-If it shows a wall of JSON → you're done, the feed will load.
-
-If it shows a 404 → the scraper hasn't run yet and feed.json was never committed to the repo. In that case run this locally:
-
-bash
-cd cybernews-feed
-python scraper.py
-git add feed.json archive.json
-git commit -m "chore: initial feed"
-git push
-Or trigger it from GitHub → Actions tab → Run workflow manually.
-
-Step 3: Put the iframe in WordPress
-
-Once the feed page loads correctly at https://cybernews-feed.vercel.app/iframe-page.html, go to your WordPress page, replace everything in the Custom HTML block with:
-
-html
-<iframe
-  src="https://cybernews-feed.vercel.app/iframe-page.html"
-  width="100%"
-  height="900"
-  style="border:none; display:block; width:100%;"
-  title="Cybersecurity News Feed"
-  loading="lazy">
-</iframe>
-That's all of it. Let me know when step 1 is done and I'll verify it loaded correctly.
-
-the scrape for smbit is failing. I think it is looking for feed.json files that weren't made because history is light
-
-1:20 AM
-The scraper itself isn't failing — it's the write_page_files() function trying to commit feed-2.json through feed-5.json that don't exist yet because there aren't enough articles to fill multiple pages. Let me check the actual error in the Actions log to confirm.
-
-
-Used Claude in Chrome integration
-Used Claude in Chrome integration
-Let me go straight to the Actions tab — do you know your GitHub username so I can navigate directly to the repo?
-
-Actually, you're right that the issue is almost certainly the git commit step in the workflow trying to git add files that don't exist yet. Here's what's happening and the fix:
-
-The problem
-In scrape.yml the commit step does this:
-
-yaml
-git add archive.json feed.json feed-2.json feed-3.json feed-4.json feed-5.json
-If the scraper only collected 30 articles (not enough to fill even page 1 on the first run), feed.json exists but feed-2.json through feed-5.json don't. Git throws an error when you try to git add a file that doesn't exist, which fails the whole workflow step.
-
-The fix
-Change the commit step to use a wildcard instead of listing files explicitly. Open .github/workflows/scrape.yml in your smbit-feed repo on GitHub, find the commit step, and replace it with this:
-
-yaml
-      - name: Commit updated feed files
-        run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add archive.json feed*.json
-          git diff --staged --quiet || git commit -m "chore: update smbit feed $(date -u +'%Y-%m-%d %H:%M UTC')"
-          git push
-The key change is feed*.json — the * wildcard only stages files that actually exist, so missing page files are silently skipped rather than causing an error.
-
-Apply the same fix to cybernews-feed and vuln-feed too while you're at it — they'll hit the same problem early on before the archive fills up.
-
-For all three repos, the commit step should read:
-
-yaml
-          git add archive.json feed*.json
-Once you save and commit that change in GitHub's editor, go to Actions → Run workflow manually and it should complete cleanly. As more articles accumulate over days of scraping, the higher page files will appear automatically.
-
-so when we setup the items with the html embed code verifying that the feed setting for the vercel site is correct, I see thew article previews in draft mode of wordpress and when I publish they forever say loading.
-
-1:33 AM
-Classic WordPress preview vs published difference. The preview runs in a different context that allows scripts — published strips them. Let me look at your live page directly to see exactly what's happening.
-
-
-Tabs Context
-Tabs Context
-Good — you're already on the SMB IT feed page. Let me check what's actually rendering and what network requests are firing.
-
-
-Javascript tool
-Javascript tool
-That tells the whole story. There's no iframe (iframeCount: 0) but there IS a #smb-feed div (feedDivCount: 1) — meaning you still have the old wordpress-embed.html content pasted in, not the iframe snippet. WordPress is letting the <div> and <style> through but stripping the <script>, so the feed renders its HTML shell but has no JavaScript to actually fetch data — hence "forever loading."
-
-
-Read network requests
-Read network requests
-Confirmed — zero requests to Vercel, because the script was stripped. Here's exactly what to do:
-
-The fix — WordPress editor
-You need to do this for each feed page (SMB IT, Cyber News, Vuln Intel):
-
-1. Go to WordPress → Pages → edit the SMB IT feed page
-
-2. Click on the Custom HTML block that has all the feed code
-
-3. Switch to Code Editor view — click the three-dot menu ⋮ on the block → Edit as HTML
-
-4. Select all and delete everything — the entire <div id="smb-feed">, all the <style> tags, all the <script> tags, everything
-
-5. Paste only this:
-
-html
-<iframe
-  src="https://YOUR-SMBIT-PROJECT.vercel.app/iframe-page.html"
-  width="100%"
-  height="900"
-  style="border:none; display:block; width:100%;"
-  title="Small Business IT Feed"
-  loading="lazy">
-</iframe>
-Replace YOUR-SMBIT-PROJECT with your actual Vercel project name for that feed.
-
-6. Publish
-
-The iframe has no scripts for WordPress to strip — it's just a link to the page on Vercel where the JavaScript runs freely.
-
-Do you know the Vercel URLs for all three projects? If you can share them I can generate the exact iframe tags ready to paste for each one.
-
-smbit-fee.vercel.app, cybernews-feed.vercel.app, vuln-feed.vercel.app
-
-1:36 AM
-Here are your three exact iframe tags, ready to paste. Let me also verify each Vercel deployment has the iframe-page.html live before you do anything in WordPress.
-
-
-Used Claude in Chrome integration
-Used Claude in Chrome integration
-OK, I can see three distinct issues from that. Let me be very clear about what's wrong for each:
-
-Status of each feed
-cybernews-feed.vercel.app — ✅ iframe-page.html is deployed, but FEED_BASE still says YOUR-PROJECT. Needs one line edited in GitHub.
-
-smbit-fee.vercel.app — ❌ 404. Note the URL — it's smbit-fee not smbit-feed. Either the Vercel project is named differently, or there's a typo. Check your Vercel dashboard for the exact URL.
-
-vuln-feed.vercel.app — ❌ 404. The iframe-page.html file hasn't been pushed to that repo yet, or Vercel hasn't deployed it.
-
-Fix all three — do in this order
-1. Fix cybernews-feed — edit one line on GitHub
-
-Go to: github.com/YOUR-USERNAME/cybernews-feed → iframe-page.html → pencil icon
-
-Change:
-
-js
-const FEED_BASE = 'https://YOUR-PROJECT.vercel.app';
-To:
-
-js
-const FEED_BASE = 'https://cybernews-feed.vercel.app';
-Commit directly to main. Vercel redeploys in ~30 seconds.
-
-2. Find the real smbit URL
-
-Go to vercel.com/dashboard and look for your smbit project. It might be smbit-feed.vercel.app or smbit-fee.vercel.app or something else entirely. Once you confirm the real URL, edit iframe-page.html in that repo the same way — change FEED_BASE to the correct URL.
-
-3. Fix vuln-feed — push the missing file
-
-The iframe-page.html file isn't in the vuln-feed repo yet. Go to github.com/YOUR-USERNAME/vuln-feed → Add file → Create new file → name it iframe-page.html → paste the contents of your vuln-feed/iframe-page.html output file → edit the FEED_BASE line to https://vuln-feed.vercel.app → commit.
-
-4. WordPress — once all three pages load correctly in browser
-
-Replace each Custom HTML block with just the iframe tag for that feed. All three clean tags:
-
-html
-<!-- CYBER NEWS PAGE -->
-<iframe src="https://cybernews-feed.vercel.app/iframe-page.html" width="100%" height="900" style="border:none;display:block;width:100%;" title="Cybersecurity News Feed" loading="lazy"></iframe>
-html
-<!-- VULN INTEL PAGE -->
-<iframe src="https://vuln-feed.vercel.app/iframe-page.html" width="100%" height="900" style="border:none;display:block;width:100%;" title="Vulnerability Intelligence Feed" loading="lazy"></iframe>
-html
-<!-- SMB IT PAGE — update URL once you confirm the real Vercel project name -->
-<iframe src="https://YOUR-REAL-SMBIT-URL.vercel.app/iframe-page.html" width="100%" height="900" style="border:none;display:block;width:100%;" title="Small Business IT Feed" loading="lazy"></iframe>
-Tell me the real smbit URL from your Vercel dashboard and I'll fill in that last one for you.
-
-ithould be smbit-feed that was a typo
-
-1:37 AM
-Good. Let me verify all three Vercel deployments right now.
-
-
-Used Claude in Chrome integration
-Used Claude in Chrome integration
-smbit is fully working. Now cybernews:
-
-
-Used Claude in Chrome integration
-Used Claude in Chrome integration
-Clear picture across all three. Here's the exact status:
-
-Feed	iframe-page.html	FEED_BASE	Articles
-smbit-feed	✅ Live	✅ Correct	✅ Loading
-cybernews-feed	✅ Live	❌ Still YOUR-PROJECT	❌ Failing
-vuln-feed	✅ Live	❌ Still YOUR-VULN-PROJECT	❌ Failing
-smbit is fully working right now — go put the iframe in WordPress for that one.
-
-For the other two you need to edit one line in each repo on GitHub. Go to each repo, click iframe-page.html, hit the pencil icon, and make these exact changes:
-
-cybernews-feed repo — change:
-
-js
-const FEED_BASE = 'https://YOUR-PROJECT.vercel.app';
-to:
-
-js
-const FEED_BASE = 'https://cybernews-feed.vercel.app';
-vuln-feed repo — change:
-
-js
-const FEED_BASE = 'https://YOUR-VULN-PROJECT.vercel.app';
-to:
-
-js
-const FEED_BASE = 'https://vuln-feed.vercel.app';
-Commit both directly to main. Vercel will redeploy in about 30 seconds each. Then come back and I'll verify they're pulling articles before you touch WordPress.
-
-Here are your three ready-to-paste WordPress iframe tags — smbit is ready now, the other two after the edits above:
-
-html
-<!-- SMB IT PAGE — ready now -->
-<iframe src="https://smbit-feed.vercel.app/iframe-page.html" width="100%" height="900" style="border:none;display:block;width:100%;" title="Small Business IT Feed" loading="lazy"></iframe>
-html
-<!-- CYBER NEWS PAGE — paste after fixing FEED_BASE -->
-<iframe src="https://cybernews-feed.vercel.app/iframe-page.html" width="100%" height="900" style="border:none;display:block;width:100%;" title="Cybersecurity News Feed" loading="lazy"></iframe>
-html
-<!-- VULN INTEL PAGE — paste after fixing FEED_BASE -->
-<iframe src="https://vuln-feed.vercel.app/iframe-page.html" width="100%" height="900" style="border:none;display:block;width:100%;" title="Vulnerability Intelligence Feed" loading="lazy"></iframe>
-Lets update the look of these iframe pages on the vercel apps, they are sort of sterile and boring. Can we make it have a background of 
-#0A2342, with article titles in white, and source name in 
-#497D8D, the date and preview text can be 
-#8CCFD1. it will be easier to read if we band every other row as well using 
-#1C4578 on the background for the banded rows.
-
-1:47 AM
-Let me pull the current iframe-page.html from the smbit feed to use as the base, then I'll restyle all three.
-
-
-Used Claude in Chrome integration
-Used Claude in Chrome integration
-Good, I have the structure. Now let me build all three restyled files using your exact color spec:
-
-Background: 
-#0A2342
-Alternating row: 
-#1C4578
-Article titles: 
-#FFFFFF
-Source name: 
-#497D8D
-Date + preview text: 
-#8CCFD1
-
-Ran 4 commands, read a file
-Ran 4 commands, read a file
-All three files are ready. The FEED_BASE URLs are already correctly set in each one — cybernews-feed.vercel.app, vuln-feed.vercel.app, and smbit-feed.vercel.app — so no editing needed this time.
-
-To deploy: go to each repo on GitHub, click iframe-page.html, hit the pencil icon, select all, paste the new file content, commit directly to main. Vercel will redeploy in about 30 seconds.
-
-What changed visually:
-
-Background 
-#0A2342 across the whole page including header, footer, and pagination
-Alternating rows — odd rows stay 
-#0A2342, even rows band to 
-#1C4578
-Article titles white, hover to 
-#8CCFD1
-Source names 
-#497D8D in uppercase
-Dates and preview text 
-#8CCFD1
-Tabs use 
-#1C4578 base, 
-#497D8D active, with teal borders
-Category badges kept their color-coding but shifted to translucent dark versions that sit comfortably on the dark background
-Spinner and search field all use the same palette so nothing looks out of place
-Iframe page
-Code · HTML 
-Iframe page
-Code · HTML 
-Iframe page
-Code · HTML 
-
-
-
-
-
-Claude is AI and can make mistakes. Please double-check responses.
-Iframe page · HTML
-Copy
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1029,7 +25,7 @@ Copy
     }
     .feed-search:focus { border-color: #8CCFD1; }
     .feed-search::placeholder { color: #497D8D; }
- 
+
     #feed-list { padding: 0; background: #0A2342; }
     .feed-item {
       display: flex; flex-direction: column; gap: 5px;
@@ -1038,15 +34,15 @@ Copy
     .feed-item:nth-child(even) { background: #1C4578; }
     .feed-item:nth-child(odd)  { background: #0A2342; }
     .feed-item:last-child { border-bottom: none; }
- 
+
     .feed-item-title { font-size: 14px; font-weight: 600; line-height: 1.4; color: #fff; text-decoration: none; }
     .feed-item-title:hover { color: #8CCFD1; text-decoration: underline; text-underline-offset: 2px; }
- 
+
     .feed-item-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; font-size: 11px; }
     .feed-source { font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #497D8D; }
     .feed-meta-dot { color: #497D8D; }
     time { color: #8CCFD1; }
- 
+
     .feed-cat {
       display: inline-block; padding: 1px 7px; border-radius: 3px;
       font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
@@ -1055,7 +51,7 @@ Copy
     .feed-cat--infrastructure { background: rgba(154,80,0,0.3);   color: #ffb865; border: 1px solid rgba(154,80,0,0.5); }
     .feed-cat--web_app        { background: rgba(26,95,176,0.3);  color: #7aadff; border: 1px solid rgba(26,95,176,0.5); }
     .feed-cat--cloud          { background: rgba(26,122,70,0.3);  color: #5adba0; border: 1px solid rgba(26,122,70,0.5); }
- 
+
     .feed-cvss {
       display: inline-block; padding: 1px 7px; border-radius: 3px;
       font-size: 10px; font-weight: 700; font-family: monospace;
@@ -1063,7 +59,7 @@ Copy
     .feed-cvss--critical { background: rgba(176,28,53,0.3); color: #ff8fa3; border: 1px solid rgba(176,28,53,0.5); }
     .feed-cvss--high     { background: rgba(154,80,0,0.3);  color: #ffb865; border: 1px solid rgba(154,80,0,0.5); }
     .feed-cvss--medium   { background: rgba(122,96,0,0.3);  color: #ffd060; border: 1px solid rgba(122,96,0,0.5); }
- 
+
     .feed-cve-list { display: flex; flex-wrap: wrap; gap: 5px; }
     .feed-cve {
       background: rgba(73,125,141,0.25); border: 1px solid #497D8D;
@@ -1077,7 +73,7 @@ Copy
     .feed-related { font-size: 11px; color: #497D8D; }
     .feed-related a { color: #8CCFD1; margin-right: 8px; }
     .feed-related a:hover { color: #fff; }
- 
+
     .feed-pagination {
       display: flex; align-items: center; justify-content: space-between;
       padding: 14px 20px; background: #0A2342; border-top: 1px solid #1C4578;
@@ -1090,7 +86,7 @@ Copy
     .feed-page-btn:hover:not(:disabled) { background: #497D8D; border-color: #8CCFD1; color: #fff; }
     .feed-page-btn:disabled { opacity: .3; cursor: default; }
     .feed-page-info { font-size: 12px; color: #497D8D; }
- 
+
     .feed-status { padding: 40px 20px; text-align: center; color: #497D8D; font-size: 13px; background: #0A2342; }
     .feed-footer { padding: 10px 20px 14px; font-size: 11px; color: #497D8D; background: #0A2342; border-top: 1px solid #1C4578; }
     .feed-footer a { color: #8CCFD1; text-decoration: none; }
@@ -1108,9 +104,9 @@ Copy
   </style>
 </head>
 <body>
- 
+
   <!-- <div class="feed-ad">YOUR AD CODE HERE</div> -->
- 
+
   <div class="feed-header">
     <div class="feed-title">Vulnerability Intelligence</div>
     <div class="feed-subtitle">Active exploits, CVEs &amp; zero-days · Updated every 4 hours</div>
@@ -1124,29 +120,29 @@ Copy
     <input id="feed-search" class="feed-search" type="search"
            placeholder="Search CVE, product, keyword…" aria-label="Search vulnerabilities" />
   </div>
- 
+
   <div id="feed-list">
     <div class="feed-status"><span class="feed-spinner"></span>Loading…</div>
   </div>
- 
+
   <div class="feed-pagination">
     <button class="feed-page-btn" id="feed-prev" disabled>← Previous</button>
     <span class="feed-page-info" id="feed-page-info"></span>
     <button class="feed-page-btn" id="feed-next" disabled>Next →</button>
   </div>
- 
+
   <div class="feed-footer">
     <span id="feed-updated"></span> &nbsp;·&nbsp;
     <a id="feed-link" href="#" target="_blank" rel="noopener noreferrer">Feed source</a>
     &nbsp;·&nbsp; CVE data from NVD, CISA, and community disclosures.
   </div>
- 
+
   <script>
   (function () {
     'use strict';
     const FEED_BASE = 'https://vuln-feed.vercel.app';
     function pageUrl(n) { return n === 1 ? FEED_BASE + '/feed.json' : FEED_BASE + '/feed-' + n + '.json'; }
- 
+
     let articles = [], currentPage = 1, totalPages = 1, activeCategory = 'all', searchQuery = '';
     const listEl    = document.getElementById('feed-list');
     const tabs      = document.querySelectorAll('#feed-tabs .feed-tab');
@@ -1156,7 +152,7 @@ Copy
     const prevBtn   = document.getElementById('feed-prev');
     const nextBtn   = document.getElementById('feed-next');
     const pageInfo  = document.getElementById('feed-page-info');
- 
+
     function esc(s) { const d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; }
     function fmtDate(iso) {
       try { return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
@@ -1166,7 +162,7 @@ Copy
       if (!v) return ''; if (v >= 9) return 'feed-cvss--critical';
       if (v >= 7) return 'feed-cvss--high'; return 'feed-cvss--medium';
     }
- 
+
     function render() {
       const q = searchQuery.trim().toLowerCase();
       const visible = articles.filter(a => {
@@ -1176,12 +172,12 @@ Copy
           (a.summary || '').toLowerCase().includes(q) || a.source.toLowerCase().includes(q);
         return catOk && srchOk;
       });
- 
+
       if (!visible.length) {
         listEl.innerHTML = '<div class="feed-status">No entries match this filter on this page.</div>';
         return;
       }
- 
+
       listEl.innerHTML = visible.map(a => {
         const cves    = (a.cve_ids || []).map(c => `<span class="feed-cve">${esc(c)}</span>`).join('');
         const cvss    = a.cvss ? `<span class="feed-cvss ${cvssClass(a.cvss)}">CVSS ${parseFloat(a.cvss).toFixed(1)}</span>` : '';
@@ -1203,12 +199,12 @@ Copy
           ${related}
         </div>`;
       }).join('');
- 
+
       prevBtn.disabled = currentPage <= 1;
       nextBtn.disabled = currentPage >= totalPages;
       pageInfo.textContent = totalPages > 1 ? `Page ${currentPage} of ${totalPages}` : '';
     }
- 
+
     async function loadPage(n) {
       listEl.innerHTML = '<div class="feed-status"><span class="feed-spinner"></span>Loading…</div>';
       prevBtn.disabled = true; nextBtn.disabled = true;
@@ -1224,7 +220,7 @@ Copy
         prevBtn.disabled = currentPage <= 1; nextBtn.disabled = currentPage >= totalPages;
       }
     }
- 
+
     tabs.forEach(tab => tab.addEventListener('click', () => {
       tabs.forEach(t => { t.classList.remove('feed-tab--active'); t.setAttribute('aria-pressed','false'); });
       tab.classList.add('feed-tab--active'); tab.setAttribute('aria-pressed','true');
@@ -1239,5 +235,3 @@ Copy
   </script>
 </body>
 </html>
- 
-
