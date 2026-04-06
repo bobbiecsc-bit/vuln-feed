@@ -3,103 +3,222 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vulnerability Intelligence Feed</title>
+  <title>Cybersecurity News Feed</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-size: 15px; background: #0A2342; color: #fff; }
-    .feed-header { background: #0A2342; border-bottom: 1px solid #1C4578; padding: 18px 20px 14px; }
-    .feed-title  { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 2px; }
-    .feed-subtitle { font-size: 12px; color: #8CCFD1; margin-bottom: 14px; }
-    .feed-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      background: #0A2342;
+      color: #fff;
+    }
+
+    /* ── Header ─────────────────────────────────────────────── */
+    .feed-header {
+      background: #0A2342;
+      border-bottom: 1px solid #1C4578;
+      padding: 18px 20px 14px;
+    }
+    .feed-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+    .feed-subtitle {
+      font-size: 12px;
+      color: #8CCFD1;
+      margin-bottom: 14px;
+    }
+
+    /* ── Tabs ───────────────────────────────────────────────── */
+    .feed-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
     .feed-tab {
-      background: #1C4578; border: 1px solid #497D8D; border-radius: 4px;
-      padding: 4px 12px; font-size: 12px; font-weight: 600; cursor: pointer;
-      color: #8CCFD1; font-family: inherit; transition: all 0.12s;
+      background: #1C4578;
+      border: 1px solid #497D8D;
+      border-radius: 4px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #8CCFD1;
+      font-family: inherit;
+      transition: all 0.12s;
     }
     .feed-tab:hover { background: #497D8D; color: #fff; }
-    .feed-tab--active { background: #497D8D; border-color: #8CCFD1; color: #fff; }
+    .feed-tab--active {
+      background: #497D8D;
+      border-color: #8CCFD1;
+      color: #fff;
+    }
+
+    /* ── Search ─────────────────────────────────────────────── */
     .feed-search {
-      width: 100%; padding: 8px 12px; font-size: 13px; font-family: inherit;
-      border: 1px solid #497D8D; border-radius: 4px; background: #1C4578;
-      color: #fff; outline: none;
+      width: 100%;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      border: 1px solid #497D8D;
+      border-radius: 4px;
+      background: #1C4578;
+      color: #fff;
+      outline: none;
     }
     .feed-search:focus { border-color: #8CCFD1; }
     .feed-search::placeholder { color: #497D8D; }
 
+    /* ── Article list ───────────────────────────────────────── */
     #feed-list { padding: 0; background: #0A2342; }
+
+    /* ── Article item ───────────────────────────────────────── */
     .feed-item {
-      display: flex; flex-direction: column; gap: 5px;
-      padding: 13px 20px; border-bottom: 1px solid #1C4578;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 13px 20px;
+      border-bottom: 1px solid #1C4578;
     }
+    /* Alternating row banding */
     .feed-item:nth-child(even) { background: #1C4578; }
     .feed-item:nth-child(odd)  { background: #0A2342; }
     .feed-item:last-child { border-bottom: none; }
 
-    .feed-item-title { font-size: 14px; font-weight: 600; line-height: 1.4; color: #fff; text-decoration: none; }
-    .feed-item-title:hover { color: #8CCFD1; text-decoration: underline; text-underline-offset: 2px; }
+    .feed-item-title {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #fff;
+      text-decoration: none;
+    }
+    .feed-item-title:hover {
+      color: #8CCFD1;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
 
-    .feed-item-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; font-size: 11px; }
-    .feed-source { font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #497D8D; }
+    .feed-item-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+    }
+
+    .feed-source {
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #497D8D;
+    }
+
     .feed-meta-dot { color: #497D8D; }
+
     time { color: #8CCFD1; }
 
+    /* ── Category badges ────────────────────────────────────── */
     .feed-cat {
-      display: inline-block; padding: 1px 7px; border-radius: 3px;
-      font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
-    .feed-cat--emergency      { background: rgba(176,28,53,0.3);  color: #ff8fa3; border: 1px solid rgba(176,28,53,0.5); }
-    .feed-cat--infrastructure { background: rgba(154,80,0,0.3);   color: #ffb865; border: 1px solid rgba(154,80,0,0.5); }
-    .feed-cat--web_app        { background: rgba(26,95,176,0.3);  color: #7aadff; border: 1px solid rgba(26,95,176,0.5); }
-    .feed-cat--cloud          { background: rgba(26,122,70,0.3);  color: #5adba0; border: 1px solid rgba(26,122,70,0.5); }
+    .feed-cat--breach        { background: rgba(176,28,53,0.3);  color: #ff8fa3; border: 1px solid rgba(176,28,53,0.5); }
+    .feed-cat--vulnerability { background: rgba(154,80,0,0.3);   color: #ffb865; border: 1px solid rgba(154,80,0,0.5); }
+    .feed-cat--malware       { background: rgba(106,10,173,0.3); color: #c97aff; border: 1px solid rgba(106,10,173,0.5); }
+    .feed-cat--threat        { background: rgba(160,32,16,0.3);  color: #ff9080; border: 1px solid rgba(160,32,16,0.5); }
 
-    .feed-cvss {
-      display: inline-block; padding: 1px 7px; border-radius: 3px;
-      font-size: 10px; font-weight: 700; font-family: monospace;
-    }
-    .feed-cvss--critical { background: rgba(176,28,53,0.3); color: #ff8fa3; border: 1px solid rgba(176,28,53,0.5); }
-    .feed-cvss--high     { background: rgba(154,80,0,0.3);  color: #ffb865; border: 1px solid rgba(154,80,0,0.5); }
-    .feed-cvss--medium   { background: rgba(122,96,0,0.3);  color: #ffd060; border: 1px solid rgba(122,96,0,0.5); }
-
-    .feed-cve-list { display: flex; flex-wrap: wrap; gap: 5px; }
-    .feed-cve {
-      background: rgba(73,125,141,0.25); border: 1px solid #497D8D;
-      border-radius: 3px; padding: 1px 6px;
-      font-family: monospace; font-size: 11px; font-weight: 600; color: #8CCFD1;
-    }
+    /* ── Summary ────────────────────────────────────────────── */
     .feed-item-summary {
-      font-size: 12px; color: #8CCFD1; line-height: 1.5;
-      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      font-size: 12px;
+      color: #8CCFD1;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-    .feed-related { font-size: 11px; color: #497D8D; }
-    .feed-related a { color: #8CCFD1; margin-right: 8px; }
-    .feed-related a:hover { color: #fff; }
 
+    /* ── Pagination ─────────────────────────────────────────── */
     .feed-pagination {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 20px; background: #0A2342; border-top: 1px solid #1C4578;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: #0A2342;
+      border-top: 1px solid #1C4578;
     }
     .feed-page-btn {
-      background: #1C4578; border: 1px solid #497D8D; border-radius: 4px;
-      padding: 6px 16px; font-size: 12px; font-weight: 600; cursor: pointer;
-      color: #8CCFD1; font-family: inherit; transition: all 0.12s;
+      background: #1C4578;
+      border: 1px solid #497D8D;
+      border-radius: 4px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #8CCFD1;
+      font-family: inherit;
+      transition: all 0.12s;
     }
-    .feed-page-btn:hover:not(:disabled) { background: #497D8D; border-color: #8CCFD1; color: #fff; }
-    .feed-page-btn:disabled { opacity: .3; cursor: default; }
+    .feed-page-btn:hover:not(:disabled) {
+      background: #497D8D;
+      border-color: #8CCFD1;
+      color: #fff;
+    }
+    .feed-page-btn:disabled { opacity: 0.3; cursor: default; }
     .feed-page-info { font-size: 12px; color: #497D8D; }
 
-    .feed-status { padding: 40px 20px; text-align: center; color: #497D8D; font-size: 13px; background: #0A2342; }
-    .feed-footer { padding: 10px 20px 14px; font-size: 11px; color: #497D8D; background: #0A2342; border-top: 1px solid #1C4578; }
+    /* ── Status / footer ────────────────────────────────────── */
+    .feed-status {
+      padding: 40px 20px;
+      text-align: center;
+      color: #497D8D;
+      font-size: 13px;
+      background: #0A2342;
+    }
+    .feed-footer {
+      padding: 10px 20px 14px;
+      font-size: 11px;
+      color: #497D8D;
+      background: #0A2342;
+      border-top: 1px solid #1C4578;
+    }
     .feed-footer a { color: #8CCFD1; text-decoration: none; }
     .feed-footer a:hover { color: #fff; }
-    .feed-ad { padding: 10px 20px; background: #0A2342; text-align: center; border-bottom: 1px solid #1C4578; }
+
+    /* ── Ad slot ────────────────────────────────────────────── */
+    .feed-ad {
+      padding: 10px 20px;
+      background: #0A2342;
+      text-align: center;
+      border-bottom: 1px solid #1C4578;
+    }
+
+    /* ── Spinner ────────────────────────────────────────────── */
     .feed-spinner {
-      display: inline-block; width: 16px; height: 16px;
-      border: 2px solid #1C4578; border-top-color: #8CCFD1;
-      border-radius: 50%; animation: spin .7s linear infinite; vertical-align: middle; margin-right: 8px;
+      display: inline-block;
+      width: 16px; height: 16px;
+      border: 2px solid #1C4578;
+      border-top-color: #8CCFD1;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+
     @media (max-width: 480px) {
-      .feed-item, .feed-header, .feed-pagination, .feed-footer, .feed-ad { padding-left: 14px; padding-right: 14px; }
+      .feed-item { padding-left: 14px; padding-right: 14px; }
+      .feed-header, .feed-pagination, .feed-footer, .feed-ad
+        { padding-left: 14px; padding-right: 14px; }
     }
   </style>
 </head>
@@ -108,21 +227,21 @@
   <!-- <div class="feed-ad">YOUR AD CODE HERE</div> -->
 
   <div class="feed-header">
-    <div class="feed-title"></div>
-    <div class="feed-subtitle"></div>
+    <div class="feed-title">Cybersecurity News</div>
+    <div class="feed-subtitle">Aggregated from leading security sources · Updated every 6 hours</div>
     <div class="feed-tabs" id="feed-tabs" role="tablist">
-      <button class="feed-tab feed-tab--active" data-cat="all"            role="tab" aria-pressed="true">All</button>
-      <button class="feed-tab"                   data-cat="emergency"      role="tab" aria-pressed="false">⚠ Emergency</button>
-      <button class="feed-tab"                   data-cat="infrastructure" role="tab" aria-pressed="false">Infrastructure</button>
-      <button class="feed-tab"                   data-cat="web_app"        role="tab" aria-pressed="false">Web / App</button>
-      <button class="feed-tab"                   data-cat="cloud"          role="tab" aria-pressed="false">Cloud</button>
+      <button class="feed-tab feed-tab--active" data-cat="all"           role="tab" aria-pressed="true">All</button>
+      <button class="feed-tab"                   data-cat="breach"        role="tab" aria-pressed="false">Breach</button>
+      <button class="feed-tab"                   data-cat="vulnerability" role="tab" aria-pressed="false">Vulnerability</button>
+      <button class="feed-tab"                   data-cat="malware"       role="tab" aria-pressed="false">Malware</button>
+      <button class="feed-tab"                   data-cat="threat"        role="tab" aria-pressed="false">Threat</button>
     </div>
     <input id="feed-search" class="feed-search" type="search"
-           placeholder="Search CVE, product, keyword…" aria-label="Search vulnerabilities" />
+           placeholder="Search articles…" aria-label="Search cybersecurity news" />
   </div>
 
   <div id="feed-list">
-    <div class="feed-status"><span class="feed-spinner"></span>Loading…</div>
+    <div class="feed-status"><span class="feed-spinner"></span>Loading latest security news…</div>
   </div>
 
   <div class="feed-pagination">
@@ -134,16 +253,17 @@
   <div class="feed-footer">
     <span id="feed-updated"></span> &nbsp;·&nbsp;
     <a id="feed-link" href="#" target="_blank" rel="noopener noreferrer">Feed source</a>
-    &nbsp;·&nbsp; CVE data from NVD, CISA, and community disclosures.
+    &nbsp;·&nbsp; Links open the original article on the source site.
   </div>
 
   <script>
   (function () {
     'use strict';
-    const FEED_BASE = 'https://vuln-feed.vercel.app';
+    const FEED_BASE = 'https://cybernews-feed.vercel.app';
     function pageUrl(n) { return n === 1 ? FEED_BASE + '/feed.json' : FEED_BASE + '/feed-' + n + '.json'; }
 
     let articles = [], currentPage = 1, totalPages = 1, activeCategory = 'all', searchQuery = '';
+
     const listEl    = document.getElementById('feed-list');
     const tabs      = document.querySelectorAll('#feed-tabs .feed-tab');
     const searchEl  = document.getElementById('feed-search');
@@ -158,47 +278,35 @@
       try { return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
       catch (_) { return ''; }
     }
-    function cvssClass(v) {
-      if (!v) return ''; if (v >= 9) return 'feed-cvss--critical';
-      if (v >= 7) return 'feed-cvss--high'; return 'feed-cvss--medium';
-    }
 
     function render() {
       const q = searchQuery.trim().toLowerCase();
       const visible = articles.filter(a => {
-        const catOk  = activeCategory === 'all' || a.category === activeCategory;
-        const cveOk  = (a.cve_ids || []).some(c => c.toLowerCase().includes(q));
-        const srchOk = !q || cveOk || a.title.toLowerCase().includes(q) ||
+        const catOk    = activeCategory === 'all' || a.category === activeCategory;
+        const searchOk = !q || a.title.toLowerCase().includes(q) ||
           (a.summary || '').toLowerCase().includes(q) || a.source.toLowerCase().includes(q);
-        return catOk && srchOk;
+        return catOk && searchOk;
       });
 
       if (!visible.length) {
-        listEl.innerHTML = '<div class="feed-status">No entries match this filter on this page.</div>';
+        listEl.innerHTML = '<div class="feed-status">No articles match this filter on this page.</div>';
         return;
       }
 
-      listEl.innerHTML = visible.map(a => {
-        const cves    = (a.cve_ids || []).map(c => `<span class="feed-cve">${esc(c)}</span>`).join('');
-        const cvss    = a.cvss ? `<span class="feed-cvss ${cvssClass(a.cvss)}">CVSS ${parseFloat(a.cvss).toFixed(1)}</span>` : '';
-        const related = (a.related_links || []).length
-          ? `<div class="feed-related">Also: ${a.related_links.slice(0,4).map((u,i) =>
-              `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer nofollow">Source ${i+2}</a>`).join('')}</div>` : '';
-        return `<div class="feed-item">
-          <a class="feed-item-title" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer nofollow">${esc(a.title)}</a>
+      listEl.innerHTML = visible.map(a => `
+        <div class="feed-item">
+          <a class="feed-item-title"
+             href="${esc(a.url)}" target="_blank" rel="noopener noreferrer nofollow"
+          >${esc(a.title)}</a>
           <div class="feed-item-meta">
             <span class="feed-source">${esc(a.source)}</span>
             <span class="feed-meta-dot">·</span>
-            <span class="feed-cat feed-cat--${esc(a.category)}">${esc(a.category.replace('_',' '))}</span>
-            ${cvss}
+            <span class="feed-cat feed-cat--${esc(a.category)}">${esc(a.category)}</span>
             <span class="feed-meta-dot">·</span>
             <time datetime="${esc(a.date)}">${fmtDate(a.date)}</time>
           </div>
-          ${cves ? `<div class="feed-cve-list">${cves}</div>` : ''}
           ${a.summary ? `<p class="feed-item-summary">${esc(a.summary)}</p>` : ''}
-          ${related}
-        </div>`;
-      }).join('');
+        </div>`).join('');
 
       prevBtn.disabled = currentPage <= 1;
       nextBtn.disabled = currentPage >= totalPages;
@@ -212,24 +320,36 @@
         const res  = await fetch(pageUrl(n), { cache: 'no-cache' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
-        articles = data.articles || []; currentPage = data.page || n; totalPages = data.total_pages || 1;
+        articles    = data.articles    || [];
+        currentPage = data.page        || n;
+        totalPages  = data.total_pages || 1;
         if (data.updated) updatedEl.textContent = 'Last updated ' + fmtDate(data.updated);
-        feedLink.href = pageUrl(1); searchEl.value = ''; searchQuery = ''; render();
+        feedLink.href  = pageUrl(1);
+        searchEl.value = ''; searchQuery = '';
+        render();
       } catch (err) {
-        listEl.innerHTML = `<div class="feed-status">Could not load feed.<br><small style="opacity:.6">${esc(String(err))}</small></div>`;
-        prevBtn.disabled = currentPage <= 1; nextBtn.disabled = currentPage >= totalPages;
+        listEl.innerHTML = `<div class="feed-status">Could not load feed.<br>
+          <small style="opacity:.6">${esc(String(err))}</small></div>`;
+        prevBtn.disabled = currentPage <= 1;
+        nextBtn.disabled = currentPage >= totalPages;
       }
     }
 
     tabs.forEach(tab => tab.addEventListener('click', () => {
-      tabs.forEach(t => { t.classList.remove('feed-tab--active'); t.setAttribute('aria-pressed','false'); });
-      tab.classList.add('feed-tab--active'); tab.setAttribute('aria-pressed','true');
+      tabs.forEach(t => { t.classList.remove('feed-tab--active'); t.setAttribute('aria-pressed', 'false'); });
+      tab.classList.add('feed-tab--active'); tab.setAttribute('aria-pressed', 'true');
       activeCategory = tab.dataset.cat; render();
     }));
-    let dbt;
-    searchEl.addEventListener('input', () => { clearTimeout(dbt); dbt = setTimeout(() => { searchQuery = searchEl.value; render(); }, 250); });
+
+    let debounce;
+    searchEl.addEventListener('input', () => {
+      clearTimeout(debounce);
+      debounce = setTimeout(() => { searchQuery = searchEl.value; render(); }, 250);
+    });
+
     prevBtn.addEventListener('click', () => { if (currentPage > 1) loadPage(currentPage - 1); });
     nextBtn.addEventListener('click', () => { if (currentPage < totalPages) loadPage(currentPage + 1); });
+
     loadPage(1);
   }());
   </script>
