@@ -1,10 +1,92 @@
 {
-  "updated": "2026-04-13T13:27:37.099684+00:00",
+  "updated": "2026-04-13T17:04:18.610022+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "60ede8b92e032c308fdfc4815edbc4801d389177989a20cda77f413ad15d35b6",
+      "url": "https://github.com/advisories/GHSA-qwgj-rrpj-75xm",
+      "title": "GHSA: PraisonAI: Hardcoded `approval_mode=\"auto\"` in Chainlit UI Overrides Administrator Configuration, Enabling Unapproved Shell Command Execution",
+      "summary": "## Summary\n\nThe Chainlit UI modules (`chat.py` and `code.py`) hardcode `config.approval_mode = \"auto\"` after loading administrator configuration from the `PRAISON_APPROVAL_MODE` environment variable, silently overriding any \"manual\" or \"scoped\" approval setting. This defeats the human-in-the-loop approval gate for all ACP tool executions, including shell command execution via `subprocess.run(..., ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T19:25:49Z",
+      "cve_ids": [],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "b73fff57d75225a691e1176612ac258cd28981e0e81753ddfd0cf67e8fd0cc7f",
+      "url": "https://github.com/advisories/GHSA-3c4r-6p77-xwr7",
+      "title": "GHSA: PraisonAI Vulnerable to Code Injection and Protection Mechanism Failure",
+      "summary": "PraisonAI's AST-based Python sandbox can be bypassed using `type.__getattribute__` trampoline, allowing arbitrary code execution when running untrusted agent code.\n\n## Description\n\nThe `_execute_code_direct` function in `praisonaiagents/tools/python_tools.py` uses AST filtering to block dangerous Python attributes like `__subclasses__`, `__globals__`, and `__bases__`. However, the filter only chec",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T19:25:39Z",
+      "cve_ids": [
+        "CVE-2026-40158"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "ef50cd5528f31f5836326425c6ca10f9eee465f1a77c6264cb578c46b15e000f",
+      "url": "https://github.com/advisories/GHSA-7j2f-xc8p-fjmq",
+      "title": "GHSA: PraisonAIAgents: Path Traversal via Unvalidated Glob Pattern in list_files Bypasses Workspace Boundary",
+      "summary": "## Summary\n\nThe `list_files()` tool in `FileTools` validates the `directory` parameter against workspace boundaries via `_validate_path()`, but passes the `pattern` parameter directly to `Path.glob()` without any validation. Since Python's `Path.glob()` supports `..` path segments, an attacker can use relative path traversal in the glob pattern to enumerate arbitrary files outside the workspace, o",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T19:24:32Z",
+      "cve_ids": [
+        "CVE-2026-40152"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "44b6a3e56fde1bb0188d0bc811443614557e9b88e683a0d7df8870492f6b021f",
+      "url": "https://github.com/advisories/GHSA-v8g7-9q6v-p3x8",
+      "title": "GHSA: PraisonAIAgents: Environment Variable Secret Exfiltration via os.path.expandvars() Bypassing shell=False in Shell Tool",
+      "summary": "## Summary\n\nThe `execute_command` function in `shell_tools.py` calls `os.path.expandvars()` on every command argument at line 64, manually re-implementing shell-level environment variable expansion despite using `shell=False` (line 88) for security. This allows exfiltration of secrets stored in environment variables (database credentials, API keys, cloud access keys). The approval system displays ",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-04-10T19:24:27Z",
+      "cve_ids": [
+        "CVE-2026-40153"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "16c5efde1c388b8647a8c574e9fa3ebd8fe5d22693f3b848b4e743e86aa5acfc",
+      "url": "https://github.com/advisories/GHSA-pm96-6xpr-978x",
+      "title": "GHSA: PraisonAI: Unauthenticated Information Disclosure of Agent Instructions via /api/agents in AgentOS",
+      "summary": "## Summary\n\nThe AgentOS deployment platform exposes a `GET /api/agents` endpoint that returns agent names, roles, and the first 100 characters of agent system instructions to any unauthenticated caller. The AgentOS FastAPI application has no authentication middleware, no API key validation, and defaults to CORS `allow_origins=[\"*\"]` with `host=\"0.0.0.0\"`, making every deployment network-accessible",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T19:24:22Z",
+      "cve_ids": [
+        "CVE-2026-40151"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "a32c1382062a21800659ca32d3838aa5378b0b377e7b9d0fed851c401952a831",
+      "url": "https://github.com/advisories/GHSA-4wr3-f4p3-5wjh",
+      "title": "GHSA: PraisonAI: Unauthenticated Allow-List Manipulation Bypasses Agent Tool Approval Safety Controls",
+      "summary": "## Summary\n\nThe gateway's `/api/approval/allow-list` endpoint permits unauthenticated modification of the tool approval allowlist when no `auth_token` is configured (the default). By adding dangerous tool names (e.g., `shell_exec`, `file_write`) to the allowlist, an attacker can cause the `ExecApprovalManager` to auto-approve all future agent invocations of those tools, bypassing the human-in-the-",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T19:24:11Z",
+      "cve_ids": [
+        "CVE-2026-40149"
+      ],
+      "cvss": 7.9,
+      "related_links": []
+    },
     {
       "id": "662c044dc13d1db3fa48579b2eaea2a79e9b30ae1a77f117525c6a31a933cb04",
       "url": "https://github.com/advisories/GHSA-8f4v-xfm9-3244",
@@ -310,7 +392,7 @@
       "title": "USN-8165-1: Linux kernel (Azure FIPS) vulnerabilities",
       "summary": "Qualys discovered that several vulnerabilities existed in the AppArmor Linux kernel Security Module (LSM). An unprivileged local attacker could use these issues to load, replace, and remove arbitrary AppArmor profiles causing denial of service, exposure of sensitive information (kernel memory), local privilege escalation, or possibly escape a container. (LP: #2143853, CVE-2026-23268, CVE-2026-2326",
       "source": "Ubuntu Security",
-      "category": "infrastructure",
+      "category": "emergency",
       "date": "2026-04-09T23:38:24+00:00",
       "cve_ids": [
         "CVE-2025-21833",
@@ -987,7 +1069,8 @@
         "https://ubuntu.com/security/notices/USN-8162-1",
         "https://ubuntu.com/security/notices/USN-8149-2",
         "https://ubuntu.com/security/notices/USN-8148-5",
-        "https://ubuntu.com/security/notices/USN-8159-3"
+        "https://ubuntu.com/security/notices/USN-8159-3",
+        "https://ubuntu.com/security/notices/LSN-0119-1"
       ]
     },
     {
@@ -1262,86 +1345,6 @@
         "CVE-2026-40087"
       ],
       "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "47e430e1bdfbeaa1dfacf342662137143fd014954da7ff333c47b66cba9efafe",
-      "url": "https://github.com/advisories/GHSA-chqc-8p9q-pq6q",
-      "title": "GHSA: basic-ftp has FTP Command Injection via CRLF",
-      "summary": "## Summary\n\n`basic-ftp` version `5.2.0` allows FTP command injection via CRLF sequences (`\\r\\n`) in file path parameters passed to high-level path APIs such as `cd()`, `remove()`, `rename()`, `uploadFrom()`, `downloadTo()`, `list()`, and `removeDir()`. The library's `protectWhitespace()` helper only handles leading spaces and returns other paths unchanged, while `FtpContext.send()` writes the resu",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-08T20:02:25Z",
-      "cve_ids": [
-        "CVE-2026-39983"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "a245d128cfae572436536c09d927def5b1bd3455fe2ccb2b79296c2f538e7913",
-      "url": "https://github.com/advisories/GHSA-5gfj-64gh-mgmw",
-      "title": "GHSA: AGiXT Vulnerable to Path Traversal in safe_join()",
-      "summary": "### Summary\nThe safe_join() function in the essential_abilities extension fails to validate that resolved file paths remain within the designated agent workspace. An authenticated attacker can use directory traversal sequences to read, write, or delete arbitrary files on the server hosting the AGiXT instance.\n\n### Details\n`agixt/endpoints/Extension.py:165` (source) -> `agixt/XT.py:1035` (hop) -> `",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-08T20:02:01Z",
-      "cve_ids": [
-        "CVE-2026-39981"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "5d5b8146f03616ef1d0f5916716dadb8161e726f7758cb87d959dd30f832e3ef",
-      "url": "https://github.com/advisories/GHSA-349c-2h2f-mxf6",
-      "title": "GHSA: Laravel Passport: TokenGuard Authenticates Unrelated User for Client Credentials Tokens",
-      "summary": "### Impact\nAuthentication Bypass for `client_credentials` tokens. the league/oauth2-server library sets the JWT sub claim to the client identifier (since there's no user). The token guard then passes this value to retrieveById() without validating it's actually a user identifier, potentially resolving an unrelated real user. Any machine-to-machine token can inadvertently authenticate as an actual ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-08T19:57:55Z",
-      "cve_ids": [],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "b2322da4bc4cfc3aeff4e12f66ec4b0a2f47377c37f9846f53c526ae9e23fe47",
-      "url": "https://github.com/advisories/GHSA-4ggg-h7ph-26qr",
-      "title": "GHSA: n8n-mcp has authenticated SSRF via instance-URL header in multi-tenant HTTP mode",
-      "summary": "## Impact\nAn authenticated Server-Side Request Forgery in `n8n-mcp` allows a caller holding a valid `AUTH_TOKEN` to cause the server to issue HTTP requests to arbitrary URLs supplied through multi-tenant HTTP headers. Response bodies are reflected back through JSON-RPC, so an attacker can read the contents of any URL the server can reach — including cloud instance metadata endpoints (AWS IMDS, GCP",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-08T19:53:48Z",
-      "cve_ids": [
-        "CVE-2026-39974"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "0e63222f11f378a00b9eefa5ead8baa5c0b2a69813115b3a5fdd6ac551fd6702",
-      "url": "https://github.com/advisories/GHSA-xrw6-gwf8-vvr9",
-      "title": "GHSA: Tmds.DBus: malicious D-Bus peers can spoof signals, exhaust file descriptor resources, and cause denial of service",
-      "summary": "Tmds.DBus and Tmds.DBus.Protocol are vulnerable to malicious D-Bus peers. A peer on the same bus can spoof signals by impersonating the owner of a well-known name, exhaust system resources or cause file descriptor spillover by sending messages with an excessive number of Unix file descriptors, and crash the application by sending malformed message bodies that cause unhandled exceptions on the Sync",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-08T19:52:58Z",
-      "cve_ids": [
-        "CVE-2026-39959"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "ee16d48822ea77365d83c8acd70737093a1664bd1455d3f2fc10e7283c93e94d",
-      "url": "https://ubuntu.com/security/notices/USN-8158-1",
-      "title": "USN-8158-1: Dogtag PKI vulnerability",
-      "summary": "Fraser Tweedale and Geetika Kapoor discovered that Dogtag PKI could renew a certificate without proper authentication. An attacker could possibly use this to repeatedly renew a compromised certificate and maintain unauthorized access to a system or resource.",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-04-08T19:25:33+00:00",
-      "cve_ids": [],
-      "cvss": null,
       "related_links": []
     }
   ]
