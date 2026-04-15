@@ -1,10 +1,80 @@
 {
-  "updated": "2026-04-15T13:26:03.655119+00:00",
+  "updated": "2026-04-15T17:05:15.319963+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "df71b0f816be0cc295bfa60cc85505a9156c2477a5d48a2f4181e489a64b0bcc",
+      "url": "https://github.com/advisories/GHSA-qh78-rvg3-cv54",
+      "title": "GHSA: Vikunja has File Size Limit Bypass via Vikunja Import",
+      "summary": "## Summary\n\nThe Vikunja file import endpoint uses the attacker-controlled `Size` field from the JSON metadata inside the import zip instead of the actual decompressed file content length for the file size enforcement check. By setting `Size` to 0 in the JSON while including large compressed file entries in the zip, an attacker bypasses the configured maximum file size limit.\n\n## Details\n\nDuring im",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T15:35:18Z",
+      "cve_ids": [
+        "CVE-2026-35602"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "e14da98f330c122196b52eac5347d25ad2f4b8c533f9c8a81f994efcd4d74743",
+      "url": "https://github.com/advisories/GHSA-2g7h-7rqr-9p4r",
+      "title": "GHSA: Vikunja has iCalendar Property Injection via CRLF in CalDAV Task Output",
+      "summary": "## Summary\n\nThe CalDAV output generator builds iCalendar VTODO entries via raw string concatenation without applying RFC 5545 TEXT value escaping. User-controlled task titles containing CRLF characters break the iCalendar property boundary, allowing injection of arbitrary iCalendar properties such as `ATTACH`, `VALARM`, or `ORGANIZER`.\n\n## Details\n\nThe `ParseTodos` function at `pkg/caldav/caldav.g",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T15:35:05Z",
+      "cve_ids": [
+        "CVE-2026-35601"
+      ],
+      "cvss": 4.1,
+      "related_links": []
+    },
+    {
+      "id": "e8ac8fa940145895cff336664e118fe3963de5a5bb66b419d85cba3fddcb2a05",
+      "url": "https://github.com/advisories/GHSA-45q4-x4r9-8fqj",
+      "title": "GHSA: Vikunja has HTML Injection via Task Titles in Overdue Email Notifications",
+      "summary": "## Summary\n\nTask titles are embedded directly into Markdown link syntax in overdue email notifications without escaping Markdown special characters. When rendered by goldmark and sanitized by bluemonday (which allows `<a>` and `<img>` tags), injected Markdown constructs produce phishing links and tracking pixels in legitimate notification emails.\n\n## Details\n\nThe overdue task notification at `pkg/",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T15:34:53Z",
+      "cve_ids": [
+        "CVE-2026-35600"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "22dff3c8db04058d3a497c3f6535b5f38a00ce94cc8a51fa917f67d2d48bc6bf",
+      "url": "https://github.com/advisories/GHSA-r4fg-73rc-hhh7",
+      "title": "GHSA: Vikunja has Algorithmic Complexity DoS in Repeating Task Handler",
+      "summary": "## Summary\n\nThe `addRepeatIntervalToTime` function uses an O(n) loop that advances a date by the task's `RepeatAfter` duration until it exceeds the current time. By creating a repeating task with a 1-second interval and a due date far in the past, an attacker triggers billions of loop iterations, consuming CPU and holding a database connection for minutes per request.\n\n## Details\n\nThe vulnerable f",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T15:34:41Z",
+      "cve_ids": [
+        "CVE-2026-35599"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "104687749f097c31329b89a3927278983a4597c72970e4fa2f4d4906de5b5f62",
+      "url": "https://github.com/advisories/GHSA-48ch-p4gq-x46x",
+      "title": "GHSA: Vikunja Missing Authorization on CalDAV Task Read",
+      "summary": "## Summary\n\nThe CalDAV `GetResource` and `GetResourcesByList` methods fetch tasks by UID from the database without verifying that the authenticated user has access to the task's project. Any authenticated CalDAV user who knows (or guesses) a task UID can read the full task data from any project on the instance.\n\n## Details\n\n`GetTasksByUIDs` at `pkg/models/tasks.go:376-393` performs a global databa",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T15:34:23Z",
+      "cve_ids": [
+        "CVE-2026-35598"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
     {
       "id": "c48ddba3a797c3b0c30f10524e45652b3e096985b4d58b7675b8beb2a8ee8f63",
       "url": "https://github.com/advisories/GHSA-fgfv-pv97-6cmj",
@@ -1064,6 +1134,160 @@
       "related_links": []
     },
     {
+      "id": "3efe1192add2681d1666c1755d6d1cb41eef48be1b9a3192aac3557e825ebeca",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5802",
+      "title": "CVE-2026-5802 — CVSS 7.3",
+      "summary": "A vulnerability was identified in idachev mcp-javadc up to 1.2.4. Impacted is an unknown function of the component HTTP Interface. Such manipulation of the argument jarFilePath leads to os command injection. It is possible to launch the attack remotely. The exploit is publicly available and might be used. The project was informed of the problem early through an issue report but has not responded y",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-08T20:16:27.340",
+      "cve_ids": [
+        "CVE-2026-5802"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "ce10ae008c8746eaae5a2d280f58565778909997a461e619beb750fdd09f9d1b",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-39864",
+      "title": "CVE-2026-39864 — CVSS 4.4",
+      "summary": "Kamailio is an open source implementation of a SIP Signaling Server. Prior to 6.0.5 and 5.8.7, an out-of-bounds read in the auth module of Kamailio (formerly OpenSER and SER) allows remote attackers to cause a denial of service (process crash) via a specially crafted SIP packet if a successful user authentication without a database backend is followed by additional user identity checks. This vulne",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-08T20:16:26.700",
+      "cve_ids": [
+        "CVE-2026-39864"
+      ],
+      "cvss": 4.4,
+      "related_links": []
+    },
+    {
+      "id": "32111951c24b2035072de8393ca46488c2b5535d0006f4f98934f3cccefc86a9",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-39863",
+      "title": "CVE-2026-39863 — CVSS 7.5",
+      "summary": "Kamailio is an open source implementation of a SIP Signaling Server. Prior to 6.1.1, 6.0.6, and 5.8.8, an out-of-bounds access in the core of Kamailio (formerly OpenSER and SER) allows remote attackers to cause a denial of service (process crash) via a specially crafted data packet sent over TCP. The issue impacts Kamailio instances having TCP or TLS listeners. This vulnerability is fixed in 5.1.1",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-08T20:16:26.550",
+      "cve_ids": [
+        "CVE-2026-39863"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "c86a942501212c24ee8ef3516d17b18b8dc7a732c9d379336c6c5c09e9ad44e6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-39862",
+      "title": "CVE-2026-39862",
+      "summary": "Tophat is a mobile applications testing harness. Prior to 2.5.1, Tophat is affected by remote code execution via crafted tophat:// or http://localhost:29070 URLs. The arguments query parameter flows unsanitized from URL parsing through to /bin/bash -c execution, allowing an attacker to execute arbitrary commands on a developer's macOS workstation. Any developer with Tophat installed is vulnerable.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-08T20:16:26.403",
+      "cve_ids": [
+        "CVE-2026-39862"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "3ce456bdecd9a0a6181c259bb516164d192b0b65b18af4e258482569e8496f84",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-39859",
+      "title": "CVE-2026-39859 — CVSS 7.5",
+      "summary": "LiquidJS is a Shopify / GitHub Pages compatible template engine in pure JavaScript. Prior to 10.25.3, liquidjs 10.25.0 documents root as constraining filenames passed to renderFile() and parseFile(), but top-level file loads do not enforce that boundary. A Liquid instance configured with an empty temporary directory as root can return the contents of arbitrary files. This vulnerability is fixed in",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-08T20:16:26.273",
+      "cve_ids": [
+        "CVE-2026-39859"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "5b502b59e1fe8aea1241ec1aeadaa292024a9fac06c5217ff1670d8a3d02ec51",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-39362",
+      "title": "CVE-2026-39362",
+      "summary": "InvenTree is an Open Source Inventory Management System. Prior to 1.2.7 and 1.3.0, when INVENTREE_DOWNLOAD_FROM_URL is enabled (opt-in), authenticated users can supply remote_image URLs that are fetched server-side via requests.get() with only Django's URLValidator check. There is no validation against private IP ranges or internal hostnames. Redirects are followed (allow_redirects=True), enabling",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-08T20:16:25.077",
+      "cve_ids": [
+        "CVE-2026-39362"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "3f332b52f223a00cff45f0cfcfdf9d15cbd12a23a6fa8b4c7a982710d55b2a6a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35525",
+      "title": "CVE-2026-35525 — CVSS 7.5",
+      "summary": "LiquidJS is a Shopify / GitHub Pages compatible template engine in pure JavaScript. Prior to 10.25.3, for {% include %}, {% render %}, and {% layout %}, LiquidJS checks whether the candidate path is inside the configured partials or layouts roots before reading it. That check is path-based, not realpath-based. Because of that, a file like partials/link.liquid passes the directory containment check",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-08T20:16:24.913",
+      "cve_ids": [
+        "CVE-2026-35525"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "6f5ce2724a8c2d640a40c22e121432a523b1980792d360573b31128a75fc4951",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35479",
+      "title": "CVE-2026-35479 — CVSS 6.6",
+      "summary": "InvenTree is an Open Source Inventory Management System. Prior to 1.2.7 and 1.3.0, any users who have staff access permissions can install plugins via the API, without requiring \"superuser\" account access. This level of permission requirement is out of alignment with other plugin actions (such as uninstalling) which do require superuser access. The vulnerability allows staff users (who may be cons",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-08T20:16:24.770",
+      "cve_ids": [
+        "CVE-2026-35479"
+      ],
+      "cvss": 6.6,
+      "related_links": []
+    },
+    {
+      "id": "a484345a98a7739b362381b31451f5aa63282e62571433afdd54584a378dbb25",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35478",
+      "title": "CVE-2026-35478 — CVSS 8.3",
+      "summary": "InvenTree is an Open Source Inventory Management System. From 0.16.0 to before 1.2.7, any authenticated InvenTree user can create a valid API token attributed to any other user in the system — including administrators and superusers — by supplying the target's user ID in the user field of a POST /api/user/tokens/ request. The returned token is immediately usable for full API authentication as the ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-08T20:16:24.630",
+      "cve_ids": [
+        "CVE-2026-35478"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "4fda4e0d6ef50216bffd7bcf2e35be962daf03cfaf7ebee91ddd773d495dd906",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35477",
+      "title": "CVE-2026-35477 — CVSS 5.5",
+      "summary": "InvenTree is an Open Source Inventory Management System. From 1.2.3 to 1.2.6, the fix for CVE-2026-27629 upgraded the PART_NAME_FORMAT validator to use jinja2.sandbox.SandboxedEnvironment. However, the actual renderer in part/helpers.py was not updated and still uses the non-sandboxed jinja2.Environment. Additionally, the validator uses a dummy Part instance with pk=None, which allows conditional ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-08T20:16:24.487",
+      "cve_ids": [
+        "CVE-2026-35477"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "a0bee302f08e5e9a6039ceb5882a8266ddbcd779c37266e5aa0f17d1f564dd31",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35476",
+      "title": "CVE-2026-35476 — CVSS 7.2",
+      "summary": "InvenTree is an Open Source Inventory Management System. Prior to 1.2.7 and 1.3.0, a non-staff authenticated user can elevate their account to a staff level via a POST request against their user account endpoint. The write permissions on the API endpoint are improperly configured, allowing any user to change their staff status. This vulnerability is fixed in 1.2.7 and 1.3.0.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-08T20:16:24.323",
+      "cve_ids": [
+        "CVE-2026-35476"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
       "id": "47e430e1bdfbeaa1dfacf342662137143fd014954da7ff333c47b66cba9efafe",
       "url": "https://github.com/advisories/GHSA-chqc-8p9q-pq6q",
       "title": "GHSA: basic-ftp has FTP Command Injection via CRLF",
@@ -1129,228 +1353,6 @@
         "CVE-2026-39959"
       ],
       "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "ee16d48822ea77365d83c8acd70737093a1664bd1455d3f2fc10e7283c93e94d",
-      "url": "https://ubuntu.com/security/notices/USN-8158-1",
-      "title": "USN-8158-1: Dogtag PKI vulnerability",
-      "summary": "Fraser Tweedale and Geetika Kapoor discovered that Dogtag PKI could renew a certificate without proper authentication. An attacker could possibly use this to repeatedly renew a compromised certificate and maintain unauthorized access to a system or resource.",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-04-08T19:25:33+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c5e7fc9b240efc61ef29e0b92e48843bd65b21810d989ec30e30373652fd1017",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34837",
-      "title": "CVE-2026-34837",
-      "summary": "Zammad is a web based open source helpdesk/customer support system. Prior to 7.0.1, he REST endpoint POST /api/v1/ai_assistance/text_tools/:id contains an authorization failure. Context data (e.g., a group or organization) supplied to be used in the AI prompt were not checked if they are accessible for the current user. This leads to having data present in the AI prompt that were not authorized be",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-08T19:25:23.007",
-      "cve_ids": [
-        "CVE-2026-34837"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3f3bdf2306088559db3b3d3d4060759c56cfadad99caeb5ef1d59587ac482986",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34782",
-      "title": "CVE-2026-34782",
-      "summary": "Zammad is a web based open source helpdesk/customer support system. Prior to 7.0.1 and 6.5.4, the REST endpoint POST /api/v1/ai_assistance/text_tools/:id was not checking if a user is privileged to use the text tool, resulting in being able to use it in all situations. This vulnerability is fixed in 7.0.1 and 6.5.4.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-08T19:25:22.867",
-      "cve_ids": [
-        "CVE-2026-34782"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4b1b4a4d241c2cfe8220e25b86f564368d47d9a3019cbf3e333b8bc113aec0dd",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34724",
-      "title": "CVE-2026-34724",
-      "summary": "Zammad is a web based open source helpdesk/customer support system. Prior to 7.0.1, a server-side template injection vulnerability  which leads to RCE via AI Agent exists. Impact is limited to environments where an attacker can control or influence type_enrichment_data (typically high-privilege administrative configuration). This vulnerability is fixed in 7.0.1.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-08T19:25:22.723",
-      "cve_ids": [
-        "CVE-2026-34724"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a239418f700dbb79f7f4c1f486b55951425149da85776960d5d18af222638f38",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34723",
-      "title": "CVE-2026-34723 — CVSS 7.5",
-      "summary": "Zammad is a web based open source helpdesk/customer support system. Prior to 7.0.1 and 6.5.4, unauthenticated remote attackers were able to access the getting started endpoint to get access to sensitive internal entity data, even after the system setup was completed. This vulnerability is fixed in 7.0.1 and 6.5.4.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-08T19:25:22.580",
-      "cve_ids": [
-        "CVE-2026-34723"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "75f6887c2adb5df6eb76ec484a6c9fa6956f55bb618114f9b581f80bd9f4940c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34722",
-      "title": "CVE-2026-34722",
-      "summary": "Zammad is a web based open source helpdesk/customer support system. Prior to 7.0.1 and 6.5.4, the used endpoint for ticket creation was missing authorization if the related parameter for adding links is used. This vulnerability is fixed in 7.0.1 and 6.5.4.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-08T19:25:22.440",
-      "cve_ids": [
-        "CVE-2026-34722"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b168e090d3c4408b4e7f2b83e34d8e20cc8e5d44cf0f3f9eb92ef3faee28db7b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34721",
-      "title": "CVE-2026-34721",
-      "summary": "Zammad is a web based open source helpdesk/customer support system. Prior to 7.0.1 and 6.5.4, the OAuth callback endpoints for Microsoft, Google, and Facebook external credentials do not validate a CSRF state parameter. This vulnerability is fixed in 7.0.1 and 6.5.4.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-08T19:25:22.290",
-      "cve_ids": [
-        "CVE-2026-34721"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "cddc904b22b4b404e81c0917f78a79c7929683ba1bb01d4b0212a67bfdccc9d2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34720",
-      "title": "CVE-2026-34720",
-      "summary": "Zammad is a web based open source helpdesk/customer support system. Prior to 7.0.1 and 6.5.4, the SSO mechanism in Zammad was not verifying the header originates from a trusted SSO proxy/gateway before applying further actions on it. This vulnerability is fixed in 7.0.1 and 6.5.4.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-08T19:25:22.150",
-      "cve_ids": [
-        "CVE-2026-34720"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ce94aa10b244e14269047ed276af48872c81591d24b16581312aa717c22a2646",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34719",
-      "title": "CVE-2026-34719 — CVSS 4.3",
-      "summary": "Zammad is a web based open source helpdesk/customer support system. Prior to 7.0.1 and 6.5.4, the webhook model was missing a proper validation for loop back addresses, or link-local addresses — only the URL scheme (HTTP/HTTPS) as well as the hostname was checked. This could end up in retrieving confidential metadata of cloud/hosting providers. The existing check is now extended and is applied whe",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-08T19:25:22.003",
-      "cve_ids": [
-        "CVE-2026-34719"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "7d383d00eb49a45ad361af8348296f589d176f03cfc18724883b4e495c495196",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34718",
-      "title": "CVE-2026-34718",
-      "summary": "Zammad is a web based open source helpdesk/customer support system. Prior to 7.0.1 and 6.5.4, the HTML sanitizer for ticket articles was missing proper sanitization of data: ... URI schemes, resulting in storing such malicious content in the database of the Zammad instance. The Zammad GUI is rendering this content, due to applied CSP rules no harm was done by e.g., clicking such a link. This vulne",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-08T19:25:21.863",
-      "cve_ids": [
-        "CVE-2026-34718"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d3b953991449807b36c217eea76b0f512fbed544304cf31826a26751a7d7558e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34392",
-      "title": "CVE-2026-34392 — CVSS 7.5",
-      "summary": "LORIS (Longitudinal Online Research and Imaging System) is a self-hosted web application that provides data- and project-management for neuroimaging research. From 20.0.0 to before 27.0.3 and 28.0.1, a bug in the static file router can allow an attacker to traverse outside of the intended directory, allowing unintended files to be downloaded through the static, css, and js endpoints. This vulnerab",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-08T19:25:21.723",
-      "cve_ids": [
-        "CVE-2026-34392"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "1400fe45d8ae935683b9f884a0285b2ed6fd3651e9f17efe162e870f853ec917",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34248",
-      "title": "CVE-2026-34248",
-      "summary": "Zammad is a web based open source helpdesk/customer support system. Prior to 7.0.1, customers in shared organizations (means they can see each other's tickets) could see fields which are not intended for customers - including fields not intended for them at all (e.g. priority, custom ticket attributes for internal purposes). This was the case when a customer opened a ticket from another user of th",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-08T19:25:21.567",
-      "cve_ids": [
-        "CVE-2026-34248"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "9f6847370c813b79173f528059f3675fa17606ace90340b5581ebd8a0a1cd3ac",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-33350",
-      "title": "CVE-2026-33350 — CVSS 7.5",
-      "summary": "LORIS (Longitudinal Online Research and Imaging System) is a self-hosted web application that provides data- and project-management for neuroimaging research. Prior to 27.0.3 and 28.0.1, a SQL injection has been identified in some code sections for the MRI feedback popup window of the imaging browser. Attackers can use SQL ingestion to access/alter data on the server. This vulnerability is fixed i",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-04-08T19:25:21.163",
-      "cve_ids": [
-        "CVE-2026-33350"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "444ef072d2c87def69c2013b06ba34716e61ffddaf99ff0d8da2d73ed2f60661",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-30818",
-      "title": "CVE-2026-30818 — CVSS 8.0",
-      "summary": "An OS command injection vulnerability in the dnsmasq module of TP-Link Archer AX53 v1.0 allows an authenticated adjacent attacker to execute arbitrary code when a specially crafted configuration file is processed due to insufficient input validation. Successful exploitation may allow the attacker to modify device configuration, access sensitive information, or further compromise system integrity.\n",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-08T19:25:20.770",
-      "cve_ids": [
-        "CVE-2026-30818"
-      ],
-      "cvss": 8.0,
-      "related_links": []
-    },
-    {
-      "id": "265d7dac10c6f80593a281eb79536693d2b14e9e3d479ca361fc8acf04c1a8c5",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-30815",
-      "title": "CVE-2026-30815 — CVSS 8.0",
-      "summary": "An OS command injection vulnerability in the OpenVPN module\nof TP-Link Archer AX53 v1.0 allows an authenticated adjacent attacker to execute system commands when a specially crafted configuration file is processed due to insufficient input validation. Successful exploitation may allow modification of configuration files, disclosure of sensitive information, or further compromise of device integrit",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-08T19:25:20.320",
-      "cve_ids": [
-        "CVE-2026-30815"
-      ],
-      "cvss": 8.0,
-      "related_links": []
-    },
-    {
-      "id": "75836c0f9629d02ca83e4a955cf76f9ad15b928a3af816c95584da23ad45a179",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-30814",
-      "title": "CVE-2026-30814 — CVSS 8.0",
-      "summary": "A stack-based buffer overflow in the tmpServer module of TP-Link Archer AX53 v1.0 allows an authenticated adjacent attacker to trigger a segmentation fault and potentially execute arbitrary code via a specially crafted configuration file. Successful exploitation may cause a crash and could allow arbitrary code execution, enabling modification of device state, exposure of sensitive data, or further",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-08T19:25:20.140",
-      "cve_ids": [
-        "CVE-2026-30814"
-      ],
-      "cvss": 8.0,
       "related_links": []
     }
   ]
