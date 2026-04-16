@@ -1,10 +1,317 @@
 {
-  "updated": "2026-04-16T17:15:35.627790+00:00",
+  "updated": "2026-04-16T20:50:16.796183+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "0eb4f94bcbea7d4ef6837b1b9290c629dc19cc2b87aa87a1fc2c7005baa17aa3",
+      "url": "https://github.com/advisories/GHSA-f2h6-7xfr-xm8w",
+      "title": "GHSA: PraisonAI Vulnerable to Decompression Bomb DoS via Recipe Bundle Extraction Without Size Limits",
+      "summary": "## Summary\n\nThe `_safe_extractall()` function in PraisonAI's recipe registry validates archive members against path traversal attacks but performs no checks on individual member sizes, cumulative extracted size, or member count before calling `tar.extractall()`. An attacker can publish a malicious recipe bundle containing highly compressible data (e.g., 10GB of zeros compressing to ~10MB) that exh",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T19:26:21Z",
+      "cve_ids": [
+        "CVE-2026-40148"
+      ],
+      "cvss": 6.5,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40148"
+      ]
+    },
+    {
+      "id": "e64bcbb5d0c12235c6be008265112549ec82b0e09540a6c1d2f95991bcba5e68",
+      "url": "https://github.com/advisories/GHSA-pv9q-275h-rh7x",
+      "title": "GHSA: PraisonAI Vulnerable Untrusted Remote Template Code Execution",
+      "summary": "PraisonAI treats remotely fetched template files as trusted executable code without integrity verification, origin validation, or user confirmation, enabling supply chain attacks through malicious templates.\n\n---\n\n## Description\n\nWhen a user installs a template from a remote source (e.g., GitHub), PraisonAI downloads Python files (including `tools.py`) to a local cache without:\n\n1. Code signing ve",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T19:26:05Z",
+      "cve_ids": [
+        "CVE-2026-40154"
+      ],
+      "cvss": 9.3,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40154"
+      ]
+    },
+    {
+      "id": "60ede8b92e032c308fdfc4815edbc4801d389177989a20cda77f413ad15d35b6",
+      "url": "https://github.com/advisories/GHSA-qwgj-rrpj-75xm",
+      "title": "GHSA: PraisonAI: Hardcoded `approval_mode=\"auto\"` in Chainlit UI Overrides Administrator Configuration, Enabling Unapproved Shell Command Execution",
+      "summary": "## Summary\n\nThe Chainlit UI modules (`chat.py` and `code.py`) hardcode `config.approval_mode = \"auto\"` after loading administrator configuration from the `PRAISON_APPROVAL_MODE` environment variable, silently overriding any \"manual\" or \"scoped\" approval setting. This defeats the human-in-the-loop approval gate for all ACP tool executions, including shell command execution via `subprocess.run(..., ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T19:25:49Z",
+      "cve_ids": [],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "b73fff57d75225a691e1176612ac258cd28981e0e81753ddfd0cf67e8fd0cc7f",
+      "url": "https://github.com/advisories/GHSA-3c4r-6p77-xwr7",
+      "title": "GHSA: PraisonAI Vulnerable to Code Injection and Protection Mechanism Failure",
+      "summary": "PraisonAI's AST-based Python sandbox can be bypassed using `type.__getattribute__` trampoline, allowing arbitrary code execution when running untrusted agent code.\n\n## Description\n\nThe `_execute_code_direct` function in `praisonaiagents/tools/python_tools.py` uses AST filtering to block dangerous Python attributes like `__subclasses__`, `__globals__`, and `__bases__`. However, the filter only chec",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T19:25:39Z",
+      "cve_ids": [
+        "CVE-2026-40158"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "ef50cd5528f31f5836326425c6ca10f9eee465f1a77c6264cb578c46b15e000f",
+      "url": "https://github.com/advisories/GHSA-7j2f-xc8p-fjmq",
+      "title": "GHSA: PraisonAIAgents: Path Traversal via Unvalidated Glob Pattern in list_files Bypasses Workspace Boundary",
+      "summary": "## Summary\n\nThe `list_files()` tool in `FileTools` validates the `directory` parameter against workspace boundaries via `_validate_path()`, but passes the `pattern` parameter directly to `Path.glob()` without any validation. Since Python's `Path.glob()` supports `..` path segments, an attacker can use relative path traversal in the glob pattern to enumerate arbitrary files outside the workspace, o",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T19:24:32Z",
+      "cve_ids": [
+        "CVE-2026-40152"
+      ],
+      "cvss": 5.3,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40152"
+      ]
+    },
+    {
+      "id": "44b6a3e56fde1bb0188d0bc811443614557e9b88e683a0d7df8870492f6b021f",
+      "url": "https://github.com/advisories/GHSA-v8g7-9q6v-p3x8",
+      "title": "GHSA: PraisonAIAgents: Environment Variable Secret Exfiltration via os.path.expandvars() Bypassing shell=False in Shell Tool",
+      "summary": "## Summary\n\nThe `execute_command` function in `shell_tools.py` calls `os.path.expandvars()` on every command argument at line 64, manually re-implementing shell-level environment variable expansion despite using `shell=False` (line 88) for security. This allows exfiltration of secrets stored in environment variables (database credentials, API keys, cloud access keys). The approval system displays ",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-04-10T19:24:27Z",
+      "cve_ids": [
+        "CVE-2026-40153"
+      ],
+      "cvss": 7.4,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40153"
+      ]
+    },
+    {
+      "id": "16c5efde1c388b8647a8c574e9fa3ebd8fe5d22693f3b848b4e743e86aa5acfc",
+      "url": "https://github.com/advisories/GHSA-pm96-6xpr-978x",
+      "title": "GHSA: PraisonAI: Unauthenticated Information Disclosure of Agent Instructions via /api/agents in AgentOS",
+      "summary": "## Summary\n\nThe AgentOS deployment platform exposes a `GET /api/agents` endpoint that returns agent names, roles, and the first 100 characters of agent system instructions to any unauthenticated caller. The AgentOS FastAPI application has no authentication middleware, no API key validation, and defaults to CORS `allow_origins=[\"*\"]` with `host=\"0.0.0.0\"`, making every deployment network-accessible",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T19:24:22Z",
+      "cve_ids": [
+        "CVE-2026-40151"
+      ],
+      "cvss": 5.3,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40151"
+      ]
+    },
+    {
+      "id": "a32c1382062a21800659ca32d3838aa5378b0b377e7b9d0fed851c401952a831",
+      "url": "https://github.com/advisories/GHSA-4wr3-f4p3-5wjh",
+      "title": "GHSA: PraisonAI: Unauthenticated Allow-List Manipulation Bypasses Agent Tool Approval Safety Controls",
+      "summary": "## Summary\n\nThe gateway's `/api/approval/allow-list` endpoint permits unauthenticated modification of the tool approval allowlist when no `auth_token` is configured (the default). By adding dangerous tool names (e.g., `shell_exec`, `file_write`) to the allowlist, an attacker can cause the `ExecApprovalManager` to auto-approve all future agent invocations of those tools, bypassing the human-in-the-",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T19:24:11Z",
+      "cve_ids": [
+        "CVE-2026-40149"
+      ],
+      "cvss": 7.9,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40149"
+      ]
+    },
+    {
+      "id": "662c044dc13d1db3fa48579b2eaea2a79e9b30ae1a77f117525c6a31a933cb04",
+      "url": "https://github.com/advisories/GHSA-8f4v-xfm9-3244",
+      "title": "GHSA: PraisonAIAgents has SSRF and Local File Read via Unvalidated URLs in web_crawl Tool",
+      "summary": "## Summary\n\nThe `web_crawl()` function in `praisonaiagents/tools/web_crawl_tools.py` accepts arbitrary URLs from AI agents with zero validation. No scheme allowlisting, hostname/IP blocklisting, or private network checks are applied before fetching. This allows an attacker (or prompt injection in crawled content) to force the agent to fetch cloud metadata endpoints, internal services, or local fil",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T19:23:57Z",
+      "cve_ids": [
+        "CVE-2026-40150"
+      ],
+      "cvss": 7.7,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40150"
+      ]
+    },
+    {
+      "id": "871835bf18b628d562142c3195aa3a38206eadae224319ac152e18e685d0922f",
+      "url": "https://github.com/advisories/GHSA-grrg-5cg9-58pf",
+      "title": "GHSA: PraisonAIAgents: Arbitrary File Read via read_skill_file Missing Workspace Boundary and Approval Gate",
+      "summary": "## Summary\n\n`read_skill_file()` in `skill_tools.py` allows reading arbitrary files from the filesystem by accepting an unrestricted `skill_path` parameter. Unlike `file_tools.read_file` which enforces workspace boundary confinement, and unlike `run_skill_script` which requires critical-level approval, `read_skill_file` has neither protection. An agent influenced by prompt injection can exfiltrate ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T19:23:21Z",
+      "cve_ids": [
+        "CVE-2026-40117"
+      ],
+      "cvss": 6.2,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40117"
+      ]
+    },
+    {
+      "id": "5f3aa594e84c6dc47f5cbd0c7a6caabde9679b51869320617dbb2a3db88e56d1",
+      "url": "https://github.com/advisories/GHSA-2xgv-5cv2-47vv",
+      "title": "GHSA: PraisonAI has Unrestricted Upload Size in WSGI Recipe Registry Server that Enables Memory Exhaustion DoS",
+      "summary": "## Summary\n\nThe WSGI-based recipe registry server (`server.py`) reads the entire HTTP request body into memory based on the client-supplied `Content-Length` header with no upper bound. Combined with authentication being disabled by default (no token configured), any local process can send arbitrarily large POST requests to exhaust server memory and cause a denial of service. The Starlette-based se",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T19:23:13Z",
+      "cve_ids": [
+        "CVE-2026-40115"
+      ],
+      "cvss": 6.2,
+      "related_links": []
+    },
+    {
+      "id": "03ac3f8ed682e84af653c108b15f046c6b777ecaa35b05ab1199b6b4cac7301f",
+      "url": "https://github.com/advisories/GHSA-q5r4-47m9-5mc7",
+      "title": "GHSA: PraisonAI: Unauthenticated WebSocket Endpoint Proxies to Paid OpenAI Realtime API Without Rate Limits",
+      "summary": "## Summary\n\nThe `/media-stream` WebSocket endpoint in PraisonAI's call module accepts connections from any client without authentication or Twilio signature validation. Each connection opens an authenticated session to OpenAI's Realtime API using the server's API key. There are no limits on concurrent connections, message rate, or message size, allowing an unauthenticated attacker to exhaust serve",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T19:22:52Z",
+      "cve_ids": [
+        "CVE-2026-40116"
+      ],
+      "cvss": 7.5,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40116"
+      ]
+    },
+    {
+      "id": "cbf159a5a019f0cf00da224eb4a1fa7aa094ed68ad579641820e22454c3d791b",
+      "url": "https://www.rapid7.com/blog/post/pt-metasploit-wrap-up-04-10-2026",
+      "title": "Metasploit Wrap-Up 04/10/2026",
+      "summary": "Speedup Improvements of MSFVenom & New ModulesThis week, we have added new modules to Metasploit Framework targeting Cisco Catalyst SD-WAN controllers and osTicket as well as updates and improvements to Windows service-for-user persistence, and LDAP/ADCS-related modules to automatically report related services resulting in an improved data stream, which can be queried by using the services command",
+      "source": "Rapid7",
+      "category": "emergency",
+      "date": "2026-04-10T19:11:43+00:00",
+      "cve_ids": [
+        "CVE-2026-20127",
+        "CVE-2026-22200"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "bdb849dd443bb5359593fe0e8a49b1f7af20d65f9a0e7c7a67bea5474cb7058b",
+      "url": "https://www.bleepingcomputer.com/news/security/nearly-4-000-us-industrial-devices-exposed-to-iranian-cyberattacks/",
+      "title": "Nearly 4,000 US industrial devices exposed to Iranian cyberattacks",
+      "summary": "The attack surface targeted by Iranian-linked hackers in cyberattacks against U.S. critical infrastructure networks includes thousands of Internet-exposed programmable logic controllers (PLCs) manufactured by Rockwell Automation. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-04-10T15:52:45+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "ee014f5217524d78ce3bad52f1a801e21d2a4dfdc29800f3775a0d6397164558",
+      "url": "https://github.com/advisories/GHSA-v479-vf79-mg83",
+      "title": "GHSA: Vikunja: Scoped API tokens with projects.background permission can delete project backgrounds",
+      "summary": "### Summary\n\nVikunja's scoped API token enforcement for custom project background routes is method-confused. A token with only `projects.background` can successfully delete a project background, while a token with only `projects.background_delete` is rejected.\n\nThis is a scoped-token authorization bypass.\n\n### Details\n\nI verified this locally on commit `c5450fb55f5192508638cbb3a6956438452a712e`.\n\n",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T15:36:47Z",
+      "cve_ids": [
+        "CVE-2026-40103"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "451b264d0d4a906104bd0ff6aa12e5377022b3427199c7c010dc6a4077009bff",
+      "url": "https://github.com/advisories/GHSA-v457-wxvj-p9w9",
+      "title": "GHSA: @vitejs/plugin-rsc has a Denial of Service with React Server Components",
+      "summary": "### Impact\n\n`@vitejs/plugin-rsc` vendors `react-server-dom-webpack`, which contained a vulnerability in versions prior to 19.2.4. See details in React repository's advisory https://github.com/facebook/react/security/advisories/GHSA-479c-33wc-g2pg\n\n### Patches\n\nUpgrade immediately to `@vitejs/plugin-rsc@0.5.23` or later.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T15:36:00Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "9d58fb0b2501886d89273ea30c7af62bee36d25866ab1b40e1e8143217f735e8",
+      "url": "https://github.com/advisories/GHSA-q4gf-8mx6-v5v3",
+      "title": "GHSA: Next.js has a Denial of Service with Server Components",
+      "summary": "A vulnerability affects certain React Server Components packages for versions 19.x and frameworks that use the affected packages, including Next.js 13.x, 14.x, 15.x, and 16.x using the App Router. The issue is tracked upstream as [CVE-2026-23869](https://github.com/facebook/react/security/advisories/GHSA-479c-33wc-g2pg). You can read more about this advisory our [this changelog](https://vercel.com",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T15:35:47Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "43ef122960af5e296b667d6ee8a9cece2fcf5fa8850f838497065bfb5d60d181",
+      "url": "https://github.com/advisories/GHSA-479c-33wc-g2pg",
+      "title": "GHSA: React Server Components have a Denial of Service Vulnerability",
+      "summary": "## Impact\n\nA denial of service vulnerability exists in React Server Components, affecting the following packages: react-server-dom-parcel, react-server-dom-turbopack, react-server-dom-webpack versions 19.0.0, 19.1.0 and 19.2.0. The vulnerability is triggered by sending specially crafted HTTP requests to Server Function endpoints.\n\nThe payload of the HTTP request causes excessive CPU usage for up t",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T15:35:37Z",
+      "cve_ids": [
+        "CVE-2026-23869"
+      ],
+      "cvss": 7.5,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-23869"
+      ]
+    },
+    {
+      "id": "df71b0f816be0cc295bfa60cc85505a9156c2477a5d48a2f4181e489a64b0bcc",
+      "url": "https://github.com/advisories/GHSA-qh78-rvg3-cv54",
+      "title": "GHSA: Vikunja has File Size Limit Bypass via Vikunja Import",
+      "summary": "## Summary\n\nThe Vikunja file import endpoint uses the attacker-controlled `Size` field from the JSON metadata inside the import zip instead of the actual decompressed file content length for the file size enforcement check. By setting `Size` to 0 in the JSON while including large compressed file entries in the zip, an attacker bypasses the configured maximum file size limit.\n\n## Details\n\nDuring im",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T15:35:18Z",
+      "cve_ids": [
+        "CVE-2026-35602"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "e14da98f330c122196b52eac5347d25ad2f4b8c533f9c8a81f994efcd4d74743",
+      "url": "https://github.com/advisories/GHSA-2g7h-7rqr-9p4r",
+      "title": "GHSA: Vikunja has iCalendar Property Injection via CRLF in CalDAV Task Output",
+      "summary": "## Summary\n\nThe CalDAV output generator builds iCalendar VTODO entries via raw string concatenation without applying RFC 5545 TEXT value escaping. User-controlled task titles containing CRLF characters break the iCalendar property boundary, allowing injection of arbitrary iCalendar properties such as `ATTACH`, `VALARM`, or `ORGANIZER`.\n\n## Details\n\nThe `ParseTodos` function at `pkg/caldav/caldav.g",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T15:35:05Z",
+      "cve_ids": [
+        "CVE-2026-35601"
+      ],
+      "cvss": 4.1,
+      "related_links": []
+    },
+    {
+      "id": "e8ac8fa940145895cff336664e118fe3963de5a5bb66b419d85cba3fddcb2a05",
+      "url": "https://github.com/advisories/GHSA-45q4-x4r9-8fqj",
+      "title": "GHSA: Vikunja has HTML Injection via Task Titles in Overdue Email Notifications",
+      "summary": "## Summary\n\nTask titles are embedded directly into Markdown link syntax in overdue email notifications without escaping Markdown special characters. When rendered by goldmark and sanitized by bluemonday (which allows `<a>` and `<img>` tags), injected Markdown constructs produce phishing links and tracking pixels in legitimate notification emails.\n\n## Details\n\nThe overdue task notification at `pkg/",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T15:34:53Z",
+      "cve_ids": [
+        "CVE-2026-35600"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
     {
       "id": "22dff3c8db04058d3a497c3f6535b5f38a00ce94cc8a51fa917f67d2d48bc6bf",
       "url": "https://github.com/advisories/GHSA-r4fg-73rc-hhh7",
@@ -913,571 +1220,274 @@
         "http://www.zerodayinitiative.com/advisories/ZDI-26-289/",
         "https://ubuntu.com/security/notices/USN-8180-1",
         "https://ubuntu.com/security/notices/USN-8179-1",
-        "https://ubuntu.com/security/notices/USN-8177-1"
+        "https://ubuntu.com/security/notices/USN-8177-1",
+        "https://ubuntu.com/security/notices/USN-8148-7"
       ]
     },
     {
-      "id": "31ee9416d6cd09adf8232f8edf70514cfbf2b2d8755814a199b665720713de51",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21915",
-      "title": "CVE-2026-21915 — CVSS 6.7",
-      "summary": "A Permissive List of Allowed Input vulnerability in the CLI of Juniper Networks Support Insights (JSI) Virtual Lightweight Collector (vLWC) allows a local, high privileged attacker to escalate their privileges to root.\n\nThe CLI menu accepts input without carefully validating it, which allows for shell command injection. These shell commands are executed with root permissions and can be used to gai",
+      "id": "e5651a4a476caa041368648e5ce535a659cc11aaf8d3d894fea6fe7101d67201",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5988",
+      "title": "CVE-2026-5988 — CVSS 8.8",
+      "summary": "A vulnerability was detected in Tenda F451 1.0.0.7. This impacts the function formWrlsafeset of the file /goform/AdvSetWrlsafeset. Performing a manipulation of the argument mit_ssid results in stack-based buffer overflow. The attack can be initiated remotely. The exploit is now public and may be used.",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-04-09T22:16:24.747",
+      "date": "2026-04-09T23:17:02.343",
       "cve_ids": [
-        "CVE-2026-21915"
+        "CVE-2026-5988"
       ],
-      "cvss": 6.7,
+      "cvss": 8.8,
       "related_links": []
     },
     {
-      "id": "e9824ee6fa981e13fd55500bb1e1215db30153185f8f1e8c5979ff552ff39175",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21904",
-      "title": "CVE-2026-21904 — CVSS 6.1",
-      "summary": "An Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') vulnerability in Juniper Networks Junos Space allows an attacker to inject script tags in the \n\nlist filter field that, when visited by another user, enables the attacker to execute commands with the target's permissions, including an administrator.\n\nThis issue affects all versions of Junos Space before 24.1R5 ",
+      "id": "3d09c8f34d22c29c6d45a332a5bc2da74d7049d501da7ed3c43b4b5fc3e0c932",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5985",
+      "title": "CVE-2026-5985 — CVSS 7.3",
+      "summary": "A security flaw has been discovered in code-projects Simple IT Discussion Forum 1.0. The affected element is an unknown function of the file /crud.php. The manipulation of the argument user_Id results in sql injection. The attack may be performed from remote. The exploit has been released to the public and may be used for attacks.",
       "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-09T22:16:24.557",
+      "category": "web_app",
+      "date": "2026-04-09T23:17:01.710",
       "cve_ids": [
-        "CVE-2026-21904"
+        "CVE-2026-5985"
       ],
-      "cvss": 6.1,
+      "cvss": 7.3,
       "related_links": []
     },
     {
-      "id": "ba2f22fe66ff0a7f183f9cd3485e5615669cd58551a91a39006eebfac688867f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-59969",
-      "title": "CVE-2025-59969 — CVSS 6.5",
-      "summary": "A Buffer Copy without Checking Size of Input ('Classic Buffer Overflow') vulnerability in the advanced forwarding toolkit (evo-aftmand/evo-pfemand) of Juniper Networks Junos OS Evolved on PTX Series or QFX5000 Series allows an unauthenticated, adjacent attacker to cause a Denial of Service (DoS).An attacker sending crafted multicast packets will cause line cards running evo-aftmand/evo-pfemand to ",
+      "id": "6a2edcccb5d8fe405c696f24c090f7682cf0f3c605db67de455d169e999d1602",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5504",
+      "title": "CVE-2026-5504",
+      "summary": "A padding oracle exists in wolfSSL's PKCS7 CBC decryption that could allow an attacker to recover plaintext through repeated decryption queries with modified ciphertext. In previous versions of wolfSSL the interior padding bytes are not validated.",
+      "source": "NVD/NIST",
+      "category": "cloud",
+      "date": "2026-04-09T23:17:01.400",
+      "cve_ids": [
+        "CVE-2026-5504"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "1efb05855de9f6c649f886b502a5b9ab22b8358eb2827a7ac3889d7b5e82c938",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5295",
+      "title": "CVE-2026-5295",
+      "summary": "A stack buffer overflow exists in wolfSSL's PKCS7 implementation in the wc_PKCS7_DecryptOri() function in wolfcrypt/src/pkcs7.c. When processing a CMS EnvelopedData message containing an OtherRecipientInfo (ORI) recipient, the function copies an ASN.1-parsed OID into a fixed 32-byte stack buffer (oriOID[MAX_OID_SZ]) via XMEMCPY without first validating that the parsed OID length does not exceed MA",
+      "source": "NVD/NIST",
+      "category": "cloud",
+      "date": "2026-04-09T23:17:01.093",
+      "cve_ids": [
+        "CVE-2026-5295"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "6e983a66c09ec39d493bb6105be729a9cd0fdfa62f63f1cea91f8c3b2406068d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34424",
+      "title": "CVE-2026-34424 — CVSS 9.8",
+      "summary": "Smart Slider 3 Pro version 3.5.1.35 for WordPress and Joomla contains a multi-stage remote access toolkit injected through a compromised update system that allows unauthenticated attackers to execute arbitrary code and commands. Attackers can trigger pre-authentication remote shell execution via HTTP headers, establish authenticated backdoors accepting arbitrary PHP code or OS commands, create hid",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-04-09T22:16:24.100",
+      "date": "2026-04-09T23:17:00.540",
       "cve_ids": [
-        "CVE-2025-59969"
+        "CVE-2026-34424"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "b8a5930eaa01dc74ef2ed7bbb3542de65a48bb9481e74820d1600c63a99f2e14",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5984",
+      "title": "CVE-2026-5984 — CVSS 8.8",
+      "summary": "A vulnerability was identified in D-Link DIR-605L 2.13B01. Impacted is the function formSetLog of the file /goform/formSetLog of the component POST Request Handler. The manipulation of the argument curTime leads to buffer overflow. The attack is possible to be carried out remotely. The exploit is publicly available and might be used. This vulnerability only affects products that are no longer supp",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-09T22:16:37.873",
+      "cve_ids": [
+        "CVE-2026-5984"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "915db1ed8332650a409e97a3e3f3734ea1b90258f27c366ae927ced88430ab9c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5983",
+      "title": "CVE-2026-5983 — CVSS 8.8",
+      "summary": "A vulnerability was determined in D-Link DIR-605L 2.13B01. This issue affects the function formSetDDNS of the file /goform/formSetDDNS of the component POST Request Handler. Executing a manipulation of the argument curTime can lead to buffer overflow. The attack can be executed remotely. The exploit has been publicly disclosed and may be utilized. This vulnerability only affects products that are ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-09T22:16:37.663",
+      "cve_ids": [
+        "CVE-2026-5983"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "5792e464ec11ce293edcb1162c19f3abee5c10a68ddb425889eab8613680693c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5982",
+      "title": "CVE-2026-5982 — CVSS 8.8",
+      "summary": "A vulnerability was found in D-Link DIR-605L 2.13B01. This vulnerability affects the function formAdvNetwork of the file /goform/formAdvNetwork of the component POST Request Handler. Performing a manipulation of the argument curTime results in buffer overflow. Remote exploitation of the attack is possible. The exploit has been made public and could be used. This vulnerability only affects products",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-09T22:16:37.467",
+      "cve_ids": [
+        "CVE-2026-5982"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "cf621316ff86244b9d7cdcac5af5910844abe6cf2935611ba2f90b09bb7d9b73",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5981",
+      "title": "CVE-2026-5981 — CVSS 8.8",
+      "summary": "A vulnerability has been found in D-Link DIR-605L 2.13B01. This affects the function formAdvFirewall of the file /goform/formAdvFirewall of the component POST Request Handler. Such manipulation of the argument curTime leads to buffer overflow. The attack may be launched remotely. The exploit has been disclosed to the public and may be used. This vulnerability only affects products that are no long",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-09T22:16:37.233",
+      "cve_ids": [
+        "CVE-2026-5981"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "052fcac3c9b4ac6e8666c67f4a07478cd8d65ea4e03a8cdcf301f827b3808d60",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5778",
+      "title": "CVE-2026-5778",
+      "summary": "Integer underflow in wolfSSL packet sniffer <= 5.9.0 allows an attacker to cause a program crash in the AEAD decryption path by injecting a TLS record shorter than the explicit IV plus authentication tag into traffic inspected by ssl_DecodePacket. The underflow wraps a 16-bit length to a large value that is passed to AEAD decryption routines, causing a large out-of-bounds read and crash. An unauth",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-09T22:16:37.097",
+      "cve_ids": [
+        "CVE-2026-5778"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "6a22e933f82bc0d0747c183a6b331aedbc8bd6e123d84db94a08ea1e09edcf50",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5263",
+      "title": "CVE-2026-5263",
+      "summary": "URI nameConstraints from constrained intermediate CAs are parsed but not enforced during certificate chain verification in wolfcrypt/src/asn.c. A compromised or malicious sub-CA could issue leaf certificates with URI SAN entries that violate the nameConstraints of the issuing CA, and wolfSSL would accept them as valid.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-09T22:16:36.647",
+      "cve_ids": [
+        "CVE-2026-5263"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "9cfbaa2350838184c9df52f14c52045085ead734267b106abf072c0c564ecbb2",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40113",
+      "title": "CVE-2026-40113 — CVSS 8.4",
+      "summary": "PraisonAI is a multi-agent teams system. Prior to 4.5.128, deploy.py constructs a single comma-delimited string for the gcloud run\ndeploy --set-env-vars argument by directly interpolating openai_model, openai_key, and openai_base without validating that these values do not contain commas. gcloud uses a comma as the key-value pair separator for --set-env-vars. A comma in any of the three values cau",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-09T22:16:34.853",
+      "cve_ids": [
+        "CVE-2026-40113"
+      ],
+      "cvss": 8.4,
+      "related_links": []
+    },
+    {
+      "id": "dfe41e7eff8cbd508c9ea211b9b266fec183299174041782769c63a585cc7813",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40112",
+      "title": "CVE-2026-40112 — CVSS 5.4",
+      "summary": "PraisonAI is a multi-agent teams system. Prior to 4.5.128, the Flask API endpoint in src/praisonai/api.py renders agent output as HTML without effective sanitization. The _sanitize_html function relies on the nh3 library, which is not listed as a required or optional dependency in pyproject.toml. When nh3 is absent (the default installation), the sanitizer is a no-op that returns HTML unchanged. A",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-04-09T22:16:34.707",
+      "cve_ids": [
+        "CVE-2026-40112"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "71e3f789534afc2bed6d6c51531de6f8c7091a8b183ae52f3bdb8b3f46ecd850",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-39848",
+      "title": "CVE-2026-39848 — CVSS 6.5",
+      "summary": "Dockyard is a Docker container management app. Prior to 1.1.0, Docker container start and stop operations are performed through GET requests without CSRF protection. A remote attacker can cause a logged-in administrator's browser to request /apps/action.php?action=stop&name=<container> or /apps/action.php?action=start&name=<container>, which starts or stops the target container. This vulnerability",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-04-09T22:16:34.407",
+      "cve_ids": [
+        "CVE-2026-39848"
       ],
       "cvss": 6.5,
       "related_links": []
     },
     {
-      "id": "696f7176e20edc3c114d63c228904e006e5af8ad45319aa5f7173e4f668d9213",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-13914",
-      "title": "CVE-2025-13914 — CVSS 8.7",
-      "summary": "A Key Exchange without Entity Authentication vulnerability in the SSH implementation of Juniper Networks Apstra allows a unauthenticated, MITM \n\nattacker to impersonate managed devices.\n\nDue to insufficient SSH host key validation an attacker can perform a machine-in-the-middle attack on the SSH connections from Apstra to managed devices, enabling an attacker to impersonate a managed device and ca",
+      "id": "7f87bb2870cc65842d8b64177fc265e25eba8c8304c25028fecbd34f32085acd",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35646",
+      "title": "CVE-2026-35646 — CVSS 4.8",
+      "summary": "OpenClaw before 2026.3.25 contains a pre-authentication rate-limit bypass vulnerability in webhook token validation that allows attackers to brute-force weak webhook secrets. The vulnerability exists because invalid webhook tokens are rejected without throttling repeated authentication attempts, enabling attackers to guess weak tokens through rapid successive requests.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-04-09T22:16:22.697",
+      "date": "2026-04-09T22:16:34.223",
       "cve_ids": [
-        "CVE-2025-13914"
+        "CVE-2026-35646"
       ],
-      "cvss": 8.7,
+      "cvss": 4.8,
       "related_links": []
     },
     {
-      "id": "14e2ab807ce47b3a642d81228a145871794d63269cfdbe2092bae2ea638970b1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5980",
-      "title": "CVE-2026-5980 — CVSS 8.8",
-      "summary": "A flaw has been found in D-Link DIR-605L 2.13B01. Affected by this issue is the function formSetMACFilter of the file /goform/formSetMACFilter of the component POST Request Handler. This manipulation of the argument curTime causes buffer overflow. The attack may be initiated remotely. The exploit has been published and may be used. This vulnerability only affects products that are no longer suppor",
+      "id": "935fb1774ddf4ecb0bc981a6d45a70ff615ddcfe3e4d049a38ce3f3cb875d9e7",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35645",
+      "title": "CVE-2026-35645 — CVSS 8.1",
+      "summary": "OpenClaw before 2026.3.25 contains a privilege escalation vulnerability in the gateway plugin subagent fallback deleteSession function that uses a synthetic operator.admin runtime scope. Attackers can exploit this by triggering session deletion without a request-scoped client to execute privileged operations with unintended administrative scope.",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-04-09T21:16:14.223",
+      "date": "2026-04-09T22:16:34.050",
       "cve_ids": [
-        "CVE-2026-5980"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "50176f7163e1b34afba0a1ce0d2fb1a7e858a44b019744cd768c8fb9b61fe62f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5979",
-      "title": "CVE-2026-5979 — CVSS 8.8",
-      "summary": "A vulnerability was detected in D-Link DIR-605L 2.13B01. Affected by this vulnerability is the function formVirtualServ of the file /goform/formVirtualServ of the component POST Request Handler. The manipulation of the argument curTime results in buffer overflow. The attack can be launched remotely. The exploit is now public and may be used. This vulnerability only affects products that are no lon",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-09T21:16:13.967",
-      "cve_ids": [
-        "CVE-2026-5979"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "a92dad383aae70b36115bdfb7082465c44361b0855ac94fbd06a1e8e98f5845e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5978",
-      "title": "CVE-2026-5978 — CVSS 9.8",
-      "summary": "A security vulnerability has been detected in Totolink A7100RU 7.4cu.2313_b20191024. Affected is the function setWiFiAclRules of the file /cgi-bin/cstecgi.cgi of the component CGI Handler. The manipulation of the argument mode leads to os command injection. The attack can be initiated remotely. The exploit has been disclosed publicly and may be used.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T21:16:13.727",
-      "cve_ids": [
-        "CVE-2026-5978"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "53edd54ac1abf9dd668bc0276be994a5b5b8534a7a8e50ddfc18ded701ff2a0e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5977",
-      "title": "CVE-2026-5977 — CVSS 9.8",
-      "summary": "A weakness has been identified in Totolink A7100RU 7.4cu.2313_b20191024. This impacts the function setWiFiBasicCfg of the file /cgi-bin/cstecgi.cgi of the component CGI Handler. Executing a manipulation of the argument wifiOff can lead to os command injection. It is possible to launch the attack remotely. The exploit has been made available to the public and could be used for attacks.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T21:16:13.487",
-      "cve_ids": [
-        "CVE-2026-5977"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "5f1757a5861f76c8433e8bb6a83d4e8b75575ce4b9c9458b71723fecc789a597",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40107",
-      "title": "CVE-2026-40107",
-      "summary": "SiYuan is a personal knowledge management system. Prior to 3.6.4, SiYuan configures Mermaid.js with securityLevel: \"loose\" and htmlLabels: true. In this mode, <img> tags with src attributes survive Mermaid's internal DOMPurify and land in SVG <foreignObject> blocks. The SVG is injected via innerHTML with no secondary sanitization. When a victim opens a note containing a malicious Mermaid diagram, ",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-09T21:16:12.123",
-      "cve_ids": [
-        "CVE-2026-40107"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "0fd0f747a9799ed1326febb69c928a38858c6e36b89bea957e7041bb92a4203d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35206",
-      "title": "CVE-2026-35206",
-      "summary": "Helm is a package manager for Charts for Kubernetes. In Helm versions <=3.20.1 and <=4.1.3, a specially crafted Chart will cause helm pull --untar  [chart URL | repo/chartname] to write the Chart's contents to the immediate output directory (as defaulted to the current working directory; or as given by the --destination and --untardir flags), rather than the expected output directory suffixed by t",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-04-09T21:16:09.993",
-      "cve_ids": [
-        "CVE-2026-35206"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3a8fd792b19ae50949a302e93ea8933236dff58f43e82f96f5dac0acbef1495b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-54364",
-      "title": "CVE-2023-54364 — CVSS 6.1",
-      "summary": "Joomla HikaShop 4.7.4 contains a reflected cross-site scripting vulnerability that allows unauthenticated attackers to inject malicious scripts by manipulating GET parameters in the product filter endpoint. Attackers can craft malicious URLs containing XSS payloads in the from_option, from_ctrl, from_task, or from_itemid parameters to steal session tokens or login credentials when victims visit th",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T21:16:06.117",
-      "cve_ids": [
-        "CVE-2023-54364"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "998215c13fc124617510e0eee5d4e14327d8b813be8909b47168c82b1fbfd394",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-54363",
-      "title": "CVE-2023-54363 — CVSS 6.1",
-      "summary": "Joomla Solidres 2.13.3 contains a reflected cross-site scripting vulnerability that allows unauthenticated attackers to inject malicious scripts by manipulating multiple GET parameters including show, reviews, type_id, distance, facilities, categories, prices, location, and Itemid. Attackers can craft malicious URLs containing JavaScript payloads in these parameters to steal session tokens, login ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T21:16:05.907",
-      "cve_ids": [
-        "CVE-2023-54363"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "07707c23d19f5b47c54a6204b8240031ebfcd50f6165890927445c250c68d595",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-54362",
-      "title": "CVE-2023-54362 — CVSS 6.1",
-      "summary": "Joomla VirtueMart Shopping-Cart 4.0.12 contains a reflected cross-site scripting vulnerability that allows attackers to inject malicious scripts by manipulating the keyword parameter. Attackers can craft malicious URLs containing script payloads in the keyword parameter of the product-variants endpoint to execute arbitrary JavaScript in victim browsers and steal session tokens or credentials.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-04-09T21:16:05.717",
-      "cve_ids": [
-        "CVE-2023-54362"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "6bec8fcdecc3a5735019bb019088032a4b61045965b6d3c528758d58668866e7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-54361",
-      "title": "CVE-2023-54361 — CVSS 6.1",
-      "summary": "Joomla iProperty Real Estate 4.1.1 contains a reflected cross-site scripting vulnerability that allows attackers to inject malicious scripts by manipulating the filter_keyword parameter. Attackers can craft URLs containing JavaScript payloads in the filter_keyword GET parameter of the all-properties-with-map endpoint to execute arbitrary code in victim browsers and steal session tokens or credenti",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-04-09T21:16:05.533",
-      "cve_ids": [
-        "CVE-2023-54361"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "1ab7846f62a4204ad3e40cc80987f461c5db4126fef3a268a686943d033c6d95",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-54360",
-      "title": "CVE-2023-54360 — CVSS 6.1",
-      "summary": "Joomla JLex Review 6.0.1 contains a reflected cross-site scripting vulnerability that allows attackers to inject malicious scripts by manipulating the review_id URL parameter. Attackers can craft malicious links containing JavaScript payloads that execute in victims' browsers when clicked, enabling session hijacking or credential theft.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-04-09T21:16:05.340",
-      "cve_ids": [
-        "CVE-2023-54360"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "d855a9c4e1745cd0a8bee51b30aa1959c3b3edcd58fc11b1448df3eb785d0b72",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-54359",
-      "title": "CVE-2023-54359 — CVSS 8.2",
-      "summary": "WordPress adivaha Travel Plugin 2.3 contains a time-based blind SQL injection vulnerability that allows unauthenticated attackers to manipulate database queries by injecting SQL code through the 'pid' GET parameter. Attackers can send requests to the /mobile-app/v3/ endpoint with crafted 'pid' values using XOR-based payloads to extract sensitive database information or cause denial of service.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T21:16:05.153",
-      "cve_ids": [
-        "CVE-2023-54359"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "77a481b3905e003a4ea44525b9363dd604da2bbc3843b90f2ec2b2b1bb785090",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-54358",
-      "title": "CVE-2023-54358 — CVSS 6.1",
-      "summary": "WordPress adivaha Travel Plugin 2.3 contains a reflected cross-site scripting vulnerability that allows unauthenticated attackers to inject malicious scripts by manipulating the isMobile parameter. Attackers can craft malicious URLs containing JavaScript payloads in the isMobile GET parameter at the /mobile-app/v3/ endpoint to execute arbitrary code in victims' browsers and steal session tokens or",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T21:16:04.960",
-      "cve_ids": [
-        "CVE-2023-54358"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "d63942ad60f5001904069971c467c002db1c743c614cd5e88c7eab2395acb8f3",
-      "url": "https://github.com/advisories/GHSA-9hfr-gw99-8rhx",
-      "title": "GHSA: bsv-sdk ARC broadcaster treats INVALID/MALFORMED/ORPHAN responses as successful broadcasts",
-      "summary": "# ARC broadcaster treats failure statuses as successful broadcasts\n\n## Summary\n\n`BSV::Network::ARC`'s failure detection only recognises `REJECTED` and `DOUBLE_SPEND_ATTEMPTED`. ARC responses with `txStatus` values of `INVALID`, `MALFORMED`, `MINED_IN_STALE_BLOCK`, or any `ORPHAN`-containing `extraInfo` / `txStatus` are silently treated as successful broadcasts. Applications that gate actions on br",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-04-09T20:28:26Z",
-      "cve_ids": [
-        "CVE-2026-40069"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-40069"
-      ]
-    },
-    {
-      "id": "36d9b49697d73e7766ee7cf3570226c6f7fc1d87c34e1891879b3a9b8cd1e62b",
-      "url": "https://github.com/advisories/GHSA-hc36-c89j-5f4j",
-      "title": "GHSA: bsv-sdk and bsv-wallet persist unverified certifier signatures in acquire_certificate (direct and issuance paths)",
-      "summary": "# Unverified certifier signatures persisted by `acquire_certificate`\n\n## Affected packages\n\nBoth `bsv-sdk` and `bsv-wallet` are published from the [sgbett/bsv-ruby-sdk](https://github.com/sgbett/bsv-ruby-sdk) repository. The vulnerable code lives in `lib/bsv/wallet_interface/wallet_client.rb`, which is **physically shipped inside both gems** (the `bsv-wallet.gemspec` `files` list bundles the entir",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-04-09T20:28:10Z",
-      "cve_ids": [
-        "CVE-2026-40070"
+        "CVE-2026-35645"
       ],
       "cvss": 8.1,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-40070"
-      ]
-    },
-    {
-      "id": "55cec7ab46c08558054ef93bb66e362422808369581155bd8a40da6e9c26b235",
-      "url": "https://github.com/advisories/GHSA-95h2-gj7x-gx9w",
-      "title": "GHSA: Unhead has a hasDangerousProtocol() bypass via leading-zero padded HTML entities in useHeadSafe()",
-      "summary": "##EVIDENCE\n\n<img width=\"1900\" height=\"855\" alt=\"Screenshot_2026-03-25_090729\" src=\"https://github.com/user-attachments/assets/3da93464-1caf-46ca-818f-46f8fe32ab50\" />\n<img width=\"1919\" height=\"947\" alt=\"Screenshot_2026-03-25_090715\" src=\"https://github.com/user-attachments/assets/b27b1fc3-fa89-4864-99c9-4e6cff9a4e40\" />\n<img width=\"1918\" height=\"925\" alt=\"Screenshot_2026-03-25_090759\" src=\"https:/",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-09T20:28:05Z",
-      "cve_ids": [
-        "CVE-2026-39315"
-      ],
-      "cvss": 6.1,
       "related_links": []
     },
     {
-      "id": "482c90c5186c9883a40aa25a5784120178f000815be2d3c188c4e16204776286",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5976",
-      "title": "CVE-2026-5976 — CVSS 9.8",
-      "summary": "A security flaw has been discovered in Totolink A7100RU 7.4cu.2313_b20191024. This affects the function setStorageCfg of the file /cgi-bin/cstecgi.cgi of the component CGI Handler. Performing a manipulation of the argument sambaEnabled results in os command injection. It is possible to initiate the attack remotely. The exploit has been released to the public and may be used for attacks.",
+      "id": "609d8c6da1a3606455a9e0199d16a624fd747b7ad597aa152f6efd0f4967a8c0",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35640",
+      "title": "CVE-2026-35640 — CVSS 5.3",
+      "summary": "OpenClaw before 2026.3.25 parses JSON request bodies before validating webhook signatures, allowing unauthenticated attackers to force resource-intensive parsing operations. Remote attackers can send malicious webhook requests to trigger denial of service by exhausting server resources through forced JSON parsing before signature rejection.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-04-09T20:16:29.763",
+      "date": "2026-04-09T22:16:33.507",
       "cve_ids": [
-        "CVE-2026-5976"
+        "CVE-2026-35640"
       ],
-      "cvss": 9.8,
+      "cvss": 5.3,
       "related_links": []
     },
     {
-      "id": "fb99d5c6cda22717edd8d2a744a2523327df25bd620735488b4128796c9df3e7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5975",
-      "title": "CVE-2026-5975 — CVSS 9.8",
-      "summary": "A vulnerability was identified in Totolink A7100RU 7.4cu.2313_b20191024. The impacted element is the function setDmzCfg of the file /cgi-bin/cstecgi.cgi of the component CGI Handler. Such manipulation of the argument wanIdx leads to os command injection. The attack may be performed from remote. The exploit is publicly available and might be used.",
+      "id": "ee7c40f5327773cb6575ffbe6dc1546e8be785e917ab1fac217d8be1b87683f4",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35639",
+      "title": "CVE-2026-35639 — CVSS 8.8",
+      "summary": "OpenClaw before 2026.3.22 contains a privilege escalation vulnerability in the device.pair.approve method that allows an operator.pairing approver to approve pending device requests with broader operator scopes than the approver actually holds. Attackers can exploit insufficient scope validation to escalate privileges to operator.admin and achieve remote code execution on the Node infrastructure.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-04-09T20:16:29.547",
+      "date": "2026-04-09T22:16:33.317",
       "cve_ids": [
-        "CVE-2026-5975"
+        "CVE-2026-35639"
       ],
-      "cvss": 9.8,
+      "cvss": 8.8,
       "related_links": []
     },
     {
-      "id": "c799f51ef27ae0b36b07828ba084ae537c983a9da5b95bd78b9ce97b636500fe",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5974",
-      "title": "CVE-2026-5974 — CVSS 7.3",
-      "summary": "A vulnerability was determined in FoundationAgents MetaGPT up to 0.8.1. The affected element is the function Bash.run in the library metagpt/tools/libs/terminal.py. This manipulation causes os command injection. The attack is possible to be carried out remotely. The project was informed of the problem early through a pull request but has not reacted yet.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-09T20:16:29.347",
-      "cve_ids": [
-        "CVE-2026-5974"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "ea429922606b2bce2fb21d26623521a13c7f1319a39fe9b9076e943bfd93db32",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5973",
-      "title": "CVE-2026-5973 — CVSS 7.3",
-      "summary": "A vulnerability was found in FoundationAgents MetaGPT up to 0.8.1. Impacted is the function get_mime_type of the file metagpt/utils/common.py. The manipulation results in os command injection. The attack can be executed remotely. The exploit has been made public and could be used. The project was informed of the problem early through a pull request but has not reacted yet.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-09T20:16:29.143",
-      "cve_ids": [
-        "CVE-2026-5973"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "5fe917d63de9930e3a73fe229fd26cd40be513a50ef22ad3fc6a58a6f6595c57",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5972",
-      "title": "CVE-2026-5972 — CVSS 7.3",
-      "summary": "A vulnerability has been found in FoundationAgents MetaGPT up to 0.8.1. This issue affects the function Terminal.run_command in the library metagpt/tools/libs/terminal.py. The manipulation leads to os command injection. Remote exploitation of the attack is possible. The exploit has been disclosed to the public and may be used. The identifier of the patch is d04ffc8dc67903e8b327f78ec121df5e190ffc7b",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-09T20:16:28.943",
-      "cve_ids": [
-        "CVE-2026-5972"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "ffa97323a39350116fe1d6f221f53611d4a94ad0aa0ed83ce8d760174300e7b9",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-4436",
-      "title": "CVE-2026-4436 — CVSS 8.6",
-      "summary": "A low-privileged remote attacker can send Modbus packets to manipulate \nregister values that are inputs to the odorant injection logic such that\n too much or too little odorant is injected into a gas line.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-09T20:16:27.903",
-      "cve_ids": [
-        "CVE-2026-4436"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "e66efa5591c317ce01f1f98856a8a55117e79499e11127e7abf3c8960c1c45ab",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40089",
-      "title": "CVE-2026-40089 — CVSS 9.9",
-      "summary": "Sonicverse is a Self-hosted Docker Compose stack for live radio streaming. The Sonicverse Radio Audio Streaming Stack dashboard contains a Server-Side Request Forgery (SSRF) vulnerability in its API client (apps/dashboard/lib/api.ts). Installations created using the provided install.sh script (including the one‑liner bash <(curl -fsSL https://sonicverse.short.gy/install-audiostack)) are affected. ",
+      "id": "60ab201f30a26842074a9257a16908d0ae9172d10694fd936d1df7565036456c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35638",
+      "title": "CVE-2026-35638 — CVSS 8.8",
+      "summary": "OpenClaw before 2026.3.22 contains a privilege escalation vulnerability in the Control UI that allows unauthenticated sessions to retain self-declared privileged scopes without device identity verification. Attackers can exploit the device-less allow path in the trusted-proxy mechanism to maintain elevated permissions by declaring arbitrary scopes, bypassing device identity requirements.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-04-09T20:16:27.743",
+      "date": "2026-04-09T22:16:33.123",
       "cve_ids": [
-        "CVE-2026-40089"
+        "CVE-2026-35638"
       ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "1b24c87534cc2ef5c0aeaa08aee4e6cd1599d4e759ab23622d716ea4ba449b5a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40088",
-      "title": "CVE-2026-40088 — CVSS 9.6",
-      "summary": "PraisonAI is a multi-agent teams system. Prior to 4.5.121, the execute_command function and workflow shell execution are exposed to user-controlled input via agent workflows, YAML definitions, and LLM-generated tool calls, allowing attackers to inject arbitrary shell commands through shell metacharacters. This vulnerability is fixed in 4.5.121.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T20:16:27.597",
-      "cve_ids": [
-        "CVE-2026-40088"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "5363eb90cecda726999578b8c4810ac0321becc175b096a062de9e36c9ede4e7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-39977",
-      "title": "CVE-2026-39977",
-      "summary": "flatpak-builder is a tool to build flatpaks from source. From 1.4.5 to before 1.4.8, the license-files manifest key takes an array of paths to user defined licence files relative to the source directory of the module. The paths from that array are resolved using g_file_resolve_relative_path() and validated to stay inside the source directory using two checks - g_file_get_relative_path() which does",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T20:16:26.660",
-      "cve_ids": [
-        "CVE-2026-39977"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b881008c7ff32413b798af51c581f0a0ebb056048e40f16bc11e8e1b17bfbec5",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35577",
-      "title": "CVE-2026-35577 — CVSS 6.8",
-      "summary": "Apollo MCP Server is a Model Context Protocol server that exposes GraphQL operations as MCP tools. Prior to version 1.7.0, the Apollo MCP Server did not validate the Host header on incoming HTTP requests when using StreamableHTTP transport. In configurations where an HTTP-based MCP server is run on localhost without additional authentication or network-level controls, this could potentially allow ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T20:16:25.987",
-      "cve_ids": [
-        "CVE-2026-35577"
-      ],
-      "cvss": 6.8,
-      "related_links": []
-    },
-    {
-      "id": "459417295b066537d06bc119eb353ff267b031d15df654f53eeb6c6a659e5ba1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34734",
-      "title": "CVE-2026-34734 — CVSS 7.8",
-      "summary": "HDF5 is software for managing data. In 1.14.1-2 and earlier, a heap-use-after-free was found in the h5dump helper utility. An attacker who can supply a malicious h5 file can trigger a heap use-after-free. The freed object is referenced in a memmove call from H5T__conv_struct. The original object was allocated by H5D__typeinfo_init_phase3 and freed by H5D__typeinfo_term.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-09T20:16:25.437",
-      "cve_ids": [
-        "CVE-2026-34734"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "e5e101cffd1e73d0e30ac1f9f488cd4149ca9779ab23e9130ede15e25c860cd0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34487",
-      "title": "CVE-2026-34487 — CVSS 7.5",
-      "summary": "Insertion of Sensitive Information into Log File vulnerability in the cloud membership for clustering component of Apache Tomcat exposed the Kubernetes bearer token.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.20, from 10.1.0-M1 through 10.1.53, from 9.0.13 through 9.0.116.\n\nUsers are recommended to upgrade to version 11.0.21, 10.1.54 or 9.0.117, which fix the issue.",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-04-09T20:16:25.203",
-      "cve_ids": [
-        "CVE-2026-34487"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "bf0aeb8d40dca6f9edba379dc6b89aaa47bf95ecb1211234052044c073cf80b3",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34486",
-      "title": "CVE-2026-34486 — CVSS 7.5",
-      "summary": "Missing Encryption of Sensitive Data vulnerability in Apache Tomcat due to the fix for CVE-2026-29146 allowing the bypass of the EncryptInterceptor.\n\nThis issue affects Apache Tomcat: 11.0.20, 10.1.53, 9.0.116.\n\nUsers are recommended to upgrade to version 11.0.21, 10.1.54 or 9.0.117, which fix the issue.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T20:16:25.063",
-      "cve_ids": [
-        "CVE-2026-34486"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "6d0e8803c8e530165e250664eed5fecb37c7d812001d7d397196bfc2767eb965",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34483",
-      "title": "CVE-2026-34483 — CVSS 7.5",
-      "summary": "Improper Encoding or Escaping of Output vulnerability in the JsonAccessLogValve component of Apache Tomcat.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.20, from 10.1.0-M1 through 10.1.53, from 9.0.40 through 9.0.116.\n\nUsers are recommended to upgrade to version 11.0.21, 10.1.54 or 9.0.117 , which fix the issue.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-09T20:16:24.937",
-      "cve_ids": [
-        "CVE-2026-34483"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "89a976248c51f48ccbcdb9a36d6e9e876da90a7e81895fb8b665feabfc4ce6bb",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-29923",
-      "title": "CVE-2026-29923 — CVSS 7.8",
-      "summary": "The pstrip64.sys driver in EnTech Taiwan PowerStrip <=3.90.736 allows local users to escalate privileges to SYSTEM via a crafted IOCTL request enabling unprivileged users to map arbitrary physical memory into their address space and modify critical kernel structures.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T20:16:24.693",
-      "cve_ids": [
-        "CVE-2026-29923"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "3cd37aca6302fde8cfde27fd57cff0dff169d7cfa504b444f55233742b5dd2c5",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-29146",
-      "title": "CVE-2026-29146 — CVSS 7.5",
-      "summary": "Padding Oracle vulnerability in Apache Tomcat's EncryptInterceptor with default configuration.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.18, from 10.0.0-M1 through 10.1.52, from 9.0.13 through 9..115, from 8.5.38 through 8.5.100, from 7.0.100 through 7.0.109.\n\nUsers are recommended to upgrade to version 11.0.19, 10.1.53 and 9.0.116, which fixes the issue.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T20:16:24.577",
-      "cve_ids": [
-        "CVE-2026-29146"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "870072b30dc535fe2e95f6776003c060216d4952f4282b52d37e4e6a31350753",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-29145",
-      "title": "CVE-2026-29145 — CVSS 9.1",
-      "summary": "CLIENT_CERT authentication does not fail as expected for some scenarios when soft fail is disabled vulnerability in Apache Tomcat, Apache Tomcat Native.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.18, from 10.1.0-M7 through 10.1.52, from 9.0.83 through 9.0.115; Apache Tomcat Native: from 1.1.23 through 1.1.34, from 1.2.0 through 1.2.39, from 1.3.0 through 1.3.6, from 2.0.0 throu",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T20:16:24.447",
-      "cve_ids": [
-        "CVE-2026-29145"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "c7c471db46e41a9d4e361ead376b89c2dc6c2ae39a895ae45c9b70c3c47a9d61",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-29129",
-      "title": "CVE-2026-29129 — CVSS 7.5",
-      "summary": "Configured cipher preference order not preserved vulnerability in Apache Tomcat.\n\nThis issue affects Apache Tomcat: from 11.0.16 through 11.0.18, from 10.1.51 through 10.1.52, from 9.0.114 through 9.0.115.\n\nUsers are recommended to upgrade to version 11.0.20, 10.1.53 or 9.0.116, which fix the issue.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-09T20:16:24.343",
-      "cve_ids": [
-        "CVE-2026-29129"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "347ac20c5937fe3780727ae3282c82350cde5462dd76b04453391a948588b871",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-24880",
-      "title": "CVE-2026-24880 — CVSS 7.5",
-      "summary": "Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling') vulnerability in Apache Tomcat via invalid chunk extension.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.18, from 10.1.0-M1 through 10.1.52, from 9.0.0.M1 through 9.0.115, from 8.5.0 through 8.5.100, from 7.0.0 through 7.0.109.\nOther, unsupported versions may also be affected.\n\nUsers are recommended ",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-09T20:16:24.060",
-      "cve_ids": [
-        "CVE-2026-24880"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "cb09c6f56710af9360ab504171cc5189c03f37ecbe7eb0754e69aacf8f3c17b5",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-13926",
-      "title": "CVE-2025-13926 — CVSS 9.8",
-      "summary": "An attacker could use data obtained by sniffing the network traffic to \nforge packets in order to make arbitrary requests to Contemporary \nControls BASC 20T.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-09T20:16:23.807",
-      "cve_ids": [
-        "CVE-2025-13926"
-      ],
-      "cvss": 9.8,
+      "cvss": 8.8,
       "related_links": []
     }
   ]
