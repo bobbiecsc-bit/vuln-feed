@@ -1,10 +1,34 @@
 {
-  "updated": "2026-04-17T06:04:03.580168+00:00",
+  "updated": "2026-04-17T09:18:59.077348+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "37305d2f082c8d8ed50e3a75252d5c2fb3e5572803eb04022187b0e3ff38c709",
+      "url": "https://github.com/advisories/GHSA-9cp7-j3f8-p5jx",
+      "title": "GHSA: Daptin has Unauthenticated Path Traversal and Zip Slip",
+      "summary": "### Impact\nThe `cloudstore.file.upload` action in `server/actions/action_cloudstore_file_upload.go` writes user-supplied filenames directly to disk without proper validation. \n\nThis allows unauthenticated attackers to perform path traversal and zip slip attacks, leading to arbitrary file write and potential remote code execution.\n\n**CVSS Score:** 10.0 Critical\n**CVSS Vector:** CVSS:3.1/AV:N/AC:L/P",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-10T22:11:04Z",
+      "cve_ids": [],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "fa41d6b7c5a6d74750ab17b847e2997eb4b4bf61f59e5b440c1c179740a890ec",
+      "url": "https://github.com/advisories/GHSA-jvff-x2qm-6286",
+      "title": "GHSA: mathjs Allows Improperly Controlled Modification of Dynamically-Determined Object Attributes",
+      "summary": "### Impact\nTwo security vulnerabilities, the first of which was introduced in version 13.1.0, were detected that allowed executing arbitrary JavaScript via the expression parser of mathjs. You can be affected when you have an application where users can evaluate arbitrary expressions using the mathjs expression parser.\n\n### Patches\nThe problem is patched in mathjs v15.2.0.\n\n### Workarounds\nThere i",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-10T22:10:49Z",
+      "cve_ids": [],
+      "cvss": 8.8,
+      "related_links": []
+    },
     {
       "id": "39f1a324a4dde28b2863e4c3d0dcd156a232e96b8ebd7948ef9bed445eb2cf0d",
       "url": "https://github.com/advisories/GHSA-55v6-g8pm-pw4c",
@@ -217,7 +241,9 @@
         "CVE-2026-40086"
       ],
       "cvss": 5.3,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40086"
+      ]
     },
     {
       "id": "5dad8c1f3c895f62374d32018319afee2aca02271cf75d8696bb02da8ccd13a1",
@@ -487,7 +513,9 @@
         "CVE-2026-40159"
       ],
       "cvss": 5.5,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40159"
+      ]
     },
     {
       "id": "1429f9dde6039b0cee713c253bab2f1ffa9a57445e587323550a19ed356d58fd",
@@ -495,13 +523,15 @@
       "title": "GHSA: PraisonAI Vulnerable to Implicit Execution of Arbitrary Code via Automatic `tools.py` Loading",
       "summary": "PraisonAI automatically loads a file named `tools.py` from the current working directory to discover and register custom agent tools. This loading process uses `importlib.util.spec_from_file_location` and immediately executes module-level code via `spec.loader.exec_module()` **without explicit user consent, validation, or sandboxing**.\n\nThe `tools.py` file is loaded **implicitly**, even when it is",
       "source": "GitHub Advisory",
-      "category": "web_app",
+      "category": "infrastructure",
       "date": "2026-04-10T19:26:44Z",
       "cve_ids": [
         "CVE-2026-40156"
       ],
       "cvss": 7.8,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40156"
+      ]
     },
     {
       "id": "0eb4f94bcbea7d4ef6837b1b9290c629dc19cc2b87aa87a1fc2c7005baa17aa3",
@@ -553,13 +583,15 @@
       "title": "GHSA: PraisonAI Vulnerable to Code Injection and Protection Mechanism Failure",
       "summary": "PraisonAI's AST-based Python sandbox can be bypassed using `type.__getattribute__` trampoline, allowing arbitrary code execution when running untrusted agent code.\n\n## Description\n\nThe `_execute_code_direct` function in `praisonaiagents/tools/python_tools.py` uses AST filtering to block dangerous Python attributes like `__subclasses__`, `__globals__`, and `__bases__`. However, the filter only chec",
       "source": "GitHub Advisory",
-      "category": "web_app",
+      "category": "emergency",
       "date": "2026-04-10T19:25:39Z",
       "cve_ids": [
         "CVE-2026-40158"
       ],
       "cvss": 8.6,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40158"
+      ]
     },
     {
       "id": "ef50cd5528f31f5836326425c6ca10f9eee465f1a77c6264cb578c46b15e000f",
@@ -655,36 +687,6 @@
       "cvss": 6.2,
       "related_links": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-40117"
-      ]
-    },
-    {
-      "id": "5f3aa594e84c6dc47f5cbd0c7a6caabde9679b51869320617dbb2a3db88e56d1",
-      "url": "https://github.com/advisories/GHSA-2xgv-5cv2-47vv",
-      "title": "GHSA: PraisonAI has Unrestricted Upload Size in WSGI Recipe Registry Server that Enables Memory Exhaustion DoS",
-      "summary": "## Summary\n\nThe WSGI-based recipe registry server (`server.py`) reads the entire HTTP request body into memory based on the client-supplied `Content-Length` header with no upper bound. Combined with authentication being disabled by default (no token configured), any local process can send arbitrarily large POST requests to exhaust server memory and cause a denial of service. The Starlette-based se",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-10T19:23:13Z",
-      "cve_ids": [
-        "CVE-2026-40115"
-      ],
-      "cvss": 6.2,
-      "related_links": []
-    },
-    {
-      "id": "03ac3f8ed682e84af653c108b15f046c6b777ecaa35b05ab1199b6b4cac7301f",
-      "url": "https://github.com/advisories/GHSA-q5r4-47m9-5mc7",
-      "title": "GHSA: PraisonAI: Unauthenticated WebSocket Endpoint Proxies to Paid OpenAI Realtime API Without Rate Limits",
-      "summary": "## Summary\n\nThe `/media-stream` WebSocket endpoint in PraisonAI's call module accepts connections from any client without authentication or Twilio signature validation. Each connection opens an authenticated session to OpenAI's Realtime API using the server's API key. There are no limits on concurrent connections, message rate, or message size, allowing an unauthenticated attacker to exhaust serve",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-10T19:22:52Z",
-      "cve_ids": [
-        "CVE-2026-40116"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-40116"
       ]
     }
   ]
