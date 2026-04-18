@@ -1,10 +1,232 @@
 {
-  "updated": "2026-04-17T20:45:01.611892+00:00",
+  "updated": "2026-04-18T02:29:17.323538+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "c34d869f8f271a49933e41274ae8b245f527873dbbbd27f07ee3c181c1205335",
+      "url": "https://github.com/advisories/GHSA-793q-xgj6-7frp",
+      "title": "GHSA: WWBN AVideo has an incomplete fix for CVE-2026-33039: SSRF",
+      "summary": "### Summary\n\nThe incomplete SSRF fix in AVideo's LiveLinks proxy adds `isSSRFSafeURL()` validation but leaves DNS TOCTOU vulnerabilities where DNS rebinding between validation and the actual HTTP request redirects traffic to internal endpoints.\n\n### Affected Package\n\n- **Ecosystem:** Other\n- **Package:** AVideo\n- **Affected versions:** < commit 0e56382921fc71e64829cd1ec35f04e338c70917\n- **Patched ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-14T23:15:43Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "fa587ac23e9a900b8ed1514bd6a19aa3616db1c6b8f3427bcefa4e621b037170",
+      "url": "https://github.com/advisories/GHSA-hg7g-56h5-5pqr",
+      "title": "GHSA: CAPTCHA Bypass in WWBN/AVideo via Attacker-Controlled Length Parameter and Missing Token Invalidation on Failure",
+      "summary": "## Summary\n\n`objects/getCaptcha.php` accepts the CAPTCHA length (`ql`) directly from the query string with no clamping or sanitization, letting any unauthenticated client force the server to generate a 1-character CAPTCHA word. Combined with a case-insensitive `strcasecmp` comparison over a ~33-character alphabet and the fact that failed validations do NOT consume the stored session token, an atta",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-14T23:13:21Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "5d85a6598bd88aa8a9e163c2bb49545b9ce5662e9a868ae3821ecdc80c4c24eb",
+      "url": "https://github.com/advisories/GHSA-8qm8-g55h-xmqr",
+      "title": "GHSA: WWBN AVideo is missing CSRF protection in objects/commentDelete.json.php enables mass comment deletion against moderators and content creators",
+      "summary": "## Summary\n\n`objects/commentDelete.json.php` is a state-mutating JSON endpoint that deletes comments but performs no CSRF validation. It does not call `forbidIfIsUntrustedRequest()`, does not verify a CSRF/global token, and does not check `Origin`/`Referer`. Because AVideo intentionally sets `session.cookie_samesite=None` (to support cross-origin embed players), a cross-site request from any attac",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-14T23:13:08Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "1a53ca251980524eb54229fcc93201fdfa0a0d8426e7efe412bb578290ad2e8c",
+      "url": "https://github.com/advisories/GHSA-x2pw-9c38-cp2j",
+      "title": "GHSA: WWBN AVideo: Missing CSRF Protection on State-Changing JSON Endpoints Enables Forced Comment Creation, Vote Manipulation, and Category Asset Deletion",
+      "summary": "## Summary\n\nMultiple AVideo JSON endpoints under `objects/` accept state-changing requests via `$_REQUEST`/`$_GET` and persist changes tied to the caller's session user, without any anti-CSRF token, origin check, or referer check. A malicious page visited by a logged-in victim can silently:\n\n1. Cast/flip the victim's like/dislike on any comment (`objects/comments_like.json.php`).\n2. Post a comment",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-14T23:12:53Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "45e46bc455e420a2d35e6fdfd4e09599dfb5c9e61d846e3b6024852084765664",
+      "url": "https://github.com/advisories/GHSA-ffw8-fwxp-h64w",
+      "title": "GHSA: WWBN AVideo has Multiple CSRF Vulnerabilities in Admin JSON Endpoints (Category CRUD, Plugin Update Script)",
+      "summary": "## Summary\n\nThree admin-only JSON endpoints — `objects/categoryAddNew.json.php`, `objects/categoryDelete.json.php`, and `objects/pluginRunUpdateScript.json.php` — enforce only a role check (`Category::canCreateCategory()` / `User::isAdmin()`) and perform state-changing actions against the database without calling `isGlobalTokenValid()` or `forbidIfIsUntrustedRequest()`. Peer endpoints in the same ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-14T23:12:39Z",
+      "cve_ids": [],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "c1e402ad47356880b2b8be4d475ebd89b5492deed8ff3b46b00f885b909fcac7",
+      "url": "https://github.com/advisories/GHSA-vvfw-4m39-fjqf",
+      "title": "GHSA: WWBN AVideo has CSRF in configurationUpdate.json.php Enables Full Site Configuration Takeover Including Encoder URL and SMTP Credentials",
+      "summary": "## Summary\n\n`objects/configurationUpdate.json.php` (also routed via `/updateConfig`) persists dozens of global site settings from `$_POST` but protects the endpoint only with `User::isAdmin()`. It does not call `forbidIfIsUntrustedRequest()`, does not verify a `globalToken`, and does not validate the Origin/Referer header. Because AVideo intentionally sets `session.cookie_samesite=None` to support",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-14T23:12:30Z",
+      "cve_ids": [],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "041c9eb91850e0fe122a4b64897cc8cb36efac4bcbd5296f9fc3bc4a700e7a0d",
+      "url": "https://github.com/advisories/GHSA-gph2-j4c9-vhhr",
+      "title": "GHSA: WWBN AVideo YPTSocket WebSocket Broadcast Relay Leads to Unauthenticated Cross-User JavaScript Execution via Client-Side eval() Sinks",
+      "summary": "## Summary\n\nThe YPTSocket plugin's WebSocket server relays attacker-supplied JSON message bodies to every connected client without sanitizing the `msg` or `callback` fields. On the client side, `plugin/YPTSocket/script.js` contains two `eval()` sinks fed directly by those relayed fields (`json.msg.autoEvalCodeOnHTML` at line 568 and `json.callback` at line 95). Because tokens are minted for anonym",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-14T22:50:05Z",
+      "cve_ids": [],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "1ed8ed14a027e43f8931df5dcc7f099b8201032da68c463af0bf4b36bfe72f40",
+      "url": "https://github.com/advisories/GHSA-6rc6-p838-686f",
+      "title": "GHSA: WWBN AVideo has a Path Traversal in Locale Save Endpoint Enables Arbitrary PHP File Write to Any Web-Accessible Directory (RCE)",
+      "summary": "## Summary\n\nThe locale save endpoint (`locale/save.php`) constructs a file path by directly concatenating `$_POST['flag']` into the path at line 30 without any sanitization. The `$_POST['code']` parameter is then written verbatim to that path via `fwrite()` at line 40. An admin attacker (or any user who can CSRF an admin, since no CSRF token is checked and cookies use `SameSite=None`) can traverse",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-14T22:49:48Z",
+      "cve_ids": [],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "855cb6f78ad63dda91e937dce6f1c94b15c284b0367e4c9e4df9102c314f6450",
+      "url": "https://github.com/advisories/GHSA-52hf-63q4-r926",
+      "title": "GHSA: WWBN AVideo has an Unauthenticated Information Disclosure via git.json.php Exposes Developer Emails and Deployed Version",
+      "summary": "## Summary\n\nThe file `git.json.php` at the web root executes `git log -1` and returns the full output as JSON to any unauthenticated user. This exposes the exact deployed commit hash (enabling version fingerprinting against known CVEs), developer names and email addresses (PII), and commit messages which may contain references to internal systems or security fixes.\n\n## Details\n\n`git.json.php` is a",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-14T22:49:25Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "cbb0eca72819f7233401af526d3e15c94bb5885a1ac102d5fc98ce2b9be2f21e",
+      "url": "https://github.com/advisories/GHSA-gpgp-w4x2-h3h7",
+      "title": "GHSA: WWBN AVideo has an IDOR in Live Restreams list.json.php Exposes Other Users' Stream Keys and OAuth Tokens",
+      "summary": "## Summary\n\nThe endpoint `plugin/Live/view/Live_restreams/list.json.php` contains an Insecure Direct Object Reference (IDOR) vulnerability that allows any authenticated user with streaming permission to retrieve other users' live restream configurations, including third-party platform stream keys and OAuth tokens (access_token, refresh_token) for services like YouTube Live, Facebook Live, and Twit",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-14T22:49:05Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "777b68454fccd405c1c666ac1285948b9db49494f57c33de26e848e13a7d8450",
+      "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-adds-windows-protections-for-malicious-remote-desktop-files/",
+      "title": "Microsoft adds Windows protections for malicious Remote Desktop files",
+      "summary": "Microsoft has introduced new Windows protections to defend against phishing attacks that abuse Remote Desktop connection (.rdp) files, adding warnings and disabling risky shared resources by default. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-04-14T22:23:33+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "3ac833fb839c0b3442160cf4b27517891135ea7b8315c5432db823b85aa2d82a",
+      "url": "https://blog.qualys.com/category/vulnerabilities-threat-research",
+      "title": "Microsoft and Adobe Patch Tuesday, April 2026 Security Update Review",
+      "summary": "April&#160;2026&#8217;s&#160;Patch&#160;Tuesday arrives with Microsoft addressing&#160;a fresh set&#160;of vulnerabilities across its&#160;ecosystem,&#160;reinforcing&#160;the ongoing&#160;need for&#160;timely&#160;patching&#160;in an&#160;increasingly threat-heavy landscape.&#160;Here&#8217;s&#160;a quick breakdown of&#160;what you need to know. Microsoft Patch Tuesday for&#160;April&#160;2026 Th",
+      "source": "Qualys Blog",
+      "category": "emergency",
+      "date": "2026-04-14T20:16:14+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "ec4a1842e388fec2c4418ebd510ca76410fd3a2a1868268e7568d85ba448eaf4",
+      "url": "https://github.com/advisories/GHSA-q93q-v844-jrqp",
+      "title": "GHSA: kyverno apicall servicecall implicit bearer token injection leaks kyverno serviceaccount token",
+      "summary": "kyverno’s apiCall servicecall helper implicitly injects `Authorization: Bearer ...` using the kyverno controller serviceaccount token when a policy does not explicitly set an Authorization header. because `context.apiCall.service.url` is policy-controlled, this can send the kyverno serviceaccount token to an attacker-controlled endpoint (confused deputy).\n\nnamespaced policies are blocked from serv",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-14T20:09:00Z",
+      "cve_ids": [],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "db7c81e1cf4e617c5651e694aa9f4ec6dea41b200e4e24880dff58da041431df",
+      "url": "https://github.com/advisories/GHSA-fmqp-4wfc-w3v7",
+      "title": "GHSA: Kyverno APICall SSRF Vulnerability Leading to Multi-Tenant Isolation Breach",
+      "summary": "### Summary\n\nKyverno's APICall feature contains a Server-Side Request Forgery (SSRF) vulnerability that allows users with Policy creation permissions to access arbitrary internal resources through Kyverno's high-privilege ServiceAccount. In multi-tenant Kubernetes environments, this constitutes a classic Confused Deputy problem: low-privilege tenants can steal sensitive data from other tenants (su",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-14T20:06:09Z",
+      "cve_ids": [],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "da6d8e1eb72afb14d9b44f41f3eeee458ace8bd7339c61cc010afa3a1247c38f",
+      "url": "https://github.com/advisories/GHSA-qr4g-8hrp-c4rw",
+      "title": "GHSA: Kyverno has unrestricted outbound requests in Kyverno apiCall enabling SSRF",
+      "summary": "### Summary\nA Server-Side Request Forgery (SSRF) vulnerability in Kyverno allows authenticated users to induce the admission controller to send arbitrary HTTP requests to attacker-controlled endpoints.\n\nWhen a `ClusterPolicy` uses `apiCall.service.url` with variable substitution (e.g. `{{request.object.*}}`), user-controlled input can influence the request target. The Kyverno admission controller ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-14T20:05:52Z",
+      "cve_ids": [],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "ece2834e887a1bdc8fb23f9b11217a55896248a2bf6e412dee6ab3c5154a745a",
+      "url": "https://github.com/advisories/GHSA-wg36-wvj6-r67p",
+      "title": "GHSA: Composer has a command injection via malicious perforce repository",
+      "summary": "### Impact\nThe `Perforce::generateP4Command()` method constructed shell commands by interpolating user-supplied Perforce connection parameters (port, user, client) without proper escaping. An attacker controlling a repository configuration in a malicious composer.json declaring a Perforce VCS repository could inject arbitrary commands through these values, leading to command execution in the conte",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-14T20:03:08Z",
+      "cve_ids": [
+        "CVE-2026-40176"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "f715d28934371e7142690551caa83ae6a5cc2d8a2ceb5c836af8760394b70ac2",
+      "url": "https://github.com/advisories/GHSA-m5qg-jc75-4jp6",
+      "title": "GHSA: October Rain has a Twig Sandbox Bypass via Collection Methods",
+      "summary": "A sandbox bypass vulnerability was identified in the optional Twig safe mode feature (`CMS_SAFE_MODE`). Certain methods on the `collect()` helper were not properly restricted, allowing authenticated users with template editing permissions to bypass sandbox protections.\n\n### Impact\n- Bypass of Twig sandbox restrictions\n- Only affects installations with `CMS_SAFE_MODE` enabled (disabled by default)\n",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-14T20:02:05Z",
+      "cve_ids": [
+        "CVE-2026-22692"
+      ],
+      "cvss": 4.9,
+      "related_links": []
+    },
+    {
+      "id": "d985150f3f5cba9425b0037f4b33ee6885a01e49e34a66f1c2c6ba130199620b",
+      "url": "https://github.com/advisories/GHSA-gqw4-4w2p-838q",
+      "title": "GHSA: Composer has a command injection via malicious perforce reference",
+      "summary": "### Impact\nThe `Perforce::syncCodeBase()` method appended the `$sourceReference` parameter to a shell command without proper escaping, allowing an attacker to inject arbitrary commands through a crafted source reference containing shell metacharacters. Further as in GHSA-wg36-wvj6-r67p / CVE-2026-40176 the `Perforce::generateP4Command()` method constructed shell commands by interpolating user-supp",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-14T20:01:42Z",
+      "cve_ids": [
+        "CVE-2026-40261"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
     {
       "id": "00c4539ea409f6a267c9240fe02f7a31aa382df7d3eadf11a109448a7f2c2132",
       "url": "https://github.com/advisories/GHSA-6qvv-pj99-48qm",
@@ -616,251 +838,6 @@
         "CVE-2026-40193"
       ],
       "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "b015e1a9ffd4f3f16c9b06e0f2f9730fb00e39d636651ce7c77f06fdd8680651",
-      "url": "https://github.com/advisories/GHSA-26qp-ffjh-2x4v",
-      "title": "GHSA: ImageMagick has an integer overflow in despeckle operation causing a heap buffer overflow on 32-bit builds",
-      "summary": "An integer overflow in the despeckle operation causes a heap buffer overflow on 32-bit builds that will result in an out of bounds write.\n\n```\n==1551685==ERROR: AddressSanitizer: heap-buffer-overflow on address 0xea2fb818 at pc 0x56cbc42a bp 0xffc4ce48 sp 0xffc4ce38\nWRITE of size 8 at 0xea2fb818 thread T0\n```",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-13T19:10:03Z",
-      "cve_ids": [
-        "CVE-2026-34238"
-      ],
-      "cvss": 5.1,
-      "related_links": []
-    },
-    {
-      "id": "05f7044463a95484cccc676e9eb7128a116567b93366c0ca9bd7e27238fb051e",
-      "url": "https://github.com/advisories/GHSA-v67w-737x-v2c9",
-      "title": "GHSA: ImageMagick has a heap overflow caused by integer overflow/wraparound in viff encoder on 32-bit builds",
-      "summary": "In viff encoder contains an integer truncation/wraparound issue on 32-bit builds that could trigger an out of bounds heap write that can result in a crash.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-13T19:09:58Z",
-      "cve_ids": [
-        "CVE-2026-33900"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "57f1539289e07bfec3bc2f16da4242f35f5450c32b7b2ef4a65e0db8ada86410",
-      "url": "https://www.bleepingcomputer.com/news/security/fbi-takedown-of-w3ll-phishing-service-leads-to-developer-arrest/",
-      "title": "FBI takedown of W3LL phishing service leads to developer arrest",
-      "summary": "The FBI Atlanta Field Office and Indonesian authorities have dismantled the \"W3LL\" global phishing platform, seizing infrastructure and arresting the alleged developer in what is described as the first coordinated enforcement action between the United States and Indonesia targeting a phishing kit developer. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-04-13T18:55:50+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "cad9400150d21f1c100472a7a292f1730bca97f866bdeaa67bad9c196cf2bffc",
-      "url": "https://www.bleepingcomputer.com/news/security/openai-rotates-macos-certs-after-axios-attack-hit-code-signing-workflow/",
-      "title": "OpenAI rotates macOS certs after Axios attack hit code-signing workflow",
-      "summary": "OpenAI is rotating potentially exposed macOS code-signing certificates after a GitHub Actions workflow executed a malicious Axios package during a recent supply chain attack. [...]",
-      "source": "Bleeping Computer",
-      "category": "web_app",
-      "date": "2026-04-13T17:39:10+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "304547bd3a2bfe4599908638145887e6d8087bdfc1b63c37dff8509d8b1a5f2b",
-      "url": "https://www.bleepingcomputer.com/news/security/new-bookingcom-data-breach-forces-reservation-pin-resets/",
-      "title": "New Booking.com data breach forces reservation PIN resets",
-      "summary": "Booking.com has confirmed via a statement to BleepingComputer that it has detected unauthorized access to its systems that has exposed sensitive reservation and user data. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-04-13T17:30:10+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "8de5f2615850cfc53958258677fce986707ff3e070b22b0a3d4a427a10fe1e1e",
-      "url": "https://github.com/advisories/GHSA-3p24-9x7v-7789",
-      "title": "GHSA: Emissary has an OS Command Injection via Unvalidated IN_FILE_ENDING / OUT_FILE_ENDING in Executrix",
-      "summary": "### Summary\n\n`Executrix.getCommand()` constructs shell commands by substituting temporary file paths directly into a `/bin/sh -c` string with no escaping. The `IN_FILE_ENDING` and `OUT_FILE_ENDING` configuration keys flow into those paths unmodified. A place author who sets either key to a shell metacharacter sequence achieves arbitrary OS command execution in the JVM's security context when the p",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-13T16:38:25Z",
-      "cve_ids": [
-        "CVE-2026-35582"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "4b13b5340f2a70d5aeeb1397d094542c56fb2633a71ca23e7db37e716187456c",
-      "url": "https://github.com/advisories/GHSA-48m6-486p-9j8p",
-      "title": "GHSA: nimiq-consensus panics via RequestMacroChain micro-block locator",
-      "summary": "### Impact\n An unauthenticated p2p peer can cause the `RequestMacroChain` message handler task to panic by sending a `RequestMacroChain` message where the first locator hash that is on the victim’s main chain is a micro block hash (not a macro block hash).\n\nIn `RequestMacroChain::handle`, the handler selects the locator based only on \"is on main chain\", then calls `get_macro_blocks()` and panics v",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-13T16:36:00Z",
-      "cve_ids": [
-        "CVE-2026-34069"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "9e595cd58958019446c0b27eae572bf7fb3eca6fc0fca92daf634b5a239703f6",
-      "url": "https://github.com/advisories/GHSA-jcxm-m3jx-f287",
-      "title": "GHSA: simple-git Affected by Command Execution via Option-Parsing Bypass",
-      "summary": "### Summary\n\nsimple-git enables running native Git commands from JavaScript. Some commands accept options that allow executing another command; because this is very dangerous, execution is denied unless the user explicitly allows it. This vulnerability allows a malicious actor who can control the options to execute other commands even in a “safe” state where the user has not explicitly allowed the",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-13T16:35:37Z",
-      "cve_ids": [
-        "CVE-2026-28291"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "7b5869a584d6f1d4b4599e948a02099b313af019b231dfc4c36c2701917cc0e4",
-      "url": "https://www.bleepingcomputer.com/news/security/adobe-rolls-out-emergency-fix-for-acrobat-reader-zero-day-flaw/",
-      "title": "Adobe rolls out emergency fix for Acrobat, Reader zero-day flaw",
-      "summary": "Adobe has released an emergency security update for Acrobat Reader to fix a vulnerability, tracked as CVE-2026-34621, that has been exploited in zero-day attacks since at least December. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-04-13T15:37:05+00:00",
-      "cve_ids": [
-        "CVE-2026-34621"
-      ],
-      "cvss": 8.6,
-      "related_links": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-34621",
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-34621"
-      ]
-    },
-    {
-      "id": "d0e02208d97a5e99b802d8d25c41121fc558be4155bd9bc9b5a1ca9cb3bf42a1",
-      "url": "https://www.bleepingcomputer.com/news/security/the-silent-storm-new-infostealer-hijacks-sessions-decrypts-server-side/",
-      "title": "The silent “Storm”: New infostealer hijacks sessions, decrypts server-side",
-      "summary": "New \"Storm\" infostealer skips local decryption, sending browser data to attacker servers. Varonis shows how server-side decryption enables session hijacking, bypassing passwords and MFA. [...]",
-      "source": "Bleeping Computer",
-      "category": "cloud",
-      "date": "2026-04-13T14:05:15+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "9e8a84556c2192d9bad4895968261d96531d4cf74ba636d730677883ee9294c4",
-      "url": "https://ubuntu.com/security/notices/USN-8167-1",
-      "title": "USN-8167-1: xdg-dbus-proxy vulnerability",
-      "summary": "It was discovered that xdg-dbus-proxy incorrectly handled eavesdropping in policy rules. A local attacker could possibly use this issue to intercept certain D-Bus messages.",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-04-13T12:07:10+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "7c0827dc0c5f1d919dc282c8f91b7525778f1030fa35755fd0748572c1fbc971",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2012-1854",
-      "title": "CVE-2012-1854: Microsoft Visual Basic for Applications Insecure Library Loading Vulnerability",
-      "summary": "Microsoft Visual Basic for Applications (VBA) contains an insecure library loading vulnerability that could allow for remote code execution. Affected product: Visual Basic for Applications (VBA) by Microsoft. Required action: Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-04-13T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2012-1854"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ebf332a7835415868e2ec3c1bd443222a58f092ae8948d4c91b6476b98bf9b4f",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2025-60710",
-      "title": "CVE-2025-60710: Microsoft Windows Link Following Vulnerability",
-      "summary": "Microsoft Windows contains a link following vulnerability that allows for privilege escalation Affected product: Windows by Microsoft. Required action: Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-04-13T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2025-60710"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "0e3732394adc0fb04a6ec04c08e10e77b71d1b9e6dcc0e710d4da159ff76d392",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2023-21529",
-      "title": "CVE-2023-21529: Microsoft Exchange Server Deserialization of Untrusted Data Vulnerability",
-      "summary": "Microsoft Exchange Server contains a deserialization of untrusted data that allows an authenticated attacker to achieve remote code execution. Affected product: Exchange Server by Microsoft. Required action: Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-04-13T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2023-21529"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d340508e7fbd170ad8ad10abeead670419221ea057f51b91746d9b9ec74475ea",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2023-36424",
-      "title": "CVE-2023-36424: Microsoft Windows Out-of-Bounds Read Vulnerability",
-      "summary": "Microsoft Windows Common Log File System Driver contains an out-of-bounds read vulnerability that could allow a threat actor for privileges escalation Affected product: Windows by Microsoft. Required action: Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-04-13T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2023-36424"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "62c39df8ecde9187b906c08640e0f8a0c3dcc1f5b7cfcc50c550d4cb9affad07",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2020-9715",
-      "title": "CVE-2020-9715: Adobe Acrobat Use-After-Free Vulnerability",
-      "summary": "Adobe Acrobat contains a use-after-free vulnerability that allows for code execution Affected product: Acrobat by Adobe. Required action: Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations are unavailable.",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-04-13T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2020-9715"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "fb2f5bb124be4bef67ef586ab0347d37b9d01241ab285c5fbe77733ff63c5d28",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-21643",
-      "title": "CVE-2026-21643: Fortinet SQL Injection Vulnerability",
-      "summary": "Fortinet FortiClient EMS contains a SQL injection vulnerability that may allow an unauthenticated attacker to execute unauthorized code or commands via specifically crafted HTTP requests. Affected product: FortiClient EMS by Fortinet. Required action: Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of the product if mitigations",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-04-13T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-21643"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "6c2d88ac4c8eb2ebc70add5f3129f7e83b1ba206b1b25ad87e13c0fb5d6abf68",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-6132",
-      "title": "CVE-2026-6132 — CVSS 9.8",
-      "summary": "A vulnerability was determined in Totolink A7100RU 7.4cu.2313_b20191024. Affected by this issue is the function setLedCfg of the file /cgi-bin/cstecgi.cgi of the component CGI Handler. This manipulation of the argument enable causes os command injection. Remote exploitation of the attack is possible. The exploit has been publicly disclosed and may be utilized.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-12T23:16:25.917",
-      "cve_ids": [
-        "CVE-2026-6132"
-      ],
-      "cvss": 9.8,
       "related_links": []
     }
   ]
