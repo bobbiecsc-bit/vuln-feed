@@ -1,10 +1,48 @@
 {
-  "updated": "2026-04-21T09:27:24.431594+00:00",
+  "updated": "2026-04-21T13:28:53.520791+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "c92abba06366fdd4de450269615597444f03ee1a16481c200f69b212ff58f3d0",
+      "url": "https://github.com/advisories/GHSA-8783-3wgf-jggf",
+      "title": "GHSA: Budibase: Authentication Bypass via Unanchored Regex in Public Endpoint Matcher — Unauthenticated Access to Protected Endpoints",
+      "summary": "### Summary\n\nThe `authenticated` middleware uses unanchored regular expressions to match public (no-auth) endpoint patterns against `ctx.request.url`. Since `ctx.request.url` in Koa includes the query string, an attacker can access any protected endpoint by appending a public endpoint path as a query parameter. For example, `POST /api/global/users/search?x=/api/system/status` bypasses all authenti",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-16T22:40:59Z",
+      "cve_ids": [],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "01222c9278e389861ed07e2416bf48f81bf4e5f330d88660ad4791325085fd5a",
+      "url": "https://github.com/advisories/GHSA-29qv-4j9f-fjw5",
+      "title": "GHSA: Unsafe object property setter in mathjs",
+      "summary": "### Impact\nThis security vulnerability allowed executing arbitrary JavaScript via the expression parser of mathjs. You can be affected when you have an application where users can evaluate arbitrary expressions using the mathjs expression parser.\n\n### Patches\nThe issue was introduced in mathjs `v13.1.1`, and patched in mathjs `v15.2.0`.\n\n### Workarounds\nThere is no workaround without upgrading to ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-16T22:38:43Z",
+      "cve_ids": [
+        "CVE-2026-40897"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "0eee5e45ddbdd3b6bd29b91139a5d6cad5a3975f31199fedd632cbbd42f95171",
+      "url": "https://github.com/advisories/GHSA-jj8c-mmj3-mmgv",
+      "title": "GHSA: Authlib: Cross-site request forging when using cache",
+      "summary": "### Summary\n\nThere is no CSRF protection on the cache feature on most integrations clients.\n\n### Details\nIn `authlib.integrations.starlette_client.OAuth`, no CSRF protection is set up when using the cache parameter. When _not_ using the cache parameter, the use of SessionMiddleware ties the client to the auth state, preventing CSRF attacks. With the cache, there is no such mechanism. Other integra",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-16T22:38:03Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
     {
       "id": "ba4b3f94e27c2510904f78d2b8a660e330a05d3eb7593e65ebce5bc1e30865dd",
       "url": "https://github.com/advisories/GHSA-pr96-94w5-mx2h",
@@ -926,44 +964,6 @@
       "date": "2026-04-16T01:34:39Z",
       "cve_ids": [],
       "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "f1bfbd470ed30371721e9fa4e1c47b91b053a8e10fe232f79feb1a11e307c0ef",
-      "url": "https://github.com/advisories/GHSA-hm2w-vr2p-hq7w",
-      "title": "GHSA: UEFI Firmware Parser has a heap out-of-bounds write in tiano decompressor ReadCLen",
-      "summary": "`uefi-firmware` contains a heap out-of-bounds write vulnerability in the native tiano/EFI decompressor. in `uefi_firmware/compression/Tiano/Decompress.c`, `ReadCLen()` reads `Number = GetBits(Sd, CBIT)` with `CBIT = 9`, so `Number` can be as large as `511`, while the destination array `Sd->mCLen` has `NC = 510` elements. the loop writes while `Index < Number` without enforcing `Index < NC`. additi",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-16T01:31:09Z",
-      "cve_ids": [],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "fcf49154f145bbc33ca429568a2c39316e7cb5f349026bb5d28cbd25bbec0d73",
-      "url": "https://github.com/advisories/GHSA-2689-5p89-6j3j",
-      "title": "GHSA: UEFI Firmware Parser has a stack out-of-bounds write in tiano decompressor MakeTable",
-      "summary": "`uefi-firmware` contains a stack out-of-bounds write vulnerability in the native tiano/EFI decompressor. in `uefi_firmware/compression/Tiano/Decompress.c`, `MakeTable()` does not validate that bit-length values read from the compressed bitstream are within the expected range (`0..16`). a crafted firmware blob can supply bit lengths greater than `16`, causing out-of-bounds writes to the stack-alloc",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-16T01:30:48Z",
-      "cve_ids": [],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "0078958f284c182ae148a663df6cfa68a28e72abd3f9b69c5cf8147fcaa6c050",
-      "url": "https://github.com/advisories/GHSA-mp82-fmj6-f22v",
-      "title": "GHSA: pyLoad has a Session Cookie Security Downgrade via Untrusted X-Forwarded-Proto Header Spoofing (Global State Race Condition)",
-      "summary": "## Summary\n\nThe `set_session_cookie_secure` `before_request` handler in `src/pyload/webui/app/__init__.py` reads the `X-Forwarded-Proto` header from any HTTP request without validating that the request originates from a trusted proxy, then mutates the **global** Flask configuration `SESSION_COOKIE_SECURE` on every request. Because pyLoad uses the multi-threaded Cheroot WSGI server (`request_queue_",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-16T01:20:49Z",
-      "cve_ids": [
-        "CVE-2026-40594"
-      ],
-      "cvss": 4.8,
       "related_links": []
     }
   ]
