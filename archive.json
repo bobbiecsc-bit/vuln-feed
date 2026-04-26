@@ -1,7 +1,97 @@
 {
-  "updated": "2026-04-25T20:39:29.431845+00:00",
+  "updated": "2026-04-26T02:47:38.755719+00:00",
   "total": 250,
   "articles": [
+    {
+      "id": "d9e66c8328a9c40d855163c74790e67ed4c2be003731b383d700859f70acb651",
+      "url": "https://github.com/advisories/GHSA-rpm5-65cw-6hj4",
+      "title": "GHSA: GitPython has Command Injection via Git options bypass",
+      "summary": "### Summary\nGitPython blocks dangerous Git options such as `--upload-pack` and `--receive-pack` by default, but the equivalent Python kwargs `upload_pack` and `receive_pack` bypass that check. If an application passes attacker-controlled kwargs into `Repo.clone_from()`, `Remote.fetch()`, `Remote.pull()`, or `Remote.push()`, this leads to arbitrary command execution even when `allow_unsafe_options`",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-25T23:42:16Z",
+      "cve_ids": [],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "50072c878389a4e9bd2d69ef51f999a80c3aaa1cc2d6e9da03ed4e52ac142bd1",
+      "url": "https://github.com/advisories/GHSA-x2qx-6953-8485",
+      "title": "GHSA: GitPython: Unsafe option check validates multi_options before shlex.split transformation",
+      "summary": "### Summary\n\n`_clone()` validates `multi_options` as the original list, then executes `shlex.split(\" \".join(multi_options))`. A string like `\"--branch main --config core.hooksPath=/x\"` passes validation (starts with `--branch`), but after split becomes `[\"--branch\", \"main\", \"--config\", \"core.hooksPath=/x\"]`. Git applies the config and executes attacker hooks during clone.\n\n### Details\n\nThe vulnera",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-25T23:41:49Z",
+      "cve_ids": [],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "1290a69de541409794e3a64c1cf2ab70788f2988c856c0f5a5645705259930af",
+      "url": "https://github.com/advisories/GHSA-3gr9-485j-v4xf",
+      "title": "GHSA: Note Mark: Unauthenticated read of notes and assets in soft-deleted public books",
+      "summary": "## Summary\n\nAfter a note-mark owner soft-deletes a public book, its notes and uploaded assets stay readable at `/api/notes/{id}`, `/api/notes/{id}/content`, the slug URL, and the asset endpoints. Unauthenticated callers who hold the note ID or the slug path retain access. GORM's soft-delete scope does not reach the raw `JOIN books ...` clauses used by the note and asset queries.\n\n## Details\n\n`DELE",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-25T23:40:37Z",
+      "cve_ids": [
+        "CVE-2026-41572"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "38ce0f300bce0c09ec0cf69cdf3bc7d6beda711ddea401ef79150293135b3524",
+      "url": "https://github.com/advisories/GHSA-pxf8-6wqm-r6hh",
+      "title": "GHSA: Note Mark: OIDC-registered users authenticated by submitting password \"null\"",
+      "summary": "## Summary\n\n`IsPasswordMatch` in `backend/db/models.go` falls back to a hard-coded `bcrypt(\"null\")` placeholder whenever a user has no stored password. OIDC-registered users are created with an empty password, so anyone who submits `password: \"null\"` to the internal login endpoint receives a valid session for that user. The bypass is unauthenticated and requires no user interaction.\n\n## Details\n\n`",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-25T23:40:19Z",
+      "cve_ids": [
+        "CVE-2026-41571"
+      ],
+      "cvss": 9.4,
+      "related_links": []
+    },
+    {
+      "id": "a1deadd2d95f6c1bdcea296aafed8d3fb7235b954658d9475f007124c4c7773e",
+      "url": "https://github.com/advisories/GHSA-gj49-89wh-h4gj",
+      "title": "GHSA: Cillium exposes sensitive information included in the cilium-bugtool debug archive",
+      "summary": "### Impact\nThe output of `cilium-bugtool` can contain sensitive data when the tool is run against Cilium deployments with WireGuard encryption enabled.\n\nUsers of [WireGuard Transparent Encryption](https://docs.cilium.io/en/stable/security/network/encryption-wireguard/) are affected.\nThe sensitive data is  the WireGuard private key (`cilium_wg0.key`) used for node-to-node encrypted communication\n\n`",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-25T23:39:37Z",
+      "cve_ids": [
+        "CVE-2026-41520"
+      ],
+      "cvss": 7.9,
+      "related_links": []
+    },
+    {
+      "id": "9b05926379735fc5a45448343a6f151bfcfb202af5f94f362b7a5219c7ee399c",
+      "url": "https://github.com/advisories/GHSA-wg4g-395p-mqv3",
+      "title": "GHSA: n8n-MCP: Sensitive MCP tool-call arguments logged on authenticated requests in HTTP mode",
+      "summary": "### Impact\n\nWhen `n8n-mcp` runs in HTTP transport mode, authenticated MCP `tools/call` requests had their full arguments and JSON-RPC params written to server logs by the request dispatcher and several sibling code paths before any redaction. When a tool call carries credential material — most notably `n8n_manage_credentials.data` — the raw values can be persisted in logs.\n\nIn deployments where lo",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-25T23:35:28Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "66af51f70334aeb62e72fd76a9fd7fd8e764ed479d06500b0870167832fa7eae",
+      "url": "https://github.com/advisories/GHSA-74m3-9qvm-rp9h",
+      "title": "GHSA: zrok: WebDAV drive backend follows symlinks outside DriveRoot, enabling host filesystem read/write",
+      "summary": "**Summary**\nThe zrok WebDAV drive backend (davServer.Dir) restricts path traversal through lexical normalization but does not prevent symlink following. When a symbolic link inside the shared DriveRoot points to a location outside that root, remote WebDAV consumers can read files and—on shares without OS-level permission restrictions—write or overwrite files anywhere on the host filesystem accessi",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-25T23:34:35Z",
+      "cve_ids": [],
+      "cvss": 8.7,
+      "related_links": []
+    },
     {
       "id": "9c15b47680949d44dd9f64c6eccf775e4f889e00b6a9fdfea5b92d0e3c0b8252",
       "url": "https://github.com/advisories/GHSA-8x35-hph8-37hq",
@@ -3602,94 +3692,6 @@
       "date": "2026-04-18T01:11:19Z",
       "cve_ids": [],
       "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "b9647daa463a4e23ffdc4e8b7212b53fcffc83d3d41d312396cacec69f2eef8d",
-      "url": "https://github.com/advisories/GHSA-xjvp-7243-rg9h",
-      "title": "GHSA: Wish has SCP Path Traversal that allows arbitrary file read/write",
-      "summary": "## Summary\n\nThe SCP middleware in `charm.land/wish/v2` is vulnerable to path traversal attacks. A malicious SCP client can read arbitrary files from the server, write arbitrary files to the server, and create directories outside the configured root directory by sending crafted filenames containing `../` sequences over the SCP protocol.\n\n## Affected Versions\n\n- `charm.land/wish/v2` — all versions t",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-18T01:09:46Z",
-      "cve_ids": [],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "fea8d756bb99aef02b4064b0e036fde4d7f5a42f6b61a8bafc6deaae075979a3",
-      "url": "https://github.com/advisories/GHSA-mjw2-v2hm-wj34",
-      "title": "GHSA: Dagster Vulnerable to SQL Injection via Dynamic Partition Keys in Database I/O Manager Integrations",
-      "summary": "### Summary\n\nThe DuckDB, Snowflake, BigQuery, and DeltaLake I/O managers constructed SQL WHERE clauses by interpolating dynamic partition key values into queries without escaping. A user with the `Add Dynamic Partitions` permission could create a partition key that injects arbitrary SQL, which would execute against the target database backend under the I/O manager's credentials.\n\nOnly deployments ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-18T01:07:59Z",
-      "cve_ids": [],
-      "cvss": 8.3,
-      "related_links": []
-    },
-    {
-      "id": "3cefcfaab6d7a33edbfc473b5d7849f4a4a8742b7ec6d85973c56c1c103c7e6b",
-      "url": "https://github.com/advisories/GHSA-mph4-q2vm-w2pw",
-      "title": "GHSA: Amazon EFS CSI Driver has mount option injection via unsanitized volumeHandle and mounttargetip fields",
-      "summary": "### Summary\nThe Amazon EFS CSI Driver is a Container Storage Interface driver that allows Kubernetes clusters to use Amazon Elastic File System. An issue exists where, under certain circumstances, unsanitized values in the volumeHandle and mounttargetip fields are passed directly to the mount command, allowing injection of arbitrary mount options.\n\n### Impact\nAn actor with PersistentVolume creatio",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-04-18T01:07:27Z",
-      "cve_ids": [
-        "CVE-2026-6437"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "6cdfcaf2e0049c354aecd2dcd48590625cbf19aa95c16b5234a4d09da3af2362",
-      "url": "https://github.com/advisories/GHSA-38h3-2333-qx47",
-      "title": "GHSA: OpenTelemetry .NET has potential memory exhaustion via unbounded pooled-list sizing in Jaeger exporter conversion path",
-      "summary": "### Summary\n\n> [!IMPORTANT]  \n> There is no plan to fix this issue as `OpenTelemetry.Exporter.Jaeger` was deprecated in 2023. It is for informational purposes only.\n\n`OpenTelemetry.Exporter.Jaeger` may allow sustained memory pressure when the internal pooled-list sizing grows based on a large observed span/tag set and that enlarged size is reused for subsequent allocations. Under high-cardinality ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-18T01:05:12Z",
-      "cve_ids": [
-        "CVE-2026-41078"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "66889a9f73a698dadf9f5e1f89449af28d0049b3c23435e82f49e59d8c965845",
-      "url": "https://github.com/advisories/GHSA-f58v-p6j9-24c2",
-      "title": "GHSA: YesWiki vulnerable to authenticated SQL Injection via id_fiche in EntryManager::formatDataBeforeSave()",
-      "summary": "## Vulnerability Details\n\nYesWiki bazar module contains a SQL injection vulnerability in `tools/bazar/services/EntryManager.php` at line 704. The `$data['id_fiche']` value (sourced from `$_POST['id_fiche']`) is concatenated directly into a raw SQL query without any sanitization or parameterization.\n\n**Vulnerable Code (EntryManager.php:704):**\n```php\n$result = $this->dbService->loadSingle(\n    'SEL",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-18T01:00:30Z",
-      "cve_ids": [],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "97ad5daa08e37944a0082216a9fe7f606195c4c4a93bed087dae2983ec9e0e89",
-      "url": "https://github.com/advisories/GHSA-qrr6-mg7r-m243",
-      "title": "GHSA: PHPUnit has Argument injection via newline in PHP INI values that are forwarded to child processes",
-      "summary": "## Impact\n\nPHPUnit forwards PHP INI settings to child processes (used for isolated/PHPT test execution) as `-d name=value` command-line arguments without neutralizing INI metacharacters. Because PHP's INI parser interprets `\"` as a string delimiter, `;` as the start of a comment, and most importantly a newline as a directive separator, a value containing a newline is parsed by the child process as",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-18T00:59:28Z",
-      "cve_ids": [],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "b2abbceff10906f2b4d571c18fa62ec962e8dae9242f5f963b1eb9b8e258838b",
-      "url": "https://github.com/advisories/GHSA-h39g-6x3c-7fq9",
-      "title": "GHSA: Zio has SubFileSystem Path Confinement Bypass via Unresolved `..` Segment",
-      "summary": "# Summary\n\n`SubFileSystem` fails to confine operations to its declared sub path when the input path is `/../` (or equivalents `/../`, `/..\\\\`). This path passes all validation but resolves to the root of the parent filesystem, allowing directory level operations outside the intended boundary.\n\n# Affected Component\n\n`Zio.UPath.ValidateAndNormalize`\n`Zio.FileSystems.SubFileSystem`\n\n`UPath.ValidateAn",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-18T00:55:19Z",
-      "cve_ids": [],
-      "cvss": 3.8,
       "related_links": []
     }
   ]
