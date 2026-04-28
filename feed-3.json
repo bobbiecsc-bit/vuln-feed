@@ -1,10 +1,80 @@
 {
-  "updated": "2026-04-28T14:08:19.978720+00:00",
+  "updated": "2026-04-28T17:47:04.882929+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "0a56f0202d86a4f1d84968e314d33962c3d8878115d2adfcde72837fc7117fa0",
+      "url": "https://github.com/advisories/GHSA-j99g-7rqw-q9jg",
+      "title": "GHSA: nimiq-blockchain: Peer-triggerable panic during history sync",
+      "summary": "### Impact\n`HistoryStore::put_historic_txns` uses an `assert!` to enforce invariants about `HistoricTransaction.block_number` (must be within the macro block being pushed and within the same epoch). During history sync, a peer can influence the `history: &[HistoricTransaction]` input passed into `Blockchain::push_history_sync`, and a malformed history list can violate these invariants and trigger ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-22T19:23:55Z",
+      "cve_ids": [
+        "CVE-2026-34066"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "ef6f78fff1e2ac80dc6f736f69baf8aabb3e09aa1fa25666e90d0d2561baae0b",
+      "url": "https://github.com/advisories/GHSA-pf4j-pf3w-95f9",
+      "title": "GHSA: nimiq-transaction: UpdateValidator transactions allows voting key change without proof-of-knowledge",
+      "summary": "### Impact\nThe staking contract accepts `UpdateValidator` transactions that set `new_voting_key=Some(...)` while omitting `new_proof_of_knowledge`. this skips the proof-of-knowledge requirement that is needed to prevent BLS rogue-key attacks when public keys are aggregated.\n\nBecause tendermint macro block justification verification aggregates validator voting keys and verifies a single aggregated ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-22T19:22:53Z",
+      "cve_ids": [
+        "CVE-2026-34068"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "b17d3728edb5292f289b46466b3b515c93e98e1df732e14df070d9b93410595e",
+      "url": "https://github.com/advisories/GHSA-264v-m8fm-76jm",
+      "title": "GHSA: nimiq-transaction: Panic via `HistoryTreeProof` length mismatch",
+      "summary": "### Impact\n`HistoryTreeProof::verify` panics on a malformed proof where `history.len() != positions.len()` due to `assert_eq!(history.len(), positions.len())`. \n\nThe proof object is derived from untrusted p2p responses (`ResponseTransactionsProof.proof`) and is therefore attacker-controlled at the network boundary until validated. A malicious peer could trigger a crash by returning a crafted inclu",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-22T19:20:50Z",
+      "cve_ids": [
+        "CVE-2026-34067"
+      ],
+      "cvss": 3.1,
+      "related_links": []
+    },
+    {
+      "id": "f61f5724da396acc733c18deec1d0027de2d25bbce71c95d5a21e2f889e5a519",
+      "url": "https://github.com/advisories/GHSA-7c4j-2m43-2mgh",
+      "title": "GHSA: nimiq-primitives: Node crash due to missing interlink validation in election macro block proposals",
+      "summary": "### Impact\nAn untrusted p2p peer can cause a node to panic by announcing an election macro block whose `validators` set contains an invalid compressed BLS voting key.\n\nHashing an election macro header hashes `validators` and reaches `Validators::voting_keys()`, which calls `validator.voting_key.uncompress().unwrap()` and panics on invalid bytes.\n\n### Patches\n[The patch for this vulnerability](http",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-22T19:19:28Z",
+      "cve_ids": [
+        "CVE-2026-34065"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "ff9b038d97e6e25e88dcb3f214b9e072148b5ad966a05073b0377a5204923766",
+      "url": "https://github.com/advisories/GHSA-vc34-39q2-m6q3",
+      "title": "GHSA: nimiq-account: Vesting insufficient funds error can panic",
+      "summary": "### Impact\n`VestingContract::can_change_balance` returns `AccountError::InsufficientFunds` when `new_balance < min_cap`, but it constructs the error using `balance: self.balance - min_cap`. `Coin::sub` panics on underflow, so if an attacker can reach a state where `min_cap > balance`, the node crashes while trying to return an error.\n\nThe `min_cap > balance` precondition is attacker-reachable beca",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-22T19:18:55Z",
+      "cve_ids": [
+        "CVE-2026-34064"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
     {
       "id": "e5a248b10065ba87188250ba06a7bd7a90d8d985c44bf716054888dc14226671",
       "url": "https://github.com/advisories/GHSA-6973-8887-87ff",
@@ -264,426 +334,354 @@
       "related_links": []
     },
     {
-      "id": "bedf3f30c5e7e762fe055e5a985a40aa76a46142234b6591f2ff2e23d2694721",
-      "url": "https://github.com/advisories/GHSA-j687-52p2-xcff",
-      "title": "GHSA: Astro: XSS in define:vars via incomplete </script> tag sanitization",
-      "summary": "## Summary\n\nThe `defineScriptVars` function in Astro's server-side rendering pipeline uses a case-sensitive regex `/<\\/script>/g` to sanitize values injected into inline `<script>` tags via the `define:vars` directive. HTML parsers close `<script>` elements case-insensitively and also accept whitespace or `/` before the closing `>`, allowing an attacker to bypass the sanitization with payloads lik",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-21T20:39:49Z",
+      "id": "2e27e635dca98e759509a1be967d09889a383a67e34254b9f93421b550b11cab",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34290",
+      "title": "CVE-2026-34290 — CVSS 7.5",
+      "summary": "Vulnerability in the Oracle Identity Manager Connector product of Oracle Fusion Middleware (component: Core).   The supported version that is affected is 12.2.1.4.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via TCP to compromise Oracle Identity Manager Connector.  Successful attacks of this vulnerability can result in unauthorized ability to cause a hang",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:33.820",
       "cve_ids": [
-        "CVE-2026-41067"
+        "CVE-2026-34290"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "4e1e47033ad045375a63f9d41b9925c078100fadec7192596e84d5f6e3c96efe",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34289",
+      "title": "CVE-2026-34289 — CVSS 5.9",
+      "summary": "Vulnerability in the Oracle Identity Manager Connector product of Oracle Fusion Middleware (component: Core).   The supported version that is affected is 12.2.1.4.0. Difficult to exploit vulnerability allows unauthenticated attacker with network access via HTTPS to compromise Oracle Identity Manager Connector.  Successful attacks of this vulnerability can result in  unauthorized access to critical",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:33.687",
+      "cve_ids": [
+        "CVE-2026-34289"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "d9838c4de15b8bcd90c71813a08d1b6d560ec4a1b38606d657b56489ae60e515",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34288",
+      "title": "CVE-2026-34288 — CVSS 5.9",
+      "summary": "Vulnerability in the Oracle Identity Manager Connector product of Oracle Fusion Middleware (component: Core).   The supported version that is affected is 12.2.1.4.0. Difficult to exploit vulnerability allows unauthenticated attacker with network access via HTTP to compromise Oracle Identity Manager Connector.  Successful attacks of this vulnerability can result in  unauthorized access to critical ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:33.557",
+      "cve_ids": [
+        "CVE-2026-34288"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "44f39ccfcffeca591c95196e3af69d016ef4e37e0a0c413998cf84d1a1dacf01",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34287",
+      "title": "CVE-2026-34287 — CVSS 9.1",
+      "summary": "Vulnerability in the Oracle Identity Manager Connector product of Oracle Fusion Middleware (component: Core).   The supported version that is affected is 12.2.1.4.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTPS to compromise Oracle Identity Manager Connector.  Successful attacks of this vulnerability can result in  unauthorized creation, deletion o",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:33.417",
+      "cve_ids": [
+        "CVE-2026-34287"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "c3f713fc6ebe2bc9ec46b98610e508981cbfb2a483795b46bb093751d6e833f8",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34286",
+      "title": "CVE-2026-34286 — CVSS 9.1",
+      "summary": "Vulnerability in the Oracle Identity Manager Connector product of Oracle Fusion Middleware (component: Core).   The supported version that is affected is 12.2.1.4.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTPS to compromise Oracle Identity Manager Connector.  Successful attacks of this vulnerability can result in  unauthorized creation, deletion o",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:33.277",
+      "cve_ids": [
+        "CVE-2026-34286"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "8c4e7bdc9fbd7c3f60939519d05cf5bf88339f884a130167cd4f8c85674c9d31",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34285",
+      "title": "CVE-2026-34285 — CVSS 9.1",
+      "summary": "Vulnerability in the Oracle Identity Manager Connector product of Oracle Fusion Middleware (component: Core).   The supported version that is affected is 12.2.1.4.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTPS to compromise Oracle Identity Manager Connector.  Successful attacks of this vulnerability can result in  unauthorized creation, deletion o",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:33.130",
+      "cve_ids": [
+        "CVE-2026-34285"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "be9326c951cd4a6799d1e4d81fc65023900f3665a24114765ee8bf127b435933",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34284",
+      "title": "CVE-2026-34284 — CVSS 6.1",
+      "summary": "Vulnerability in the Oracle Business Process Management Suite product of Oracle Fusion Middleware (component: Human workflow 11g+).  Supported versions that are affected are 12.2.1.4.0 and  14.1.2.0.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTP to compromise Oracle Business Process Management Suite.  Successful attacks require human interaction fr",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:32.973",
+      "cve_ids": [
+        "CVE-2026-34284"
       ],
       "cvss": 6.1,
       "related_links": []
     },
     {
-      "id": "a8c9c36d97b701d9b9634306a9e0957f427bb7e89c949427362427f10a24d81a",
-      "url": "https://github.com/advisories/GHSA-vfmq-68hx-4jfw",
-      "title": "GHSA: lxml: Default configuration of iterparse() and ETCompatXMLParser() allows XXE to local files",
-      "summary": "### Impact\nUsing either of the two parsers in the default configuration (with `resolve_entities=True`) allows untrusted XML input to read local files.\n\n### Patches\nlxml 6.1.0 changes the default to `resolve_entities='internal'`, thus disallowing local file access by default.\n\n### Workarounds\nSetting the `resolve_entities` option explicitly to `resolve_entities='internal'` or `resolve_entities=Fals",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-21T20:38:44Z",
+      "id": "24bcb568c3e07b5f3a0a73117f7cc5eac863d45962e8b2d14a5902e0901f562a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34283",
+      "title": "CVE-2026-34283 — CVSS 6.1",
+      "summary": "Vulnerability in the Oracle Identity Manager product of Oracle Fusion Middleware (component: Identity Console).  Supported versions that are affected are 12.2.1.4.0 and  14.1.2.0.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTP to compromise Oracle Identity Manager.  Successful attacks require human interaction from a person other than the attacker a",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:32.823",
       "cve_ids": [
-        "CVE-2026-41066"
+        "CVE-2026-34283"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "a18f0db522b9897d6178099d2d1fdcf1ae9d52d1ef47c9b9a1b7c4f22edddfe1",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34282",
+      "title": "CVE-2026-34282 — CVSS 7.5",
+      "summary": "Vulnerability in the Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: Networking).  Supported versions that are affected are Oracle Java SE: 8u481-perf, 11.0.30, 17.0.18, 21.0.10, 25.0.2, 26; Oracle GraalVM for JDK: 17.0.18 and  21.0.10; Oracle GraalVM Enterprise Edition: 21.3.17. Easily exploitable vulnerability allows unauthenticated",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:32.643",
+      "cve_ids": [
+        "CVE-2026-34282"
       ],
       "cvss": 7.5,
       "related_links": []
     },
     {
-      "id": "4e4028d45fa043f511b817e491b60217933fbac3c626f09616f7863298be3829",
-      "url": "https://github.com/advisories/GHSA-94jr-7pqp-xhcq",
-      "title": "GHSA: Tekton Pipeline: Git Resolver Unsanitized Revision Parameter Enables git Argument Injection Leading to RCE",
-      "summary": "## Summary\n\nThe git resolver's `revision` parameter is passed directly as a positional argument to `git fetch` without any validation that it does not begin with a `-` character. Because git parses flags from mixed positional arguments, an attacker can inject arbitrary `git fetch` flags such as `--upload-pack=<binary>`. Combined with the `validateRepoURL` function explicitly permitting URLs that b",
-      "source": "GitHub Advisory",
+      "id": "0dfb706d1df52fc1bd9b64c4845a968221c1af7f3e1bb204dcb6786497eb26bf",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34280",
+      "title": "CVE-2026-34280 — CVSS 6.5",
+      "summary": "Vulnerability in the PeopleSoft Enterprise HCM Human Resources product of Oracle PeopleSoft (component: Job Profile Manager).   The supported version that is affected is 9.2. Easily exploitable vulnerability allows high privileged attacker with network access via HTTP to compromise PeopleSoft Enterprise HCM Human Resources.  Successful attacks of this vulnerability can result in  unauthorized crea",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-04-21T20:28:36Z",
+      "date": "2026-04-21T21:16:32.340",
       "cve_ids": [
-        "CVE-2026-40938"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "0be81c98d72d7c6a2c166d03d7a88e1b1477640ca5e9f8fab858292a9e5808e8",
-      "url": "https://github.com/advisories/GHSA-m2cx-gpqf-qf74",
-      "title": "GHSA: Tekton Pipelines: HTTP Resolver Unbounded Response Body Read Enables Denial of Service via Memory Exhaustion",
-      "summary": "## Summary\n\nThe HTTP resolver's `FetchHttpResource` function calls `io.ReadAll(resp.Body)` with no response body size limit. Any tenant with permission to create TaskRuns or PipelineRuns that reference the HTTP resolver can point it at an attacker-controlled HTTP server that returns a very large response body within the 1-minute timeout window, causing the `tekton-pipelines-resolvers` pod to be OO",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-21T20:27:33Z",
-      "cve_ids": [
-        "CVE-2026-40924"
+        "CVE-2026-34280"
       ],
       "cvss": 6.5,
       "related_links": []
     },
     {
-      "id": "8e5fc434ec96496903f5686e61f209d73dc2e73b81e236a81979a5b0d1292fe9",
-      "url": "https://github.com/advisories/GHSA-rx35-6rhx-7858",
-      "title": "GHSA: Tekton Pipelines: VolumeMount path restriction bypass via missing filepath.Clean in /tekton/ check",
-      "summary": "## Summary\n\nA validation bypass in the VolumeMount path restriction allows mounting volumes under restricted `/tekton/` internal paths by using `..` path traversal components. The restriction check uses `strings.HasPrefix` without `filepath.Clean`, so a path like `/tekton/home/../results` passes validation but resolves to `/tekton/results` at runtime.\n\n## Details\n\nTekton Pipelines restricts Volume",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-21T20:26:41Z",
+      "id": "a2abb1c1985b4280df0453146e3a45b0d49ed4ca4559f1d7b4fc050e5b5ef7b8",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34279",
+      "title": "CVE-2026-34279 — CVSS 9.1",
+      "summary": "Vulnerability in the Oracle Enterprise Manager Base Platform product of Oracle Enterprise Manager (component: Event Management).  Supported versions that are affected are 13.5 and  24.1. Easily exploitable vulnerability allows high privileged attacker with network access via HTTP to compromise Oracle Enterprise Manager Base Platform.  While the vulnerability is in Oracle Enterprise Manager Base Pl",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:32.180",
       "cve_ids": [
-        "CVE-2026-40923"
+        "CVE-2026-34279"
       ],
-      "cvss": 5.4,
+      "cvss": 9.1,
       "related_links": []
     },
     {
-      "id": "394eefd093f664dc4cc18a0a076aca0712d77053d3a363e37137dd6747dd0039",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40885",
-      "title": "CVE-2026-40885 — CVSS 8.8",
-      "summary": "goshs is a SimpleHTTPServer written in Go. From 2.0.0-beta.4 to 2.0.0-beta.5, goshs leaks file-based ACL credentials through its public collaborator feed when the server is deployed without global basic auth. Requests to .goshs-protected folders are logged before authorization is enforced, and the collaborator websocket broadcasts raw request headers, including Authorization. An unauthenticated ob",
+      "id": "1a917e7d37ccbc51a00e9112f01f8f1d977bdb8a0ca2f8363db4f3e085f62e68",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34275",
+      "title": "CVE-2026-34275 — CVSS 9.8",
+      "summary": "Vulnerability in the Oracle Advanced Inbound Telephony product of Oracle E-Business Suite (component: Setup and Administration).  Supported versions that are affected are 12.2.3-12.2.15. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTP to compromise Oracle Advanced Inbound Telephony.  Successful attacks of this vulnerability can result in takeover of Or",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-04-21T20:17:02.257",
+      "date": "2026-04-21T21:16:31.550",
       "cve_ids": [
-        "CVE-2026-40885"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "7bd28c8b48126f7d9e2379a7a8ec05ca508bf4f7c45bab254dbf221b37eb3f91",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40884",
-      "title": "CVE-2026-40884 — CVSS 9.8",
-      "summary": "goshs is a SimpleHTTPServer written in Go. Prior to 2.0.0-beta.6, goshs contains an SFTP authentication bypass when the documented empty-username basic-auth syntax is used. If the server is started with -b ':pass' together with -sftp, goshs accepts that configuration but does not install any SFTP password handler. As a result, an unauthenticated network attacker can connect to the SFTP service and",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T20:17:02.107",
-      "cve_ids": [
-        "CVE-2026-40884"
+        "CVE-2026-34275"
       ],
       "cvss": 9.8,
       "related_links": []
     },
     {
-      "id": "b976967b92637ef04494997c10da0ff7576908d0c3494308973e39d3342c21b2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40883",
-      "title": "CVE-2026-40883 — CVSS 8.1",
-      "summary": "goshs is a SimpleHTTPServer written in Go. From 2.0.0-beta.4 to 2.0.0-beta.5, goshs contains a cross-site request forgery issue in its state-changing HTTP GET routes. An external attacker can cause an already authenticated browser to trigger destructive actions such as ?delete and ?mkdir because goshs relies on HTTP basic auth alone and performs no CSRF, Origin, or Referer validation for those rou",
+      "id": "51ab1bbfeb76f8482d1920dbbdf06bd7ecf27757153e0ffd7e473a13232400be",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34274",
+      "title": "CVE-2026-34274 — CVSS 6.1",
+      "summary": "Vulnerability in the Oracle Configurator product of Oracle E-Business Suite (component: User Interface).  Supported versions that are affected are 12.2.3-12.2.15. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTP to compromise Oracle Configurator.  Successful attacks require human interaction from a person other than the attacker and while the vulnerabil",
       "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-04-21T20:17:01.983",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:31.390",
       "cve_ids": [
-        "CVE-2026-40883"
+        "CVE-2026-34274"
       ],
-      "cvss": 8.1,
+      "cvss": 6.1,
       "related_links": []
     },
     {
-      "id": "92922a5ccae7e645ddaa31c1fd77f9f1f7d6f17d882c65dc291bcbadbb730249",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40881",
-      "title": "CVE-2026-40881 — CVSS 7.5",
-      "summary": "ZEBRA is a Zcash node written entirely in Rust. Prior to zebrad version 4.3.0 and zebra-network version 5.0.1, when deserializing addr or addrv2 messages, which contain vectors of addresses, Zebra would fully deserialize them up to a maximum length (over 233,000) that was derived from the 2 MiB message size limit. This is much larger than the actual limit of 1,000 messages from the specification. ",
+      "id": "ac6abef4db1b2d83bb2a372cb718e7d03ca9dbbf746b743b49d4b08131927c36",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34273",
+      "title": "CVE-2026-34273 — CVSS 5.3",
+      "summary": "Vulnerability in Oracle GoldenGate (component: Libraries).  Supported versions that are affected are 23.4-23.10. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTP to compromise Oracle GoldenGate.  Successful attacks of this vulnerability can result in  unauthorized read access to a subset of Oracle GoldenGate accessible data. CVSS 3.1 Base Score 5.3 (Con",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:31.237",
+      "cve_ids": [
+        "CVE-2026-34273"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "9438422227c980d4b42194512c9f7b13c5a8124e6dc0d02a84ad4f8ad0aaf061",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34269",
+      "title": "CVE-2026-34269 — CVSS 6.1",
+      "summary": "Vulnerability in the PeopleSoft Enterprise PeopleTools product of Oracle PeopleSoft (component: Portal).  Supported versions that are affected are 8.61-8.62. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTP to compromise PeopleSoft Enterprise PeopleTools.  Successful attacks require human interaction from a person other than the attacker and while the v",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:30.557",
+      "cve_ids": [
+        "CVE-2026-34269"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "859ce6e8513ada0753d06cbbdb7c38a645df4e870a51ea257d125bccbd4cdba7",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34268",
+      "title": "CVE-2026-34268 — CVSS 2.9",
+      "summary": "Vulnerability in the Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: Security).  Supported versions that are affected are Oracle Java SE: 8u481, 8u481-b50, 8u481-perf, 11.0.30, 17.0.18, 21.0.10, 25.0.2, 26; Oracle GraalVM for JDK: 17.0.18 and  21.0.10; Oracle GraalVM Enterprise Edition: 21.3.17. Difficult to exploit vulnerability allo",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:30.353",
+      "cve_ids": [
+        "CVE-2026-34268"
+      ],
+      "cvss": 2.9,
+      "related_links": []
+    },
+    {
+      "id": "90cc0a28f257bf72949d335de501992f948babd492cdce91bcd854e3100aeb1a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34266",
+      "title": "CVE-2026-34266 — CVSS 6.5",
+      "summary": "Vulnerability in the PeopleSoft Enterprise HCM Absence Management product of Oracle PeopleSoft (component: Absence Management).   The supported version that is affected is 9.2. Easily exploitable vulnerability allows high privileged attacker with network access via HTTP to compromise PeopleSoft Enterprise HCM Absence Management.  Successful attacks of this vulnerability can result in  unauthorized",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:30.040",
+      "cve_ids": [
+        "CVE-2026-34266"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "d1ed690e9fd40935ce98d5e8812c0799039f039a96e5e95e810e843680249e9e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-33519",
+      "title": "CVE-2026-33519 — CVSS 9.8",
+      "summary": "An incorrect authorization vulnerability exists in Esri Portal for ArcGIS 11.4, 11.5 and 12.0 on Windows, Linux and Kubernetes that did not correctly check permissions assigned to developer credentials.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:29.673",
+      "cve_ids": [
+        "CVE-2026-33519"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "760de87a4337f8d3560ee10308d099711d6f836d3cdac9c1d6f10f09dbe80792",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-33518",
+      "title": "CVE-2026-33518 — CVSS 9.8",
+      "summary": "An incorrect privilege assignment vulnerability exists in Esri Portal for ArcGIS 11.5 in Windows and Linux that allows highly privileged users to create developer credentials that may grant more privileges than expected.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:29.490",
+      "cve_ids": [
+        "CVE-2026-33518"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "a13c12a1e1587f15c4c833eb4f824d35fa75eef2df6c9b8ccc3d0ab87169af45",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-22021",
+      "title": "CVE-2026-22021 — CVSS 5.3",
+      "summary": "Vulnerability in the Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: JSSE).  Supported versions that are affected are Oracle Java SE: 8u481, 8u481-b50, 8u481-perf, 11.0.30, 17.0.18, 21.0.10, 25.0.2, 26; Oracle GraalVM for JDK: 17.0.18 and  21.0.10; Oracle GraalVM Enterprise Edition: 21.3.17. Easily exploitable vulnerability allows una",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:29.193",
+      "cve_ids": [
+        "CVE-2026-22021"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "ba07ff7f67757fabac4e032554fe8fd242e412124d17ac9607fdf8d6c91f726a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-22018",
+      "title": "CVE-2026-22018 — CVSS 3.7",
+      "summary": "Vulnerability in the Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: Libraries).  Supported versions that are affected are Oracle Java SE: 8u481, 8u481-b50, 8u481-perf, 11.0.30, 17.0.18, 21.0.10, 25.0.2, 26; Oracle GraalVM for JDK: 17.0.18 and  21.0.10; Oracle GraalVM Enterprise Edition: 21.3.17. Difficult to exploit vulnerability all",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:28.833",
+      "cve_ids": [
+        "CVE-2026-22018"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "8e57e9aded0721483498c40756f79024e5c6372ce3911be714db91808a0a9d7f",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-22016",
+      "title": "CVE-2026-22016 — CVSS 7.5",
+      "summary": "Vulnerability in the Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: JAXP).  Supported versions that are affected are Oracle Java SE: 8u481, 8u481-b50, 8u481-perf, 11.0.30, 17.0.18, 21.0.10, 25.0.2, 26; Oracle GraalVM for JDK: 17.0.18 and  21.0.10; Oracle GraalVM Enterprise Edition: 21.3.17. Easily exploitable vulnerability allows una",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:28.470",
+      "cve_ids": [
+        "CVE-2026-22016"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "cffcf507ae59e7070df4a16cc0372b7248e05a1d57ce5becd6e1c7e75bb6f7b3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-22013",
+      "title": "CVE-2026-22013 — CVSS 5.3",
+      "summary": "Vulnerability in the Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: JGSS).  Supported versions that are affected are Oracle Java SE: 8u481, 8u481-b50, 8u481-perf, 11.0.30, 17.0.18, 21.0.10, 25.0.2, 26; Oracle GraalVM for JDK: 17.0.18 and  21.0.10; Oracle GraalVM Enterprise Edition: 21.3.17. Difficult to exploit vulnerability allows u",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:27.923",
+      "cve_ids": [
+        "CVE-2026-22013"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "12faab239e44260c68a760514485636d1f035b4c965e9ef541c112ab356fd415",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-22011",
+      "title": "CVE-2026-22011 — CVSS 7.6",
+      "summary": "Vulnerability in the Oracle Applications DBA product of Oracle E-Business Suite (component: ADPatch).  Supported versions that are affected are 12.2.3-12.2.15. Difficult to exploit vulnerability allows high privileged attacker with network access via HTTP to compromise Oracle Applications DBA.  Successful attacks require human interaction from a person other than the attacker and while the vulnera",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-04-21T20:17:01.850",
+      "date": "2026-04-21T21:16:27.740",
       "cve_ids": [
-        "CVE-2026-40881"
+        "CVE-2026-22011"
+      ],
+      "cvss": 7.6,
+      "related_links": []
+    },
+    {
+      "id": "f56b899ba15efb43e0f02c67cebbfd5263afea6da46f8834168bb151951a10c3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-22010",
+      "title": "CVE-2026-22010 — CVSS 7.5",
+      "summary": "Vulnerability in the Oracle Financial Services Analytical Applications Infrastructure product of Oracle Financial Services Applications (component: Platform).  Supported versions that are affected are 8.0.7.9, 8.0.8.7 and  8.1.2.5. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTP to compromise Oracle Financial Services Analytical Applications Infrastruc",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-21T21:16:27.550",
+      "cve_ids": [
+        "CVE-2026-22010"
       ],
       "cvss": 7.5,
       "related_links": []
-    },
-    {
-      "id": "20ad5366bfdbac5f369d9204e203ffcf202c84efa2cb48c83dd32712a17ad0a1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40880",
-      "title": "CVE-2026-40880 — CVSS 8.1",
-      "summary": "ZEBRA is a Zcash node written entirely in Rust. Prior to zebrad version 4.3.1 and zebra-consensus version 5.0.2, a logic error in Zebra's transaction verification cache could allow a malicious miner to induce a consensus split. By carefully submitting a transaction that is valid for height H+1 but invalid for H+2 and then mining that transaction in a block at height H+2, a miner could cause vulner",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-21T20:17:01.687",
-      "cve_ids": [
-        "CVE-2026-40880"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "fbcfecd71e3c80b2e9efa4526ddec1fb6637fc6aec4f066c9df4aee9340bdd78",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40879",
-      "title": "CVE-2026-40879 — CVSS 7.5",
-      "summary": "Nest is a framework for building scalable Node.js server-side applications. Prior to 11.1.19, when an attacker sends many small, valid JSON messages in one TCP frame, handleData() recurses once per message; the buffer shrinks each call. maxBufferSize is never reached; call stack overflows instead. A ~47 KB payload is sufficient to trigger RangeError. This vulnerability is fixed in 11.1.19.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-21T20:17:01.533",
-      "cve_ids": [
-        "CVE-2026-40879"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "a140acea34ae86f99bd81802f7a9cd7c5c89e29e9bfeb3b588b7a55c15c05da8",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40878",
-      "title": "CVE-2026-40878",
-      "summary": "mailcow: dockerized is an open source groupware/email suite based on docker. In versions prior to 2026-03b, the mailcow web interface passes the raw `$_SERVER['REQUEST_URI']` to Twig as a global template variable and renders it inside a JavaScript string literal in the `setLang()` helper of `base.twig`, relying on Twig's default HTML auto-escaping instead of the context-appropriate `js` escaping s",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T20:17:01.403",
-      "cve_ids": [
-        "CVE-2026-40878"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "44ac422279ca2cba40091ba887df38be5e4636b80ccef679b291bcc2eaaa3b01",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40876",
-      "title": "CVE-2026-40876 — CVSS 8.8",
-      "summary": "goshs is a SimpleHTTPServer written in Go. Prior to 2.0.0-beta.6, goshs contains an SFTP root escape caused by prefix-based path validation. An authenticated SFTP user can read from and write to filesystem paths outside the configured SFTP root, which breaks the intended jail boundary and can expose or modify unrelated server files. The SFTP subsystem routes requests through sftpserver/sftpserver.",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-04-21T20:17:01.263",
-      "cve_ids": [
-        "CVE-2026-40876"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "04db9b28369dc9929a40ab1f2507b7c9583935c56c5a4f68e7f4414c4aff6599",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40875",
-      "title": "CVE-2026-40875",
-      "summary": "mailcow: dockerized is an open source groupware/email suite based on docker. In versions prior to 2026-03b, the user dashboard's \"Seen successful connections\" (login history) renders the client IP from login logs without HTML escaping. Because the server trusts the X-Real-IP header as the source IP for logging, an attacker can inject HTML/JS into this field. This Self-XSS can be exploited by a Log",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T20:17:01.120",
-      "cve_ids": [
-        "CVE-2026-40875"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d6275245113aec2413fd4570385ed8cc0f157b7e1d56627bcb64b1f2468cf5bd",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40874",
-      "title": "CVE-2026-40874",
-      "summary": "mailcow: dockerized is an open source groupware/email suite based on docker. In versions prior to 2026-03b, no administrator verification takes place when deleting Forwarding Hosts with `/api/v1/delete/fwdhost`. Any authenticated user can call this API. Checks are only applied for edit/add actions, but deletion can still significantly disrupt the mail service. Version 2026-03b fixes the vulnerabil",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T20:17:00.977",
-      "cve_ids": [
-        "CVE-2026-40874"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "faa237db99dd8002e1a50af0f003eb77c561ae8fdae688adcc1bea63561618f6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40873",
-      "title": "CVE-2026-40873",
-      "summary": "mailcow: dockerized is an open source groupware/email suite based on docker. In versions prior to 2026-03b, the Quarantine details modal injects attachment filenames into HTML without escaping, allowing arbitrary HTML/JS execution. An attacker can deliver an email with a crafted attachment name so that when an admin views the quarantine item, JavaScript executes in their browser, taking over their",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T20:17:00.820",
-      "cve_ids": [
-        "CVE-2026-40873"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "eaec0744185b864991e527d7818bdcc909234113d63c93b0489ccf3ac774aed3",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40872",
-      "title": "CVE-2026-40872",
-      "summary": "mailcow: dockerized is an open source groupware/email suite based on docker. In versions prior to 2026-03b, the admin dashboard's Autodiscover logs render the EMailAddress value (logged as the \"user\" field) without HTML escaping. By submitting an unauthenticated Autodiscover request with a crafted EMailAddress containing HTML/JS, the payload is stored in Redis and executed when an admin views the ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T20:17:00.673",
-      "cve_ids": [
-        "CVE-2026-40872"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c304b8f469d70f35d58750d9ab00c79b173050e9c4ad2a774663017e7bebd028",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40871",
-      "title": "CVE-2026-40871 — CVSS 7.2",
-      "summary": "mailcow: dockerized is an open source groupware/email suite based on docker. Versions prior to 2026-03b have a second-order SQL injection vulnerability in the quarantine_category field via the Mailcow API. The /api/v1/add/mailbox endpoint stores quarantine_category without validation or sanitization. This value is later used by quarantine_notify.py, which constructs SQL queries using unsafe % stri",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T20:17:00.527",
-      "cve_ids": [
-        "CVE-2026-40871"
-      ],
-      "cvss": 7.2,
-      "related_links": []
-    },
-    {
-      "id": "b878d4875a3c1e1bbb4953aece660cff948c885ba5a3299c234b5f2b43af7089",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40870",
-      "title": "CVE-2026-40870 — CVSS 7.5",
-      "summary": "Decidim is a participatory democracy framework. Starting in version 0.0.1 and prior to versions 0.30.5 and 0.31.1, the root level `commentable` field in the API allows access to all commentable resources within the platform, without any permission checks. All Decidim instances are impacted that have not secured the `/api` endpoint. The `/api` endpoint is publicly available with the default configu",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T20:17:00.367",
-      "cve_ids": [
-        "CVE-2026-40870"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "1546c909d8a8ad0c2375e9e4d06a0674719bd39355687f075a5dfb0938a262c3",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40869",
-      "title": "CVE-2026-40869 — CVSS 7.5",
-      "summary": "Decidim is a participatory democracy framework. Starting in version 0.19.0 and prior to versions 0.30.5 and 0.31.1, a vulnerability allows any registered and authenticated user to accept or reject any amendments. The impact is on any users who have created proposals where the amendments feature is enabled. This also elevates the user accepting the amendment as the author of the original proposal a",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T20:17:00.207",
-      "cve_ids": [
-        "CVE-2026-40869"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "2a8e174c454b92fa13d588d4e0454b67d4457aeb7a8ec22b7b4d64aaebce8a06",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-33813",
-      "title": "CVE-2026-33813 — CVSS 7.5",
-      "summary": "Parsing a WEBP image with an invalid, large size panics on 32-bit platforms.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-21T20:16:56.387",
-      "cve_ids": [
-        "CVE-2026-33813"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "cdfde8bfb79e0395f1c95da8e1d2697f950c313da4003c7d5c462d221f4f6820",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-6744",
-      "title": "CVE-2026-6744 — CVSS 6.3",
-      "summary": "A vulnerability was found in Bagisto up to 2.3.15. Affected is the function copy of the component Downloadable Link Handler. The manipulation results in server-side request forgery. The attack may be launched remotely. The exploit has been made public and could be used. The vendor was contacted early about this disclosure and explains: \"We already replied on the github advisories. All the security",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-04-21T19:16:18.727",
-      "cve_ids": [
-        "CVE-2026-6744"
-      ],
-      "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "f5c16567165b349a6fbe6e99ef58be15e21da27e50d020e40eb04adbcda0dd1c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41456",
-      "title": "CVE-2026-41456",
-      "summary": "Bludit CMS prior to commit 6732dde contains a reflected cross-site scripting vulnerability in the search plugin that allows unauthenticated attackers to inject arbitrary JavaScript by crafting a malicious search query. Attackers can execute malicious scripts in the browsers of users who visit crafted URLs containing the payload, potentially stealing session cookies or performing actions on behalf ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T19:16:18.557",
-      "cve_ids": [
-        "CVE-2026-41456"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3ff54b007ef8ee070debe5b7a25f407afbf6793e486a9951f40e933da5d842b4",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40868",
-      "title": "CVE-2026-40868 — CVSS 8.1",
-      "summary": "Kyverno is a policy engine designed for cloud native platform engineering teams. Prior to 1.16.4, kyverno’s apiCall servicecall helper implicitly injects Authorization: Bearer ... using the kyverno controller serviceaccount token when a policy does not explicitly set an Authorization header. Because context.apiCall.service.url is policy-controlled, this can send the kyverno serviceaccount token to",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-21T19:16:18.420",
-      "cve_ids": [
-        "CVE-2026-40868"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "0476ae29e8a2017f92107398598d3505693ee4e38ec2833d95be62b6238b6d0b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40867",
-      "title": "CVE-2026-40867",
-      "summary": "Horilla is a free and open source Human Resource Management System (HRMS). In 1.5.0, a broken access control vulnerability in the helpdesk attachment viewer allows any authenticated user to view attachments from other tickets by changing the attachment ID. This can expose sensitive support files and internal documents across unrelated users or teams.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T19:16:18.293",
-      "cve_ids": [
-        "CVE-2026-40867"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "41d55af0beda76d742678e5c4e1cd6077db254f362e9bee560aac5f98841c544",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40866",
-      "title": "CVE-2026-40866",
-      "summary": "Horilla is a free and open source Human Resource Management System (HRMS). In 1.5.0, an insecure direct object reference in the employee document upload endpoint allows any authenticated user to overwrite or replace or corrupt another employee’s document by changing the document ID in the upload request. This enables unauthorized modification of HR records.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T19:16:18.170",
-      "cve_ids": [
-        "CVE-2026-40866"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "1b4f0af76ed48178a805a25dea265f358663df7ce4ef4915274d23363daa6dd8",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40865",
-      "title": "CVE-2026-40865",
-      "summary": "Horilla is a free and open source Human Resource Management System (HRMS). In 1.5.0, an insecure direct object reference in the employee document viewer allows any authenticated user to access other employees’ uploaded documents by changing the document ID in the request. This exposes sensitive HR files such as identity documents, contracts, certificates, and other private employee records.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T19:16:18.017",
-      "cve_ids": [
-        "CVE-2026-40865"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "cd9e83d57a57a84f3f527f81796974fd42f46e673a7120df8ad79084f6820be5",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40614",
-      "title": "CVE-2026-40614 — CVSS 8.8",
-      "summary": "PJSIP is a free and open source multimedia communication library written in C. In 2.16 and earlier, there is a buffer overflow when decoding Opus audio frames due to insufficient buffer size validation in the Opus codec decode path. The FEC decode buffers (dec_frame[].buf) were allocated based on a PCM-derived formula: (sample_rate/1000) * 60 * channel_cnt * 2. At 8 kHz mono this yields only 960 b",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T19:16:17.880",
-      "cve_ids": [
-        "CVE-2026-40614"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "19114ee59a904f529008c10b0d42368efcd2bd43d72d4eea329fa71902b05cce",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40613",
-      "title": "CVE-2026-40613 — CVSS 7.5",
-      "summary": "Coturn is a free open source implementation of TURN and STUN Server. Prior to 4.10.0, the STUN/TURN attribute parsing functions in coturn perform unsafe pointer casts from uint8_t * to uint16_t * without alignment checks. When processing a crafted STUN message with odd-aligned attribute boundaries, this results in misaligned memory reads at ns_turn_msg.c. On ARM64 architectures (AArch64) with stri",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-21T19:16:17.743",
-      "cve_ids": [
-        "CVE-2026-40613"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "23be4c6ff5c0ebd33926346b0876ca67ed162c79f17feb487a6cfc537d20aad3",
-      "url": "https://github.com/advisories/GHSA-wjxp-xrpv-xpff",
-      "title": "GHSA: Tekton Pipelines: Git resolver API mode leaks system-configured API token to user-controlled serverURL",
-      "summary": "### Summary\n\nThe Tekton Pipelines git resolver in API mode sends the system-configured Git API token to a user-controlled `serverURL` when the user omits the `token` parameter. A tenant with TaskRun or PipelineRun create permission can exfiltrate the shared API token (GitHub PAT, GitLab token, etc.) by pointing `serverURL` to an attacker-controlled endpoint.\n\n### Details\n\nThe git resolver's `Resol",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-21T18:52:18Z",
-      "cve_ids": [
-        "CVE-2026-40161"
-      ],
-      "cvss": 7.7,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-40161"
-      ]
     }
   ]
 }
