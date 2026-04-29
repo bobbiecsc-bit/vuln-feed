@@ -1,10 +1,136 @@
 {
-  "updated": "2026-04-28T21:07:47.713856+00:00",
+  "updated": "2026-04-29T02:55:51.816600+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "d3f1f9835d5fc8c9b85dea671dd56a718396eff7b49a2ae93a6ca993358d9bca",
+      "url": "https://github.com/advisories/GHSA-88hf-wf7h-7w4m",
+      "title": "GHSA: OpenTelemetry's Zipkin remote endpoint cache could grow without bounds and increase memory pressure",
+      "summary": "### Summary\n\nThe Zipkin exporter remote endpoint cache accepted unbounded key growth derived from span attributes. In high-cardinality scenarios, this could increase process memory usage over time and degrade availability.\n\n### Details\n\n- Introduce a bounded, thread-safe LRU cache for remote endpoints.\n- Enforce fixed maximum size to prevent unbounded growth.\n\n### Impact\n\n- A process using Zipkin ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-28T23:23:28Z",
+      "cve_ids": [
+        "CVE-2026-41310"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "c5e4a86bd799672a4262c8e7df8dcaa682df52c7bb1007592ab40cea02ebb93f",
+      "url": "https://github.com/advisories/GHSA-hrmw-qprp-wgmc",
+      "title": "GHSA: PhpSpreadsheet has XSS via number format code with @ text placeholder bypasses htmlspecialchars in HTML writer",
+      "summary": "It was discovered that there is a way to bypass HTML escaping in the HTML writer using custom number format codes.\n\n## The Problem\n\nIn `Writer/Html.php` around line 1592, the code checks if the formatted cell data equals the original data to decide whether to apply `htmlspecialchars()`:\n\n```php\nif ($cellData === $origData) {\n    $cellData = htmlspecialchars($cellData, ...);\n}\n```\n\nWhen a cell has ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-28T22:57:13Z",
+      "cve_ids": [
+        "CVE-2026-40296"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "2a55e1bc1ec1b0deb0fb84c3c011d0f6fa60ca583ff4ee24553ee721f7698c0e",
+      "url": "https://github.com/advisories/GHSA-vp29-5652-4fw9",
+      "title": "GHSA: CoreDNS has TSIG authentication bypass on gRPC and QUIC transports",
+      "summary": "### Summary\n\nThe gRPC, QUIC, DoH, and DoH3 transports in CoreDNS incorrectly handle TSIG authentication.\n\nFor gRPC and QUIC, CoreDNS checks whether the TSIG key name exists in the config, but does not actually verify the TSIG HMAC. If the key name matches, `tsigStatus` remains nil and the tsig plugin treats the request as \"verified\".\n\nFor DoH and DoH3, the issue is worse: TSIG is not verified at a",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-28T22:54:32Z",
+      "cve_ids": [
+        "CVE-2026-35579"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "8954fe1b09ee6fe5fcebc3dc55346a313c6a2cf72c7a8150a8ffdc7766cb81f1",
+      "url": "https://github.com/advisories/GHSA-qhmp-q7xh-99rh",
+      "title": "GHSA: CoreDNS has TSIG authentication bypass on DoT, DoH, DoH3, DoQ, and gRPC",
+      "summary": "### Summary\nCoreDNS' tsig plugin can be bypassed on non-plain-DNS transports because it trusts the transport writer's TsigStatus() instead of performing verification itself. In the attached PoC, plain DNS/TCP correctly rejects an invalid TSIG (NOTAUTH), while the same invalid-TSIG request is accepted over DoT (tls://) and DoH (https://), allowing a client without the shared secret to satisfy requi",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-04-28T22:46:15Z",
+      "cve_ids": [
+        "CVE-2026-33190"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "4b21d0a42aea69fc41b61e4d9c2ee179f98bc67dd404afc3e3594a9786451ee4",
+      "url": "https://github.com/advisories/GHSA-h8mm-c463-wjq3",
+      "title": "GHSA: CoreDNS' transfer stanza selection uses lexicographic compare (subzone ACL bypass)",
+      "summary": "### Summary\nCoreDNS' transfer plugin can select the wrong ACL stanza when both a parent zone and a more-specific subzone are configured. A permissive parent-zone transfer rule can override a restrictive subzone rule (name-dependent), allowing an unauthorized client to perform AXFR/IXFR for the subzone and retrieve its zone contents.\n\n### Details\nIn plugin/transfer/transfer.go, stanza selection is ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-28T22:44:39Z",
+      "cve_ids": [
+        "CVE-2026-33489"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "771aea46435df96911dd186b2826d16f4da22eda08ebad5419ca8a3a14214d47",
+      "url": "https://github.com/advisories/GHSA-63cw-r7xf-jmwr",
+      "title": "GHSA: CoreDNS DoH GET oversized dns= query parameter causes pre-validation CPU and memory amplification",
+      "summary": "### Summary\n\nCoreDNS's DNS-over-HTTPS (DoH) GET path accepts oversized `dns=` query values and performs substantial request parsing, query unescaping, base64 decoding, and message unpacking work before returning `400 Bad Request`.\n\nA remote, unauthenticated attacker can repeatedly send oversized DoH GET requests to `/dns-query?dns=...` and force high CPU usage, large transient allocations, elevate",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-28T22:43:47Z",
+      "cve_ids": [
+        "CVE-2026-32936"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "f5e516a44d153cd6b25f96ebbd130d312e7206463f3dafc7d9d94d46ec6337d6",
+      "url": "https://github.com/advisories/GHSA-2wpx-qpw2-g5h5",
+      "title": "GHSA: CoreDNS' DoQ worker pool does not bound stream backlog",
+      "summary": "### Summary\nCoreDNS' DNS-over-QUIC (DoQ) server can be driven into large goroutine and memory growth by a remote client that opens many QUIC streams and stalls after sending only 1 byte. Even with a small configured quic { worker_pool_size ... }, CoreDNS still spawns a goroutine per accepted stream (workers + waiters) and active workers can block indefinitely in io.ReadFull() with no per-stream re",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-28T22:40:38Z",
+      "cve_ids": [
+        "CVE-2026-32934"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "c66b32779713d40278da7c403cd267823981388b4c9a983ab4012bd5ae89b4c6",
+      "url": "https://github.com/advisories/GHSA-pp79-hqv6-vmc3",
+      "title": "GHSA: FacturaScripts has Insecure Parameter Handling: Unauthorized Modification of Immutable 'nick' Field",
+      "summary": "### Summary\nThe application fails to validate the ```nick``` parameter during a ```POST``` request to the ```EditUser``` controller. Although the UI prevents editing this field, a user can bypass this restriction using a proxy to rename any account (including the Administrator). This leads to Broken Access Control and potential Audit Log Corruption.\n\n### Details\nThe vulnerability exists in the use",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-28T22:39:01Z",
+      "cve_ids": [
+        "CVE-2026-32699"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "f4f4af2dc68e3ebea12ec3dedc3039bd85b1f5137206a1d1d473fd1f7351eb75",
+      "url": "https://github.com/advisories/GHSA-35hp-hqmv-8qg8",
+      "title": "GHSA: Fiber's cache middleware default key generator ignores query string, causing response mix-up across distinct query parameters",
+      "summary": "### Summary\nFiber cache middleware's default key generator uses only `c.Path()` and does not include the query string.\nAs a result, requests like `/?id=1` and `/?id=2` can map to the same cache key and share the same cached response.\n\nThis can cause response mix-up (cache poisoning-like behavior) for endpoints where response content depends on query parameters.\n\n### Details\nDefault configuration i",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-28T22:28:14Z",
+      "cve_ids": [
+        "CVE-2026-30246"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
     {
       "id": "4d2f994efa6be65a3805a66785ad1cff9d0dc6c53d9a4fe4df4789b727b66920",
       "url": "https://www.bleepingcomputer.com/news/security/hackers-are-exploiting-a-critical-litellm-pre-auth-sqli-flaw/",
@@ -550,122 +676,6 @@
       "date": "2026-04-24T15:39:37Z",
       "cve_ids": [],
       "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "60964ef7c752775c85548dc8de84626f9171633bc3dba244661ec078220876e2",
-      "url": "https://github.com/advisories/GHSA-m2m6-cff5-3w7c",
-      "title": "GHSA: RedwoodSDK has Same-site CSRF through lack of origin validation in its server actions",
-      "summary": "### Summary\n\nServer actions in `rwsdk` apply HTTP method enforcement but no origin validation. A request originating from a different origin that the browser treats as same-site can invoke a server action with the victim's session cookie attached.\n\n### Impact\n\nAn attacker who controls any origin the browser considers same-site with the deployed app can induce an authenticated victim's browser to i",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-24T15:36:52Z",
-      "cve_ids": [],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "bb3d86047f6c24e8f78de7818bf0ab85303381c4772e5a83d39c1b43f5e3bed4",
-      "url": "https://github.com/advisories/GHSA-q339-8rmv-2mhv",
-      "title": "GHSA: ERB has an @_init deserialization guard bypass via def_module / def_method / def_class",
-      "summary": "## Summary\n\nRuby 2.7.0 (before ERB 2.2.0 was published on rubygems.org) introduced an `@_init` instance variable guard in `ERB#result` and `ERB#run` to prevent code execution when an ERB object is reconstructed via `Marshal.load` (deserialization). However, three other public methods that also evaluate `@src` via `eval()` were not given the same guard:\n\n- `ERB#def_method`\n- `ERB#def_module`\n- `ERB",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-24T15:36:05Z",
-      "cve_ids": [
-        "CVE-2026-41316"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "bd849c8cb7553d829365e133daa085bfdf1fcad3a767095b6c7ae2303b26e4ef",
-      "url": "https://github.com/advisories/GHSA-4rc3-7j7w-m548",
-      "title": "GHSA: liquidjs has a Denial of Service via circular block reference in layout",
-      "summary": "### Summary\n\nA circular block reference in `{% layout %}` / `{% block %}` causes an infinite recursive loop, consuming all available memory (~4GB) and crashing the Node.js process with `FATAL ERROR: JavaScript heap out of memory`. This allows any user who can submit a Liquid template to perform a Denial of Service attack.\n\n### Details\n\nIn `src/tags/block.ts`, during OUTPUT mode, each block looks u",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-24T15:34:00Z",
-      "cve_ids": [
-        "CVE-2026-41311"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "006508ab9d9ae4fb0a3eb9f9cae07e3a4ec058671d4f8dfd3f8f25817a2b54dc",
-      "url": "https://github.com/advisories/GHSA-qx2v-qp2m-jg93",
-      "title": "GHSA: PostCSS has XSS via Unescaped </style> in its CSS Stringify Output",
-      "summary": "# PostCSS: XSS via Unescaped `</style>` in CSS Stringify Output\n\n## Summary\n\nPostCSS v8.5.5 (latest) does not escape `</style>` sequences when stringifying CSS ASTs. When user-submitted CSS is parsed and re-stringified for embedding in HTML `<style>` tags, `</style>` in CSS values breaks out of the style context, enabling XSS.\n\n## Proof of Concept\n\n```javascript\nconst postcss = require('postcss');",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-24T15:31:42Z",
-      "cve_ids": [
-        "CVE-2026-41305"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "847e5b47b3f3c5d0957e7f124afc1b5bd54205027a7d1b9162ba8a2ff9c6fc04",
-      "url": "https://github.com/advisories/GHSA-3jvj-v6w2-h948",
-      "title": "GHSA: Lemmy has SSRF in /api/v3/post via Webmention dispatch",
-      "summary": "### Summary\nLemmy allows an authenticated low-privileged user to create a link post through `POST /api/v3/post`. When a post is created in a public community, the backend asynchronously sends a Webmention to the attacker-controlled link target.\n\nThe submitted URL is checked for syntax and scheme, but the audited code path does not reject loopback, private, or link-local destinations before the Web",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-24T15:22:49Z",
-      "cve_ids": [],
-      "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "10724552edfbd84eb50e57bdae861328cc063fddfa174669d2957bc8c6988e1c",
-      "url": "https://github.com/advisories/GHSA-h6hf-9846-xwrq",
-      "title": "GHSA: Lemmy has SSRF and internal image disclosure in post link metadata via unvalidated og:image",
-      "summary": "### Summary\nLemmy fetches metadata for user-supplied post URLs and, under the default `StoreLinkPreviews` image mode, downloads the preview image through local pict-rs. While the top-level page URL is checked against internal IP ranges, the extracted `og:image` URL is not subject to the same restriction.\n\nAs a result, an authenticated low-privileged user can submit an attacker-controlled public pa",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-24T15:21:58Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "e5e747cb675ffedb327039f2bfd13cd7f95748711356dc700aaba7db27954a09",
-      "url": "https://github.com/advisories/GHSA-x4mj-7f9g-29h4",
-      "title": "GHSA: Contour has Lua code injection via Cookie Path Rewrite Policy",
-      "summary": "### Impact\n\nContour's [Cookie Rewriting](https://projectcontour.io/docs/1.33/config/cookie-rewriting/) feature is vulnerable to Lua code injection. An attacker with RBAC permissions to create or modify `HTTPProxy` resources can craft a malicious value in the following fields that results in arbitrary code execution in the Envoy proxy:\n\n- `spec.routes[].cookieRewritePolicies[].pathRewrite.value`\n- ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-24T15:19:49Z",
-      "cve_ids": [
-        "CVE-2026-41246"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "d3c05976e68399d6716038ea7aaf06ac86d0a6db9aa69879775f8527a13922e2",
-      "url": "https://www.bleepingcomputer.com/news/security/cisa-says-zimbra-flaw-now-exploited-over-10k-servers-vulnerable/",
-      "title": "Over 10,000 Zimbra servers vulnerable to ongoing XSS attacks",
-      "summary": "Over 10,000 Zimbra Collaboration Suite (ZCS) instances exposed online are vulnerable to ongoing attacks exploiting a cross-site scripting (XSS) security flaw. [...]",
-      "source": "Bleeping Computer",
-      "category": "web_app",
-      "date": "2026-04-24T13:35:33+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "95d78d02f20217d707e06c723509534a735733c3d23e53155c022727e052e110",
-      "url": "https://www.rapid7.com/blog/post/it-why-attend-global-cybersecurity-summit-ai-exposure-management-ctem",
-      "title": "3 Reasons to Attend our Global Cybersecurity Summit if you’re Focused on AI, Threats, and CTEM",
-      "summary": "Security teams are dealing with a different kind of pressure now. It is not just the volume of alerts or the pace of attacks, but also the gap between what teams can see and what they can act on with confidence.That gap shows up in different ways. Threats move across identity and cloud in ways that are difficult to track, exposure data exists but often sits disconnected from response, and AI is be",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-04-24T13:07:47+00:00",
-      "cve_ids": [],
-      "cvss": null,
       "related_links": []
     }
   ]
