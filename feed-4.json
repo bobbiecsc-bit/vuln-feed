@@ -1,10 +1,234 @@
 {
-  "updated": "2026-05-01T03:28:28.433980+00:00",
+  "updated": "2026-05-01T06:36:56.680432+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "2503bb6aa1de6da0b6a597df761d03d3e9691a64932d9dfd5df513022ad74d30",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31595",
+      "title": "CVE-2026-31595 — CVSS 5.5",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nPCI: endpoint: pci-epf-vntb: Stop cmd_handler work in epf_ntb_epc_cleanup\n\nDisable the delayed work before clearing BAR mappings and doorbells to\navoid running the handler after resources have been torn down.\n\n  Unable to handle kernel paging request at virtual address ffff800083f46004\n  [...]\n  Internal error: Oops: 000000009600",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-24T15:16:37.237",
+      "cve_ids": [
+        "CVE-2026-31595"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "1fee490e43fd85087807c947eec67c6ecc4ed06dd23338cc85c11799f8800f62",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31594",
+      "title": "CVE-2026-31594 — CVSS 5.5",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nPCI: endpoint: pci-epf-vntb: Remove duplicate resource teardown\n\nepf_ntb_epc_destroy() duplicates the teardown that the caller is\nsupposed to perform later. This leads to an oops when .allow_link fails\nor when .drop_link is performed. The following is an example oops of the\nformer case:\n\n  Unable to handle kernel paging request a",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-24T15:16:37.087",
+      "cve_ids": [
+        "CVE-2026-31594"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "fb4c28e6feb77a35c8d25d3dbe050773d2f26ab7b6786928b52d9d94593ffc9a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31593",
+      "title": "CVE-2026-31593 — CVSS 5.5",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nKVM: SEV: Reject attempts to sync VMSA of an already-launched/encrypted vCPU\n\nReject synchronizing vCPU state to its associated VMSA if the vCPU has\nalready been launched, i.e. if the VMSA has already been encrypted.  On a\nhost with SNP enabled, accessing guest-private memory generates an RMP #PF\nand panics the host.\n\n  BUG: unab",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-24T15:16:36.957",
+      "cve_ids": [
+        "CVE-2026-31593"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "2bf452cefffd7d951dd7915beb08e9b31d8a39c7b039faa7cd98f2546be4738d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31592",
+      "title": "CVE-2026-31592 — CVSS 5.5",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nKVM: SEV: Protect *all* of sev_mem_enc_register_region() with kvm->lock\n\nTake and hold kvm->lock for before checking sev_guest() in\nsev_mem_enc_register_region(), as sev_guest() isn't stable unless kvm->lock\nis held (or KVM can guarantee KVM_SEV_INIT{2} has completed and can't\nrollack state).  If KVM_SEV_INIT{2} fails, KVM can en",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-24T15:16:36.667",
+      "cve_ids": [
+        "CVE-2026-31592"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "0fc7fbdf4faf1d6953837993d8179928272f4d460e90d123b60140922fa2f6d7",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31591",
+      "title": "CVE-2026-31591 — CVSS 5.5",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nKVM: SEV: Lock all vCPUs when synchronzing VMSAs for SNP launch finish\n\nLock all vCPUs when synchronizing and encrypting VMSAs for SNP guests, as\nallowing userspace to manipulate and/or run a vCPU while its state is being\nsynchronized would at best corrupt vCPU state, and at worst crash the host\nkernel.\n\nOpportunistically assert ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-24T15:16:36.480",
+      "cve_ids": [
+        "CVE-2026-31591"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "94d07103442e19a99ca797bfc19ed0842fc4b74515dadb75c0f7cac5e984713c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31590",
+      "title": "CVE-2026-31590 — CVSS 5.5",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nKVM: SEV: Drop WARN on large size for KVM_MEMORY_ENCRYPT_REG_REGION\n\nDrop the WARN in sev_pin_memory() on npages overflowing an int, as the\nWARN is comically trivially to trigger from userspace, e.g. by doing:\n\n  struct kvm_enc_region range = {\n          .addr = 0,\n          .size = -1ul,\n  };\n\n  __vm_ioctl(vm, KVM_MEMORY_ENCRYPT",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-24T15:16:36.170",
+      "cve_ids": [
+        "CVE-2026-31590"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "fd4893d4fcf851dc7961eeb59e8f6ba858db2cb1eacb60ef1d3dc732d6089f42",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31589",
+      "title": "CVE-2026-31589 — CVSS 9.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nmm: call ->free_folio() directly in folio_unmap_invalidate()\n\nWe can only call filemap_free_folio() if we have a reference to (or hold a\nlock on) the mapping.  Otherwise, we've already removed the folio from the\nmapping so it no longer pins the mapping and the mapping can be removed,\ncausing a use-after-free when accessing mappin",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-24T15:16:34.700",
+      "cve_ids": [
+        "CVE-2026-31589"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "ff11d11c94a72b886c983e8a3e522995e5ce8ac1f37639f09b83103dd6aa2112",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31588",
+      "title": "CVE-2026-31588 — CVSS 8.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nKVM: x86: Use scratch field in MMIO fragment to hold small write values\n\nWhen exiting to userspace to service an emulated MMIO write, copy the\nto-be-written value to a scratch field in the MMIO fragment if the size\nof the data payload is 8 bytes or less, i.e. can fit in a single chunk,\ninstead of pointing the fragment directly at",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-24T15:16:33.733",
+      "cve_ids": [
+        "CVE-2026-31588"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "c619d985676164ee9f12743d33948172de94c4ab0dfe3d12a76081498a0be97d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31587",
+      "title": "CVE-2026-31587 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nASoC: qcom: q6apm: move component registration to unmanaged version\n\nq6apm component registers dais dynamically from ASoC toplology, which\nare allocated using device managed version apis. Allocating both\ncomponent and dynamic dais using managed version could lead to incorrect\nfree ordering, dai will be freed while component still",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-24T15:16:33.597",
+      "cve_ids": [
+        "CVE-2026-31587"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "ffbbb60f2998799ae963ad6f9bc206bbefd358f3072b1474cf4780123394a1b7",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31586",
+      "title": "CVE-2026-31586 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nmm: blk-cgroup: fix use-after-free in cgwb_release_workfn()\n\ncgwb_release_workfn() calls css_put(wb->blkcg_css) and then later accesses\nwb->blkcg_css again via blkcg_unpin_online().  If css_put() drops the last\nreference, the blkcg can be freed asynchronously (css_free_rwork_fn ->\nblkcg_css_free -> kfree) before blkcg_unpin_onlin",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-24T15:16:33.393",
+      "cve_ids": [
+        "CVE-2026-31586"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "4f7ae388a7650b2e70c62f8e7b76e7a86c13f12dbada31522e9d76c722b49c9c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31585",
+      "title": "CVE-2026-31585 — CVSS 5.5",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nmedia: vidtv: fix nfeeds state corruption on start_streaming failure\n\nsyzbot reported a memory leak in vidtv_psi_service_desc_init [1].\n\nWhen vidtv_start_streaming() fails inside vidtv_start_feed(), the\nnfeeds counter is left incremented even though no feed was actually\nstarted. This corrupts the driver state: subsequent start_fe",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-24T15:16:33.267",
+      "cve_ids": [
+        "CVE-2026-31585"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "275f82e0373dcee628f5f0645e692095fc98edb4732ea959f43635a7b792d6b9",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31584",
+      "title": "CVE-2026-31584 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nmedia: mediatek: vcodec: fix use-after-free in encoder release path\n\nThe fops_vcodec_release() function frees the context structure (ctx)\nwithout first cancelling any pending or running work in ctx->encode_work.\nThis creates a race window where the workqueue handler (mtk_venc_worker)\nmay still be accessing the context memory afte",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-24T15:16:33.117",
+      "cve_ids": [
+        "CVE-2026-31584"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "4390a2a76150aa0ef9f0bfd4939458912908af8adcd2da780e69b93497395ad8",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31583",
+      "title": "CVE-2026-31583 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nmedia: em28xx: fix use-after-free in em28xx_v4l2_open()\n\nem28xx_v4l2_open() reads dev->v4l2 without holding dev->lock,\ncreating a race with em28xx_v4l2_init()'s error path and\nem28xx_v4l2_fini(), both of which free the em28xx_v4l2 struct\nand set dev->v4l2 to NULL under dev->lock.\n\nThis race leads to two issues:\n - use-after-free ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-24T15:16:33.017",
+      "cve_ids": [
+        "CVE-2026-31583"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "a6a4432bd5bdfdbce9b020e94c38f0a3d5ceda07a589a4ed4722d8ff3ba18779",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31582",
+      "title": "CVE-2026-31582 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nhwmon: (powerz) Fix use-after-free on USB disconnect\n\nAfter powerz_disconnect() frees the URB and releases the mutex, a\nsubsequent powerz_read() call can acquire the mutex and call\npowerz_read_data(), which dereferences the freed URB pointer.\n\nFix by:\n - Setting priv->urb to NULL in powerz_disconnect() so that\n   powerz_read_data",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-24T15:16:32.903",
+      "cve_ids": [
+        "CVE-2026-31582"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "8840140517ea656294e272ae5f542b018d89b2e11d9b9b52d4f374a0671714df",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31581",
+      "title": "CVE-2026-31581 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nALSA: 6fire: fix use-after-free on disconnect\n\nIn usb6fire_chip_abort(), the chip struct is allocated as the card's\nprivate data (via snd_card_new with sizeof(struct sfire_chip)).  When\nsnd_card_free_when_closed() is called and no file handles are open, the\ncard and embedded chip are freed synchronously.  The subsequent\nchip->car",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-24T15:16:32.797",
+      "cve_ids": [
+        "CVE-2026-31581"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "738affd8b372b3f9169bb833f2c718e33de1d1e0c5e1c9ef1cbdbca96f28e8d6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31580",
+      "title": "CVE-2026-31580 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nbcache: fix cached_dev.sb_bio use-after-free and crash\n\nIn our production environment, we have received multiple crash reports\nregarding libceph, which have caught our attention:\n\n```\n[6888366.280350] Call Trace:\n[6888366.280452]  blk_update_request+0x14e/0x370\n[6888366.280561]  blk_mq_end_request+0x1a/0x130\n[6888366.280671]  rbd",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-24T15:16:32.683",
+      "cve_ids": [
+        "CVE-2026-31580"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
     {
       "id": "79d708f1d147aa1b4c887fdb5b545c3f5d1d7184233920a239c9ebf00c85ed71",
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31579",
@@ -479,228 +703,6 @@
         "CVE-2026-31546"
       ],
       "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "6db8ea1558da949e8e76347901317dfb9736952638b05f315fc8bfdb2ff6af42",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31545",
-      "title": "CVE-2026-31545 — CVSS 5.5",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nNFC: nxp-nci: allow GPIOs to sleep\n\nAllow the firmware and enable GPIOs to sleep.\n\nThis fixes a `WARN_ON' and allows the driver to operate GPIOs which are\nconnected to I2C GPIO expanders.\n\n-- >8 --\nkernel: WARNING: CPU: 3 PID: 2636 at drivers/gpio/gpiolib.c:3880 gpiod_set_value+0x88/0x98\n-- >8 --",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-24T15:16:28.560",
-      "cve_ids": [
-        "CVE-2026-31545"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "1581de54013eda216f386d902378de31f598d44e06b6ff7320ad3db09f4c461e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31544",
-      "title": "CVE-2026-31544 — CVSS 5.5",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nfirmware: arm_scmi: Fix NULL dereference on notify error path\n\nSince commit b5daf93b809d1 (\"firmware: arm_scmi: Avoid notifier\nregistration for unsupported events\") the call chains leading to the helper\n__scmi_event_handler_get_ops expect an ERR_PTR to be returned on failure to\nget an handler for the requested event key, while th",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-24T15:16:28.457",
-      "cve_ids": [
-        "CVE-2026-31544"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "93dbd806f907e5cd16c6e0fae1e3683cf44828a56bf497c514aaeb00586a92ae",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31543",
-      "title": "CVE-2026-31543 — CVSS 5.5",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ncrash_dump: don't log dm-crypt key bytes in read_key_from_user_keying\n\nWhen debug logging is enabled, read_key_from_user_keying() logs the first\n8 bytes of the key payload and partially exposes the dm-crypt key.  Stop\nlogging any key bytes.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-24T15:16:28.350",
-      "cve_ids": [
-        "CVE-2026-31543"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "dfd0e8b0c9d40156000bc582da93d57f66cb4aa54511c5bd02909230f70d5432",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31542",
-      "title": "CVE-2026-31542 — CVSS 5.5",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nx86/platform/uv: Handle deconfigured sockets\n\nWhen a socket is deconfigured, it's mapped to SOCK_EMPTY (0xffff). This causes\na panic while allocating UV hub info structures.\n\nFix this by using NUMA_NO_NODE, allowing UV hub info structures to be\nallocated on valid nodes.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-24T15:16:28.237",
-      "cve_ids": [
-        "CVE-2026-31542"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "b486029132f46adb4c772715870021ab2d70a433d6a360662f16141696bbcbcd",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31541",
-      "title": "CVE-2026-31541 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ntracing: Fix trace_marker copy link list updates\n\nWhen the \"copy_trace_marker\" option is enabled for an instance, anything\nwritten into /sys/kernel/tracing/trace_marker is also copied into that\ninstances buffer. When the option is set, that instance's trace_array\ndescriptor is added to the marker_copies link list. This list is pr",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-24T15:16:28.117",
-      "cve_ids": [
-        "CVE-2026-31541"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "8021d4c8827271ec211a4b0c2a4e694fe3801ef6e33a78decd6dcf7142dd5b14",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31540",
-      "title": "CVE-2026-31540 — CVSS 5.5",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/i915/gt: Check set_default_submission() before deferencing\n\nWhen the i915 driver firmware binaries are not present, the\nset_default_submission pointer is not set. This pointer is\ndereferenced during suspend anyways.\n\nAdd a check to make sure it is set before dereferencing.\n\n[   23.289926] PM: suspend entry (deep)\n[   23.29355",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-24T15:16:27.957",
-      "cve_ids": [
-        "CVE-2026-31540"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "dc07aedf1f9e83f6d81c6242d87828bdcefdf8f3f7423df4c9e0c9fce2eab0a8",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31539",
-      "title": "CVE-2026-31539 — CVSS 7.5",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nsmb: smbdirect: introduce smbdirect_socket.recv_io.credits.available\n\nThe logic off managing recv credits by counting posted recv_io and\ngranted credits is racy.\n\nThat's because the peer might already consumed a credit,\nbut between receiving the incoming recv at the hardware\nand processing the completion in the 'recv_done' functi",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-24T15:16:27.843",
-      "cve_ids": [
-        "CVE-2026-31539"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "c9ce8a5c68b60786dda13213a86025a2cfc42755dba2a70f13872bd10e9d4958",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31538",
-      "title": "CVE-2026-31538 — CVSS 7.5",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nsmb: server: make use of smbdirect_socket.recv_io.credits.available\n\nThe logic off managing recv credits by counting posted recv_io and\ngranted credits is racy.\n\nThat's because the peer might already consumed a credit,\nbut between receiving the incoming recv at the hardware\nand processing the completion in the 'recv_done' functio",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-24T15:16:27.740",
-      "cve_ids": [
-        "CVE-2026-31538"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "2f60b13d69e3510b7eea0471c8c1dc392e8fc634fcc1b72970b7499f371b4353",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31537",
-      "title": "CVE-2026-31537 — CVSS 5.5",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nsmb: server: make use of smbdirect_socket.send_io.bcredits\n\nIt turns out that our code will corrupt the stream of\nreassabled data transfer messages when we trigger an\nimmendiate (empty) send.\n\nIn order to fix this we'll have a single 'batch' credit per\nconnection. And code getting that credit is free to use\nas much messages until",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-24T15:16:27.633",
-      "cve_ids": [
-        "CVE-2026-31537"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "940d54eed18ddbd74616cd9eef4686f7dc844d37cf5193bbac8389c43571e0ef",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31536",
-      "title": "CVE-2026-31536 — CVSS 9.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nsmb: server: let send_done handle a completion without IB_SEND_SIGNALED\n\nWith smbdirect_send_batch processing we likely have requests without\nIB_SEND_SIGNALED, which will be destroyed in the final request\nthat has IB_SEND_SIGNALED set.\n\nIf the connection is broken all requests are signaled\neven without explicit IB_SEND_SIGNALED.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-24T15:16:27.530",
-      "cve_ids": [
-        "CVE-2026-31536"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "06ee0f12e51bddfd72c32d202f387a843c64073c8a95878b4ad38bb34cf3c75a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-31535",
-      "title": "CVE-2026-31535 — CVSS 4.7",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nsmb: client: make use of smbdirect_socket.recv_io.credits.available\n\nThe logic off managing recv credits by counting posted recv_io and\ngranted credits is racy.\n\nThat's because the peer might already consumed a credit,\nbut between receiving the incoming recv at the hardware\nand processing the completion in the 'recv_done' functio",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-24T15:16:27.427",
-      "cve_ids": [
-        "CVE-2026-31535"
-      ],
-      "cvss": 4.7,
-      "related_links": []
-    },
-    {
-      "id": "8bce200bd734c7c19991d7c4f92fec3fffcc7a69923e798365f2600ab77dfefe",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-61872",
-      "title": "CVE-2025-61872 — CVSS 6.1",
-      "summary": "Mahara before 25.04.2 and 24.04.11 are vulnerable to displaying results that can trigger XSS via a malicious search query string. This occurs in the 'search site' feature when using the Elasticsearch7 search plugin. The Elasticsearch function does not properly sanitize input in the query parameter.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-04-24T15:16:25.320",
-      "cve_ids": [
-        "CVE-2025-61872"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "96f1f9c08f0dfb97a1439ebdd6549f77b2dc13dd993a367189ecd915f75e8435",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-25660",
-      "title": "CVE-2026-25660 — CVSS 9.8",
-      "summary": "CodeChecker is an analyzer tooling, defect database and viewer extension for the Clang Static Analyzer and Clang Tidy. \nAuthentication bypass occurs when the URL ends with Authentication with certain function calls.  This bypass allows assigning arbitrary permission to any user existing in CodeChecker.\n\nThis issue affects CodeChecker: through 6.27.3.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-24T14:16:18.127",
-      "cve_ids": [
-        "CVE-2026-25660"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "d3c05976e68399d6716038ea7aaf06ac86d0a6db9aa69879775f8527a13922e2",
-      "url": "https://www.bleepingcomputer.com/news/security/cisa-says-zimbra-flaw-now-exploited-over-10k-servers-vulnerable/",
-      "title": "Over 10,000 Zimbra servers vulnerable to ongoing XSS attacks",
-      "summary": "Over 10,000 Zimbra Collaboration Suite (ZCS) instances exposed online are vulnerable to ongoing attacks exploiting a cross-site scripting (XSS) security flaw. [...]",
-      "source": "Bleeping Computer",
-      "category": "web_app",
-      "date": "2026-04-24T13:35:33+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d6958a1a6834ec28db00b9c35db72f9f6d781356b5e10ae433b9b84b13845a6b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5367",
-      "title": "CVE-2026-5367 — CVSS 8.6",
-      "summary": "A flaw was found in OVN (Open Virtual Network). A remote attacker, by sending crafted DHCPv6 (Dynamic Host Configuration Protocol for IPv6) SOLICIT packets with an inflated Client ID length, could cause the ovn-controller to read beyond the bounds of a packet. This out-of-bounds read can lead to the disclosure of sensitive information stored in heap memory, which is then returned to the attacker's",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-24T13:16:21.990",
-      "cve_ids": [
-        "CVE-2026-5367"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "fdf48a9e4418d85396d60a4c3adf88c427371789def2e719c4b5ce343292822c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40690",
-      "title": "CVE-2026-40690 — CVSS 4.3",
-      "summary": "The asset dependency graph did not restrict nodes by the viewer's DAG read permissions: a user with read access to at least one DAG could browse the asset graph for any other asset in the deployment and learn the existence and names of DAGs and assets outside their authorized scope.\n\nUsers are recommended to upgrade to version 3.2.1, which fixes this issue.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-04-24T13:16:21.443",
-      "cve_ids": [
-        "CVE-2026-40690"
-      ],
-      "cvss": 4.3,
       "related_links": []
     }
   ]
