@@ -1,10 +1,178 @@
 {
-  "updated": "2026-05-05T10:03:27.808155+00:00",
+  "updated": "2026-05-05T17:27:56.284513+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "46bf872b3c993fb38ba2a5f2f7e652363910de80cc70380c0f4f48b9d0627e28",
+      "url": "https://github.com/advisories/GHSA-rh3w-4ccx-prf9",
+      "title": "GHSA: Admidio has Inverted 2FA Reset Authorization Check that Lets Group Leaders Strip Admin TOTP",
+      "summary": "## Summary\n\nA logic error in Admidio's two-factor authentication reset inverts the authorization check. Non-admin users cannot remove their own TOTP configuration, but they can remove other users' TOTP, including administrators. A group leader with profile edit rights on an admin account can strip that admin's 2FA.\n\n## Details\n\nIn `modules/profile/two_factor_authentication.php` at line 84, the aut",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:49:24Z",
+      "cve_ids": [
+        "CVE-2026-41660"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "e784102596edcb02e403ff0cc5da3d9645f5227adab16d2c118e47cb951ebefd",
+      "url": "https://github.com/advisories/GHSA-68pr-7prh-mpv4",
+      "title": "GHSA: Admidio Leaks Hidden Profile Field Values via Blind Search Oracle in Member Assignment",
+      "summary": "## Summary\n\nThe member assignment DataTables endpoint (`members_assignment_data.php`) includes hidden profile fields (BIRTHDAY, STREET, CITY, POSTCODE, COUNTRY) in its SQL search condition regardless of field visibility settings. While the JSON output correctly suppresses hidden columns via `isVisible()` checks, the server-side search operates at the SQL level before any visibility filtering. This",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:47:29Z",
+      "cve_ids": [
+        "CVE-2026-41659"
+      ],
+      "cvss": 2.7,
+      "related_links": []
+    },
+    {
+      "id": "eadcc6b4e0e96b7b8ec9f7132e2a723c184ae293c00640d4f116facda16dd3b4",
+      "url": "https://github.com/advisories/GHSA-xqv4-xm7h-52cv",
+      "title": "GHSA: Admidio's Missing Authorization on Inventory Module Destructive Endpoints Allows Any Authenticated User to Delete Items",
+      "summary": "## Summary\n\nThe Admidio inventory module enforces authorization for destructive operations (delete, retire, reinstate) only in the UI layer by conditionally rendering buttons. The backend POST handlers at `modules/inventory.php` for `item_delete`, `item_retire`, `item_reinstate`, `item_picture_upload`, `item_picture_save`, and `item_picture_delete` perform CSRF validation but never check whether t",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-29T21:46:23Z",
+      "cve_ids": [
+        "CVE-2026-41658"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "b5e7a326b52f60c6b5f5fd4f749f93898cd4377332954f1aa8f64b7deaf85f8f",
+      "url": "https://github.com/advisories/GHSA-g8p8-94f2-28gr",
+      "title": "GHSA: Admidio Exposes Cross-Organization Member Data via Permission Check Mismatch in contacts_data.php",
+      "summary": "## Summary\n\nThe `contacts_data.php` endpoint uses a weaker permission check (`isAdministratorUsers()`, requiring only `rol_edit_user=true`) than the frontend UI (`contacts.php`) which correctly requires the stronger `isAdministrator()` (requiring `rol_administrator=true`) and the `contacts_show_all` system setting. A user manager who is not a full administrator can directly request `contacts_data.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:44:24Z",
+      "cve_ids": [
+        "CVE-2026-41657"
+      ],
+      "cvss": 4.9,
+      "related_links": []
+    },
+    {
+      "id": "ec3c0dcbbc27bfdd841ecba46c0ff653a7d8fbdfd78dd8b1dc2813cd1fe1b71e",
+      "url": "https://github.com/advisories/GHSA-m9h6-8pqm-xrhf",
+      "title": "GHSA: Admidio has Path Traversal via Unvalidated `name` Parameter in Document Add Mode that Enables Arbitrary Server File Read",
+      "summary": "## Summary\n\nThe `add` mode in `modules/documents-files.php` accepts a `name` parameter validated only as `'string'` type (HTML encoding), allowing path traversal characters (`../`) to pass through unfiltered. Combined with the absence of CSRF protection on this endpoint and `SameSite=Lax` session cookies, a low-privileged attacker can trick a documents administrator into clicking a crafted link th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:42:20Z",
+      "cve_ids": [
+        "CVE-2026-41656"
+      ],
+      "cvss": 4.5,
+      "related_links": []
+    },
+    {
+      "id": "39848d6236b39904b79a6ceafde3c09cfca0e1659ad0eb64b3c4d91e067a5706",
+      "url": "https://github.com/advisories/GHSA-m3vp-3jjm-gpmx",
+      "title": "GHSA: Admidio has Path Traversal in ECard Preview that Allows Reading Arbitrary Server Files Including Database Credentials",
+      "summary": "## Summary\n\nThe `ecard_preview.php` endpoint does not validate that the `ecard_template` POST parameter is a safe filename before passing it to `ECard::getEcardTemplate()`. An authenticated user can supply a path traversal payload (e.g., `../config.php`) to read arbitrary files accessible to the web server process, including `adm_my_files/config.php` which contains database credentials.\n\n## Detail",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:37:23Z",
+      "cve_ids": [
+        "CVE-2026-41655"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "89a77ec269813d222857a7d0b4ee835032d9f7bc11fa5ed78a57c9fded752fed",
+      "url": "https://github.com/advisories/GHSA-hqr4-h3xv-9m3r",
+      "title": "GHSA: n8n has XML Node Prototype Pollution that to RCE",
+      "summary": "## Impact\nAn authenticated user with permission to create or modify workflows could achieve global prototype pollution via the XML Node leading to RCE when combined with other nodes exploiting the prototype pollution.\n\n## Patches\nThe issue has been fixed in n8n versions 1.123.32, 2.17.4, and 2.18.1. Users should upgrade to one of these versions or later to remediate the vulnerability.\n\n## Workarou",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-29T21:25:53Z",
+      "cve_ids": [
+        "CVE-2026-42232"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "cf1f75df2288406853d53994ead32e571996f3155375620bb545f4e9af4bc8df",
+      "url": "https://github.com/advisories/GHSA-q5f4-99jv-pgg5",
+      "title": "GHSA: n8n has Prototype Pollution in XML Webhook Body Parser that Leads to RCE",
+      "summary": "## Impact\nA flaw in the `xml2js` library used to parse XML request bodies in n8n's webhook handler allowed prototype pollution via a crafted XML payload. An authenticated user with permission to create or modify workflows could exploit this to pollute the JavaScript object prototype and, by chaining the pollution with the Git node's SSH operations, achieve remote code execution on the n8n host.\n\n#",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-29T21:25:02Z",
+      "cve_ids": [
+        "CVE-2026-42231"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "3a568f9d092e7363a37b27dc96d982a9fa94763983a381172767a3e0ede4e1c7",
+      "url": "https://github.com/advisories/GHSA-537j-gqpc-p7fq",
+      "title": "GHSA: n8n Vulnerable to XSS via MCP OAuth client",
+      "summary": "## Impact\nAn unauthenticated attacker could register a malicious MCP OAuth client with a crafted `client_name`. If a victim user authorized the OAuth consent dialog and a second user subsequently revoked that access, a toast notification would render the injected script. Clicking the link would execute arbitrary JavaScript in the victim's authenticated n8n browser session, enabling credential and ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-29T21:23:04Z",
+      "cve_ids": [
+        "CVE-2026-42235"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "92f6da2a4240533a6a3b372f1c136acaf0efc6cf1172588e551d658698fa3d50",
+      "url": "https://github.com/advisories/GHSA-r4v6-9fqc-w5jr",
+      "title": "GHSA: n8n's Credential Authorization Bypass in dynamic-node-parameters Allows Foreign API Key Replay",
+      "summary": "## Impact\nThe `dynamic-node-parameters` endpoints did not verify whether the authenticated caller was authorized to use a supplied credential reference. An authenticated user with access to a shared workflow could supply a foreign credential ID in the request body, causing the backend to decrypt and use that credential in a helper execution path where the caller also controls the destination URL. ",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-04-29T21:22:26Z",
+      "cve_ids": [
+        "CVE-2026-42226"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "e0cdc3e004e3bc2b2bc8b814bbdc11b4fdbca6700da65ffb182980fb4fb1208f",
+      "url": "https://github.com/advisories/GHSA-44v6-jhgm-p3m4",
+      "title": "GHSA: n8n has a Python Task Runner Sandbox Escape Vulnerability",
+      "summary": "## Impact\nAn authenticated user with permission to create or modify workflows containing a Python Code Node could escape the sandbox and achieve arbitrary code execution on the task runner container.\n\n- This issue only affects instances where the Python Task Runner is enabled.\n\n## Patches\nThe issue has been fixed in n8n versions 1.123.32, 2.17.4, and 2.18.1. Users should upgrade to one of these ve",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:21:50Z",
+      "cve_ids": [
+        "CVE-2026-42234"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "d3ddbbe868b145e7b113f455c58b107efc6eb0c10eb52c3d64c099d9d7a3bfc8",
+      "url": "https://github.com/advisories/GHSA-756q-gq9h-fp22",
+      "title": "GHSA: n8n has Public API Variables IDOR that Allows Cross-Project Secret Disclosure",
+      "summary": "## Impact\nAn authenticated user with a valid API key scoped to `variable:list` could read variables from projects they are not a member of by supplying an arbitrary `projectId` query parameter to the public API variables endpoint. The handler queried the variables repository directly without enforcing project membership checks, bypassing the authorization-aware service layer used by the internal e",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-04-29T21:21:00Z",
+      "cve_ids": [
+        "CVE-2026-42227"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
     {
       "id": "a96a83b0a3000fa49f99bfd1f297c72dced15856ca926ff891c0767d498efd0a",
       "url": "https://github.com/advisories/GHSA-f77h-j2v7-g6mw",
@@ -530,174 +698,6 @@
         "CVE-2026-41310"
       ],
       "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "c5e4a86bd799672a4262c8e7df8dcaa682df52c7bb1007592ab40cea02ebb93f",
-      "url": "https://github.com/advisories/GHSA-hrmw-qprp-wgmc",
-      "title": "GHSA: PhpSpreadsheet has XSS via number format code with @ text placeholder bypasses htmlspecialchars in HTML writer",
-      "summary": "It was discovered that there is a way to bypass HTML escaping in the HTML writer using custom number format codes.\n\n## The Problem\n\nIn `Writer/Html.php` around line 1592, the code checks if the formatted cell data equals the original data to decide whether to apply `htmlspecialchars()`:\n\n```php\nif ($cellData === $origData) {\n    $cellData = htmlspecialchars($cellData, ...);\n}\n```\n\nWhen a cell has ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-28T22:57:13Z",
-      "cve_ids": [
-        "CVE-2026-40296"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "2a55e1bc1ec1b0deb0fb84c3c011d0f6fa60ca583ff4ee24553ee721f7698c0e",
-      "url": "https://github.com/advisories/GHSA-vp29-5652-4fw9",
-      "title": "GHSA: CoreDNS has TSIG authentication bypass on gRPC and QUIC transports",
-      "summary": "### Summary\n\nThe gRPC, QUIC, DoH, and DoH3 transports in CoreDNS incorrectly handle TSIG authentication.\n\nFor gRPC and QUIC, CoreDNS checks whether the TSIG key name exists in the config, but does not actually verify the TSIG HMAC. If the key name matches, `tsigStatus` remains nil and the tsig plugin treats the request as \"verified\".\n\nFor DoH and DoH3, the issue is worse: TSIG is not verified at a",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-28T22:54:32Z",
-      "cve_ids": [
-        "CVE-2026-35579"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "8954fe1b09ee6fe5fcebc3dc55346a313c6a2cf72c7a8150a8ffdc7766cb81f1",
-      "url": "https://github.com/advisories/GHSA-qhmp-q7xh-99rh",
-      "title": "GHSA: CoreDNS has TSIG authentication bypass on DoT, DoH, DoH3, DoQ, and gRPC",
-      "summary": "### Summary\nCoreDNS' tsig plugin can be bypassed on non-plain-DNS transports because it trusts the transport writer's TsigStatus() instead of performing verification itself. In the attached PoC, plain DNS/TCP correctly rejects an invalid TSIG (NOTAUTH), while the same invalid-TSIG request is accepted over DoT (tls://) and DoH (https://), allowing a client without the shared secret to satisfy requi",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-04-28T22:46:15Z",
-      "cve_ids": [
-        "CVE-2026-33190"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "4b21d0a42aea69fc41b61e4d9c2ee179f98bc67dd404afc3e3594a9786451ee4",
-      "url": "https://github.com/advisories/GHSA-h8mm-c463-wjq3",
-      "title": "GHSA: CoreDNS' transfer stanza selection uses lexicographic compare (subzone ACL bypass)",
-      "summary": "### Summary\nCoreDNS' transfer plugin can select the wrong ACL stanza when both a parent zone and a more-specific subzone are configured. A permissive parent-zone transfer rule can override a restrictive subzone rule (name-dependent), allowing an unauthorized client to perform AXFR/IXFR for the subzone and retrieve its zone contents.\n\n### Details\nIn plugin/transfer/transfer.go, stanza selection is ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-28T22:44:39Z",
-      "cve_ids": [
-        "CVE-2026-33489"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "771aea46435df96911dd186b2826d16f4da22eda08ebad5419ca8a3a14214d47",
-      "url": "https://github.com/advisories/GHSA-63cw-r7xf-jmwr",
-      "title": "GHSA: CoreDNS DoH GET oversized dns= query parameter causes pre-validation CPU and memory amplification",
-      "summary": "### Summary\n\nCoreDNS's DNS-over-HTTPS (DoH) GET path accepts oversized `dns=` query values and performs substantial request parsing, query unescaping, base64 decoding, and message unpacking work before returning `400 Bad Request`.\n\nA remote, unauthenticated attacker can repeatedly send oversized DoH GET requests to `/dns-query?dns=...` and force high CPU usage, large transient allocations, elevate",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-28T22:43:47Z",
-      "cve_ids": [
-        "CVE-2026-32936"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "f5e516a44d153cd6b25f96ebbd130d312e7206463f3dafc7d9d94d46ec6337d6",
-      "url": "https://github.com/advisories/GHSA-2wpx-qpw2-g5h5",
-      "title": "GHSA: CoreDNS' DoQ worker pool does not bound stream backlog",
-      "summary": "### Summary\nCoreDNS' DNS-over-QUIC (DoQ) server can be driven into large goroutine and memory growth by a remote client that opens many QUIC streams and stalls after sending only 1 byte. Even with a small configured quic { worker_pool_size ... }, CoreDNS still spawns a goroutine per accepted stream (workers + waiters) and active workers can block indefinitely in io.ReadFull() with no per-stream re",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-28T22:40:38Z",
-      "cve_ids": [
-        "CVE-2026-32934"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "c66b32779713d40278da7c403cd267823981388b4c9a983ab4012bd5ae89b4c6",
-      "url": "https://github.com/advisories/GHSA-pp79-hqv6-vmc3",
-      "title": "GHSA: FacturaScripts has Insecure Parameter Handling: Unauthorized Modification of Immutable 'nick' Field",
-      "summary": "### Summary\nThe application fails to validate the ```nick``` parameter during a ```POST``` request to the ```EditUser``` controller. Although the UI prevents editing this field, a user can bypass this restriction using a proxy to rename any account (including the Administrator). This leads to Broken Access Control and potential Audit Log Corruption.\n\n### Details\nThe vulnerability exists in the use",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-28T22:39:01Z",
-      "cve_ids": [
-        "CVE-2026-32699"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "f4f4af2dc68e3ebea12ec3dedc3039bd85b1f5137206a1d1d473fd1f7351eb75",
-      "url": "https://github.com/advisories/GHSA-35hp-hqmv-8qg8",
-      "title": "GHSA: Fiber's cache middleware default key generator ignores query string, causing response mix-up across distinct query parameters",
-      "summary": "### Summary\nFiber cache middleware's default key generator uses only `c.Path()` and does not include the query string.\nAs a result, requests like `/?id=1` and `/?id=2` can map to the same cache key and share the same cached response.\n\nThis can cause response mix-up (cache poisoning-like behavior) for endpoints where response content depends on query parameters.\n\n### Details\nDefault configuration i",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-04-28T22:28:14Z",
-      "cve_ids": [
-        "CVE-2026-30246"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "4d2f994efa6be65a3805a66785ad1cff9d0dc6c53d9a4fe4df4789b727b66920",
-      "url": "https://www.bleepingcomputer.com/news/security/hackers-are-exploiting-a-critical-litellm-pre-auth-sqli-flaw/",
-      "title": "Hackers are exploiting a critical LiteLLM pre-auth SQLi flaw",
-      "summary": "Hackers are targeting sensitive information stored in the LiteLLM open-source large-language model (LLM) gateway by exploiting a critical vulnerability tracked as CVE-2026-42208. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-04-28T21:07:23+00:00",
-      "cve_ids": [
-        "CVE-2026-42208"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "43a6632fe66e8a994c899fd8ac48fd1dc4b9f9a5f09f2e812d7020f61c64b8ef",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42422",
-      "title": "CVE-2026-42422 — CVSS 8.8",
-      "summary": "OpenClaw before 2026.4.8 contains a role bypass vulnerability in the device.token.rotate function that allows minting tokens for unapproved roles. Attackers can bypass device role-upgrade pairing to preserve or mint roles and scopes that had not undergone intended approval.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-28T19:37:45.950",
-      "cve_ids": [
-        "CVE-2026-42422"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "03b13c5823e2b9bb8870f672de904fa1a1f3d8591a2547d59c0a06e6644c7aa5",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41914",
-      "title": "CVE-2026-41914 — CVSS 8.5",
-      "summary": "OpenClaw before 2026.4.8 contains a server-side request forgery vulnerability in QQ Bot media download paths that bypass SSRF protection. Attackers can exploit unprotected media fetch endpoints to access internal resources and bypass allowlist policies.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-28T19:37:45.243",
-      "cve_ids": [
-        "CVE-2026-41914"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "80324f89baaa755512d85448864be81fb8de616e2d8f2b23d58902b4430e2c44",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41913",
-      "title": "CVE-2026-41913 — CVSS 3.7",
-      "summary": "OpenClaw before 2026.4.4 contains a race condition vulnerability in shared-secret authentication that allows concurrent asynchronous requests to bypass the per-key rate-limit budget. Attackers can exploit this by sending multiple simultaneous authentication attempts to circumvent intended rate-limiting protections on Tailscale-capable paths.",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-04-28T19:37:45.103",
-      "cve_ids": [
-        "CVE-2026-41913"
-      ],
-      "cvss": 3.7,
       "related_links": []
     }
   ]
