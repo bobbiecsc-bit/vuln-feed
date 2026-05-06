@@ -1,10 +1,386 @@
 {
-  "updated": "2026-05-06T14:13:19.224389+00:00",
+  "updated": "2026-05-06T17:41:14.668605+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "491791ad1a9b4f117905ab0fb44ffcbc6cc01a241cf249524bbd9a7546076154",
+      "url": "https://github.com/advisories/GHSA-25cw-98hg-g3cg",
+      "title": "GHSA: Admidio Ignores SAML Signature Validation Result, Processes Forged AuthnRequests and LogoutRequests",
+      "summary": "## Summary\n\nThe Admidio SAML Identity Provider implementation discards the return value of its `validateSignature()` method at both call sites (`handleSSORequest()` line 418 and `handleSLORequest()` line 613). The method returns error strings on failure rather than throwing exceptions, but the developer believed it would throw (per comments on lines 416 and 611). This means the `smc_require_auth_s",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:56:13Z",
+      "cve_ids": [
+        "CVE-2026-41669"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "9f0dda0226b1bde2e40f24e8862e5bf01f01593e5d5f6edf3b545b857766ebd2",
+      "url": "https://github.com/advisories/GHSA-rw74-vc9h-534j",
+      "title": "GHSA: Admidio has CSRF on Admin Preferences that Triggers Unauthorized Backup, .htaccess Write, and Email Send",
+      "summary": "## Summary\n\nSeveral administrative operations in Admidio's preferences module (database backup, test email, htaccess generation) fire via GET requests with no CSRF token validation. Because `SameSite=Lax` cookies travel with top-level GET navigations, an attacker forces an authenticated admin to trigger these actions from a malicious page.\n\n## Details\n\nIn `modules/preferences.php`, the `backup`, `",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-29T21:54:30Z",
+      "cve_ids": [
+        "CVE-2026-41663"
+      ],
+      "cvss": 3.5,
+      "related_links": []
+    },
+    {
+      "id": "6b32c2fa713686eb12e44724cfa805600d7c70d98c9c91a64148bf1c1c1039b7",
+      "url": "https://github.com/advisories/GHSA-c7xm-r6vj-8vg6",
+      "title": "GHSA: Admidio Missing Minimum Administrator Check in Role Membership Removal",
+      "summary": "## Summary\n\n`Role::stopMembership()` does not verify whether removing a user from the administrator role leaves zero administrators. The deprecated `Membership::stopMembership()` contains this safety check, but the current code path bypasses it. Any administrator can remove the last remaining other administrator, locking the entire system out of administrative access. The exploit does not require ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:53:20Z",
+      "cve_ids": [
+        "CVE-2026-41662"
+      ],
+      "cvss": 5.2,
+      "related_links": []
+    },
+    {
+      "id": "e9407bc9af17c16014f5da4c7a12326d0133f417cfdf041959233ae8fa1dcd22",
+      "url": "https://github.com/advisories/GHSA-gq27-fc8w-vcmp",
+      "title": "GHSA: Admidio vulnerable to reflected XSS in msg_window.php via Square Bracket to HTML Tag Conversion",
+      "summary": "## Summary\n\nAn unauthenticated attacker can execute arbitrary JavaScript in any Admidio user's browser through a reflected XSS in `system/msg_window.php`. The endpoint passes user input through `htmlspecialchars()`, which does not encode square brackets. A subsequent call to `Language::prepareTextPlaceholders()` converts those brackets into HTML angle brackets, producing executable markup.\n\n## Det",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-29T21:51:13Z",
+      "cve_ids": [
+        "CVE-2026-41661"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "46bf872b3c993fb38ba2a5f2f7e652363910de80cc70380c0f4f48b9d0627e28",
+      "url": "https://github.com/advisories/GHSA-rh3w-4ccx-prf9",
+      "title": "GHSA: Admidio has Inverted 2FA Reset Authorization Check that Lets Group Leaders Strip Admin TOTP",
+      "summary": "## Summary\n\nA logic error in Admidio's two-factor authentication reset inverts the authorization check. Non-admin users cannot remove their own TOTP configuration, but they can remove other users' TOTP, including administrators. A group leader with profile edit rights on an admin account can strip that admin's 2FA.\n\n## Details\n\nIn `modules/profile/two_factor_authentication.php` at line 84, the aut",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:49:24Z",
+      "cve_ids": [
+        "CVE-2026-41660"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "e784102596edcb02e403ff0cc5da3d9645f5227adab16d2c118e47cb951ebefd",
+      "url": "https://github.com/advisories/GHSA-68pr-7prh-mpv4",
+      "title": "GHSA: Admidio Leaks Hidden Profile Field Values via Blind Search Oracle in Member Assignment",
+      "summary": "## Summary\n\nThe member assignment DataTables endpoint (`members_assignment_data.php`) includes hidden profile fields (BIRTHDAY, STREET, CITY, POSTCODE, COUNTRY) in its SQL search condition regardless of field visibility settings. While the JSON output correctly suppresses hidden columns via `isVisible()` checks, the server-side search operates at the SQL level before any visibility filtering. This",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:47:29Z",
+      "cve_ids": [
+        "CVE-2026-41659"
+      ],
+      "cvss": 2.7,
+      "related_links": []
+    },
+    {
+      "id": "eadcc6b4e0e96b7b8ec9f7132e2a723c184ae293c00640d4f116facda16dd3b4",
+      "url": "https://github.com/advisories/GHSA-xqv4-xm7h-52cv",
+      "title": "GHSA: Admidio's Missing Authorization on Inventory Module Destructive Endpoints Allows Any Authenticated User to Delete Items",
+      "summary": "## Summary\n\nThe Admidio inventory module enforces authorization for destructive operations (delete, retire, reinstate) only in the UI layer by conditionally rendering buttons. The backend POST handlers at `modules/inventory.php` for `item_delete`, `item_retire`, `item_reinstate`, `item_picture_upload`, `item_picture_save`, and `item_picture_delete` perform CSRF validation but never check whether t",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-29T21:46:23Z",
+      "cve_ids": [
+        "CVE-2026-41658"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "b5e7a326b52f60c6b5f5fd4f749f93898cd4377332954f1aa8f64b7deaf85f8f",
+      "url": "https://github.com/advisories/GHSA-g8p8-94f2-28gr",
+      "title": "GHSA: Admidio Exposes Cross-Organization Member Data via Permission Check Mismatch in contacts_data.php",
+      "summary": "## Summary\n\nThe `contacts_data.php` endpoint uses a weaker permission check (`isAdministratorUsers()`, requiring only `rol_edit_user=true`) than the frontend UI (`contacts.php`) which correctly requires the stronger `isAdministrator()` (requiring `rol_administrator=true`) and the `contacts_show_all` system setting. A user manager who is not a full administrator can directly request `contacts_data.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:44:24Z",
+      "cve_ids": [
+        "CVE-2026-41657"
+      ],
+      "cvss": 4.9,
+      "related_links": []
+    },
+    {
+      "id": "ec3c0dcbbc27bfdd841ecba46c0ff653a7d8fbdfd78dd8b1dc2813cd1fe1b71e",
+      "url": "https://github.com/advisories/GHSA-m9h6-8pqm-xrhf",
+      "title": "GHSA: Admidio has Path Traversal via Unvalidated `name` Parameter in Document Add Mode that Enables Arbitrary Server File Read",
+      "summary": "## Summary\n\nThe `add` mode in `modules/documents-files.php` accepts a `name` parameter validated only as `'string'` type (HTML encoding), allowing path traversal characters (`../`) to pass through unfiltered. Combined with the absence of CSRF protection on this endpoint and `SameSite=Lax` session cookies, a low-privileged attacker can trick a documents administrator into clicking a crafted link th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:42:20Z",
+      "cve_ids": [
+        "CVE-2026-41656"
+      ],
+      "cvss": 4.5,
+      "related_links": []
+    },
+    {
+      "id": "39848d6236b39904b79a6ceafde3c09cfca0e1659ad0eb64b3c4d91e067a5706",
+      "url": "https://github.com/advisories/GHSA-m3vp-3jjm-gpmx",
+      "title": "GHSA: Admidio has Path Traversal in ECard Preview that Allows Reading Arbitrary Server Files Including Database Credentials",
+      "summary": "## Summary\n\nThe `ecard_preview.php` endpoint does not validate that the `ecard_template` POST parameter is a safe filename before passing it to `ECard::getEcardTemplate()`. An authenticated user can supply a path traversal payload (e.g., `../config.php`) to read arbitrary files accessible to the web server process, including `adm_my_files/config.php` which contains database credentials.\n\n## Detail",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:37:23Z",
+      "cve_ids": [
+        "CVE-2026-41655"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "89a77ec269813d222857a7d0b4ee835032d9f7bc11fa5ed78a57c9fded752fed",
+      "url": "https://github.com/advisories/GHSA-hqr4-h3xv-9m3r",
+      "title": "GHSA: n8n has XML Node Prototype Pollution that to RCE",
+      "summary": "## Impact\nAn authenticated user with permission to create or modify workflows could achieve global prototype pollution via the XML Node leading to RCE when combined with other nodes exploiting the prototype pollution.\n\n## Patches\nThe issue has been fixed in n8n versions 1.123.32, 2.17.4, and 2.18.1. Users should upgrade to one of these versions or later to remediate the vulnerability.\n\n## Workarou",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-29T21:25:53Z",
+      "cve_ids": [
+        "CVE-2026-42232"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "cf1f75df2288406853d53994ead32e571996f3155375620bb545f4e9af4bc8df",
+      "url": "https://github.com/advisories/GHSA-q5f4-99jv-pgg5",
+      "title": "GHSA: n8n has Prototype Pollution in XML Webhook Body Parser that Leads to RCE",
+      "summary": "## Impact\nA flaw in the `xml2js` library used to parse XML request bodies in n8n's webhook handler allowed prototype pollution via a crafted XML payload. An authenticated user with permission to create or modify workflows could exploit this to pollute the JavaScript object prototype and, by chaining the pollution with the Git node's SSH operations, achieve remote code execution on the n8n host.\n\n#",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-29T21:25:02Z",
+      "cve_ids": [
+        "CVE-2026-42231"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "3a568f9d092e7363a37b27dc96d982a9fa94763983a381172767a3e0ede4e1c7",
+      "url": "https://github.com/advisories/GHSA-537j-gqpc-p7fq",
+      "title": "GHSA: n8n Vulnerable to XSS via MCP OAuth client",
+      "summary": "## Impact\nAn unauthenticated attacker could register a malicious MCP OAuth client with a crafted `client_name`. If a victim user authorized the OAuth consent dialog and a second user subsequently revoked that access, a toast notification would render the injected script. Clicking the link would execute arbitrary JavaScript in the victim's authenticated n8n browser session, enabling credential and ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-29T21:23:04Z",
+      "cve_ids": [
+        "CVE-2026-42235"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "92f6da2a4240533a6a3b372f1c136acaf0efc6cf1172588e551d658698fa3d50",
+      "url": "https://github.com/advisories/GHSA-r4v6-9fqc-w5jr",
+      "title": "GHSA: n8n's Credential Authorization Bypass in dynamic-node-parameters Allows Foreign API Key Replay",
+      "summary": "## Impact\nThe `dynamic-node-parameters` endpoints did not verify whether the authenticated caller was authorized to use a supplied credential reference. An authenticated user with access to a shared workflow could supply a foreign credential ID in the request body, causing the backend to decrypt and use that credential in a helper execution path where the caller also controls the destination URL. ",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-04-29T21:22:26Z",
+      "cve_ids": [
+        "CVE-2026-42226"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "e0cdc3e004e3bc2b2bc8b814bbdc11b4fdbca6700da65ffb182980fb4fb1208f",
+      "url": "https://github.com/advisories/GHSA-44v6-jhgm-p3m4",
+      "title": "GHSA: n8n has a Python Task Runner Sandbox Escape Vulnerability",
+      "summary": "## Impact\nAn authenticated user with permission to create or modify workflows containing a Python Code Node could escape the sandbox and achieve arbitrary code execution on the task runner container.\n\n- This issue only affects instances where the Python Task Runner is enabled.\n\n## Patches\nThe issue has been fixed in n8n versions 1.123.32, 2.17.4, and 2.18.1. Users should upgrade to one of these ve",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:21:50Z",
+      "cve_ids": [
+        "CVE-2026-42234"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "d3ddbbe868b145e7b113f455c58b107efc6eb0c10eb52c3d64c099d9d7a3bfc8",
+      "url": "https://github.com/advisories/GHSA-756q-gq9h-fp22",
+      "title": "GHSA: n8n has Public API Variables IDOR that Allows Cross-Project Secret Disclosure",
+      "summary": "## Impact\nAn authenticated user with a valid API key scoped to `variable:list` could read variables from projects they are not a member of by supplying an arbitrary `projectId` query parameter to the public API variables endpoint. The handler queried the variables repository directly without enforcing project membership checks, bypassing the authorization-aware service layer used by the internal e",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-04-29T21:21:00Z",
+      "cve_ids": [
+        "CVE-2026-42227"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "a96a83b0a3000fa49f99bfd1f297c72dced15856ca926ff891c0767d498efd0a",
+      "url": "https://github.com/advisories/GHSA-f77h-j2v7-g6mw",
+      "title": "GHSA: n8n Vulnerable to Hijacking of Unauthenticated Chat Execution ",
+      "summary": "## Impact\nThe `/chat` WebSocket endpoint used by the Chat Trigger node's Hosted Chat feature did not verify that an incoming connection was authorized to interact with the target execution. An unauthenticated remote attacker who could identify a valid execution ID for a workflow in a waiting state could attach to that execution, receive the pending prompt intended for the legitimate user, and subm",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-04-29T21:17:44Z",
+      "cve_ids": [
+        "CVE-2026-42228"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "85c0a50f47663682a8646cfcc14ae8c8221917c557e79ea073bdc31e057f144b",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7408",
+      "title": "CVE-2026-7408 — CVSS 4.7",
+      "summary": "A vulnerability was detected in SourceCodester Pizzafy Ecommerce System 1.0. Affected by this issue is the function save_menu of the file /admin/ajax.php?action=save_menu. Performing a manipulation results in sql injection. The attack can be initiated remotely. The exploit is now public and may be used.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-29T21:16:22.660",
+      "cve_ids": [
+        "CVE-2026-7408"
+      ],
+      "cvss": 4.7,
+      "related_links": []
+    },
+    {
+      "id": "08c8676caa3c1453b7c05a7eff3c70e1ebda50b1e0f4345a6261bd0b793ad043",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7407",
+      "title": "CVE-2026-7407 — CVSS 4.7",
+      "summary": "A security vulnerability has been detected in SourceCodester Pizzafy Ecommerce System 1.0. Affected by this vulnerability is the function save_settings of the file /pizzafy/admin/ajax.php?action=save_settings of the component Setting Handler. Such manipulation leads to sql injection. It is possible to launch the attack remotely. The exploit has been disclosed publicly and may be used.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-04-29T21:16:22.483",
+      "cve_ids": [
+        "CVE-2026-7407"
+      ],
+      "cvss": 4.7,
+      "related_links": []
+    },
+    {
+      "id": "a2ffa4f50793504d84c6e2089779b828cd9a325175820b476b5366d305ff83fe",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7404",
+      "title": "CVE-2026-7404 — CVSS 7.3",
+      "summary": "A weakness has been identified in getsimpletool mcpo-simple-server up to 0.2.0. Affected is the function delete_shared_prompt of the file src/mcpo_simple_server/services/prompt_manager/base_manager.py. This manipulation of the argument detail causes relative path traversal. It is possible to initiate the attack remotely. The exploit has been made available to the public and could be used for attac",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-04-29T21:16:22.320",
+      "cve_ids": [
+        "CVE-2026-7404"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "6463cc7ae6f208220edf4b98ed965284964fc54d645c4b380912524cb73e402c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7403",
+      "title": "CVE-2026-7403 — CVSS 5.3",
+      "summary": "A security flaw has been discovered in geldata gel-mcp 0.1.0. This impacts the function list_rules/fetch_rule of the file src/gel_mcp/server.py. The manipulation of the argument rule_name results in path traversal. The attack may be performed from remote. The exploit has been released to the public and may be used for attacks. The project was informed of the problem early through an issue report b",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-04-29T21:16:22.153",
+      "cve_ids": [
+        "CVE-2026-7403"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "a1128c009a9facfa07a818a87739ee6ef8d89f153f27eb204942417d35436ca2",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-50328",
+      "title": "CVE-2025-50328 — CVSS 7.3",
+      "summary": "A vulnerability in B1 Free Archiver v1.5.86 allows files extracted from downloaded archives to bypass Windows Mark of the Web (MotW) protections. When an archive is downloaded from the internet and extracted using B1 Free Archiver, the software fails to propagate the 'Zone.Identifier' alternate data stream to the extracted files. As a result, these files can be executed without triggering Windows ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-04-29T21:16:19.600",
+      "cve_ids": [
+        "CVE-2025-50328"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "aac032c2453b7b85803a0f31f1b4aae5e4b257726b40f51805dd960325dd05a2",
+      "url": "https://github.com/advisories/GHSA-mp4j-h6gh-f6mp",
+      "title": "GHSA: n8n has SQL Injection in SeaTable Node",
+      "summary": "## Impact\nA flaw in the SeaTable node's `row:search` and `row:get` operations allowed user-controlled input to be concatenated directly into SQL query strings without escaping or parameterization. In workflows where external user input is passed via expressions into the SeaTable node's search or row retrieval parameters, an attacker could manipulate the constructed query to retrieve unintended row",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:10:58Z",
+      "cve_ids": [
+        "CVE-2026-42229"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "d98458c27c0d1394bbf2238c504378ef7c858914534e206002cff9f90f73b124",
+      "url": "https://github.com/advisories/GHSA-f6x8-65q6-j9m9",
+      "title": "GHSA: n8n has Open Redirect in MCP OAuth Consent Flow",
+      "summary": "## Impact\nThe `/mcp-oauth/register` endpoint accepted OAuth client registrations without authentication, allowing arbitrary `redirect_uri` values to be registered. When a user denies the MCP OAuth consent dialog, the `handleDeny` handler redirects the user to the registered `redirect_uri` without validation, enabling an open redirect to an attacker-controlled URL. An attacker can craft a phishing ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:10:17Z",
+      "cve_ids": [
+        "CVE-2026-42230"
+      ],
+      "cvss": 4.7,
+      "related_links": []
+    },
+    {
+      "id": "0885d3dcbfcf513e0961c105efa490b6eebe1da4aeb18e46d3626c524f6f58fd",
+      "url": "https://github.com/advisories/GHSA-hp3c-vfpm-q4f7",
+      "title": "GHSA: n8n has SQL Injection in Snowflake and MySQL Nodes",
+      "summary": "## Impact\nThe fix for [GHSA-f3f2-mcxc-pwjx](https://github.com/advisories/GHSA-f3f2-mcxc-pwjx) did not cover the Snowflake node or the legacy MySQL v1 node. Both nodes construct SQL queries by directly interpolating user-controlled table names, column names, and update keys into query strings without identifier escaping, enabling SQL injection against the connected database.\n\nExploitation requires",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:03:29Z",
+      "cve_ids": [
+        "CVE-2026-42237"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "c70bbf59c50b174b1d42ea84f3e226325e222b59d11211e435025405bb340fcd",
+      "url": "https://github.com/advisories/GHSA-55wf-5m3q-6jjf",
+      "title": "GHSA: ipl/web is vulnerable to reflected XSS by malformed search requests",
+      "summary": "### Impact\nThe vulnerability allows an attacker to inject malicious Javascript into a victim's browser to run it in the context of Icinga Web. The victim needs to visit a specifically prepared website and may have no immediate chance to notice any wrongdoing.\n\n### Patches\nVersion 0.13.1 includes a fix for this. It will be published as part of `icinga-php-library` version 0.19.2.\n\n### Workarounds\nE",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T21:01:55Z",
+      "cve_ids": [
+        "CVE-2026-42224"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "0a3168f65a600dd9bca662ebd0ee7cdd8107c27a367bff4d8dd55be078cbe5bf",
+      "url": "https://github.com/advisories/GHSA-h8cj-hpmg-636v",
+      "title": "GHSA: appsmith has SQL Injection in FilterDataService via Unsafe DROP TABLE Execution",
+      "summary": "### Summary\nA SQL injection vulnerability exists in `FilterDataServiceCE.java` where the `dropTable` method constructs a SQL `DROP TABLE` statement using string concatenation with the table name. If the table name is derived from user input, this allows for arbitrary SQL command execution.\n\n### Details\nThe vulnerability is located in `app/server/appsmith-interfaces/src/main/java/com/appsmith/exter",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-04-29T20:59:45Z",
+      "cve_ids": [],
+      "cvss": 7.2,
+      "related_links": []
+    },
     {
       "id": "d2e010be996c2de036bf7639d4da15a504e330639443a9068c96919ab12e6c14",
       "url": "https://github.com/advisories/GHSA-wr32-99hh-6f35",
@@ -321,384 +697,6 @@
         "CVE-2018-25308"
       ],
       "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "16c6de50859d1cf357a2e94920d2710e6fdc8a5be9149945501bf5affad17d70",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2018-25307",
-      "title": "CVE-2018-25307 — CVSS 8.4",
-      "summary": "SysGauge Pro 4.6.12 contains a local buffer overflow vulnerability in the Register function that allows local attackers to overwrite the structured exception handler by supplying a crafted unlock key. Attackers can inject shellcode through the Unlock Key field during registration to execute arbitrary code with application privileges.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-29T20:16:26.183",
-      "cve_ids": [
-        "CVE-2018-25307"
-      ],
-      "cvss": 8.4,
-      "related_links": []
-    },
-    {
-      "id": "17169b64b0a7cc3213aaa466f731f73f80892340fbf82292302147b6eecc7400",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2018-25304",
-      "title": "CVE-2018-25304 — CVSS 8.4",
-      "summary": "Free Download Manager 2.0 Built 417 contains a local buffer overflow vulnerability in the URL import functionality that allows attackers to trigger a structured exception handler (SEH) chain exploitation. Attackers can craft a malicious URL file that, when imported through the File > Import > Import lists of downloads menu, causes a buffer overflow in the Location header response that overwrites t",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-29T20:16:25.760",
-      "cve_ids": [
-        "CVE-2018-25304"
-      ],
-      "cvss": 8.4,
-      "related_links": []
-    },
-    {
-      "id": "4754ccd132c7b1c037d8af1c047ee6d3b7d1448a42d38adea2cb218beb8e4155",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2018-25303",
-      "title": "CVE-2018-25303 — CVSS 8.4",
-      "summary": "Allok Video to DVD Burner 2.6.1217 contains a stack-based buffer overflow vulnerability in the License Name field that allows local attackers to execute arbitrary code by triggering a structured exception handler (SEH) overwrite. Attackers can craft a malicious input string with 780 bytes of junk data followed by SEH chain pointers and shellcode, then paste it into the License Name field during re",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-29T20:16:25.620",
-      "cve_ids": [
-        "CVE-2018-25303"
-      ],
-      "cvss": 8.4,
-      "related_links": []
-    },
-    {
-      "id": "c06f14f038827519632a2919cbd672928851d26793a0b6424759caadff47b33f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2018-25302",
-      "title": "CVE-2018-25302 — CVSS 7.8",
-      "summary": "Allok AVI to DVD SVCD VCD Converter 4.0.1217 contains a structured exception handling (SEH) based buffer overflow vulnerability that allows local attackers to execute arbitrary code by supplying a malicious string in the License Name field. Attackers can craft a payload with junk data, NSEH bypass, SEH handler address, and shellcode that triggers the overflow when pasted into the License Name fiel",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-29T20:16:25.477",
-      "cve_ids": [
-        "CVE-2018-25302"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "3b6f66bccb0fb5a3f7f6a00cdc81a9cc1ce7d3f550c840db4b84606771e17fae",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2018-25301",
-      "title": "CVE-2018-25301 — CVSS 8.4",
-      "summary": "Easy MPEG to DVD Burner 1.7.11 contains a structured exception handling (SEH) local buffer overflow vulnerability that allows local attackers to execute arbitrary code by supplying a malicious username string. Attackers can craft a payload containing junk data, SEH chain pointers, and shellcode that overwrites the SEH handler to redirect execution and run arbitrary commands like opening calc.exe.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-29T20:16:25.320",
-      "cve_ids": [
-        "CVE-2018-25301"
-      ],
-      "cvss": 8.4,
-      "related_links": []
-    },
-    {
-      "id": "e70f90eff43a8d361d47140f290a4118a501077e69170dcd5b7bcff6a58ff299",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2018-25300",
-      "title": "CVE-2018-25300 — CVSS 8.2",
-      "summary": "XATABoost CMS 1.0.0 contains a union-based SQL injection vulnerability that allows unauthenticated attackers to manipulate database queries by injecting SQL code through the id parameter. Attackers can send GET requests to news.php with malicious id values to extract sensitive database information.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-29T20:16:25.170",
-      "cve_ids": [
-        "CVE-2018-25300"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "89817259b2a20002d33d7e5f7bd602668aed85f70def255975f0e19e52c9bc4c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2018-25299",
-      "title": "CVE-2018-25299 — CVSS 8.4",
-      "summary": "Prime95 29.4b8 contains a local buffer overflow vulnerability that allows attackers to execute arbitrary code by exploiting structured exception handling (SEH) mechanisms. Attackers can inject malicious payload through the optional proxy hostname field in the PrimeNet connection settings to trigger the overflow and execute system commands.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-29T20:16:25.007",
-      "cve_ids": [
-        "CVE-2018-25299"
-      ],
-      "cvss": 8.4,
-      "related_links": []
-    },
-    {
-      "id": "31c13d5a2861667b7de42a88d8d65fc17dd966e5157df4c0e9a2f8273345ce25",
-      "url": "https://www.rapid7.com/blog/post/etr-cve-2026-41940-cpanel-whm-authentication-bypass",
-      "title": "CVE-2026-41940: cPanel & WHM Authentication Bypass",
-      "summary": "OverviewOn April 28, 2026, cPanel issued a security update to fix a critical vulnerability affecting the cPanel & WHM and WP Squared products. In the cPanel release notes, the bug was described as \"an issue with session loading and saving.\" CVE-2026-41940, the identifier subsequently assigned on April 29, 2026, has a CVSS score of 9.8 and allows unauthenticated remote attackers to bypass authentic",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-04-29T20:00:20+00:00",
-      "cve_ids": [
-        "CVE-2026-41940"
-      ],
-      "cvss": 9.8,
-      "related_links": [
-        "https://www.bleepingcomputer.com/news/security/critical-cpanel-and-whm-bug-exploited-as-a-zero-day-poc-now-available/",
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-41940",
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-41940"
-      ]
-    },
-    {
-      "id": "8f53d4e239c4a286d1e0d068f07722e2243bf79e1f44d9c0d80f791aa0558363",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7466",
-      "title": "CVE-2026-7466 — CVSS 8.8",
-      "summary": "AgentFlow contains an arbitrary code execution vulnerability that allows attackers to execute local Python pipeline files by supplying a user-controlled pipeline_path parameter to the POST /api/runs and POST /api/runs/validate endpoints. Attackers can induce requests to the local AgentFlow API to load and execute existing Python pipeline files on disk, resulting in code execution in the context of",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-29T19:16:27.013",
-      "cve_ids": [
-        "CVE-2026-7466"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "37f82e1528803f691781f1276f024fd37e90b06b58e47eed746e98bcde5edc05",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7439",
-      "title": "CVE-2026-7439 — CVSS 4.4",
-      "summary": "AgentFlow's local web API accepts non-JSON content types on POST /api/runs and POST /api/runs/validate endpoints without enforcing application/json validation, allowing attackers to bypass trust-boundary enforcement on sensitive operations. Attackers can exploit this content-type validation weakness through browser-driven or local cross-origin requests to abuse the localhost API and enable attack ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-29T19:16:26.870",
-      "cve_ids": [
-        "CVE-2026-7439"
-      ],
-      "cvss": 4.4,
-      "related_links": []
-    },
-    {
-      "id": "5be1412fdafafac3ed0e9e08f32f4522f3420bd6764d13759b9f54b9de4bf581",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7424",
-      "title": "CVE-2026-7424 — CVSS 8.1",
-      "summary": "Integer underflow in the DHCPv6 sub-option parser in FreeRTOS-Plus-TCP before V4.4.1 and V4.2.6 allows an adjacent network actor to corrupt the device's IPv6 address assignment, DNS configuration, and lease times, and to cause a denial of service (permanent IP task freeze requiring hardware reset) by sending a single crafted DHCPv6 packet.\n\n\n\n\n\n\n\n\nThe issue is present whenever DHCPv6 is enabled.\n\n",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-29T19:16:26.743",
-      "cve_ids": [
-        "CVE-2026-7424"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "2d41147fa3644ce00820eba4740cf688db26ae559542930d46f92f582a61d8d1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7422",
-      "title": "CVE-2026-7422 — CVSS 6.5",
-      "summary": "Insufficient packet validation in FreeRTOS-Plus-TCP before V4.2.6 and V4.4.1 allows an adjacent network actor to bypass all checksum and minimum-size validation by spoofing the Ethernet source MAC address to match one of the device's own registered endpoints, because the loopback detection mechanism skips all input validation for packets whose source MAC matches a local endpoint.\n\n\n\nTo mitigate th",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-29T19:16:26.487",
-      "cve_ids": [
-        "CVE-2026-7422"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "91ff4ba385575fcc8730cbed151c947bd5fe971ebf3d210cdbaddb8bc64558c2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7398",
-      "title": "CVE-2026-7398 — CVSS 7.3",
-      "summary": "A weakness has been identified in florensiawidjaja BioinfoMCP up to 7ada7918b9e515604d3c0ae264d3a9af10bf6e54. This vulnerability affects the function Upload of the file bioinfo_mcp_platform/app.py of the component Upload Endpoint. This manipulation of the argument Name causes path traversal. The attack can be initiated remotely. The exploit has been made available to the public and could be used f",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-04-29T19:16:26.317",
-      "cve_ids": [
-        "CVE-2026-7398"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "f77ca08fa96f18602bf97af9f4a061e280b72df9a7b61485322ee8a46f56ee8c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41499",
-      "title": "CVE-2026-41499 — CVSS 6.5",
-      "summary": "Wazuh is a free and open source platform used for threat prevention, detection, and response. From version 4.0.0 to before version 4.14.4, multiple heap-based out-of-bounds WRITE vulnerabilities exist in parse_uname_string() (remoted_op.c). This function processes OS identification data from agents and contains a dangerous code pattern that appears in 4 locations within the same function: writing ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-29T19:16:23.780",
-      "cve_ids": [
-        "CVE-2026-41499"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "38d4521c62b0a0adcae2e50a03ae7f0a2ec091cc78ec02dc014d6f8817c0fc7f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-30893",
-      "title": "CVE-2026-30893 — CVSS 9.0",
-      "summary": "Wazuh is a free and open source platform used for threat prevention, detection, and response. From version 4.4.0 to before version 4.14.4, a path traversal vulnerability in Wazuh's cluster synchronization extraction routine allows an authenticated cluster peer to write arbitrary files outside the intended extraction directory on other cluster nodes. This can be escalated to code execution in the W",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-29T19:16:23.200",
-      "cve_ids": [
-        "CVE-2026-30893"
-      ],
-      "cvss": 9.0,
-      "related_links": []
-    },
-    {
-      "id": "a4b923c8db6b09e8aabab4c1d52b980cc578f1dbc56cf4a081da8ebe4e48c1af",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-28221",
-      "title": "CVE-2026-28221 — CVSS 6.5",
-      "summary": "Wazuh is a free and open source platform used for threat prevention, detection, and response. From version 4.8.0 to before version 4.14.4, a stack-based buffer overflow exists in print_hex_string() in wazuh-remoted. The bug is triggered when formatting attacker-controlled bytes using sprintf(dst_buf + 2*i, \"%.2x\", src_buf[i]) on platforms where char is treated as signed and the compiled code sign-",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-29T19:16:23.047",
-      "cve_ids": [
-        "CVE-2026-28221"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "969b378469761ca250211d4161854ce109b86c918adec120df19348e3c84c190",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-26206",
-      "title": "CVE-2026-26206 — CVSS 6.5",
-      "summary": "Wazuh is a free and open source platform used for threat prevention, detection, and response. From version 4.0.0 to before version 4.14.4, Wazuh's server API brute-force protection for POST /security/user/authenticate can be bypassed by sending concurrent authentication requests. Although the configured threshold (max_login_attempts, default 50) is enforced correctly for sequential requests, a par",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-29T19:16:22.600",
-      "cve_ids": [
-        "CVE-2026-26206"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "6b9cee8a207bcb7768db13539849a40978c012ea115dd8c04be937859c70086e",
-      "url": "https://github.com/advisories/GHSA-vc24-j8c5-2vw4",
-      "title": "GHSA: OpenTelemetry.Resources.Azure has an unbounded HTTP response body read",
-      "summary": "### Summary\n\n`OpenTelemetry.Resources.Azure` reads unbounded HTTP response bodies from the Azure VM remote instance metadata service endpoint into memory.\n\nThis would allow an attacker-controlled endpoint or one acting as a Man-in-the-Middle (MitM) to cause excessive memory allocation and possible process termination (via Out of Memory (OOM)).\n\n### Details\n\nThe [`AzureVmMetaDataRequestor`](https:/",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-29T18:30:51Z",
-      "cve_ids": [
-        "CVE-2026-41483"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "846aae4f535a365ac07234dd4e1b38b8b9b49edf60b57415ab80a56ee3280ac0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7396",
-      "title": "CVE-2026-7396 — CVSS 5.3",
-      "summary": "A vulnerability was identified in NousResearch hermes-agent 0.8.0. Affected by this issue is some unknown functionality of the file gateway/platforms/wecom.py of the component WeChat Work Platform Adapter. The manipulation leads to path traversal. It is possible to initiate the attack remotely. The exploit is publicly available and might be used.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-04-29T18:16:05.567",
-      "cve_ids": [
-        "CVE-2026-7396"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "43eed8dbfb48776c9af383793864150355c9ed9c9862d00584eb500586f06883",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7394",
-      "title": "CVE-2026-7394 — CVSS 4.7",
-      "summary": "A vulnerability was determined in SourceCodester Pizzafy Ecommerce System 1.0. Affected by this vulnerability is an unknown functionality of the file /admin/view_order.php of the component GET Parameter Handler. Executing a manipulation of the argument ID can lead to sql injection. The attack may be performed from remote. The exploit has been publicly disclosed and may be utilized.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-29T18:16:05.397",
-      "cve_ids": [
-        "CVE-2026-7394"
-      ],
-      "cvss": 4.7,
-      "related_links": []
-    },
-    {
-      "id": "38b37c3413fb6a7d6ce06b61dcc00eb06ac7747a86c684999e4b2393132744e6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5712",
-      "title": "CVE-2026-5712 — CVSS 8.0",
-      "summary": "This vulnerability impacts all versions of IdentityIQ and allows an authenticated identity that is the requestor or assignee of a work item to edit the definition of a role without having an assigned capability that would allow role editing.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-29T18:16:05.180",
-      "cve_ids": [
-        "CVE-2026-5712"
-      ],
-      "cvss": 8.0,
-      "related_links": []
-    },
-    {
-      "id": "7e5b3bccfe0d6c7c648e4706e6bc379299d74cb89fec9e158288969b908e673b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-26204",
-      "title": "CVE-2026-26204 — CVSS 4.4",
-      "summary": "Wazuh is a free and open source platform used for threat prevention, detection, and response. From version 1.0.0 to before version 4.14.4, a heap-based out-of-bounds WRITE occurs in GetAlertData, resulting in writing a NULL byte exactly 1 byte before the start of the buffer allocated by strdup. Due to unsigned integer underflow and pointer arithmetic wrapping, the write lands at offset -1 from the",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-29T18:16:04.820",
-      "cve_ids": [
-        "CVE-2026-26204"
-      ],
-      "cvss": 4.4,
-      "related_links": []
-    },
-    {
-      "id": "57423161c194862a2a2c1c588b45f930b5f23a4a5e1bd1cc1adeac9b93b98f61",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-26015",
-      "title": "CVE-2026-26015 — CVSS 9.8",
-      "summary": "DocsGPT is a GPT-powered chat for documentation. From version 0.15.0 to before version 0.16.0, an attacker accessing both the official DocsGPT website or any local and public deployment, can craft a malicious payload bypassing the \"MCP test\" behavior to achieve arbitrary remote code execution (RCE). This issue has been patched in version 0.16.0.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-29T18:16:03.817",
-      "cve_ids": [
-        "CVE-2026-26015"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "25cc8a75ca9202572d5870267a6c8ab783a347a676ac87095eea24068a30cbae",
-      "url": "https://seclists.org/fulldisclosure/2026/Apr/18",
-      "title": "ESP-RFID-Tool v2 PRO — Full Public Disclosure",
-      "summary": "Posted by Milan Berger via Fulldisclosure on Apr 29# Security Advisory: ESP-RFID-Tool v2 PRO **Product:** ESP-RFID-Tool v2 PRO **Vendor:** Raik Schneider (Einstein2150), foto-video-it.de **Repository:** https://github.com/Einstein2150/ESP-RFID-Tool-v2 **Affected Version:** v2.2.1 (latest as of 2026-04-28) **Severity:** CRITICAL **Disclosure Type:** Full Public Disclosure **Disclosure Date:** 2026-",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-04-29T17:46:51+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "9e4839f7baaabbde89f346c9a080f6b0d5b9bda406055c591e09c6e8dc14d102",
-      "url": "https://seclists.org/fulldisclosure/2026/Apr/21",
-      "title": "Re: SEC Consult SA-20260427-0 :: Missing TLS Certificate Validation leading to RCE in DeskTime Time Tracking App",
-      "summary": "Posted by SEC Consult Vulnerability Lab via Fulldisclosure on Apr 29*Update 2026-04-28:* The vendor contacted us and now provides a patched version v1.3.674 which can be obtained at the following URL: https://desktime.com/download",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-04-29T17:43:46+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "479082c1f906e19209c7407988b99e48f71f95419883ca252dabb00585629a4c",
-      "url": "https://seclists.org/fulldisclosure/2026/Apr/20",
-      "title": "SEC Consult SA-20260427-0 :: Missing TLS Certificate Validation leading to RCE in DeskTime Time Tracking App",
-      "summary": "Posted by SEC Consult Vulnerability Lab via Fulldisclosure on Apr 29SEC Consult Vulnerability Lab Security Advisory &lt; 20260427-0 &gt; ======================================================================= title: Missing TLS Certificate Validation leading to RCE product: DeskTime Time Tracking App vulnerable version: 1.3.671 fixed version: - CVE number: CVE-2025-10539 impact: medium homepage:ht",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-04-29T17:43:43+00:00",
-      "cve_ids": [
-        "CVE-2025-10539"
-      ],
-      "cvss": 4.8,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2025-10539"
-      ]
-    },
-    {
-      "id": "1e2072e3133b3becca4a0a5198338b4a9505ee003c1144a51b71088fa582eb2d",
-      "url": "https://seclists.org/fulldisclosure/2026/Apr/13",
-      "title": "Research: When Trusted Tools Become Attack Primitives",
-      "summary": "Posted by Nir Yehoshua on Apr 29Hi Full Disclosure list, I published a technical research article titled: When Trusted Tools Become Attack Primitives The article examines how trusted local utilities can become security-relevant primitives when used inside automated processing pipelines. It covers two case studies: 1. macOS textutil resolving remote resources during HTML-to-text conversion. 2. KeeP",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-04-29T17:35:42+00:00",
-      "cve_ids": [],
-      "cvss": null,
       "related_links": []
     }
   ]
