@@ -1,10 +1,432 @@
 {
-  "updated": "2026-05-06T17:41:14.668605+00:00",
+  "updated": "2026-05-06T21:11:16.428428+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "4d57b710c87faae4f406367a1a177c6634e03e15093451f8bd3d1ae43dff25c2",
+      "url": "https://github.com/advisories/GHSA-m24v-f7g5-gq67",
+      "title": "GHSA: Statamic CMS vulnerable to email enumeration via forgot password endpoint",
+      "summary": "### Impact\n\nResponses from the forgot password forms hinted at whether an account existed for a given email address. An unauthenticated attacker could use this to enumerate valid users, which can aid in follow-up credential-based attacks.\n\n### Patches\n\nThis has been fixed in 5.73.21 and 6.15.0. The forgot password forms now return the same generic response regardless of whether the submitted email",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T20:54:31Z",
+      "cve_ids": [
+        "CVE-2026-44306"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "e61ca11268839cccc8f9c280e1b4d16e66832396ca8cdc948de56c0410f09ed4",
+      "url": "https://github.com/advisories/GHSA-pggp-6c3x-2xmx",
+      "title": "GHSA: Snappier has an infinite loop during SnappyStream decompression with malformed framed input",
+      "summary": "### Summary\n`Snappier.SnappyStream` enters an uncatchable infinite loop when decompressing a malformed framed-format Snappy stream as small as 15 bytes.\n\n### Details\nThe hang manifests as a userspace busy loop with SnappyStreamDecompressor.Decompress repeatedly calling Crc32CAlgorithm.Append. The exact non-terminating loop in or above Decompress has not been traced further.\n\n### PoC\n```csharp\nusin",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:53:23Z",
+      "cve_ids": [
+        "CVE-2026-44302"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "e60eb88fe002417cdc7581b88b91f31e7ad6c9cc312c229064dc1722c6db4afa",
+      "url": "https://github.com/advisories/GHSA-289f-fq7w-6q2w",
+      "title": "GHSA: phpMyFAQ has unauthenticated SQL injection via User-Agent header in BuiltinCaptcha",
+      "summary": "## Summary\n\n`BuiltinCaptcha::garbageCollector()` and `BuiltinCaptcha::saveCaptcha()` at `phpmyfaq/src/phpMyFAQ/Captcha/BuiltinCaptcha.php:298` and `:330` interpolate the `User-Agent` header and client IP address into DELETE and INSERT queries with `sprintf` and no escaping. Both methods run on every hit to the public `GET /api/captcha` endpoint, which requires no authentication. An unauthenticated",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T20:49:15Z",
+      "cve_ids": [],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "92e35a911090f7e97b1cfca209838887d3dd71c8345476bcf648b6cd10c96d8a",
+      "url": "https://github.com/advisories/GHSA-gh9p-q46p-57g2",
+      "title": "GHSA: phpMyFAQ: Path Traversal in Client::deleteClientFolder enables arbitrary directory deletion by non-super-admin admins",
+      "summary": "## Summary\n\n`Client::deleteClientFolder()` in `phpmyfaq/src/phpMyFAQ/Instance/Client.php:583` takes a URL from the caller, strips the `https://` prefix, and passes the remainder to `Filesystem::deleteDirectory()` relative to the multisite `clientFolder`. No path-traversal validation runs. An admin with the `INSTANCE_DELETE` permission (a role short of SUPER_ADMIN) submits `https://../../../<path>`",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:47:54Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "b83f36665fae579737fc0abbb85937449ee0d5e55240bccfcd5c69616d330d64",
+      "url": "https://github.com/advisories/GHSA-99qv-g4x9-mgc3",
+      "title": "GHSA: phpMyFAQ has unauthenticated FAQ permission bypass via getFaqBySolutionId fallback query",
+      "summary": "## Summary\n\nThe public `/solution_id_{id}.html` route calls `Faq::getIdFromSolutionId()` in `phpmyfaq/src/phpMyFAQ/Faq.php:1312`. That query joins `faqdata` with `faqcategoryrelations` solely by `solution_id` and returns the matching FAQ's `id`, `lang`, `thema` (title), and `category_id` with no permission filter. An unauthenticated visitor hits the route with a sequential integer and the server 3",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T20:45:01Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "7bc3c43937ff1cf98da9289bb12f18625cfe5972ce7aeb23774d91f1989f9f07",
+      "url": "https://github.com/advisories/GHSA-pm8c-3qq3-72w7",
+      "title": "GHSA: phpMyFAQ has SQL Injection in CurrentUser::setTokenData through unescaped OAuth token fields",
+      "summary": "## Summary\n\n`CurrentUser::setTokenData()` in `phpmyfaq/src/phpMyFAQ/User/CurrentUser.php` at lines 515-534 builds a SQL UPDATE statement with `sprintf` and interpolates OAuth token fields (`refresh_token`, `access_token`, `code_verifier`, and `json_encode($token['jwt'])`) without calling `$db->escape()`. Sibling methods `setAuthSource()` and `setRememberMe()` in the same file do call `$db->escape(",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T20:44:39Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "d121bc7f9f8b9aea9f2591cd06db6f3645eece8343ffb5a88a9d975f91312f34",
+      "url": "https://github.com/advisories/GHSA-9pq7-mfwh-xx2j",
+      "title": "GHSA: phpMyFAQ enables unauthenticated 2FA brute-force attack via /admin/check acceptance of arbitrary user-id",
+      "summary": "## Summary\n\nThe `/admin/check` endpoint in `AuthenticationController` implements `SkipsAuthenticationCheck`, making it reachable without any prior authentication. An anonymous attacker (Bob) can POST arbitrary `user-id` and `token` values to brute-force any user's 6-digit TOTP code. No rate limiting exists. The 10^6 keyspace is exhaustible in minutes. Reachability confirmed against a default insta",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T20:42:54Z",
+      "cve_ids": [],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "5a1637a4df6c087b8d03a6edc594993e76ab4d59b4bdab153c8c551dee7b2889",
+      "url": "https://github.com/advisories/GHSA-cf92-gfcw-6v53",
+      "title": "GHSA: Magic Wormhole: receive, with --output pointing at an existing directory can be path-traversed",
+      "summary": "### Impact\nA receiver who specifies \"--output <dir>\" where that output directory currently exists (as a directory).\n\n### Patches\n0.24.0 will contain the patch\n\n### Workarounds\nEnsure local target directories specified by \"--output\" do not already exist\n\n### Resources\nPrivate email and Signal communications from a user.\nMagic Wormhole thanks  @marduc812",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T20:40:17Z",
+      "cve_ids": [
+        "CVE-2026-42448"
+      ],
+      "cvss": 3.5,
+      "related_links": []
+    },
+    {
+      "id": "2b6566ad10be7deea7bd8d36251973fdadf7066592141b5ad0d3438d3c82d238",
+      "url": "https://github.com/advisories/GHSA-jrc5-w569-h7h5",
+      "title": "GHSA: phpMyFAQ: Ordinary Authenticated User Can Access Admin-Only API Endpoints Due to Insufficient Authorization Check in phpMyFAQ",
+      "summary": "### Summary\n\nA review of `phpMyFAQ-main` uncovered an authorization issue in the `admin-api` routes.\n\nSeveral backend endpoints only check whether the caller is logged in. They do not verify that the caller actually has backend or administrative privileges. As a result, a normal frontend user can access API endpoints that are clearly intended for administrative use.\n\nDuring local reproduction, a r",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:37:42Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "c9810ff3cdd2f56b1518955cd90219e70d595ecad47abbd12b43c872c6e29451",
+      "url": "https://github.com/advisories/GHSA-pqh6-8fxf-jx22",
+      "title": "GHSA: phpMyFAQ has stored XSS via | raw Filter in search.twig — html_entity_decode(strip_tags()) Bypass in Search Result Rendering",
+      "summary": "## Summary\n\nThe search result rendering template (`search.twig`) outputs FAQ content fields `result.question` and `result.answerPreview` using Twig's `| raw` filter, which completely disables the template engine's built-in auto-escaping.\n\nA user with FAQ editor/contributor privileges can store a payload encoded as HTML entities. During search result construction, `html_entity_decode(strip_tags(...",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:31:54Z",
+      "cve_ids": [],
+      "cvss": 6.9,
+      "related_links": []
+    },
+    {
+      "id": "f9fa2ee249af5f542ae153ab77e1ac32fdce106d90f3f546aaba5c23945a906f",
+      "url": "https://github.com/advisories/GHSA-rm98-82fr-mcfx",
+      "title": "GHSA: phpMyFAQ's Missing CONFIGURATION_EDIT Permission Check on 12 Admin API Configuration Tab Endpoints Allows Information Disclosure by Any Authenticated User",
+      "summary": "## Summary\n\n12 endpoints in `ConfigurationTabController.php` use `userIsAuthenticated()` (login-only check) instead of `userHasPermission(PermissionType::CONFIGURATION_EDIT)`. This allows any authenticated user — including ones with zero admin permissions — to enumerate system configuration metadata including the permission model, active template, cache backend, mail provider, and translation prov",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:24:39Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "2a0040584a6819085d1b7de8d39483922c12e3c74eb42a44c0324a23d1ffc33a",
+      "url": "https://github.com/advisories/GHSA-whqh-9pq5-c7r3",
+      "title": "GHSA: phpMyFAQ has a SVG Sanitizer Entity Decoding Depth Limit Bypass Leading to Stored XSS",
+      "summary": "## Summary\n\nThe `SvgSanitizer::decodeAllEntities()` method limits recursive entity decoding to 5 iterations. By wrapping each character of `javascript` in an `href` attribute value with 5 levels of `&amp;` encoding around numeric HTML entities (e.g., `&amp;amp;amp;amp;amp;#106;` for `j`), an attacker can bypass both `isSafe()` detection and `sanitize()` removal. The uploaded SVG is served from the",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:18:48Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "d7a13bca35424f7c51d6a614b76dff07bf295026c5a12fcfa7882f249c0bdfe4",
+      "url": "https://github.com/advisories/GHSA-f5p7-2c9q-8896",
+      "title": "GHSA: phpMyFAQ has Stored XSS in FAQ Question/Answer via Encode-Decode Bypass of removeAttributes() Sanitization",
+      "summary": "## Summary\n\nThe FAQ creation and update endpoints in phpMyFAQ apply `FILTER_SANITIZE_SPECIAL_CHARS` (which HTML-encodes input), then immediately call `html_entity_decode()` which reverses the encoding, followed by `Filter::removeAttributes()` which only strips HTML attributes — not tags. This allows `<script>`, `<iframe>`, `<object>`, and `<embed>` tags to be stored in the database and rendered un",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:18:02Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "5068bbd3fe870c1ad812e393b379087cd4c8e2c9a5e3c6c15b051c515626d7ee",
+      "url": "https://github.com/advisories/GHSA-pgh9-mpwc-8jjf",
+      "title": "GHSA: Harvester's SUSE Virtualization Registration Client Vulnerable to MITM and DOS",
+      "summary": "### Impact\n\nA vulnerability has been identified in the [SUSE Virtualization (Harvester) Rancher integration mechanism](https://docs.harvesterhci.io/v1.7/rancher/rancher-integration) where by default the registration client uses an insecure TLS option that fails to verify  the remote server’s certificate. This security gap could allow the execution of a man-in-the-middle (MitM) attack against SUSE ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:16:08Z",
+      "cve_ids": [
+        "CVE-2025-71261"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "7987d3244d2356f3d4bf8a1155c809bd1f422bab17830ba4b06ef6c6753e2f68",
+      "url": "https://github.com/advisories/GHSA-7cx3-2qx2-3g6w",
+      "title": "GHSA: phpMyFAQ's Missing Authorization on Tag Deletion Allows Any Authenticated User to Delete Tags",
+      "summary": "## Summary\n\nThe `TagController::delete()` endpoint at `DELETE /admin/api/content/tags/{tagId}` only verifies that the user is logged in (`userIsAuthenticated()`), but does not check any permission. Any authenticated user — including regular non-admin frontend users — can delete any tag by ID. This contrasts with `TagController::update()` and `TagController::search()`, which both enforce the `FAQ_E",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T20:12:07Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "110aa9658868a343c6d3aa2259b4064c06b5a8916ce541d301bf8f4cedb2c417",
+      "url": "https://github.com/advisories/GHSA-hpgw-ww76-c68r",
+      "title": "GHSA: phpMyFAQ has an Authorization Bypass in All Admin Pages Due to Non-Terminating Permission Check",
+      "summary": "## Summary\n\n`AbstractAdministrationController::userHasPermission()` catches the `ForbiddenException` thrown when a user lacks a specific permission, sends a \"forbidden\" HTML page via `$response->send()`, but does not terminate execution. The calling controller method continues to execute, fetches protected data, renders the full template, and returns it as a Response. The final `$response->send()`",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:11:52Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "9e71db5d0edf0b80e03811c724f49dd9e2ca58bc570207f6be85bdd5b10cc08e",
+      "url": "https://github.com/advisories/GHSA-9525-27vj-c8r8",
+      "title": "GHSA: phpMyFAQ has stored XSS via Utils::parseUrl() in comment rendering",
+      "summary": "### Summary\n\nA stored XSS vulnerability in the comment rendering pipeline allows an authenticated user to inject JavaScript that executes for every visitor of an affected FAQ or News page. An attacker with a registered account can steal admin session cookies and take over the application.\n\n### Details\n\n`Utils::parseUrl()` (`phpmyfaq/src/phpMyFAQ/Utils.php`, line 281) converts URLs in comment text ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:10:48Z",
+      "cve_ids": [],
+      "cvss": 7.6,
+      "related_links": []
+    },
+    {
+      "id": "b652000e2733b5c1683c3f9c5b9484dff89e59bb6d08427f369ced7d669ef864",
+      "url": "https://github.com/advisories/GHSA-8hjv-92q9-g4xj",
+      "title": "GHSA: Micronaut has unbounded `formattersCache` in `TimeConverterRegistrar` that Allows Memory Exhaustion via `Accept-Language` Header",
+      "summary": "## Summary\n\n`TimeConverterRegistrar` caches `DateTimeFormatter` instances in an unbounded `ConcurrentHashMap<String, DateTimeFormatter>` whose key is derived from the `@Format` annotation pattern concatenated with the locale from the HTTP `Accept-Language` header. Because `Locale.forLanguageTag()` accepts arbitrary BCP 47 private-use extensions (`en-x-a001`, `en-x-a002`, …), an unauthenticated att",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T20:00:22Z",
+      "cve_ids": [
+        "CVE-2026-44241"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "c43d40a9915c32cfb186bf242cdd72f711cd768666bfb38183e7ebdf9905f8fd",
+      "url": "https://github.com/advisories/GHSA-3rfq-4wpf-qqw3",
+      "title": "GHSA: Micronaut has Unbounded `bundleCache` in `ResourceBundleMessageSource` that Allows Memory Exhaustion via `Accept-Language` Header",
+      "summary": "## Summary\n\n`ResourceBundleMessageSource` maintains two caches: `messageCache` (bounded at 100 entries via `ConcurrentLinkedHashMap`) and `bundleCache` (unbounded `ConcurrentHashMap`). The `bundleCache` is keyed by `(Locale, baseName)` where the locale originates from the HTTP `Accept-Language` header. In applications that explicitly register a `ResourceBundleMessageSource` bean and serve HTML err",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T19:57:54Z",
+      "cve_ids": [
+        "CVE-2026-44242"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "0538c246458c5bce0d903b08f20d7368f17de48f03834ab2ac77395822a94a6e",
+      "url": "https://ubuntu.com/security/notices/USN-8239-1",
+      "title": "USN-8239-1: Apache HTTP Server vulnerabilities",
+      "summary": "Bartlomiej Dmitruk and Stanislaw Strzalkowski discovered that Apache HTTP Server incorrectly handled certain memory operations when using the HTTP/2 protocol. A remote attacker could use this issue to cause Apache HTTP Server to crash, resulting in a denial of service, or possibly execute arbitrary code. This issue only affected Ubuntu 26.04 LTS. (CVE-2026-23918) It was discovered that the Apache ",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-05-06T19:55:12+00:00",
+      "cve_ids": [
+        "CVE-2026-23918",
+        "CVE-2026-24072",
+        "CVE-2026-28780",
+        "CVE-2026-29168",
+        "CVE-2026-29169",
+        "CVE-2026-33006",
+        "CVE-2026-33007",
+        "CVE-2026-33523",
+        "CVE-2026-33857",
+        "CVE-2026-34032",
+        "CVE-2026-34059"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "e982bf3e43a6a0a38919bd32bdd7dbfd4f25105ffc65a2d7f3d869713a2b5dbd",
+      "url": "https://github.com/advisories/GHSA-4rm2-28vj-fj39",
+      "title": "GHSA: Scramble vulnerable to remote code execution via evaluation of user-controlled input in validation rules",
+      "summary": "### Impact\n\nA remote code execution (RCE) vulnerability affects versions `0.13.2` through `0.13.21`. When documentation endpoints are publicly accessible and validation rules reference user-controlled input, request supplied data may be evaluated during documentation generation, leading to execution of arbitrary PHP code in the application context.\n\n### Patches\n\nFixed in version `0.13.22`.\n\n### Wo",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T19:54:56Z",
+      "cve_ids": [
+        "CVE-2026-44262"
+      ],
+      "cvss": 9.4,
+      "related_links": []
+    },
+    {
+      "id": "7ceffa1fb463096dd6c46c99e2f6dcdc02cde80813cb5584133b9ee441c41209",
+      "url": "https://github.com/advisories/GHSA-vqv8-j3mj-wjxj",
+      "title": "GHSA: wger: trainer_login open redirect - ?next= parameter not validated against host",
+      "summary": "### Summary\n\nThe `trainer_login` view in wger redirects to `request.GET['next']` directly via `HttpResponseRedirect()` without calling `url_has_allowed_host_and_scheme()`. After the trainer successfully enters impersonation mode, their browser is redirected to any attacker-controlled URL supplied in the `?next=` parameter, enabling Referer exfiltration and phishing.\n\n### Details\n\n**File**: `wger/c",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T19:50:52Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "6bb61712383dbe7f960c5c8a19ab5721847be1bca46db66799545f6a8169094f",
+      "url": "https://github.com/advisories/GHSA-mhc8-p3jx-84mm",
+      "title": "GHSA: wger: cross-tenant password reset and plaintext disclosure via gym=None bypass",
+      "summary": "### Summary\n\nThe `reset_user_password` and `gym_permissions_user_edit` views in wger perform a gym-scope authorization check using Python object comparison (`!=`) that evaluates `None != None` as `False`, silently bypassing the guard when both the attacker and victim have no gym assignment (`gym=None`). A user with `gym.manage_gym` permission and `gym=None` can reset the password of **any other `g",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T19:50:31Z",
+      "cve_ids": [
+        "CVE-2026-43948"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "85785718f5c0dd8d44b214a53a190cbcfc2669182f29bc0341769c0990cb97ff",
+      "url": "https://github.com/advisories/GHSA-xq9m-hmp9-fw87",
+      "title": "GHSA: wger: CSV/TSV formula injection in gym member export (first_name/last_name)",
+      "summary": "### Summary\n\nThe gym member TSV export endpoint in wger writes `first_name` and `last_name` profile fields verbatim to TSV cells with no formula-prefix sanitization. Any gym member (including newly self-registered users) can pre-load a spreadsheet formula into their own profile. When a gym admin later exports the member list and opens the file in Excel, LibreOffice Calc, or Google Sheets, the form",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T19:48:16Z",
+      "cve_ids": [],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "d7aee4b1e33fe2e30192ae11e8600be970b33863bc6fdec0da158d7fc4a11228",
+      "url": "https://github.com/advisories/GHSA-rpmf-866q-6p89",
+      "title": "GHSA: basic-ftp allows a malicious FTP server to cause client-side denial of service via unbounded multiline control response buffering",
+      "summary": "## Summary\n\n`basic-ftp` is vulnerable to client-side denial of service when parsing FTP control-channel multiline responses.\n\nA malicious or compromised FTP server can send an unterminated multiline response during the initial FTP banner phase, before authentication. The client keeps appending attacker-controlled data into `FtpContext._partialResponse` and repeatedly reparses the accumulated buffe",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T19:37:33Z",
+      "cve_ids": [
+        "CVE-2026-44240"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "0e2418d8ece3f8ae9de245a2bfb202dcf2b5a2436966e50938fc00e42e8b04d3",
+      "url": "https://github.com/advisories/GHSA-3r34-vq8m-39gh",
+      "title": "GHSA: Lemur: LDAP Filter Injection enables post-authentication privilege escalation",
+      "summary": "## Description\n\n### Overview\n\nLemur's LDAP authentication module (`lemur/auth/ldap.py`) constructs LDAP search filters using unsanitized user input via Python string interpolation. An authenticated LDAP user can inject LDAP filter metacharacters through the username field to manipulate group membership queries and escalate their privileges to administrator.\n\n### Vulnerable Code\n\n**Location:** `lem",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-05-06T19:16:59Z",
+      "cve_ids": [
+        "CVE-2026-44304"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "38e86f57489ec040b36c68246e0522f534258b4398ea149cfaee88120e906ddf",
+      "url": "https://github.com/advisories/GHSA-vr7c-r5gj-j3w5",
+      "title": "GHSA: Lemur: LDAP Authentication Globally Disables TLS Certificate Verification When LDAP_USE_TLS Is Enabled",
+      "summary": "## Description\n\n### Overview\n\nWhen LDAP TLS is enabled (`LDAP_USE_TLS = True`), Lemur's LDAP authentication module unconditionally disables TLS certificate verification at the **global** `ldap` module level. This allows a man-in-the-middle attacker positioned between Lemur and the LDAP server to intercept all authentication credentials.\n\n### Vulnerable Code\n\n**Location:** `lemur/auth/ldap.py`, `_b",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T18:48:12Z",
+      "cve_ids": [
+        "CVE-2026-44305"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "d07794f5c7bf42573e17be70a8286b4f4b2432f90f8d473f6c4c377416446270",
+      "url": "https://www.bleepingcomputer.com/news/security/critical-vm2-sandbox-bug-lets-attackers-execute-code-on-hosts/",
+      "title": "Critical vm2 sandbox bug lets attackers execute code on hosts",
+      "summary": "A critical vulnerability in the popular Node.js sandboxing library vm2 allows escaping the sandbox and executing arbitrary code on the host system. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-05-06T18:38:38+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "2ea0cd42091b6da6d9103e6e202948ed289043a9ca06a6f3a662a29d494b6e6a",
+      "url": "https://github.com/advisories/GHSA-v2fc-qm4h-8hqv",
+      "title": "GHSA: Nokogiri XSLT transform has a memory leak",
+      "summary": "## Summary\n\nNokogiri's `Nokogiri::XSLT::Stylesheet#transform` leaks a small heap allocation when passed a Ruby string parameter containing a null byte.\n\nFor applications that pass attacker-controlled input through `XSLT.transform` parameters, this may be a vector for a denial of service attack against long-running processes.\n\n\n## Mitigation\n\nUpgrade to Nokogiri `>= 1.19.3`.\n\nUsers may also be able",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T18:27:38Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "9cf1e9a0e49c7008d19416e2d03f912dcf5e767c4f38b9834cb49c38b45c6a99",
+      "url": "https://github.com/advisories/GHSA-c4rq-3m3g-8wgx",
+      "title": "GHSA: Nokogiri CSS selector tokenizer has regular expression backtracking",
+      "summary": "## Summary\n\nNokogiri's CSS selector tokenizer contains regular expressions whose construction may result in exponential regex backtracking on adversarial selectors. Three ReDoS vectors are addressed in this release:\n\n1. String-literal tokenization on certain unterminated quoted-string input.\n2. String-literal tokenization on a separate class of hex-escape-rich input.\n3. Identifier tokenization on ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T18:24:18Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "84e8a8363fa5ff318bde3d9bf13c4a94eecf0ff67cd2ca26bad280aa2f1d250a",
+      "url": "https://github.com/advisories/GHSA-2528-jw5q-ww88",
+      "title": "GHSA: phpseclib: guardrails needed on isPrime and randomPrime",
+      "summary": "### Impact\nAnyone trying to generate a prime and testing the primality of a number.\n\n### Patches\nhttps://github.com/phpseclib/phpseclib/commit/ad5dbdf2129f5e0fb644637770b7f33de8ca8575\n\n### Workarounds\nUsing the GMP extension would probably help, assuming that one has its own guardrails.\n\n### Resources\nhttps://github.com/phpseclib/phpseclib/commit/ad5dbdf2129f5e0fb644637770b7f33de8ca8575\nhttps://ww",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T17:57:10Z",
+      "cve_ids": [
+        "CVE-2024-27354"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "59098214c8b3fa288c5fbfb9d0d7d03122436b5f6ca0308b2b61b2a7eddfd318",
+      "url": "https://github.com/advisories/GHSA-c3gc-9pf2-84gg",
+      "title": "GHSA: PyLoad vulnerable to unauthenticated traceback disclosure via global exception handler in WebUI",
+      "summary": "### Summary\n`pyload-ng` WebUI returns full Python traceback details to clients on unhandled exceptions.\n\nBecause `/web/<path:filename>` is reachable without authentication and renders attacker-controlled template names, an unauthenticated user can reliably trigger a server exception (for example by requesting a non-existent template) and receive internal stack traces in the HTTP response.\n\n### Det",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T17:54:20Z",
+      "cve_ids": [
+        "CVE-2026-44226"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
     {
       "id": "ef5c8859db6a805c555d2e0987dbc26a22e0f61c0c3b1d6fe31b820ecab2ee21",
       "url": "https://github.com/advisories/GHSA-4c35-wcg5-mm9h",
@@ -191,7 +613,9 @@
         "CVE-2026-0300"
       ],
       "cvss": null,
-      "related_links": []
+      "related_links": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-0300"
+      ]
     },
     {
       "id": "7f4dd9252e0745b629a7ddd0aa7b351e6e2a1c7ac707c9db93c1e7543d054476",
@@ -243,440 +667,6 @@
         "CVE-2026-44222"
       ],
       "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "770ba16058077431779525cc07d131d47ee15ea105a0d931820ced671dfe4069",
-      "url": "https://github.com/advisories/GHSA-7ww3-xvf5-cxwm",
-      "title": "GHSA: ciguard: Web UI is missing HTTP defence-in-depth headers",
-      "summary": "## Summary\n\nciguard's FastAPI Web UI (`src/ciguard/web/app.py`) does not set HTTP defence-in-depth headers. OWASP ZAP baseline scan flagged 11 alerts: missing Content-Security-Policy (Medium), X-Frame-Options (Medium), Sub-Resource-Integrity on `/api/docs` (Medium), COOP / COEP / CORP (Low), Permissions-Policy (Low), X-Content-Type-Options (Low).\n\n## Threat scenario\n\nFor local-only deployment (cur",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T22:20:04Z",
-      "cve_ids": [],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "07491435081a8083129a0fbd610e226251e63958ca9d697f41d80e63976a0753",
-      "url": "https://github.com/advisories/GHSA-jrm4-4pcf-4763",
-      "title": "GHSA: ciguard: Container image runs as root (no USER directive)",
-      "summary": "## Summary\n\nThe published `ghcr.io/jo-jo98/ciguard` container image inherits the default root user because the `Dockerfile` lacks a `USER` directive. ciguard is a static analyser with no need for root privileges; running as root inside a container makes any future container-runtime escape CVE more impactful than it needs to be.\n\n## Threat scenario\n\nDefence-in-depth gap. Without a known container-r",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T22:18:15Z",
-      "cve_ids": [
-        "CVE-2026-44218"
-      ],
-      "cvss": 3.0,
-      "related_links": []
-    },
-    {
-      "id": "a3c0cd40fbc6e637fa1b87149fa9b36b39dfaa8bb302aa28ec6f90a435372306",
-      "url": "https://github.com/advisories/GHSA-xw8c-rrvx-f7xq",
-      "title": "GHSA: ciguard: SCA HTTP client reads response body without size cap",
-      "summary": "## Summary\n\nBoth SCA HTTP clients (`src/ciguard/analyzer/sca/osv.py` and `src/ciguard/analyzer/sca/endoflife.py`) call `payload = json.loads(resp.read().decode('utf-8'))` without a maximum-bytes cap. A hostile or compromised endoflife.date / OSV.dev (or a successful TLS MITM) could return a multi-GB response, exhausting the ciguard process's memory.\n\n## Threat scenario\n\nciguard process memory exha",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T22:17:43Z",
-      "cve_ids": [
-        "CVE-2026-44219"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "9972eae5738979d1825fdaef77bf2cc2cb5c4b8a3aa00a65061ab1aaa52894f0",
-      "url": "https://github.com/advisories/GHSA-2hch-c97c-g99x",
-      "title": "GHSA: AVideo has SSRF Protection Bypass via HTTP Redirect and DNS Rebinding in isSSRFSafeURL()",
-      "summary": "### Summary\n\nTwo endpoints in AVideo call `isSSRFSafeURL()` to validate user-supplied URLs, then fetch them using bare `file_get_contents()` **without disabling PHP's automatic redirect following**. An attacker can supply a URL pointing to a server they control that returns a 302 redirect to an internal/cloud-metadata address (e.g., `http://169.254.169.254/latest/meta-data/`). Since `isSSRFSafeURL",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T22:16:33Z",
-      "cve_ids": [
-        "CVE-2026-43884"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "2e1aabec20a6ac2f3134d04d5051145f5b6fa22f7cb4f3a709ded3fa224a9ae3",
-      "url": "https://github.com/advisories/GHSA-958h-qp3x-q4gj",
-      "title": "GHSA: AVideo: IDOR in PayPalYPT Plugin Allows Any Authenticated User to Cancel Arbitrary PayPal Subscription Agreements",
-      "summary": "## Summary\n\n`plugin/PayPalYPT/agreementCancel.json.php` cancels a PayPal billing agreement using an attacker-supplied `agreement` parameter without verifying that the authenticated user owns the agreement. A low-privilege authenticated user who learns or obtains another user's PayPal billing agreement ID can silently suspend the victim's recurring subscription, causing revenue loss to the platform",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T22:16:12Z",
-      "cve_ids": [
-        "CVE-2026-43883"
-      ],
-      "cvss": 4.2,
-      "related_links": []
-    },
-    {
-      "id": "b46aec6ce0659fa685cc4d9249e4231531d4b661b04c7c34c4240b9e7015aa8c",
-      "url": "https://github.com/advisories/GHSA-mwgh-92m2-wvhv",
-      "title": "GHSA: AVideo: Unauthenticated CRLF/ICS Injection in Scheduler downloadICS.php Allows Calendar Event Spoofing",
-      "summary": "## Summary\n\nThe unauthenticated `plugin/Scheduler/downloadICS.php` endpoint passes attacker-controlled `title`, `description`, and `joinURL` parameters into `Scheduler::downloadICS()`, which builds an ICS calendar file via the `ICS` helper class. `ICS::escape_string()` (`objects/ICS.php:167-169`) only escapes `,` and `;` and does NOT neutralize CR/LF, so attacker CRLF bytes inside a property value",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T22:14:31Z",
-      "cve_ids": [
-        "CVE-2026-43882"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "3a4dc269ab70f92e99759a8ae255fe20a243353de577fc52928df55208720e72",
-      "url": "https://github.com/advisories/GHSA-6rvw-7p8v-mjfq",
-      "title": "GHSA: AVideo: Unauthenticated User Enumeration in objects/users.json.php via isCompany Parameter Allows Bypass of the Admin-Only Listing Restriction",
-      "summary": "## Summary\n\n`objects/users.json.php` exposes two unauthenticated paths that disclose the full set of registered user accounts. The `isCompany` request parameter causes the handler to set `$ignoreAdmin = true` for any non-admin caller (including unauthenticated visitors), which defeats the admin-only guard inside `User::getAllUsers()`/`User::getTotalUsers()`. A second path accepts `users_id` and ca",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T22:02:35Z",
-      "cve_ids": [
-        "CVE-2026-43881"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "8cbe39c96aa5608557d217a44cf8dff939d71e414688cfbe8b586e3603089596",
-      "url": "https://github.com/advisories/GHSA-w2jh-77fq-7gp8",
-      "title": "GHSA: OpAMP client reads unbounded HTTP response bodies",
-      "summary": "### Summary\n\nWhen receiving responses from the OpAMP server over HTTP, the OpAMP client allocates an unbounded buffer to read all bytes from the server, with no upper-bound on the number of bytes consumed.\n\nThis could cause memory exhaustion in the consuming application if the configured OpAMP server is attacker-controlled (or a network attacker can MitM the connection) and an extremely large body",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:57:54Z",
-      "cve_ids": [
-        "CVE-2026-42348"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "44ef4149d09db3e7347f97ca378e365a594ac9b0c69878e8aaa94478aaf62d87",
-      "url": "https://github.com/advisories/GHSA-5hgj-7gm9-cff5",
-      "title": "GHSA: AVideo: Unauthenticated Arbitrary Email Sending via sendEmail.json.php Enables Phishing from the Site’s Legitimate From Address",
-      "summary": "## Summary\n\n`objects/sendEmail.json.php` exposes two branches depending on whether `contactForm=1` is submitted. When the parameter is omitted, the endpoint sets `$sendTo` to an attacker-supplied email and, for unauthenticated callers, uses the site's own contact email as the message `From:`/`Reply-To:`. The endpoint is explicitly allow-listed as a \"public write action\" in `objects/functionsSecuri",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T21:56:19Z",
-      "cve_ids": [
-        "CVE-2026-43880"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "b094fdd76e99df3e2232e15bd43a19562604372c3dbfd7f9efb905507317d87a",
-      "url": "https://github.com/advisories/GHSA-3h96-34p3-xm76",
-      "title": "GHSA: GraphQL-Ruby's Ruby lexer does not count comment tokens for the purposes of max_query_string_tokens",
-      "summary": "GraphQL-Ruby's `max_query_string_tokens` configuration didn't count comment tokens against the limit, allowing strings to be processed even after the configured maximum had actually been reached. \n\nIn patched versions, the Ruby lexer does count these tokens. \n\nGraphQL-CParser is not affected by this problem. \n\n`max_query_string_tokens` was introduced in v2.3.1. Each 2.x version has received a new ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:51:15Z",
-      "cve_ids": [],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "4cf83f56916c6806838bf486facb67422203a8be59040833a2aa9d808e04fbf5",
-      "url": "https://github.com/advisories/GHSA-wp38-whx3-xffh",
-      "title": "GHSA: AVideo has Blind SSRF in YPTWallet Donation Webhook via Missing isSSRFSafeURL() Check and CURLOPT_FOLLOWLOCATION Redirect Bypass",
-      "summary": "## Summary\n\nAn authenticated user can configure their own donation-notification webhook URL to point at internal/loopback/metadata hosts (e.g. `http://127.0.0.1:8080/...`, `http://169.254.169.254/latest/...`, RFC1918 addresses). When any other user (including a second account owned by the same attacker) donates even a trivial amount via `plugin/CustomizeUser/donate.json.php`, the AVideo server iss",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:49:23Z",
-      "cve_ids": [
-        "CVE-2026-43879"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "5b856effb004e6cdce17e208ee9bf20db5aaefd4db170099ae6498abb2bcf07e",
-      "url": "https://github.com/advisories/GHSA-wqcw-g35j-j578",
-      "title": "GHSA: Kubewarden vulnerable to RBAC Reconnaissance via unchecked can_i host capability call",
-      "summary": "### Impact\nKubewarden is a policy engine for Kubernetes. Kubewarden cluster operators can grant permissions to users to deploy namespaced AdmissionPolicies and AdmissionPolicyGroups in their Namespaces. One of Kubewarden promises is that configured users can deploy namespaced policies in a safe manner, without privilege escalation.\n\nAn attacker with privileged AdmissionPolicy or AdmissionPolicyGro",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-05-05T21:49:03Z",
-      "cve_ids": [
-        "CVE-2026-42541"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "83afa8dd5ad6ea4f9d590a984c3e6fa042b9cded70541b232ba4f6ec00faacc6",
-      "url": "https://github.com/advisories/GHSA-wpg9-53fq-2r8h",
-      "title": "GHSA: Mongoose's Improper Sanitization of $nor in sanitizeFilter May Allow NoSQL Injection",
-      "summary": "### Impact\n\nThis vulnerability allows bypassing Mongoose’s sanitizeFilter query sanitization mechanism via the `$nor` operator.\n\nWhen sanitizeFilter is enabled, Mongoose wraps query operators in `$eq` to neutralize them. However, prior to the fix, `$nor` was not included in the set of logical operators that are recursively sanitized. Because `$nor` accepts an array (like `$and` and `$or`), and arr",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:48:06Z",
-      "cve_ids": [
-        "CVE-2026-42334"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "4315e2712d8f69a53570b484f2c205f5ef04b5fa0a47f7bdaa49d61fd5564aa7",
-      "url": "https://github.com/advisories/GHSA-w8cg-7jcj-4vv2",
-      "title": "GHSA: Grav is Vulnerable to Stored XSS via Tag Injection",
-      "summary": "### Summary\nA low-privileged (with the ability to create a page) user can cause XSS with the injection of `svg` element. The XSS can further be escalated to dump the entire system information available under `/admin/config/info` whenever a Super Admin visits the page; which can further be chained with the use of admin-nonce to do a complete server compromise (RCE).\n\n### Details\nAffected endpoint: ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T21:36:27Z",
-      "cve_ids": [
-        "CVE-2026-42611"
-      ],
-      "cvss": 8.9,
-      "related_links": []
-    },
-    {
-      "id": "c53d619d1626ce35e857d64305f94d6d0964be12dc0f75d631a58dad910daeea",
-      "url": "https://github.com/advisories/GHSA-3446-6mgw-f79p",
-      "title": "GHSA: Grav is Vulnerable to XXE via SVG Upload ",
-      "summary": "Dear Grav Security Team,\n\nA security vulnerability was discovered in Grav CMS that allows authenticated attackers to read arbitrary files from the server through XML External Entity (XXE) injection.\n\n Vulnerability Summary\n\n| Field | Details |\n|-------|---------|\n| Vulnerability Type | XML External Entity (XXE) Injection |\n| Severity | High (CVSS 7.5) |\n| Affected Versions | Grav CMS <= 1.7.x |\n| ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:35:53Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "dfc7c48a8a746521a7aa23edfa74d3b3ea19a02987dec6d067189d5d673b3962",
-      "url": "https://github.com/advisories/GHSA-rr73-568v-28f8",
-      "title": "GHSA: Grav Vulnerable to Administrative Account Disruption and Privilege De-escalation via User Overwrite Logic",
-      "summary": "### Summary\nA business logic vulnerability in the Grav Admin Panel allows a low-privileged user (with only user creation permissions) to overwrite existing accounts, including the primary administrator. By creating a new user with a username that already exists, the system updates the existing account's metadata and permissions instead of rejecting the request. This leads to a Denial of Service (D",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:29:53Z",
-      "cve_ids": [
-        "CVE-2026-42609"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "d2a570cf0153f5843b4a07fc3133c9a116e6fdbdcfb01a2e75054fee07638ca3",
-      "url": "https://github.com/advisories/GHSA-9695-8fr9-hw5q",
-      "title": "GHSA: Grav Vulnerable to Publisher-Level Stored XSS via Unquoted Event Attributes",
-      "summary": "### Summary\nA stored Cross-Site Scripting (XSS) vulnerability in `getgrav/grav` allows publisher-level accounts to execute arbitrary JavaScript. The issue arises from a blacklist bypass in the `detectXss()` function when handling unquoted HTML event attributes.\n\n### Details\nThe `detectXss()` function relies on a blacklist pattern to filter malicious attributes. The specific regex pattern used to m",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:27:15Z",
-      "cve_ids": [
-        "CVE-2026-42612"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "0bbbffa19da37111b12eadae2e8e150a9e79b9e5298713d1b59593dbc91806a3",
-      "url": "https://github.com/advisories/GHSA-3f29-pqwf-v4j4",
-      "title": "GHSA: Grav Vulnerable to Sensitive Information Disclosure via Accounts Service Bypass",
-      "summary": "## Summary\nInformation disclosure exists in `Grav CMS v1.8.0-beta.29`. Despite previous security patches (notably in `v1.8.0-beta.27/28`) aimed at restricting sensitive object access within the Twig environment, the Accounts Service remains exposed.\n\nA low-privileged user (EX: Content Editor with only pages.update permissions) can bypass the existing Twig sandbox restrictions by utilizing the `gra",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:26:45Z",
-      "cve_ids": [
-        "CVE-2026-42610"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "4b087e5e3e9636c6811851385f9343ad6b61df0d95ae3bdbfc06733f52ae4546",
-      "url": "https://github.com/advisories/GHSA-pxm6-mhxr-q4mj",
-      "title": "GHSA: Grav Vulnerable to Privilege Escalation via Missing Server-Side Validation of groups/access",
-      "summary": "# Bug Report: Registration Privilege Escalation via Missing Server-Side Validation of groups/access\n\n## Summary\n\nThe `Login::register()` method in the Login plugin accepts attacker-controlled `groups` and `access` fields from the registration POST data without server-side validation. When registration is enabled and `groups` or `access` are included in the configured allowed fields list, an unauth",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T21:26:06Z",
-      "cve_ids": [
-        "CVE-2026-42613"
-      ],
-      "cvss": 9.4,
-      "related_links": []
-    },
-    {
-      "id": "731ec55da70579d9006e5891e7e37dfa54479e582785068898267887213eb916",
-      "url": "https://github.com/advisories/GHSA-c2q3-p4jr-c55f",
-      "title": "GHSA: Grav Vulnerable to XSS via Taxonomy Field Values in Admin Panel",
-      "summary": "### Summary\n\nA Stored Cross-Site Scripting (XSS) vulnerability exists in the Grav CMS Form plugin's select field template. Taxonomy tag and category values are rendered with the Twig `|raw` filter in the admin panel, bypassing the global autoescape protection. An editor-level user can inject arbitrary JavaScript that executes in any administrator's browser session when they view or edit any page i",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:24:45Z",
-      "cve_ids": [
-        "CVE-2026-42842"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "090e68519b036ecccc74aaba4ca7ce29e46ff8886a24799b7f13c10c4f9c9aaf",
-      "url": "https://github.com/advisories/GHSA-w48r-jppp-rcfw",
-      "title": "GHSA: Grav Vulnerable to Remote Code Execution (RCE) via Malicious Plugin ZIP Upload in Direct Install Feature",
-      "summary": "### Summary\nAn authenticated user with administrative privileges can achieve Remote Code Execution (RCE) by uploading a specially crafted ZIP file through the \"Direct Install\" tool. While the system attempts to block direct .php file uploads, it fails to inspect the contents of uploaded ZIP archives. Once a malicious plugin is extracted, it can execute arbitrary PHP code or drop a persistent web s",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T21:21:10Z",
-      "cve_ids": [
-        "CVE-2026-42607"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "7fe84c363edca0fd358d7ae85af49567af986341dec9cf9897aa0cbbd62b1bee",
-      "url": "https://github.com/advisories/GHSA-r945-h4vm-h736",
-      "title": "GHSA: Grav API Privilege Escalation to Super Admin",
-      "summary": "### Summary\n\nAn insecure direct object reference and logic flaw in the Grav API plugin (`UsersController::update`) allows any authenticated user with basic API access (`api.access`) to modify their own permission configuration. An attacker can exploit this to escalate their privileges to Super Administrator (`admin.super` and `api.super`), leading to full system compromise and potential RCE.\n\n### ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T21:20:03Z",
-      "cve_ids": [
-        "CVE-2026-42843"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "0fe05bb7465151b72f55f3ede907297fc88a3618f47bd8a647f3f73e61547e44",
-      "url": "https://github.com/advisories/GHSA-838g-gr43-qqg9",
-      "title": "GHSA: PyLoad vulnerable to Path Traversal via Package Folder Name in set_package_data",
-      "summary": "### Summary\nNo sanitization of package folder name allows writing files anywhere outside the intended download directory.\n\n#### Affected Component\n- `src/pyload/core/api/__init__.py`\n- Function: `set_package_data()`\n\n### Details\nWhen passing a folder name in the `set_package_data()` API function call inside the data object with key `\"_folder\"`, there is no sanitization at all, allowing a user with",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:18:19Z",
-      "cve_ids": [
-        "CVE-2026-42315"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "3f4e3c513eacf712262d821d55a26fb384c54b7fc8530f9de1888430ddcb3eb7",
-      "url": "https://github.com/advisories/GHSA-3qpq-r242-jqj7",
-      "title": "GHSA: phpseclib has a CVE-2024-27355 mitigation bypass — OID amplification DoS in ASN1::decodeOID()",
-      "summary": "### Impact\nAnyone loading untrusted ASN1 files (eg. X509 certificates, RSA PKCS8 private or public keys, etc)\n\n### Patches\nhttps://github.com/phpseclib/phpseclib/commit/d53d2021bcb9f6a04d5d44ec99e6bbef219a71bc\n\n### Workarounds\nNo.\n\n### References\nhttps://github.com/phpseclib/phpseclib/commit/d53d2021bcb9f6a04d5d44ec99e6bbef219a71bc",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:17:57Z",
-      "cve_ids": [
-        "CVE-2026-44167"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "dc229ce2380a20db08b94f99e795823e5729ee39e444f43e4620452ea61715b9",
-      "url": "https://github.com/advisories/GHSA-8757-69j2-hx56",
-      "title": "GHSA: changedetection.io has an Arbitrary Local File Read via a crafted backup restore",
-      "summary": "### Details\nThe vulnerability is caused by trusting attacker-controlled snapshot paths restored from backup files.\n\nThe vulnerable flow starts in the backup restore logic. When a backup ZIP is restored, the application extracts the archive and copies each restored watch UUID directory directly into the live datastore using `shutil.copytree(entry.path, dst_dir)`. This preserves attacker-controlled ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:16:21Z",
-      "cve_ids": [
-        "CVE-2026-43891"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "2e0b180e3b6f8fa3b47fc871c9961594205a4aa3f07b1ef6bfbb2e719ff9c236",
-      "url": "https://github.com/advisories/GHSA-jxh8-jh77-xh6g",
-      "title": "GHSA: @evomap/evolver's validator sandbox allowlist permits `npm`/`npx`, yielding RCE from Hub-delivered validation tasks via lifecycle scripts",
-      "summary": "## Summary\n\nThe validator-mode sandbox executor (`src/gep/validator/sandboxExecutor.js`) places `npm` and `npx` in its hard executable allowlist. Because `npm install <pkg>` and `npx -y -p <pkg> <bin>` execute arbitrary code by design (preinstall/install/postinstall lifecycle scripts and remote-package bin entries), and because validator nodes consume `validation_commands` strings from unsigned Hu",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T21:15:55Z",
-      "cve_ids": [],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "37bdf24851aa8338ad10471a8b3ef115d15d388d3605779f7f082c5ea581f445",
-      "url": "https://github.com/advisories/GHSA-7xp7-m392-h92c",
-      "title": "GHSA: @evomap/evolver has an unbounded request body in proxy /asset/submit that causes persistent disk-exhaustion DoS",
-      "summary": "## Summary\n\nThe EvoMap proxy daemon's HTTP body parser accepts requests of any size, and the `POST /asset/submit` route persists the full request body — verbatim and uncapped — as a JSONL line in `<dataDir>/messages.jsonl`. An unauthenticated local attacker (other local user, container neighbor, or malicious npm postinstall script running on the same host) can repeatedly POST large bodies to fill ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T21:15:32Z",
-      "cve_ids": [],
-      "cvss": 6.2,
-      "related_links": []
-    },
-    {
-      "id": "779221623c387108a825b33e5e250e33287d5489048d736fc34f33efd9566e58",
-      "url": "https://github.com/advisories/GHSA-cfcj-hqpf-hccf",
-      "title": "GHSA: @evomap/evolver: Path Traversal in `evolver fetch` default-branch `safeId` allows Hub-controlled overwrite of project files (RCE)",
-      "summary": "## Summary\n\nThe `evolver fetch` subcommand in `index.js` writes Hub-supplied `bundled_files[]` into a directory derived from a Hub-supplied `skill_id`. When `--out` is not used, the path-sanitizing regex permits `.` characters, allowing a `skill_id` of `..` to escape the `skills/` subdirectory and resolve to the user's current working directory. Combined with the file-extension allow-list (which i",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T21:15:09Z",
-      "cve_ids": [],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "555e7f4f2aff6eadd9d5423ed934e8472bc62b5df78caeb56a27cdc939ff4c57",
-      "url": "https://github.com/advisories/GHSA-9fw6-xgg2-mq9q",
-      "title": "GHSA: Hysteria: A specially constructed quic package can crash the server OOM when the sniff is enabled",
-      "summary": "### Summary\n\nA specially constructed quic package can crash the server OOM when the sniff is enabled.\n\n### Details\n\nWhen the server has sniff enabled, a valid connection can request the server to forward UDP traffic and construct a huge crypto length. The server will allocate memory according to this length, causing an OOM.\n\n\n### PoC\n```\nopenssl req -x509 -newkey rsa:2048 -nodes -keyout localhost.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:14:22Z",
-      "cve_ids": [],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "3d4e01b111de081c19a296ea5c85b3ee9e4ec6f10a2a6362499c69f84f8a0061",
-      "url": "https://github.com/advisories/GHSA-97r3-5w84-r4q8",
-      "title": "GHSA: PyLoad Vulnerable to Path Traversal via Package Folder Name",
-      "summary": "Insufficient sanitization of package folder names allows writing files outside the intended download directory.\n\n## Affected Component\n- `src/pyload/core/api/__init__.py`\n- Function: `add_package()`\n\n## Description\nPackage folder names are sanitized using insufficient string replacement:\n\n```python\nfolder = (\n    folder.replace(\"http://\", \"\")\n    .replace(\"https://\", \"\")\n    .replace(\"../\", \"_\")  ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:13:08Z",
-      "cve_ids": [
-        "CVE-2026-42314"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "3440dfbb715c0b30f9a827c76d51975161591c502662f92411558422eb6e63d8",
-      "url": "https://github.com/advisories/GHSA-grgv-6hw6-v9g4",
-      "title": "GHSA: Twisted has a Denial of Service (DoS) in twisted.names via Crafted DNS Compression Pointer Chains",
-      "summary": "### Details\n\nThe twisted.names module is vulnerable to a Denial of Service (DoS) attack via resource exhaustion during DNS name decompression. A remote, unauthenticated attacker can exploit this by sending a crafted TCP DNS packet containing deeply chained compression pointers. This flaw bypasses previous loop-prevention logic, causing the single-threaded Twisted reactor to hang while processing m",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T21:12:37Z",
-      "cve_ids": [
-        "CVE-2026-42304"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "6d3a4c524865145e7458e431cefbf8d39a3ab707c7c9a883c5ab0e358b2e0f1f",
-      "url": "https://github.com/advisories/GHSA-p3w2-64xm-833j",
-      "title": "GHSA: GoBGP has a panic in AdjRib.Update via malformed BGP Update message (Nil Pointer Dereference)",
-      "summary": "### Summary\nRemote Denial of Service (DoS) via Nil Pointer Dereference in BGP Update Processing\nAn unauthenticated remote BGP peer can trigger a fatal panic in GoBGP by sending a specially crafted BGP UPDATE message. When the server receives a message with inconsistent attribute lengths, it improperly handles the internal state transition to a \"withdraw\" action, leading to a nil pointer dereferenc",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T20:57:14Z",
-      "cve_ids": [
-        "CVE-2026-42285"
-      ],
-      "cvss": 7.5,
       "related_links": []
     }
   ]
