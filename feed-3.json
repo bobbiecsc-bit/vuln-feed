@@ -1,10 +1,66 @@
 {
-  "updated": "2026-05-07T10:24:37.212918+00:00",
+  "updated": "2026-05-07T14:10:20.428727+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "980514c423a05ab0e5e0d4a1902b674ca1255e9f11a9135bea09a1b857979842",
+      "url": "https://github.com/advisories/GHSA-4pvg-prr3-9cxr",
+      "title": "GHSA: Nginx-UI is Vulnerable to Unauthenticated Remote Code Execution via Backup Restore",
+      "summary": "**Product:** nginx-ui\n**Repository:** `0xJacky/nginx-ui` (branch: `dev`)\n**Vulnerability Class:** Authentication Bypass → Arbitrary File Write → OS Command Injection\n**Affected Component:** `POST /api/restore`\n\n---\n\n## 1. Vulnerability Summary\n\nnginx-ui exposes a backup restore endpoint (`POST /api/restore`) that is **completely unauthenticated** during the first 10 minutes after process startup o",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T17:03:43Z",
+      "cve_ids": [
+        "CVE-2026-42238"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "4dabc778daf3765fca518911ba0ad926f81d47e2ee8dc6cddcdf328e5b21b358",
+      "url": "https://github.com/advisories/GHSA-q4w7-56hr-83rm",
+      "title": "GHSA: Nginx-UI Settings API Exposes Protected Secrets",
+      "summary": "### Summary\nThe `GetSettings` API handler (`api/settings/settings.go:24-65`) serializes all settings structs to JSON and returns them to authenticated users. Many sensitive fields are tagged with `protected:\"true\"` - however, this tag is only enforced during writes (via `ProtectedFill` in `SaveSettings`) and is completely ignored during reads. This exposes 40+ protected fields including `JwtSecret",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T17:01:04Z",
+      "cve_ids": [
+        "CVE-2026-42223"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "50e22958543f3405e6abce4e31d36ce2ebfce19fe5ebab9825a2eb8ec945960b",
+      "url": "https://github.com/advisories/GHSA-mxqh-q9h6-v8pq",
+      "title": "GHSA: Nginx-UI: Unauthenticated first-boot instance claim via POST /api/install allows remote bootstrap takeover",
+      "summary": "## Summary\n\nAn unauthenticated bootstrap takeover exists in `nginx-ui` during the initial installation window exposed by `POST /api/install`.\n\nWhen the instance is still uninitialized, `POST /api/install` is reachable without authentication and accepts attacker-controlled bootstrap data. The handler sets the application's JWT secret, the node secret, the certificate email, and the initial administ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T16:59:43Z",
+      "cve_ids": [
+        "CVE-2026-42222"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "355c7d7855b1b0c76dc146a2e9a5f3a87f7a0a6c7153223e772e1e1844d754e5",
+      "url": "https://github.com/advisories/GHSA-h27v-ph7w-m9fp",
+      "title": "GHSA: Nginx-UI: Unauthenticated First-Run Installer Allows Remote Initial Admin Claim",
+      "summary": "### Summary\nAn unauthenticated network attacker can claim the initial administrator account on a fresh `nginx-ui` instance during the first-run setup window. The public `/api/install` endpoint is reachable without authentication, and the request-encryption flow only protects payload confidentiality in transit; it does not authenticate who is allowed to perform installation. A remote attacker who r",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T16:59:00Z",
+      "cve_ids": [
+        "CVE-2026-42221"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
     {
       "id": "b160f9e07d2daa6bc714666c42f5b022d361c6a6f6e9ad1c1e657a98bd996189",
       "url": "https://github.com/advisories/GHSA-8mp2-v27r-99xp",
@@ -627,62 +683,6 @@
         "CVE-2026-43939"
       ],
       "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "0dc156cc3700abbd332e5e69e6fd908a90fcfc1230014997a5f73200eb6a029c",
-      "url": "https://github.com/advisories/GHSA-xhw7-j96h-c3g5",
-      "title": "GHSA: YAFNET: Pre-Handler Authorization Bypass on Admin Pages Enables Blind SQL Execution via `/Admin/RunSql`",
-      "summary": "**Issue Details:**\nYAFNET's only admin authorization gate is `PageSecurityCheckAttribute`, implemented as a `ResultFilterAttribute` that runs *after* the page handler completes rather than before it. No other gate exists. Any admin `OnPost…` handler therefore executes its side effects before the filter rewrites the response to a `302` to `/Info/4`. The most impactful abuse is `/Admin/RunSql`, whos",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T20:32:27Z",
-      "cve_ids": [
-        "CVE-2026-43937"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "be471e53c86749ea05130972cf28e64c235dcc441d30cb2b5a51f5d69a12eb95",
-      "url": "https://github.com/advisories/GHSA-33gv-fc78-qgf5",
-      "title": "GHSA: YAFNET has Unauthenticated Stored Second-Order XSS in Admin Event Log via Reflected `User-Agent` Header",
-      "summary": "**Description:**\nStored (second-order) Cross-Site Scripting (XSS) occurs when attacker-controlled input is persisted through one component of an application and later rendered, without proper sanitization or contextual output encoding, by a completely different component — often one that implicitly trusts the stored data. Because the dangerous sink is typically a privileged administrative interfac",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T20:31:36Z",
-      "cve_ids": [
-        "CVE-2026-43938"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "4b6f1e6d4de0363bfd2b45aac12b77e41bad68b58596e997e7f0b551136654b8",
-      "url": "https://github.com/advisories/GHSA-j4rj-2jr5-m439",
-      "title": "GHSA: ssrfcheck Vulnerable to Server-Side Request Forgery (SSRF) and Incomplete List of Disallowed Inputs",
-      "summary": "### Summary\n\n`ssrfcheck` v1.3.0 (latest) fails to block Server-Side Request Forgery attacks when the target private IP address is encoded as an IPv4-mapped IPv6 address (e.g. `http://[::ffff:127.0.0.1]/`). The WHATWG URL parser built into Node.js silently normalizes the IPv4 notation inside the brackets to compressed hex form (`[::ffff:7f00:1]`) before the library's private-IP regex ever runs. The",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T20:29:33Z",
-      "cve_ids": [
-        "CVE-2026-43929"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "aee0bea1afe022fecf01aa7ef78db1ad10227d5becaf412e09cc1c18d6fe4bad",
-      "url": "https://github.com/advisories/GHSA-p4hc-9pjh-55c8",
-      "title": "GHSA: ssrfcheck: SSRF Bypass Caused by Failure to Classify Reserved IP Address Space as Invalid",
-      "summary": "# SSRF Bypass in `ssrfcheck` - fails to classify reserved IP address space as invalid\n\n`ssrfcheck` is an npm package that serves to provide protection from SSRF by validating URLs or hostname inputs.\n\nResources: \n * Project's GitHub code repository: https://github.com/felippe-regazio/ssrfcheck\n * Project's npm package: https://www.npmjs.com/package/ssrfcheck\n \n## Vulnerability\n\nThe `ssrfcheck` pac",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T20:29:06Z",
-      "cve_ids": [
-        "CVE-2025-8267"
-      ],
-      "cvss": 7.5,
       "related_links": []
     }
   ]
