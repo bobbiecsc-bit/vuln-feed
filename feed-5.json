@@ -1,10 +1,94 @@
 {
-  "updated": "2026-05-07T14:10:20.428727+00:00",
+  "updated": "2026-05-07T17:48:51.555301+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "4f6879da7d032e2311c666426df7d4787b4768e51ab46cba1b756708bf81beee",
+      "url": "https://github.com/advisories/GHSA-m7pr-hjqh-92cm",
+      "title": "GHSA: Axios: no_proxy bypass via IP alias allows SSRF",
+      "summary": "The fix for no_proxy hostname normalization bypass (#10661) is incomplete.When no_proxy=localhost is set, requests to 127.0.0.1 and [::1] still route through the proxy instead of bypassing it.\n\nThe shouldBypassProxy() function does pure string matching — it does not \nresolve IP aliases or loopback equivalents. As a result:\n- no_proxy=localhost does NOT block 127.0.0.1 or [::1]\n- no_proxy=127.0.0.1",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-05T00:40:17Z",
+      "cve_ids": [
+        "CVE-2026-42038"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "14d83a3d46467963ff5343aa304d3c394cb49352ca25a4e3123792e1c8049142",
+      "url": "https://github.com/advisories/GHSA-62hf-57xw-28j9",
+      "title": "GHSA: Axios: unbounded recursion in toFormData causes DoS via deeply nested request data",
+      "summary": "### Summary\ntoFormData recursively walks nested objects with no depth limit, so a deeply nested value passed as request data crashes the Node.js process with a RangeError.\n\n### Details\nlib/helpers/toFormData.js:210 defines an inner `build(value, path)` that recurses into every object/array child (line 225: `build(el, path ? path.concat(key) : [key])`). The only safeguard is a `stack` array used to",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-05T00:34:32Z",
+      "cve_ids": [
+        "CVE-2026-42039"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "86dc4bb976012c8865d1361df1e4dec44ad3466d3817e1a5cc193d167ccb2a56",
+      "url": "https://github.com/advisories/GHSA-5c9x-8gcm-mpgx",
+      "title": "GHSA: Axios' HTTP adapter-streamed uploads bypass maxBodyLength when maxRedirects: 0",
+      "summary": "### Summary\n\nFor stream request bodies, maxBodyLength is bypassed when maxRedirects is set to 0 (native http/https transport path). Oversized streamed uploads are sent fully even when the caller sets strict body limits.\n\n### Details\n\nRelevant flow in lib/adapters/http.js:\n  - 556-564: maxBodyLength check applies only to buffered/non-stream data.\n  - 681-682: maxRedirects === 0 selects native http/",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-05T00:33:25Z",
+      "cve_ids": [
+        "CVE-2026-42034"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "2d397525ae0b0c947215a66f5b8c0940346199129bded19907b91c8ff961a2cb",
+      "url": "https://github.com/advisories/GHSA-vf2m-468p-8v99",
+      "title": "GHSA: Axios: HTTP adapter streamed responses bypass maxContentLength",
+      "summary": "### Summary\n\nWhen responseType: 'stream' is used, Axios returns the response stream without enforcing maxContentLength. This bypasses configured response-size limits and allows unbounded downstream consumption.\n\n### Details\nIn lib/adapters/http.js:\n  - 786-789: for responseType === 'stream', Axios immediately settles with the stream.\n  - 797-810: maxContentLength enforcement exists only in the non",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-05T00:26:57Z",
+      "cve_ids": [
+        "CVE-2026-42036"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "98e9961cd4b607540a22e9b706fb05ff3763d01c751caa63363c34a97e1c3d5c",
+      "url": "https://github.com/advisories/GHSA-pf86-5x62-jrwf",
+      "title": "GHSA: Axios: Prototype Pollution Gadgets - Response Tampering, Data Exfiltration, and Request Hijacking",
+      "summary": "## Summary\n\nWhen `Object.prototype` has been polluted by any co-dependency with keys that axios reads without a `hasOwnProperty` guard, an attacker can (a) silently intercept and modify every JSON response before the application sees it, or (b) fully hijack the underlying HTTP transport, gaining access to request credentials, headers, and body. The precondition is prototype pollution from a separa",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-05T00:26:29Z",
+      "cve_ids": [
+        "CVE-2026-42033"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "76e8e6e779ed3698a8ac20ed1f184a9cddd5bc5bcabd135e6cab3c2dd154eccb",
+      "url": "https://github.com/advisories/GHSA-6chq-wfr3-2hj9",
+      "title": "GHSA: Axios: Header Injection via Prototype Pollution",
+      "summary": "### Summary\n\nA prototype pollution gadget exists in the Axios HTTP adapter (lib/adapters/http.js) that allows an attacker to inject arbitrary HTTP headers into outgoing requests. The vulnerability exploits duck-type checking of the data payload, where if Object.prototype is polluted with getHeaders, append, pipe, on, once, and Symbol.toStringTag, Axios misidentifies any plain object payload as a F",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-05T00:25:47Z",
+      "cve_ids": [
+        "CVE-2026-42035"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
     {
       "id": "4e0542d457deb16d8bedfdf7630ce24d32995f5a727e74bf807c97f81e4449b2",
       "url": "https://github.com/advisories/GHSA-xx6v-rp6x-q39c",
@@ -597,92 +681,6 @@
       "date": "2026-05-04T00:00:00+00:00",
       "cve_ids": [],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "41e5f76aeed1a9cba69d1d66152b81793c85e7c8bee5449082f25025db928fdf",
-      "url": "https://www.rapid7.com/blog/post/pt-metasploit-wrap-up-05-01-2026",
-      "title": "Metasploit Wrap-Up 05/01/2026",
-      "summary": "MCP serverThis release our very own cdelafuente-r7 finished implementing the Metasploit MCP Server (msfmcpd), bringing Model Context Protocol support to Metasploit Framework. MCP lets AI applications like Claude, Cursor, or your own custom agents query Metasploit data. Think of it as a middleware layer that exposes 8 standardized tools for searching modules and pulling reconnaissance data, all bui",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-05-01T20:22:54+00:00",
-      "cve_ids": [
-        "CVE-2026-31431"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-31431"
-      ]
-    },
-    {
-      "id": "bfef7ad3d330528706f99a1db4085705e6d690c9117128342b17c8d45bfaff91",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-307/",
-      "title": "ZDI-26-307: FlowiseAI Flowise Airtable_Agent Code Injection Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Flowise. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 9.8. The following CVEs are assigned: CVE-2026-41265.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-05-01T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-41265"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "7ccbfd489d3b470385411ac1da2898e1139c11c37883c8bf59ebd9afffc18d5e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7508",
-      "title": "CVE-2026-7508 — CVSS 6.3",
-      "summary": "A vulnerability was found in Bootstrap CMS 0.9.0-alpha. Affected is an unknown function of the file resources/views/pages/show.blade.php of the component Page Creation Handler. Performing a manipulation of the argument body results in code injection. Remote exploitation of the attack is possible. The exploit has been made public and could be used. The code repository of the project has not been ac",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T23:16:21.097",
-      "cve_ids": [
-        "CVE-2026-7508"
-      ],
-      "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "7fa61cde18c716491330c3d212b59fdf5d3e88131697b16c59707c6061efadd0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7506",
-      "title": "CVE-2026-7506 — CVSS 7.3",
-      "summary": "A vulnerability has been found in SourceCodester Hotel Management System 1.0. This impacts an unknown function of the file /index.php/reservation/check. Such manipulation of the argument room_type leads to sql injection. The attack may be launched remotely. The exploit has been disclosed to the public and may be used.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T23:16:20.917",
-      "cve_ids": [
-        "CVE-2026-7506"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "685fd353e1afeb41930c72aa39b60a495c06bf8ceb60a609877059944de61754",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7505",
-      "title": "CVE-2026-7505 — CVSS 7.3",
-      "summary": "A flaw has been found in nextlevelbuilder GoClaw and GoClaw Lite up to 3.8.5. This affects an unknown function of the component RPC Handler. This manipulation causes improper authorization. The attack may be initiated remotely. The exploit has been published and may be used. Upgrading to version 3.9.0 mitigates this issue. Patch name: 406022e79f4a18b3070a446712080571eff11e30. You should upgrade th",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-30T23:16:20.740",
-      "cve_ids": [
-        "CVE-2026-7505"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "102d4786204badfa65e0953c9366d03c0b5c1be2ef54a477bf0ca6087110e285",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-7551",
-      "title": "CVE-2026-7551 — CVSS 8.8",
-      "summary": "HKUDS OpenHarness contains a remote code execution vulnerability in the /bridge slash command that allows remote senders accepted by configuration to execute arbitrary operating system commands. Attackers can invoke the /bridge spawn command with attacker-controlled command text that is forwarded to the bridge session manager and executed through the shared shell subprocess helper, allowing them t",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T22:16:27.097",
-      "cve_ids": [
-        "CVE-2026-7551"
-      ],
-      "cvss": 8.8,
       "related_links": []
     }
   ]
