@@ -1,7 +1,255 @@
 {
-  "updated": "2026-05-07T02:54:16.248307+00:00",
+  "updated": "2026-05-07T06:35:07.701290+00:00",
   "total": 250,
   "articles": [
+    {
+      "id": "14ddfb8ff2392f24e2274897249b51a932cc37cfe53f63deeea55a9dc2325945",
+      "url": "https://github.com/advisories/GHSA-98h9-4798-4q5v",
+      "title": "GHSA: Diffusers has a `trust_remote_code` bypass via `custom_pipeline` and local custom components",
+      "summary": "### Impact\n\nA `trust_remote_code` bypass in `DiffusionPipeline.from_pretrained` allows arbitrary remote code execution despite the user passing `trust_remote_code=False` (or omitting it, which is the default). The vulnerability has three variants, all sharing the same root cause — the `trust_remote_code` gate was implemented inside `DiffusionPipeline.download()` rather than at the actual dynamic-m",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T05:31:17Z",
+      "cve_ids": [
+        "CVE-2026-44513"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "cc02a0a8aa9c9a56dcfeba1c222b9d6c6a517316580370c0a1bdaf281748798f",
+      "url": "https://github.com/advisories/GHSA-jfg9-48mv-9qgx",
+      "title": "GHSA: Netty MQTT: Resource exhaustion in MqttDecoder",
+      "summary": "### Impact\nThe MQTT 5 header Properties section is parsed and buffered _before_ any message size limit is applied.\n\nSpecifically, in `MqttDecoder`, the `decodeVariableHeader()` method is called before the `bytesRemainingBeforeVariableHeader > maxBytesInMessage` check. The `decodeVariableHeader()` can call other methods which will call `decodeProperties()`. Effectively, Netty does not apply any lim",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T05:14:14Z",
+      "cve_ids": [
+        "CVE-2026-44248"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "1b5e153b46a97bde20aee516423c3e844e2450d70db10732a1d869a32bff22f8",
+      "url": "https://github.com/advisories/GHSA-8hg8-63c5-gwmx",
+      "title": "GHSA: vm2 NodeVM `nesting: true` bypasses `require: false` allowing sandbox escape and arbitrary OS command execution",
+      "summary": "### Summary\n\nWhen a `NodeVM` is created with `nesting: true`, sandbox code can unconditionally `require('vm2')` regardless of the outer VM's `require` configuration — including `require: false`. With access to `vm2`, the sandbox constructs a new inner `NodeVM` with its own unrestricted `require` settings and executes arbitrary OS commands on the host. Any application that runs untrusted code insid",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T05:13:21Z",
+      "cve_ids": [
+        "CVE-2026-44007"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "e1d1b2c37b96fde7af88e2916c17a4565ebd47647ceb62e5ccd5a47bf515e2f0",
+      "url": "https://github.com/advisories/GHSA-cp6g-6699-wx9c",
+      "title": "GHSA: vm2 has a NodeVM require.root bypass via symlink traversal that allows sandbox escape",
+      "summary": "## Summary\nNodeVM's `require.root` path restriction can be bypassed using filesystem symlinks, allowing sandboxed code to load modules from outside the allowed root directory in host context. Because path validation uses `path.resolve()` (which does not dereference symlinks) but module loading uses Node's native `require()` (which does), an attacker can load arbitrary host-realm modules and achiev",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T04:33:37Z",
+      "cve_ids": [
+        "CVE-2026-43998"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "fe5b80b71da028b4b680e7da6b63b2997e588133edee793776de547c3de6406b",
+      "url": "https://github.com/advisories/GHSA-wp5r-2gw5-m7q7",
+      "title": "GHSA: vm2's Transformer Fast-Path Bypass Exposes Internal State Variable",
+      "summary": "### Summary\nvm2's code transformer has a performance optimization that skips AST analysis when the code does not contain `catch`, `import`, or `async` keywords. This fast-path bypass allows sandboxed code to directly access the internal `VM2_INTERNAL_STATE_DO_NOT_USE_OR_PROGRAM_WILL_FAIL` variable, which exposes internal security functions (`handleException`, `wrapWith`, `import`).\n\n### Details\nIn",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T04:32:56Z",
+      "cve_ids": [
+        "CVE-2026-44003"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "629b17cc7b4f2fbf84b99a9e6349b74e4b56f4e19b2a9254895db571a27e5c13",
+      "url": "https://github.com/advisories/GHSA-v27g-jcqj-v8rw",
+      "title": "GHSA: vm2 is Vulnerable to Host File Path Disclosure via Stack Trace Information Leak",
+      "summary": "### Summary\nvm2's `CallSite` wrapper class (intended as a safe wrapper for V8's native CallSite) blocks `getThis()` and `getFunction()` to prevent host object leakage, but allows `getFileName()` to return unsanitized host absolute paths. Any sandboxed code can extract the full directory structure, library paths, and framework versions of the host server.\n\n### Details\nIn `lib/setup-sandbox.js:436-4",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T04:30:10Z",
+      "cve_ids": [
+        "CVE-2026-44002"
+      ],
+      "cvss": 5.8,
+      "related_links": []
+    },
+    {
+      "id": "3ae3a199576538f0ed2c933e8c2bd807cb41f4e5a23ecbde5047bea02ad09e57",
+      "url": "https://github.com/advisories/GHSA-mpf8-4hx2-7cjg",
+      "title": "GHSA: vm2 Host Promise Resolution Preserves Object Identity Across Sandbox Boundary",
+      "summary": "### Summary\n\nA sandbox boundary violation in **vm2** allows host object identity to cross into the sandbox through host Promise resolution.\n\nWhen a host-side Promise that resolves to a host object is exposed to the sandbox, the value delivered to the sandbox `.then()` callback preserves host identity. This allows the sandbox to interact with the host object directly, including:\n\n- Performing ident",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T04:29:22Z",
+      "cve_ids": [
+        "CVE-2026-44000"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "d99c1c538677e8620561b35748414a7aa157cd6662fcf4156485993078ab0dde",
+      "url": "https://github.com/advisories/GHSA-6785-pvv7-mvg7",
+      "title": "GHSA: vm2 Sandbox Access to Host Buffer.alloc Allows timeout Bypass Resulting in Memory Exhaustion",
+      "summary": "### Summary\nSandboxed code can call `Buffer.alloc()` with an arbitrary size to allocate memory directly on the host heap. Because `Buffer.alloc` is a synchronous C++ native call, vm2's `timeout` option cannot interrupt it. A single request can exhaust host memory and crash the process with a `FATAL ERROR: Reached heap limit`.\n\n### Details\nIn `lib/vm.js:58`, `Buffer` is exposed to the sandbox throu",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T04:26:39Z",
+      "cve_ids": [
+        "CVE-2026-44004"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "8da059379f71485e45635fd1c9b1ff8c4aa6fed61f54edf48d33a8e3d258132d",
+      "url": "https://github.com/advisories/GHSA-hw58-p9xv-2mjh",
+      "title": "GHSA: vm2 has a Sandbox Escape via Promise Constructor Unhandled Rejection (Process Crash DoS)",
+      "summary": "### Summary\nA sandbox escape vulnerability in vm2 v3.10.5 allows any sandboxed code to crash the host Node.js process via a single Promise constructor that triggers an unhandled rejection propagating to the host. The fix for CVE-2026-22709 (v3.10.2) only sanitized the `onRejected` callback in `.then()` and `.catch()` overrides and did not address the executor-to-unhandledRejection path.\n\n### Detai",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T04:10:29Z",
+      "cve_ids": [
+        "CVE-2026-44001"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "8af1dd00d019d5445f78a9d46ccf24a31d90b3252d1aa34d6ef09b8428bd94a4",
+      "url": "https://github.com/advisories/GHSA-947f-4v7f-x2v8",
+      "title": "GHSA: vm2 has a NodeVM builtin allowlist bypass via `module` builtin's `Module._load` that allows sandbox escape",
+      "summary": "## Summary\nNodeVM's `builtin` allowlist can be bypassed when the `module` builtin is allowed (including via the `'*'` wildcard). The `module` builtin exposes Node's `Module._load()`, which loads any module by name directly in the host context, completely bypassing vm2's builtin restriction. This allows sandboxed code to load excluded builtins like `child_process` and achieve remote code execution.",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T04:08:55Z",
+      "cve_ids": [
+        "CVE-2026-43999"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "0dc5a49e837645f616fb6e5f6af1abc6e4d0e31ed529751119c38ad1ad589035",
+      "url": "https://github.com/advisories/GHSA-vwrp-x96c-mhwq",
+      "title": "GHSA: vm2: Mutable Proxies for Host Intrinsic Prototypes Allows Sandbox Escape",
+      "summary": "### Summary\nvm2's bridge exposes mutable proxies for real host-realm intrinsic prototypes and then forwards sandbox writes into the underlying host objects with otherReflectSet() and otherReflectDefineProperty(), which lets attacker-controlled JavaScript running in a default VM or inherited NodeVM mutate shared host Object.prototype, Array.prototype, and Function.prototype from inside the sandbox.",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T04:07:05Z",
+      "cve_ids": [
+        "CVE-2026-44005"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "76eb215cac918670a881781f638ffb3f54066743da984f63ed5e7d7d7074a9cf",
+      "url": "https://github.com/advisories/GHSA-47x8-96vw-5wg6",
+      "title": "GHSA: vm2 Access to Host Object Enables Sandbox Escape",
+      "summary": "### Summary\n\nIt is possible to obtain the host `Object`, https://github.com/patriksimek/vm2/commit/ebcfe94ad2f864f0bc35e78cff1d921107cfd160 added some protections, but the implementation is incomplete.\n\n### Details\n\nThere are various ways to use the host `Object`, to escape the sandbox, one example would be using  `HostObject.getOwnPropertySymbols` to obtain `Symbol(nodejs.util.inspect.custom)`\n\n#",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T04:00:19Z",
+      "cve_ids": [
+        "CVE-2026-43997"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "197b055e4d7bdad8e447f5e355d0b27cf0e810b640db096711268d768696d8ad",
+      "url": "https://github.com/advisories/GHSA-qcp4-v2jj-fjx8",
+      "title": "GHSA: vm2 has a Sandbox Escape Vulnerability",
+      "summary": "### Summary\n\nIt is possible to reach `BaseHandler.getPrototypeOf`, which can be used to get arbitrary prototypes\n\n### Details\n\nhttps://github.com/patriksimek/vm2/blob/408fc855f1cc1bbc2985b029465ee0e732ada433/lib/bridge.js#L655-L658\n\n`BaseHandler` can be reached via `util.inspect` (same as https://github.com/patriksimek/vm2/commit/57971fa423abeb66f09e47e18102986549474ca8)\n\n### PoC\n```js\nlet obj = {",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T03:54:34Z",
+      "cve_ids": [
+        "CVE-2026-44006"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "abf8c89e4d6c0294a4fb0fa6a9ec334f9989847d57d7e2bb398f415d58c44bd7",
+      "url": "https://github.com/advisories/GHSA-mmpx-jh39-wrv6",
+      "title": "GHSA: FileBrowser Vulnerable to Stored XSS via SVG File in Public Share (Missing CSP Header)",
+      "summary": "## Summary\n\nFileBrowser Quantum serves inline SVG files without a `Content-Security-Policy` header, allowing embedded JavaScript in SVG files to execute when accessed via public share links.\n\nVerified on v1.3.0-stable.\n\n## Affected product\n\n- **Product:** FileBrowser Quantum (`gtsteffaniak/filebrowser`)\n- **Verified version:** v1.3.0-stable\n- **Docker image:** gtstef/filebrowser:latest\n- **Affecte",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T03:29:43Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "b31a68b5588283f308fc2bbd297283e4f7d8e1daf4ab1c9486669b629aa38a7d",
+      "url": "https://github.com/advisories/GHSA-fwj3-42wh-8673",
+      "title": "GHSA: FileBrowser Public Share DELETE API Path Traversal Allows Unauthenticated Arbitrary File Deletion",
+      "summary": "### **Summary**\n\nAttacker-controlled path input is joined with a trusted base path prior to sanitization, allowing traversal sequences (e.g., ../) to escape the intended shared directory. As a result, an unauthenticated attacker possessing a valid public share hash with delete permissions enabled can delete arbitrary files outside the shared directory within the share owner’s configured storage sc",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T03:28:06Z",
+      "cve_ids": [
+        "CVE-2026-44542"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "5133dea7716cfa596c48cd4e76577428743e5f0c632c9858c06b1a2f926a64a3",
+      "url": "https://github.com/advisories/GHSA-fqph-j6v6-jvgx",
+      "title": "GHSA: docling-graph has SSRF via Missing Internal IP Validation in URLInputHandler",
+      "summary": "### Impact\n\nThe `URLInputHandler` class in `docling_graph/core/input/handlers.py` makes HTTP requests to user-supplied URLs without validating whether the target resolves to a private, loopback, or link-local IP address. The `URLValidator` only checks for a valid scheme and non-empty `netloc`, performing no IP-level validation. Additionally, `requests.head()` was called with `allow_redirects=True`",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T03:15:46Z",
+      "cve_ids": [
+        "CVE-2026-44520"
+      ],
+      "cvss": 5.7,
+      "related_links": []
+    },
+    {
+      "id": "cf677450717ea52a3c923de60da8d2e22278718c59a986cec518f3e4d249e586",
+      "url": "https://github.com/advisories/GHSA-vwx9-7qcf-gg7f",
+      "title": "GHSA: ShellHub has cross-tenant IDOR in `GET /api/namespaces/:tenant` via API Key bypasses  membership check",
+      "summary": "## Summary\n`GET /api/namespaces/:tenant` returns the full namespace object — including the members list (user IDs, e-mails, roles), settings, and device counts — to any caller authenticated by an **API Key**, for any tenant, regardless of the API Key's own tenant scope.\n\nThe handler conditionally skips the membership check when the user ID (`X-ID`) is absent, which is exactly the case for API Key ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T03:02:28Z",
+      "cve_ids": [
+        "CVE-2026-44426"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "82c214ac19a949285f69e7b4c8973ca075f6187c71a40a4b10bdffaa1e53e59e",
+      "url": "https://github.com/advisories/GHSA-258c-965c-p3hc",
+      "title": "GHSA: Daptin's Session Management Vulnerability Leads to Insufficient Session Expiration After Password Change",
+      "summary": "### Summary\n\nA session invalidation vulnerability exists in daptin's authentication system where JSON Web Tokens (JWTs) remain fully valid after a user changes their password. The JWT validation middleware (`CheckJWT`) only verifies token signature, expiry, issuer, and signing algorithm — it does not check whether the token was issued before the most recent password change. The password update cod",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T02:57:54Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
     {
       "id": "751bcc47c9eb6f3b833f7bc30ced34528af9579313da33cbe8699cb4901f46c8",
       "url": "https://github.com/advisories/GHSA-m38g-vww2-mvgx",
@@ -31,8 +279,8 @@
     {
       "id": "52edf25d11448113cc375fdb85c1b6382b466a95922945f58b7086b06cef1dd0",
       "url": "https://github.com/advisories/GHSA-j7w6-vpvq-j3gm",
-      "title": "GHSA: Diffusers: None.py has Trust Remote Code Bypass",
-      "summary": "## Background\n\nThis vulnerability is found in the `DiffusionPipeline.from_pretrained` flow, which is used to load a pipeline from the HuggingFace Hub.\n\nThis function accepts an optional `custom_pipeline` keyword argument: the name of a Python file in the repo that contains a custom class inheriting from `DiffusionPipeline`. An equivalent flow is triggered when the `_class_name` field in `model_ind",
+      "title": "GHSA: Duplicate Advisory: Diffusers has a `trust_remote_code` bypass via `custom_pipeline` and local custom components",
+      "summary": "### Duplicate Advisory\nThis advisory has been withdrawn because it is a duplicate of GHSA-98h9-4798-4q5v. This link is maintained to preserve external references.\n\n### Original Description\n\n## Background\n\nThis vulnerability is found in the `DiffusionPipeline.from_pretrained` flow, which is used to load a pipeline from the HuggingFace Hub.\n\nThis function accepts an optional `custom_pipeline` keywor",
       "source": "GitHub Advisory",
       "category": "web_app",
       "date": "2026-05-07T02:24:22Z",
@@ -3079,321 +3327,73 @@
       "related_links": []
     },
     {
-      "id": "150d26a58d0b086c8feb77d14c1f25ac09500b36e7fee3a43ad5df4c1bbc8109",
-      "url": "https://github.com/advisories/GHSA-56c3-vfp2-5qqj",
-      "title": "GHSA: n8n-mcp's IPv4-mapped IPv6 addresses bypass SSRF protection in validateUrlSync(), enabling full SSRF for SDK embedders",
-      "summary": "### Impact\n\nIn the SDK embedder path (`N8NDocumentationMCPServer` constructor, `getN8nApiClient()`, and `validateInstanceContext()`), the synchronous URL validator in `SSRFProtection.validateUrlSync()` had no IPv6 checks. IPv4-mapped IPv6 addresses such as `http://[::ffff:169.254.169.254]` bypassed the cloud-metadata, localhost, and private-IP range checks. An attacker able to supply an `n8nApiUrl",
-      "source": "GitHub Advisory",
+      "id": "54d63d2145b407fe691748bc8d9de1869ad54ae2cf6604fdd06b16f8cb7debd0",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36766",
+      "title": "CVE-2026-36766 — CVSS 5.4",
+      "summary": "Multiple authenticated cross-site scripting (XSS) vulnerabilities in the XssHttpServletRequestWrapper class of shopizer v3.2.5 allows attackers to execute arbitrary web scripts or HTML via injecting a crafted payload into the getInputStream() or getReader() functions.",
+      "source": "NVD/NIST",
       "category": "web_app",
-      "date": "2026-04-30T18:12:54Z",
+      "date": "2026-04-30T18:16:29.830",
       "cve_ids": [
-        "CVE-2026-42449"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "31cb8672899fa85e8f103c3b023d8aca2352ff4641f7f058757089f2e4604228",
-      "url": "https://github.com/advisories/GHSA-6j8j-4qp3-36p2",
-      "title": "GHSA: Weblate Doesn't Invalidate API Token on Password Change",
-      "summary": "### Impact\nWhen a user changes their password, browser sessions are correctly invalidated via `cycle_session_keys()`, but DRF API tokens (`wlu_*` prefix) stored in `authtoken_token` are not revoked.\n\n### Patches\n* https://github.com/WeblateOrg/weblate/pull/19057\n\n### Resources\nWeblate thanks Sang Yu Jeon for reporting this via GitHub.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-30T17:28:02Z",
-      "cve_ids": [
-        "CVE-2026-41519"
-      ],
-      "cvss": 4.2,
-      "related_links": []
-    },
-    {
-      "id": "9da79bacc58962d63bf97e48351e62698f64a37e107b8e1b625c2b6a08d5fc4c",
-      "url": "https://github.com/advisories/GHSA-q7r4-hc83-hf2q",
-      "title": "GHSA: Gotenberg has ExifTool stdin argument injection via metadata value newlines (bypass of key sanitization fix)",
-      "summary": "## Vulnerability Details\n\n**CWE**: CWE-20 - Improper Input Validation\n\nThe metadata value sanitization introduced in v8.30.1 (commit 405f106) only validates metadata KEYS via safeKeyPattern regex. Metadata VALUES are passed unsanitized to go-exiftool SetString(), which writes them as fmt.Fprintln(e.stdin, \"-\"+k+\"=\"+str). A newline (\\n) in a value splits the ExifTool stdin line into two separate ar",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-30T17:27:10Z",
-      "cve_ids": [
-        "CVE-2026-40281"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "e1d38f3d1549169002b92f44dd9926fe86b5a0e5ff7220455555fa87b058ab46",
-      "url": "https://github.com/advisories/GHSA-5vh4-rgv7-p9g4",
-      "title": "GHSA: Gotenberg Vulnerable to Unauthenticated SSRF via Unfiltered Webhook URL",
-      "summary": "# CVE Report — Unauthenticated SSRF via Unfiltered Webhook URL in Gotenberg\n\n## Severity\n\n| Field     | Value                                  |\n|-----------|----------------------------------------|\n| CVSS v3.1 | **8.6 High**                           |\n| Vector    | `AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N` |\n| CWE       | CWE-918 — Server-Side Request Forgery  |\n| Auth      | None                  ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-30T17:24:33Z",
-      "cve_ids": [
-        "CVE-2026-39383"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "fe5facacc3a9be55c238dcd3b9b0f8d97bf9223e8ef2e6fea98f82ff25ec8fec",
-      "url": "https://github.com/advisories/GHSA-5q7p-7jgv-ww56",
-      "title": "GHSA: Gotenberg has case-insensitive URL scheme that bypasses webhook and downloadFrom deny-list SSRF protection",
-      "summary": "## Vulnerability Details\n\n**CWE**: CWE-918 - Server-Side Request Forgery (SSRF)\n\nThe default private-IP deny-lists for --webhook-deny-list and --api-download-from-deny-list use a case-sensitive regex (^https?://). Any uppercase URL scheme variant (HTTP://, HTTPS://, Http://) bypasses the pattern. Go's net/url.Parse() normalizes the scheme to lowercase when making the outbound TCP connection, so th",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-04-30T17:19:49Z",
-      "cve_ids": [
-        "CVE-2026-40280"
-      ],
-      "cvss": 9.3,
-      "related_links": []
-    },
-    {
-      "id": "8d5b6fed6c72686bd0abe1574cf49d805df21b48e34cf6b84b20b3a2a94a6e22",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36764",
-      "title": "CVE-2026-36764 — CVSS 5.0",
-      "summary": "A Server-Side Request Forgery (SSRF) in the /ureport/datasource/testConnection endpoint of SpringBlade v4.8.0 allows authenticated attackers to scan internal resources via a crafted GET request.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T17:16:26.157",
-      "cve_ids": [
-        "CVE-2026-36764"
-      ],
-      "cvss": 5.0,
-      "related_links": []
-    },
-    {
-      "id": "87936a17cd9dd64becfd33777c52a61908b0cd890d4fa6b014551faae5355db9",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36760",
-      "title": "CVE-2026-36760 — CVSS 9.6",
-      "summary": "An issue in the fileMd5 parameter in the /a/file/upload endpoint of JeeSite v5.15.1 allows authenticated attackers with file upload permissions to execute a path traversal and write arbitrary files with whitelisted suffixes to arbitrary filesystem locations while chunked upload is enabled.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T17:16:26.050",
-      "cve_ids": [
-        "CVE-2026-36760"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "90667b3232f26033bbf66be901f05abb661bb075938d4257f8d81e959b3fb30f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36757",
-      "title": "CVE-2026-36757 — CVSS 4.3",
-      "summary": "A Server-Side Request Forgery (SSRF) in the /plugins/{name}/upgrade-from-uri endpoint of halo v2.22.14 allows authenticated attackers to scan internal resources via a crafted GET request.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T17:16:25.943",
-      "cve_ids": [
-        "CVE-2026-36757"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "e0a2ce52f90b39a12008f5185aefab0f0f865aa99faeea9b5c92919d453ba781",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-71284",
-      "title": "CVE-2025-71284 — CVSS 9.8",
-      "summary": "Synway SMG Gateway Management Software contains an OS command injection vulnerability in the RADIUS configuration endpoint at /en/9-2radius.php where the radius_address POST parameter is split and interpolated directly into a sed command without sanitization. An unauthenticated remote attacker can inject arbitrary shell commands by submitting a POST request with crafted radius_address, radius_addr",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T17:16:25.630",
-      "cve_ids": [
-        "CVE-2025-71284"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "6cd51d03e6cb479320525483f072c43f25e97dd1396d6a04c99399c5082137e5",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-51846",
-      "title": "CVE-2025-51846 — CVSS 7.5",
-      "summary": "CryptPad 2025.3.1 allows unbounded WebSocket frame flood. A remote, unauthenticated attacker can significantly degrade or deny service for all users of a CryptPad instance. Fixed in 2026.2.2.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T17:16:25.467",
-      "cve_ids": [
-        "CVE-2025-51846"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "b81888e6d5d3f3d0d5275b86ab0a57b1c354ecb2cb19df77cb6bef03d2512816",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-50993",
-      "title": "CVE-2022-50993 — CVSS 9.8",
-      "summary": "Weaver (Fanwei) E-office versions prior to 10.0_20221201 contain an unauthenticated arbitrary file upload vulnerability in the OfficeServer.php endpoint that allows remote attackers to upload malicious files by sending multipart POST requests with arbitrary filenames and disguised content types. Attackers can upload PHP webshells to the Document directory and execute them via HTTP GET requests to ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T17:16:24.800",
-      "cve_ids": [
-        "CVE-2022-50993"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "fc0bb5558ffd03b3bb13028f4acc6e2fa9b48fe5eeeceb7d64dca4dbf88fe0ab",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-50992",
-      "title": "CVE-2022-50992 — CVSS 7.5",
-      "summary": "Weaver (Fanwei) E-cology 9.5 versions prior to 10.52 contain an arbitrary file read vulnerability in the XmlRpcServlet interface at the XML-RPC endpoint that allows unauthenticated remote attackers to read arbitrary files by supplying file paths to the WorkflowService.getAttachment and WorkflowService.LoadTemplateProp methods. Attackers can exploit these methods without authentication to retrieve ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T17:16:24.633",
-      "cve_ids": [
-        "CVE-2022-50992"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "8865f6ee684b372ce156697efd4ce1af9c736bd20518c997628e0cfbbd534a02",
-      "url": "https://ubuntu.com/security/notices/USN-8226-2",
-      "title": "USN-8226-2: kmod update",
-      "summary": "USN-8226-1 added a mitigation to kmod to disable loading the algif_aead module. This update adds the same mitigation to Ubuntu 14.04 LTS, Ubuntu 16.04 LTS, Ubuntu 18.04 LTS, and Ubuntu 20.04 LTS. Original advisory details: It was discovered that the Linux kernel algif_aead module contained a logic flaw allowing a local attacker to escalate privileges to root. This update to the kmod package disabl",
-      "source": "Ubuntu Security",
-      "category": "infrastructure",
-      "date": "2026-04-30T16:19:47+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "fcf8f81c53438ded186de0036eac6184327a0ac79939443516a01842593401ff",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5174",
-      "title": "CVE-2026-5174 — CVSS 7.7",
-      "summary": "Improper input validation vulnerability in Progress Software MOVEit Automation allows Privilege Escalation.\n\nThis issue affects MOVEit Automation: from 2025.1.0 before 2025.1.5, from 2025.0.0 before 2025.0.9, from 2024.0.0 before 2024.1.8, versions prior to 2024.0.0.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-30T16:16:44.330",
-      "cve_ids": [
-        "CVE-2026-5174"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "30560c2099845460bc9a535be8a263d333eb4074d201df02cd469618f6105648",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-4670",
-      "title": "CVE-2026-4670 — CVSS 9.8",
-      "summary": "Authentication bypass by primary weakness vulnerability in Progress Software MOVEit Automation allows Authentication Bypass.\n\nThis issue affects MOVEit Automation: from 2025.0.0 before 2025.0.9, from 2024.0.0 before 2024.1.8, versions prior to 2024.0.0.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T16:16:44.167",
-      "cve_ids": [
-        "CVE-2026-4670"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "961b0a0de4209ffe3d409112110d5fa2daa7460e3d8cac5b1ef0a948625e52e4",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-38939",
-      "title": "CVE-2026-38939 — CVSS 6.1",
-      "summary": "Cross Site Scripting vulnerability in andrewtch88 mvc-ecommerce v.1.0 allows a remote attacker to execute arbitrary code and obtain sensitive information via the product_catalogue.php component",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T16:16:43.417",
-      "cve_ids": [
-        "CVE-2026-38939"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "414606694208ed3c4853571c89ff19e12410234f63fe499bd80ffd2f8f4c14d7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36960",
-      "title": "CVE-2026-36960 — CVSS 8.8",
-      "summary": "A Cross-Site Request Forgery (CSRF) vulnerability exists in the web management interface of the U-SPEED N300 Rounter V1.0.0. The device does not implement CSRF protection mechanisms such as anti-CSRF tokens or strict Origin/Referer validation for administrative API endpoints. An attacker can craft a malicious webpage that sends forged HTTP requests to configuration endpoints. If an authenticated a",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-04-30T16:16:43.300",
-      "cve_ids": [
-        "CVE-2026-36960"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "131f39a277129506067aa953efdd950ed206e17e5dc8dd4e4e785298da897a5e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36759",
-      "title": "CVE-2026-36759 — CVSS 6.5",
-      "summary": "A Server-Side Request Forgery (SSRF) in the /themes/{name}/upgrade-from-uri endpoint of halo v2.22.14 allows authenticated attackers to scan internal resources via a crafted GET request.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T16:16:42.513",
-      "cve_ids": [
-        "CVE-2026-36759"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "11690836d03410241fbee2d16a12f70b608e6191eb82f7a3d6c406895e65c2da",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36758",
-      "title": "CVE-2026-36758 — CVSS 4.3",
-      "summary": "A Server-Side Request Forgery (SSRF) in the /themes/-/install-from-uri endpoint of halo v2.22.14 allows authenticated attackers to scan internal resources via a crafted GET request.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T16:16:42.400",
-      "cve_ids": [
-        "CVE-2026-36758"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "e73a6baacdb85761b588f818463ece25ecccea6aa6b8bc3c5fc71097aa826485",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36756",
-      "title": "CVE-2026-36756 — CVSS 5.4",
-      "summary": "A Server-Side Request Forgery (SSRF) in the /plugins/-/install-from-uri endpoint of halo v2.22.14 allows authenticated attackers to scan internal resources via a crafted GET request.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T16:16:42.280",
-      "cve_ids": [
-        "CVE-2026-36756"
+        "CVE-2026-36766"
       ],
       "cvss": 5.4,
       "related_links": []
     },
     {
-      "id": "96b5710caf1b023f38f92977253209204104f83a8a9e48e5ebcbfa247cfb57de",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36340",
-      "title": "CVE-2026-36340 — CVSS 8.1",
-      "summary": "An issue in Krayin CRM v.2.1.5 and fixed in v.2.1.6 allows a remote attacker to execute arbitrary code via the compose email function",
+      "id": "ab8ae6268dfd0c9b4ccbf735ba5f370ba2e1c3e57d0b45e5e3f3ffe6dc46b634",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36765",
+      "title": "CVE-2026-36765 — CVSS 8.8",
+      "summary": "An XML external entity (XXE) vulnerability in the /designer/loadReport endpoint of SpringBlade v4.8.0 allows authenticated attackers to execute arbitrary code via injecting a crafted payload.",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-04-30T16:16:42.160",
+      "date": "2026-04-30T18:16:29.707",
       "cve_ids": [
-        "CVE-2026-36340"
+        "CVE-2026-36765"
       ],
-      "cvss": 8.1,
+      "cvss": 8.8,
       "related_links": []
     },
     {
-      "id": "09867aa51139b2ddfecbd7134d5f7ee06fa3c3cdd520961cf45a0655b67382ed",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-14543",
-      "title": "CVE-2025-14543 — CVSS 9.1",
-      "summary": "Improper Restriction of XML External Entity Reference vulnerability in Connext Professional (Core Libraries) allows Serialized Data External Linking.This issue affects Connext Professional: from 7.4.0 before 7.7.0, from 7.0.0 before 7.3.1.1, from 6.1.0 before 6.1.*, from 6.0.0 before 6.0.*, from 5.3.0 before 5.3.*, from 4.3x before 5.2.*.",
+      "id": "3b10df3b4bba0d83e6b0ab6b74c3f4b567db64b239c25cac29f6bebc97ba2778",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36763",
+      "title": "CVE-2026-36763 — CVSS 6.1",
+      "summary": "A stored cross-site scripting (XSS) vulnerability in the /api/blade-desk/notice/submit endpoint of SpringBlade v4.8.0 allows attackers to execute arbitrary web scripts or HTML via injecting a crafted input into the content parameter.",
       "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-04-30T16:16:40.420",
+      "category": "web_app",
+      "date": "2026-04-30T18:16:29.370",
       "cve_ids": [
-        "CVE-2025-14543"
+        "CVE-2026-36763"
       ],
-      "cvss": 9.1,
+      "cvss": 6.1,
       "related_links": []
     },
     {
-      "id": "bdafe6e034824c9324cc7cbdde0cdc52c19e8dc4d64c0fd04f600fc8d551c559",
-      "url": "https://ubuntu.com/security/notices/USN-8226-1",
-      "title": "USN-8226-1: kmod update",
-      "summary": "It was discovered that the Linux kernel algif_aead module contained a logic flaw allowing a local attacker to escalate privileges to root. This update to the kmod package disables loading the algif_aead module as a measure to mitigate the issue until kernel updates are made available. See the following URL for more information https://ubuntu.com/blog/copy-fail-vulnerability-fixes-available",
-      "source": "Ubuntu Security",
-      "category": "infrastructure",
-      "date": "2026-04-30T15:55:28+00:00",
-      "cve_ids": [],
-      "cvss": null,
+      "id": "b755e3f9ccef879d81a22723e27b81f3b7fd94632ae994c34b4878a66c1f2257",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36762",
+      "title": "CVE-2026-36762 — CVSS 8.8",
+      "summary": "An issue in the fileEntityId parameter in the /a/file/upload endpoint of JeeSite v5.15.1 allows authenticated attackers with file upload permissions to execute a path traversal and write arbitrary files with whitelisted suffixes to arbitrary filesystem locations.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-04-30T18:16:29.263",
+      "cve_ids": [
+        "CVE-2026-36762"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "8f45f7b5df3c1d28d86b96823d2634e60c80f80bb472b3fc32aa83ae48af2920",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36761",
+      "title": "CVE-2026-36761 — CVSS 6.1",
+      "summary": "A stored cross-site scripting (XSS) vulnerability in the /msg/msgInner/save endpoint of JeeSite v5.15.1 allows attackers to execute arbitrary web scripts or HTML via injecting a crafted input into the msgContent parameter.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-04-30T18:16:29.087",
+      "cve_ids": [
+        "CVE-2026-36761"
+      ],
+      "cvss": 6.1,
       "related_links": []
     }
   ]

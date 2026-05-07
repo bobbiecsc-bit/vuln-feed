@@ -1,10 +1,258 @@
 {
-  "updated": "2026-05-07T02:54:16.248307+00:00",
+  "updated": "2026-05-07T06:35:07.701290+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "14ddfb8ff2392f24e2274897249b51a932cc37cfe53f63deeea55a9dc2325945",
+      "url": "https://github.com/advisories/GHSA-98h9-4798-4q5v",
+      "title": "GHSA: Diffusers has a `trust_remote_code` bypass via `custom_pipeline` and local custom components",
+      "summary": "### Impact\n\nA `trust_remote_code` bypass in `DiffusionPipeline.from_pretrained` allows arbitrary remote code execution despite the user passing `trust_remote_code=False` (or omitting it, which is the default). The vulnerability has three variants, all sharing the same root cause — the `trust_remote_code` gate was implemented inside `DiffusionPipeline.download()` rather than at the actual dynamic-m",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T05:31:17Z",
+      "cve_ids": [
+        "CVE-2026-44513"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "cc02a0a8aa9c9a56dcfeba1c222b9d6c6a517316580370c0a1bdaf281748798f",
+      "url": "https://github.com/advisories/GHSA-jfg9-48mv-9qgx",
+      "title": "GHSA: Netty MQTT: Resource exhaustion in MqttDecoder",
+      "summary": "### Impact\nThe MQTT 5 header Properties section is parsed and buffered _before_ any message size limit is applied.\n\nSpecifically, in `MqttDecoder`, the `decodeVariableHeader()` method is called before the `bytesRemainingBeforeVariableHeader > maxBytesInMessage` check. The `decodeVariableHeader()` can call other methods which will call `decodeProperties()`. Effectively, Netty does not apply any lim",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T05:14:14Z",
+      "cve_ids": [
+        "CVE-2026-44248"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "1b5e153b46a97bde20aee516423c3e844e2450d70db10732a1d869a32bff22f8",
+      "url": "https://github.com/advisories/GHSA-8hg8-63c5-gwmx",
+      "title": "GHSA: vm2 NodeVM `nesting: true` bypasses `require: false` allowing sandbox escape and arbitrary OS command execution",
+      "summary": "### Summary\n\nWhen a `NodeVM` is created with `nesting: true`, sandbox code can unconditionally `require('vm2')` regardless of the outer VM's `require` configuration — including `require: false`. With access to `vm2`, the sandbox constructs a new inner `NodeVM` with its own unrestricted `require` settings and executes arbitrary OS commands on the host. Any application that runs untrusted code insid",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T05:13:21Z",
+      "cve_ids": [
+        "CVE-2026-44007"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "e1d1b2c37b96fde7af88e2916c17a4565ebd47647ceb62e5ccd5a47bf515e2f0",
+      "url": "https://github.com/advisories/GHSA-cp6g-6699-wx9c",
+      "title": "GHSA: vm2 has a NodeVM require.root bypass via symlink traversal that allows sandbox escape",
+      "summary": "## Summary\nNodeVM's `require.root` path restriction can be bypassed using filesystem symlinks, allowing sandboxed code to load modules from outside the allowed root directory in host context. Because path validation uses `path.resolve()` (which does not dereference symlinks) but module loading uses Node's native `require()` (which does), an attacker can load arbitrary host-realm modules and achiev",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T04:33:37Z",
+      "cve_ids": [
+        "CVE-2026-43998"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "fe5b80b71da028b4b680e7da6b63b2997e588133edee793776de547c3de6406b",
+      "url": "https://github.com/advisories/GHSA-wp5r-2gw5-m7q7",
+      "title": "GHSA: vm2's Transformer Fast-Path Bypass Exposes Internal State Variable",
+      "summary": "### Summary\nvm2's code transformer has a performance optimization that skips AST analysis when the code does not contain `catch`, `import`, or `async` keywords. This fast-path bypass allows sandboxed code to directly access the internal `VM2_INTERNAL_STATE_DO_NOT_USE_OR_PROGRAM_WILL_FAIL` variable, which exposes internal security functions (`handleException`, `wrapWith`, `import`).\n\n### Details\nIn",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T04:32:56Z",
+      "cve_ids": [
+        "CVE-2026-44003"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "629b17cc7b4f2fbf84b99a9e6349b74e4b56f4e19b2a9254895db571a27e5c13",
+      "url": "https://github.com/advisories/GHSA-v27g-jcqj-v8rw",
+      "title": "GHSA: vm2 is Vulnerable to Host File Path Disclosure via Stack Trace Information Leak",
+      "summary": "### Summary\nvm2's `CallSite` wrapper class (intended as a safe wrapper for V8's native CallSite) blocks `getThis()` and `getFunction()` to prevent host object leakage, but allows `getFileName()` to return unsanitized host absolute paths. Any sandboxed code can extract the full directory structure, library paths, and framework versions of the host server.\n\n### Details\nIn `lib/setup-sandbox.js:436-4",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T04:30:10Z",
+      "cve_ids": [
+        "CVE-2026-44002"
+      ],
+      "cvss": 5.8,
+      "related_links": []
+    },
+    {
+      "id": "3ae3a199576538f0ed2c933e8c2bd807cb41f4e5a23ecbde5047bea02ad09e57",
+      "url": "https://github.com/advisories/GHSA-mpf8-4hx2-7cjg",
+      "title": "GHSA: vm2 Host Promise Resolution Preserves Object Identity Across Sandbox Boundary",
+      "summary": "### Summary\n\nA sandbox boundary violation in **vm2** allows host object identity to cross into the sandbox through host Promise resolution.\n\nWhen a host-side Promise that resolves to a host object is exposed to the sandbox, the value delivered to the sandbox `.then()` callback preserves host identity. This allows the sandbox to interact with the host object directly, including:\n\n- Performing ident",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T04:29:22Z",
+      "cve_ids": [
+        "CVE-2026-44000"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "d99c1c538677e8620561b35748414a7aa157cd6662fcf4156485993078ab0dde",
+      "url": "https://github.com/advisories/GHSA-6785-pvv7-mvg7",
+      "title": "GHSA: vm2 Sandbox Access to Host Buffer.alloc Allows timeout Bypass Resulting in Memory Exhaustion",
+      "summary": "### Summary\nSandboxed code can call `Buffer.alloc()` with an arbitrary size to allocate memory directly on the host heap. Because `Buffer.alloc` is a synchronous C++ native call, vm2's `timeout` option cannot interrupt it. A single request can exhaust host memory and crash the process with a `FATAL ERROR: Reached heap limit`.\n\n### Details\nIn `lib/vm.js:58`, `Buffer` is exposed to the sandbox throu",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T04:26:39Z",
+      "cve_ids": [
+        "CVE-2026-44004"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "8da059379f71485e45635fd1c9b1ff8c4aa6fed61f54edf48d33a8e3d258132d",
+      "url": "https://github.com/advisories/GHSA-hw58-p9xv-2mjh",
+      "title": "GHSA: vm2 has a Sandbox Escape via Promise Constructor Unhandled Rejection (Process Crash DoS)",
+      "summary": "### Summary\nA sandbox escape vulnerability in vm2 v3.10.5 allows any sandboxed code to crash the host Node.js process via a single Promise constructor that triggers an unhandled rejection propagating to the host. The fix for CVE-2026-22709 (v3.10.2) only sanitized the `onRejected` callback in `.then()` and `.catch()` overrides and did not address the executor-to-unhandledRejection path.\n\n### Detai",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T04:10:29Z",
+      "cve_ids": [
+        "CVE-2026-44001"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "8af1dd00d019d5445f78a9d46ccf24a31d90b3252d1aa34d6ef09b8428bd94a4",
+      "url": "https://github.com/advisories/GHSA-947f-4v7f-x2v8",
+      "title": "GHSA: vm2 has a NodeVM builtin allowlist bypass via `module` builtin's `Module._load` that allows sandbox escape",
+      "summary": "## Summary\nNodeVM's `builtin` allowlist can be bypassed when the `module` builtin is allowed (including via the `'*'` wildcard). The `module` builtin exposes Node's `Module._load()`, which loads any module by name directly in the host context, completely bypassing vm2's builtin restriction. This allows sandboxed code to load excluded builtins like `child_process` and achieve remote code execution.",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T04:08:55Z",
+      "cve_ids": [
+        "CVE-2026-43999"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "0dc5a49e837645f616fb6e5f6af1abc6e4d0e31ed529751119c38ad1ad589035",
+      "url": "https://github.com/advisories/GHSA-vwrp-x96c-mhwq",
+      "title": "GHSA: vm2: Mutable Proxies for Host Intrinsic Prototypes Allows Sandbox Escape",
+      "summary": "### Summary\nvm2's bridge exposes mutable proxies for real host-realm intrinsic prototypes and then forwards sandbox writes into the underlying host objects with otherReflectSet() and otherReflectDefineProperty(), which lets attacker-controlled JavaScript running in a default VM or inherited NodeVM mutate shared host Object.prototype, Array.prototype, and Function.prototype from inside the sandbox.",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T04:07:05Z",
+      "cve_ids": [
+        "CVE-2026-44005"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "76eb215cac918670a881781f638ffb3f54066743da984f63ed5e7d7d7074a9cf",
+      "url": "https://github.com/advisories/GHSA-47x8-96vw-5wg6",
+      "title": "GHSA: vm2 Access to Host Object Enables Sandbox Escape",
+      "summary": "### Summary\n\nIt is possible to obtain the host `Object`, https://github.com/patriksimek/vm2/commit/ebcfe94ad2f864f0bc35e78cff1d921107cfd160 added some protections, but the implementation is incomplete.\n\n### Details\n\nThere are various ways to use the host `Object`, to escape the sandbox, one example would be using  `HostObject.getOwnPropertySymbols` to obtain `Symbol(nodejs.util.inspect.custom)`\n\n#",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T04:00:19Z",
+      "cve_ids": [
+        "CVE-2026-43997"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "197b055e4d7bdad8e447f5e355d0b27cf0e810b640db096711268d768696d8ad",
+      "url": "https://github.com/advisories/GHSA-qcp4-v2jj-fjx8",
+      "title": "GHSA: vm2 has a Sandbox Escape Vulnerability",
+      "summary": "### Summary\n\nIt is possible to reach `BaseHandler.getPrototypeOf`, which can be used to get arbitrary prototypes\n\n### Details\n\nhttps://github.com/patriksimek/vm2/blob/408fc855f1cc1bbc2985b029465ee0e732ada433/lib/bridge.js#L655-L658\n\n`BaseHandler` can be reached via `util.inspect` (same as https://github.com/patriksimek/vm2/commit/57971fa423abeb66f09e47e18102986549474ca8)\n\n### PoC\n```js\nlet obj = {",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T03:54:34Z",
+      "cve_ids": [
+        "CVE-2026-44006"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "abf8c89e4d6c0294a4fb0fa6a9ec334f9989847d57d7e2bb398f415d58c44bd7",
+      "url": "https://github.com/advisories/GHSA-mmpx-jh39-wrv6",
+      "title": "GHSA: FileBrowser Vulnerable to Stored XSS via SVG File in Public Share (Missing CSP Header)",
+      "summary": "## Summary\n\nFileBrowser Quantum serves inline SVG files without a `Content-Security-Policy` header, allowing embedded JavaScript in SVG files to execute when accessed via public share links.\n\nVerified on v1.3.0-stable.\n\n## Affected product\n\n- **Product:** FileBrowser Quantum (`gtsteffaniak/filebrowser`)\n- **Verified version:** v1.3.0-stable\n- **Docker image:** gtstef/filebrowser:latest\n- **Affecte",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T03:29:43Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "b31a68b5588283f308fc2bbd297283e4f7d8e1daf4ab1c9486669b629aa38a7d",
+      "url": "https://github.com/advisories/GHSA-fwj3-42wh-8673",
+      "title": "GHSA: FileBrowser Public Share DELETE API Path Traversal Allows Unauthenticated Arbitrary File Deletion",
+      "summary": "### **Summary**\n\nAttacker-controlled path input is joined with a trusted base path prior to sanitization, allowing traversal sequences (e.g., ../) to escape the intended shared directory. As a result, an unauthenticated attacker possessing a valid public share hash with delete permissions enabled can delete arbitrary files outside the shared directory within the share owner’s configured storage sc",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T03:28:06Z",
+      "cve_ids": [
+        "CVE-2026-44542"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "5133dea7716cfa596c48cd4e76577428743e5f0c632c9858c06b1a2f926a64a3",
+      "url": "https://github.com/advisories/GHSA-fqph-j6v6-jvgx",
+      "title": "GHSA: docling-graph has SSRF via Missing Internal IP Validation in URLInputHandler",
+      "summary": "### Impact\n\nThe `URLInputHandler` class in `docling_graph/core/input/handlers.py` makes HTTP requests to user-supplied URLs without validating whether the target resolves to a private, loopback, or link-local IP address. The `URLValidator` only checks for a valid scheme and non-empty `netloc`, performing no IP-level validation. Additionally, `requests.head()` was called with `allow_redirects=True`",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T03:15:46Z",
+      "cve_ids": [
+        "CVE-2026-44520"
+      ],
+      "cvss": 5.7,
+      "related_links": []
+    },
+    {
+      "id": "cf677450717ea52a3c923de60da8d2e22278718c59a986cec518f3e4d249e586",
+      "url": "https://github.com/advisories/GHSA-vwx9-7qcf-gg7f",
+      "title": "GHSA: ShellHub has cross-tenant IDOR in `GET /api/namespaces/:tenant` via API Key bypasses  membership check",
+      "summary": "## Summary\n`GET /api/namespaces/:tenant` returns the full namespace object — including the members list (user IDs, e-mails, roles), settings, and device counts — to any caller authenticated by an **API Key**, for any tenant, regardless of the API Key's own tenant scope.\n\nThe handler conditionally skips the membership check when the user ID (`X-ID`) is absent, which is exactly the case for API Key ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T03:02:28Z",
+      "cve_ids": [
+        "CVE-2026-44426"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "82c214ac19a949285f69e7b4c8973ca075f6187c71a40a4b10bdffaa1e53e59e",
+      "url": "https://github.com/advisories/GHSA-258c-965c-p3hc",
+      "title": "GHSA: Daptin's Session Management Vulnerability Leads to Insufficient Session Expiration After Password Change",
+      "summary": "### Summary\n\nA session invalidation vulnerability exists in daptin's authentication system where JSON Web Tokens (JWTs) remain fully valid after a user changes their password. The JWT validation middleware (`CheckJWT`) only verifies token signature, expiry, issuer, and signing algorithm — it does not check whether the token was issued before the most recent password change. The password update cod",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T02:57:54Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
     {
       "id": "751bcc47c9eb6f3b833f7bc30ced34528af9579313da33cbe8699cb4901f46c8",
       "url": "https://github.com/advisories/GHSA-m38g-vww2-mvgx",
@@ -34,8 +282,8 @@
     {
       "id": "52edf25d11448113cc375fdb85c1b6382b466a95922945f58b7086b06cef1dd0",
       "url": "https://github.com/advisories/GHSA-j7w6-vpvq-j3gm",
-      "title": "GHSA: Diffusers: None.py has Trust Remote Code Bypass",
-      "summary": "## Background\n\nThis vulnerability is found in the `DiffusionPipeline.from_pretrained` flow, which is used to load a pipeline from the HuggingFace Hub.\n\nThis function accepts an optional `custom_pipeline` keyword argument: the name of a Python file in the repo that contains a custom class inheriting from `DiffusionPipeline`. An equivalent flow is triggered when the `_class_name` field in `model_ind",
+      "title": "GHSA: Duplicate Advisory: Diffusers has a `trust_remote_code` bypass via `custom_pipeline` and local custom components",
+      "summary": "### Duplicate Advisory\nThis advisory has been withdrawn because it is a duplicate of GHSA-98h9-4798-4q5v. This link is maintained to preserve external references.\n\n### Original Description\n\n## Background\n\nThis vulnerability is found in the `DiffusionPipeline.from_pretrained` flow, which is used to load a pipeline from the HuggingFace Hub.\n\nThis function accepts an optional `custom_pipeline` keywor",
       "source": "GitHub Advisory",
       "category": "web_app",
       "date": "2026-05-07T02:24:22Z",
@@ -441,240 +689,6 @@
       "date": "2026-05-07T00:09:18Z",
       "cve_ids": [],
       "cvss": 2.2,
-      "related_links": []
-    },
-    {
-      "id": "e8c7fc98a106f9a6463bd558d1477bf838d96ff10b832f6517ad1b2178f8b35f",
-      "url": "https://github.com/advisories/GHSA-x83w-23jp-g6pw",
-      "title": "GHSA: OpenSearch Security plugin: DLS not applied on documents linked by has_child or has_parent relation",
-      "summary": "### Description\n\nA flaw was identified in the OpenSearch Security plugin's document-level security (DLS) implementation. DLS restrictions were not correctly applied to search queries that use has_parent or has_child join relations. This could allow an authenticated user to access document contents that should have been restricted by DLS rules.\n\n### Impact\n\nAn authenticated user with access to an i",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-07T00:08:34Z",
-      "cve_ids": [],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "15725440feb3dba0f7e69b4ef3b5ed348d294fb59e4f9f0a4e10c494308f75a6",
-      "url": "https://github.com/advisories/GHSA-22vx-2x23-98w6",
-      "title": "GHSA: OpenSearch vulnerable to improper authorization for Rollover Requests",
-      "summary": "### Description\n\nA flaw was identified in the OpenSearch Security plugin's handling of index rollover requests. When a rollover request included an explicit target index name, the security plugin did not properly evaluate access control permissions against the target index. This could allow a user with rollover permissions on a source index to create a new index with a name they are not authorized",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-07T00:08:04Z",
-      "cve_ids": [],
-      "cvss": 2.2,
-      "related_links": []
-    },
-    {
-      "id": "595c2d92a56d3b90c54faff2018d554716e8732069fbd17728c2b74dd6b863fb",
-      "url": "https://github.com/advisories/GHSA-83x9-vc3c-hghc",
-      "title": "GHSA: OpenSearch has a bypass of REST Layer Authorization Using Malformed Paths",
-      "summary": "### Description\n\nA flaw was identified in the OpenSearch REST layer that could allow authorization checks to be bypassed when processing certain malformed HTTP requests. This could permit unauthorized access to restricted API endpoints in environments that rely on REST-layer authorization.\n\nTransport-level authorization is not affected by this issue.\n\n### Impact\n\nThe default OpenSearch distributio",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-07T00:07:42Z",
-      "cve_ids": [],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "f3e82311331323e12ebbfe684ddcaf7e5e5b41f17ffbd6dd1202195e1259c186",
-      "url": "https://github.com/advisories/GHSA-pgf8-2hgj-grqg",
-      "title": "GHSA: Vercel: Non-interactive mode includes CLI arguments in suggested command output",
-      "summary": "# Summary\n\nWhen the Vercel CLI runs in non-interactive mode (`--non-interactive` or auto-detected AI agent), commands that cannot complete autonomously emit JSON payloads with suggested follow-up commands. If the user authenticated via `--token` or `-t` on the command line, the token value is included verbatim in those suggestions.\n\n# Conditions\n\nAll three must be true for the token to appear in o",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-07T00:05:20Z",
-      "cve_ids": [
-        "CVE-2026-44479"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "1164bc46c50dfdd378216d3035fe0614717c54cd71b127deed8b1e2cf4c667de",
-      "url": "https://github.com/advisories/GHSA-5cmv-3rc4-7279",
-      "title": "GHSA: Weblate vulnerable to XSS via crafted Markdown",
-      "summary": "### Impact\nThe Markdown renderer used in user comments and other user-provided content didn't properly sanitize some attributes.\n\n### Patches\n* https://github.com/WeblateOrg/weblate/pull/19259\n\n### Workarounds\nEven though the attacker might be able to inject code into the HTML, the Weblate's strict CSP should mitigate the risks.\n\n### Acknowlegement\nMichal Čihař has identified and fixed this vulner",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-07T00:04:26Z",
-      "cve_ids": [
-        "CVE-2026-44264"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "51d856967498818334de506dceabb305ca30590ee9de06f7a993e0f97cf7a723",
-      "url": "https://github.com/advisories/GHSA-gcg5-86jr-f7jg",
-      "title": "GHSA: Weblate Vulnerable to Private Translation Enumeration via Screenshot API",
-      "summary": "### Impact\n\nThe screenshots, tasks, and component link API allowed for the enumeration of translations in a project inaccessible to the user.\n\n### Patches\n* https://github.com/WeblateOrg/weblate/pull/19258\n\n### Acknowledgement\nWeblate thanks Luay for reporting this vulnerability according to the organization's [security issues guideline](https://docs.weblate.org/en/latest/security/issues.html).",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-07T00:03:50Z",
-      "cve_ids": [
-        "CVE-2026-44263"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "f0a7484e58cf31709cd303bf08e561857d5522974bc0483d37beb0ae96696334",
-      "url": "https://github.com/advisories/GHSA-f89h-2fjh-2r9q",
-      "title": "GHSA: gix-fs: Symlink prefix-reuse allows worktree escape during checkout",
-      "summary": "### Summary\n\nA malicious tree can be constructed that will, when checked out with gitoxide, permit writing an attacker-controlled symlink into any existing directory the user has write access to.\n\n### Details\n\nDuring checkout, all symlink index entries are deferred and created after regular files using a single shared `gix_worktree::Stack`. Internally, this uses a `gix_fs::Stack`.\n\n`gix_fs::Stack:",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-07T00:01:28Z",
-      "cve_ids": [
-        "CVE-2026-44471"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "0961037dd388d84c427c2a1bca14d9dc5629b884da1c3ae31b41f092ed4ca13b",
-      "url": "https://github.com/advisories/GHSA-9vqf-7f2p-gf9v",
-      "title": "GHSA: Hono: bodyLimit() can be bypassed for chunked / unknown-length requests",
-      "summary": "## Summary\n\n`bodyLimit()` does not reliably enforce `maxSize` for requests without a usable `Content-Length` (e.g. `Transfer-Encoding: chunked`). Oversized requests can reach handlers and return `200` instead of `413`.\n\n## Details\n\nFor chunked / unknown-length requests, `bodyLimit()` wraps the body in a stream that counts bytes asynchronously, then runs the handler before the size decision is fina",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-06T23:50:10Z",
-      "cve_ids": [
-        "CVE-2026-44456"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "f91262367d642af84b667b57698c04e0580dd9c230185023b911bf3a91760ddb",
-      "url": "https://github.com/advisories/GHSA-69xw-7hcm-h432",
-      "title": "GHSA: hono/jsx has Unvalidated JSX Tag Names that May Allow HTML Injection",
-      "summary": "## Summary\n\nImproper handling of JSX element tag names in hono/jsx allowed unvalidated tag names to be directly inserted into the generated HTML output.\n\nWhen untrusted input is used as a tag name via the programmatic `jsx()` or `createElement()` APIs during server-side rendering, specially crafted values may break out of the intended element context and inject unintended HTML.\n\n## Details\n\nWhen r",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-06T23:49:43Z",
-      "cve_ids": [
-        "CVE-2026-44455"
-      ],
-      "cvss": 4.7,
-      "related_links": []
-    },
-    {
-      "id": "4d57b710c87faae4f406367a1a177c6634e03e15093451f8bd3d1ae43dff25c2",
-      "url": "https://github.com/advisories/GHSA-m24v-f7g5-gq67",
-      "title": "GHSA: Statamic CMS vulnerable to email enumeration via forgot password endpoint",
-      "summary": "### Impact\n\nResponses from the forgot password forms hinted at whether an account existed for a given email address. An unauthenticated attacker could use this to enumerate valid users, which can aid in follow-up credential-based attacks.\n\n### Patches\n\nThis has been fixed in 5.73.21 and 6.15.0. The forgot password forms now return the same generic response regardless of whether the submitted email",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-06T20:54:31Z",
-      "cve_ids": [
-        "CVE-2026-44306"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "e61ca11268839cccc8f9c280e1b4d16e66832396ca8cdc948de56c0410f09ed4",
-      "url": "https://github.com/advisories/GHSA-pggp-6c3x-2xmx",
-      "title": "GHSA: Snappier has an infinite loop during SnappyStream decompression with malformed framed input",
-      "summary": "### Summary\n`Snappier.SnappyStream` enters an uncatchable infinite loop when decompressing a malformed framed-format Snappy stream as small as 15 bytes.\n\n### Details\nThe hang manifests as a userspace busy loop with SnappyStreamDecompressor.Decompress repeatedly calling Crc32CAlgorithm.Append. The exact non-terminating loop in or above Decompress has not been traced further.\n\n### PoC\n```csharp\nusin",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-06T20:53:23Z",
-      "cve_ids": [
-        "CVE-2026-44302"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "e60eb88fe002417cdc7581b88b91f31e7ad6c9cc312c229064dc1722c6db4afa",
-      "url": "https://github.com/advisories/GHSA-289f-fq7w-6q2w",
-      "title": "GHSA: phpMyFAQ has unauthenticated SQL injection via User-Agent header in BuiltinCaptcha",
-      "summary": "## Summary\n\n`BuiltinCaptcha::garbageCollector()` and `BuiltinCaptcha::saveCaptcha()` at `phpmyfaq/src/phpMyFAQ/Captcha/BuiltinCaptcha.php:298` and `:330` interpolate the `User-Agent` header and client IP address into DELETE and INSERT queries with `sprintf` and no escaping. Both methods run on every hit to the public `GET /api/captcha` endpoint, which requires no authentication. An unauthenticated",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-06T20:49:15Z",
-      "cve_ids": [],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "92e35a911090f7e97b1cfca209838887d3dd71c8345476bcf648b6cd10c96d8a",
-      "url": "https://github.com/advisories/GHSA-gh9p-q46p-57g2",
-      "title": "GHSA: phpMyFAQ: Path Traversal in Client::deleteClientFolder enables arbitrary directory deletion by non-super-admin admins",
-      "summary": "## Summary\n\n`Client::deleteClientFolder()` in `phpmyfaq/src/phpMyFAQ/Instance/Client.php:583` takes a URL from the caller, strips the `https://` prefix, and passes the remainder to `Filesystem::deleteDirectory()` relative to the multisite `clientFolder`. No path-traversal validation runs. An admin with the `INSTANCE_DELETE` permission (a role short of SUPER_ADMIN) submits `https://../../../<path>`",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-06T20:47:54Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "b83f36665fae579737fc0abbb85937449ee0d5e55240bccfcd5c69616d330d64",
-      "url": "https://github.com/advisories/GHSA-99qv-g4x9-mgc3",
-      "title": "GHSA: phpMyFAQ has unauthenticated FAQ permission bypass via getFaqBySolutionId fallback query",
-      "summary": "## Summary\n\nThe public `/solution_id_{id}.html` route calls `Faq::getIdFromSolutionId()` in `phpmyfaq/src/phpMyFAQ/Faq.php:1312`. That query joins `faqdata` with `faqcategoryrelations` solely by `solution_id` and returns the matching FAQ's `id`, `lang`, `thema` (title), and `category_id` with no permission filter. An unauthenticated visitor hits the route with a sequential integer and the server 3",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-06T20:45:01Z",
-      "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "7bc3c43937ff1cf98da9289bb12f18625cfe5972ce7aeb23774d91f1989f9f07",
-      "url": "https://github.com/advisories/GHSA-pm8c-3qq3-72w7",
-      "title": "GHSA: phpMyFAQ has SQL Injection in CurrentUser::setTokenData through unescaped OAuth token fields",
-      "summary": "## Summary\n\n`CurrentUser::setTokenData()` in `phpmyfaq/src/phpMyFAQ/User/CurrentUser.php` at lines 515-534 builds a SQL UPDATE statement with `sprintf` and interpolates OAuth token fields (`refresh_token`, `access_token`, `code_verifier`, and `json_encode($token['jwt'])`) without calling `$db->escape()`. Sibling methods `setAuthSource()` and `setRememberMe()` in the same file do call `$db->escape(",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-06T20:44:39Z",
-      "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "d121bc7f9f8b9aea9f2591cd06db6f3645eece8343ffb5a88a9d975f91312f34",
-      "url": "https://github.com/advisories/GHSA-9pq7-mfwh-xx2j",
-      "title": "GHSA: phpMyFAQ enables unauthenticated 2FA brute-force attack via /admin/check acceptance of arbitrary user-id",
-      "summary": "## Summary\n\nThe `/admin/check` endpoint in `AuthenticationController` implements `SkipsAuthenticationCheck`, making it reachable without any prior authentication. An anonymous attacker (Bob) can POST arbitrary `user-id` and `token` values to brute-force any user's 6-digit TOTP code. No rate limiting exists. The 10^6 keyspace is exhaustible in minutes. Reachability confirmed against a default insta",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-06T20:42:54Z",
-      "cve_ids": [],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "5a1637a4df6c087b8d03a6edc594993e76ab4d59b4bdab153c8c551dee7b2889",
-      "url": "https://github.com/advisories/GHSA-cf92-gfcw-6v53",
-      "title": "GHSA: Magic Wormhole: receive, with --output pointing at an existing directory can be path-traversed",
-      "summary": "### Impact\nA receiver who specifies \"--output <dir>\" where that output directory currently exists (as a directory).\n\n### Patches\n0.24.0 will contain the patch\n\n### Workarounds\nEnsure local target directories specified by \"--output\" do not already exist\n\n### Resources\nPrivate email and Signal communications from a user.\nMagic Wormhole thanks  @marduc812",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-06T20:40:17Z",
-      "cve_ids": [
-        "CVE-2026-42448"
-      ],
-      "cvss": 3.5,
-      "related_links": []
-    },
-    {
-      "id": "2b6566ad10be7deea7bd8d36251973fdadf7066592141b5ad0d3438d3c82d238",
-      "url": "https://github.com/advisories/GHSA-jrc5-w569-h7h5",
-      "title": "GHSA: phpMyFAQ: Ordinary Authenticated User Can Access Admin-Only API Endpoints Due to Insufficient Authorization Check in phpMyFAQ",
-      "summary": "### Summary\n\nA review of `phpMyFAQ-main` uncovered an authorization issue in the `admin-api` routes.\n\nSeveral backend endpoints only check whether the caller is logged in. They do not verify that the caller actually has backend or administrative privileges. As a result, a normal frontend user can access API endpoints that are clearly intended for administrative use.\n\nDuring local reproduction, a r",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-06T20:37:42Z",
-      "cve_ids": [],
-      "cvss": 4.3,
       "related_links": []
     }
   ]
