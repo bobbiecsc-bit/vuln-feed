@@ -1,10 +1,174 @@
 {
-  "updated": "2026-05-07T21:05:16.640017+00:00",
+  "updated": "2026-05-08T02:56:23.877231+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "c9810ff3cdd2f56b1518955cd90219e70d595ecad47abbd12b43c872c6e29451",
+      "url": "https://github.com/advisories/GHSA-pqh6-8fxf-jx22",
+      "title": "GHSA: phpMyFAQ has stored XSS via | raw Filter in search.twig — html_entity_decode(strip_tags()) Bypass in Search Result Rendering",
+      "summary": "## Summary\n\nThe search result rendering template (`search.twig`) outputs FAQ content fields `result.question` and `result.answerPreview` using Twig's `| raw` filter, which completely disables the template engine's built-in auto-escaping.\n\nA user with FAQ editor/contributor privileges can store a payload encoded as HTML entities. During search result construction, `html_entity_decode(strip_tags(...",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:31:54Z",
+      "cve_ids": [],
+      "cvss": 6.9,
+      "related_links": []
+    },
+    {
+      "id": "f9fa2ee249af5f542ae153ab77e1ac32fdce106d90f3f546aaba5c23945a906f",
+      "url": "https://github.com/advisories/GHSA-rm98-82fr-mcfx",
+      "title": "GHSA: phpMyFAQ's Missing CONFIGURATION_EDIT Permission Check on 12 Admin API Configuration Tab Endpoints Allows Information Disclosure by Any Authenticated User",
+      "summary": "## Summary\n\n12 endpoints in `ConfigurationTabController.php` use `userIsAuthenticated()` (login-only check) instead of `userHasPermission(PermissionType::CONFIGURATION_EDIT)`. This allows any authenticated user — including ones with zero admin permissions — to enumerate system configuration metadata including the permission model, active template, cache backend, mail provider, and translation prov",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:24:39Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "2a0040584a6819085d1b7de8d39483922c12e3c74eb42a44c0324a23d1ffc33a",
+      "url": "https://github.com/advisories/GHSA-whqh-9pq5-c7r3",
+      "title": "GHSA: phpMyFAQ has a SVG Sanitizer Entity Decoding Depth Limit Bypass Leading to Stored XSS",
+      "summary": "## Summary\n\nThe `SvgSanitizer::decodeAllEntities()` method limits recursive entity decoding to 5 iterations. By wrapping each character of `javascript` in an `href` attribute value with 5 levels of `&amp;` encoding around numeric HTML entities (e.g., `&amp;amp;amp;amp;amp;#106;` for `j`), an attacker can bypass both `isSafe()` detection and `sanitize()` removal. The uploaded SVG is served from the",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:18:48Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "d7a13bca35424f7c51d6a614b76dff07bf295026c5a12fcfa7882f249c0bdfe4",
+      "url": "https://github.com/advisories/GHSA-f5p7-2c9q-8896",
+      "title": "GHSA: phpMyFAQ has Stored XSS in FAQ Question/Answer via Encode-Decode Bypass of removeAttributes() Sanitization",
+      "summary": "## Summary\n\nThe FAQ creation and update endpoints in phpMyFAQ apply `FILTER_SANITIZE_SPECIAL_CHARS` (which HTML-encodes input), then immediately call `html_entity_decode()` which reverses the encoding, followed by `Filter::removeAttributes()` which only strips HTML attributes — not tags. This allows `<script>`, `<iframe>`, `<object>`, and `<embed>` tags to be stored in the database and rendered un",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:18:02Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "5068bbd3fe870c1ad812e393b379087cd4c8e2c9a5e3c6c15b051c515626d7ee",
+      "url": "https://github.com/advisories/GHSA-pgh9-mpwc-8jjf",
+      "title": "GHSA: Harvester's SUSE Virtualization Registration Client Vulnerable to MITM and DOS",
+      "summary": "### Impact\n\nA vulnerability has been identified in the [SUSE Virtualization (Harvester) Rancher integration mechanism](https://docs.harvesterhci.io/v1.7/rancher/rancher-integration) where by default the registration client uses an insecure TLS option that fails to verify  the remote server’s certificate. This security gap could allow the execution of a man-in-the-middle (MitM) attack against SUSE ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:16:08Z",
+      "cve_ids": [
+        "CVE-2025-71261"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "7987d3244d2356f3d4bf8a1155c809bd1f422bab17830ba4b06ef6c6753e2f68",
+      "url": "https://github.com/advisories/GHSA-7cx3-2qx2-3g6w",
+      "title": "GHSA: phpMyFAQ's Missing Authorization on Tag Deletion Allows Any Authenticated User to Delete Tags",
+      "summary": "## Summary\n\nThe `TagController::delete()` endpoint at `DELETE /admin/api/content/tags/{tagId}` only verifies that the user is logged in (`userIsAuthenticated()`), but does not check any permission. Any authenticated user — including regular non-admin frontend users — can delete any tag by ID. This contrasts with `TagController::update()` and `TagController::search()`, which both enforce the `FAQ_E",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T20:12:07Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "110aa9658868a343c6d3aa2259b4064c06b5a8916ce541d301bf8f4cedb2c417",
+      "url": "https://github.com/advisories/GHSA-hpgw-ww76-c68r",
+      "title": "GHSA: phpMyFAQ has an Authorization Bypass in All Admin Pages Due to Non-Terminating Permission Check",
+      "summary": "## Summary\n\n`AbstractAdministrationController::userHasPermission()` catches the `ForbiddenException` thrown when a user lacks a specific permission, sends a \"forbidden\" HTML page via `$response->send()`, but does not terminate execution. The calling controller method continues to execute, fetches protected data, renders the full template, and returns it as a Response. The final `$response->send()`",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:11:52Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "9e71db5d0edf0b80e03811c724f49dd9e2ca58bc570207f6be85bdd5b10cc08e",
+      "url": "https://github.com/advisories/GHSA-9525-27vj-c8r8",
+      "title": "GHSA: phpMyFAQ has stored XSS via Utils::parseUrl() in comment rendering",
+      "summary": "### Summary\n\nA stored XSS vulnerability in the comment rendering pipeline allows an authenticated user to inject JavaScript that executes for every visitor of an affected FAQ or News page. An attacker with a registered account can steal admin session cookies and take over the application.\n\n### Details\n\n`Utils::parseUrl()` (`phpmyfaq/src/phpMyFAQ/Utils.php`, line 281) converts URLs in comment text ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-06T20:10:48Z",
+      "cve_ids": [],
+      "cvss": 7.6,
+      "related_links": []
+    },
+    {
+      "id": "b652000e2733b5c1683c3f9c5b9484dff89e59bb6d08427f369ced7d669ef864",
+      "url": "https://github.com/advisories/GHSA-8hjv-92q9-g4xj",
+      "title": "GHSA: Micronaut has unbounded `formattersCache` in `TimeConverterRegistrar` that Allows Memory Exhaustion via `Accept-Language` Header",
+      "summary": "## Summary\n\n`TimeConverterRegistrar` caches `DateTimeFormatter` instances in an unbounded `ConcurrentHashMap<String, DateTimeFormatter>` whose key is derived from the `@Format` annotation pattern concatenated with the locale from the HTTP `Accept-Language` header. Because `Locale.forLanguageTag()` accepts arbitrary BCP 47 private-use extensions (`en-x-a001`, `en-x-a002`, …), an unauthenticated att",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T20:00:22Z",
+      "cve_ids": [
+        "CVE-2026-44241"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "c43d40a9915c32cfb186bf242cdd72f711cd768666bfb38183e7ebdf9905f8fd",
+      "url": "https://github.com/advisories/GHSA-3rfq-4wpf-qqw3",
+      "title": "GHSA: Micronaut has Unbounded `bundleCache` in `ResourceBundleMessageSource` that Allows Memory Exhaustion via `Accept-Language` Header",
+      "summary": "## Summary\n\n`ResourceBundleMessageSource` maintains two caches: `messageCache` (bounded at 100 entries via `ConcurrentLinkedHashMap`) and `bundleCache` (unbounded `ConcurrentHashMap`). The `bundleCache` is keyed by `(Locale, baseName)` where the locale originates from the HTTP `Accept-Language` header. In applications that explicitly register a `ResourceBundleMessageSource` bean and serve HTML err",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T19:57:54Z",
+      "cve_ids": [
+        "CVE-2026-44242"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "0538c246458c5bce0d903b08f20d7368f17de48f03834ab2ac77395822a94a6e",
+      "url": "https://ubuntu.com/security/notices/USN-8239-1",
+      "title": "USN-8239-1: Apache HTTP Server vulnerabilities",
+      "summary": "Bartlomiej Dmitruk and Stanislaw Strzalkowski discovered that Apache HTTP Server incorrectly handled certain memory operations when using the HTTP/2 protocol. A remote attacker could use this issue to cause Apache HTTP Server to crash, resulting in a denial of service, or possibly execute arbitrary code. This issue only affected Ubuntu 26.04 LTS. (CVE-2026-23918) It was discovered that the Apache ",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-05-06T19:55:12+00:00",
+      "cve_ids": [
+        "CVE-2026-23918",
+        "CVE-2026-24072",
+        "CVE-2026-28780",
+        "CVE-2026-29168",
+        "CVE-2026-29169",
+        "CVE-2026-33006",
+        "CVE-2026-33007",
+        "CVE-2026-33523",
+        "CVE-2026-33857",
+        "CVE-2026-34032",
+        "CVE-2026-34059"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "e982bf3e43a6a0a38919bd32bdd7dbfd4f25105ffc65a2d7f3d869713a2b5dbd",
+      "url": "https://github.com/advisories/GHSA-4rm2-28vj-fj39",
+      "title": "GHSA: Scramble vulnerable to remote code execution via evaluation of user-controlled input in validation rules",
+      "summary": "### Impact\n\nA remote code execution (RCE) vulnerability affects versions `0.13.2` through `0.13.21`. When documentation endpoints are publicly accessible and validation rules reference user-controlled input, request supplied data may be evaluated during documentation generation, leading to execution of arbitrary PHP code in the application context.\n\n### Patches\n\nFixed in version `0.13.22`.\n\n### Wo",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-06T19:54:56Z",
+      "cve_ids": [
+        "CVE-2026-44262"
+      ],
+      "cvss": 9.4,
+      "related_links": []
+    },
     {
       "id": "7ceffa1fb463096dd6c46c99e2f6dcdc02cde80813cb5584133b9ee441c41209",
       "url": "https://github.com/advisories/GHSA-vqv8-j3mj-wjxj",
@@ -513,170 +677,6 @@
         "CVE-2026-43880"
       ],
       "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "b094fdd76e99df3e2232e15bd43a19562604372c3dbfd7f9efb905507317d87a",
-      "url": "https://github.com/advisories/GHSA-3h96-34p3-xm76",
-      "title": "GHSA: GraphQL-Ruby's Ruby lexer does not count comment tokens for the purposes of max_query_string_tokens",
-      "summary": "GraphQL-Ruby's `max_query_string_tokens` configuration didn't count comment tokens against the limit, allowing strings to be processed even after the configured maximum had actually been reached. \n\nIn patched versions, the Ruby lexer does count these tokens. \n\nGraphQL-CParser is not affected by this problem. \n\n`max_query_string_tokens` was introduced in v2.3.1. Each 2.x version has received a new ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:51:15Z",
-      "cve_ids": [],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "4cf83f56916c6806838bf486facb67422203a8be59040833a2aa9d808e04fbf5",
-      "url": "https://github.com/advisories/GHSA-wp38-whx3-xffh",
-      "title": "GHSA: AVideo has Blind SSRF in YPTWallet Donation Webhook via Missing isSSRFSafeURL() Check and CURLOPT_FOLLOWLOCATION Redirect Bypass",
-      "summary": "## Summary\n\nAn authenticated user can configure their own donation-notification webhook URL to point at internal/loopback/metadata hosts (e.g. `http://127.0.0.1:8080/...`, `http://169.254.169.254/latest/...`, RFC1918 addresses). When any other user (including a second account owned by the same attacker) donates even a trivial amount via `plugin/CustomizeUser/donate.json.php`, the AVideo server iss",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:49:23Z",
-      "cve_ids": [
-        "CVE-2026-43879"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "5b856effb004e6cdce17e208ee9bf20db5aaefd4db170099ae6498abb2bcf07e",
-      "url": "https://github.com/advisories/GHSA-wqcw-g35j-j578",
-      "title": "GHSA: Kubewarden vulnerable to RBAC Reconnaissance via unchecked can_i host capability call",
-      "summary": "### Impact\nKubewarden is a policy engine for Kubernetes. Kubewarden cluster operators can grant permissions to users to deploy namespaced AdmissionPolicies and AdmissionPolicyGroups in their Namespaces. One of Kubewarden promises is that configured users can deploy namespaced policies in a safe manner, without privilege escalation.\n\nAn attacker with privileged AdmissionPolicy or AdmissionPolicyGro",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-05-05T21:49:03Z",
-      "cve_ids": [
-        "CVE-2026-42541"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "83afa8dd5ad6ea4f9d590a984c3e6fa042b9cded70541b232ba4f6ec00faacc6",
-      "url": "https://github.com/advisories/GHSA-wpg9-53fq-2r8h",
-      "title": "GHSA: Mongoose's Improper Sanitization of $nor in sanitizeFilter May Allow NoSQL Injection",
-      "summary": "### Impact\n\nThis vulnerability allows bypassing Mongoose’s sanitizeFilter query sanitization mechanism via the `$nor` operator.\n\nWhen sanitizeFilter is enabled, Mongoose wraps query operators in `$eq` to neutralize them. However, prior to the fix, `$nor` was not included in the set of logical operators that are recursively sanitized. Because `$nor` accepts an array (like `$and` and `$or`), and arr",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:48:06Z",
-      "cve_ids": [
-        "CVE-2026-42334"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "4315e2712d8f69a53570b484f2c205f5ef04b5fa0a47f7bdaa49d61fd5564aa7",
-      "url": "https://github.com/advisories/GHSA-w8cg-7jcj-4vv2",
-      "title": "GHSA: Grav is Vulnerable to Stored XSS via Tag Injection",
-      "summary": "### Summary\nA low-privileged (with the ability to create a page) user can cause XSS with the injection of `svg` element. The XSS can further be escalated to dump the entire system information available under `/admin/config/info` whenever a Super Admin visits the page; which can further be chained with the use of admin-nonce to do a complete server compromise (RCE).\n\n### Details\nAffected endpoint: ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T21:36:27Z",
-      "cve_ids": [
-        "CVE-2026-42611"
-      ],
-      "cvss": 8.9,
-      "related_links": []
-    },
-    {
-      "id": "c53d619d1626ce35e857d64305f94d6d0964be12dc0f75d631a58dad910daeea",
-      "url": "https://github.com/advisories/GHSA-3446-6mgw-f79p",
-      "title": "GHSA: Grav is Vulnerable to XXE via SVG Upload ",
-      "summary": "Dear Grav Security Team,\n\nA security vulnerability was discovered in Grav CMS that allows authenticated attackers to read arbitrary files from the server through XML External Entity (XXE) injection.\n\n Vulnerability Summary\n\n| Field | Details |\n|-------|---------|\n| Vulnerability Type | XML External Entity (XXE) Injection |\n| Severity | High (CVSS 7.5) |\n| Affected Versions | Grav CMS <= 1.7.x |\n| ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:35:53Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "dfc7c48a8a746521a7aa23edfa74d3b3ea19a02987dec6d067189d5d673b3962",
-      "url": "https://github.com/advisories/GHSA-rr73-568v-28f8",
-      "title": "GHSA: Grav Vulnerable to Administrative Account Disruption and Privilege De-escalation via User Overwrite Logic",
-      "summary": "### Summary\nA business logic vulnerability in the Grav Admin Panel allows a low-privileged user (with only user creation permissions) to overwrite existing accounts, including the primary administrator. By creating a new user with a username that already exists, the system updates the existing account's metadata and permissions instead of rejecting the request. This leads to a Denial of Service (D",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:29:53Z",
-      "cve_ids": [
-        "CVE-2026-42609"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "d2a570cf0153f5843b4a07fc3133c9a116e6fdbdcfb01a2e75054fee07638ca3",
-      "url": "https://github.com/advisories/GHSA-9695-8fr9-hw5q",
-      "title": "GHSA: Grav Vulnerable to Publisher-Level Stored XSS via Unquoted Event Attributes",
-      "summary": "### Summary\nA stored Cross-Site Scripting (XSS) vulnerability in `getgrav/grav` allows publisher-level accounts to execute arbitrary JavaScript. The issue arises from a blacklist bypass in the `detectXss()` function when handling unquoted HTML event attributes.\n\n### Details\nThe `detectXss()` function relies on a blacklist pattern to filter malicious attributes. The specific regex pattern used to m",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:27:15Z",
-      "cve_ids": [
-        "CVE-2026-42612"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "0bbbffa19da37111b12eadae2e8e150a9e79b9e5298713d1b59593dbc91806a3",
-      "url": "https://github.com/advisories/GHSA-3f29-pqwf-v4j4",
-      "title": "GHSA: Grav Vulnerable to Sensitive Information Disclosure via Accounts Service Bypass",
-      "summary": "## Summary\nInformation disclosure exists in `Grav CMS v1.8.0-beta.29`. Despite previous security patches (notably in `v1.8.0-beta.27/28`) aimed at restricting sensitive object access within the Twig environment, the Accounts Service remains exposed.\n\nA low-privileged user (EX: Content Editor with only pages.update permissions) can bypass the existing Twig sandbox restrictions by utilizing the `gra",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:26:45Z",
-      "cve_ids": [
-        "CVE-2026-42610"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "4b087e5e3e9636c6811851385f9343ad6b61df0d95ae3bdbfc06733f52ae4546",
-      "url": "https://github.com/advisories/GHSA-pxm6-mhxr-q4mj",
-      "title": "GHSA: Grav Vulnerable to Privilege Escalation via Missing Server-Side Validation of groups/access",
-      "summary": "# Bug Report: Registration Privilege Escalation via Missing Server-Side Validation of groups/access\n\n## Summary\n\nThe `Login::register()` method in the Login plugin accepts attacker-controlled `groups` and `access` fields from the registration POST data without server-side validation. When registration is enabled and `groups` or `access` are included in the configured allowed fields list, an unauth",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T21:26:06Z",
-      "cve_ids": [
-        "CVE-2026-42613"
-      ],
-      "cvss": 9.4,
-      "related_links": []
-    },
-    {
-      "id": "731ec55da70579d9006e5891e7e37dfa54479e582785068898267887213eb916",
-      "url": "https://github.com/advisories/GHSA-c2q3-p4jr-c55f",
-      "title": "GHSA: Grav Vulnerable to XSS via Taxonomy Field Values in Admin Panel",
-      "summary": "### Summary\n\nA Stored Cross-Site Scripting (XSS) vulnerability exists in the Grav CMS Form plugin's select field template. Taxonomy tag and category values are rendered with the Twig `|raw` filter in the admin panel, bypassing the global autoescape protection. An editor-level user can inject arbitrary JavaScript that executes in any administrator's browser session when they view or edit any page i",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T21:24:45Z",
-      "cve_ids": [
-        "CVE-2026-42842"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "090e68519b036ecccc74aaba4ca7ce29e46ff8886a24799b7f13c10c4f9c9aaf",
-      "url": "https://github.com/advisories/GHSA-w48r-jppp-rcfw",
-      "title": "GHSA: Grav Vulnerable to Remote Code Execution (RCE) via Malicious Plugin ZIP Upload in Direct Install Feature",
-      "summary": "### Summary\nAn authenticated user with administrative privileges can achieve Remote Code Execution (RCE) by uploading a specially crafted ZIP file through the \"Direct Install\" tool. While the system attempts to block direct .php file uploads, it fails to inspect the contents of uploaded ZIP archives. Once a malicious plugin is extracted, it can execute arbitrary PHP code or drop a persistent web s",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T21:21:10Z",
-      "cve_ids": [
-        "CVE-2026-42607"
-      ],
-      "cvss": 9.1,
       "related_links": []
     }
   ]

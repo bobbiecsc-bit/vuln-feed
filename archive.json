@@ -1,7 +1,145 @@
 {
-  "updated": "2026-05-07T21:05:16.640017+00:00",
+  "updated": "2026-05-08T02:56:23.877231+00:00",
   "total": 250,
   "articles": [
+    {
+      "id": "ec290415b095945083a411db0868be8ea43558fd58f2118f2635565b226634be",
+      "url": "https://github.com/advisories/GHSA-39j6-4867-gg4w",
+      "title": "GHSA: utcp-http vulnerable to SSRF via attacker-controlled OpenAPI servers[0].url in HTTP communication protocol",
+      "summary": "## Summary\n\nThe `utcp-http` plugin is vulnerable to a blind Server-Side Request Forgery (SSRF) caused by a trust-boundary inconsistency between manual discovery and tool invocation. `register_manual()` validates the discovery URL against an HTTPS / loopback allowlist, but `call_tool()` and `call_tool_streaming()` reuse the resolved `tool_call_template.url` directly without revalidating. An attacke",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T22:32:54Z",
+      "cve_ids": [
+        "CVE-2026-44661"
+      ],
+      "cvss": 4.7,
+      "related_links": []
+    },
+    {
+      "id": "da33a63299507581106a9022e3da71157e89af7332b7b208572f4bbba33c8079",
+      "url": "https://github.com/advisories/GHSA-v7qw-hx66-4w9x",
+      "title": "GHSA: netbox-data-flows has stored XSS in ObjectAlias names rendered inside DataFlow tables",
+      "summary": "### Summary\nAn authenticated user who can create or edit `ObjectAlias` objects can store arbitrary HTML/JavaScript in an alias name. That payload is later rendered unescaped in `DataFlow` table views, causing a stored XSS when another user views the affected page.\n\n### Details\nThe issue is caused by unsafe HTML generation in the plugin’s custom table column renderer.\n\nRelevant code on `main` (`bf9",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T22:31:32Z",
+      "cve_ids": [],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "92317afa1a5fb84c85a5dc860ead2ec05ae1c6ce00af4f65b542b57ee810c6b2",
+      "url": "https://github.com/advisories/GHSA-xhrw-5qxx-jpwr",
+      "title": "GHSA: Microsoft APM CLI's plugin.json component paths escape plugin root and copy arbitrary host files during install",
+      "summary": "### Summary\nMicrosoft APM normalizes marketplace plugins by copying plugin components referenced in `plugin.json` into `.apm/`. The manifest fields `agents`, `skills`, `commands`, and `hooks` are attacker-controlled, but the implementation does not enforce that those paths remain inside the plugin directory. A malicious plugin can therefore use absolute paths or `../` traversal paths to copy arbit",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T21:41:08Z",
+      "cve_ids": [
+        "CVE-2026-44641"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "d6d0dec9faa465719df77f3e4b73510481cd250283e50a2307aad5478670de55",
+      "url": "https://github.com/advisories/GHSA-fpw6-hrg5-q5x5",
+      "title": "GHSA: ech0's acess tokens with expiry=never cannot be revoked: logout panics, delete does not blacklist JTI",
+      "summary": "## Summary\n\nAccess tokens created with the \"never expire\" option have no `exp` JWT claim. Three independent revocation mechanisms fail for this token type. Logout at `internal/handler/auth/auth.go:154` and `:163` dereferences `claims.ExpiresAt.Time`, panicking on the nil field so the token never hits the blacklist. `RevokeToken` at `internal/repository/auth/auth.go:45-50` skips when `remainTTL <= ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T21:34:01Z",
+      "cve_ids": [],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "1fe81fd32399e449e9d04634b8e4202f4b3761468c7664a28ee048240881081d",
+      "url": "https://github.com/advisories/GHSA-p64j-f4x9-wq66",
+      "title": "GHSA: Ech0's OAuth redirect URI validation ignores path component, enables exchange-code theft",
+      "summary": "## Summary\n\n`parseAndValidateClientRedirect` at `internal/service/auth/auth.go:448` validates OAuth client-redirect URIs by comparing only scheme and host against the admin-configured allowlist. Path, query, and fragment are ignored. The initiator at `/oauth/:provider/login` embeds the caller-supplied `redirect_uri` verbatim into the signed state JWT without any validation at login time. Alice sub",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T21:30:45Z",
+      "cve_ids": [],
+      "cvss": 8.0,
+      "related_links": []
+    },
+    {
+      "id": "c3b728beaa2aaf0bf192c6ae0a65e644633ac40464190e65e9994fe3b6cea2ad",
+      "url": "https://github.com/advisories/GHSA-8mc6-xjpr-h98x",
+      "title": "GHSA: Ech0 has Server-Side Request Forgery (SSRF) via Connect Handler fetchPeerConnectInfo",
+      "summary": "## Summary\nThe `fetchPeerConnectInfo` function in `internal/service/connect/connect.go:214-239` uses `httpUtil.SendRequest` (no SSRF protection) instead of `SendSafeRequest` (which has `ValidatePublicHTTPURL` with private IP blocking). This allows authenticated users to make the server request arbitrary URLs including internal/cloud metadata endpoints.\n\n## Details\nIn `internal/service/connect/conn",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T21:28:40Z",
+      "cve_ids": [],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "6aa49768d5c7b7e2b023a6001e89416a3cc34c8c1e94109cf5fa44cbe3c82f6b",
+      "url": "https://github.com/advisories/GHSA-pj6q-4vq4-r8cg",
+      "title": "GHSA: Ech0 allows PUT /api/echo/like/:id unauthenticated: anonymous callers to modify any echo's fav_count",
+      "summary": "## Summary\n\n`PUT /api/echo/like/:id` at `internal/router/echo.go:12` is registered on `PublicRouterGroup` with no authentication and no rate limit. Anonymous callers increment the `fav_count` counter on any echo (including private echoes) by UUID, repeat the request without deduplication, and trigger a database write plus a four-key cache invalidation on every call. Alice harvests echo UUIDs from ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T21:23:57Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "fb4236990a8168ff2e6890b103f07358ce5cd16fb2d2fdd62f002040bfbd5ae1",
+      "url": "https://github.com/advisories/GHSA-rgj7-vg8v-j4wr",
+      "title": "GHSA: Ech0's Unauthenticated Like Endpoint Enables Arbitrary Engagement Metric Inflation",
+      "summary": "### Summary\n\n**No authentication** is required to invoke **`PUT /api/echo/like/:id`**. The handler is registered on the **public** router group. The service increments **`fav_count`** for the given echo **without** checking identity, **without** a per-user limit, and **without** CSRF tokens. A remote client can **arbitrarily inflate** like metrics with repeated requests.\n\n### Description\n\n**Root c",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T21:21:21Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "42277c117d6bbeca94a363e0189e532e090c41e70053c3f3687b8e0ebaddbdcb",
+      "url": "https://github.com/advisories/GHSA-3v85-fqvh-7rxf",
+      "title": "GHSA: Ech0's RSS feed renders unescaped tag names and raw-HTML markdown, stored XSS against subscribers",
+      "summary": "## Summary\n\nThe public RSS/Atom feed at `/rss` renders two attacker-controlled surfaces without HTML escaping. Tag names flow through `fmt.Appendf(renderedContent, \"<br /><span class=\\\"tag\\\">#%s</span>\", tag.Name)` at `internal/service/common/common.go:120`, and the Markdown renderer at `internal/util/md/md.go` does not set the `html.SkipHTML` flag, so raw HTML blocks in echo content pass through ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T21:18:27Z",
+      "cve_ids": [],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "4c17860548ab8320160d7b9c9e42447dfc5aad58aaa6625e2fe1978f58ec5145",
+      "url": "https://github.com/advisories/GHSA-rj4g-rqgh-rx9h",
+      "title": "GHSA: Ech0 comment model's Email field returned on public /api/comments endpoints",
+      "summary": "## Summary\n\nThe `Comment` model serializes its `Email` field through the public comment-listing API. `internal/model/comment/comment.go:33` uses `json:\"email\"`, while adjacent PII fields (`IPHash`, `UserAgent`) correctly use `json:\"-\"`. The public endpoints `GET /api/comments?echo_id=X` and `GET /api/comments/public?limit=N` both live on `PublicRouterGroup` with no authentication. Alice retrieves ",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-05-07T21:16:15Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "f2190351897756bac8f4619ed20d30f3c5333cb1bac50d6afe81f2b00b4e4ec6",
+      "url": "https://github.com/advisories/GHSA-q6mh-rqwh-g786",
+      "title": "GHSA: Note Mark has a JWT Secret Weakness that allows Full Account Takeover via Token Forgery",
+      "summary": "#### Summary\n\nNo minimum length or entropy is enforced on the `JWT_SECRET` configuration value. The application accepts any base64-decodable secret regardless of size, including secrets as short as 1 byte.\n\nHS256 secrets below 32 bytes are brute-forceable offline, allowing attackers to recover the signing key and forge valid JWTs for arbitrary users.\n\n---\n\n#### Impact\n\nAn attacker who captures a s",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T21:08:10Z",
+      "cve_ids": [
+        "CVE-2026-44523"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
     {
       "id": "5758529b425bdc2c9a474a23f92f8297947775ef13522c643bcfa0e00e90b023",
       "url": "https://github.com/advisories/GHSA-h4fw-6r7f-w494",
@@ -40,6 +178,18 @@
         "CVE-2026-44589"
       ],
       "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "0b9a298571e27b4f6f0e54c30f34d094dce442b8127fa85cf17803c77c058d3d",
+      "url": "https://www.rapid7.com/blog/post/ai-rapid7-openai-helping-defenders-move-at-machine-speed",
+      "title": "Rapid7 and OpenAI: Helping Defenders Move at Machine Speed",
+      "summary": "Wade Woolwine is Senior Director, Product Security at Rapid7.Announcing OpenAI's Trusted Access for Cyber programCIOs and CISOs are telling us the same thing in different ways: Advances in frontier AI are accelerating the threat environment and putting pressure on security operating models built for a different pace. Vulnerabilities can be discovered faster, exploitation windows are shrinking, and",
+      "source": "Rapid7",
+      "category": "emergency",
+      "date": "2026-05-07T20:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
       "related_links": []
     },
     {
@@ -3231,174 +3381,6 @@
         "CVE-2026-42296"
       ],
       "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "b6164d272dce70e3941af97e0872cbab3eae20f3a03b64398e69c8888e2deb0a",
-      "url": "https://github.com/advisories/GHSA-98vh-x9cx-9cfp",
-      "title": "GHSA: Incus is affected by unbounded binary import disk exhaustion",
-      "summary": "### Summary\nUploads of large amount of data by authenticated users can run the Incus server out of disk space, potentially taking down the host system.\n\nThe impact here is limited for anyone using `storage.images_volume` and `storage.backups_volume` as those users will have large uploads be stored on those volumes rather than directly on the host filesystem. This is the default behavior on IncusOS",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-04T19:46:32Z",
-      "cve_ids": [
-        "CVE-2026-41685"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "19fd40dcd72d1e6743f64ce57306d8de0e2e20147da4588a8607eb53f7f0bba6",
-      "url": "https://github.com/advisories/GHSA-x5r6-jr56-89pv",
-      "title": "GHSA: Incus has Nil Dereferences on Restore via Malformed YAML",
-      "summary": "### Summary\n\n### Details\nIt was found that backup.GetInfo() trusts the inline backup/index.yaml config when present and only falls back to parsing the legacy backup/container/backup.yaml file if result.Config == nil. As a result, an archive can carry a valid inline config that passes the initial import preflight while also carrying a malformed legacy backup/container/backup.yaml file that is repar",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-04T19:45:23Z",
-      "cve_ids": [
-        "CVE-2026-41684"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "f61ec84847a5b2c7a39d138f3d78b97769c22896bc881e274bf2f783dd639e57",
-      "url": "https://github.com/advisories/GHSA-fwj8-62r8-8p8m",
-      "title": "GHSA: Incus has Nil-Pointer Dereference via S3 Bucket Import",
-      "summary": "### Summary\nMissing error handling could lead an authenticated Incus user to cause a daemon crash through the import of a truncated storage bucket backup file.\n\n### Details\nIt was found that TransferManager.UploadAllFiles iterates over tar entries but only checks for io.EOF from tr.Next(). When tr.Next() returns a non-EOF error, such as unexpected EOF from a truncated archive, the header hdr is ni",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-05-04T19:38:48Z",
-      "cve_ids": [
-        "CVE-2026-41647"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "42edf1a2b5ce61490435aea5abbc90138ff8f23dbabf08026a7fd1d3a82ef9b1",
-      "url": "https://github.com/advisories/GHSA-xj4f-8jjg-vx4q",
-      "title": "GHSA: OpenMRS has Stored Velocity SSTI to RCE via ConceptReferenceRange",
-      "summary": "### Impact\n\nThe `ConceptReferenceRangeUtility.evaluateCriteria()` method in OpenMRS Core\nevaluates database-stored criteria strings as Apache Velocity templates without any sandbox configuration. The `VelocityEngine` is initialized with only logging properties and no`SecureUberspector`, leaving the default `UberspectImpl` in place, which allows\nunrestricted Java reflection through template express",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-04T19:31:22Z",
-      "cve_ids": [
-        "CVE-2026-41258"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "255b6081674a2b1a8212e2013429a24f1e89d504a8fbf72657ce8cdd75098940",
-      "url": "https://github.com/advisories/GHSA-62p3-hvxx-fxg4",
-      "title": "GHSA: Gotenberg has an ExifTool Dangerous Tag Blocklist Bypass via Group-Prefixed Tag Names that Allows Arbitrary File Rename and Move",
-      "summary": "### Summary\n\nGotenberg blocks certain ExifTool tag names like `FileName` and `Directory` to stop attackers from renaming or moving files on the server. But ExifTool allows a longer form of the same tag — `System:FileName` — which does the exact same thing. Gotenberg only checks if the tag is exactly `FileName`, so `System:FileName` slips right through and ExifTool happily renames the file. No logi",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-04T19:21:19Z",
-      "cve_ids": [
-        "CVE-2026-40893"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "6f1e8b8adb0b4e2f63ac1eebf41517955b5679747f94fb172469591ced320ba0",
-      "url": "https://github.com/advisories/GHSA-4m88-wxj4-9qj6",
-      "title": "GHSA: Incus Vulnerable to Panic via Snapshot Bounds Check",
-      "summary": "### Summary\nMissing validation logic in the storage volume import logic allows an authenticated user with access to Incus' storage volume feature to cause the Incus daemon to crash. Repeated use of this issue can be used to keep Incus offline causing a denial of service.\n\n### Details\nThe backup restore subsystem contains an out-of-bounds panic vulnerability caused by an invalid bounds check when i",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-04T19:16:25Z",
-      "cve_ids": [
-        "CVE-2026-40251"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "5bc2498b55faaaf474f2e1974810d42772013c0495e51b3033938fef36e0fae4",
-      "url": "https://github.com/advisories/GHSA-c839-4qxr-j4x3",
-      "title": "GHSA: Incus has an OVN TLS Verification that Accepts Peer-Supplied Roots",
-      "summary": "### Summary\nBroken TLS validation logic in the OVN database connection logic could allow connections to an attacker's OVN database.\n\nOVN uses mTLS for authentication, so the attacker cannot actually perform a full man in the middle attack as they won't be able to authenticated with the real OVN deployment. At best they can provide a replacement empty database which Incus will briefly interact with",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-04T19:08:01Z",
-      "cve_ids": [
-        "CVE-2026-40243"
-      ],
-      "cvss": 2.3,
-      "related_links": []
-    },
-    {
-      "id": "b2d5255be199fc9bdfb4e204d628db5afa875999210c5ab9c91e625c7588fcbf",
-      "url": "https://github.com/advisories/GHSA-r7w7-mmxr-47r9",
-      "title": "GHSA: Incus has a Nil-Pointer Dereference via Custom Volume Import",
-      "summary": "### Summary\nMissing validation logic in the storage volume import logic allows an authenticated user with access to Incus' storage volume feature to cause the Incus daemon to crash. Repeated use of this issue can be used to keep Incus offline causing a denial of service.\n\n### Details\nThe custom volume backup import subsystem contains a nil-pointer dereference vulnerability that allows an authentic",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-04T17:45:21Z",
-      "cve_ids": [
-        "CVE-2026-40197"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "91c7406fdf68a0ac3787516bdd1b0f74dd4f7f7f2c27511b20297b653209cd87",
-      "url": "https://github.com/advisories/GHSA-gc7j-g665-rxr9",
-      "title": "GHSA: Incus has a Nil-Pointer Dereference Panic via Bucket Metadata",
-      "summary": "### Summary\nMissing validation logic in the storage bucket import logic allows an authenticated user with access to Incus' storage bucket feature to cause the Incus daemon to crash. Repeated use of this issue can be used to keep Incus offline causing a denial of service.\n\n### Details\nThe storage bucket migration subsystem contains a nil-pointer dereference vulnerability that allows an authenticate",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-04T17:40:00Z",
-      "cve_ids": [
-        "CVE-2026-40195"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "31b6e1061c4102933a7db12af2c6fe32af7c32138130b0b225e5a59eaee5a0a9",
-      "url": "https://github.com/advisories/GHSA-78fc-9688-w8xw",
-      "title": "GHSA: OpenMRS Module Upload Vulnerable to Path Traversal (Zip Slip)",
-      "summary": "## Affected Versions\n\nversion ≤ 2.7.8 (latest version at time of disclosure)\n\nhttps://github.com/openmrs/openmrs-core\n\n## Impact\n\nThe endpoint `POST /openmrs/ws/rest/v1/module` is vulnerable to a path traversal (Zip Slip) attack. An authenticated attacker can upload a crafted `.omod` archive containing ZIP entries with directory traversal sequences. Upon automatic extraction by the server, the inc",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-04T17:39:31Z",
-      "cve_ids": [
-        "CVE-2026-40076"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "c707d860ef7dbe20dfe350d6ec969319d9ca5e3c23f9ad6fbda43b2c2fd868e2",
-      "url": "https://github.com/advisories/GHSA-rc95-pcm8-65v9",
-      "title": "GHSA: Quarkus has Authentication/Authorization bypasses",
-      "summary": "Quarkus version 3.32.4 is vulnerable to an authorization bypass issue (GHSL-2026-099), in which semicolons (matrix parameters) in HTTP requests can be used to bypass security constraints, potentially allowing unauthorized access to protected resources.\n\nUnauthenticated or lower-privileged users can bypass HTTP path-based authorization policies by appending a semicolon (`;`) and arbitrary text to t",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-04T17:20:20Z",
-      "cve_ids": [
-        "CVE-2026-39852"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "dbc150cdd5c121560d8a860899cf027c681c77c3bd9159a58d4b03b460ec3f33",
-      "url": "https://github.com/advisories/GHSA-jjgj-cx3q-pw4w",
-      "title": "GHSA: OpenMRS ModuleResourcesServlet has Path Traversal that Leads to Arbitrary File Read",
-      "summary": "## Affected Versions\n\nversion ≤ 2.7.8 (latest version at time of disclosure)\n\nhttps://github.com/openmrs/openmrs-core\n\n## Impact\n\nThe `/openmrs/moduleResources/{moduleid}` endpoint in OpenMRS Core is vulnerable to a path traversal attack. The `ModuleResourcesServlet` does not properly validate user-supplied path input, allowing an attacker to traverse directories and read arbitrary files from the ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-04T17:18:48Z",
-      "cve_ids": [
-        "CVE-2026-40075"
-      ],
-      "cvss": 7.5,
       "related_links": []
     }
   ]
