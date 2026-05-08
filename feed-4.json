@@ -1,10 +1,52 @@
 {
-  "updated": "2026-05-08T09:22:15.722732+00:00",
+  "updated": "2026-05-08T13:49:33.240628+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "b46aec6ce0659fa685cc4d9249e4231531d4b661b04c7c34c4240b9e7015aa8c",
+      "url": "https://github.com/advisories/GHSA-mwgh-92m2-wvhv",
+      "title": "GHSA: AVideo: Unauthenticated CRLF/ICS Injection in Scheduler downloadICS.php Allows Calendar Event Spoofing",
+      "summary": "## Summary\n\nThe unauthenticated `plugin/Scheduler/downloadICS.php` endpoint passes attacker-controlled `title`, `description`, and `joinURL` parameters into `Scheduler::downloadICS()`, which builds an ICS calendar file via the `ICS` helper class. `ICS::escape_string()` (`objects/ICS.php:167-169`) only escapes `,` and `;` and does NOT neutralize CR/LF, so attacker CRLF bytes inside a property value",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-05T22:14:31Z",
+      "cve_ids": [
+        "CVE-2026-43882"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "3a4dc269ab70f92e99759a8ae255fe20a243353de577fc52928df55208720e72",
+      "url": "https://github.com/advisories/GHSA-6rvw-7p8v-mjfq",
+      "title": "GHSA: AVideo: Unauthenticated User Enumeration in objects/users.json.php via isCompany Parameter Allows Bypass of the Admin-Only Listing Restriction",
+      "summary": "## Summary\n\n`objects/users.json.php` exposes two unauthenticated paths that disclose the full set of registered user accounts. The `isCompany` request parameter causes the handler to set `$ignoreAdmin = true` for any non-admin caller (including unauthenticated visitors), which defeats the admin-only guard inside `User::getAllUsers()`/`User::getTotalUsers()`. A second path accepts `users_id` and ca",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-05T22:02:35Z",
+      "cve_ids": [
+        "CVE-2026-43881"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "8cbe39c96aa5608557d217a44cf8dff939d71e414688cfbe8b586e3603089596",
+      "url": "https://github.com/advisories/GHSA-w2jh-77fq-7gp8",
+      "title": "GHSA: OpAMP client reads unbounded HTTP response bodies",
+      "summary": "### Summary\n\nWhen receiving responses from the OpAMP server over HTTP, the OpAMP client allocates an unbounded buffer to read all bytes from the server, with no upper-bound on the number of bytes consumed.\n\nThis could cause memory exhaustion in the consuming application if the configured OpAMP server is attacker-controlled (or a network attacker can MitM the connection) and an extremely large body",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-05T21:57:54Z",
+      "cve_ids": [
+        "CVE-2026-42348"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
     {
       "id": "44ef4149d09db3e7347f97ca378e365a594ac9b0c69878e8aaa94478aaf62d87",
       "url": "https://github.com/advisories/GHSA-5hgj-7gm9-cff5",
@@ -647,48 +689,6 @@
         "CVE-2026-43876"
       ],
       "cvss": 6.4,
-      "related_links": []
-    },
-    {
-      "id": "9d5d8468d83b727bdec5487fca58649b0ed81d6d8be5c00713669bdcf916efe0",
-      "url": "https://github.com/advisories/GHSA-5w8w-26ch-v5cw",
-      "title": "GHSA: AVideo: Password Hash Leak in MobileManager OAuth Redirect URL Enables Account Takeover",
-      "summary": "## Summary\n\n`plugin/MobileManager/oauth2.php` completes an OAuth login by sending an HTTP 302 `Location: oauth2Success.php?user=<email>&pass=<HASH>` where `<HASH>` is the victim's stored password hash (`md5(hash(\"whirlpool\", sha1(password)))`) read directly from the `users` table. AVideo's own login endpoint (`objects/login.json.php`) accepts an `encodedPass=1` flag that bypasses hashing and perfo",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-05T19:08:45Z",
-      "cve_ids": [
-        "CVE-2026-43875"
-      ],
-      "cvss": 6.8,
-      "related_links": []
-    },
-    {
-      "id": "9d85d79e5550910821e32752bc3ea7599721ff3c3e3daae52b260b76ed16f364",
-      "url": "https://github.com/advisories/GHSA-ghcv-22jf-vfxm",
-      "title": "GHSA: AVideo has an Incomplete Fix for YPTSocket autoEvalCodeOnHTML Strip: Unauthenticated Cross-User JavaScript Execution via `$msg['json']` Relay Bypass",
-      "summary": "## Summary\n\nThe server-side mitigation for the YPTSocket `autoEvalCodeOnHTML` eval sink (prior advisory GHSA-gph2-j4c9-vhhr, commit `c08694bf6`) only strips the payload when it sits under `$json['msg']`, but the relay function `msgToResourceId()` selects the outbound message from `$msg['json']` *before* `$msg['msg']`. An unauthenticated attacker can obtain a WebSocket token from `plugin/YPTSocket/",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T19:07:09Z",
-      "cve_ids": [
-        "CVE-2026-43874"
-      ],
-      "cvss": 7.2,
-      "related_links": []
-    },
-    {
-      "id": "ad314b658fe4da4424aa749077eb9ded2a36306263c5ae9360e78c4139e5e7b2",
-      "url": "https://github.com/advisories/GHSA-qm9p-p5pw-jrx2",
-      "title": "GHSA: AVideo: Unauthenticated Disclosure of CloneSite `myKey` via Error Echo in `cloneClient.json.php` Enables Cross-Site DB Dump of the Configured Clone Server",
-      "summary": "## Summary\n\n`plugin/CloneSite/cloneClient.json.php` echoes the local CloneSite shared secret (`$objClone->myKey`, a constant `md5($global['systemRootPath'] . $global['salt'])`) into the HTTP response body on every unauthenticated request. The unauthenticated error branch was intended to reject non-admin callers without a valid key, but the rejection message interpolates the expected key before `di",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-05T18:58:13Z",
-      "cve_ids": [
-        "CVE-2026-43873"
-      ],
-      "cvss": 7.5,
       "related_links": []
     }
   ]

@@ -1,10 +1,52 @@
 {
-  "updated": "2026-05-08T09:22:15.722732+00:00",
+  "updated": "2026-05-08T13:49:33.240628+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "9d5d8468d83b727bdec5487fca58649b0ed81d6d8be5c00713669bdcf916efe0",
+      "url": "https://github.com/advisories/GHSA-5w8w-26ch-v5cw",
+      "title": "GHSA: AVideo: Password Hash Leak in MobileManager OAuth Redirect URL Enables Account Takeover",
+      "summary": "## Summary\n\n`plugin/MobileManager/oauth2.php` completes an OAuth login by sending an HTTP 302 `Location: oauth2Success.php?user=<email>&pass=<HASH>` where `<HASH>` is the victim's stored password hash (`md5(hash(\"whirlpool\", sha1(password)))`) read directly from the `users` table. AVideo's own login endpoint (`objects/login.json.php`) accepts an `encodedPass=1` flag that bypasses hashing and perfo",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-05T19:08:45Z",
+      "cve_ids": [
+        "CVE-2026-43875"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "9d85d79e5550910821e32752bc3ea7599721ff3c3e3daae52b260b76ed16f364",
+      "url": "https://github.com/advisories/GHSA-ghcv-22jf-vfxm",
+      "title": "GHSA: AVideo has an Incomplete Fix for YPTSocket autoEvalCodeOnHTML Strip: Unauthenticated Cross-User JavaScript Execution via `$msg['json']` Relay Bypass",
+      "summary": "## Summary\n\nThe server-side mitigation for the YPTSocket `autoEvalCodeOnHTML` eval sink (prior advisory GHSA-gph2-j4c9-vhhr, commit `c08694bf6`) only strips the payload when it sits under `$json['msg']`, but the relay function `msgToResourceId()` selects the outbound message from `$msg['json']` *before* `$msg['msg']`. An unauthenticated attacker can obtain a WebSocket token from `plugin/YPTSocket/",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-05T19:07:09Z",
+      "cve_ids": [
+        "CVE-2026-43874"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
+      "id": "ad314b658fe4da4424aa749077eb9ded2a36306263c5ae9360e78c4139e5e7b2",
+      "url": "https://github.com/advisories/GHSA-qm9p-p5pw-jrx2",
+      "title": "GHSA: AVideo: Unauthenticated Disclosure of CloneSite `myKey` via Error Echo in `cloneClient.json.php` Enables Cross-Site DB Dump of the Configured Clone Server",
+      "summary": "## Summary\n\n`plugin/CloneSite/cloneClient.json.php` echoes the local CloneSite shared secret (`$objClone->myKey`, a constant `md5($global['systemRootPath'] . $global['salt'])`) into the HTTP response body on every unauthenticated request. The unauthenticated error branch was intended to reject non-admin callers without a valid key, but the rejection message interpolates the expected key before `di",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-05T18:58:13Z",
+      "cve_ids": [
+        "CVE-2026-43873"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
     {
       "id": "e6ecae824ff78aaa4490ed5087e7e6dd2d7b6ca609e480b309c727509166cac3",
       "url": "https://github.com/advisories/GHSA-pxhg-7xr2-w7xg",
@@ -639,48 +681,6 @@
         "CVE-2026-42606"
       ],
       "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "3da8b6977aa5287f7a1fc595cc466bfa2a160e6aa440aaa7c7e695b8d9af01a0",
-      "url": "https://github.com/advisories/GHSA-vp2f-cqqp-478j",
-      "title": "GHSA: AzuraCast has Path Traversal in `currentDirectory` Parameter that Enables Remote Code Execution via Media Upload",
-      "summary": "## Summary\n\nThe `currentDirectory` request parameter in the Flow.js media upload endpoint (`POST /api/station/{station_id}/files/upload`) is not sanitized for path traversal sequences. When combined with a local filesystem storage backend (the default), an authenticated user with media management permissions can write arbitrary files outside the station's media storage directory, achieving remote ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-04T21:16:51Z",
-      "cve_ids": [
-        "CVE-2026-42605"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "a5517ba13388671f01b00c176ce56e0e0977e319142b699db27c3312a7363bd2",
-      "url": "https://github.com/advisories/GHSA-c9ph-gxww-7744",
-      "title": "GHSA: Sandboxed Thymeleaf expressions vulnerable to improper recognition of unauthorized syntax patterns",
-      "summary": "### Impact\n\nA security bypass vulnerability exists in the expression execution mechanisms of Thymeleaf up to and including 3.1.4.RELEASE. Although the library provides mechanisms to avoid the execution of potentially dangerous expressions in some specific sandboxed (restricted) contexts, it fails to properly neutralize specific constructs that allow this kind of expressions to be executed. If an a",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-04T21:15:20Z",
-      "cve_ids": [
-        "CVE-2026-41901"
-      ],
-      "cvss": 9.0,
-      "related_links": []
-    },
-    {
-      "id": "5ad9bd7803f6434ccec6c323a3eaa1dac62cac22c18b49914fa68f70c1bc7f50",
-      "url": "https://github.com/advisories/GHSA-r35x-v8p8-xvhw",
-      "title": "GHSA: pyp2spec is Vulnerable to Code Injection",
-      "summary": "### Impact\npyp2spec was writing PyPI package metadata (e.g. the summary field) into the generated spec file without escaping RPM macro directives. When a packager then runs rpmbuild, those directives get evaluated, so a malicious package can execute arbitrary commands on the build machine.\n\nThe macro evaluates during spec parsing, not only during the build step. Any rpm tool touching the generated",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-04T20:14:38Z",
-      "cve_ids": [
-        "CVE-2026-42301"
-      ],
-      "cvss": 7.8,
       "related_links": []
     }
   ]
