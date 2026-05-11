@@ -1,10 +1,372 @@
 {
-  "updated": "2026-05-11T11:21:30.947369+00:00",
+  "updated": "2026-05-11T14:53:32.260812+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "3792405f99c4a89fdf1aafe504ebbe68135bc0c1cd2d086bf719e0e72cdf5da4",
+      "url": "https://github.com/advisories/GHSA-jqfc-gwj5-3w63",
+      "title": "GHSA: free5GC's UDR nudr-dr DELETE amf-subscriptions panics on missing UE state via nil interface type assertion (single authenticated request)",
+      "summary": "### Summary\nfree5GC's UDR `nudr-dr` `DELETE /subscription-data/{ueId}/{servingPlmnId}/ee-subscriptions/{subsId}/amf-subscriptions` handler panics on a single authenticated request against a fresh UDR instance when the supplied `ueId` does not exist in `UESubsCollection`. The processor checks `value, ok := udrSelf.UESubsCollection.Load(ueId)` and sets a `404 USER_NOT_FOUND` problem-details on the m",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T22:52:20Z",
+      "cve_ids": [
+        "CVE-2026-44324"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "64878679a2f4df80b2e19853c059cd9e7537d3d629caa9159d5d46b961973a0f",
+      "url": "https://github.com/advisories/GHSA-4rqf-grm6-vf75",
+      "title": "GHSA: free5GC's UDR nudr-dr DELETE amf-subscriptions panics on missing subsId when UE state exists (nil pointer dereference)",
+      "summary": "### Summary\nfree5GC's UDR `nudr-dr` `DELETE /subscription-data/{ueId}/{servingPlmnId}/ee-subscriptions/{subsId}/amf-subscriptions` handler contains a nil-pointer dereference reachable from a single authenticated request, after one preparatory authenticated EE-subscription create. The handler checks `_, ok = UESubsData.EeSubscriptionCollection[subsId]` and sets a `404` problem-details on the miss p",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T22:52:00Z",
+      "cve_ids": [
+        "CVE-2026-44323"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "c270efc7b5c8e1b85efa12b5fd8237de1ccf300d739dc711d649829cbb5384cf",
+      "url": "https://github.com/advisories/GHSA-j59f-x285-69jx",
+      "title": "GHSA: free5GC's NEF 3gpp-pfd-management PATCH applications/{appId} panics on UDR access failure due to nil ProblemDetails dereference",
+      "summary": "### Summary\nfree5GC's NEF `PATCH /3gpp-pfd-management/v1/{afId}/transactions/{transId}/applications/{appId}` handler panics with a nil-pointer dereference when the upstream UDR call fails AND the consumer wrapper returns `err != nil` together with a nil `*ProblemDetails`. The handler's `errPfdData != nil` branch builds its own `problemDetailsErr` correctly, but immediately after it reads `problemD",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T22:50:57Z",
+      "cve_ids": [
+        "CVE-2026-44322"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "25379ac0d2e69fee27649e99d916dcdff3895f881825282f46030b898b090802",
+      "url": "https://github.com/advisories/GHSA-44qj-cghf-9p97",
+      "title": "GHSA: free5GC's SMF UPI POST /upi/v1/upNodesLinks exits the SMF process on overlapping UE pools (unauthenticated, reachable Fatalf)",
+      "summary": "### Summary\nfree5GC's SMF mounts the `UPI` management route group without inbound OAuth2 middleware (same root cause as free5gc/free5gc#887). The `POST /upi/v1/upNodesLinks` create-or-update handler accepts attacker-controlled JSON and passes it directly into `UpNodesFromConfiguration()`, which calls `logger.InitLog.Fatalf(...)` on several validation failures. One confirmed path is the UE-IP-pool ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-08T22:47:24Z",
+      "cve_ids": [
+        "CVE-2026-44321"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "3f4044d055c740d44a7b89ce5f5d822daa0ae0db7b79f30dec54d17aee80f9b4",
+      "url": "https://github.com/advisories/GHSA-wqfh-gq79-j8mf",
+      "title": "GHSA: free5GC's NEF nnef-callback route group is unauthenticated; forged callback requests are accepted into the processing path",
+      "summary": "### Summary\nfree5GC's NEF mounts the `nnef-callback` route group without inbound OAuth2/bearer-token authorization. A forged or arbitrary bearer token (e.g. `Authorization: Bearer not-a-real-token`) is enough to reach the SMF-callback handler -- the callback body is parsed and dispatched into NEF business logic instead of being rejected at the auth boundary. Same root cause as the other NEF SBI fi",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-08T22:46:37Z",
+      "cve_ids": [
+        "CVE-2026-44320"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "171bdfb31d17a05fe40b62add44ea11cb2729e7a2d1af9f187759dccca8b1212",
+      "url": "https://github.com/advisories/GHSA-rxrq-fv76-26pr",
+      "title": "GHSA: free5GC's NEF crashes via logger.Fatal on PFD notification delivery failure (attacker-controlled notifyUri)",
+      "summary": "### Summary\nfree5GC's NEF terminates the entire process when a stored PFD-subscription `notifyUri` cannot be reached. In `PfdChangeNotifier.FlushNotifications()`, the notifier calls `NnefPFDmanagementNotify(...)` and on any delivery error invokes `logger.PFDManageLog.Fatal(err)`, which is `os.Exit(1)`-equivalent in Go. An attacker who can create a PFD subscription with an attacker-chosen `notifyUr",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T22:44:35Z",
+      "cve_ids": [
+        "CVE-2026-44319"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "78a9a548a39a46748a96ced7c48c3e2e7acd53c01a6ded4f4c3d1ced71076ffa",
+      "url": "https://github.com/advisories/GHSA-27ph-8q4f-h7m7",
+      "title": "GHSA: free5GC's BSF concurrent PUT /nbsf-management/v1/subscriptions/{subId} crashes the BSF process via concurrent map read/write on Subscriptions",
+      "summary": "### Summary\nfree5GC's BSF `PUT /nbsf-management/v1/subscriptions/{subId}` handler has an unsynchronized write on the global `Subscriptions` map. The handler first reads the map under `RLock()` via `BSFContext.GetSubscription(subId)`, but if the subscription does not exist, `ReplaceIndividualSubcription()` writes back to the same map directly without taking the mutex (`bsfContext.BsfSelf.Subscripti",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T22:41:48Z",
+      "cve_ids": [
+        "CVE-2026-44318"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "60386ebbbc7ad78c63408851c831d609ee09e061d9a137eb3736b93e9efec6d3",
+      "url": "https://github.com/advisories/GHSA-wwqh-7jm5-gj7w",
+      "title": "GHSA: free5GC's PCF npcf-policyauthorization POST /app-sessions panics on suppFeat=1 with missing AfRoutReq via nil pointer dereference",
+      "summary": "### Summary\nfree5GC's PCF `POST /npcf-policyauthorization/v1/app-sessions` handler panics on a single authenticated request whose `ascReqData.suppFeat == \"1\"` (enabling traffic-routing feature negotiation) and whose `medComponents` entries supply an `afAppId` but NO `AfRoutReq`. The create path then calls `provisioningOfTrafficRoutingInfo(smPolicy, appID, routeReq, ...)` with `routeReq == nil` and",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-05-08T22:40:11Z",
+      "cve_ids": [
+        "CVE-2026-44317"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "49436bb307eddb4a1e65a8a05a8bcd8fde2237eff9a2c7a50b5a964fe1b63141",
+      "url": "https://github.com/advisories/GHSA-wr8j-6chw-gm6p",
+      "title": "GHSA: free5GC's PCF npcf-smpolicycontrol POST /sm-policies panics on downstream UDR/OpenAPI 404 via nil pointer dereference",
+      "summary": "### Summary\nfree5GC's PCF `POST /npcf-smpolicycontrol/v1/sm-policies` handler (`HandleCreateSmPolicyRequest`) panics with a nil-pointer dereference when a downstream OpenAPI consumer call (UDR lookup) returns `404 Not Found` and the consumer wrapper returns `err != nil` together with a nil response struct. The handler logs the OpenAPI error and continues executing instead of returning, then derefe",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-05-08T22:39:43Z",
+      "cve_ids": [
+        "CVE-2026-44316"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "65317e500367532825af0373c25034ea73ef8fcebb2878ae54e96bbf0896b308",
+      "url": "https://github.com/advisories/GHSA-5f62-53r8-qrqf",
+      "title": "GHSA: free5GC's NEF 3gpp-pfd-management API is unauthenticated; forged bearer tokens can create, read, and delete PFD transactions",
+      "summary": "### Summary\nfree5GC's NEF mounts the `3gpp-pfd-management` API without inbound OAuth2/bearer-token authorization. A network attacker who can reach NEF on the SBI can create, read, and delete PFD-management transaction state with a forged or arbitrary bearer token (e.g. `Authorization: Bearer not-a-real-token`). The route group is also reachable even when the running config's `ServiceList` does not",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-08T22:39:16Z",
+      "cve_ids": [
+        "CVE-2026-44315"
+      ],
+      "cvss": 9.4,
+      "related_links": []
+    },
+    {
+      "id": "28725c0addaba6c156ef1825975a6a8e0bc92ef9835642371e1e137b9b6d1832",
+      "url": "https://github.com/advisories/GHSA-7rmh-48mx-2vwc",
+      "title": "GHSA: gitsign verify accepts signatures over go-git-normalized bytes, enabling trust confusion on malformed commits",
+      "summary": "## Summary\n\n`gitsign verify` and `gitsign verify-tag` re-encode commit/tag objects through go-git's `EncodeWithoutSignature` before checking the signature, instead of verifying against the raw git object bytes. For malformed objects with duplicate `tree` headers, git-core and go-git parse different trees: git-core uses the first, go-git uses the second. A signature crafted over the go-git-normaliz",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T22:38:50Z",
+      "cve_ids": [
+        "CVE-2026-44309"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "6a205cca5c331dd1ae20ed8e585fa43aab7db0c29fb1bbc113ca12a72651836c",
+      "url": "https://github.com/advisories/GHSA-9pgh-j74g-qj6m",
+      "title": "GHSA: Open WebUI Vulnerable to Arbitrary File Upload and Path Traversal",
+      "summary": "# **CONFIDENTIAL**\n\n# KL-CAN-2024-002\n\n## Vulnerability Details\n\n| # | Field | Value |\n|---|-------|-------|\n| 1 | **Discoverer** | Jaggar Henry & Sean Segreti of KoreLogic, Inc. |\n| 2 | **Date Submitted** | 2024.03.12 |\n| 3 | **Title** | Open WebUI Arbitrary File Upload + Path Traversal |\n| 5 | **Affected Vendor** | Open WebUI |\n| 6 | **Affected Product(s)** | Open WebUI (Formerly Ollama WebUI) |",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T22:38:09Z",
+      "cve_ids": [
+        "CVE-2026-44566"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "fdcc2273a058a26b2649e3529f82e883c1cf5a1923aac1c0f613b51ab0ba1037",
+      "url": "https://github.com/advisories/GHSA-4vg5-rp28-gvjf",
+      "title": "GHSA: Open WebUI has Improper Authorization Control",
+      "summary": "# **CONFIDENTIAL**\n\n# Vulnerability Disclosure Analysis Documentation\n\n---\n\n## Vulnerability Details\n\n| # | Field | Value |\n|---|-------|-------|\n| 1 | **Discoverer** | Taylor Pennington of KoreLogic, Inc. |\n| 2 | **Date Submitted** | June 11, 2024 |\n| 3 | **Title** | Open WebUI Improper Authorization Control |\n| 5 | **Affected Vendor** | Open WebUI |\n| 6 | **Affected Product(s)** | Open WebUI (Fo",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T22:34:12Z",
+      "cve_ids": [
+        "CVE-2026-44567"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "b1c65458642cc5bd3582db76d40d06e6524806039c321ac1286e622c09acbb3a",
+      "url": "https://github.com/advisories/GHSA-jwf8-pv5p-vhmc",
+      "title": "GHSA: Open WebUI has stored XSS in Excel file preview",
+      "summary": "### Summary\nExcel file attachments are previewed in an unsafe way. A crafted XLSX file payload can be used to cause the [sheetjs](https://git.sheetjs.com/sheetjs/sheetjs) function [sheet_to_html](https://git.sheetjs.com/sheetjs/sheetjs/src/commit/66cf8d2117d271f89e4f47b5fed35a3e1ea93f67/bits/79_html.js#L127) to embed an XSS payload into the generated HTML. This is subsequently added to the DOM uns",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T22:26:17Z",
+      "cve_ids": [
+        "CVE-2026-44549"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "71b1147a629b8f660ad83e106b8dfc6bd946edacb9d9c824a6e812e8ab2b79ef",
+      "url": "https://github.com/advisories/GHSA-pmwq-pjrm-6p5r",
+      "title": "GHSA: in-toto-golang and in-toto-python have inconsistent negation behavior",
+      "summary": "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nin-toto-golang and in-toto-python both support glob patterns in artifact rules to indicate the artifacts that a rule applies to. Both support negations in character classes to indicate what should *not* be matched, but they used different operators to indicate the negation. in-toto-python uses `!` while in-toto-golang used `^`. A lay",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T22:24:19Z",
+      "cve_ids": [],
+      "cvss": 4.1,
+      "related_links": []
+    },
+    {
+      "id": "0812371b4f373b73467b0253af214ad456b50d343d27e87cf8ba3f3151c19322",
+      "url": "https://github.com/advisories/GHSA-r42m-953q-6vjx",
+      "title": "GHSA: Snipe-IT has Stored XSS via Component Checkout Notes (v8.4.0)",
+      "summary": "### Impact\nUsers with component view access could be impacted by an unescaped `notes` column. \n\n### Patches\nThis was patched in https://github.com/grokability/snipe-it/commit/28f493d84d057895fbb93b6570e7393a2c2fa438, and is fixed in v8.4.1 or greater. \n\n### Workarounds\nNone.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T22:23:41Z",
+      "cve_ids": [
+        "CVE-2026-44831"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "50f138a523f88b61b04fe2d01904d1f15cb55cabafd4d311401bbbbc6126c165",
+      "url": "https://github.com/advisories/GHSA-h5fh-7hwr-97mw",
+      "title": "GHSA: Kimai has an arbitrary file read in its invoice PDF renderer (admin)",
+      "summary": "## Summary\n\nUsers with the role `System-Admin` (`ROLE_SYSTE_ADMIN`) and the permission `upload_invoice_template` can upload PDF invoice templates, which can call `pdfContext.setOption('associated_files', ...)` inside the sandboxed Twig render. \n\nThis is forwarded to mPDF's `SetAssociatedFiles()`, whose writer calls `file_get_contents($entry['path'])` during PDF output and embeds the bytes as a Fla",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T22:22:36Z",
+      "cve_ids": [
+        "CVE-2026-44298"
+      ],
+      "cvss": 4.1,
+      "related_links": []
+    },
+    {
+      "id": "e091b9dcc29902e017ec1663853f108433617e4cbcfd37518f8f442ac0cca257",
+      "url": "https://github.com/advisories/GHSA-fq3v-xjjx-95rc",
+      "title": "GHSA: Open WebUI has Stored XSS in Pending User Overlay via Incorrect DOMPurify Application Order",
+      "summary": "## Vulnerability Details\n\n**CWE-79**: Cross-site Scripting (XSS)\n\nThe `AccountPending.svelte` component renders the admin-configured \"Pending User Overlay Content\" using `marked.parse()` inside `{@html}` with an incorrect DOMPurify application order:\n\n### Vulnerable Code\n\n**`src/lib/components/layout/Overlay/AccountPending.svelte` (lines 43-48)**:\n\n```svelte\n{@html marked.parse(\n    DOMPurify.sani",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T22:21:33Z",
+      "cve_ids": [
+        "CVE-2026-44568"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "82f170b26b8e7ac88218f8020e237f0b8c95a859db9e3030632e1379b71ee37e",
+      "url": "https://github.com/advisories/GHSA-m9g3-3g99-mhpx",
+      "title": "GHSA: eventsource-encoder vulnerable to SSE event injection via unsanitized `event` and `id` fields",
+      "summary": "### Summary\n\n`eventsource-encoder` does not sanitize the `event` or `id` fields of an `EventSourceMessage` before serializing them. An attacker who controls either field can inject arbitrary Server-Sent Events line terminators (`\\n`, `\\r`, or `\\r\\n`) and thereby forge additional SSE fields or entire messages on the stream. This is similar in spirit to [GHSA-4hxc-9384-m385](https://github.com/advis",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-08T20:49:40Z",
+      "cve_ids": [
+        "CVE-2026-44214"
+      ],
+      "cvss": 5.8,
+      "related_links": []
+    },
+    {
+      "id": "7972cc51809aee973c80da061c340923d5278f2312eb70aa6ecd91dac7db886c",
+      "url": "https://github.com/advisories/GHSA-wfr5-454p-mjc2",
+      "title": "GHSA: OpenTelemetry.Exporter.Instana bypasses TLS certificate validation when a proxy is configured",
+      "summary": "### Summary\n\nThe `OpenTelemetry.Exporter.Instana` NuGet package does not validate HTTPS/TLS certificates are valid when sending telemetry to a configured Instana back-end when a proxy is configured using the `INSTANA_ENDPOINT_PROXY` environment variable.\n\nIf a network attacker can Man-in-the-Middle (MitM) the proxy connection, all OpenTelemetry telemetry data and the Instana API key are exposed to",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T20:48:02Z",
+      "cve_ids": [
+        "CVE-2026-44213"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "4685e241fab2eb21374295a7b73967b0e15ab680f434de37655fda35ccc7de60",
+      "url": "https://github.com/advisories/GHSA-8wxp-xxp2-rcgx",
+      "title": "GHSA: Volcano's webhook server vulnerable to OOM due to unbounded HTTP request body size",
+      "summary": "### Impact\nThe Volcano webhook server does not enforce a size limit on incoming HTTP request bodies. Any in-cluster pod that can reach the webhook endpoint may send an arbitrarily large request body, potentially causing the webhook server to be killed by OOM. All Volcano deployments with the webhook server exposed to in-cluster traffic are affected.\n\n### Patches\nThis issue will be fixed in the fol",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-08T20:44:54Z",
+      "cve_ids": [
+        "CVE-2026-44247"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "72d03a3df186a0d24384f2e324dd2222099983f6acf8249e32f515a96b95bab9",
+      "url": "https://github.com/advisories/GHSA-5c57-rqjx-35g2",
+      "title": "GHSA: Cline Kanban Server has a Cross-Origin WebSocket Hijacking Vulnerability",
+      "summary": "## Summary\n\nThe `kanban` npm package (used by the `cline` CLI) starts a WebSocket server on `127.0.0.1:3484` with no Origin header validation. Any website a developer visits can silently connect to the kanban server via WebSocket and:\n\n1. Leak sensitive data in real-time: workspace filesystem paths, task titles/descriptions, git branch info, AI agent chat messages\n2. Hijack running AI agent termin",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-08T20:43:17Z",
+      "cve_ids": [
+        "CVE-2026-44211"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "1b0285583d41eee04dd1efb908d1b6d21f7b24cf21ae5c988fd7f4a64107e6eb",
+      "url": "https://github.com/advisories/GHSA-gphh-9q3h-jgpp",
+      "title": "GHSA: banks has Critical Remote Code Execution (RCE) via Jinja2 SSTI",
+      "summary": "## Summary\n\n`banks <= 2.4.1` uses `jinja2.Environment()` (unsandboxed) to render prompt templates. Applications that pass user-supplied strings as the template argument to `Prompt()` are vulnerable to Server-Side Template Injection (SSTI), which can lead to Remote Code Execution (RCE) on the host system.\n\nThis is a vulnerability in how `banks` initializes its Jinja2 environment — not in Jinja2 its",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-08T20:36:22Z",
+      "cve_ids": [
+        "CVE-2026-44209"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "b633ac9b226bd9f826df2b042f67b0fed25af61e5d74de06088a406bea538f05",
+      "url": "https://github.com/advisories/GHSA-fv7c-fp4j-7gwp",
+      "title": "GHSA: @babel/plugin-transform-modules-systemjs generates arbitrary code when compiling malicious input",
+      "summary": "### Impact\n\nUsing Babel to compile code that was specifically crafted by an attacker can cause Babel to generate output code that executes arbitrary code.\n\nKnown affected plugins are:\n- `@babel/plugin-transform-modules-systemjs`\n- `@babel/preset-env` when using the [`modules: \"systemjs\"` option](https://babel.dev/docs/babel-preset-env#modules), as it delegates to `@babel/plugin-transform-modules-s",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T20:34:07Z",
+      "cve_ids": [
+        "CVE-2026-44728"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "7a0be523c23f16123285cd5bc81727cc24b371d462e61bc7a9b98b31609c44dd",
+      "url": "https://github.com/advisories/GHSA-67rv-mg8q-5pf3",
+      "title": "GHSA: Wagtail has improper permission handling when copying pages",
+      "summary": "### Impact\n\nA CMS user with limited access to pages could copy a page they don't have access to to an area of the site they do. Once copied, they'd be able to view its contents, and potentially publish it. Permissions were correctly checked for the copy destination, but not for the source page.\n\n### Patches\n\nPatched versions have been released as Wagtail 7.0.7 and 7.3.2. The new 7.4 LTS feature re",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-08T20:23:11Z",
+      "cve_ids": [
+        "CVE-2026-44200"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "ddc10c029182457ce17f315ff27972af39cbc93915783a9b75f3e286d82c27a7",
+      "url": "https://github.com/advisories/GHSA-p5gm-92h4-6pv6",
+      "title": "GHSA: Wagtail has improper restriction handling on Documents and Images API",
+      "summary": "### Impact\n\nThe Documents and Images [API](https://docs.wagtail.org/en/stable/advanced_topics/api/index.html) incorrectly listed items in private collections. A user with access to the API could see the filename and name of documents and images in private collections.\n\n### Patches\n\nPatched versions have been released as Wagtail 7.0.7 and 7.3.2. The new 7.4 LTS feature release also incorporates thi",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-08T20:21:38Z",
+      "cve_ids": [
+        "CVE-2026-44201"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
     {
       "id": "878597e9960f37782e9650b3eae0bc5ab36819c5f718888d316dcb0f6795311c",
       "url": "https://github.com/advisories/GHSA-pwm3-7fv4-g6xx",
@@ -339,352 +701,6 @@
         "CVE-2026-43942"
       ],
       "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "9afcd2d6d5c286ab69043bcd5a7470dc59576c07801f831feac01be64b514f5c",
-      "url": "https://github.com/advisories/GHSA-fwf6-j56g-m97c",
-      "title": "GHSA: Electerm has an unvalidated shell.openExternal that allows arbitrary protocol execution via terminal link click",
-      "summary": "### Impact\n\nElecterm's terminal hyperlink handler passes any URL clicked in the terminal directly to `shell.openExternal` without any protocol validation.\n\nWhen a user connects to a malicious SSH server, the attacker can print a crafted URI in the terminal output. If the victim clicks the link, `shell.openExternal` executes it using the operating system's default protocol handler.\n\nThis can be abu",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-08T18:35:17Z",
-      "cve_ids": [
-        "CVE-2026-43941"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "728ca981acdb5f3a66dd0f5522d9ea70832ae754796b816fce1d2349670a0671",
-      "url": "https://github.com/advisories/GHSA-f77v-9vpc-6pjm",
-      "title": "GHSA: Electerm runWidget has a path traversal that leads to arbitrary code execution",
-      "summary": "### Impact\nThe `runWidget` function in `src/app/widgets/load-widget.js` constructs a file path by directly concatenating user‑supplied widget identifiers without any sanitisation:\n\n```javascript\nconst file = `widget-${widgetId}.js`\nconst widget = require(path.join(__dirname, file))\n```\n\nBecause `runWidget` is exposed to the renderer process via an asynchronous IPC handler with no input validation,",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-08T18:34:20Z",
-      "cve_ids": [
-        "CVE-2026-43940"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "26c0060e1ce90d09aec57a76eda0a18bb720c24a00d81530ea7197814c5667be",
-      "url": "https://www.rapid7.com/blog/post/pt-metasploit-wrap-up-05-08-2026",
-      "title": "Metasploit Wrap-Up 05/08/2026",
-      "summary": "Spring cleanupThis week’s Metasploit updates focused on foundational improvements and expanded target reach. Key enhancements were made to the recently released Copy Fail exploit module, which now benefits from payload fixes in linux/x64/exec and linux/armle/exec. These changes expand its capability, enabling the use of the cmd/unix/python/meterpreter/reverse_tcp payload on x64 targets and introdu",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-05-08T18:26:10+00:00",
-      "cve_ids": [
-        "CVE-1999-0497"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4d9f3114e28364ee3871d095bbc00ab9ca91d710244b364eb5e8be7ab6d118d6",
-      "url": "https://github.com/advisories/GHSA-f2qx-66wf-wvvx",
-      "title": "GHSA: phpseclib guardrails needed on OID length",
-      "summary": "### Impact\nAny application using that loads untrusted ASN1 files (eg. X509 certificates, RSA PKCS8 private or public keys, etc).\n\n### Patches\nhttps://github.com/phpseclib/phpseclib/commit/e32531001b4d62c66c3d824ccef54ffad835eb59\n\n### Workarounds\nNo.\n\n### Resources\nhttps://github.com/phpseclib/phpseclib/commit/e32531001b4d62c66c3d824ccef54ffad835eb59\nhttps://www.usenix.org/system/files/conference/u",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-08T18:24:30Z",
-      "cve_ids": [
-        "CVE-2024-27355"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "ea89f4131f0a1d3f50c9a276521c577f7a66d09f7f098f25b181dc04dfece129",
-      "url": "https://github.com/advisories/GHSA-hfcf-v2f8-x9pc",
-      "title": "GHSA: bitcoinj has a ScriptExecution P2PKH/P2WPKH Verification Bypass",
-      "summary": "### Summary\n`ScriptExecution.correctlySpends()` contains two fast-path verification bugs for standard `P2PKH` and native `P2WPKH` spends in `core/src/main/java/org/bitcoinj/script/ScriptExecution.java`.\n\nIn both branches, bitcoinj verifies an attacker-controlled signature/public-key pair but fails to verify that the public key is the one committed to by the output being spent. As a result, any att",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-08T17:43:06Z",
-      "cve_ids": [
-        "CVE-2026-44714"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "ebff464b78273491af090d8da60fce3bc9a0481c3bed273db88ba49b10318729",
-      "url": "https://github.com/advisories/GHSA-7c37-gx6w-8vc5",
-      "title": "GHSA: gitsign --verify panics on empty-certificate PKCS7 and exits 0, bypassing exit-code callers",
-      "summary": "## Summary\n\n`CertVerifier.Verify()` in `pkg/git/verifier.go` unconditionally dereferences `certs[0]` after `sd.GetCertificates()` without checking the slice length. A CMS/PKCS7 signed message with an empty certificate set is a structurally valid DER payload; `GetCertificates()` returns an empty slice with no error, causing an immediate index-out-of-range panic. On the `gitsign --verify` code path ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-08T17:37:45Z",
-      "cve_ids": [
-        "CVE-2026-44310"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "f6651dfc49b58b44b709ead9b90588de1e035acd56edf7bb850200337852823c",
-      "url": "https://github.com/advisories/GHSA-q9m2-fhv9-3jcf",
-      "title": "GHSA: `potato-annotation` has a Project-Boundary Bypass",
-      "summary": "## Summary\n`validate_path_security` uses string-prefix containment (`startswith`) for boundary checks. This allows paths that are **outside** the intended project directory but share its prefix string (e.g., `/tmp/potato_proj_demo_evil/...` vs `/tmp/potato_proj_demo`) to be accepted.\n\n## Details\n### Affected source location (root cause)\n**File:** `potato/server_utils/config_module.py`\n\n**Snippet (",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-08T17:31:07Z",
-      "cve_ids": [],
-      "cvss": 5.1,
-      "related_links": []
-    },
-    {
-      "id": "705923aa8ecefb58876d660edd32c0f3033f2265f453f85834a5673c18468e49",
-      "url": "https://github.com/advisories/GHSA-fq7h-9x26-6j22",
-      "title": "GHSA: ExternalSecrets vulnerable to privilege escalation with secret overwriting",
-      "summary": "ExternalSecrets allows users to craft Service Account tokens for misconfigured Service Accounts in namespaces the users have access to.\n\n### Impact\n\nA user who only has permission to create ExternalSecret resources can cause the operator to create a Secret that Kubernetes will automatically populate with a long-lived token for the sepcified service account. This effectively allows the user to impe",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-08T17:24:15Z",
-      "cve_ids": [
-        "CVE-2026-42876"
-      ],
-      "cvss": 4.9,
-      "related_links": []
-    },
-    {
-      "id": "1df0efc203ff39af2030e9e7ad19b1672c002dc8d347cd7fd282c2ab9e3a99ba",
-      "url": "https://github.com/advisories/GHSA-q3j6-qgpj-74h6",
-      "title": "GHSA: fast-uri vulnerable to path traversal via percent-encoded dot segments",
-      "summary": "### Impact\n\n`fast-uri` v3.1.0 and earlier decodes percent-encoded path separators (`%2F`) and dot segments (`%2E`) before applying dot-segment removal in `normalize()` and `equal()`. This makes encoded path data behave like real `/` and `..`, so distinct URIs collapse onto the same normalized path.\n\nFor example, `http://example.com/public/%2e%2e/admin` normalizes to `http://example.com/admin`, and",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-08T17:15:09Z",
-      "cve_ids": [
-        "CVE-2026-6321"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "1e5c82da48920560b4d7df14820caa3d1de9236a46b482cbd61277ed6e577d49",
-      "url": "https://github.com/advisories/GHSA-qxhc-wx3p-2wmg",
-      "title": "GHSA: @fastify/accepts-serializer Vulnerable to Denial of Service via Unbounded Accept Header Cache Growth",
-      "summary": "### Impact\n\n`@fastify/accepts-serializer` cached serializer-selection results keyed by the request `Accept` header without a size limit or eviction policy. A remote unauthenticated client could send many distinct but matching `Accept` header variants to make the cache grow unbounded. Under sustained load, this can exhaust the Node.js heap and crash the process.\n\n### Patches\n\nUpdate to `@fastify/ac",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-08T17:13:38Z",
-      "cve_ids": [
-        "CVE-2026-7768"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "6cf1a1317150e2e3874f9c42d08d3882ca2b2e7319e2cf94ef49de1b8c692ff2",
-      "url": "https://github.com/advisories/GHSA-rxvx-hhpj-q6px",
-      "title": "GHSA: ZITADEL has LDAP Filter Injection in Login Flow",
-      "summary": "## Summary\n\nA vulnerability was discovered in Zitadel's LDAP identity provider implementation, which fails to properly escape user-provided usernames before incorporating them into LDAP search filters. This allows unauthenticated attackers to perform LDAP Filter Injection during the login process.\n\n## Impact\n\nWhile this vulnerability does not allow for a full authentication bypass, an attacker can",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-08T17:11:29Z",
-      "cve_ids": [
-        "CVE-2026-44671"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "25e8dd2db455387cc0036d04cfbc89f6f578efe2221d22afdb5c19f8d46ff780",
-      "url": "https://github.com/advisories/GHSA-8g7g-hmwm-6rv2",
-      "title": "GHSA: n8n-mcp affected by path traversal, redirect-following SSRF, and telemetry payload exposure",
-      "summary": "## Impact\n\n`n8n-mcp` versions before 2.50.1 contained three independently-reported issues affecting deployments that run the n8n API integration:\n\n1. **Caller-supplied identifiers were not validated before being used as URL path segments** by the n8n API client. An authenticated MCP caller passing a crafted workflow id could cause outbound requests carrying the configured n8n API key to land on ot",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-08T17:00:09Z",
-      "cve_ids": [],
-      "cvss": 8.3,
-      "related_links": []
-    },
-    {
-      "id": "83e99711a78a2737b8cf3d1d38659e2279ca9f40e520cb611fc8cf1ed6de7d37",
-      "url": "https://github.com/advisories/GHSA-w9f3-qc75-qgx9",
-      "title": "GHSA: PrestaShop has a stored XSS executable in customer service view",
-      "summary": "### Impact\n\nThis is a **stored Cross-site Scripting (XSS)** vulnerability in the PrestaShop back-office Customer Service view.\n\nAn unauthenticated attacker can submit the public Contact Us form with a malicious email address. The payload is stored in the database and executed when a back-office employee opens the affected customer thread, enabling session hijacking and full back-office takeover.\n\n",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-08T16:54:22Z",
-      "cve_ids": [
-        "CVE-2026-44212"
-      ],
-      "cvss": 9.3,
-      "related_links": []
-    },
-    {
-      "id": "27fd344f29817a9d0cacc33ffd77d7100752942c61dfc7fa47c883fdab6d9ed3",
-      "url": "https://github.com/advisories/GHSA-45c6-75p6-83cc",
-      "title": "GHSA: fast-xml-builder Comment Value regex can be bypassed",
-      "summary": "# Summary\nThe fix for https://github.com/advisories/GHSA-gh4j-gqv2-49f6 in fast-xml-parser sanitizes `--` sequences in XML comment content using .replace(/--/g, '- -'). This skip the values containing three consecutive dashes (e.g., --->...), allowing an attacker to break out of an XML comment and inject arbitrary XML/HTML content.\n\n### Impact\nAny application with comment property enabled allow at",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-08T16:27:28Z",
-      "cve_ids": [
-        "CVE-2026-44664"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "1c44527cc19d32f5aabba0adf077be58db64cfbf6f46fb3705a2afbdc84e0e8f",
-      "url": "https://github.com/advisories/GHSA-2cm2-m3w5-gp2f",
-      "title": "GHSA: vm2 has access to `VM2_INTERNAL_STATE_DO_NOT_USE_OR_PROGRAM_WILL_FAIL`",
-      "summary": "### Summary\n\nhttps://github.com/patriksimek/vm2/security/advisories/GHSA-wp5r-2gw5-m7q7 is not fully patched.\n\n### Details\n\nIt is still possible to get access to `VM2_INTERNAL_STATE_DO_NOT_USE_OR_PROGRAM_WILL_FAIL`.\n\n### PoC\n\n```js\nconst {VM} = require(\"vm2\");\nconst vm = new VM();\nconsole.log(vm.run(`\n globalThis['VM2_INTERNAL_STATE_DO_NOT_USE_OR_PROGRAM_WILL_FAIL']\n`));\n```",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-08T16:22:52Z",
-      "cve_ids": [],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "45afe31826d2a450a12aa97447d9b50bd8c514cd15b93ae91bcd7d9d7a9796bb",
-      "url": "https://github.com/advisories/GHSA-9vg3-4rfj-wgcm",
-      "title": "GHSA: vm2 has Sandbox Breakout Through Null Proto Exception",
-      "summary": "### Summary\n\nVM2 suffers from a sandbox breakout vulnerability. This allows attackers to write code which can escape from the VM2 sandbox and execute arbitrary commands on the host system.\n\n### Details\n\nIn `handleException` due to ``// SECURITY (post-GHSA-mpf8 hardening): use `from` (not `ensureThis`)`` exceptions with a null proto will be assumed to come from the other side and being proxied. The",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-08T16:20:58Z",
-      "cve_ids": [
-        "CVE-2026-44009"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "bd0fed1e91099da811165b2475d393e1a357920726acec640b2dbe7b46864429",
-      "url": "https://www.bleepingcomputer.com/news/security/nvidia-confirms-geforce-now-data-breach-affecting-armenian-users/",
-      "title": "NVIDIA confirms GeForce NOW data breach affecting Armenian users",
-      "summary": "NVIDIA has confirmed in a statement for BleepingComputer that GeForce NOW user information has been exposed in a data breach. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-05-08T16:18:31+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f0412a1ba98f09c175862c936d4b83927faf76cd85f4cf19baaef5af26e9028b",
-      "url": "https://github.com/advisories/GHSA-9qj6-qjgg-37qq",
-      "title": "GHSA: vm2 has sandbox breakout via `neutralizeArraySpeciesBatch`",
-      "summary": "### Summary\n\nVM2 suffers from a sandbox breakout vulnerability. This allows attackers to write code which can escape from the VM2 sandbox and execute arbitrary commands on the host system.\n\n### Details\n\nThe new method `neutralizeArraySpeciesBatch` works with objects from the other side but can call into this side via getter on the array prototype exposing objects of the wrong side into the sandbox",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-08T15:58:48Z",
-      "cve_ids": [
-        "CVE-2026-44008"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "19eedb1c15d0f430be1213da6d42fe8fa663e470a4edba4fccea91344b7487fe",
-      "url": "https://github.com/advisories/GHSA-jp94-3292-c3xv",
-      "title": "GHSA: Devise has an Open Redirect via Unvalidated `request.referrer` in Timeoutable Session Timeout Handler",
-      "summary": "## Summary\n\nWhen the `Timeoutable` module is enabled in Devise, the `FailureApp#redirect_url` method returns `request.referrer` — the HTTP `Referer` header, which is attacker-controllable — without validation for any non-GET request that results in a session timeout. An attacker who hosts a page with an auto-submitting cross-origin form can cause a victim with an expired Devise session to be redir",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-08T15:41:47Z",
-      "cve_ids": [
-        "CVE-2026-40295"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "88cf530572c3f3c24abd3da713e891086647a6c95eef46f8255103aae030ebea",
-      "url": "https://www.bleepingcomputer.com/news/security/trellix-source-code-breach-claimed-by-ransomhouse-hackers/",
-      "title": "Trellix source code breach claimed by RansomHouse hackers",
-      "summary": "The attack on the Trellix source code repository disclosed last week has been claimed by the RansomHouse threat group, which leaked a small set of images as proof of the intrusion. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-05-08T13:23:23+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ccc1ab5760dbf42437657d0a14a2136b58af08d2b2eecfefd5fbd96ddafbaeb9",
-      "url": "https://www.rapid7.com/blog/post/dr-scaling-engineering-detection-as-code",
-      "title": "Zero Chaos: Scaling Detection Engineering at the Speed of Software, with Detection As Code",
-      "summary": "Every engineering team in your organization ships code through a pipeline. They branch, test, review, and deploy. If something breaks, they roll back. If someone asks \"what changed?\", the answer is in the commit history. This isn't heroic discipline to process; it's just how software gets built.Now think about how your detection engineering team works.Rules get written in a UI. Maybe copied and pa",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-05-08T12:37:21+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c3640fa51273e089c07005b0af381999c5b9fd472fdeb1bfdda455c0dc33485b",
-      "url": "https://www.bleepingcomputer.com/news/security/cisa-gives-feds-four-days-to-patch-ivanti-flaw-exploited-as-zero-day/",
-      "title": "CISA gives feds four days to patch Ivanti flaw exploited as zero-day",
-      "summary": "CISA has given U.S. federal agencies four days to secure their networks against a high-severity vulnerability in Ivanti Endpoint Manager Mobile (EPMM) exploited in zero-day attacks. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-05-08T12:16:32+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "5e985d4c386f01eb80b29275a8a494bfcddb2101cfa107dea0c0713eaa46bf69",
-      "url": "https://www.bleepingcomputer.com/news/security/new-linux-dirty-frag-zero-day-with-poc-exploit-gives-root-privileges/",
-      "title": "New Linux 'Dirty Frag' zero-day gives root on all major distros",
-      "summary": "A new Linux zero-day exploit, named Dirty Frag, allows local attackers to gain root privileges on most major Linux distributions with a single command. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-05-08T07:45:24+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "436a30908ec23907e7970369212437b1fb4cc99659bd7f8e7c36034c5e2824a2",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-42208",
-      "title": "CVE-2026-42208: BerriAI LiteLLM SQL Injection Vulnerability",
-      "summary": "BerriAI LiteLLM contains a SQL injection vulnerability that allows an attacker to read data from the proxy's database and potentially modify it, leading to unauthorised access to the proxy and the credentials it manages. Affected product: LiteLLM by BerriAI. Required action: Apply mitigations per vendor instructions, follow applicable BOD 22-01 guidance for cloud services, or discontinue use of th",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-05-08T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-42208"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ec290415b095945083a411db0868be8ea43558fd58f2118f2635565b226634be",
-      "url": "https://github.com/advisories/GHSA-39j6-4867-gg4w",
-      "title": "GHSA: utcp-http vulnerable to SSRF via attacker-controlled OpenAPI servers[0].url in HTTP communication protocol",
-      "summary": "## Summary\n\nThe `utcp-http` plugin is vulnerable to a blind Server-Side Request Forgery (SSRF) caused by a trust-boundary inconsistency between manual discovery and tool invocation. `register_manual()` validates the discovery URL against an HTTPS / loopback allowlist, but `call_tool()` and `call_tool_streaming()` reuse the resolved `tool_call_template.url` directly without revalidating. An attacke",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-07T22:32:54Z",
-      "cve_ids": [
-        "CVE-2026-44661"
-      ],
-      "cvss": 4.7,
-      "related_links": []
-    },
-    {
-      "id": "da33a63299507581106a9022e3da71157e89af7332b7b208572f4bbba33c8079",
-      "url": "https://github.com/advisories/GHSA-v7qw-hx66-4w9x",
-      "title": "GHSA: netbox-data-flows has stored XSS in ObjectAlias names rendered inside DataFlow tables",
-      "summary": "### Summary\nAn authenticated user who can create or edit `ObjectAlias` objects can store arbitrary HTML/JavaScript in an alias name. That payload is later rendered unescaped in `DataFlow` table views, causing a stored XSS when another user views the affected page.\n\n### Details\nThe issue is caused by unsafe HTML generation in the plugin’s custom table column renderer.\n\nRelevant code on `main` (`bf9",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-07T22:31:32Z",
-      "cve_ids": [],
-      "cvss": 8.7,
       "related_links": []
     }
   ]
