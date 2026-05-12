@@ -1,10 +1,52 @@
 {
-  "updated": "2026-05-12T10:31:53.088916+00:00",
+  "updated": "2026-05-12T14:26:43.592609+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "0dc5a49e837645f616fb6e5f6af1abc6e4d0e31ed529751119c38ad1ad589035",
+      "url": "https://github.com/advisories/GHSA-vwrp-x96c-mhwq",
+      "title": "GHSA: vm2: Mutable Proxies for Host Intrinsic Prototypes Allows Sandbox Escape",
+      "summary": "### Summary\nvm2's bridge exposes mutable proxies for real host-realm intrinsic prototypes and then forwards sandbox writes into the underlying host objects with otherReflectSet() and otherReflectDefineProperty(), which lets attacker-controlled JavaScript running in a default VM or inherited NodeVM mutate shared host Object.prototype, Array.prototype, and Function.prototype from inside the sandbox.",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T04:07:05Z",
+      "cve_ids": [
+        "CVE-2026-44005"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "76eb215cac918670a881781f638ffb3f54066743da984f63ed5e7d7d7074a9cf",
+      "url": "https://github.com/advisories/GHSA-47x8-96vw-5wg6",
+      "title": "GHSA: vm2 Access to Host Object Enables Sandbox Escape",
+      "summary": "### Summary\n\nIt is possible to obtain the host `Object`, https://github.com/patriksimek/vm2/commit/ebcfe94ad2f864f0bc35e78cff1d921107cfd160 added some protections, but the implementation is incomplete.\n\n### Details\n\nThere are various ways to use the host `Object`, to escape the sandbox, one example would be using  `HostObject.getOwnPropertySymbols` to obtain `Symbol(nodejs.util.inspect.custom)`\n\n#",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T04:00:19Z",
+      "cve_ids": [
+        "CVE-2026-43997"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "197b055e4d7bdad8e447f5e355d0b27cf0e810b640db096711268d768696d8ad",
+      "url": "https://github.com/advisories/GHSA-qcp4-v2jj-fjx8",
+      "title": "GHSA: vm2 has a Sandbox Escape Vulnerability",
+      "summary": "### Summary\n\nIt is possible to reach `BaseHandler.getPrototypeOf`, which can be used to get arbitrary prototypes\n\n### Details\n\nhttps://github.com/patriksimek/vm2/blob/408fc855f1cc1bbc2985b029465ee0e732ada433/lib/bridge.js#L655-L658\n\n`BaseHandler` can be reached via `util.inspect` (same as https://github.com/patriksimek/vm2/commit/57971fa423abeb66f09e47e18102986549474ca8)\n\n### PoC\n```js\nlet obj = {",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T03:54:34Z",
+      "cve_ids": [
+        "CVE-2026-44006"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
     {
       "id": "abf8c89e4d6c0294a4fb0fa6a9ec334f9989847d57d7e2bb398f415d58c44bd7",
       "url": "https://github.com/advisories/GHSA-mmpx-jh39-wrv6",
@@ -637,48 +679,6 @@
         "CVE-2026-6973"
       ],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "0961037dd388d84c427c2a1bca14d9dc5629b884da1c3ae31b41f092ed4ca13b",
-      "url": "https://github.com/advisories/GHSA-9vqf-7f2p-gf9v",
-      "title": "GHSA: Hono: bodyLimit() can be bypassed for chunked / unknown-length requests",
-      "summary": "## Summary\n\n`bodyLimit()` does not reliably enforce `maxSize` for requests without a usable `Content-Length` (e.g. `Transfer-Encoding: chunked`). Oversized requests can reach handlers and return `200` instead of `413`.\n\n## Details\n\nFor chunked / unknown-length requests, `bodyLimit()` wraps the body in a stream that counts bytes asynchronously, then runs the handler before the size decision is fina",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-06T23:50:10Z",
-      "cve_ids": [
-        "CVE-2026-44456"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "f91262367d642af84b667b57698c04e0580dd9c230185023b911bf3a91760ddb",
-      "url": "https://github.com/advisories/GHSA-69xw-7hcm-h432",
-      "title": "GHSA: hono/jsx has Unvalidated JSX Tag Names that May Allow HTML Injection",
-      "summary": "## Summary\n\nImproper handling of JSX element tag names in hono/jsx allowed unvalidated tag names to be directly inserted into the generated HTML output.\n\nWhen untrusted input is used as a tag name via the programmatic `jsx()` or `createElement()` APIs during server-side rendering, specially crafted values may break out of the intended element context and inject unintended HTML.\n\n## Details\n\nWhen r",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-06T23:49:43Z",
-      "cve_ids": [
-        "CVE-2026-44455"
-      ],
-      "cvss": 4.7,
-      "related_links": []
-    },
-    {
-      "id": "4d57b710c87faae4f406367a1a177c6634e03e15093451f8bd3d1ae43dff25c2",
-      "url": "https://github.com/advisories/GHSA-m24v-f7g5-gq67",
-      "title": "GHSA: Statamic CMS vulnerable to email enumeration via forgot password endpoint",
-      "summary": "### Impact\n\nResponses from the forgot password forms hinted at whether an account existed for a given email address. An unauthenticated attacker could use this to enumerate valid users, which can aid in follow-up credential-based attacks.\n\n### Patches\n\nThis has been fixed in 5.73.21 and 6.15.0. The forgot password forms now return the same generic response regardless of whether the submitted email",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-06T20:54:31Z",
-      "cve_ids": [
-        "CVE-2026-44306"
-      ],
-      "cvss": 5.3,
       "related_links": []
     }
   ]
