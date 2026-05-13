@@ -1,10 +1,70 @@
 {
-  "updated": "2026-05-13T10:28:27.321111+00:00",
+  "updated": "2026-05-13T14:35:10.034712+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "c3b728beaa2aaf0bf192c6ae0a65e644633ac40464190e65e9994fe3b6cea2ad",
+      "url": "https://github.com/advisories/GHSA-8mc6-xjpr-h98x",
+      "title": "GHSA: Ech0 has Server-Side Request Forgery (SSRF) via Connect Handler fetchPeerConnectInfo",
+      "summary": "## Summary\nThe `fetchPeerConnectInfo` function in `internal/service/connect/connect.go:214-239` uses `httpUtil.SendRequest` (no SSRF protection) instead of `SendSafeRequest` (which has `ValidatePublicHTTPURL` with private IP blocking). This allows authenticated users to make the server request arbitrary URLs including internal/cloud metadata endpoints.\n\n## Details\nIn `internal/service/connect/conn",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T21:28:40Z",
+      "cve_ids": [],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "6aa49768d5c7b7e2b023a6001e89416a3cc34c8c1e94109cf5fa44cbe3c82f6b",
+      "url": "https://github.com/advisories/GHSA-pj6q-4vq4-r8cg",
+      "title": "GHSA: Ech0 allows PUT /api/echo/like/:id unauthenticated: anonymous callers to modify any echo's fav_count",
+      "summary": "## Summary\n\n`PUT /api/echo/like/:id` at `internal/router/echo.go:12` is registered on `PublicRouterGroup` with no authentication and no rate limit. Anonymous callers increment the `fav_count` counter on any echo (including private echoes) by UUID, repeat the request without deduplication, and trigger a database write plus a four-key cache invalidation on every call. Alice harvests echo UUIDs from ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T21:23:57Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "fb4236990a8168ff2e6890b103f07358ce5cd16fb2d2fdd62f002040bfbd5ae1",
+      "url": "https://github.com/advisories/GHSA-rgj7-vg8v-j4wr",
+      "title": "GHSA: Ech0's Unauthenticated Like Endpoint Enables Arbitrary Engagement Metric Inflation",
+      "summary": "### Summary\n\n**No authentication** is required to invoke **`PUT /api/echo/like/:id`**. The handler is registered on the **public** router group. The service increments **`fav_count`** for the given echo **without** checking identity, **without** a per-user limit, and **without** CSRF tokens. A remote client can **arbitrarily inflate** like metrics with repeated requests.\n\n### Description\n\n**Root c",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-07T21:21:21Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "42277c117d6bbeca94a363e0189e532e090c41e70053c3f3687b8e0ebaddbdcb",
+      "url": "https://github.com/advisories/GHSA-3v85-fqvh-7rxf",
+      "title": "GHSA: Ech0's RSS feed renders unescaped tag names and raw-HTML markdown, stored XSS against subscribers",
+      "summary": "## Summary\n\nThe public RSS/Atom feed at `/rss` renders two attacker-controlled surfaces without HTML escaping. Tag names flow through `fmt.Appendf(renderedContent, \"<br /><span class=\\\"tag\\\">#%s</span>\", tag.Name)` at `internal/service/common/common.go:120`, and the Markdown renderer at `internal/util/md/md.go` does not set the `html.SkipHTML` flag, so raw HTML blocks in echo content pass through ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-07T21:18:27Z",
+      "cve_ids": [],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "4c17860548ab8320160d7b9c9e42447dfc5aad58aaa6625e2fe1978f58ec5145",
+      "url": "https://github.com/advisories/GHSA-rj4g-rqgh-rx9h",
+      "title": "GHSA: Ech0 comment model's Email field returned on public /api/comments endpoints",
+      "summary": "## Summary\n\nThe `Comment` model serializes its `Email` field through the public comment-listing API. `internal/model/comment/comment.go:33` uses `json:\"email\"`, while adjacent PII fields (`IPHash`, `UserAgent`) correctly use `json:\"-\"`. The public endpoints `GET /api/comments?echo_id=X` and `GET /api/comments/public?limit=N` both live on `PublicRouterGroup` with no authentication. Alice retrieves ",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-05-07T21:16:15Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
     {
       "id": "f2190351897756bac8f4619ed20d30f3c5333cb1bac50d6afe81f2b00b4e4ec6",
       "url": "https://github.com/advisories/GHSA-q6mh-rqwh-g786",
@@ -624,74 +684,6 @@
         "CVE-2026-42880"
       ],
       "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "ab549e7162e08963823f48927458a35289e1be43e0685729a0a08fb92706d614",
-      "url": "https://github.com/advisories/GHSA-vrrx-58h3-prmh",
-      "title": "GHSA: Free5GC AMF has Missing Concurrent NAS SMC Validation During NGAP Handover ",
-      "summary": "### Summary\n\nThe AMF in Free5GC v4.2.1 does not enforce the concurrent security procedure rules defined in 3GPP TS 33.501 §6.9.5.1. The AMF does not check for ongoing N2 handover procedures before initiating a NAS Security Mode Command, and vice versa. This can lead to mismatches between NAS and AS security contexts in the network and the UE.\n\n### Details\n\n**Vulnerability Type:** CWE-358 (Improper",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-07T01:56:13Z",
-      "cve_ids": [
-        "CVE-2026-42082"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "d7f6ddf1a5e0d0f688a19f20ddf91b2c171286cfce631536c0ad32533c6699df",
-      "url": "https://github.com/advisories/GHSA-fpf5-4jw8-67x8",
-      "title": "GHSA: rust-zserio has Unbounded Memory Allocation",
-      "summary": "### Impact\n\nWhen deserializing arrays, strings or bytes (blob) types zserio first reads the size of the variable, and then allocates sufficient memory to load data. Since the size is always trusted this can be abused by creating a data file with a large size value, causing the zserio runtime to allocate large amounts of memory.\n\n### Patches\n\nPlease cherry-pick [57f5fb](https://github.com/Danaozhon",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-07T01:54:57Z",
-      "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "18937790ddb3c1afc6976b67b5f706e5f83af5c35b3143973cf2a0af67d153da",
-      "url": "https://github.com/advisories/GHSA-77x9-rf64-92gv",
-      "title": "GHSA: Free5GC AMF Bypasses UE Security Capabilities on NGAP PathSwitchRequest",
-      "summary": "### Summary\nThe AMF in Free5GC v4.2.1 does not verify the UE Security Capabilities received in NGAP PathSwitchRequest messages against its locally stored values, as mandated by 3GPP TS 33.501 §6.7.3.1. A malicious gNB can overwrite the AMF's stored UE security capabilities with arbitrary values, which are then propagated in PathSwitchRequest Acknowledge messages and subsequent Handover Request mes",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-07T01:53:47Z",
-      "cve_ids": [
-        "CVE-2026-42081"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "76dbf251f701722608d75af08a6d35ed013cc2c7b3d796dcc6f700ca331ea363",
-      "url": "https://github.com/advisories/GHSA-765j-qfrp-hm3j",
-      "title": "GHSA: Fleet: Helm impersonation bypass of `RESTClientGetter` retains `cluster-admin` during template rendering",
-      "summary": "### Impact\n\nFleet's Helm deployer did not fully apply ServiceAccount impersonation in two code paths, allowing a tenant with git push access to a Fleet-monitored repository to read secrets from any namespace on every downstream cluster targeted by their `GitRepo`.\n\n**Helm `lookup` bypass:** The Helm template engine ran Kubernetes API queries with the fleet-agent's cluster-admin credentials instead",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-07T01:26:06Z",
-      "cve_ids": [
-        "CVE-2026-41050"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "27cf26e7d4383352faf10d945eade24d14c80897f7aae0877decd7fca4e37563",
-      "url": "https://github.com/advisories/GHSA-5v3h-x4wf-5c35",
-      "title": "GHSA: Rancher Extensions have arbitrary file access via path traversal",
-      "summary": "### Impact\n\nA vulnerability has been identified in [Rancher's Extensions](https://ranchermanager.docs.rancher.com/integrations-in-rancher/rancher-extensions) where malicious code can be injected in Rancher through a path traversal in the `compressedEndpoint` field inside a `UIPlugin` deployment. A malicious UI extension could abuse that to:\n\n- Overwrite Rancher binaries or configuration to inject ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-07T01:23:59Z",
-      "cve_ids": [
-        "CVE-2026-25705"
-      ],
-      "cvss": 8.4,
       "related_links": []
     }
   ]
