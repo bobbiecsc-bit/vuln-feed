@@ -1,10 +1,38 @@
 {
-  "updated": "2026-05-14T21:10:28.400128+00:00",
+  "updated": "2026-05-15T03:33:26.602060+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "e768072126cd3ef657bfdc39b14ce72f6a437ad715153d449498c6a3006c2a99",
+      "url": "https://github.com/advisories/GHSA-3258-qmv8-frp3",
+      "title": "GHSA: free5GC's SMF UPI management interface lacks auth middleware; unauthenticated topology read/write requests reach handlers",
+      "summary": "### Summary\nfree5GC's SMF mounts the `UPI` management route group without OAuth2/bearer-token authorization middleware. A network attacker who can reach SMF on the SBI can hit `UPI` endpoints with no `Authorization` header at all, and the requests reach the SMF business handlers. In the running Docker lab this was directly demonstrated for read (`GET /upi/v1/upNodesLinks`), write (`POST /upi/v1/up",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-08T23:02:23Z",
+      "cve_ids": [
+        "CVE-2026-44329"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "81b190e0f314e0cc59b0d13bb5a6179e24f251cf634d478ea5ec78d587eef8fe",
+      "url": "https://github.com/advisories/GHSA-p9mg-74mg-cwwr",
+      "title": "GHSA: free5GC's SMF UPI DELETE /upi/v1/upNodesLinks/{ref} panics on AN-node deletion via nil UPF dereference; unauthenticated, state-mutating",
+      "summary": "### Summary\nfree5GC's SMF mounts the `UPI` management route group without inbound OAuth2 middleware (same root cause as the broader UPI auth gap reported in free5gc/free5gc#887). On top of that, the `DELETE /upi/v1/upNodesLinks/{upNodeRef}` handler unconditionally dereferences `upNode.UPF` after the type-guarded async release, even though `AN`-typed nodes are constructed without a `UPF` object. As",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-08T23:01:56Z",
+      "cve_ids": [
+        "CVE-2026-44328"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
     {
       "id": "7061fcaa69286b1d7a197a423bc99ac615484967041bf907fefec6a11ba8eec6",
       "url": "https://github.com/advisories/GHSA-cmpj-2x3g-m7g3",
@@ -675,36 +703,6 @@
         "CVE-2026-44680"
       ],
       "cvss": 7.6,
-      "related_links": []
-    },
-    {
-      "id": "2befdd2e8ab921feef3b503ca9d5d7eed42730992b13bfe66a6bfccb00d7afcd",
-      "url": "https://github.com/advisories/GHSA-v39h-62p7-jpjc",
-      "title": "GHSA: fast-uri vulnerable to host confusion via percent-encoded authority delimiters",
-      "summary": "### Impact\n\n`fast-uri` v3.1.1 and earlier decodes percent-encoded authority delimiters (`%40` as `@`, `%3A` as `:`) inside the host component and serializes them back as raw characters. This changes the URI structure, turning a hostname into userinfo plus a different host.\n\nFor example, `http://trusted.com%40evil.com/` normalizes to `http://trusted.com@evil.com/`, which reparses as host `evil.com`",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-08T19:13:01Z",
-      "cve_ids": [
-        "CVE-2026-6322"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-6322"
-      ]
-    },
-    {
-      "id": "ced463845699d79d532a190392fa728c1e7b11af5b423d25daeefc10f5029a24",
-      "url": "https://github.com/advisories/GHSA-fp53-qcf8-2xx2",
-      "title": "GHSA: Bunsink has an SSRF bypass in `validate_webhook_url`",
-      "summary": "## Summary\n\nBugsink’s webhook URL validation in versions 2.1.2 and earlier could be (partially) bypassed because of a mismatch in URL parsing.\n\nIn some malformed URLs, Python’s standard URL  parser (urllib) and the HTTP client stack (requests / urllib3) do not agree on which host is actually being targeted. That could allow a webhook URL to pass Bugsink’s outbound-host checks while the actual HTTP",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-08T19:09:04Z",
-      "cve_ids": [
-        "CVE-2026-44502"
-      ],
-      "cvss": 4.3,
       "related_links": []
     }
   ]
