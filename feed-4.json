@@ -1,10 +1,316 @@
 {
-  "updated": "2026-05-19T15:23:29.395565+00:00",
+  "updated": "2026-05-19T18:06:02.055461+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "059d07bb0bf15216ea203207b0025300302f9db4590a6758f6366b0b69f2342e",
+      "url": "https://github.com/advisories/GHSA-h3ww-q6xx-w7x3",
+      "title": "GHSA: Open WebUI: LDAP and OAuth First-User Race Condition Allows Multiple Admin Accounts",
+      "summary": "## Summary\n\nThe LDAP and OAuth authentication flows use a TOCTOU (Time-of-Check-Time-of-Use) pattern for first-user admin role assignment. The regular signup handler (`signup_handler` in auths.py, line 663) was explicitly patched to prevent this race with the comment *\"Insert with default role first to avoid TOCTOU race\"*, but the LDAP and OAuth code paths were never updated with the same fix.\n\n##",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-05-14T20:28:46Z",
+      "cve_ids": [
+        "CVE-2026-45675"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "0fe58601a28d9efdf0f6f484effb52aa110237b18b3155ded593617dfb155e57",
+      "url": "https://github.com/advisories/GHSA-482j-2pq6-q5w4",
+      "title": "GHSA: Open WebUI: Jupyter code execution works despite `ENABLE_CODE_EXECUTION=false` — feature gate bypassed",
+      "summary": "### Summary\n\nThe `/api/v1/utils/code/execute` endpoint executes arbitrary Python code via Jupyter for any verified user, even when the admin has set `ENABLE_CODE_EXECUTION=false`. The feature gate is not enforced on the API endpoint — the configuration says \"disabled\" but code still executes.\n\n### Details\n\nThe admin configuration correctly shows `ENABLE_CODE_EXECUTION: false`. However, the code ex",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-14T20:28:40Z",
+      "cve_ids": [
+        "CVE-2026-45672"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "16abb15886ffae39f3440883e0679cd6dfff70b2f5ba4845e97cd559f9825213",
+      "url": "https://github.com/advisories/GHSA-26g9-27vm-x3q8",
+      "title": "GHSA: Open WebUI: shared-chat branch ignores access_type, allowing unauthorized file deletion",
+      "summary": "### Summary\n\nAny authenticated user can permanently delete files owned by other users via `DELETE /api/v1/files/{id}` when the target file is referenced in any shared chat. The `has_access_to_file()` authorization gate unconditionally grants access through its shared-chat branch. It checks neither the requesting user's identity nor the type of operation being performed. File UUIDs (which would oth",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:28:34Z",
+      "cve_ids": [
+        "CVE-2026-45671"
+      ],
+      "cvss": 8.0,
+      "related_links": []
+    },
+    {
+      "id": "8a7040003c4e12aa65fbca8a5c224225aa7375f202afa0345f51c8419ec5a67d",
+      "url": "https://github.com/advisories/GHSA-m69w-p7m4-585j",
+      "title": "GHSA: Open WebUI: Unauthenticated endpoint can trigger embedding generation (cost/DoS)",
+      "summary": "### Summary\nGET `/api/v1/memories/ef` is accessible without authentication and executes `request.app.state.EMBEDDING_FUNCTION(...)`. This allows any unauthenticated caller to trigger embedding generation which can lead to direct cost exposure if a paid provider is used.\nCode reference: `backend/open_webui/routers/memories.py` (@router.get(\"/ef\") -> calls `request.app.state.EMBEDDING_FUNCTION(\"hell",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-14T20:28:02Z",
+      "cve_ids": [
+        "CVE-2026-45667"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "619ab2106b66bd53215f9e427c0113673d42b0e9650c4b189e5da1b37504a9d0",
+      "url": "https://github.com/advisories/GHSA-x3qm-p8hr-3c3h",
+      "title": "GHSA: Open WebUI has an Indirect Object Reference (IDOR) in user notes",
+      "summary": "### Summary\nThe  API /api/v1/notes/{note_id} endpoint lacks proper authorization checks, allowing authenticated users to retrieve notes belonging to other users by guessing or enumerating UUIDs. This results in unauthorized disclosure of potentially sensitive or private user data.\n\n### Details\n- if notes is enabled from UI (Settings >> General >> Features >> Notes (Beta))\n   - From API, attacker c",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:27:56Z",
+      "cve_ids": [
+        "CVE-2026-45666"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "b9cb14cf5208fc5aab0976a958903c116845bb664c07bac5de56a949eab34cd4",
+      "url": "https://github.com/advisories/GHSA-cqp4-qqvg-3787",
+      "title": "GHSA: Open WebUI has Stored XSS in Banner Component via Improper Sanitization Order",
+      "summary": "### Summary\nA Stored Cross-Site Scripting (XSS) vulnerability exists in the Banner component due to an improper sanitization order (specifically, DOMPurify is executed before the marked library).\n\nThis vulnerability allows a compromised or malicious administrator to plant a malicious payload in the global banner. Crucially, this vector enables Privilege Escalation, as the malicious banner is rende",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:27:45Z",
+      "cve_ids": [
+        "CVE-2026-45665"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "baea755ac3db617fb91c58b98ee10f3aad8a5c73965c8d2f25b7243b9525595b",
+      "url": "https://github.com/advisories/GHSA-r472-mw7m-967f",
+      "title": "GHSA: Open WebUI: Cross-User File Access via Unchecked file_id in Folder Knowledge and Knowledge-Base Attach Endpoints",
+      "summary": "# Cross-User File Access via Unchecked file_id in Folder Knowledge and Knowledge-Base Attach Endpoints\n\n## Summary\n\nMultiple endpoints accept a user-supplied `file_id` and attach the referenced file to a resource the caller controls (folder knowledge, knowledge-base contents) without verifying that the caller owns or has been granted access to the file. The file's content then becomes reachable th",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-14T20:27:35Z",
+      "cve_ids": [
+        "CVE-2026-45402"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "bfb5b79bf9ceccee4a25eaafb8525a471bd636ac09c5f0d5709cdd1a22f6c43e",
+      "url": "https://github.com/advisories/GHSA-3wgj-c2hg-vm6q",
+      "title": "GHSA: Open WebUI vulnerable to stored XSS via OAuth picture claim stored as SVG data URI in profile_image_url",
+      "summary": "# Summary\n\nWhen a user signs in via OAuth, Open WebUI fetches the `picture` claim URL, infers a MIME type from the URL extension via `mimetypes.guess_type`, and stores `data:<mime>;base64,...` as the user's profile image. The OAuth code path does not go through the `validate_profile_image_url` Pydantic validator that normally restricts profile images to PNG/JPEG/GIF/WebP. A `.svg` URL in the `pict",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:27:28Z",
+      "cve_ids": [],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "3af625c4552fec6f634f102b683241bf61067c548408c9d997f4b6c7e52e4fc5",
+      "url": "https://github.com/advisories/GHSA-rh5x-h6pp-cjj6",
+      "title": "GHSA: Open WebUI has a SSRF Bypass via HTTP Redirect Following in Web-Fetch and Image-Load Endpoints (not addressed by CVE-2025-65958)",
+      "summary": "# Server-Side Request Forgery (SSRF) Bypass via HTTP Redirect Following in Web-Fetch, Image-Load, and Chat-Completion Endpoints\n\n## Summary\n\nThe `validate_url()` function in `backend/open_webui/retrieval/web/utils.py` only validates the *initial* URL submitted by the caller. The HTTP clients used downstream (sync `requests`, async `aiohttp`, langchain's `WebBaseLoader`) follow HTTP 3xx redirects b",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:27:14Z",
+      "cve_ids": [
+        "CVE-2026-45401"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "35ca454b352c3c14eed0cf4172b36570d5403666d8dc68deeb79747628d98806",
+      "url": "https://github.com/advisories/GHSA-8w7q-q5jp-jvgx",
+      "title": "GHSA: Open WebUI has a Server-Side Request Forgery (SSRF) bypass in `validate_url`",
+      "summary": "### Summary\nIn the open-webui project, a parsing difference between the urlparse and requests libraries led to an SSRF bypass vulnerability.\n\n### Details\nIn the current project, URL validation is performed using the function validate_url.\n\n<img width=\"1323\" height=\"1145\" alt=\"QQ20260322-202854-22-1\" src=\"https://github.com/user-attachments/assets/896d19f2-c7c3-499a-9052-12aea756ac47\" />\n\nThe curre",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:27:00Z",
+      "cve_ids": [
+        "CVE-2026-45400"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "74742d79f1cb51a8cbc63b17be6339157430d6c19d1aa90406125a2a4665f2b6",
+      "url": "https://github.com/advisories/GHSA-8jjp-r2w2-4v22",
+      "title": "GHSA: Open WebUI: Low-privilege authenticated users can enumerate and stop global background tasks, causing system-wide chat disruption",
+      "summary": "### Summary\nAny authenticated user with low privileges can enumerate active background tasks across the system and stop tasks belonging to other users via the GET /api/tasks and POST /api/tasks/stop/{task_id} methods. This allows a casual user to disrupt system-wide chat usage by continuously canceling other users' active tasks. This is a real authorization vulnerability affecting integrity and us",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:26:49Z",
+      "cve_ids": [
+        "CVE-2026-45399"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "cc888c0d37c0b9942981fb8b6e42c932bb32373d31c1f9487a04b003a1891329",
+      "url": "https://github.com/advisories/GHSA-4g37-7p2c-38r9",
+      "title": "GHSA: Open WebUI Vulnerable to IDOR: Retrieval API Bypasses Knowledge Base Access Controls",
+      "summary": "# IDOR: Retrieval API Bypasses Knowledge Base Access Controls\n\n**Author:** Andrew Orr <aorr@tenable.com>\n\n## Summary\n\n`_validate_collection_access()` ([PR #22109](https://github.com/open-webui/open-webui/pull/22109)) checks the `user-memory-*` and `file-*` collection name prefixes but does not check knowledge base collections, which use raw UUIDs as collection names. Any authenticated user who kno",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:26:42Z",
+      "cve_ids": [
+        "CVE-2026-45398"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "b700646f6b86b8924a0407174733efcf7fec3611722a5ba3f285b96916f434f7",
+      "url": "https://github.com/advisories/GHSA-65pg-qhhw-mxwg",
+      "title": "GHSA: Open WebUI Vulnerable to Unauthenticated RAG Configuration Disclosure",
+      "summary": "**Vulnerability Type:** Information Disclosure / Missing Authentication  \n**Severity:** Medium  \n**Component:** `backend/open_webui/routers/retrieval.py` — `get_status()` (`GET /`)  \n**Affected Endpoint:** `GET /api/v1/retrieval/`  \n**Affected Version:** Open WebUI `main` branch — confirmed unpatched through **v0.9.2**  \n**Authentication Required:** None — internet-facing with zero credentials  \n*",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-14T20:26:34Z",
+      "cve_ids": [
+        "CVE-2026-45397"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "2c07fe116853ffe1cf855966fa92936be94890c06b3389225a4124ea3e0d895c",
+      "url": "https://github.com/advisories/GHSA-rjmp-vjf2-qf4g",
+      "title": "GHSA: Open WebUI: Mass Assignment via FeedbackForm extra=allow Allows Feedback User ID Spoofing and Evaluation Data Manipulation",
+      "summary": "# Mass Assignment in Feedback Creation Allows User ID Spoofing and Evaluation Data Manipulation\n\n## Summary\n\nThe `POST /api/v1/evaluations/feedback` endpoint in Open WebUI v0.9.2 is vulnerable to mass assignment via `FeedbackForm`, which uses `model_config = ConfigDict(extra='allow')`. Due to an insecure dictionary merge order in `insert_new_feedback()`, an authenticated attacker can inject a `use",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:26:18Z",
+      "cve_ids": [
+        "CVE-2026-45396"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "b9ca30c5b5ac1d6fbf0e7ccabac9827321bc3a5f13e14bfcac6b6121a9c6c1dc",
+      "url": "https://github.com/advisories/GHSA-p4fx-23fq-jfg6",
+      "title": "GHSA: Open WebUI: Missing `workspace.tools` Authorization Check on Tool Update Endpoint Allows Privilege Escalation to Code Execution",
+      "summary": "### Summary\n\nThe tool update endpoint (`POST /api/v1/tools/id/{id}/update`) is missing the `workspace.tools` permission check that is present on the tool create endpoint. This allows a user who has been explicitly **denied** tool management capabilities ( and who the administrator considers **untrusted** for code execution )  to replace a tool's server-side Python content and trigger execution, by",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:26:09Z",
+      "cve_ids": [
+        "CVE-2026-45395"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
+      "id": "016a7455d5975e9f9d190ab52346d5fbbf1416069d6a98dab405512780b8d9e1",
+      "url": "https://github.com/advisories/GHSA-h2cw-7qw9-56xr",
+      "title": "GHSA: Open WebUI: Sharing models for others to use (read permission) also exposes model details (system prompt leakage)",
+      "summary": "### Summary\nWhen setting model permissions so that a group has read access to it, intending for other users to use it, those users also can read the model's system prompt.\n\nHowever users may consider their system prompt confidential, so we consider this a security issue.\n\nCompare https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/ or prompt injections to get popular chatbots on the in",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:26:03Z",
+      "cve_ids": [
+        "CVE-2026-45387"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "e03cdd2fd8bfac43a60fca033cc5ff01435cb36c24a770a3d1f73a339a362454",
+      "url": "https://github.com/advisories/GHSA-5gc6-xhv4-2wg6",
+      "title": "GHSA: Open WebUI has an IDOR vulnerability in the pin_channel_message API endpoint",
+      "summary": "### Summary\n`Pin/Unpin` is a write operation (modifies the message's `is_pinned `, `pinned_by`, `pinned_at` fields), but in standard channels it only checks `read` permission, allowing users with read-only access to pin/unpin any message.\n\n### Details\nhttps://github.com/open-webui/open-webui/blob/9bd84258d09eefe7bf975878fb0e31a5dadfe0f8/backend/open_webui/routers/channels.py#L1218\n\n```\n@router.pos",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-05-14T20:25:58Z",
+      "cve_ids": [
+        "CVE-2026-45386"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "23e2fd65d26e0323a095de0d9b9824a47d1e2e2a374987b99e9dd428b932996e",
+      "url": "https://github.com/advisories/GHSA-wwhq-cx22-f7vv",
+      "title": "GHSA: Open WebUI has an IDOR vulnerability in the update_message_by_id API endpoint",
+      "summary": "### Summary\nAn IDOR vulnerability exists in the Channels feature of `Open WebUI`, allowing any channel member to modify messages sent by other members (including administrators) within the same channel. This vulnerability affects the latest version (`v0.8.12`) of `Open WebUI`.\n\n### Details\nIn the `update_message_by_id` function, for `group` or `dm` type channels, only the caller's membership in th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:25:40Z",
+      "cve_ids": [
+        "CVE-2026-45385"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "b8ac251b11e678451a019af03e51d271d1f831c3efdde346d5315c562e7b2fae",
+      "url": "https://github.com/advisories/GHSA-v6qf-75pr-p96m",
+      "title": "GHSA: Open WebUI: Authenticated users can bypass model access control via exposed query parameter [AI-ASSISTED]",
+      "summary": "### Summary\n\nAn internal-only bypass_filter parameter is exposed on the /openai/chat/completions and /ollama/api/chat HTTP endpoints via FastAPI query string binding, allowing any authenticated user to append ?bypass_filter=true and bypass model access control checks to invoke admin-restricted models.\n\n### Details\n\nThe `generate_chat_completion` route handlers in both `routers/openai.py` and `rout",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-05-14T20:25:24Z",
+      "cve_ids": [
+        "CVE-2026-45365"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "da945cab968803a596f14ed3d89297d2494dde48e947dae8648858fa349e0efe",
+      "url": "https://github.com/advisories/GHSA-jh9g-8jqw-m2qx",
+      "title": "GHSA: Open WebUI Exposes System Prompt to Regular User [Non-Admin]",
+      "summary": "### Summary\n_A regular user [non-admin] can view the system prompt of the model which is set by an admin._\n\n### Details\n_When a regular user [non-admin] logs into the application, a http://IP:8080/api/models? web request is initiated by the application and in response, it reveals the system prompt of available models set by admin on models pages in workspace affecting the confidentiality of applic",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:25:04Z",
+      "cve_ids": [
+        "CVE-2026-45351"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "84d7db0ec734a95a6d56fc827589e9665509270bcbadada0b3a968e3c61469cb",
+      "url": "https://github.com/advisories/GHSA-4pcg-253r-rf9w",
+      "title": "GHSA: Open WebUI's chat completion API allows tool restrictions to be bypassed",
+      "summary": "### Summary\nOpen WebUI v0.6.43 contains a vulnerability in its chat completion API, which allows attackers to bypass tool restrictions, potentially enabling unauthorized actions or access.\n\n\n### Details\nIn the [chat_completion](https://github.com/open-webui/open-webui/blob/a7271532f8a38da46785afcaa7e65f9a45e7d753/backend/open_webui/main.py#L1529) API, the parameters [tool_ids and tool_servers](htt",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:24:48Z",
+      "cve_ids": [
+        "CVE-2026-45350"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "0d16a70d203d1bf422ee95b631aa44464a4f2256603377c2ac3840012dd3b8eb",
+      "url": "https://github.com/advisories/GHSA-gfm2-xm6c-37qc",
+      "title": "GHSA: Open WebUI has Broken Access Control for Completions API",
+      "summary": "### Summary\nAny user `X` can continue the conversation of any other user `Y`, as long as the Chat ID of `Y` is known. User `X` does not even need to be an admin to do so. \n\n### Details\nA user just needs to use the API endpoint: `/api/chat/completions` with their own API key (generated in OWUI) and the Chat ID of another user. **OWUI does not check to match the Chat ID with the user that created th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:24:35Z",
+      "cve_ids": [
+        "CVE-2026-45349"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
     {
       "id": "c21086a8ab6d5fb16b44b353e5dbde9398f350aa40418c5edec2d2af7e4ee420",
       "url": "https://github.com/advisories/GHSA-fcjq-435v-jx94",
@@ -394,307 +700,6 @@
         "CVE-2026-41249"
       ],
       "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "60f8de8bd663bb3b5295311a20c292a6d418fd6b2606d61ab05b0108bbc9a6a0",
-      "url": "https://github.com/advisories/GHSA-wmmv-vvg5-993q",
-      "title": "GHSA: Amazon Redshift Vulnerable to Remote Code Execution via Unsafe Class Loading",
-      "summary": "### Summary\nAmazon Redshift JDBC Driver is a Type 4 JDBC driver that provides database connectivity through the standard JDBC application program interfaces (APIs). An issue exists in versions prior to 2.2.2 where the driver could load arbitrary classes when processing certain connection URL parameters, potentially allowing code execution in the application context.\n\n### Impact\nWhen a JDBC connect",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-14T13:09:52Z",
-      "cve_ids": [
-        "CVE-2026-8178"
-      ],
-      "cvss": 8.1,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-8178"
-      ]
-    },
-    {
-      "id": "6db5f1363d74e17ce1d6823e743a44e5e6d150a31e969ffd2c2cf8fc4c7d54f3",
-      "url": "https://www.exploit-db.com/exploits/52563",
-      "title": "[webapps] Apache HertzBeat 1.8.0 - Remote Code Execution",
-      "summary": "Apache HertzBeat 1.8.0 - Remote Code Execution",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-05-14T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "74ce925ad673b472fed47d72709a4cc1fe295f425a87801eb77df4bed01db22b",
-      "url": "https://www.bleepingcomputer.com/news/security/new-critical-exim-mailer-flaw-allows-remote-code-execution/",
-      "title": "New critical Exim mailer flaw allows remote code execution",
-      "summary": "A critical vulnerability affecting certain configurations of the Exim open-source mail transfer agent could be exploited by an unauthenticated remote attacker to execute arbitrary code. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-05-13T20:23:50+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "0e4efbafc42d2d013787d2c9e42a90dd2a1202740e57e1b4ed1d6d58c3dde62b",
-      "url": "https://www.bleepingcomputer.com/news/security/windows-bitlocker-zero-day-gives-access-to-protected-drives-poc-released/",
-      "title": "Windows BitLocker zero-day gives access to protected drives, PoC released",
-      "summary": "A cybersecurity researcher has published proof-of-concept (PoC) exploits for two unpatched Microsoft Windows vulnerabilities named YellowKey and GreenPlasma, which are a BitLocker bypass and a privilege-escalation flaw. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-05-13T16:37:49+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "81cd4e1035878d568a64a8a55f06882e9238121b4805106a0dde8817eedb5d3a",
-      "url": "https://github.com/advisories/GHSA-27qc-m5gf-jv5r",
-      "title": "GHSA: SiYuan Bazaar marketplace renders unescaped package `name` and `version` metadata, allowing stored XSS and Electron code execution",
-      "summary": "### Summary\n\nSiYuan's Bazaar (community marketplace) renders the `name` and `version` fields of a package's `plugin.json` (and the equivalent `theme.json` / `template.json` / `widget.json` / `icon.json`) into the Settings → Marketplace UI without HTML escaping. The kernel-side helper `sanitizePackageDisplayStrings` in `kernel/bazaar/package.go` HTML-escapes only `Author`, `DisplayName`, and `Descr",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-13T15:33:57Z",
-      "cve_ids": [
-        "CVE-2026-45375"
-      ],
-      "cvss": 9.0,
-      "related_links": []
-    },
-    {
-      "id": "0426724ec7ad14f0dc1ea8e5f63d1233a9f9331b660f7f479741163888488500",
-      "url": "https://github.com/advisories/GHSA-v25j-wqcw-fvhj",
-      "title": "GHSA: wger has an Uncontrolled Resource Consumption issue",
-      "summary": "### Summary\n\nAny authenticated user can create a routine spanning an arbitrarily long date range (e.g. 100 years) and then trigger the `date_sequence` computation via any of the routine detail endpoints. The server iterates once per day in an unbounded `while` loop with no maximum duration validation, causing a single HTTP request to consume multiple seconds of server CPU and return a response con",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-13T15:33:38Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "8862161d7e6018818030d7c98345159382ef7fa3318b0c1fb91c254c7fd21a2f",
-      "url": "https://github.com/advisories/GHSA-2rgp-f66f-4499",
-      "title": "GHSA: Goobi viewer - Core: Unauthenticated Solr Streaming Expression Proxy",
-      "summary": "### Summary\n\nThe Goobi viewer REST endpoint `POST /api/v1/index/stream` accepted an arbitrary Solr streaming\nexpression from unauthenticated network clients and forwarded it to the backend Solr server without restriction.\nAn attacker could read the complete Solr index and, in default Solr deployments, also modify or delete indexed records.\n\nThe API endpoint has now been removed.\n\n### Impact\n\n- **C",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-13T15:33:24Z",
-      "cve_ids": [
-        "CVE-2026-45083"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "d2226d1765dca706695b6192c0fa538d2c6d2a3d8d14833611840c0a2867a164",
-      "url": "https://github.com/advisories/GHSA-qqq4-5773-pmw5",
-      "title": "GHSA: uniget is Vulnerable to Command Injection in tool.Check Leading to Arbitrary Code Execution",
-      "summary": "I discovered a command injection vulnerability in uniget that allows arbitrary command execution through the metadata loading and version check mechanism.\n\n### Summary\n\nA command injection vulnerability exists in uniget due to unsafe execution of the `check` field from metadata files using `/bin/bash -c`. Because the `check` field is loaded directly from untrusted JSON metadata without validation ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-13T15:33:10Z",
-      "cve_ids": [
-        "CVE-2026-45152"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "3e80094c4b986b3e2e02f3274b2ec08f97cfc90b0f2b3a2f3269cfc130f31671",
-      "url": "https://github.com/advisories/GHSA-fmh9-gpqh-g53g",
-      "title": "GHSA: SiYuan has broken access control in `/api/search/{searchAsset,searchTag,searchWidget,searchTemplate}` publish-mode",
-      "summary": "### Summary\n\nThe advisory `GHSA-c77m-r996-jr3q` patched `getBookmark` so that, when invoked by a publish-mode `RoleReader`, results are filtered through `FilterBlocksByPublishAccess` to remove entries from password-protected / publish-ignored notebooks. Four sibling search handlers in the same file did not receive the equivalent treatment and continue to expose metadata across the publish-access b",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-13T15:33:03Z",
-      "cve_ids": [
-        "CVE-2026-45148"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "41e517dd5fb199a24a7bcf7b22b8f66c525816adf239c24275205ba314036829",
-      "url": "https://github.com/advisories/GHSA-6r88-8v7q-q4p2",
-      "title": "GHSA: SiYuan: Broken access control in `/api/tag/getTag` — Reader role can mutate `Conf.Tag.Sort` and persist to disk",
-      "summary": "### Summary\n\n`POST /api/tag/getTag` is registered with `model.CheckAuth` only, omitting both `model.CheckAdminRole` and `model.CheckReadonly`, despite the handler performing a configuration write that is normally guarded by both. Any authenticated user — including publish-service `RoleReader` accounts and `RoleEditor` accounts on a read-only workspace — can call this endpoint with a `sort` argumen",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-13T15:32:35Z",
-      "cve_ids": [
-        "CVE-2026-45147"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "45276f08ae150efe6e53bc1aaa1fa6cfcf2f138c499a3f1b994cc330392beb6a",
-      "url": "https://github.com/advisories/GHSA-vw82-7fv8-r6gp",
-      "title": "GHSA: Obot has an authorization bypass in /mcp-connect/{id} that allows any authenticated user to use any registered MCP server",
-      "summary": "## Summary\n\nIf you have the MCP Server ID, you can connect to the MCP server even if you don't have permissions to the server.\n\nThe MCP gateway endpoint `/mcp-connect/{mcp_id}` does not enforce Access Control Rules (ACRs). Any authenticated Obot user who possesses an MCP Server ID can connect to that server through the gateway — including making tool calls — regardless of whether they are a member",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-13T15:32:11Z",
-      "cve_ids": [],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "797389a73dc4f56ef314da13894e339e95fe1eb16aaf261863f69dcf527b8405",
-      "url": "https://github.com/advisories/GHSA-c6rc-8jpp-2fgc",
-      "title": "GHSA: Anchor: Program<'info, System> is not properly validated",
-      "summary": "### Summary\nAn logic error causes anchor programs to accept any program id when requiring the system program id, causing false assumptions resulting in potential arbitrary cpi in programs that invoke system program instructions.\n\n### Details\nIn the TryFrom<&'a AccountInfo<'a>> implementation for Program<'a, T>, the id of T is compared with Pubkey::default() to check whether anchor should allow any",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-13T15:31:49Z",
-      "cve_ids": [
-        "CVE-2026-45137"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "159e7699edd6f7f0ff9809c3d11dea68b8727577b6c329f71b9d6d1630bf4379",
-      "url": "https://github.com/advisories/GHSA-p3hx-pwf3-j8wr",
-      "title": "GHSA: Nautobot: GitRepository.current_head field should not be writable through REST API",
-      "summary": "### Impact\n\nA user with access to add/change a GitRepository record could use the REST API to directly set the `current_head` field on the record, which was not intended to be user-editable. Doing so could cause Nautobot's local clone(s) of the relevant repository to checkout a commit other than the latest commit on the specified `branch` (resulting in misleading state), or potentially to be unabl",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-13T15:31:04Z",
-      "cve_ids": [
-        "CVE-2026-44798"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "951889e17b83d575f5dc8db8cc88de89f155e3b7bd6be5a1e3fafc7ac41804b2",
-      "url": "https://github.com/advisories/GHSA-c35q-vxrp-ph26",
-      "title": "GHSA: Nautobot: Webhook definitions could be used for server-side request forgery (SSRF)",
-      "summary": "### Impact\n\nNautobot's `Webhook` data model and associated feature set could be configured by users with sufficient access to perform requests to various hosts and IP addresses that should not be permitted, allowing for various behaviors similar to server-side request forgery (SSRF).\n\n### Patches\n\nFixes are available in Nautobot v2.4.33 and v3.1.2.\n\nIn support of this fix, three new settings varia",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-13T15:30:59Z",
-      "cve_ids": [
-        "CVE-2026-44797"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "26fb589dfe5033184225f9a23ff01fb0d10265d0eeccb4bc6bbfc2a20bd8aeb5",
-      "url": "https://github.com/advisories/GHSA-qrpw-gjvh-x5gm",
-      "title": "GHSA: Nautobot: Object bulk rename UI actions vulnerable to denial of service by crafted regular expression (REDoS)",
-      "summary": "### Impact\n\nNautobot UI object-bulk-rename endpoints (for example, `/dcim/interfaces/rename/`) were vulnerable to application-wide denial of service via maliciously crafted regular expressions in the `find` field in combination with the `use_regex` flag.\n\n### Patches\n\nA general-purpose timeout has been added to these endpoints in Nautobot v2.4.33 and v3.1.2, which ensures that the request will fai",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-13T15:30:53Z",
-      "cve_ids": [
-        "CVE-2026-44796"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "a0db9d1185bfc4b3c79af4af50c09b23f25bdb3a838782c93f06729cfb113edf",
-      "url": "https://github.com/advisories/GHSA-wpxj-44w3-2j6x",
-      "title": "GHSA: Nautobot: REST API permits creation of GenericForeignKey references to objects that the user should not be able to reference",
-      "summary": "### Impact\n\nIn the case of inter-object references via `GenericForeignKey` (a pattern allowing an object to reference another object that may belong to one of several different \"content types\" or database tables), when creating or updating an object containing a `GenericForeignKey`, Nautobot's REST API failed to enforce user \"view\" permissions when determining whether a given reference to another ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-13T15:30:46Z",
-      "cve_ids": [
-        "CVE-2026-44794"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "198c9843232446b106a741401c7a0e5547e69d319d25d61e6acfd52c0045165a",
-      "url": "https://github.com/advisories/GHSA-m3xc-h892-ggx6",
-      "title": "GHSA: go-billy: Lack of depth and cycle detection in symlink resolution may lead to infinite loops and resource exhaustion",
-      "summary": "### Impact\nMultiple components may improperly handle crafted or malformed input, resulting in panics, infinite loops, uncontrolled recursion, or excessive resource consumption.\n\nThese issues arise from insufficient validation and missing safety mechanisms such as cycle detection, recursion limits, or defensive handling of unexpected states when processing untrusted repository data and filesystem s",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-13T15:29:47Z",
-      "cve_ids": [
-        "CVE-2026-44740"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "30d5aafb668a24fd537c13252b6dd9c11ad39eb40e71cb9043c36d939d3eb6c7",
-      "url": "https://github.com/advisories/GHSA-j274-39qw-32c9",
-      "title": "GHSA: Grav: Twig sandbox allows editor-role users to exfiltrate all plugin secrets via Config::toArray()",
-      "summary": "## Summary\n\nThe Twig sandbox allow-list permits any user with the `admin.pages` role to call `config.toArray()` from within a page body, dumping the entire merged site configuration — including all plugin secrets (SMTP passwords, AWS keys, OAuth client secrets, API tokens) — into the rendered HTML. No administrator privileges are required.\n\n## Details\n\nThe Twig sandbox allow-list in `system/config",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-05-13T15:29:40Z",
-      "cve_ids": [
-        "CVE-2026-44738"
-      ],
-      "cvss": 7.7,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-44738"
-      ]
-    },
-    {
-      "id": "ac58f1885cdb7a37492100801ceb5aa8586a79582b8c9427779fd1334aef4f05",
-      "url": "https://github.com/advisories/GHSA-3644-q5cj-c5c7",
-      "title": "GHSA: LangSmith SDK: Public prompt pull deserializes untrusted manifests without trust boundary warning",
-      "summary": "## Description\n\nThe LangSmith SDK's prompt pull methods (`pull_prompt` / `pull_prompt_commit` in Python, `pullPrompt` / `pullPromptCommit` in JS/TS) fetch and deserialize prompt manifests from the LangSmith Hub. These manifests may contain serialized LangChain objects and model configuration that affect runtime behavior. When pulling a public prompt by `owner/name` identifier, the manifest content",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-13T15:29:30Z",
-      "cve_ids": [
-        "CVE-2026-45134"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "fb04866c3324974cf6ca1c5191780fc9fe7d5c4bee1d28633056138fe47f0377",
-      "url": "https://github.com/advisories/GHSA-hvx9-hwr7-wjj9",
-      "title": "GHSA: Systeminformation vulnerable to Linux command injection in networkInterfaces() via unsanitized NetworkManager connection profile name",
-      "summary": "## Summary\n\nOn Linux, `systeminformation` is vulnerable to command injection in `networkInterfaces()` when an **active NetworkManager connection profile name** contains shell metacharacters.\n\nThis is not caused by a caller passing attacker-controlled arguments into `networkInterfaces()`. The vulnerable value is obtained internally from real `nmcli device status` output. The library sanitizes the n",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-13T15:29:21Z",
-      "cve_ids": [
-        "CVE-2026-44724"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "6f385a87de962966a2d8bf496e2da1c3fd04b308f77ce99a598d2ca652c27176",
-      "url": "https://www.rapid7.com/blog/post/tr-it-support-dissecting-modelorat-campaign-microsoft-teams-compromise",
-      "title": "When IT Support Calls: Dissecting a ModeloRAT Campaign from Teams to Domain Compromise",
-      "summary": "OverviewAttackers do not need to break into the front door when they can convince employees to open it for them through the tools they already trust.In April 2026, Rapid7 investigated an enterprise intrusion that began with a Microsoft Teams message from a fake “IT Support” account and quickly escalated into a full compromise chain involving malware deployment, privilege escalation, credential the",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-05-13T14:44:02+00:00",
-      "cve_ids": [
-        "CVE-2021-31969",
-        "CVE-2023-36036"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "6a337960d10fe87e70e245ca41875443318c53f2d9f6956ab06aaf98d717cf82",
-      "url": "https://www.rapid7.com/blog/post/c-gold-stevie-award-winning-partner-services-certifications-academy",
-      "title": "Rapid7 Partner Academy: Driving Impact with Gold Stevie Award-Winning Partner Services Certifications",
-      "summary": "At Rapid7, our commitment to our partners is built on the foundation of the PACT (Partnering with Accountability, Consistency, and Transparency) program. Central to this mission is the Rapid7 Partner Academy, which was recently honored with a Gold Stevie Award in the 2026 American Business Awards® for Achievement in Collaboration and Partnership. This recognition underscores our dedication to prov",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-05-13T13:54:10+00:00",
-      "cve_ids": [],
-      "cvss": null,
       "related_links": []
     }
   ]
