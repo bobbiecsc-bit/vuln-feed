@@ -1,10 +1,274 @@
 {
-  "updated": "2026-05-20T15:21:38.068394+00:00",
+  "updated": "2026-05-20T18:18:56.045304+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "8a7040003c4e12aa65fbca8a5c224225aa7375f202afa0345f51c8419ec5a67d",
+      "url": "https://github.com/advisories/GHSA-m69w-p7m4-585j",
+      "title": "GHSA: Open WebUI: Unauthenticated endpoint can trigger embedding generation (cost/DoS)",
+      "summary": "### Summary\nGET `/api/v1/memories/ef` is accessible without authentication and executes `request.app.state.EMBEDDING_FUNCTION(...)`. This allows any unauthenticated caller to trigger embedding generation which can lead to direct cost exposure if a paid provider is used.\nCode reference: `backend/open_webui/routers/memories.py` (@router.get(\"/ef\") -> calls `request.app.state.EMBEDDING_FUNCTION(\"hell",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-14T20:28:02Z",
+      "cve_ids": [
+        "CVE-2026-45667"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "619ab2106b66bd53215f9e427c0113673d42b0e9650c4b189e5da1b37504a9d0",
+      "url": "https://github.com/advisories/GHSA-x3qm-p8hr-3c3h",
+      "title": "GHSA: Open WebUI has an Indirect Object Reference (IDOR) in user notes",
+      "summary": "### Summary\nThe  API /api/v1/notes/{note_id} endpoint lacks proper authorization checks, allowing authenticated users to retrieve notes belonging to other users by guessing or enumerating UUIDs. This results in unauthorized disclosure of potentially sensitive or private user data.\n\n### Details\n- if notes is enabled from UI (Settings >> General >> Features >> Notes (Beta))\n   - From API, attacker c",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:27:56Z",
+      "cve_ids": [
+        "CVE-2026-45666"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "b9cb14cf5208fc5aab0976a958903c116845bb664c07bac5de56a949eab34cd4",
+      "url": "https://github.com/advisories/GHSA-cqp4-qqvg-3787",
+      "title": "GHSA: Open WebUI has Stored XSS in Banner Component via Improper Sanitization Order",
+      "summary": "### Summary\nA Stored Cross-Site Scripting (XSS) vulnerability exists in the Banner component due to an improper sanitization order (specifically, DOMPurify is executed before the marked library).\n\nThis vulnerability allows a compromised or malicious administrator to plant a malicious payload in the global banner. Crucially, this vector enables Privilege Escalation, as the malicious banner is rende",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:27:45Z",
+      "cve_ids": [
+        "CVE-2026-45665"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "baea755ac3db617fb91c58b98ee10f3aad8a5c73965c8d2f25b7243b9525595b",
+      "url": "https://github.com/advisories/GHSA-r472-mw7m-967f",
+      "title": "GHSA: Open WebUI: Cross-User File Access via Unchecked file_id in Folder Knowledge and Knowledge-Base Attach Endpoints",
+      "summary": "# Cross-User File Access via Unchecked file_id in Folder Knowledge and Knowledge-Base Attach Endpoints\n\n## Summary\n\nMultiple endpoints accept a user-supplied `file_id` and attach the referenced file to a resource the caller controls (folder knowledge, knowledge-base contents) without verifying that the caller owns or has been granted access to the file. The file's content then becomes reachable th",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-14T20:27:35Z",
+      "cve_ids": [
+        "CVE-2026-45402"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "bfb5b79bf9ceccee4a25eaafb8525a471bd636ac09c5f0d5709cdd1a22f6c43e",
+      "url": "https://github.com/advisories/GHSA-3wgj-c2hg-vm6q",
+      "title": "GHSA: Open WebUI vulnerable to stored XSS via OAuth picture claim stored as SVG data URI in profile_image_url",
+      "summary": "# Summary\n\nWhen a user signs in via OAuth, Open WebUI fetches the `picture` claim URL, infers a MIME type from the URL extension via `mimetypes.guess_type`, and stores `data:<mime>;base64,...` as the user's profile image. The OAuth code path does not go through the `validate_profile_image_url` Pydantic validator that normally restricts profile images to PNG/JPEG/GIF/WebP. A `.svg` URL in the `pict",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:27:28Z",
+      "cve_ids": [],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "3af625c4552fec6f634f102b683241bf61067c548408c9d997f4b6c7e52e4fc5",
+      "url": "https://github.com/advisories/GHSA-rh5x-h6pp-cjj6",
+      "title": "GHSA: Open WebUI has a SSRF Bypass via HTTP Redirect Following in Web-Fetch and Image-Load Endpoints (not addressed by CVE-2025-65958)",
+      "summary": "# Server-Side Request Forgery (SSRF) Bypass via HTTP Redirect Following in Web-Fetch, Image-Load, and Chat-Completion Endpoints\n\n## Summary\n\nThe `validate_url()` function in `backend/open_webui/retrieval/web/utils.py` only validates the *initial* URL submitted by the caller. The HTTP clients used downstream (sync `requests`, async `aiohttp`, langchain's `WebBaseLoader`) follow HTTP 3xx redirects b",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:27:14Z",
+      "cve_ids": [
+        "CVE-2026-45401"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "35ca454b352c3c14eed0cf4172b36570d5403666d8dc68deeb79747628d98806",
+      "url": "https://github.com/advisories/GHSA-8w7q-q5jp-jvgx",
+      "title": "GHSA: Open WebUI has a Server-Side Request Forgery (SSRF) bypass in `validate_url`",
+      "summary": "### Summary\nIn the open-webui project, a parsing difference between the urlparse and requests libraries led to an SSRF bypass vulnerability.\n\n### Details\nIn the current project, URL validation is performed using the function validate_url.\n\n<img width=\"1323\" height=\"1145\" alt=\"QQ20260322-202854-22-1\" src=\"https://github.com/user-attachments/assets/896d19f2-c7c3-499a-9052-12aea756ac47\" />\n\nThe curre",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:27:00Z",
+      "cve_ids": [
+        "CVE-2026-45400"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "74742d79f1cb51a8cbc63b17be6339157430d6c19d1aa90406125a2a4665f2b6",
+      "url": "https://github.com/advisories/GHSA-8jjp-r2w2-4v22",
+      "title": "GHSA: Open WebUI: Low-privilege authenticated users can enumerate and stop global background tasks, causing system-wide chat disruption",
+      "summary": "### Summary\nAny authenticated user with low privileges can enumerate active background tasks across the system and stop tasks belonging to other users via the GET /api/tasks and POST /api/tasks/stop/{task_id} methods. This allows a casual user to disrupt system-wide chat usage by continuously canceling other users' active tasks. This is a real authorization vulnerability affecting integrity and us",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:26:49Z",
+      "cve_ids": [
+        "CVE-2026-45399"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "cc888c0d37c0b9942981fb8b6e42c932bb32373d31c1f9487a04b003a1891329",
+      "url": "https://github.com/advisories/GHSA-4g37-7p2c-38r9",
+      "title": "GHSA: Open WebUI Vulnerable to IDOR: Retrieval API Bypasses Knowledge Base Access Controls",
+      "summary": "# IDOR: Retrieval API Bypasses Knowledge Base Access Controls\n\n**Author:** Andrew Orr <aorr@tenable.com>\n\n## Summary\n\n`_validate_collection_access()` ([PR #22109](https://github.com/open-webui/open-webui/pull/22109)) checks the `user-memory-*` and `file-*` collection name prefixes but does not check knowledge base collections, which use raw UUIDs as collection names. Any authenticated user who kno",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:26:42Z",
+      "cve_ids": [
+        "CVE-2026-45398"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "b700646f6b86b8924a0407174733efcf7fec3611722a5ba3f285b96916f434f7",
+      "url": "https://github.com/advisories/GHSA-65pg-qhhw-mxwg",
+      "title": "GHSA: Open WebUI Vulnerable to Unauthenticated RAG Configuration Disclosure",
+      "summary": "**Vulnerability Type:** Information Disclosure / Missing Authentication  \n**Severity:** Medium  \n**Component:** `backend/open_webui/routers/retrieval.py` — `get_status()` (`GET /`)  \n**Affected Endpoint:** `GET /api/v1/retrieval/`  \n**Affected Version:** Open WebUI `main` branch — confirmed unpatched through **v0.9.2**  \n**Authentication Required:** None — internet-facing with zero credentials  \n*",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-14T20:26:34Z",
+      "cve_ids": [
+        "CVE-2026-45397"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "2c07fe116853ffe1cf855966fa92936be94890c06b3389225a4124ea3e0d895c",
+      "url": "https://github.com/advisories/GHSA-rjmp-vjf2-qf4g",
+      "title": "GHSA: Open WebUI: Mass Assignment via FeedbackForm extra=allow Allows Feedback User ID Spoofing and Evaluation Data Manipulation",
+      "summary": "# Mass Assignment in Feedback Creation Allows User ID Spoofing and Evaluation Data Manipulation\n\n## Summary\n\nThe `POST /api/v1/evaluations/feedback` endpoint in Open WebUI v0.9.2 is vulnerable to mass assignment via `FeedbackForm`, which uses `model_config = ConfigDict(extra='allow')`. Due to an insecure dictionary merge order in `insert_new_feedback()`, an authenticated attacker can inject a `use",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:26:18Z",
+      "cve_ids": [
+        "CVE-2026-45396"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "b9ca30c5b5ac1d6fbf0e7ccabac9827321bc3a5f13e14bfcac6b6121a9c6c1dc",
+      "url": "https://github.com/advisories/GHSA-p4fx-23fq-jfg6",
+      "title": "GHSA: Open WebUI: Missing `workspace.tools` Authorization Check on Tool Update Endpoint Allows Privilege Escalation to Code Execution",
+      "summary": "### Summary\n\nThe tool update endpoint (`POST /api/v1/tools/id/{id}/update`) is missing the `workspace.tools` permission check that is present on the tool create endpoint. This allows a user who has been explicitly **denied** tool management capabilities ( and who the administrator considers **untrusted** for code execution )  to replace a tool's server-side Python content and trigger execution, by",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:26:09Z",
+      "cve_ids": [
+        "CVE-2026-45395"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
+      "id": "016a7455d5975e9f9d190ab52346d5fbbf1416069d6a98dab405512780b8d9e1",
+      "url": "https://github.com/advisories/GHSA-h2cw-7qw9-56xr",
+      "title": "GHSA: Open WebUI: Sharing models for others to use (read permission) also exposes model details (system prompt leakage)",
+      "summary": "### Summary\nWhen setting model permissions so that a group has read access to it, intending for other users to use it, those users also can read the model's system prompt.\n\nHowever users may consider their system prompt confidential, so we consider this a security issue.\n\nCompare https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/ or prompt injections to get popular chatbots on the in",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:26:03Z",
+      "cve_ids": [
+        "CVE-2026-45387"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "e03cdd2fd8bfac43a60fca033cc5ff01435cb36c24a770a3d1f73a339a362454",
+      "url": "https://github.com/advisories/GHSA-5gc6-xhv4-2wg6",
+      "title": "GHSA: Open WebUI has an IDOR vulnerability in the pin_channel_message API endpoint",
+      "summary": "### Summary\n`Pin/Unpin` is a write operation (modifies the message's `is_pinned `, `pinned_by`, `pinned_at` fields), but in standard channels it only checks `read` permission, allowing users with read-only access to pin/unpin any message.\n\n### Details\nhttps://github.com/open-webui/open-webui/blob/9bd84258d09eefe7bf975878fb0e31a5dadfe0f8/backend/open_webui/routers/channels.py#L1218\n\n```\n@router.pos",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-05-14T20:25:58Z",
+      "cve_ids": [
+        "CVE-2026-45386"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "23e2fd65d26e0323a095de0d9b9824a47d1e2e2a374987b99e9dd428b932996e",
+      "url": "https://github.com/advisories/GHSA-wwhq-cx22-f7vv",
+      "title": "GHSA: Open WebUI has an IDOR vulnerability in the update_message_by_id API endpoint",
+      "summary": "### Summary\nAn IDOR vulnerability exists in the Channels feature of `Open WebUI`, allowing any channel member to modify messages sent by other members (including administrators) within the same channel. This vulnerability affects the latest version (`v0.8.12`) of `Open WebUI`.\n\n### Details\nIn the `update_message_by_id` function, for `group` or `dm` type channels, only the caller's membership in th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:25:40Z",
+      "cve_ids": [
+        "CVE-2026-45385"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "b8ac251b11e678451a019af03e51d271d1f831c3efdde346d5315c562e7b2fae",
+      "url": "https://github.com/advisories/GHSA-v6qf-75pr-p96m",
+      "title": "GHSA: Open WebUI: Authenticated users can bypass model access control via exposed query parameter [AI-ASSISTED]",
+      "summary": "### Summary\n\nAn internal-only bypass_filter parameter is exposed on the /openai/chat/completions and /ollama/api/chat HTTP endpoints via FastAPI query string binding, allowing any authenticated user to append ?bypass_filter=true and bypass model access control checks to invoke admin-restricted models.\n\n### Details\n\nThe `generate_chat_completion` route handlers in both `routers/openai.py` and `rout",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-05-14T20:25:24Z",
+      "cve_ids": [
+        "CVE-2026-45365"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "da945cab968803a596f14ed3d89297d2494dde48e947dae8648858fa349e0efe",
+      "url": "https://github.com/advisories/GHSA-jh9g-8jqw-m2qx",
+      "title": "GHSA: Open WebUI Exposes System Prompt to Regular User [Non-Admin]",
+      "summary": "### Summary\n_A regular user [non-admin] can view the system prompt of the model which is set by an admin._\n\n### Details\n_When a regular user [non-admin] logs into the application, a http://IP:8080/api/models? web request is initiated by the application and in response, it reveals the system prompt of available models set by admin on models pages in workspace affecting the confidentiality of applic",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:25:04Z",
+      "cve_ids": [
+        "CVE-2026-45351"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "84d7db0ec734a95a6d56fc827589e9665509270bcbadada0b3a968e3c61469cb",
+      "url": "https://github.com/advisories/GHSA-4pcg-253r-rf9w",
+      "title": "GHSA: Open WebUI's chat completion API allows tool restrictions to be bypassed",
+      "summary": "### Summary\nOpen WebUI v0.6.43 contains a vulnerability in its chat completion API, which allows attackers to bypass tool restrictions, potentially enabling unauthorized actions or access.\n\n\n### Details\nIn the [chat_completion](https://github.com/open-webui/open-webui/blob/a7271532f8a38da46785afcaa7e65f9a45e7d753/backend/open_webui/main.py#L1529) API, the parameters [tool_ids and tool_servers](htt",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:24:48Z",
+      "cve_ids": [
+        "CVE-2026-45350"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "0d16a70d203d1bf422ee95b631aa44464a4f2256603377c2ac3840012dd3b8eb",
+      "url": "https://github.com/advisories/GHSA-gfm2-xm6c-37qc",
+      "title": "GHSA: Open WebUI has Broken Access Control for Completions API",
+      "summary": "### Summary\nAny user `X` can continue the conversation of any other user `Y`, as long as the Chat ID of `Y` is known. User `X` does not even need to be an admin to do so. \n\n### Details\nA user just needs to use the API endpoint: `/api/chat/completions` with their own API key (generated in OWUI) and the Chat ID of another user. **OWUI does not check to match the Chat ID with the user that created th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-14T20:24:35Z",
+      "cve_ids": [
+        "CVE-2026-45349"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
     {
       "id": "c21086a8ab6d5fb16b44b353e5dbde9398f350aa40418c5edec2d2af7e4ee420",
       "url": "https://github.com/advisories/GHSA-fcjq-435v-jx94",
@@ -425,279 +689,17 @@
       "related_links": []
     },
     {
-      "id": "74ce925ad673b472fed47d72709a4cc1fe295f425a87801eb77df4bed01db22b",
-      "url": "https://www.bleepingcomputer.com/news/security/new-critical-exim-mailer-flaw-allows-remote-code-execution/",
-      "title": "New critical Exim mailer flaw allows remote code execution",
-      "summary": "A critical vulnerability affecting certain configurations of the Exim open-source mail transfer agent could be exploited by an unauthenticated remote attacker to execute arbitrary code. [...]",
-      "source": "Bleeping Computer",
+      "id": "889d6142cf522dca5f8723f905769d191e94bd83b6dcb87197e31af0d2ef3e2d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42463",
+      "title": "CVE-2026-42463 — CVSS 8.1",
+      "summary": "SQLBot is an intelligent Text-to-SQL system based on large language models and RAG. Prior to 1.8.0, SQLBot contains a Cross-Workspace IDOR (Insecure Direct Object Reference) and Authorization Bypass vulnerability in the /api/v1/datasource/exportDsSchema and /api/v1/datasource/uploadDsSchema endpoints. An attacker can access and modify database schemas and data sources belonging to other tenants/wo",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-05-13T20:23:50+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "0e4efbafc42d2d013787d2c9e42a90dd2a1202740e57e1b4ed1d6d58c3dde62b",
-      "url": "https://www.bleepingcomputer.com/news/security/windows-bitlocker-zero-day-gives-access-to-protected-drives-poc-released/",
-      "title": "Windows BitLocker zero-day gives access to protected drives, PoC released",
-      "summary": "A cybersecurity researcher has published proof-of-concept (PoC) exploits for two unpatched Microsoft Windows vulnerabilities named YellowKey and GreenPlasma, which are a BitLocker bypass and a privilege-escalation flaw. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-05-13T16:37:49+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ca7fa7dd5bf6b033f2f03efdb73e41843df34b4bc68c3322cc9ead6a0348e195",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44295",
-      "title": "CVE-2026-44295 — CVSS 8.7",
-      "summary": "protobufjs-cli is the command line add-on for protobuf.js. Prior to 1.2.1 and 2.0.2, pbjs static code generation could emit unsafe JavaScript identifiers derived from schema-controlled names. When generating static JavaScript from a crafted schema or JSON descriptor, certain namespace, enum, service, or derived full names could be written into the generated output without sufficient sanitization. ",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:56.507",
+      "date": "2026-05-13T22:16:43.397",
       "cve_ids": [
-        "CVE-2026-44295"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "654c782566e9006893984dbb5607ecd85718885f28bbc58b299763b17ed60368",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44293",
-      "title": "CVE-2026-44293 — CVSS 8.8",
-      "summary": "protobufjs compiles protobuf definitions into JavaScript (JS) functions. Prior to 7.5.6 and 8.0.2, protobufjs generated JavaScript for toObject conversion could include an unsafe expression derived from a schema-controlled bytes field default value. A crafted descriptor with a non-string default value for a bytes field could cause attacker-controlled code to be emitted into the generated conversio",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:56.253",
-      "cve_ids": [
-        "CVE-2026-44293"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "782d37f988f6f6523c2a16afe0a2bc7990d5d287d0e066f377b80415ceda1b51",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44291",
-      "title": "CVE-2026-44291 — CVSS 8.1",
-      "summary": "protobufjs compiles protobuf definitions into JavaScript (JS) functions. Prior to 7.5.6 and 8.0.2, protobufjs used plain objects with inherited prototypes for internal type lookup tables used by generated encode and decode functions. If Object.prototype had already been polluted, those lookup tables could resolve attacker-controlled inherited properties as valid protobuf type information. This cou",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:55.987",
-      "cve_ids": [
-        "CVE-2026-44291"
+        "CVE-2026-42463"
       ],
       "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "9697335a2c5f1aea24af377eac212cc45e1e5f96282882b274551538f504cdd1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44290",
-      "title": "CVE-2026-44290 — CVSS 7.5",
-      "summary": "protobufjs compiles protobuf definitions into JavaScript (JS) functions. Prior to 7.5.6 and 8.0.2, protobufjs allowed certain schema option paths to traverse through inherited object properties while applying options. A crafted protobuf schema or JSON descriptor could cause option handling to write to properties on global JavaScript constructors, corrupting process-wide built-in functionality. Thi",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:55.847",
-      "cve_ids": [
-        "CVE-2026-44290"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "34bdf78b0e4d33cf1be4b619b2cef9fa80bf1a3e65a1f0e7d3dcd953f01fae52",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44289",
-      "title": "CVE-2026-44289 — CVSS 7.5",
-      "summary": "protobufjs compiles protobuf definitions into JavaScript (JS) functions. Prior to 7.5.6 and 8.0.2, protobufjs could recurse without a depth limit while decoding nested protobuf data. This affected both skipping unknown group fields and generated decoding of nested message fields. A crafted protobuf binary payload could cause the JavaScript call stack to be exhausted during decoding. This vulnerabi",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:55.713",
-      "cve_ids": [
-        "CVE-2026-44289"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "23f982b02f678b9c86e7b5ba48dd1d59e75bf1e4b162f9f15fbaec10397110da",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43489",
-      "title": "CVE-2026-43489",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nliveupdate: luo_file: remember retrieve() status\n\nLUO keeps track of successful retrieve attempts on a LUO file.  It does so\nto avoid multiple retrievals of the same file.  Multiple retrievals cause\nproblems because once the file is retrieved, the serialized data\nstructures are likely freed and the file is likely in a very differ",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:52.230",
-      "cve_ids": [
-        "CVE-2026-43489"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "291fe713f729ead44a64ff004a663b7f1b56ed28f15200a51ff8b586a975757c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43488",
-      "title": "CVE-2026-43488",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nusb: xhci: Prevent interrupt storm on host controller error (HCE)\n\nThe xHCI controller reports a Host Controller Error (HCE) in UAS Storage\nDevice plug/unplug scenarios on Android devices. HCE is checked in\nxhci_irq() function and causes an interrupt storm (since the interrupt\nisn’t cleared), leading to severe system-level faults",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:52.107",
-      "cve_ids": [
-        "CVE-2026-43488"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "5834df6050c6e4032cc164ee40124af6c9e780045249754cd03270be63cc83b5",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43487",
-      "title": "CVE-2026-43487",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nata: libata-core: Disable LPM on ST1000DM010-2EP102\n\nAccording to a user report, the ST1000DM010-2EP102 has problems with LPM,\ncausing random system freezes. The drive belongs to the same BarraCuda\nfamily as the ST2000DM008-2FR102 which has the same issue.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:51.997",
-      "cve_ids": [
-        "CVE-2026-43487"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "846b9634dbe236b15943294b162948bb15b903f5eaf3ec803e4d03562218d3bf",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43486",
-      "title": "CVE-2026-43486",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\narm64: contpte: fix set_access_flags() no-op check for SMMU/ATS faults\n\ncontpte_ptep_set_access_flags() compared the gathered ptep_get() value\nagainst the requested entry to detect no-ops. ptep_get() ORs AF/dirty\nfrom all sub-PTEs in the CONT block, so a dirty sibling can make the\ntarget appear already-dirty. When the gathered va",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:51.880",
-      "cve_ids": [
-        "CVE-2026-43486"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b93bd63628a4e29999834bc12c3f493a30fbd24851b054e910765852ecfd8627",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43485",
-      "title": "CVE-2026-43485",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnouveau/gsp: drop WARN_ON in ACPI probes\n\nThese WARN_ONs seem to trigger a lot, and we don't seem to have a\nplan to fix them, so just drop them, as they are most likely\nharmless.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:51.750",
-      "cve_ids": [
-        "CVE-2026-43485"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "86bcb2c151f6ba74ed8bb4576d898091326c177d2e8674e7487aaf39aff8f7ad",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43484",
-      "title": "CVE-2026-43484",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nmmc: core: Avoid bitfield RMW for claim/retune flags\n\nMove claimed and retune control flags out of the bitfield word to\navoid unrelated RMW side effects in asynchronous contexts.\n\nThe host->claimed bit shared a word with retune flags. Writes to claimed\nin __mmc_claim_host() or retune_now in mmc_mq_queue_rq() can overwrite\nother b",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:51.623",
-      "cve_ids": [
-        "CVE-2026-43484"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f1842b9cbb9f6a2f1a5e9fe744dfbc6f6742abf8591aa44db84d341a7ba2d56e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43483",
-      "title": "CVE-2026-43483",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nKVM: SVM: Set/clear CR8 write interception when AVIC is (de)activated\n\nExplicitly set/clear CR8 write interception when AVIC is (de)activated to\nfix a bug where KVM leaves the interception enabled after AVIC is\nactivated.  E.g. if KVM emulates INIT=>WFS while AVIC is deactivated, CR8\nwill remain intercepted in perpetuity.\n\nOn its",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-13T16:16:51.497",
-      "cve_ids": [
-        "CVE-2026-43483"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "9630a84c9feefd0e8b03c25d09399761ff78aa754a5bb56986e3fe25fef40e3d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43482",
-      "title": "CVE-2026-43482",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nsched_ext: Disable preemption between scx_claim_exit() and kicking helper work\n\nscx_claim_exit() atomically sets exit_kind, which prevents scx_error() from\ntriggering further error handling. After claiming exit, the caller must kick\nthe helper kthread work which initiates bypass mode and teardown.\n\nIf the calling task gets preemp",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-13T16:16:51.390",
-      "cve_ids": [
-        "CVE-2026-43482"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "e7f4a82236d715268dbef97051360dfc2723591dc215a8db6b38b49c6ff48f61",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43481",
-      "title": "CVE-2026-43481",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet-shapers: don't free reply skb after genlmsg_reply()\n\ngenlmsg_reply() hands the reply skb to netlink, and\nnetlink_unicast() consumes it on all return paths, whether the\nskb is queued successfully or freed on an error path.\n\nnet_shaper_nl_get_doit() and net_shaper_nl_cap_get_doit()\ncurrently jump to free_msg after genlmsg_reply",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:51.287",
-      "cve_ids": [
-        "CVE-2026-43481"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a292fa731c2b3476d29f92e4705641831913082889520e5c9c70bccab6043c90",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43480",
-      "title": "CVE-2026-43480",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nASoC: amd: acp3x-rt5682-max9836: Add missing error check for clock acquisition\n\nThe acp3x_5682_init() function did not check the return value of\nclk_get(), which could lead to dereferencing error pointers in\nrt5682_clk_enable().\n\nFix this by:\n1. Changing clk_get() to the device-managed devm_clk_get().\n2. Adding proper IS_ERR() ch",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:51.163",
-      "cve_ids": [
-        "CVE-2026-43480"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3406af81099ae07166466b8243f46d5be726076ea84b824f42c25b20e75b47f4",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43479",
-      "title": "CVE-2026-43479",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: usb: lan78xx: fix WARN in __netif_napi_del_locked on disconnect\n\nRemove redundant netif_napi_del() call from disconnect path.\n\nA WARN may be triggered in __netif_napi_del_locked() during USB device\ndisconnect:\n\n  WARNING: CPU: 0 PID: 11 at net/core/dev.c:7417 __netif_napi_del_locked+0x2b4/0x350\n\nThis happens because netif_na",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:51.040",
-      "cve_ids": [
-        "CVE-2026-43479"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "01e19fc229a3839dc10084501b2e31554b3ad07771c6a7f7ead11649be439a6d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43478",
-      "title": "CVE-2026-43478",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nASoC: codecs: rt1011: Use component to get the dapm context in spk_mode_put\n\nThe correct helper to use in rt1011_recv_spk_mode_put() to retrieve the\nDAPM context is snd_soc_component_to_dapm(), from kcontrol we will\nreceive NULL pointer.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:50.940",
-      "cve_ids": [
-        "CVE-2026-43478"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f1d5ce11dd9872aa79db97c0f979d02097c61d7bb1798352f271b3c324f8d866",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43477",
-      "title": "CVE-2026-43477",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/i915/vrr: Configure VRR timings after enabling TRANS_DDI_FUNC_CTL\n\nApparently ICL may hang with an MCE if we write TRANS_VRR_VMAX/FLIPLINE\nbefore enabling TRANS_DDI_FUNC_CTL.\n\nPersonally I was only able to reproduce a hang (on an Dell XPS 7390\n2-in-1) with an external display connected via a dock using a dodgy\ntype-C cable th",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-13T16:16:50.807",
-      "cve_ids": [
-        "CVE-2026-43477"
-      ],
-      "cvss": null,
       "related_links": []
     }
   ]
