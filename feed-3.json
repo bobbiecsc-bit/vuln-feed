@@ -1,10 +1,64 @@
 {
-  "updated": "2026-05-20T10:50:37.040321+00:00",
+  "updated": "2026-05-20T15:21:38.068394+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "03698285599b46f4336bf515371869a74e3527690ebfe75fd2f02f2c20b5848d",
+      "url": "https://github.com/advisories/GHSA-xp7r-j8r6-j9h3",
+      "title": "GHSA: parse-nested-form-data has Prototype Pollution via `__proto__` in FormData field names",
+      "summary": "## Summary\n\n`parseFormData()` walks bracket and dot-notation FormData field names into nested objects without filtering reserved property keys. A single FormData field whose name begins with `__proto__`, or contains `.__proto__.` mid-path, causes the parser to traverse onto `Object.prototype` and assign properties there, polluting the prototype chain of every plain object in the running process.\n\n",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-18T16:43:12Z",
+      "cve_ids": [
+        "CVE-2026-45302"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "eb67cb84624ffab74b31e9742995bb290b73e7167e6b4f4d09a5a3d4799d2e21",
+      "url": "https://github.com/advisories/GHSA-fmxf-pm6p-7xgm",
+      "title": "GHSA: async-http-client: Cookie header not stripped on cross-origin redirect",
+      "summary": "## Summary\n\nasync-http-client leaks `Cookie` headers to cross-origin redirect targets. When following a redirect across a security boundary (different origin, or HTTPS→HTTP downgrade), the `propagatedHeaders()` method in `Redirect30xInterceptor.java` strips `Authorization` and `Proxy-Authorization` headers but does not strip `Cookie`, so session cookies and other sensitive cookie values are forwar",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-18T16:42:20Z",
+      "cve_ids": [
+        "CVE-2026-45300"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "419b081d634293db60878bacd720801cbdb106b74ce1e73014a6edb2fbfe91f7",
+      "url": "https://github.com/advisories/GHSA-3v9w-6365-9w54",
+      "title": "GHSA: Dozzle: Pre-auth SSRF with response-body reflection via POST /api/notifications/test-webhook (default no-auth deploy)",
+      "summary": "## Summary\n\nIn a default dozzle deploy (the documented quickstart, no `DOZZLE_AUTH_PROVIDER` set), `POST /api/notifications/test-webhook` is reachable without authentication and forwards an attacker-controlled URL into a `WebhookDispatcher` that:\n\n- Sends an HTTP POST to the supplied URL with attacker-controlled request headers, and\n- Returns the response status code AND up to 1MB of the response ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-18T16:41:39Z",
+      "cve_ids": [
+        "CVE-2026-45298"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "ee73f38ac3036661e25f520f6ca22ae48052e201190248a006a327531e3a96e8",
+      "url": "https://github.com/advisories/GHSA-9rh9-hf3w-9fgg",
+      "title": "GHSA: shopper/framework: Race condition on Discount.usage_limit allows silent over-redemption",
+      "summary": "## Impact\n\n`CreateOrderFromCartAction::execute` previously created the `Order` row before checking and incrementing the discount's `total_use` counter. Under concurrent checkout pressure (Black Friday, flash sale, viral coupon), the global `usage_limit` was silently exceeded: orders were committed with the discount fully applied to `price_amount` while the counter blocked at `usage_limit`. The mer",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-18T16:37:20Z",
+      "cve_ids": [],
+      "cvss": 5.9,
+      "related_links": []
+    },
     {
       "id": "dd7761246e584fb6691c96ca72b2df3ccc124f1eecddf87619b593001c861660",
       "url": "https://github.com/advisories/GHSA-f946-9qp6-vgch",
@@ -623,56 +677,6 @@
         "CVE-2026-45364"
       ],
       "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "88bd17d0edb50d08efa026db5de34f6c1fc28d7b38013b26e587f3da948969c9",
-      "url": "https://github.com/advisories/GHSA-wxw3-q3m9-c3jr",
-      "title": "GHSA: Better Auth: OAuth callback accepts mismatched `state` when cookie-backed state storage is used without PKCE",
-      "summary": "### Am I affected?\n\nUsers are affected if all of the following are true:\n\n- The application uses `better-auth` at a version below `1.6.2` (or `@better-auth/sso` paired with such a version).\n- `betterAuth({ account: { storeStateStrategy } })` is set to `\"cookie\"`. The default `\"database\"` is not affected.\n- The application wires at least one OAuth provider through `genericOAuth({ config })` with `p",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-15T17:33:40Z",
-      "cve_ids": [],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "d7218b6b6ae57fc140bf0d8f412f89f997ea8f7b00650d0a689c807795d811c9",
-      "url": "https://github.com/advisories/GHSA-mxg3-432p-mr72",
-      "title": "GHSA: goshs: SSH host key verification disabled, allowing transparent MITM of every tunnelled HTTP request",
-      "summary": "### Summary\n\nThe `--tunnel` / `-t` flag opens an outbound SSH connection to `localhost.run:22` with `HostKeyCallback: ssh.InsecureIgnoreHostKey()`. The Go documentation for that function states verbatim: *\"It should not be used for production code.\"* With the callback disabled the client accepts any host key the server presents, so an attacker who can intercept the operator's TCP connection to `lo",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-15T17:17:38Z",
-      "cve_ids": [],
-      "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "250d6f7ae4c8ea3f55721f208db4f2abf608493248aa61d3e75fad6f8090dae0",
-      "url": "https://github.com/advisories/GHSA-6wxc-8mgq-w26m",
-      "title": "GHSA: Weblate: Stored HTML injection in editor search preview",
-      "summary": "### Impact\nWeblate's live search preview renders unit `source` and `context` as HTML without escaping. Any contributor whose content reaches those fields stores HTML and CSS that runs inside the authenticated editor of every user who runs a matching search.\n\n### Patches\n* https://github.com/WeblateOrg/weblate/pull/19422\n\n### Workarounds\nOnly the search preview on the selected views is affected.\n\n#",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-15T17:14:37Z",
-      "cve_ids": [
-        "CVE-2026-45106"
-      ],
-      "cvss": 4.6,
-      "related_links": []
-    },
-    {
-      "id": "4a26b33b7d4985a0cbe684c92982d30bead06ca645a8192e515c16ea60adb85f",
-      "url": "https://www.bleepingcomputer.com/news/security/popular-node-ipc-npm-package-compromised-to-steal-credentials/",
-      "title": "Popular node-ipc npm package compromised to steal credentials",
-      "summary": "Hackers have injected credential-stealing malware into newly published versions of node-ipc, a popular inter-process communication package, in a new supply chain attack targeting npm. [...]",
-      "source": "Bleeping Computer",
-      "category": "web_app",
-      "date": "2026-05-15T17:10:42+00:00",
-      "cve_ids": [],
-      "cvss": null,
       "related_links": []
     }
   ]
