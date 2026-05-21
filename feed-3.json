@@ -1,10 +1,80 @@
 {
-  "updated": "2026-05-21T11:26:11.086069+00:00",
+  "updated": "2026-05-21T15:28:12.584268+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "7d105b930623040e772cca826c8a991c05fdea256af131d2990325367c8f4aed",
+      "url": "https://github.com/advisories/GHSA-fjq3-ffvr-vm46",
+      "title": "GHSA: OpenTelemetry eBPF Instrumentation: Java TLS ioctl kprobe allows kernel memory disclosure",
+      "summary": "### Summary\n\nThe Java TLS ioctl probe reads user-controlled ioctl pointers with `bpf_probe_read` instead of `bpf_probe_read_user`. An instrumented local process can therefore point OBI at kernel memory and cause that memory to be copied into telemetry.\n\n### Details\n\nThe vulnerable path is in [bpf/generictracer/java_tls.c](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/blob/36",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-18T20:12:04Z",
+      "cve_ids": [
+        "CVE-2026-45683"
+      ],
+      "cvss": 3.8,
+      "related_links": []
+    },
+    {
+      "id": "113bd53cbabfda3645be4a47355c372d4fafcaa3fa44e694632332349997ef62",
+      "url": "https://github.com/advisories/GHSA-r6c9-g6q5-qrf9",
+      "title": "GHSA: OpenTelemetry eBPF Instrumentation: CPU-mismatch fallback uses 256-byte buffer with 8KB size",
+      "summary": "### Summary\n\nThe per-CPU message-buffer fallback path uses a 256-byte backup buffer but preserves the original payload size, which can be up to 8KB. If a CPU mismatch occurs, OBI can read beyond the fallback buffer and leak adjacent memory into telemetry.\n\n### Details\n\nhttps://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/blob/032473449b53d9f02ec4619d4f5b84e6a81db362/bpf/common/http",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-18T20:11:20Z",
+      "cve_ids": [
+        "CVE-2026-45681"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "2396f0ec33312accf20220fc399de4c0534a145e767ba2edba6aa47a884d55fc",
+      "url": "https://github.com/advisories/GHSA-89c6-vpcj-7vj4",
+      "title": "GHSA: OpenTelemetry eBPF Instrumentation: Unbounded BPF internal metrics replay can exhaust CPU",
+      "summary": "### Summary\n\nOBI replays BPF probe hits into histogram observations by looping once per recorded run count. On busy systems, the run-count delta can become very large, causing the metrics exporter to spend excessive CPU time in a tight loop every collection interval.\n\n### Details\n\nThe vulnerable loop is in [pkg/export/prom/prom_bpf.go](https://github.com/open-telemetry/opentelemetry-ebpf-instrumen",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-18T20:11:13Z",
+      "cve_ids": [
+        "CVE-2026-45680"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "311e75e5f9c4913d1b76438cfee245dc0c838e14eae9bb32ae41673d4d3d79f9",
+      "url": "https://github.com/advisories/GHSA-58qx-3vcg-4xpx",
+      "title": "GHSA: ws: Uninitialized memory disclosure",
+      "summary": "### Impact\n\nThe `websocket.close()` implementation is vulnerable to uninitialized memory disclosure when a `TypedArray` is passed as the reason argument.\n\n### Proof of concept\n\n```js\nimport { deepStrictEqual } from 'node:assert';\nimport { WebSocket, WebSocketServer } from 'ws';\n\nconst wss = new WebSocketServer(\n  { port: 0, skipUTF8Validation: true },\n  function () {\n    const { port } = wss.addre",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-18T19:02:40Z",
+      "cve_ids": [
+        "CVE-2026-45736"
+      ],
+      "cvss": 4.4,
+      "related_links": []
+    },
+    {
+      "id": "2d2dfcfbd621cc7a1b2e585037074b4a7e7a0a8b75764c438bccd1ddd3d23ee9",
+      "url": "https://github.com/advisories/GHSA-pgvv-q3wf-mm9m",
+      "title": "GHSA: OpenTelemetry eBPF Instrumentation: Postgres BIND parsing can panic on malformed payloads",
+      "summary": "### Summary\n\nThe Postgres protocol parser assumes `BIND` message payloads contain a valid NUL-terminated portal name. A crafted empty or unterminated payload can make OBI slice beyond the end of the captured buffer and panic.\n\n### Details\n\nThe vulnerable logic is in [pkg/ebpf/common/sql_detect_postgres.go](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/blob/d5691806adc98008ba",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-18T17:56:26Z",
+      "cve_ids": [
+        "CVE-2026-45678"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
     {
       "id": "ce5a35d0adb8f6e9ca46fc751def5a41565d055c6f3a8be6804828679e757200",
       "url": "https://github.com/advisories/GHSA-8rrq-wcg8-cv5q",
@@ -629,70 +699,6 @@
         "CVE-2026-46510"
       ],
       "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "88ceab4c1bfbdce1a5f1faeebad4ab1276e5963bc91b4e770f2584c0c596df29",
-      "url": "https://github.com/advisories/GHSA-qw48-84f6-28gv",
-      "title": "GHSA: Graphite Has a Pickle Deserialization Vulnerability",
-      "summary": "### Impact\n**Type of vulnerability:** Insecure Deserialization via Python's `pickle` module.\n\n**Who is impacted:**  \nUsers of *Graphite graph database engine* versions **before 0.2** who load database files from untrusted or third-party sources.  \nAn attacker could craft a malicious database file that executes arbitrary code when loaded by the engine. This is possible because the engine used `pick",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-18T13:27:55Z",
-      "cve_ids": [],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "984b80b1ff6edc1431db5f810555e754338c1c97d9f7665f8e73f8b626a5fad2",
-      "url": "https://github.com/advisories/GHSA-f3rg-xqjj-cj9w",
-      "title": "GHSA: n8n-MCP: Workflow telemetry sanitizer could retain partial values from URL-shaped node parameters",
-      "summary": "## Summary\n\nIn affected versions of n8n-mcp, the workflow telemetry sanitizer could retain partial fragments of URL-shaped node parameters before sending workflow data to the project's anonymous telemetry backend. Values placed in HTTP-Request-style node parameters — such as customer or tenant identifiers, short secrets embedded in query strings, and signed request parameters — could therefore app",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-05-18T13:26:51Z",
-      "cve_ids": [
-        "CVE-2026-45582"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "e203831cb24de4b139ea25122eea2c218fb587cd15fb8d0baf8d3b671099eee0",
-      "url": "https://github.com/advisories/GHSA-q5pp-gvjg-h7v4",
-      "title": "GHSA: Microsoft APM: Symlinks under `.apm/prompts/` and `.apm/agents/` are dereferenced during `apm install`, copying host-local file contents into the project tree",
-      "summary": "## Summary\n\nTwo primitive integrators in `apm-cli` enumerate package files with bare `Path.glob()` / `Path.rglob()` calls and read each match with `Path.read_text()`, transparently following symbolic links.\n\nA symlink committed inside a remote APM dependency under `.apm/prompts/<x>.prompt.md` or `.apm/agents/<x>.agent.md` is preserved verbatim into `apm_modules/` on clone and then dereferenced dur",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-18T13:26:06Z",
-      "cve_ids": [
-        "CVE-2026-45539"
-      ],
-      "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "45a8c5ca4af9e177060cd7d88bba1816367f5b209a1e46fc8948ab0f049b7b5c",
-      "url": "https://github.com/advisories/GHSA-mx64-mj3q-7prj",
-      "title": "GHSA: iskorotkov/avro: Denial-of-Service Vulnerability in Decoder",
-      "summary": "# Memory Exhaustion via Unbounded Map Allocations in Avro Decoder\n\n## Summary\n\nThe Avro map decoder accepted attacker-controlled block-element counts from the wire format and grew the destination map without enforcing an upper bound. The slice decoder already had `Config.MaxSliceAllocSize` for the equivalent attack against arrays; the map decoder had no analogous limit, so a producer could declare",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-18T12:59:58Z",
-      "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "adabc2b03322d8367188c90453e29d25e6935f11e03d74aba46cc2a05a58934e",
-      "url": "https://www.bleepingcomputer.com/news/security/exploit-available-for-new-dirtydecrypt-linux-root-escalation-flaw/",
-      "title": "Exploit available for new DirtyDecrypt Linux root escalation flaw",
-      "summary": "A recently patched local privilege escalation vulnerability in the Linux kernel's rxgk module now has a proof-of-concept exploit that allows attackers to gain root access on some Linux systems. [...]",
-      "source": "Bleeping Computer",
-      "category": "infrastructure",
-      "date": "2026-05-18T07:18:33+00:00",
-      "cve_ids": [],
-      "cvss": null,
       "related_links": []
     }
   ]
