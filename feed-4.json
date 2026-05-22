@@ -1,10 +1,52 @@
 {
-  "updated": "2026-05-22T14:40:13.162747+00:00",
+  "updated": "2026-05-22T17:51:51.437670+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "3d643dc53ce60a9fc8e5fc6435c0fde86bd4de58e9e86990c817d0e94c9a0ec1",
+      "url": "https://github.com/advisories/GHSA-vvmg-8mjr-g6q3",
+      "title": "GHSA: OpenTelemetry eBPF Instrumentation: Log enricher writev path can overread and overwrite user buffers",
+      "summary": "### Summary\n\nOBI's log enricher mishandles `writev` buffers by reading only the first `iovec` entry but using the total `iov_iter.count` as the copy length. When log injection is enabled, a crafted multi-segment `writev` call can make OBI read and overwrite memory beyond the first segment.\n\n### Details\n\nIn [bpf/logenricher/logenricher.c#L50](https://github.com/open-telemetry/opentelemetry-ebpf-ins",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-18T20:17:57Z",
+      "cve_ids": [
+        "CVE-2026-45684"
+      ],
+      "cvss": 4.9,
+      "related_links": []
+    },
+    {
+      "id": "0b14c70b8870d8de528f832fdf780c3a0842b3830c397e896399a5604eda3e2c",
+      "url": "https://github.com/advisories/GHSA-962q-hwm5-52x5",
+      "title": "GHSA: OpenTelemetry eBPF Instrumentation: CappedConcurrentHashMap leaks keys after removals",
+      "summary": "### Summary\n\nThe custom `CappedConcurrentHashMap` introduced for Java TLS state tracking never removes keys from its insertion-order queue when entries are deleted. In long-running instrumented JVMs, repeated connection churn can therefore grow the queue without bound and exhaust heap memory.\n\n### Details\n\nThe vulnerable implementation is in [pkg/internal/java/agent/src/main/java/io/opentelemetry/",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-18T20:17:33Z",
+      "cve_ids": [
+        "CVE-2026-45682"
+      ],
+      "cvss": 5.1,
+      "related_links": []
+    },
+    {
+      "id": "7d105b930623040e772cca826c8a991c05fdea256af131d2990325367c8f4aed",
+      "url": "https://github.com/advisories/GHSA-fjq3-ffvr-vm46",
+      "title": "GHSA: OpenTelemetry eBPF Instrumentation: Java TLS ioctl kprobe allows kernel memory disclosure",
+      "summary": "### Summary\n\nThe Java TLS ioctl probe reads user-controlled ioctl pointers with `bpf_probe_read` instead of `bpf_probe_read_user`. An instrumented local process can therefore point OBI at kernel memory and cause that memory to be copied into telemetry.\n\n### Details\n\nThe vulnerable path is in [bpf/generictracer/java_tls.c](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation/blob/36",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-18T20:12:04Z",
+      "cve_ids": [
+        "CVE-2026-45683"
+      ],
+      "cvss": 3.8,
+      "related_links": []
+    },
     {
       "id": "113bd53cbabfda3645be4a47355c372d4fafcaa3fa44e694632332349997ef62",
       "url": "https://github.com/advisories/GHSA-r6c9-g6q5-qrf9",
@@ -659,46 +701,6 @@
         "CVE-2026-45620"
       ],
       "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "e7eb1df840e6f11399ed85093d45af4891af6fc39a35c58f580ef143df63768b",
-      "url": "https://github.com/advisories/GHSA-qjp4-4jvr-xqg3",
-      "title": "GHSA: Spring AI MCP Security: Unvalidated URL Fetching (SSRF)",
-      "summary": "### Summary\n\nThe mcp-security framework fails to implement the mandatory SSRF mitigations outlined in the Model Context Protocol (MCP) [security specifications](https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices#mitigation-3). Specifically, it processes untrusted URLs for OAuth-related discovery and metadata without verifying if the targets are malicious or internal to",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-18T13:29:29Z",
-      "cve_ids": [
-        "CVE-2026-45609"
-      ],
-      "cvss": 7.2,
-      "related_links": []
-    },
-    {
-      "id": "9d5d268f617fbf7a3a904d260ed19a5a77e1d5c672d7675188dc0b776ed9a7c7",
-      "url": "https://github.com/advisories/GHSA-m2hg-wjq3-28wq",
-      "title": "GHSA: form-data-objectizer: Prototype pollution in form-data-objectizer via bracket-notation form keys",
-      "summary": "## Summary\n\n`form-data-objectizer` walks bracket-notation form keys (e.g. `name[sub]`) into nested objects without filtering `__proto__`, `constructor`, or `prototype`. A single HTTP form field whose name starts with `__proto__[...]` causes the library to mutate `Object.prototype`, which is a prototype pollution primitive of the entire Node.js process.\n\nThe bug is in `treatInitial` and `treatSecon",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-18T13:28:31Z",
-      "cve_ids": [
-        "CVE-2026-46510"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "88ceab4c1bfbdce1a5f1faeebad4ab1276e5963bc91b4e770f2584c0c596df29",
-      "url": "https://github.com/advisories/GHSA-qw48-84f6-28gv",
-      "title": "GHSA: Graphite Has a Pickle Deserialization Vulnerability",
-      "summary": "### Impact\n**Type of vulnerability:** Insecure Deserialization via Python's `pickle` module.\n\n**Who is impacted:**  \nUsers of *Graphite graph database engine* versions **before 0.2** who load database files from untrusted or third-party sources.  \nAn attacker could craft a malicious database file that executes arbitrary code when loaded by the engine. This is possible because the engine used `pick",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-18T13:27:55Z",
-      "cve_ids": [],
-      "cvss": 7.8,
       "related_links": []
     }
   ]
