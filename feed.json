@@ -1,10 +1,374 @@
 {
-  "updated": "2026-05-29T21:51:56.014429+00:00",
+  "updated": "2026-05-30T03:28:21.812200+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "4b6572849d1addb438af268b68162e6cd58cf2742929d25baa08015abfdc7a83",
+      "url": "https://github.com/advisories/GHSA-c2m8-4gcg-v22g",
+      "title": "GHSA: praisonai-platform: Any workspace member can promote themselves or others to owner via PATCH /workspaces/{id}/members/{user_id}",
+      "summary": "## Summary\n\n**Type:** Vertical privilege escalation. The `PATCH /workspaces/{workspace_id}/members/{user_id}` endpoint is gated by `require_workspace_member(workspace_id)`, which defaults to `min_role=\"member\"` and is never overridden by the route. The handler then calls `MemberService.update_role(workspace_id, user_id, body.role)` which sets the target member's role to whatever the request body s",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T23:01:59Z",
+      "cve_ids": [
+        "CVE-2026-47416"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "a15ff575683c4527a274639b3f4e170aa6cbbef984acef893b7ced8b3528fac7",
+      "url": "https://github.com/advisories/GHSA-w388-2392-px73",
+      "title": "GHSA: praisonai-platform: Missing authorization on member removal enables full workspace takeover by any user regardless of role",
+      "summary": "## Summary\n\n**Type:** Authorization bypass enabling owner lockout. The `DELETE /workspaces/{workspace_id}/members/{user_id}` endpoint is gated only by `require_workspace_member(workspace_id)` (default `min_role=\"member\"`). Any member can remove any other member, including the workspace owner, using a single DELETE. There is no caller-role check, no target-role check, no \"cannot remove last owner\" ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:57:05Z",
+      "cve_ids": [
+        "CVE-2026-47409"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "4566b69468a994db0b8029ff31f6faf9090ca631cead66b6048bef5349e9ecaf",
+      "url": "https://github.com/advisories/GHSA-5jx9-w35f-vp65",
+      "title": "GHSA: praisonai-platform: Label endpoints' unchecked label_id/issue_id enable cross-workspace label IDOR (edit, delete, link)",
+      "summary": "## Summary\n\n**Type:** Insecure Direct Object Reference. Five label endpoints — `PATCH /workspaces/{workspace_id}/labels/{label_id}`, `DELETE .../labels/{label_id}`, `POST .../issues/{issue_id}/labels/{label_id}`, `DELETE .../issues/{issue_id}/labels/{label_id}`, `GET .../issues/{issue_id}/labels` — gate access on `require_workspace_member(workspace_id)` only and pass URL-supplied `label_id` and `i",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:51:07Z",
+      "cve_ids": [
+        "CVE-2026-47414"
+      ],
+      "cvss": 7.6,
+      "related_links": []
+    },
+    {
+      "id": "8e3ae10386434188bc0a466640599b26ebb84b6cd3bede2cf9ffc11ade81cb81",
+      "url": "https://github.com/advisories/GHSA-4x6r-9v57-3gqw",
+      "title": "GHSA: praisonai-platform: IDOR in dependency endpoints allows cross-workspace issue linking, reading, and deletion due to missing ownership checks",
+      "summary": "## Summary\n\n**Type:** Insecure Direct Object Reference. The dependency endpoints (`POST/GET /workspaces/{workspace_id}/issues/{issue_id}/dependencies` and `DELETE .../dependencies/{dep_id}`) gate access on `require_workspace_member(workspace_id)` only, then dispatch to `DependencyService` calls that take URL/body-supplied issue and dependency IDs without verifying any of them belong to the members",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:45:48Z",
+      "cve_ids": [
+        "CVE-2026-47406"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "11eb3660efc78139d508ef6ec3f61a5aeb8112ba56a81cec1a964d86f41ac7ca",
+      "url": "https://github.com/advisories/GHSA-3qg8-5g3r-79v5",
+      "title": "GHSA: praisonai-platform: JWT signing key defaults to hardcoded \"dev-secret-change-me\", allowing token forgery for any user when PLATFORM_ENV is unset",
+      "summary": "## Summary\n\n**Type:** Insecure default cryptographic key. The JWT signing secret defaults to the hardcoded literal `\"dev-secret-change-me\"` when `PLATFORM_JWT_SECRET` is unset. A safety check exists but only fires when `PLATFORM_ENV != \"dev\"`; the default value of `PLATFORM_ENV` is `\"dev\"`, so the check is silently bypassed in any deployment that does not explicitly opt out. The attacker reads the",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T22:42:46Z",
+      "cve_ids": [
+        "CVE-2026-47410"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "d403e069ce08462b90e23db49501d0b0e975ace6b016ea7db6059ae362efbc62",
+      "url": "https://github.com/advisories/GHSA-h37g-4h4p-9x97",
+      "title": "GHSA: PraisonAI Platform: Missing role checks let any workspace member become owner and control workspace membership",
+      "summary": "### Summary\n\nPraisonAI Platform has a broken workspace authorization check that allows any authenticated low-privilege workspace member to escalate their own role to `owner`.\n\nThe issue is caused by privileged workspace-management routes using the shared dependency `require_workspace_member(...)` without requiring `admin` or `owner`. The dependency defaults to `min_role=\"member\"`, so routes that s",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:42:07Z",
+      "cve_ids": [
+        "CVE-2026-47405"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "66df1adaa63b68b0461ed22f783bc7c5f535e9f44a3ce25a5664e255a7ea2296",
+      "url": "https://github.com/advisories/GHSA-6h6v-6m7w-7vxx",
+      "title": "GHSA: PraisonAI Platform workspace-scoped routes allow cross-workspace object access by global object ID",
+      "summary": "### Summary\n\nPraisonAI Platform's workspace-scoped REST routes contain a systemic object-level authorization flaw that allows an authenticated user from one workspace to access, modify, and delete objects belonging to another workspace by supplying the victim object's global UUID.\n\nThe affected pattern appears in workspace-scoped routes such as agents, projects, issues, and comments. The route lay",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:35:13Z",
+      "cve_ids": [
+        "CVE-2026-47399"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "0793d3509130a55bfe32f0c4ad7d4617c551e484f6a8991eb613dbf67fa875cb",
+      "url": "https://github.com/advisories/GHSA-27p4-pjqv-whgj",
+      "title": "GHSA: praisonai-platform: list_issue_activity returns activity log for any issue regardless of workspace ownership",
+      "summary": "## Summary\n\n**Type:** Insecure Direct Object Reference. The `GET /workspaces/{workspace_id}/issues/{issue_id}/activity` endpoint is gated by `require_workspace_member(workspace_id)` and dispatches to `ActivityService.list_for_issue(issue_id)`, which executes `SELECT * FROM activity WHERE issue_id = :issue_id` with no workspace constraint. A user who is a member of any workspace can read the full a",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:34:08Z",
+      "cve_ids": [
+        "CVE-2026-47408"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "4cb0854adf6ffe4469adfdc571ae8ec82f1d899b5a18efec9b92dd1fa67494f0",
+      "url": "https://github.com/advisories/GHSA-gv23-xrm3-8c62",
+      "title": "GHSA: PraisonAI has Cross-Workspace IDOR and Privilege Escalation via Platform API",
+      "summary": "### Summary\n\nThe PraisonAI Platform API has two authorization failures that together break workspace isolation. The service layer for issues and projects performs global primary-key lookups without checking workspace ownership, so any authenticated user can read, modify, and delete resources in any workspace just by swapping UUIDs in their API requests. On top of that, every member management endp",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T22:32:45Z",
+      "cve_ids": [
+        "CVE-2026-48169"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "1dfd85f774281556402c83d140d1da09478b8c9aeccc861bfbb2996ac053853b",
+      "url": "https://github.com/advisories/GHSA-vg22-4gmj-prxw",
+      "title": "GHSA: PraisonAI's unauthenticated A2A official example can reach real LLM-driven `eval()` tool execution",
+      "summary": "## Summary\n\nThe first-party PraisonAI A2A server example combines three behaviors into a remotely exploitable Critical chain:\n\n1. The example exposes an A2A server without configuring `auth_token`.\n2. The same example binds the server to `0.0.0.0`.\n3. The example registers a `calculate(expression)` tool implemented with Python `eval(expression)`.\n\nAn unauthenticated network client can send a JSON-",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T22:31:26Z",
+      "cve_ids": [
+        "CVE-2026-47391"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "73ede1d6aab8403edc056881e0957a013edf1f7799a17203f0fa98d13ddec6ad",
+      "url": "https://github.com/advisories/GHSA-4mr5-g6f9-cfrh",
+      "title": "GHSA: PraisonAI vulnerable to sandbox escape via `print.__self__` builtins module leak in `execute_code` (subprocess mode)",
+      "summary": "## Summary\n\n`execute_code()` in `praisonaiagents/tools/python_tools.py` (v1.6.37, subprocess sandbox mode) can be fully bypassed using `print.__self__` to retrieve the real Python `builtins` module, from which `__import__` can be extracted via `vars()` and runtime string construction. This achieves arbitrary OS command execution on the host, completely defeating the sandbox.\n\nThis is a **novel byp",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T22:30:13Z",
+      "cve_ids": [
+        "CVE-2026-47392"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "76354408df73eb27fd7c53bbf41724b5b8b5f69a1210b4d35aa2d298444604d9",
+      "url": "https://github.com/advisories/GHSA-5cxw-77wg-jrf3",
+      "title": "GHSA: PraisonAI CLI automatically resolves @url mentions in prompt text and can read loopback URLs into model context",
+      "summary": "### Summary\n\nPraisonAI's direct-prompt CLI automatically expands `@url:` mentions in raw prompt text before agent execution begins.\n\nIf a prompt contains `@url:<http-or-https-url>`, the CLI calls `MentionsParser.process(...)`. The `@url:` handler then performs a direct `urllib.request.urlopen()` request to the attacker-controlled URL and returns the response body. That response body is prepended t",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:29:47Z",
+      "cve_ids": [
+        "CVE-2026-47395"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "0aff613425735831737b66f75940f66417d26aad77f035108674134e583248f1",
+      "url": "https://github.com/advisories/GHSA-8444-4fhq-fxpq",
+      "title": "GHSA: PraisonAI `deploy --type api` emits a Flask server with authentication disabled by default",
+      "summary": "### Summary\n\nCVE-2026-44338 (GHSA-6rmh-7xcm-cpxj) documents that PraisonAI ships a code-generator (`praisonai.deploy.api.generate_api_server_code`) that emits a Flask API server with authentication disabled by default. Users who follow the documented quickstart (`praisonai deploy --type api`) get a server that:\n\n- binds to `0.0.0.0` per the recommended sample YAML\n- exposes `/chat` and `/agents` e",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T22:29:20Z",
+      "cve_ids": [
+        "CVE-2026-47393"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "6ea4556234d6aa497f16c143c7e586a0ab74c5874c473c80a588461ea30153c5",
+      "url": "https://github.com/advisories/GHSA-86qc-r5v2-v6x6",
+      "title": "GHSA: PraisonAI call server exposes unauthenticated agent listing, invocation, and deletion when CALL_SERVER_TOKEN is unset",
+      "summary": "### Summary\n\nPraisonAI's call server exposes a network-facing agent control API without authentication when `CALL_SERVER_TOKEN` is not configured.\n\nThe affected component is the `praisonai.api.agent_invoke` router as mounted by `praisonai.api.call`. The authentication helper `verify_token()` fails open when `CALL_SERVER_TOKEN` is unset. Since every sensitive agent-control endpoint depends on this ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T22:27:34Z",
+      "cve_ids": [
+        "CVE-2026-47396"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "05177a0fcd78574809e6ea488fb4cf7024c0eac570b2a92272b8259e36f05c3c",
+      "url": "https://github.com/advisories/GHSA-5c6w-wwfq-7qqm",
+      "title": "GHSA: PraisonAI spider_tools SSRF protection bypass via alternate loopback host encodings",
+      "summary": "### Summary\n\nPraisonAI's `spider_tools` URL validation can be bypassed using alternate loopback host encodings.\n\nThe affected component is:\n\n```text\npraisonaiagents/tools/spider_tools.py\n````\n\nThe tool contains a URL validation function intended to block local or unsafe targets before fetching attacker-controlled URLs. However, the validation only blocks a small set of exact host strings such as `",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:27:09Z",
+      "cve_ids": [
+        "CVE-2026-47390"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "1eb2a78770b66831fe048ad2b7cf1444db628cba002d974dfbdcf7e8c7138baa",
+      "url": "https://github.com/advisories/GHSA-78r8-wwqv-r299",
+      "title": "GHSA: PraisonAI: Arbitrary code execution via unguarded `spec.loader.exec_module` in `agents_generator.py` - sibling of CVE-2026-44334",
+      "summary": "<html><head></head><body><h2>Arbitrary code execution via ungated <code>spec.loader.exec_module</code> in <code>agents_generator.py</code> (v4.6.32 chokepoint refactor bypass)</h2>\n<h3>Summary</h3>\n<p>The v4.6.32 chokepoint refactor (which patched CVE-2026-44334 / GHSA-xcmw-grxf-wjhj) added the <code>PRAISONAI_ALLOW_LOCAL_TOOLS</code> env-var gate to the <code>tool_override.py</code> sinks. Howeve",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:26:31Z",
+      "cve_ids": [
+        "CVE-2026-47398"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "95cc6fb68a29ba2b865fb0c9fc6083a77d2eede1582d9bb6352a2a63d5ebe7ef",
+      "url": "https://github.com/advisories/GHSA-6x26-5727-rrm9",
+      "title": "GHSA: Nezha's authenticated DDNS webhook configuration allows blind SSRF from the dashboard host",
+      "summary": "#### Summary\n\nAn authenticated Nezha dashboard user can create or update a DDNS profile with provider `webhook` and configure an arbitrary `webhook_url`, HTTP method, request body, and headers. When DDNS is triggered for a server that uses that profile, the dashboard process sends the configured request with `utils.HttpClient` without the SSRF protections used by notification webhooks.\n\nThis allow",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:10:12Z",
+      "cve_ids": [
+        "CVE-2026-47268"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "b131d68784bfa0423bce0ab836340342af9b2d0c4014dc2ea858c6255d2de229",
+      "url": "https://github.com/advisories/GHSA-xw54-c3mx-9pm3",
+      "title": "GHSA: Admidio: Any logged-in user can delete inventory fields via `mode=field_delete` — incomplete fix of #2024",
+      "summary": "## Summary\n\nCommit `d37ca6b27b9674238e58491cf7ba292e66898f15` (\"Delete item not check admin rights #2024\", 2026-04-12) added a missing `isAdministratorInventory()` gate to `case 'item_delete':` in `modules/inventory.php`. The same fix was not applied to the sibling `case 'field_delete':` handler, which destroys an entire inventory field definition, cascading to every `adm_inventory_item_data` row ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:09:38Z",
+      "cve_ids": [
+        "CVE-2026-47233"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "4f417770bbfa5136cce1c005bd8dcbed42ef569c1a45d42c8f2fe168665a1313",
+      "url": "https://github.com/advisories/GHSA-mch8-wf3h-6x88",
+      "title": "GHSA: Admidio writes session IDs and auto-login cookie values to application logs",
+      "summary": "## Summary\n\nWhen debug logging is enabled, `Session::setCookie()` logs full cookie values and `Session::start()` logs the current session ID. In a real Admidio deployment this includes both the active session cookie and the persistent auto-login cookie. Anyone with access to the log sink can recover live bearer-style credentials from the logs.\n\n## Vulnerable Code Links\n\n- https://github.com/Admidi",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:07:52Z",
+      "cve_ids": [
+        "CVE-2026-47234"
+      ],
+      "cvss": 4.4,
+      "related_links": []
+    },
+    {
+      "id": "8d2920d3db57cf82f8c51e5678993454bb9aadccf8362059e0a1d84000467449",
+      "url": "https://github.com/advisories/GHSA-4rgq-38mh-9xqg",
+      "title": "GHSA: Admidio PKCS#12 private key export action lacks CSRF protection",
+      "summary": "## Summary\n\nThe sensitive `mode=export` action in `modules/sso/keys.php` exports a PKCS#12 bundle containing the configured private key and certificate, but the CSRF validation line is commented out. A forged cross-site POST from an administrator session can therefore trigger private key export without a valid form token.\n\n## Vulnerable Code Links\n\n- https://github.com/Admidio/admidio/blob/v5.0.9/",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:07:24Z",
+      "cve_ids": [
+        "CVE-2026-47232"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "48858b95270f7286351183a155cefab47f77264209e25b651f3be23e5fa56edb",
+      "url": "https://github.com/advisories/GHSA-x628-457g-2pw9",
+      "title": "GHSA: Admidio has IDOR in `documents-files.php` `mode=move_save` that lets any folder-uploader exfiltrate files from private folders",
+      "summary": "## Summary\n\n`modules/documents-files.php` gates state-changing modes by checking that the actor has `hasUploadRight()` on the URL parameter `folder_uuid`. The `move_save` handler then operates on a *separate* URL parameter `file_uuid` and calls `File::moveToFolder($destFolderUUID)`. `File::moveToFolder()` checks the upload right on the **destination** folder but never on the **source** folder cont",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T22:06:48Z",
+      "cve_ids": [
+        "CVE-2026-47231"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "be5d34589fdb9e1a60744da85289a4119d4a289ad716504705004f4816a0412a",
+      "url": "https://github.com/advisories/GHSA-q6w3-hpfv-rg36",
+      "title": "GHSA: Admidio: IDOR in documents-files.php allows cross-folder file rename and description changes by unauthorized uploaders",
+      "summary": "## Summary\n\n`modules/documents-files.php` mode `file_rename_save` shares the same root-cause shape as the cross-folder move bug (`05-documents-cross-folder-move-idor.md`): the top-level rights check at lines 79-89 validates `hasUploadRight()` on the URL parameter `folder_uuid`, but the rename operation acts on `file_uuid` — a separate URL parameter — without re-checking the folder that actually co",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:05:47Z",
+      "cve_ids": [
+        "CVE-2026-47230"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "4b967c74f13f8a789547676ce03ec525d9e8e0fc4f997ad94090daec8c170e04",
+      "url": "https://github.com/advisories/GHSA-xg76-5qj2-2hhv",
+      "title": "GHSA: Admidio: CSRF in SSO client `enable` action toggles SAML/OIDC clients without token validation",
+      "summary": "## Summary\n\n`modules/sso/clients.php` validates an `adm_csrf_token` on every state-changing branch except `enable`. The `enable` case loads the SAML or OIDC client by UUID, calls `$client->enable($enabled)`, and persists the new state with no token check. Because the action is reachable via plain GET parameters, a third-party page can trick an authenticated administrator into disabling (or silentl",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:01:58Z",
+      "cve_ids": [
+        "CVE-2026-47229"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "c95357681a1d1ccb9143e048b9df999c29ff0ac39a83ae9177dcba01065caf24",
+      "url": "https://github.com/advisories/GHSA-mx25-j3rc-6w2w",
+      "title": "GHSA: Admidio's CSRF in registration `send_login` mode resets arbitrary user passwords",
+      "summary": "## Summary\n\n`modules/registration.php` mode `send_login` regenerates a random password for `user_uuid_assigned`, stores its bcrypt hash in `adm_users.usr_password`, and emails the cleartext to that user. Every other state-changing mode in the same file (`assign_member`, `assign_user`, `delete_user`, `create_user`) calls `SecurityUtils::validateCsrfToken($_POST['adm_csrf_token'])` first; the `send_",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T21:58:44Z",
+      "cve_ids": [
+        "CVE-2026-47228"
+      ],
+      "cvss": 5.2,
+      "related_links": []
+    },
+    {
+      "id": "f99b7baf837814ce29c254578d3a400d2d9efec26fc2c3839fabdbc471e7bef4",
+      "url": "https://github.com/advisories/GHSA-rwjr-qjj3-mq2f",
+      "title": "GHSA: Admidio module-administrator can delete or reorder categories owned by other modules via dead authorization check in `modules/categories.php`",
+      "summary": "## Summary\n\n`modules/categories.php` checks that the supplied `type` parameter (`ANN`, `EVT`, `ROL`, `USF`, …) corresponds to a module the actor administers. The follow-up \"is this specific category editable by me\" check at lines 56-61 is dead code because it compares `$getType` (a category-type code) against mode names (`edit`/`save`/`delete`); the condition is permanently false, so `$category->i",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T21:57:05Z",
+      "cve_ids": [
+        "CVE-2026-47227"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "5a0640852b7e76ddc8bff656d0cc0137e8f94b6c8f1c092a903db56041dc124a",
+      "url": "https://github.com/advisories/GHSA-qc4c-hrmc-4f78",
+      "title": "GHSA: Admidio: Authorization bypass in file_delete enables cross-folder file removal by authenticated users without delete privileges",
+      "summary": "### Summary\n\nAn authenticated Admidio member with upload rights on **any one folder** can permanently delete files from folders where they have only view access. The authorization check at the top of `modules/documents-files.php` evaluates upload rights against the attacker-supplied `folder_uuid` URL parameter — not the file's actual parent folder. The `file_delete` handler then only verifies view",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T21:54:09Z",
+      "cve_ids": [
+        "CVE-2026-47226"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
     {
       "id": "81d438bb80c9edae578fb64fbf546d70a33b8be48c3151561f503ab4ad1d6a70",
       "url": "https://github.com/advisories/GHSA-xjhv-pp2r-6f82",
@@ -327,358 +691,6 @@
         "CVE-2026-8814"
       ],
       "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "1817366de44f888ed246b1a728d92f674598790ee2cf09b8295d013087b12c7a",
-      "url": "https://github.com/advisories/GHSA-6j2x-vhqr-qr7q",
-      "title": "GHSA: vm2 sandbox escape via JSPI-backed Promise `.finally()` species bypass",
-      "summary": "### Summary\nA sandbox escape vulnerability in `vm2` allows arbitrary code execution in the host process when untrusted code is executed with async support on runtimes exposing WebAssembly JSPI (`WebAssembly.promising` / `WebAssembly.Suspending`). In the tested configuration, a JSPI-backed Promise can reach `Promise.prototype.finally()` in a way that bypasses the expected Promise-species hardening ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T17:51:05Z",
-      "cve_ids": [
-        "CVE-2026-47210"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "f67966a883df87e6d2808687ac9d91bb9b8e5c8ce2bac45e7f7d54c96181a735",
-      "url": "https://github.com/advisories/GHSA-m4wx-m65x-ghrr",
-      "title": "GHSA: vm2 has a CVE-2023-37903 patch bypass: nesting:true without explicit require still allows full RCE",
-      "summary": "## Summary\n\nThe fix for GHSA-8hg8-63c5-gwmx (CVE-2023-37903) introduced a check in `nodevm.js` line 263 that blocks the combination `nesting: true` + `require: false`. However, the check uses strict equality (`options.require === false`), which is trivially bypassed by omitting the `require` option entirely.\n\nWhen `require` is not specified, `options.require` is `undefined`, not `false`. The stric",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T17:50:22Z",
-      "cve_ids": [
-        "CVE-2026-47137"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "597ee020fae5a5ec411027d1d8a8a04cc6d0cc1b991a0b4881dd0b98b08298f9",
-      "url": "https://github.com/advisories/GHSA-c4cf-2hgv-2qv6",
-      "title": "GHSA: vm2's Bridge Proxy set trap ignores receiver parameter, enabling host object property injection via prototype chain",
-      "summary": "## Summary\n\nThe `BaseHandler.set` trap in `bridge.js` (line 1231) ignores the `receiver` parameter and unconditionally writes to the host target object. Per the Proxy `set` trap specification, when `receiver !== proxy` (e.g., when a child object inherits from the proxy via `Object.create`), the property assignment should create an own property on the receiver, not on the proxy target. The current ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T17:49:18Z",
-      "cve_ids": [
-        "CVE-2026-47209"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "c42e8482071c112103485ca39bb26c51c4554991817b4cc4088d7e974e57c6dd",
-      "url": "https://github.com/advisories/GHSA-m5q2-4fm3-vfqp",
-      "title": "GHSA: vm2 has a sandbox escape via unblocked cross-realm Symbol.for keys + missing bridge write-trap symbol checks",
-      "summary": "## Summary\n\nvm2 3.11.2 `Symbol.for` override in `setup-sandbox.js` only intercepts 2 of 9 dangerous Node.js cross-realm symbols. Combined with the bridge's `set`/`defineProperty`/`deleteProperty` traps having **no** `isDangerousCrossRealmSymbol` key check, sandbox code can obtain real cross-realm symbols, write them to host objects, and control host-side behavior — verified with a full `util.promi",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T17:44:32Z",
-      "cve_ids": [
-        "CVE-2026-47135"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "61142bc8a34f2f42435d9f7405ae7636c06b50beb972df95c36c0aaac06a3ce6",
-      "url": "https://github.com/advisories/GHSA-76w7-j9cq-rx2j",
-      "title": "GHSA: vm2 is Vulnerable to Sandbox Breakout Through Promise Species",
-      "summary": "### Summary\n\nVM2 suffers from a sandbox breakout vulnerability. This allows attackers to write code which can escape from the VM2 sandbox and execute arbitrary commands on the host system.\n\n### Details\n\nThe `localPromise` constructor was changed to call `this.then(undefined, eater)` to ensure a rejected promise is always used. However, this is missing a call to `resetPromiseSpecies` to ensure that",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T17:40:15Z",
-      "cve_ids": [
-        "CVE-2026-47208"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "59a423415d3030df27f7c0f0d7fbf3dd77392ea5a1a6d54f3f7d5c2e9dc7feac",
-      "url": "https://github.com/advisories/GHSA-v6mx-mf47-r5wg",
-      "title": "GHSA: vm2 has a Sandbox Escape issue",
-      "summary": "### Summary\nBy combining `Buffer.call.call({}.__lookupGetter__, Buffer, \"__proto__\")`, `Buffer.call.call({}.__lookupSetter__, Buffer, \"__proto__\")`, and Node.js's `ERR_INVALID_ARG_TYPE` Error, the host's `TypeError` constructor can be obtained, which allows the escape from the sandbox.\nThis allows attackers to run arbitrary code.\n\n### PoC\n```js\n\"use strict\";\n\nconst { VM } = require(\"vm2\");\nconst v",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T17:33:58Z",
-      "cve_ids": [
-        "CVE-2026-47131"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "469f9dc23221a79afc72686a83e9b70dffdf01aae56dfb44f72ed383bcf62db3",
-      "url": "https://github.com/advisories/GHSA-vp73-vjw8-8f32",
-      "title": "GHSA: Gotenberg has a Race Condition via Multipart `downloadFrom` Handling",
-      "summary": "### Summary\n\nGotenberg is vulnerable to a remote denial of service in multipart `downloadFrom` handling.\n\nA multipart request containing multiple `downloadFrom` entries causes concurrent goroutines to write to shared maps without synchronization. This can terminate the process with `fatal error: concurrent map writes`.\n\nIn the default configuration, `downloadFrom` is enabled and authentication is ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T16:56:18Z",
-      "cve_ids": [
-        "CVE-2026-45742"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "1be6d67b38c4379cbaa4e31b9957cc548904cd2ad62e36d9855fdfef261fd40a",
-      "url": "https://github.com/advisories/GHSA-86m8-88fq-xfxp",
-      "title": "GHSA: Gotenberg has an SSRF deny-list bypass in IsPublicIP via IPv6 6to4 / NAT64 / site-local prefixes",
-      "summary": "### Summary\n\n`IsPublicIP` in `pkg/gotenberg/outbound.go` incorrectly classifies IPv6 6to4 / NAT64 / deprecated site-local addresses as public IPs, allowing an unauthenticated attacker to reach internal destinations (e.g., cloud metadata services at `169.254.169.254`) via a single crafted DNS AAAA record. This is a variant of CVE-2026-44430 (modelcontextprotocol/registry).\n\n### Details\n\n`IsPublicIP",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T16:50:37Z",
-      "cve_ids": [
-        "CVE-2026-45741"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "4c5bb91d72d6e906c83d953c9d825cc38726929de17cf659e84c1de37fe5da13",
-      "url": "https://www.rapid7.com/blog/post/etr-rapid7-observed-exploitation-of-pan-os-globalprotect-authentication-bypass-vulnerability-cve-2026-0257",
-      "title": "Rapid7 Observed Exploitation of PAN-OS GlobalProtect Authentication Bypass Vulnerability (CVE-2026-0257)",
-      "summary": "OverviewOn May 13, 2026, Palo Alto Networks published a security advisory for CVE-2026-0257, a medium severity authentication bypass affecting PAN-OS and Prisma Access when a specific configuration is present. Successful exploitation of this vulnerability allows a remote unauthenticated attacker to successfully establish a VPN connection through the GlobalProtect gateway of an affected appliance.R",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-05-29T16:49:40+00:00",
-      "cve_ids": [
-        "CVE-2026-0257"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-0257"
-      ]
-    },
-    {
-      "id": "a3c7e7256cb4fb328aea90aa60a1110272a9d91cab8757182ca53d9d779893ef",
-      "url": "https://github.com/advisories/GHSA-hwc4-gmrw-5222",
-      "title": "GHSA: Gotenberg has path traversal in zip entry name via Windows-style separators in upload filename",
-      "summary": "### Summary\n`filepath.Base` on the Linux container does not strip backslashes (`\\`), because `\\` is only a path separator on Windows. A multipart filename like `..\\..\\..\\..\\Windows\\System32\\evil.pdf` survives Gotenberg's input sanitisation and lands verbatim as the zip entry name when a multi-output route returns its result as a zip (e.g. `/forms/pdfengines/split`). Windows zip extractors interpre",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T16:38:24Z",
-      "cve_ids": [
-        "CVE-2026-44829"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "0c237423bfa69679a9a600a88b847eb061ba7a17b271b3c6b09d0c90cc17ef51",
-      "url": "https://github.com/advisories/GHSA-3g43-6gmg-66jw",
-      "title": "GHSA: axios Vulnerable to Credential Theft and Response Hijacking via Prototype Pollution Gadget in Config Merge",
-      "summary": "## Summary\n\nAxios versions before the fixed releases contain prototype-pollution gadgets in request config processing. If another vulnerability in the same JavaScript process has already polluted `Object.prototype.transformResponse`, affected Axios versions may treat that inherited value as request configuration or as an option validator.\n\nAxios does not itself create the prototype pollution. Expl",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T16:07:31Z",
-      "cve_ids": [
-        "CVE-2026-44495"
-      ],
-      "cvss": 7.0,
-      "related_links": []
-    },
-    {
-      "id": "2d43db7f493319baa51e29d2a483697eda5e98fc8a865895828957abb1822551",
-      "url": "https://github.com/advisories/GHSA-35jp-ww65-95wh",
-      "title": "GHSA: axios Vulnerable to Full Man-in-the-Middle via Prototype Pollution Gadget in `config.proxy`",
-      "summary": "# Vulnerability Disclosure: Full Man-in-the-Middle via Prototype Pollution Gadget in `config.proxy`\n\n## Summary\n\nThe Axios library is vulnerable to a Prototype Pollution \"Gadget\" attack that allows any `Object.prototype` pollution in the application's dependency tree to be escalated into a **full Man-in-the-Middle (MITM) attack** — intercepting, reading, and modifying all HTTP traffic including au",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T16:04:00Z",
-      "cve_ids": [
-        "CVE-2026-44494"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "fd097ef0a25fada82ad7e2ca3a395918524e7f335ff2e4ea56a6c3148aefc8d0",
-      "url": "https://github.com/advisories/GHSA-pjwm-pj3p-43mv",
-      "title": "GHSA: axios's shouldBypassProxy does not recognize IPv4-mapped IPv6 addresses, allowing NO_PROXY bypass (incomplete fix for CVE-2025-62718)",
-      "summary": "### Summary\nshouldBypassProxy, introduced in v1.15.0 to fix CVE-2025-62718, does not normalise IPv4-mapped IPv6 addresses. When NO_PROXY lists an IPv4 address such as `127.0.0.1` or `169.254.169.254`, a request URL using the IPv4-mapped IPv6 form (`::ffff:7f00:1`, `::ffff:a9fe:a9fe`) still routes through the configured proxy. Node.js resolves these addresses to the underlying IPv4 host, so the req",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T15:59:30Z",
-      "cve_ids": [
-        "CVE-2026-44492"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "a071dbdd5565a02cbd8443ad41d3256d00ccb1673776123827e24e8462dc8988",
-      "url": "https://github.com/advisories/GHSA-898c-q2cr-xwhg",
-      "title": "GHSA: axios has DoS & Header Injection via Prototype Pollution Read-Side Gadgets in axios merge functions",
-      "summary": "## Summary\n\naxios `1.15.2` exposes two read-side prototype-pollution gadgets. When `Object.prototype` is polluted by an upstream dependency in the same process (e.g. lodash `_.merge` / [CVE-2018-16487](https://nvd.nist.gov/vuln/detail/CVE-2018-16487)), axios silently picks up the polluted values:\n\n1. **Header injection** - `lib/utils.js` line 406 builds `merge()`'s accumulator as `result = {}`, so",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T15:54:57Z",
-      "cve_ids": [
-        "CVE-2026-44490"
-      ],
-      "cvss": 4.8,
-      "related_links": []
-    },
-    {
-      "id": "73dcb279ac7337049d932feeb664d3e56e7ba87d94d00a9a8c4c44ff2b552fb7",
-      "url": "https://github.com/advisories/GHSA-654m-c8p4-x5fp",
-      "title": "GHSA: Axios has a Patch Bypass: Proxy-Authorization Header Injection via Prototype Pollution — Incomplete Null-Prototype Fix",
-      "summary": "# [Patch Bypass] Proxy-Authorization Header Injection via Prototype Pollution — Incomplete Null-Prototype Fix in Axios 1.15.2\n\n## Summary\n\nThe `Object.create(null)` fix introduced in Axios 1.15.2 (GHSA-q8qp-cvcw-x6jj) protects the **top-level config object** from prototype pollution. However, **nested objects** created by `utils.merge()` (e.g., `config.proxy`) are still constructed as plain `{}` w",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T15:51:02Z",
-      "cve_ids": [
-        "CVE-2026-44489"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "e9d9162aa6820969137c184842d53809ef8a4fb8075909b5417f030e23c3ce7f",
-      "url": "https://github.com/advisories/GHSA-mq5v-pxpm-8jw2",
-      "title": "GHSA: Froxlor has privilege escalation in SSH key synchronization via symlinked `authorized_keys` path",
-      "summary": "### Summary\nFroxlor 2.3.6 contains a symlink-following flaw in the root-owned SSH key synchronization path used for customer FTP users. The provisioning code appends public keys to `~/.ssh/authorized_keys` under a customer-controlled home directory without verifying that the target path is not a symbolic link.\n\nIf an attacker controls a shell-enabled customer account and can modify files inside th",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T15:40:23Z",
-      "cve_ids": [
-        "CVE-2026-41236"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "e2163a770e288482dffa10e3c77f917a370e33d5f47d141dd02dffa9010adde0",
-      "url": "https://github.com/advisories/GHSA-gcv3-5v9q-fmhh",
-      "title": "GHSA: Froxlor has an authorization bypass in FTP shell assignment via missing server-side `available_shells` enforcement",
-      "summary": "### Summary\nFroxlor 2.3.6 lets administrators configure `system.available_shells` as the approved shell list that customers may assign to FTP users. However, the server-side FTP account handlers do not enforce that whitelist when processing add or edit requests.\n\nAs a result, an authenticated customer with shell delegation enabled can submit an arbitrary shell such as `/bin/bash` even when the pan",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T15:36:26Z",
-      "cve_ids": [
-        "CVE-2026-41235"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "954929651e2d518b07e30fe35c0dfc3bf4646a922a10425cc47badfca763026d",
-      "url": "https://github.com/advisories/GHSA-8xvp-7hj6-mcj9",
-      "title": "GHSA: GitHub CLI has an incorrect authorization header in API requests to TUF repository mirrors via `gh attestation`, `gh release verify`, and `gh release verify-asset` commands",
-      "summary": "### Summary\n\nGitHub CLI incorrectly includes an authorization header in API requests to TUF repository mirrors via `gh attestation`, `gh release verify`, and `gh release verify-asset` commands.\n\n **Affected users:**\n\n  - Authenticated `github.com` users who previously ran `gh attestation` commands, `gh release verify`, or `gh release verify-asset`: the `github.com` token was included in requests t",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T15:30:13Z",
-      "cve_ids": [
-        "CVE-2026-48501"
-      ],
-      "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "2ae28c3d77d060919128ae9ad59ffa4f32c28d13425e89f7e3b1d3c5da535206",
-      "url": "https://github.com/advisories/GHSA-g2g8-95qg-v35h",
-      "title": "GHSA: HaxCMS has a stored Cross-Site Scripting (XSS) bypass in its saveNode endpoint",
-      "summary": "## Summary\n\nHaxCMS is affected by a stored cross-site scripting (XSS) vulnerability in the `/system/api/saveNode` endpoint. An authenticated user with a permission to edit pages can bypass the HTML sanitizer by injecting an event handler attribute without whitespace before the attribute name.\n\nFor example, the sanitizer misses:\n\n```html\n<a href=\"#\"onclick=\"alert('kn1ph')\">click me</a>\n```\n\nThe imp",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T14:07:51Z",
-      "cve_ids": [
-        "CVE-2026-48527"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "abda7f65cdebbed4d72d8758d84ece06f4e2bd70b284a5657ac507e25ecfb3c9",
-      "url": "https://www.exploit-db.com/exploits/52589",
-      "title": "[remote] Wing FTP Server 8.1.3 - Authenticated Remote Code Execution",
-      "summary": "Wing FTP Server 8.1.3 - Authenticated Remote Code Execution",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "8a2407006cb34c709e191d29725a734d9c4e18a3ef67d50ff42d08e8aebd7de3",
-      "url": "https://www.exploit-db.com/exploits/52588",
-      "title": "[webapps] CubeCart < 6.7.0 - Reflected Cross-Site Scripting (XSS) (Unauthenticated)",
-      "summary": "CubeCart < 6.7.0 - Reflected Cross-Site Scripting (XSS) (Unauthenticated)",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "5cbfc74df7f8ba9236116365cc930aa4fd92e446705e6a242ce61d2d00e03b38",
-      "url": "https://www.exploit-db.com/exploits/52601",
-      "title": "[remote] Microsoft - NTLMv2 Hash Capture",
-      "summary": "Microsoft - NTLMv2 Hash Capture",
-      "source": "Exploit-DB",
-      "category": "infrastructure",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b86fa9beeedbf887ab144d12acc8c0de24d3cc13e130b50e997502adf61e615f",
-      "url": "https://www.exploit-db.com/exploits/52600",
-      "title": "[webapps] MikroORM 7.0.13 - SQL Injection",
-      "summary": "MikroORM 7.0.13 - SQL Injection",
-      "source": "Exploit-DB",
-      "category": "web_app",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a09075f56121462b1f633379281a0fd5237355f9f9380cf9a94ccf3bb3373702",
-      "url": "https://www.exploit-db.com/exploits/52598",
-      "title": "[webapps] Prodigy Commerce 3.3.0 - Local File Inclusion",
-      "summary": "Prodigy Commerce 3.3.0 - Local File Inclusion",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "56d26310f8a1f98d7009646d12e24661fe3aeaced902980e2e0170dd3877a539",
-      "url": "https://www.exploit-db.com/exploits/52597",
-      "title": "[webapps] Langflow 1.3.0 - Remote Code Execution",
-      "summary": "Langflow 1.3.0 - Remote Code Execution",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3024774f1462b7e772e82aeba5d9a35011f3515143e6ca85637fe69295e53ac7",
-      "url": "https://www.exploit-db.com/exploits/52596",
-      "title": "[webapps] Quick Playground for WordPress 1.3.1 - Unauthenticated Remote Code Execution",
-      "summary": "Quick Playground for WordPress 1.3.1 - Unauthenticated Remote Code Execution",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
       "related_links": []
     }
   ]

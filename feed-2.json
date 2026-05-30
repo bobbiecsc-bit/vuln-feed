@@ -1,10 +1,362 @@
 {
-  "updated": "2026-05-29T21:51:56.014429+00:00",
+  "updated": "2026-05-30T03:28:21.812200+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "1817366de44f888ed246b1a728d92f674598790ee2cf09b8295d013087b12c7a",
+      "url": "https://github.com/advisories/GHSA-6j2x-vhqr-qr7q",
+      "title": "GHSA: vm2 sandbox escape via JSPI-backed Promise `.finally()` species bypass",
+      "summary": "### Summary\nA sandbox escape vulnerability in `vm2` allows arbitrary code execution in the host process when untrusted code is executed with async support on runtimes exposing WebAssembly JSPI (`WebAssembly.promising` / `WebAssembly.Suspending`). In the tested configuration, a JSPI-backed Promise can reach `Promise.prototype.finally()` in a way that bypasses the expected Promise-species hardening ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T17:51:05Z",
+      "cve_ids": [
+        "CVE-2026-47210"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "f67966a883df87e6d2808687ac9d91bb9b8e5c8ce2bac45e7f7d54c96181a735",
+      "url": "https://github.com/advisories/GHSA-m4wx-m65x-ghrr",
+      "title": "GHSA: vm2 has a CVE-2023-37903 patch bypass: nesting:true without explicit require still allows full RCE",
+      "summary": "## Summary\n\nThe fix for GHSA-8hg8-63c5-gwmx (CVE-2023-37903) introduced a check in `nodevm.js` line 263 that blocks the combination `nesting: true` + `require: false`. However, the check uses strict equality (`options.require === false`), which is trivially bypassed by omitting the `require` option entirely.\n\nWhen `require` is not specified, `options.require` is `undefined`, not `false`. The stric",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T17:50:22Z",
+      "cve_ids": [
+        "CVE-2026-47137"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "597ee020fae5a5ec411027d1d8a8a04cc6d0cc1b991a0b4881dd0b98b08298f9",
+      "url": "https://github.com/advisories/GHSA-c4cf-2hgv-2qv6",
+      "title": "GHSA: vm2's Bridge Proxy set trap ignores receiver parameter, enabling host object property injection via prototype chain",
+      "summary": "## Summary\n\nThe `BaseHandler.set` trap in `bridge.js` (line 1231) ignores the `receiver` parameter and unconditionally writes to the host target object. Per the Proxy `set` trap specification, when `receiver !== proxy` (e.g., when a child object inherits from the proxy via `Object.create`), the property assignment should create an own property on the receiver, not on the proxy target. The current ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T17:49:18Z",
+      "cve_ids": [
+        "CVE-2026-47209"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "c42e8482071c112103485ca39bb26c51c4554991817b4cc4088d7e974e57c6dd",
+      "url": "https://github.com/advisories/GHSA-m5q2-4fm3-vfqp",
+      "title": "GHSA: vm2 has a sandbox escape via unblocked cross-realm Symbol.for keys + missing bridge write-trap symbol checks",
+      "summary": "## Summary\n\nvm2 3.11.2 `Symbol.for` override in `setup-sandbox.js` only intercepts 2 of 9 dangerous Node.js cross-realm symbols. Combined with the bridge's `set`/`defineProperty`/`deleteProperty` traps having **no** `isDangerousCrossRealmSymbol` key check, sandbox code can obtain real cross-realm symbols, write them to host objects, and control host-side behavior — verified with a full `util.promi",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T17:44:32Z",
+      "cve_ids": [
+        "CVE-2026-47135"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "61142bc8a34f2f42435d9f7405ae7636c06b50beb972df95c36c0aaac06a3ce6",
+      "url": "https://github.com/advisories/GHSA-76w7-j9cq-rx2j",
+      "title": "GHSA: vm2 is Vulnerable to Sandbox Breakout Through Promise Species",
+      "summary": "### Summary\n\nVM2 suffers from a sandbox breakout vulnerability. This allows attackers to write code which can escape from the VM2 sandbox and execute arbitrary commands on the host system.\n\n### Details\n\nThe `localPromise` constructor was changed to call `this.then(undefined, eater)` to ensure a rejected promise is always used. However, this is missing a call to `resetPromiseSpecies` to ensure that",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T17:40:15Z",
+      "cve_ids": [
+        "CVE-2026-47208"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "59a423415d3030df27f7c0f0d7fbf3dd77392ea5a1a6d54f3f7d5c2e9dc7feac",
+      "url": "https://github.com/advisories/GHSA-v6mx-mf47-r5wg",
+      "title": "GHSA: vm2 has a Sandbox Escape issue",
+      "summary": "### Summary\nBy combining `Buffer.call.call({}.__lookupGetter__, Buffer, \"__proto__\")`, `Buffer.call.call({}.__lookupSetter__, Buffer, \"__proto__\")`, and Node.js's `ERR_INVALID_ARG_TYPE` Error, the host's `TypeError` constructor can be obtained, which allows the escape from the sandbox.\nThis allows attackers to run arbitrary code.\n\n### PoC\n```js\n\"use strict\";\n\nconst { VM } = require(\"vm2\");\nconst v",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T17:33:58Z",
+      "cve_ids": [
+        "CVE-2026-47131"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "469f9dc23221a79afc72686a83e9b70dffdf01aae56dfb44f72ed383bcf62db3",
+      "url": "https://github.com/advisories/GHSA-vp73-vjw8-8f32",
+      "title": "GHSA: Gotenberg has a Race Condition via Multipart `downloadFrom` Handling",
+      "summary": "### Summary\n\nGotenberg is vulnerable to a remote denial of service in multipart `downloadFrom` handling.\n\nA multipart request containing multiple `downloadFrom` entries causes concurrent goroutines to write to shared maps without synchronization. This can terminate the process with `fatal error: concurrent map writes`.\n\nIn the default configuration, `downloadFrom` is enabled and authentication is ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T16:56:18Z",
+      "cve_ids": [
+        "CVE-2026-45742"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "1be6d67b38c4379cbaa4e31b9957cc548904cd2ad62e36d9855fdfef261fd40a",
+      "url": "https://github.com/advisories/GHSA-86m8-88fq-xfxp",
+      "title": "GHSA: Gotenberg has an SSRF deny-list bypass in IsPublicIP via IPv6 6to4 / NAT64 / site-local prefixes",
+      "summary": "### Summary\n\n`IsPublicIP` in `pkg/gotenberg/outbound.go` incorrectly classifies IPv6 6to4 / NAT64 / deprecated site-local addresses as public IPs, allowing an unauthenticated attacker to reach internal destinations (e.g., cloud metadata services at `169.254.169.254`) via a single crafted DNS AAAA record. This is a variant of CVE-2026-44430 (modelcontextprotocol/registry).\n\n### Details\n\n`IsPublicIP",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T16:50:37Z",
+      "cve_ids": [
+        "CVE-2026-45741"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "4c5bb91d72d6e906c83d953c9d825cc38726929de17cf659e84c1de37fe5da13",
+      "url": "https://www.rapid7.com/blog/post/etr-rapid7-observed-exploitation-of-pan-os-globalprotect-authentication-bypass-vulnerability-cve-2026-0257",
+      "title": "Rapid7 Observed Exploitation of PAN-OS GlobalProtect Authentication Bypass Vulnerability (CVE-2026-0257)",
+      "summary": "OverviewOn May 13, 2026, Palo Alto Networks published a security advisory for CVE-2026-0257, a medium severity authentication bypass affecting PAN-OS and Prisma Access when a specific configuration is present. Successful exploitation of this vulnerability allows a remote unauthenticated attacker to successfully establish a VPN connection through the GlobalProtect gateway of an affected appliance.R",
+      "source": "Rapid7",
+      "category": "emergency",
+      "date": "2026-05-29T16:49:40+00:00",
+      "cve_ids": [
+        "CVE-2026-0257"
+      ],
+      "cvss": null,
+      "related_links": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-0257"
+      ]
+    },
+    {
+      "id": "a3c7e7256cb4fb328aea90aa60a1110272a9d91cab8757182ca53d9d779893ef",
+      "url": "https://github.com/advisories/GHSA-hwc4-gmrw-5222",
+      "title": "GHSA: Gotenberg has path traversal in zip entry name via Windows-style separators in upload filename",
+      "summary": "### Summary\n`filepath.Base` on the Linux container does not strip backslashes (`\\`), because `\\` is only a path separator on Windows. A multipart filename like `..\\..\\..\\..\\Windows\\System32\\evil.pdf` survives Gotenberg's input sanitisation and lands verbatim as the zip entry name when a multi-output route returns its result as a zip (e.g. `/forms/pdfengines/split`). Windows zip extractors interpre",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T16:38:24Z",
+      "cve_ids": [
+        "CVE-2026-44829"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "0c237423bfa69679a9a600a88b847eb061ba7a17b271b3c6b09d0c90cc17ef51",
+      "url": "https://github.com/advisories/GHSA-3g43-6gmg-66jw",
+      "title": "GHSA: axios Vulnerable to Credential Theft and Response Hijacking via Prototype Pollution Gadget in Config Merge",
+      "summary": "## Summary\n\nAxios versions before the fixed releases contain prototype-pollution gadgets in request config processing. If another vulnerability in the same JavaScript process has already polluted `Object.prototype.transformResponse`, affected Axios versions may treat that inherited value as request configuration or as an option validator.\n\nAxios does not itself create the prototype pollution. Expl",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T16:07:31Z",
+      "cve_ids": [
+        "CVE-2026-44495"
+      ],
+      "cvss": 7.0,
+      "related_links": []
+    },
+    {
+      "id": "2d43db7f493319baa51e29d2a483697eda5e98fc8a865895828957abb1822551",
+      "url": "https://github.com/advisories/GHSA-35jp-ww65-95wh",
+      "title": "GHSA: axios Vulnerable to Full Man-in-the-Middle via Prototype Pollution Gadget in `config.proxy`",
+      "summary": "# Vulnerability Disclosure: Full Man-in-the-Middle via Prototype Pollution Gadget in `config.proxy`\n\n## Summary\n\nThe Axios library is vulnerable to a Prototype Pollution \"Gadget\" attack that allows any `Object.prototype` pollution in the application's dependency tree to be escalated into a **full Man-in-the-Middle (MITM) attack** — intercepting, reading, and modifying all HTTP traffic including au",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T16:04:00Z",
+      "cve_ids": [
+        "CVE-2026-44494"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "fd097ef0a25fada82ad7e2ca3a395918524e7f335ff2e4ea56a6c3148aefc8d0",
+      "url": "https://github.com/advisories/GHSA-pjwm-pj3p-43mv",
+      "title": "GHSA: axios's shouldBypassProxy does not recognize IPv4-mapped IPv6 addresses, allowing NO_PROXY bypass (incomplete fix for CVE-2025-62718)",
+      "summary": "### Summary\nshouldBypassProxy, introduced in v1.15.0 to fix CVE-2025-62718, does not normalise IPv4-mapped IPv6 addresses. When NO_PROXY lists an IPv4 address such as `127.0.0.1` or `169.254.169.254`, a request URL using the IPv4-mapped IPv6 form (`::ffff:7f00:1`, `::ffff:a9fe:a9fe`) still routes through the configured proxy. Node.js resolves these addresses to the underlying IPv4 host, so the req",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T15:59:30Z",
+      "cve_ids": [
+        "CVE-2026-44492"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "a071dbdd5565a02cbd8443ad41d3256d00ccb1673776123827e24e8462dc8988",
+      "url": "https://github.com/advisories/GHSA-898c-q2cr-xwhg",
+      "title": "GHSA: axios has DoS & Header Injection via Prototype Pollution Read-Side Gadgets in axios merge functions",
+      "summary": "## Summary\n\naxios `1.15.2` exposes two read-side prototype-pollution gadgets. When `Object.prototype` is polluted by an upstream dependency in the same process (e.g. lodash `_.merge` / [CVE-2018-16487](https://nvd.nist.gov/vuln/detail/CVE-2018-16487)), axios silently picks up the polluted values:\n\n1. **Header injection** - `lib/utils.js` line 406 builds `merge()`'s accumulator as `result = {}`, so",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T15:54:57Z",
+      "cve_ids": [
+        "CVE-2026-44490"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "73dcb279ac7337049d932feeb664d3e56e7ba87d94d00a9a8c4c44ff2b552fb7",
+      "url": "https://github.com/advisories/GHSA-654m-c8p4-x5fp",
+      "title": "GHSA: Axios has a Patch Bypass: Proxy-Authorization Header Injection via Prototype Pollution — Incomplete Null-Prototype Fix",
+      "summary": "# [Patch Bypass] Proxy-Authorization Header Injection via Prototype Pollution — Incomplete Null-Prototype Fix in Axios 1.15.2\n\n## Summary\n\nThe `Object.create(null)` fix introduced in Axios 1.15.2 (GHSA-q8qp-cvcw-x6jj) protects the **top-level config object** from prototype pollution. However, **nested objects** created by `utils.merge()` (e.g., `config.proxy`) are still constructed as plain `{}` w",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T15:51:02Z",
+      "cve_ids": [
+        "CVE-2026-44489"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "e9d9162aa6820969137c184842d53809ef8a4fb8075909b5417f030e23c3ce7f",
+      "url": "https://github.com/advisories/GHSA-mq5v-pxpm-8jw2",
+      "title": "GHSA: Froxlor has privilege escalation in SSH key synchronization via symlinked `authorized_keys` path",
+      "summary": "### Summary\nFroxlor 2.3.6 contains a symlink-following flaw in the root-owned SSH key synchronization path used for customer FTP users. The provisioning code appends public keys to `~/.ssh/authorized_keys` under a customer-controlled home directory without verifying that the target path is not a symbolic link.\n\nIf an attacker controls a shell-enabled customer account and can modify files inside th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T15:40:23Z",
+      "cve_ids": [
+        "CVE-2026-41236"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "e2163a770e288482dffa10e3c77f917a370e33d5f47d141dd02dffa9010adde0",
+      "url": "https://github.com/advisories/GHSA-gcv3-5v9q-fmhh",
+      "title": "GHSA: Froxlor has an authorization bypass in FTP shell assignment via missing server-side `available_shells` enforcement",
+      "summary": "### Summary\nFroxlor 2.3.6 lets administrators configure `system.available_shells` as the approved shell list that customers may assign to FTP users. However, the server-side FTP account handlers do not enforce that whitelist when processing add or edit requests.\n\nAs a result, an authenticated customer with shell delegation enabled can submit an arbitrary shell such as `/bin/bash` even when the pan",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T15:36:26Z",
+      "cve_ids": [
+        "CVE-2026-41235"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "954929651e2d518b07e30fe35c0dfc3bf4646a922a10425cc47badfca763026d",
+      "url": "https://github.com/advisories/GHSA-8xvp-7hj6-mcj9",
+      "title": "GHSA: GitHub CLI has an incorrect authorization header in API requests to TUF repository mirrors via `gh attestation`, `gh release verify`, and `gh release verify-asset` commands",
+      "summary": "### Summary\n\nGitHub CLI incorrectly includes an authorization header in API requests to TUF repository mirrors via `gh attestation`, `gh release verify`, and `gh release verify-asset` commands.\n\n **Affected users:**\n\n  - Authenticated `github.com` users who previously ran `gh attestation` commands, `gh release verify`, or `gh release verify-asset`: the `github.com` token was included in requests t",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T15:30:13Z",
+      "cve_ids": [
+        "CVE-2026-48501"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "2ae28c3d77d060919128ae9ad59ffa4f32c28d13425e89f7e3b1d3c5da535206",
+      "url": "https://github.com/advisories/GHSA-g2g8-95qg-v35h",
+      "title": "GHSA: HaxCMS has a stored Cross-Site Scripting (XSS) bypass in its saveNode endpoint",
+      "summary": "## Summary\n\nHaxCMS is affected by a stored cross-site scripting (XSS) vulnerability in the `/system/api/saveNode` endpoint. An authenticated user with a permission to edit pages can bypass the HTML sanitizer by injecting an event handler attribute without whitespace before the attribute name.\n\nFor example, the sanitizer misses:\n\n```html\n<a href=\"#\"onclick=\"alert('kn1ph')\">click me</a>\n```\n\nThe imp",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T14:07:51Z",
+      "cve_ids": [
+        "CVE-2026-48527"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "abda7f65cdebbed4d72d8758d84ece06f4e2bd70b284a5657ac507e25ecfb3c9",
+      "url": "https://www.exploit-db.com/exploits/52589",
+      "title": "[remote] Wing FTP Server 8.1.3 - Authenticated Remote Code Execution",
+      "summary": "Wing FTP Server 8.1.3 - Authenticated Remote Code Execution",
+      "source": "Exploit-DB",
+      "category": "emergency",
+      "date": "2026-05-29T00:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "8a2407006cb34c709e191d29725a734d9c4e18a3ef67d50ff42d08e8aebd7de3",
+      "url": "https://www.exploit-db.com/exploits/52588",
+      "title": "[webapps] CubeCart < 6.7.0 - Reflected Cross-Site Scripting (XSS) (Unauthenticated)",
+      "summary": "CubeCart < 6.7.0 - Reflected Cross-Site Scripting (XSS) (Unauthenticated)",
+      "source": "Exploit-DB",
+      "category": "emergency",
+      "date": "2026-05-29T00:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "5cbfc74df7f8ba9236116365cc930aa4fd92e446705e6a242ce61d2d00e03b38",
+      "url": "https://www.exploit-db.com/exploits/52601",
+      "title": "[remote] Microsoft - NTLMv2 Hash Capture",
+      "summary": "Microsoft - NTLMv2 Hash Capture",
+      "source": "Exploit-DB",
+      "category": "infrastructure",
+      "date": "2026-05-29T00:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "b86fa9beeedbf887ab144d12acc8c0de24d3cc13e130b50e997502adf61e615f",
+      "url": "https://www.exploit-db.com/exploits/52600",
+      "title": "[webapps] MikroORM 7.0.13 - SQL Injection",
+      "summary": "MikroORM 7.0.13 - SQL Injection",
+      "source": "Exploit-DB",
+      "category": "web_app",
+      "date": "2026-05-29T00:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "a09075f56121462b1f633379281a0fd5237355f9f9380cf9a94ccf3bb3373702",
+      "url": "https://www.exploit-db.com/exploits/52598",
+      "title": "[webapps] Prodigy Commerce 3.3.0 - Local File Inclusion",
+      "summary": "Prodigy Commerce 3.3.0 - Local File Inclusion",
+      "source": "Exploit-DB",
+      "category": "emergency",
+      "date": "2026-05-29T00:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "56d26310f8a1f98d7009646d12e24661fe3aeaced902980e2e0170dd3877a539",
+      "url": "https://www.exploit-db.com/exploits/52597",
+      "title": "[webapps] Langflow 1.3.0 - Remote Code Execution",
+      "summary": "Langflow 1.3.0 - Remote Code Execution",
+      "source": "Exploit-DB",
+      "category": "emergency",
+      "date": "2026-05-29T00:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "3024774f1462b7e772e82aeba5d9a35011f3515143e6ca85637fe69295e53ac7",
+      "url": "https://www.exploit-db.com/exploits/52596",
+      "title": "[webapps] Quick Playground for WordPress 1.3.1 - Unauthenticated Remote Code Execution",
+      "summary": "Quick Playground for WordPress 1.3.1 - Unauthenticated Remote Code Execution",
+      "source": "Exploit-DB",
+      "category": "emergency",
+      "date": "2026-05-29T00:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
     {
       "id": "e19236bff14c474580da1186ca5833974372c12fba3077258e1bf415fdaf0b6c",
       "url": "https://www.exploit-db.com/exploits/52594",
@@ -135,7 +487,9 @@
         "CVE-2025-66471"
       ],
       "cvss": null,
-      "related_links": []
+      "related_links": [
+        "https://ubuntu.com/security/notices/USN-8344-2"
+      ]
     },
     {
       "id": "e69a5dddee259fd59121f3b4d373c87fe05b62a7532a27e31e072290038b21a8",
@@ -800,367 +1154,6 @@
         "CVE-2026-26194"
       ],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "492264c88c3b55c10a6afaf9e561b77bf1467d7a5575a2694ad4fc84ec229755",
-      "url": "https://github.com/advisories/GHSA-q3w6-q3hc-c5x6",
-      "title": "GHSA: FUXA's Unauthenticated Project Data Disclosure Exposes Server-Side Scripts and Device Configurations",
-      "summary": "### Summary\n\nThe GET /api/project endpoint exposes sensitive project configuration data to guest-context requests even when secureEnabled is enabled.\n\n### Details\n\nFile: `server/api/projects/index.js`\n\n```javascript\nprjApp.get(\"/api/project\", secureFnc, function(req, res) {\n    const permission = checkGroupsFnc(req);\n    runtime.project.getProject(req.userId, permission).then(result => {\n        i",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-27T22:51:18Z",
-      "cve_ids": [
-        "CVE-2026-47717"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "346ab224dbcb3ca54b16e0004c3f66083b6b1b264942cc051ab05d6770d2c3b0",
-      "url": "https://github.com/advisories/GHSA-2g95-6x5q-xjwj",
-      "title": "GHSA: Yamcs Vulnerable to Authenticated Remote Code Execution (RCE) via Jython Algorithm Code Injection",
-      "summary": "### Summary\nA Server-Side Code Injection vulnerability exists in the Yamcs script evaluation engine for Python algorithms. The application dynamically compiles and evaluates user-controlled algorithm text using Jython (via the JSR-223 ScriptEngine API) without enforcing a secure sandbox. An authenticated user with the `ChangeMissionDatabase` privilege can exploit this by overriding the algorithm l",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-27T22:49:25Z",
-      "cve_ids": [
-        "CVE-2026-46621"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "3eb87e1351ca1d46a58373ab7283634eda41ebb1b4954d61b5f93e426b66629b",
-      "url": "https://github.com/advisories/GHSA-vmwp-vh32-rj75",
-      "title": "GHSA: Yamcs Vulnerable to Remote Code Execution via Mission Database algorithm override",
-      "summary": "# Remote Code Execution via Mission Database algorithm override\n\n## Summary\n\nThe Nashorn `ScriptEngine` used to evaluate user-supplied algorithm text in `MdbOverrideApi.updateAlgorithm` is constructed without a `ClassFilter`, allowing a user with the `ChangeMissionDatabase` privilege to execute arbitrary Java code on the Yamcs server. In Yamcs's default configuration (no `security.yaml`), the buil",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-27T22:45:49Z",
-      "cve_ids": [
-        "CVE-2026-46562"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "f15ed12a0aae64d35c9f264559c8b17141747b4140ef1af086d1982f68f21e5d",
-      "url": "https://github.com/advisories/GHSA-332x-r494-54fq",
-      "title": "GHSA: Pimcore has a WordExport Authorization Bypass for Unauthorized Document Export",
-      "summary": "### Summary\n\nThe `WordExport` export flow only checks whether the current backend user has the feature permission `word_export`. It does not verify access rights on the target element itself.  \nAs a result, a low-privileged backend user can export document content even when the user does not have `view` permission on that document.\n\nIn the local Docker reproduction, a low-privileged user successfu",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-27T22:27:18Z",
-      "cve_ids": [
-        "CVE-2026-45703"
-      ],
-      "cvss": 6.4,
-      "related_links": []
-    },
-    {
-      "id": "c22aaf1f2460b07a8c5edf6ffc02ac04e26631e8ba92a97dba415745bfc3e2c7",
-      "url": "https://github.com/advisories/GHSA-xm76-r88j-vm3g",
-      "title": "GHSA: Automad has Broken Access Control: Unauthenticated exposure of administrator bcrypt password hashes and TOTP secrets via public API endpoint",
-      "summary": "### Summary\n\n A Broken Access Control vulnerability allows an unauthenticated attacker to retrieve the bcrypt password hash of every administrator account with a single POST request. The `/_api/user-collection/create-first-user` setup endpoint remains publicly accessible once initial configuration is complete and returns full serialized user data in the JSON response body.  \n\n### Details\n\nAffected",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-27T21:32:31Z",
-      "cve_ids": [
-        "CVE-2026-45332"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "5256c6762f5a8ef52f77efc9bee069c60b7fa7f1aff05979491c662442b52d76",
-      "url": "https://github.com/advisories/GHSA-rw47-hm26-6wr7",
-      "title": "GHSA: CrowdSec AppSec silently drops request body for chunked / HTTP-2 requests",
-      "summary": "## Summary\n\nThe CrowdSec AppSec component fails to read the HTTP request body for any request whose `Content-Length` is not positive — most notably HTTP/1.1 requests using `Transfer-Encoding: chunked` and HTTP/2 requests sent without a `content-length` header. Coraza is then evaluated against an empty body, so every WAF rule targeting `REQUEST_BODY`, `BODY_ARGS`, `ARGS_POST`, `JSON`, or `XML` sile",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-27T19:58:15Z",
-      "cve_ids": [
-        "CVE-2026-44982"
-      ],
-      "cvss": 7.2,
-      "related_links": []
-    },
-    {
-      "id": "cab8c07da31097eb30c9e20d187577e2066113bfa0b7443737c46370ffa31bd3",
-      "url": "https://github.com/advisories/GHSA-chqv-56wv-7564",
-      "title": "GHSA: Deno's TLS retry copies stale upgrade hook, risking plaintext traffic",
-      "summary": "## Summary\n\nA flaw in Deno's Node.js tls compatibility layer could cause a TLS client to transmit application data in plaintext after a connection retry. When `autoSelectFamily was enabled and the first address-family attempt failed, the socket reinitialization path reused a stale TLS upgrade hook that was bound to the original, failed handle. \n\nAs a result, the replacement TCP connection was neve",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-27T19:51:46Z",
-      "cve_ids": [
-        "CVE-2026-44726"
-      ],
-      "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "1f179da6a9ae78c6f45094b6b0ed40e449004ba1fe232365db081b06fd1178bc",
-      "url": "https://github.com/advisories/GHSA-mxfr-6hcw-j9rq",
-      "title": "GHSA: Langroid has Prompt to SQL Injection, Leading to RCE",
-      "summary": "# Security Vulnerability Report: Prompt to SQL Injection leading to RCE in latest Langroid\n\n## Affected Scope\nlangroid < 0.63.0\n\n## Vulnerability Description\n\nSQLChatAgent executes SQL produced by an LLM, which is influenceable by prompt injection. When configured with a database role that has privileges enabling code execution or filesystem access (e.g., PostgreSQL pg_execute_server_program, MySQ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-27T19:38:58Z",
-      "cve_ids": [
-        "CVE-2026-25879"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "3c4d5666fa3af5c5279c332cb72cea130f899234fadc64692ca2e0d4478ab5ad",
-      "url": "https://github.com/advisories/GHSA-gf2q-c269-pqgc",
-      "title": "GHSA: LiquidJS is Vulnerable to Remote Code Execution",
-      "summary": "### Summary\nIt is possible to execute arbitrary code with crafted templates\n\n\n### Details\n\n<details>\n<summary>\n `1|valueOf` -> `this` when evaluating the filter\n\n\n</summary>\n\n```liquid\n{%assign r=1|valueOf%}\n{{r|inspect}}\n```\n\n```json\n{\"context\":{\"scopes\":[{\"r\":\"[Circular]\"}],\"registers\":{},\"breakCalled\":false,\"continueCalled\":false,\"sync\":false,\"opts\":{\"root\":[\".\"],\"layouts\":[\".\"],\"partials\":[\".\"",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-27T18:24:14Z",
-      "cve_ids": [
-        "CVE-2026-45618"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "ba923f8bb417fb9455f14b3e67cbe55daeafc12dbb2403f72fe9480a20eb130d",
-      "url": "https://github.com/advisories/GHSA-r7g9-xpmj-5fcq",
-      "title": "GHSA: LiquidJS Vulnerable to ReDoS via Quadratic Backtracking in `strip_html` Filter Regex",
-      "summary": "## Summary\n\nThe built-in `strip_html` filter in liquidjs uses a regex containing four lazy-quantified alternatives. When the input contains many `<script`, `<style`, or `<!--` opener tokens without matching closers, the V8 regex engine performs O(N²) backtracking, blocking the Node.js event loop. A single ~350 KB request (`'<script'.repeat(50000)`) stalls the process for ~10 seconds; cost grows qu",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-27T18:08:19Z",
-      "cve_ids": [
-        "CVE-2026-45617"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "97d30e7f5eb222cd4c7ab6673081313e896ad6f7cd64cb1a66f2b3882e81aafd",
-      "url": "https://ubuntu.com/security/notices/USN-8326-1",
-      "title": "USN-8326-1: Foomuuri vulnerabilities",
-      "summary": "Matthias Gerstner discovered that Foomuuri's D-Bus service did not properly enforce authorization. An unprivileged local attacker could possibly use this issue to manipulate the firewall configuration, contrary to expectations. (CVE-2025-67603) Matthias Gerstner discovered that Foomuuri's D-Bus service did not properly validate interface names. A local attacker could possibly use this issue to man",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-05-27T17:43:35+00:00",
-      "cve_ids": [
-        "CVE-2025-67603",
-        "CVE-2025-67858"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "9c163733e15770d481222cd525917ee8a334e35f5432f543bb16318f3a57743a",
-      "url": "https://github.com/advisories/GHSA-hh27-hf48-9f5q",
-      "title": "GHSA: LiquidJS has a memory and render limit bypass via unbounded width padding in `date` filter (strftime)",
-      "summary": "## Summary\n\nThe `date` filter's strftime implementation parses width specifiers like `%9999999d` and forwards the captured width unchecked into `pad()`/`padStart()` in `src/util/underscore.ts`. The pad loop performs unbounded string concatenation without consulting the Context's `memoryLimit` or `renderLimit`, so a single small template (`{{ x | date: '%5000000d' }}`) produces megabytes of output ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-27T17:33:52Z",
-      "cve_ids": [
-        "CVE-2026-45357"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "3234a2d9da35858571e1200bf6ab87cd8f1e9ca7940e0aa2d33d9b03134ddccb",
-      "url": "https://github.com/advisories/GHSA-wc7j-g8wx-m2qx",
-      "title": "GHSA: Pimcore: Missing Authorization in WebDAV MOVE via unchecked asset move handling",
-      "summary": "### Summary\nPimcore's WebDAV asset endpoint exposes a `MOVE` operation through `/asset/webdav{path}` without adding an authentication plugin in the WebDAV controller. The `Tree::move()` implementation then performs asset mutation and deletion before checking a current Pimcore user or any asset permissions.\n\nAn unauthenticated remote attacker who knows two existing asset paths in the same directory",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-27T17:17:18Z",
-      "cve_ids": [
-        "CVE-2026-45260"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "70a8dcdd62cfe8ac099efa7521e5b2fa5167268617f582bfcb4c6002c9b19cd9",
-      "url": "https://github.com/advisories/GHSA-36fc-7wjg-mfvj",
-      "title": "GHSA: Pimcore has Unsafe PHP Deserialization in Multiple Locations Without allowed_classes Restriction",
-      "summary": "# GM-374\n\n## Summary\nMultiple locations in Pimcore v11 call PHP's `unserialize()` on data from database columns and filesystem files without the `allowed_classes` restriction, enabling object injection if an attacker can control the serialized data source.\n\n## Affected Component\n- **Package:** `pimcore/pimcore` and `pimcore/admin-ui-classic-bundle`\n- **Files:**\n  - `lib/Tool/Authentication.php` (l",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-27T16:57:04Z",
-      "cve_ids": [
-        "CVE-2026-45162"
-      ],
-      "cvss": 8.0,
-      "related_links": []
-    },
-    {
-      "id": "3e764182035983cc52eb68ca11d2930e1a64cc4554f58e2c97af32aeaf0c41d5",
-      "url": "https://ubuntu.com/security/notices/USN-8324-1",
-      "title": "USN-8324-1: Apache Tika vulnerabilities",
-      "summary": "It was discovered that Apache Tika incorrectly handled XML external entities when parsing XFA content in PDF files. An attacker could possibly use this issue to obtain sensitive information or send malicious requests to internal resources or third-party servers.",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-05-27T14:10:36+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "973597a58d7f55861a3365d08f2b96700a719e14b5b7bf18189c0642455ec194",
-      "url": "https://www.bleepingcomputer.com/news/security/can-you-enforce-strong-active-directory-password-rules-without-frustrating-users/",
-      "title": "Can you enforce strong Active Directory password rules without frustrating users?",
-      "summary": "Strong Active Directory passwords don't have to come at the expense of usability. Specops Software explains how passphrases, breached password protection, and self-service resets can improve security without frustrating users. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-05-27T14:00:10+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b0357bab491ea2f27c9a4bb6097f502ca113540a908b0993ba3ae62903c2f050",
-      "url": "https://www.bleepingcomputer.com/news/security/cisa-gives-feds-4-days-to-patch-actively-exploited-cpanel-plugin-flaw/",
-      "title": "CISA gives feds 4 days to patch actively exploited cPanel plugin flaw",
-      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) has given U.S. federal agencies four days to secure their servers against a critical vulnerability in the LiteSpeed cPanel user-end plugin, which is actively being exploited in attacks. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-05-27T10:06:17+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "22e045272fc6d12b2a3c2e3ac91ea5a326c6a58ef6c125d492e6ae47e29e0eca",
-      "url": "https://ubuntu.com/security/notices/USN-8315-1",
-      "title": "USN-8315-1: MediaWiki vulnerabilities",
-      "summary": "It was discovered that MediaWiki incorrectly handled group membership visibility in the OATHAuth extension. An authenticated attacker could use this issue to determine if other users had two-factor authentication enabled. (CVE-2026-34087) It was discovered that MediaWiki incorrectly handled suppressed log entry titles in the RecentChanges list. An unauthenticated attacker could use this issue to v",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-05-27T08:39:27+00:00",
-      "cve_ids": [
-        "CVE-2026-34087",
-        "CVE-2026-34088",
-        "CVE-2026-34092"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "91c37ead05822e8337330cad61579c95a210a0b9e4befac266cdb993534eaedf",
-      "url": "https://github.com/advisories/GHSA-h4ph-crvj-9h92",
-      "title": "GHSA: Pimcore Admin Classic Bundle Vulnerable to SQL Injection in Translation Grid Date Filter via Unsanitized Property Parameter",
-      "summary": "# GM-369\n\n## Summary\nSQL injection in Pimcore's translation grid date filter — the user-supplied `property` field from the filter JSON is interpolated directly into a `UNIX_TIMESTAMP(DATE(FROM_UNIXTIME(...)))` SQL expression without parameterization or allowlist validation.\n\n## Affected Component\n- **Package:** `pimcore/admin-ui-classic-bundle`\n- **File:** `src/Controller/Admin/TranslationControll",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-27T00:35:56Z",
-      "cve_ids": [
-        "CVE-2026-44741"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "4c98dfed8de026fa627746ddf3a605d8495a892504147ab52897f43fedb7b4f6",
-      "url": "https://github.com/advisories/GHSA-3234-gxc3-pq6f",
-      "title": "GHSA: Pimcore Vulnerable to SQL Injection in Custom Reports Column Configuration",
-      "summary": "### Summary\nThe columnConfigAction endpoint in the CustomReportsBundle is vulnerable to SQL injection. An attacker with the reports_config permission can supply a malicious SQL configuration that is concatenated into a query and executed. Although the application attempts to filter certain DDL/DML keywords (like UPDATE, DELETE, DROP), it fails to prevent arbitrary SELECT queries, UNION statements,",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-27T00:35:01Z",
-      "cve_ids": [
-        "CVE-2026-44739"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "213e97bb4247f3cf7aedbd3947958dbafbdc5c3680793cdf09ac28e9d44fe587",
-      "url": "https://github.com/advisories/GHSA-9x9p-qf8f-mvjg",
-      "title": "GHSA: LiquidJS's `{% render %}` tag silently bypasses per-render `ownPropertyOnly:true` via `Context.spawn()`",
-      "summary": "## Summary\n\n`Context.spawn()` in liquidjs creates a child `Context` for the `{% render %}` tag but does not propagate the parent context's resolved `ownPropertyOnly` value. The new context re-derives `ownPropertyOnly` from `opts.ownPropertyOnly` (the instance-level option), silently discarding any `RenderOptions.ownPropertyOnly` override that was supplied to `parseAndRender()`. As a result, a deve",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-27T00:28:06Z",
-      "cve_ids": [
-        "CVE-2026-44646"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "72dcb85de0a81f2bfc98d318fc9278ad4fe7c97f1ea053cf0fe9fae78dd530af",
-      "url": "https://github.com/advisories/GHSA-8xx9-69p8-7jp3",
-      "title": "GHSA: LiquidJS has a renderLimit DoS guard bypass via empty `{% for %}` body",
-      "summary": "## Summary\n\nThe `renderLimit` option — documented in `docs/source/tutorials/dos.md` as the mechanism that \"mitigates this by limiting the time consumed by each render() call\" — can be fully bypassed by a `{% for %}` (or `{% tablerow %}`) tag whose body is empty. The per-iteration time check is reached only when the body contains at least one template node, so a template like `{%- for i in (1..N) -",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-27T00:11:46Z",
-      "cve_ids": [
-        "CVE-2026-44645"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "821a2ca706ddfb1d7a6e838d1e5782c64f8ca23d3743d404e3e57df016e2f20a",
-      "url": "https://github.com/advisories/GHSA-2qv6-9wx5-cwv4",
-      "title": "GHSA: LiquidJS's strip_html filter bypass via newline characters in HTML tags enables XSS",
-      "summary": "## Summary\n\nThe `strip_html` filter in liquidjs is intended to remove HTML tags from a string before rendering, and is widely used as an XSS sanitizer. The implementation uses a regex whose catch-all branch (`<.*?>`) does not match line terminators, so any HTML tag containing a `\\n` or `\\r` character passes through unmodified. An attacker who can place a newline inside a tag (e.g. `<img\\nsrc=x\\non",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-27T00:09:12Z",
-      "cve_ids": [
-        "CVE-2026-44644"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "c85c021a5baffb10dda66e845454345d8a8637303389baffec31c34d667c6283",
-      "url": "https://github.com/advisories/GHSA-524g-x36v-9wm6",
-      "title": "GHSA: Yamcs Vulnerable to Server-Side Code Injection (RCE) via Janino Expression Engine in `JavaExprAlgorithmExecutionFactory`",
-      "summary": "### Summary\nA Server-Side Code Injection vulnerability exists in the Yamcs algorithm evaluation engine (`org.yamcs.algorithms.JavaExprAlgorithmExecutionFactory`). The application dynamically compiles and evaluates user-controlled algorithm text without enforcing a secure sandbox. An authenticated user with the `ChangeMissionDatabase` privilege can exploit this to achieve Remote Code Execution (RCE",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-27T00:05:45Z",
-      "cve_ids": [
-        "CVE-2026-44632"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "58211678341a26f901e9b773cec63dda5515394386b0fbb711afd12ec3a60fe6",
-      "url": "https://github.com/advisories/GHSA-w5r6-mcgq-7pq4",
-      "title": "GHSA: Yamcs has No Rate Limiting on Authentication Endpoint",
-      "summary": "### Summary\n\nThe authentication endpoint `POST /auth/token` in `yamcs-core` lacks any form of rate limiting, account lockout, or failed attempt throttling. As a result, an unauthenticated remote attacker can perform unlimited password guessing attempts against any user account.\n\nThis missing rate limiting vulnerability (CWE-307) significantly increases the risk of successful brute-force attacks.\n\n",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-27T00:04:28Z",
-      "cve_ids": [
-        "CVE-2026-44596"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "6e7923b66f251b30930566cca950d8e4f5b925459ae1ca2237b1c52cfd1ba4b8",
-      "url": "https://github.com/advisories/GHSA-p2rj-mrmc-9w29",
-      "title": "GHSA: Yamcs vulnerable to unauthorized user enumeration via IAM API endpoints",
-      "summary": "### Summary\n\nThe IAM API endpoints (`listUsers`, `getUser`, `listGroups`, and `getGroup`) in `yamcs-core` do not enforce the required `SystemPrivilege.ControlAccess` check. As a result, **any authenticated user** (even those with low or no privileges) can enumerate all user accounts in the system, including their usernames, superuser status, and group memberships.\n\nThis constitutes a broken access",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-27T00:03:56Z",
-      "cve_ids": [
-        "CVE-2026-44595"
-      ],
-      "cvss": 4.3,
       "related_links": []
     }
   ]
