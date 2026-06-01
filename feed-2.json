@@ -1,10 +1,238 @@
 {
-  "updated": "2026-06-01T13:36:50.370318+00:00",
+  "updated": "2026-06-01T20:17:10.072476+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "3acd91c97dd8609eeacfebdec3e06696aab53f95e9409c29364303dd7385ad4d",
+      "url": "https://github.com/advisories/GHSA-rfg2-pjw2-56x2",
+      "title": "GHSA: zeroconf has unbounded DNS record cache that allows LAN-local memory exhaustion via multicast flood",
+      "summary": "### Impact\n\n`DNSCache._async_add` inserted every response record into `cache`, `_expirations`, `_expire_heap`, and `service_cache` with no cap on entry count. The only pre-existing protection was a PTR TTL floor (`_DNS_PTR_MIN_TTL = 1125` s, RFC 6762 §10), which actually *prolonged* attacker-injected records, and a periodic `async_expire` on `_CACHE_CLEANUP_INTERVAL = 10` s that could not keep up ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T20:18:53Z",
+      "cve_ids": [
+        "CVE-2026-47184"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "2b15ad9a0bb2198f7d6f48de93429b1c88531f4d282a137e302e3ab15e1407fa",
+      "url": "https://github.com/advisories/GHSA-phvx-9mgw-67r5",
+      "title": "GHSA: zeroconf: Unbounded exception-dedup state retains packet buffers via traceback frame locals, enabling LAN-local memory exhaustion",
+      "summary": "### Impact\n`DNSIncoming._log_exception_debug` and the four `QuietLogger` exception-dedup methods stored an unbounded `_seen_logs` dict keyed by `str(sys.exc_info()[1])`. The seven `IncomingDecodeError` messages raised from `_read_name` / `_decode_labels_at_offset` (RFC 6762 §18 name-decoding error paths) all embed `self.source` — the peer's ephemeral source port, varying per packet — plus byte `of",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T20:13:08Z",
+      "cve_ids": [
+        "CVE-2026-47183"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "402c58ebb0be551d4d52c1ce2b618fbb7e3a35aa8cf0a5cfe23985bd27b45972",
+      "url": "https://github.com/advisories/GHSA-9pgc-3ccv-5297",
+      "title": "GHSA: zeroconf has unbounded recursion in DNS compression-pointer decoder that allows LAN-local denial of service",
+      "summary": "### Impact\n\n`DNSIncoming._decode_labels_at_offset` recurses once per DNS-name compression pointer (RFC 1035 §4.1.4). Pointer cycles and label counts were capped, but the chain length of unique forward pointers was not. A single ~3 kB mDNS packet carrying ~1500 chained pointers drives the recursion past CPython's default limit, and `RecursionError` was not listed in `DECODE_EXCEPTIONS`, so it escap",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T20:09:52Z",
+      "cve_ids": [
+        "CVE-2026-47180"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "caf2f93f4c029ae8b4f38f811ff0e47ac1f699141127005e05a859bce45748fd",
+      "url": "https://github.com/advisories/GHSA-92vj-hp7m-gwcj",
+      "title": "GHSA: Nerdbank.MessagePack has Inefficient CPU Computation",
+      "summary": "### Impact\n\nApplications that call `OptionalConverters.WithExpandoObjectConverter` and deserialize untrusted data are open to a vulnerability by which an attacker can exploit a `O(n²)` algorithm to burn an inordinate amount of CPU effort by adding a great many properties to an `ExpandoObject`, whose `Add` method is implemented as an `O(n)` algorithm.\n\n### Patches\n\nUpdate to a patched version.\n\nIf ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T20:02:59Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "054efad346a27824eac8d1a9af77f234b8ba191dfcddb2cb7cf075b47646e361",
+      "url": "https://github.com/advisories/GHSA-7j2f-6h2r-6cqc",
+      "title": "GHSA: Koel Vulnerable to SSRF via Podcast Episode Enclosure URLs",
+      "summary": "## Summary\n\nKoel validates the podcast feed URL via the `SafeUrl` rule (DNS resolution + public IP check), but the individual episode `<enclosure url=\"...\">` values extracted from the RSS XML are stored directly into the database without any SSRF validation. When a user plays an episode, the server downloads the full HTTP response from the unvalidated enclosure URL via `Http::sink()->get()` and st",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T19:56:06Z",
+      "cve_ids": [
+        "CVE-2026-47260"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "f52b33ca99b509c79f264ecc40be1e21e1be258d04e94db719dcbe67feb41e3b",
+      "url": "https://github.com/advisories/GHSA-qjvr-435c-5fjh",
+      "title": "GHSA: Nerdbank.MessagePack has a memory amplification DoS in collection deserialization",
+      "summary": "Nerdbank.MessagePack deserializers for many collection-shaped types trusted the element count declared in MessagePack array and map headers when allocating destination storage. A crafted payload could therefore force large arrays, pooled buffers, dictionaries, or collection instances to be allocated before the deserializer had consumed the corresponding elements.\n\nThe same allocation pattern exist",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T19:55:09Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "cfd287464e985fd6afa9b4f51cd034d9cbb056c2f9a5e9b21a09965e0c664d6d",
+      "url": "https://github.com/advisories/GHSA-g3hp-f6mg-559v",
+      "title": "GHSA: Sparkle's AppInstaller post-stage-1 XPC listener accepts unvalidated connections, allowing spoofed appcast item data injection",
+      "summary": "## Summary\n\nAppInstaller post-stage-1 XPC listener accepts unvalidated connections, allowing spoofed appcast item data injection.\n\n## Details\n\n`Autoupdate/AppInstaller.m`'s `shouldAcceptNewConnection:` only enforces `SUCodeSigningVerifier validateConnection:` before stage 1 completes. After `_performedStage1Installation = YES`, new connections to the registered Mach service `<bundleId>-spki` are a",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T19:47:19Z",
+      "cve_ids": [
+        "CVE-2026-47122"
+      ],
+      "cvss": 4.2,
+      "related_links": []
+    },
+    {
+      "id": "c53d9584142aa6fe9a490fd5f1222ebff5e048a32a3df2d9d56351ff7b6fcd6f",
+      "url": "https://github.com/advisories/GHSA-hg88-v3cw-3qrh",
+      "title": "GHSA: Sparkle: Binary delta apply intermediate-symlink traversal in malicious .delta",
+      "summary": "## Summary\n\nBinary delta apply intermediate-symlink traversal in malicious .delta\n\n`Autoupdate/SUBinaryDeltaApply.m` enforces `relativePath.pathComponents containsObject:@\"..\"` and rejects writes whose immediate parent directory IS itself a symbolic link, but does not detect symlinks deeper in the relative path. `Autoupdate/SPUSparkleDeltaArchive.m`'s `extractItem:` will create symlinks in the des",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T19:45:04Z",
+      "cve_ids": [
+        "CVE-2026-47121"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "a836a281d53fa8350a67d249381a68e988df153996e775dd6ed7435dfc8035ea",
+      "url": "https://github.com/advisories/GHSA-w5pp-99ch-qj29",
+      "title": "GHSA: go-git: Malformed Git object data may cause panics or resource exhaustion",
+      "summary": "### Impact\nSeveral denial-of-service issues were identified in `go-git` when parsing maliciously crafted Git repository data.\n\nAn attacker may craft a malicious `.pack`, `.idx` or loose objects that causes an application using an affected version of `go-git` to panic or consume excessive resources.\n\nThis can lead to denial of service in applications that use `go-git` to clone, fetch, open, or othe",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T19:43:27Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "803d23fc3363d1d9877509e573852b90f156f5cf0805dd2d150997c090849d05",
+      "url": "https://github.com/advisories/GHSA-hpv4-5h6f-wqr3",
+      "title": "GHSA: russh server userauth state is not reset when authentication principal changes",
+      "summary": "### Summary\nThe `russh` server authentication path keeps internal userauth state across `SSH_MSG_USERAUTH_REQUEST` messages without separating that state when the request principal changes.\n\nRFC 4252 allows the `user name` and `service name` fields to change between authentication requests. The issue is not that such changes are invalid. The issue is that russh-owned authentication state, such as ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T19:39:41Z",
+      "cve_ids": [
+        "CVE-2026-46705"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "fbfc941bd067f4d3ad5634bfa439c90745869bd368e69dd2c0f05fb9ceaded5a",
+      "url": "https://github.com/advisories/GHSA-wwx6-x28x-8259",
+      "title": "GHSA: russh: Post-decompression SSH packet size was not bounded, allowing remote oversized compressed packets",
+      "summary": "### Summary\n\nWhen SSH compression is enabled, `russh` accepted compressed packets whose on-wire size passed the normal transport packet-length checks but whose decompressed size was much larger. This allowed a remote peer to send oversized post-decompression packets that should have been rejected.\n\nIn current releases, this is a remote denial-of-service / resource-exhaustion issue in the post-deco",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T19:37:14Z",
+      "cve_ids": [
+        "CVE-2026-46702"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "3658841277d5e9625f66861c3dacb1161a2e14ba0df9bfcdbbd626977921fe12",
+      "url": "https://github.com/advisories/GHSA-29h4-r29x-hchv",
+      "title": "GHSA: amazon-redshift-python-driver vulnerable to Remote Code Execution via eval() Injection",
+      "summary": "### Summary\namazon-redshift-python-driver is the official Python connector for Amazon Redshift. In versions 2.1.13 and earlier, the driver insufficiently validates data received from the server during query result processing. A rogue server or man-in-the-middle could leverage this to execute arbitrary code on the client.\n\n### Impact\nWhen a client connects to a rogue server implementing the Postgre",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T19:32:28Z",
+      "cve_ids": [
+        "CVE-2026-8838"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "0bda775143ecdaa1138d9496e4c37b09c1279a2ede5477f5a41c0988994142fe",
+      "url": "https://github.com/advisories/GHSA-xg9x-h37w-h3r3",
+      "title": "GHSA: ezsystems/ezpublish-legacy has a SQL injection in dfscleanup",
+      "summary": "NB: All tags and branches in this repository are past their end of life, so the vulnerability will not be fixed. The advisory is posted on the request of the researcher, for the information of anyone who might still use this software.\n\n### Impact\nThere is a security vulnerability in eZ Publish Legacy, affecting the dfscleanup.php script and the `_getFileList` function of the `eZDFSFileHandlerMySQL",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T19:07:38Z",
+      "cve_ids": [
+        "CVE-2026-38739"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "a1a4c7509aad3d558e25ea5b995195ce257149cedb2551d5d87044ea1926399e",
+      "url": "https://github.com/advisories/GHSA-6m57-8r3p-pqx6",
+      "title": "GHSA: unbounded-spsc: Sender::send pointer-as-value transmute causes OOB read and fake-Arc drop under TX/RX race",
+      "summary": "## Summary\n\n`Sender::send` in `src/lib.rs` contains an `unsafe` block in the `DISCONNECTED` arm that transmutes a **raw pointer** (`*mut Producer<T>`) into the bytes of a **value-level** `Consumer<T>`. The author's intent, visible in the surrounding comment at lines 386-390, was a value transmute. The shipped code is one level of indirection off.\n\nThe resulting `Consumer<T>` has its internal `Arc:",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T19:05:21Z",
+      "cve_ids": [
+        "CVE-2026-46690"
+      ],
+      "cvss": 5.8,
+      "related_links": []
+    },
+    {
+      "id": "0c7b6495a14bce0fa09a6bad3a117d825ec22b6bd9fecee0a227d1666a4e9960",
+      "url": "https://github.com/advisories/GHSA-rf84-wr5g-m3rp",
+      "title": "GHSA: CAPM3 vulnerable to Cross-Namespace resource access",
+      "summary": "## Summary\n\nCAPM3 is Metal3's Cluster API (CAPI) provider for baremetal provisioning in Kubernetes. Multiple cross-namespace access control vulnerabilities in Cluster API Provider Metal3 allow users with permissions to create or modify CAPM3 resources in one namespace to reference, read, or claim resources belonging to other namespaces.\n\n## Patched In\n\n- **v1.13.0** (main branch — all fixes includ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T19:01:05Z",
+      "cve_ids": [],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "81bbba1024e97144f1673360c65947d0e57194f1a3865db53d6ca00182777980",
+      "url": "https://github.com/advisories/GHSA-49pm-43hf-6xfq",
+      "title": "GHSA: IPAM controller service account granted unnecessary full access to Secrets",
+      "summary": "### Impact\n\nIPAM is the IP address Manager for Cluster API Provider Metal3. The IPAM controller's ClusterRole granted full CRUD permissions (create, delete, get, list, patch, update, watch) on core/v1 Secrets. The controller never accesses Secrets during normal operation. If the controller pod were compromised (e.g. via supply chain attack or container escape), an attacker could leverage these exc",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T18:24:45Z",
+      "cve_ids": [
+        "CVE-2026-47190"
+      ],
+      "cvss": 4.4,
+      "related_links": []
+    },
+    {
+      "id": "b757ab16b1b37bbc1788e7acdd4675197a7e5dba8ff1692240e6e33f6ba1812f",
+      "url": "https://github.com/advisories/GHSA-hfc8-w5f4-3x6m",
+      "title": "GHSA: Ironic Standalone Operator's controller modifies user-owned resources without consent",
+      "summary": "## Impact\n\nThe Ironic Standalone Operator (IRSO) is the operator to maintain an Ironic deployment for Metal3. IRSO controller automatically adds its environment label to user-provided Secrets and ConfigMaps without the resource owner's consent. A high-privilege controller modifying user-owned resources constitutes an unauthorized integrity violation. Deployments running IrSO v0.7.0 through v0.8.1 ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T18:23:34Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
     {
       "id": "c19e75bc18f59f3681bfcc5e86ca923bd1b1e09c33ebd2fe04a8dc449ab9874d",
       "url": "https://github.com/advisories/GHSA-7cwm-fpfh-rrch",
@@ -448,240 +676,6 @@
       "date": "2026-05-29T00:00:00+00:00",
       "cve_ids": [],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "883c8bf67c1af9aabbf16b079402179488228d72bdb426fe5e2e3f7839149f84",
-      "url": "https://www.exploit-db.com/exploits/52591",
-      "title": "[local] Linux Kernel - Local Privilege Escalation",
-      "summary": "Linux Kernel - Local Privilege Escalation",
-      "source": "Exploit-DB",
-      "category": "infrastructure",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "9db1f15d0448da45dccf5569f9f5dba62837996e00422da623d0d67adbe3bb8a",
-      "url": "https://www.exploit-db.com/exploits/52590",
-      "title": "[webapps] MixPHP Framework 2.2.17 - Unsafe Deserialization Remote Code Execution",
-      "summary": "MixPHP Framework 2.2.17 - Unsafe Deserialization Remote Code Execution",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "fe47857a5baa6e770f2c72c7260074b8334053f8fb6ab4968a7fdcd0f2534e2e",
-      "url": "https://github.com/advisories/GHSA-qp9x-wp8f-qgjj",
-      "title": "GHSA: tuf has platform-dependent delegation path matching",
-      "summary": "`DelegatedRole._is_target_in_pathpattern` uses `fnmatch.fnmatch` to decide whether a given target path is authorized by a delegation's glob pattern.\n\nPython's `fnmatch.fnmatch` calls `os.path.normcase()` on both arguments before matching. On POSIX hosts `normcase` is the identity function; on Windows hosts `os.path` resolves to `ntpath`, whose `normcase` lowercases its input and replaces `/` with ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-28T22:46:13Z",
-      "cve_ids": [],
-      "cvss": 4.0,
-      "related_links": []
-    },
-    {
-      "id": "aa88f21bc632fb60fa681087f1a8502e1c263f9d002852d645826ff006a4df6c",
-      "url": "https://github.com/advisories/GHSA-c3px-h233-h6fq",
-      "title": "GHSA: Arcane Has an Authenticated Arbitrary Host File Read via Docker Compose Include Directives",
-      "summary": "## Summary\n\n`ProjectService.GetProjectFileContent` returns the contents of any Docker Compose include directive declared in a project's compose file before any path-traversal validation runs. Because `ProjectService.CreateProject` writes attacker-supplied compose content to disk without validating include paths, an authenticated user can create a project whose compose file declares `include: ['../",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-28T22:39:25Z",
-      "cve_ids": [
-        "CVE-2026-47179"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "7ba577b03d951a3bd61dc395e54da59f6749d44926ba6934f271de72bda5f406",
-      "url": "https://github.com/advisories/GHSA-897w-fcg9-f6xj",
-      "title": "GHSA: Dulwich has an arbitrary file write via NTFS-hostile tree entries on Windows",
-      "summary": "## Impact\n\nArbitrary file write leading to remote code execution when cloning or checking out a malicious Git repository on Windows.\n\nDulwich's path-element validator accepted tree entries whose filenames contained bytes that Windows interprets as structural path syntax:\n\n  - \\ — the Windows path separator. A single tree entry named .git\\hooks\\pre-commit.exe was treated as one valid filename on PO",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-28T22:28:06Z",
-      "cve_ids": [
-        "CVE-2026-42305"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "16ce01a2ce7db7c1330fbe4bd0f87d6e4109abec5fd6a443cc814d16db5bd4e6",
-      "url": "https://github.com/advisories/GHSA-x6p3-76f2-xxvh",
-      "title": "GHSA: Shamefile has an arbitrary file read via shamefile.yaml in shame next",
-      "summary": "### Impact\n\nA path traversal vulnerability in `shame next` allows an attacker-controlled `shamefile.yaml` to disclose contents of files outside the repository, one line at a time, to the terminal of a user who runs the command. See patch commit for technical details.\n\n### Patches\n\nFixed in 0.1.7. Upgrade to either 0.1.7 or later versions to incorporate the patch.\n\n### Workarounds\n\nDo not run `sham",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-28T20:02:14Z",
-      "cve_ids": [
-        "CVE-2026-47144"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "9535b1e85392d1270edf55ccf5ff728cf01c3d3de095ab34fb9abc0c6fee8b01",
-      "url": "https://github.com/advisories/GHSA-27vp-2mmc-vmh3",
-      "title": "GHSA: nono: Sandbox escape on Linux via D-Bus: `systemd-run --user`",
-      "summary": "### Summary\n\nThe nono Landlock/seccomp policies allow access to local Unix domain sockets (concrete and abstract). This allows an easy sandbox escape by talking to the per-user systemd dbus socket.\n\nThreat scenario: Running Aider, Claude Code, OpenCode or similar tools with \"allow bash\" policy so that it can invoke arbitrary host tools like `make`, `gcc`, etc. to write code.\n\n### Reproducer\n\nHere,",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-28T19:55:40Z",
-      "cve_ids": [
-        "CVE-2026-47128"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "ba5a5c4d0acb41b96768ae8c1c2f47b89a9625d858ca879aff94b548d3698139",
-      "url": "https://ubuntu.com/security/notices/USN-8344-1",
-      "title": "USN-8344-1: pip vulnerabilities",
-      "summary": "It was discovered that pip incorrectly handled TLS certificate verification in session connections. If a session was first used with certificate verification disabled, subsequent requests to the same host would also skip verification regardless of the session's current settings. A remote attacker could possibly use this issue to perform a machine-in-the-middle attack and expose sensitive informati",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-05-28T19:46:16+00:00",
-      "cve_ids": [
-        "CVE-2024-35195",
-        "CVE-2025-66418",
-        "CVE-2025-66471"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://ubuntu.com/security/notices/USN-8344-2"
-      ]
-    },
-    {
-      "id": "e69a5dddee259fd59121f3b4d373c87fe05b62a7532a27e31e072290038b21a8",
-      "url": "https://github.com/advisories/GHSA-g23j-2vwm-5c25",
-      "title": "GHSA: local-deep-research has an SSRF bypass in `safe_get`",
-      "summary": "### Summary\nThe URL checking logic in local-deep-research has a logical flaw that could be bypassed by attackers, leading to SSRF attacks.\n\n### Details\nThe current project uses `validate_url` to validate the input URL. The main logic is to perform security checks on the host portion of the URL extracted by urlparse to prevent SSRF attacks.\n\n<img width=\"1173\" height=\"1107\" alt=\"QQ20260430-212334-30",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-28T19:18:34Z",
-      "cve_ids": [
-        "CVE-2026-46526"
-      ],
-      "cvss": 5.0,
-      "related_links": []
-    },
-    {
-      "id": "19c3ab9950b5a25e81ade33a06aa0e861d621d032ad1a59a52c89df11a332101",
-      "url": "https://github.com/advisories/GHSA-gg2g-p7xc-qqmm",
-      "title": "GHSA: compliance-trestle Vulnerable to Remote Code Execution via Recursive Server-Side Template Injection (SSTI)",
-      "summary": "A High severity Server-Side Template Injection (SSTI) vulnerability exists in the `trestle author jinja` command. The command recursively evaluates rendered templates, allowing an attacker to achieve arbitrary command execution with privileges of the running process by injecting malicious payloads into data fields (such as SSP documents or Lookup Tables).\n\n**The vulnerability does not require atta",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-28T19:01:38Z",
-      "cve_ids": [
-        "CVE-2026-46439"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "de18711be2e109427d1da1deadf19964a10821baa09c05d64ed8a6ebb5607bb9",
-      "url": "https://github.com/advisories/GHSA-7j6w-vvw2-5f9c",
-      "title": "GHSA: OpenBao's Kerberos Auth Method Accumulates Unaccessible Tokens",
-      "summary": "### Impact\n\nIn OpenBao's Kerberos auth method on the `GET` handler, or when an `Authorization: Negotiate` header is supplied, the response is includes a `logical.Auth` object in addition to an error message. This results in tokens being created with only the default policy, default TTL, and no entity information, which are hidden by the returned error message. No access to these tokens by the call",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-05-28T18:55:23Z",
-      "cve_ids": [
-        "CVE-2026-46405"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "42108296db6c8c370842d90cc9d6b65a0abb1012c64df00f050b459d89946860",
-      "url": "https://github.com/advisories/GHSA-w76h-q7c6-jpjp",
-      "title": "GHSA: compliance-trestle Vulnerable to SSRF in Remote Fetching Subsystem",
-      "summary": "A source code audit led to the discovery of three significant security vulnerabilities in the trestle/core/remote/cache.py module.\n\n**Finding 1 (Critical): SSRF (CWE-918)**\nThe HTTPSFetcher._do_fetch() method passes a user-supplied URL directly to requests.get() without validation. This allows an attacker to perform Server-Side Request Forgery, targeting internal services or cloud metadata endpoin",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-28T18:27:13Z",
-      "cve_ids": [
-        "CVE-2026-46380"
-      ],
-      "cvss": 6.7,
-      "related_links": []
-    },
-    {
-      "id": "e7fba22123b2227a57324fc00364a71dcaecdc09c9dd5a122137d7e517e34731",
-      "url": "https://github.com/advisories/GHSA-q537-qhj4-wcjx",
-      "title": "GHSA: OpenCTI: Privilege escalation via graphQL API is abusable by organization admins, due to incorrect ACL on userEdit relationAdd",
-      "summary": "### Summary\nAn organization admin can escalate their privileges by adding a user from a different organization with higher privileges, to their own organization.\n\n### Impact\nFull platform access, access to sensitive or proprietary information.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-28T18:08:59Z",
-      "cve_ids": [
-        "CVE-2026-44730"
-      ],
-      "cvss": 7.2,
-      "related_links": []
-    },
-    {
-      "id": "3423d13a5d013440eba6051324ab56760eee25990be82b33ffb1b78774ce7dc0",
-      "url": "https://ubuntu.com/security/notices/USN-8343-1",
-      "title": "USN-8343-1: multipart vulnerability",
-      "summary": "It was discovered that multipart had an ambiguous regular expression alternation when handling certain HTTP header values. A remote attacker could possibly use this issue to cause multipart to use excessive resources, leading to a denial of service.",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-05-28T17:53:21+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "8ff5cdf1565bcd6ea8754c9a3dbdb8510d1fac57647efc89dc1e73a805aa5ebe",
-      "url": "https://github.com/advisories/GHSA-4q5v-7g7x-j79w",
-      "title": "GHSA: compliance-trestle - jinja has an Arbitrary File Write via Path Traversal",
-      "summary": "**Relevant Products/Components:**\n\n* `trestle/core/commands/author/jinja.py`\n* `trestle author jinja`\n\n---\n\n## Detailed Description:\n\nThe `-o/--output` argument in `trestle author jinja` allows writing files outside the intended workspace.\n\nThe application does not properly validate:\n\n* `../`\n* `..\\`\n* absolute paths\n\nThis allows arbitrary file write to attacker-controlled locations.\n\nVulnerable c",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-28T17:44:03Z",
-      "cve_ids": [
-        "CVE-2026-46345"
-      ],
-      "cvss": 8.4,
-      "related_links": []
-    },
-    {
-      "id": "5a41b9c3498ad8846a04f98be18fc6f4cf34e26072022153a03c6ad4c6b85957",
-      "url": "https://github.com/advisories/GHSA-5wrp-cwcj-q835",
-      "title": "GHSA: opentelemetry-go's baggage parsing no longer caps raw header length",
-      "summary": "### Summary\n\nhttps://github.com/open-telemetry/opentelemetry-go/pull/7880 removed raw-length rejection and it causes `Parse` to process arbitrarily large/invalid baggage headers and log errors, enabling DoS via oversized inputs.\n\n\n### Details\n\nThe commit removes the upfront baggage-string length check and the per-member size guard in parsing. `Parse` now walks the entire input with `strings.SplitS",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-28T17:04:19Z",
-      "cve_ids": [
-        "CVE-2026-41178"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "dd47b4d24062aac852584815e6ba2f6ee00b28628e380896bf9287e604c9fbd8",
-      "url": "https://github.com/advisories/GHSA-2ww6-hf35-mfjm",
-      "title": "GHSA: Capsule Namespace Hijacking via subresource",
-      "summary": "### Summary\nTo defend against namespace hijacking achieved through update/patch operations on namespaces, Capsule uses a webhook to validate update requests targeting namespaces. However, in Kubernetes, the namespace/finalize and namespace/status subresource APIs can also modify various fields of a namespace, including the metadata field. The webhook does not define interception rules for these su",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-28T17:01:41Z",
-      "cve_ids": [
-        "CVE-2026-30963"
-      ],
-      "cvss": 3.9,
       "related_links": []
     }
   ]
