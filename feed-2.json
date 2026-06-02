@@ -1,10 +1,80 @@
 {
-  "updated": "2026-06-02T12:04:10.145383+00:00",
+  "updated": "2026-06-02T19:41:07.578637+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "be5d34589fdb9e1a60744da85289a4119d4a289ad716504705004f4816a0412a",
+      "url": "https://github.com/advisories/GHSA-q6w3-hpfv-rg36",
+      "title": "GHSA: Admidio: IDOR in documents-files.php allows cross-folder file rename and description changes by unauthorized uploaders",
+      "summary": "## Summary\n\n`modules/documents-files.php` mode `file_rename_save` shares the same root-cause shape as the cross-folder move bug (`05-documents-cross-folder-move-idor.md`): the top-level rights check at lines 79-89 validates `hasUploadRight()` on the URL parameter `folder_uuid`, but the rename operation acts on `file_uuid` — a separate URL parameter — without re-checking the folder that actually co",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:05:47Z",
+      "cve_ids": [
+        "CVE-2026-47230"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "4b967c74f13f8a789547676ce03ec525d9e8e0fc4f997ad94090daec8c170e04",
+      "url": "https://github.com/advisories/GHSA-xg76-5qj2-2hhv",
+      "title": "GHSA: Admidio: CSRF in SSO client `enable` action toggles SAML/OIDC clients without token validation",
+      "summary": "## Summary\n\n`modules/sso/clients.php` validates an `adm_csrf_token` on every state-changing branch except `enable`. The `enable` case loads the SAML or OIDC client by UUID, calls `$client->enable($enabled)`, and persists the new state with no token check. Because the action is reachable via plain GET parameters, a third-party page can trick an authenticated administrator into disabling (or silentl",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T22:01:58Z",
+      "cve_ids": [
+        "CVE-2026-47229"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "c95357681a1d1ccb9143e048b9df999c29ff0ac39a83ae9177dcba01065caf24",
+      "url": "https://github.com/advisories/GHSA-mx25-j3rc-6w2w",
+      "title": "GHSA: Admidio's CSRF in registration `send_login` mode resets arbitrary user passwords",
+      "summary": "## Summary\n\n`modules/registration.php` mode `send_login` regenerates a random password for `user_uuid_assigned`, stores its bcrypt hash in `adm_users.usr_password`, and emails the cleartext to that user. Every other state-changing mode in the same file (`assign_member`, `assign_user`, `delete_user`, `create_user`) calls `SecurityUtils::validateCsrfToken($_POST['adm_csrf_token'])` first; the `send_",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T21:58:44Z",
+      "cve_ids": [
+        "CVE-2026-47228"
+      ],
+      "cvss": 5.2,
+      "related_links": []
+    },
+    {
+      "id": "f99b7baf837814ce29c254578d3a400d2d9efec26fc2c3839fabdbc471e7bef4",
+      "url": "https://github.com/advisories/GHSA-rwjr-qjj3-mq2f",
+      "title": "GHSA: Admidio module-administrator can delete or reorder categories owned by other modules via dead authorization check in `modules/categories.php`",
+      "summary": "## Summary\n\n`modules/categories.php` checks that the supplied `type` parameter (`ANN`, `EVT`, `ROL`, `USF`, …) corresponds to a module the actor administers. The follow-up \"is this specific category editable by me\" check at lines 56-61 is dead code because it compares `$getType` (a category-type code) against mode names (`edit`/`save`/`delete`); the condition is permanently false, so `$category->i",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T21:57:05Z",
+      "cve_ids": [
+        "CVE-2026-47227"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "5a0640852b7e76ddc8bff656d0cc0137e8f94b6c8f1c092a903db56041dc124a",
+      "url": "https://github.com/advisories/GHSA-qc4c-hrmc-4f78",
+      "title": "GHSA: Admidio: Authorization bypass in file_delete enables cross-folder file removal by authenticated users without delete privileges",
+      "summary": "### Summary\n\nAn authenticated Admidio member with upload rights on **any one folder** can permanently delete files from folders where they have only view access. The authorization check at the top of `modules/documents-files.php` evaluates upload rights against the attacker-supplied `folder_uuid` URL parameter — not the file's actual parent folder. The `file_delete` handler then only verifies view",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T21:54:09Z",
+      "cve_ids": [
+        "CVE-2026-47226"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
     {
       "id": "81d438bb80c9edae578fb64fbf546d70a33b8be48c3151561f503ab4ad1d6a70",
       "url": "https://github.com/advisories/GHSA-xjhv-pp2r-6f82",
@@ -615,66 +685,6 @@
       "url": "https://www.exploit-db.com/exploits/52588",
       "title": "[webapps] CubeCart < 6.7.0 - Reflected Cross-Site Scripting (XSS) (Unauthenticated)",
       "summary": "CubeCart < 6.7.0 - Reflected Cross-Site Scripting (XSS) (Unauthenticated)",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "5cbfc74df7f8ba9236116365cc930aa4fd92e446705e6a242ce61d2d00e03b38",
-      "url": "https://www.exploit-db.com/exploits/52601",
-      "title": "[remote] Microsoft - NTLMv2 Hash Capture",
-      "summary": "Microsoft - NTLMv2 Hash Capture",
-      "source": "Exploit-DB",
-      "category": "infrastructure",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b86fa9beeedbf887ab144d12acc8c0de24d3cc13e130b50e997502adf61e615f",
-      "url": "https://www.exploit-db.com/exploits/52600",
-      "title": "[webapps] MikroORM 7.0.13 - SQL Injection",
-      "summary": "MikroORM 7.0.13 - SQL Injection",
-      "source": "Exploit-DB",
-      "category": "web_app",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a09075f56121462b1f633379281a0fd5237355f9f9380cf9a94ccf3bb3373702",
-      "url": "https://www.exploit-db.com/exploits/52598",
-      "title": "[webapps] Prodigy Commerce 3.3.0 - Local File Inclusion",
-      "summary": "Prodigy Commerce 3.3.0 - Local File Inclusion",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "56d26310f8a1f98d7009646d12e24661fe3aeaced902980e2e0170dd3877a539",
-      "url": "https://www.exploit-db.com/exploits/52597",
-      "title": "[webapps] Langflow 1.3.0 - Remote Code Execution",
-      "summary": "Langflow 1.3.0 - Remote Code Execution",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-05-29T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3024774f1462b7e772e82aeba5d9a35011f3515143e6ca85637fe69295e53ac7",
-      "url": "https://www.exploit-db.com/exploits/52596",
-      "title": "[webapps] Quick Playground for WordPress 1.3.1 - Unauthenticated Remote Code Execution",
-      "summary": "Quick Playground for WordPress 1.3.1 - Unauthenticated Remote Code Execution",
       "source": "Exploit-DB",
       "category": "emergency",
       "date": "2026-05-29T00:00:00+00:00",
