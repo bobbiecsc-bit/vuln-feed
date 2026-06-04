@@ -1,10 +1,279 @@
 {
-  "updated": "2026-06-04T18:16:08.597916+00:00",
+  "updated": "2026-06-04T21:41:37.359398+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "1817366de44f888ed246b1a728d92f674598790ee2cf09b8295d013087b12c7a",
+      "url": "https://github.com/advisories/GHSA-6j2x-vhqr-qr7q",
+      "title": "GHSA: vm2 sandbox escape via JSPI-backed Promise `.finally()` species bypass",
+      "summary": "### Summary\nA sandbox escape vulnerability in `vm2` allows arbitrary code execution in the host process when untrusted code is executed with async support on runtimes exposing WebAssembly JSPI (`WebAssembly.promising` / `WebAssembly.Suspending`). In the tested configuration, a JSPI-backed Promise can reach `Promise.prototype.finally()` in a way that bypasses the expected Promise-species hardening ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T17:51:05Z",
+      "cve_ids": [
+        "CVE-2026-47210"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "f67966a883df87e6d2808687ac9d91bb9b8e5c8ce2bac45e7f7d54c96181a735",
+      "url": "https://github.com/advisories/GHSA-m4wx-m65x-ghrr",
+      "title": "GHSA: vm2 has a CVE-2023-37903 patch bypass: nesting:true without explicit require still allows full RCE",
+      "summary": "## Summary\n\nThe fix for GHSA-8hg8-63c5-gwmx (CVE-2023-37903) introduced a check in `nodevm.js` line 263 that blocks the combination `nesting: true` + `require: false`. However, the check uses strict equality (`options.require === false`), which is trivially bypassed by omitting the `require` option entirely.\n\nWhen `require` is not specified, `options.require` is `undefined`, not `false`. The stric",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T17:50:22Z",
+      "cve_ids": [
+        "CVE-2026-47137"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "597ee020fae5a5ec411027d1d8a8a04cc6d0cc1b991a0b4881dd0b98b08298f9",
+      "url": "https://github.com/advisories/GHSA-c4cf-2hgv-2qv6",
+      "title": "GHSA: vm2's Bridge Proxy set trap ignores receiver parameter, enabling host object property injection via prototype chain",
+      "summary": "## Summary\n\nThe `BaseHandler.set` trap in `bridge.js` (line 1231) ignores the `receiver` parameter and unconditionally writes to the host target object. Per the Proxy `set` trap specification, when `receiver !== proxy` (e.g., when a child object inherits from the proxy via `Object.create`), the property assignment should create an own property on the receiver, not on the proxy target. The current ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T17:49:18Z",
+      "cve_ids": [
+        "CVE-2026-47209"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "c42e8482071c112103485ca39bb26c51c4554991817b4cc4088d7e974e57c6dd",
+      "url": "https://github.com/advisories/GHSA-m5q2-4fm3-vfqp",
+      "title": "GHSA: vm2 has a sandbox escape via unblocked cross-realm Symbol.for keys + missing bridge write-trap symbol checks",
+      "summary": "## Summary\n\nvm2 3.11.2 `Symbol.for` override in `setup-sandbox.js` only intercepts 2 of 9 dangerous Node.js cross-realm symbols. Combined with the bridge's `set`/`defineProperty`/`deleteProperty` traps having **no** `isDangerousCrossRealmSymbol` key check, sandbox code can obtain real cross-realm symbols, write them to host objects, and control host-side behavior — verified with a full `util.promi",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T17:44:32Z",
+      "cve_ids": [
+        "CVE-2026-47135"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "61142bc8a34f2f42435d9f7405ae7636c06b50beb972df95c36c0aaac06a3ce6",
+      "url": "https://github.com/advisories/GHSA-76w7-j9cq-rx2j",
+      "title": "GHSA: vm2 is Vulnerable to Sandbox Breakout Through Promise Species",
+      "summary": "### Summary\n\nVM2 suffers from a sandbox breakout vulnerability. This allows attackers to write code which can escape from the VM2 sandbox and execute arbitrary commands on the host system.\n\n### Details\n\nThe `localPromise` constructor was changed to call `this.then(undefined, eater)` to ensure a rejected promise is always used. However, this is missing a call to `resetPromiseSpecies` to ensure that",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T17:40:15Z",
+      "cve_ids": [
+        "CVE-2026-47208"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "59a423415d3030df27f7c0f0d7fbf3dd77392ea5a1a6d54f3f7d5c2e9dc7feac",
+      "url": "https://github.com/advisories/GHSA-v6mx-mf47-r5wg",
+      "title": "GHSA: vm2 has a Sandbox Escape issue",
+      "summary": "### Summary\nBy combining `Buffer.call.call({}.__lookupGetter__, Buffer, \"__proto__\")`, `Buffer.call.call({}.__lookupSetter__, Buffer, \"__proto__\")`, and Node.js's `ERR_INVALID_ARG_TYPE` Error, the host's `TypeError` constructor can be obtained, which allows the escape from the sandbox.\nThis allows attackers to run arbitrary code.\n\n### PoC\n```js\n\"use strict\";\n\nconst { VM } = require(\"vm2\");\nconst v",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T17:33:58Z",
+      "cve_ids": [
+        "CVE-2026-47131"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "469f9dc23221a79afc72686a83e9b70dffdf01aae56dfb44f72ed383bcf62db3",
+      "url": "https://github.com/advisories/GHSA-vp73-vjw8-8f32",
+      "title": "GHSA: Gotenberg has a Race Condition via Multipart `downloadFrom` Handling",
+      "summary": "### Summary\n\nGotenberg is vulnerable to a remote denial of service in multipart `downloadFrom` handling.\n\nA multipart request containing multiple `downloadFrom` entries causes concurrent goroutines to write to shared maps without synchronization. This can terminate the process with `fatal error: concurrent map writes`.\n\nIn the default configuration, `downloadFrom` is enabled and authentication is ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T16:56:18Z",
+      "cve_ids": [
+        "CVE-2026-45742"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "1be6d67b38c4379cbaa4e31b9957cc548904cd2ad62e36d9855fdfef261fd40a",
+      "url": "https://github.com/advisories/GHSA-86m8-88fq-xfxp",
+      "title": "GHSA: Gotenberg has an SSRF deny-list bypass in IsPublicIP via IPv6 6to4 / NAT64 / site-local prefixes",
+      "summary": "### Summary\n\n`IsPublicIP` in `pkg/gotenberg/outbound.go` incorrectly classifies IPv6 6to4 / NAT64 / deprecated site-local addresses as public IPs, allowing an unauthenticated attacker to reach internal destinations (e.g., cloud metadata services at `169.254.169.254`) via a single crafted DNS AAAA record. This is a variant of CVE-2026-44430 (modelcontextprotocol/registry).\n\n### Details\n\n`IsPublicIP",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T16:50:37Z",
+      "cve_ids": [
+        "CVE-2026-45741"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "4c5bb91d72d6e906c83d953c9d825cc38726929de17cf659e84c1de37fe5da13",
+      "url": "https://www.rapid7.com/blog/post/etr-rapid7-observed-exploitation-of-pan-os-globalprotect-authentication-bypass-vulnerability-cve-2026-0257",
+      "title": "Rapid7 Observed Exploitation of PAN-OS GlobalProtect Authentication Bypass Vulnerability (CVE-2026-0257)",
+      "summary": "OverviewOn May 13, 2026, Palo Alto Networks published a security advisory for CVE-2026-0257, a medium severity authentication bypass affecting PAN-OS and Prisma Access when a specific configuration is present. Successful exploitation of this vulnerability allows a remote unauthenticated attacker to successfully establish a VPN connection through the GlobalProtect gateway of an affected appliance.R",
+      "source": "Rapid7",
+      "category": "emergency",
+      "date": "2026-05-29T16:49:40+00:00",
+      "cve_ids": [
+        "CVE-2026-0257"
+      ],
+      "cvss": null,
+      "related_links": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-0257",
+        "https://www.bleepingcomputer.com/news/security/palo-alto-globalprotect-vpn-auth-bypass-flaw-now-exploited-in-attacks/"
+      ]
+    },
+    {
+      "id": "a3c7e7256cb4fb328aea90aa60a1110272a9d91cab8757182ca53d9d779893ef",
+      "url": "https://github.com/advisories/GHSA-hwc4-gmrw-5222",
+      "title": "GHSA: Gotenberg has path traversal in zip entry name via Windows-style separators in upload filename",
+      "summary": "### Summary\n`filepath.Base` on the Linux container does not strip backslashes (`\\`), because `\\` is only a path separator on Windows. A multipart filename like `..\\..\\..\\..\\Windows\\System32\\evil.pdf` survives Gotenberg's input sanitisation and lands verbatim as the zip entry name when a multi-output route returns its result as a zip (e.g. `/forms/pdfengines/split`). Windows zip extractors interpre",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T16:38:24Z",
+      "cve_ids": [
+        "CVE-2026-44829"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "0c237423bfa69679a9a600a88b847eb061ba7a17b271b3c6b09d0c90cc17ef51",
+      "url": "https://github.com/advisories/GHSA-3g43-6gmg-66jw",
+      "title": "GHSA: axios Vulnerable to Credential Theft and Response Hijacking via Prototype Pollution Gadget in Config Merge",
+      "summary": "## Summary\n\nAxios versions before the fixed releases contain prototype-pollution gadgets in request config processing. If another vulnerability in the same JavaScript process has already polluted `Object.prototype.transformResponse`, affected Axios versions may treat that inherited value as request configuration or as an option validator.\n\nAxios does not itself create the prototype pollution. Expl",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T16:07:31Z",
+      "cve_ids": [
+        "CVE-2026-44495"
+      ],
+      "cvss": 7.0,
+      "related_links": []
+    },
+    {
+      "id": "2d43db7f493319baa51e29d2a483697eda5e98fc8a865895828957abb1822551",
+      "url": "https://github.com/advisories/GHSA-35jp-ww65-95wh",
+      "title": "GHSA: axios Vulnerable to Full Man-in-the-Middle via Prototype Pollution Gadget in `config.proxy`",
+      "summary": "# Vulnerability Disclosure: Full Man-in-the-Middle via Prototype Pollution Gadget in `config.proxy`\n\n## Summary\n\nThe Axios library is vulnerable to a Prototype Pollution \"Gadget\" attack that allows any `Object.prototype` pollution in the application's dependency tree to be escalated into a **full Man-in-the-Middle (MITM) attack** — intercepting, reading, and modifying all HTTP traffic including au",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T16:04:00Z",
+      "cve_ids": [
+        "CVE-2026-44494"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "fd097ef0a25fada82ad7e2ca3a395918524e7f335ff2e4ea56a6c3148aefc8d0",
+      "url": "https://github.com/advisories/GHSA-pjwm-pj3p-43mv",
+      "title": "GHSA: axios's shouldBypassProxy does not recognize IPv4-mapped IPv6 addresses, allowing NO_PROXY bypass (incomplete fix for CVE-2025-62718)",
+      "summary": "### Summary\nshouldBypassProxy, introduced in v1.15.0 to fix CVE-2025-62718, does not normalise IPv4-mapped IPv6 addresses. When NO_PROXY lists an IPv4 address such as `127.0.0.1` or `169.254.169.254`, a request URL using the IPv4-mapped IPv6 form (`::ffff:7f00:1`, `::ffff:a9fe:a9fe`) still routes through the configured proxy. Node.js resolves these addresses to the underlying IPv4 host, so the req",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T15:59:30Z",
+      "cve_ids": [
+        "CVE-2026-44492"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "a071dbdd5565a02cbd8443ad41d3256d00ccb1673776123827e24e8462dc8988",
+      "url": "https://github.com/advisories/GHSA-898c-q2cr-xwhg",
+      "title": "GHSA: axios has DoS & Header Injection via Prototype Pollution Read-Side Gadgets in axios merge functions",
+      "summary": "## Summary\n\naxios `1.15.2` exposes two read-side prototype-pollution gadgets. When `Object.prototype` is polluted by an upstream dependency in the same process (e.g. lodash `_.merge` / [CVE-2018-16487](https://nvd.nist.gov/vuln/detail/CVE-2018-16487)), axios silently picks up the polluted values:\n\n1. **Header injection** - `lib/utils.js` line 406 builds `merge()`'s accumulator as `result = {}`, so",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T15:54:57Z",
+      "cve_ids": [
+        "CVE-2026-44490"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "73dcb279ac7337049d932feeb664d3e56e7ba87d94d00a9a8c4c44ff2b552fb7",
+      "url": "https://github.com/advisories/GHSA-654m-c8p4-x5fp",
+      "title": "GHSA: Axios has a Patch Bypass: Proxy-Authorization Header Injection via Prototype Pollution — Incomplete Null-Prototype Fix",
+      "summary": "# [Patch Bypass] Proxy-Authorization Header Injection via Prototype Pollution — Incomplete Null-Prototype Fix in Axios 1.15.2\n\n## Summary\n\nThe `Object.create(null)` fix introduced in Axios 1.15.2 (GHSA-q8qp-cvcw-x6jj) protects the **top-level config object** from prototype pollution. However, **nested objects** created by `utils.merge()` (e.g., `config.proxy`) are still constructed as plain `{}` w",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T15:51:02Z",
+      "cve_ids": [
+        "CVE-2026-44489"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "e9d9162aa6820969137c184842d53809ef8a4fb8075909b5417f030e23c3ce7f",
+      "url": "https://github.com/advisories/GHSA-mq5v-pxpm-8jw2",
+      "title": "GHSA: Froxlor has privilege escalation in SSH key synchronization via symlinked `authorized_keys` path",
+      "summary": "### Summary\nFroxlor 2.3.6 contains a symlink-following flaw in the root-owned SSH key synchronization path used for customer FTP users. The provisioning code appends public keys to `~/.ssh/authorized_keys` under a customer-controlled home directory without verifying that the target path is not a symbolic link.\n\nIf an attacker controls a shell-enabled customer account and can modify files inside th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T15:40:23Z",
+      "cve_ids": [
+        "CVE-2026-41236"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "e2163a770e288482dffa10e3c77f917a370e33d5f47d141dd02dffa9010adde0",
+      "url": "https://github.com/advisories/GHSA-gcv3-5v9q-fmhh",
+      "title": "GHSA: Froxlor has an authorization bypass in FTP shell assignment via missing server-side `available_shells` enforcement",
+      "summary": "### Summary\nFroxlor 2.3.6 lets administrators configure `system.available_shells` as the approved shell list that customers may assign to FTP users. However, the server-side FTP account handlers do not enforce that whitelist when processing add or edit requests.\n\nAs a result, an authenticated customer with shell delegation enabled can submit an arbitrary shell such as `/bin/bash` even when the pan",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-05-29T15:36:26Z",
+      "cve_ids": [
+        "CVE-2026-41235"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "954929651e2d518b07e30fe35c0dfc3bf4646a922a10425cc47badfca763026d",
+      "url": "https://github.com/advisories/GHSA-8xvp-7hj6-mcj9",
+      "title": "GHSA: GitHub CLI has an incorrect authorization header in API requests to TUF repository mirrors via `gh attestation`, `gh release verify`, and `gh release verify-asset` commands",
+      "summary": "### Summary\n\nGitHub CLI incorrectly includes an authorization header in API requests to TUF repository mirrors via `gh attestation`, `gh release verify`, and `gh release verify-asset` commands.\n\n **Affected users:**\n\n  - Authenticated `github.com` users who previously ran `gh attestation` commands, `gh release verify`, or `gh release verify-asset`: the `github.com` token was included in requests t",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T15:30:13Z",
+      "cve_ids": [
+        "CVE-2026-48501"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "2ae28c3d77d060919128ae9ad59ffa4f32c28d13425e89f7e3b1d3c5da535206",
+      "url": "https://github.com/advisories/GHSA-g2g8-95qg-v35h",
+      "title": "GHSA: HaxCMS has a stored Cross-Site Scripting (XSS) bypass in its saveNode endpoint",
+      "summary": "## Summary\n\nHaxCMS is affected by a stored cross-site scripting (XSS) vulnerability in the `/system/api/saveNode` endpoint. An authenticated user with a permission to edit pages can bypass the HTML sanitizer by injecting an event handler attribute without whitespace before the attribute name.\n\nFor example, the sanitizer misses:\n\n```html\n<a href=\"#\"onclick=\"alert('kn1ph')\">click me</a>\n```\n\nThe imp",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-05-29T14:07:51Z",
+      "cve_ids": [
+        "CVE-2026-48527"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
     {
       "id": "abda7f65cdebbed4d72d8758d84ece06f4e2bd70b284a5657ac507e25ecfb3c9",
       "url": "https://www.exploit-db.com/exploits/52589",
@@ -138,547 +407,283 @@
       "related_links": []
     },
     {
-      "id": "fe47857a5baa6e770f2c72c7260074b8334053f8fb6ab4968a7fdcd0f2534e2e",
-      "url": "https://github.com/advisories/GHSA-qp9x-wp8f-qgjj",
-      "title": "GHSA: tuf has platform-dependent delegation path matching",
-      "summary": "`DelegatedRole._is_target_in_pathpattern` uses `fnmatch.fnmatch` to decide whether a given target path is authorized by a delegation's glob pattern.\n\nPython's `fnmatch.fnmatch` calls `os.path.normcase()` on both arguments before matching. On POSIX hosts `normcase` is the identity function; on Windows hosts `os.path` resolves to `ntpath`, whose `normcase` lowercases its input and replaces `/` with ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-28T22:46:13Z",
-      "cve_ids": [],
-      "cvss": 4.0,
-      "related_links": []
-    },
-    {
-      "id": "aa88f21bc632fb60fa681087f1a8502e1c263f9d002852d645826ff006a4df6c",
-      "url": "https://github.com/advisories/GHSA-c3px-h233-h6fq",
-      "title": "GHSA: Arcane Has an Authenticated Arbitrary Host File Read via Docker Compose Include Directives",
-      "summary": "## Summary\n\n`ProjectService.GetProjectFileContent` returns the contents of any Docker Compose include directive declared in a project's compose file before any path-traversal validation runs. Because `ProjectService.CreateProject` writes attacker-supplied compose content to disk without validating include paths, an authenticated user can create a project whose compose file declares `include: ['../",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-28T22:39:25Z",
-      "cve_ids": [
-        "CVE-2026-47179"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "7ba577b03d951a3bd61dc395e54da59f6749d44926ba6934f271de72bda5f406",
-      "url": "https://github.com/advisories/GHSA-897w-fcg9-f6xj",
-      "title": "GHSA: Dulwich has an arbitrary file write via NTFS-hostile tree entries on Windows",
-      "summary": "## Impact\n\nArbitrary file write leading to remote code execution when cloning or checking out a malicious Git repository on Windows.\n\nDulwich's path-element validator accepted tree entries whose filenames contained bytes that Windows interprets as structural path syntax:\n\n  - \\ — the Windows path separator. A single tree entry named .git\\hooks\\pre-commit.exe was treated as one valid filename on PO",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-28T22:28:06Z",
-      "cve_ids": [
-        "CVE-2026-42305"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "f79f84fb248d6e7732d63e53d91952d78205bea093224d13846f648606983502",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-49093",
-      "title": "CVE-2026-49093 — CVSS 6.3",
-      "summary": "Server-Side Request Forgery (CWE-918) in Kibana can allow an authenticated user with connector management privileges to bypass the operator-configured connector allowlist, causing the Kibana server to issue outbound requests to destinations the egress controls were intended to block.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-05-28T21:16:34.350",
-      "cve_ids": [
-        "CVE-2026-49093"
-      ],
-      "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "3e7f2a33bd0ae155751594469d7e62915f0f9c773b02286f45cd43776cbcb1eb",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46843",
-      "title": "CVE-2026-46843 — CVSS 5.3",
-      "summary": "Vulnerability in Oracle REST Data Services (component: Core).  Supported versions that are affected are 24.2.0-26.1.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTPS to compromise Oracle REST Data Services.  Successful attacks of this vulnerability can result in unauthorized ability to cause a partial denial of service (partial DOS) of Oracle REST Da",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:34.223",
-      "cve_ids": [
-        "CVE-2026-46843"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "54932c6fd7a78059faed3fa47a7666ec0c21142adc804969d0a9d44eebf81983",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46842",
-      "title": "CVE-2026-46842 — CVSS 5.3",
-      "summary": "Vulnerability in Oracle REST Data Services (component: Core).  Supported versions that are affected are 24.2.0-26.1.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTPS to compromise Oracle REST Data Services.  Successful attacks of this vulnerability can result in  unauthorized update, insert or delete access to some of Oracle REST Data Services access",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:34.093",
-      "cve_ids": [
-        "CVE-2026-46842"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "396bb1d002eec4279f52031ac07ef2c1c741de54983fb98f92958804d738dea0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46841",
-      "title": "CVE-2026-46841 — CVSS 5.3",
-      "summary": "Vulnerability in Oracle REST Data Services (component: General).  Supported versions that are affected are 24.2.0-26.1.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTPS to compromise Oracle REST Data Services.  Successful attacks of this vulnerability can result in  unauthorized read access to a subset of Oracle REST Data Services accessible data. CV",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:33.960",
-      "cve_ids": [
-        "CVE-2026-46841"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "06d7bec464a5fa4025203d6e8f0c047f0a162eead1dd5842aa79945486541170",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46840",
-      "title": "CVE-2026-46840 — CVSS 10.0",
-      "summary": "Vulnerability in Oracle REST Data Services (component: Backend-as-a-Service).  Supported versions that are affected are 24.2.0-26.1.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTPS to compromise Oracle REST Data Services.  While the vulnerability is in Oracle REST Data Services, attacks may significantly impact additional products (scope change).  S",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:33.837",
-      "cve_ids": [
-        "CVE-2026-46840"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "df4d4cb52717d87bd0b5805bff71ef7d83720f75521f4ee2aa72f0f9989f02dd",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46839",
-      "title": "CVE-2026-46839 — CVSS 9.9",
-      "summary": "Vulnerability in Oracle REST Data Services (component: Core).  Supported versions that are affected are 24.2.0-26.1.0. Easily exploitable vulnerability allows low privileged attacker with network access via HTTPS to compromise Oracle REST Data Services.  While the vulnerability is in Oracle REST Data Services, attacks may significantly impact additional products (scope change).  Successful attacks",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:33.707",
-      "cve_ids": [
-        "CVE-2026-46839"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "a85151bc6dedc8f91e1ffd63a710e79385ba81a538fe01c85d787c2a6782c436",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46837",
-      "title": "CVE-2026-46837 — CVSS 8.8",
-      "summary": "Vulnerability in the Oracle Flow Manufacturing product of Oracle E-Business Suite (component: Security).  Supported versions that are affected are 12.2.9-12.2.15. Easily exploitable vulnerability allows low privileged attacker with network access via SQL to compromise Oracle Flow Manufacturing.  Successful attacks of this vulnerability can result in takeover of Oracle Flow Manufacturing. CVSS 3.1 ",
+      "id": "1542b9c5f293548e26910ad9016a5f825567db96b2b95941a4f926c674ae9318",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9922",
+      "title": "CVE-2026-9922 — CVSS 7.5",
+      "summary": "Use after free in GPU in Google Chrome on Mac prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to execute arbitrary code via a crafted HTML page. (Chromium security severity: High)",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-05-28T21:16:33.573",
+      "date": "2026-05-28T23:16:50.303",
       "cve_ids": [
-        "CVE-2026-46837"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "c2f408333bdd7c0251c4d91bae90cf12ee232450f89d05408ce4545d69affa62",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46835",
-      "title": "CVE-2026-46835 — CVSS 7.5",
-      "summary": "Vulnerability in the Net Service component of Oracle Database Server.  Supported versions that are affected are 23.4.0-23.26.2. Easily exploitable vulnerability allows unauthenticated attacker with network access via TLS to compromise Net Service.  Successful attacks of this vulnerability can result in unauthorized ability to cause a hang or frequently repeatable crash (complete DOS) of Net Servic",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:33.450",
-      "cve_ids": [
-        "CVE-2026-46835"
+        "CVE-2026-9922"
       ],
       "cvss": 7.5,
       "related_links": []
     },
     {
-      "id": "040b4ab0f458d6fe8a1ce746c346a80a0af474e4a8987397934daa48adceef4c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46834",
-      "title": "CVE-2026-46834 — CVSS 7.5",
-      "summary": "Vulnerability in the Net Service component of Oracle Database Server.  Supported versions that are affected are 23.4.0-23.26.2. Easily exploitable vulnerability allows unauthenticated attacker with network access via TLS to compromise Net Service.  Successful attacks of this vulnerability can result in unauthorized ability to cause a hang or frequently repeatable crash (complete DOS) of Net Servic",
+      "id": "7ba5441a595e38fdb6ef84a2c29d0dc466df3ebe8a62858004bd352d0d96a430",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9918",
+      "title": "CVE-2026-9918 — CVSS 9.6",
+      "summary": "Inappropriate implementation in Tint in Google Chrome prior to 148.0.7778.216 allowed a remote attacker to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-05-28T21:16:33.330",
+      "date": "2026-05-28T23:16:49.897",
       "cve_ids": [
-        "CVE-2026-46834"
+        "CVE-2026-9918"
       ],
-      "cvss": 7.5,
+      "cvss": 9.6,
       "related_links": []
     },
     {
-      "id": "991eb65181d8a60e16731c8dc8b2c33a2409094936816c7af659f2a0508bb86f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46833",
-      "title": "CVE-2026-46833 — CVSS 9.0",
-      "summary": "Vulnerability in the Net Service component of Oracle Database Server.  Supported versions that are affected are 23.4.0-23.26.2. Difficult to exploit vulnerability allows unauthenticated attacker with network access via TLS to compromise Net Service.  While the vulnerability is in Net Service, attacks may significantly impact additional products (scope change).  Successful attacks of this vulnerabi",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:33.200",
-      "cve_ids": [
-        "CVE-2026-46833"
-      ],
-      "cvss": 9.0,
-      "related_links": []
-    },
-    {
-      "id": "2702e1a7b662df919555f65a1baf9c69998f7307b36d91fb0ec84845ccede91f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46830",
-      "title": "CVE-2026-46830 — CVSS 5.3",
-      "summary": "Vulnerability in Oracle REST Data Services (component: Mongoapi).  Supported versions that are affected are 24.2.0-26.1.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTPS to compromise Oracle REST Data Services.  Successful attacks of this vulnerability can result in  unauthorized read access to a subset of Oracle REST Data Services accessible data. C",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:33.070",
-      "cve_ids": [
-        "CVE-2026-46830"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "ed49eb57225b8e65151f827346c89c27a3b6ca828e0cb259176c488c7716f882",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46829",
-      "title": "CVE-2026-46829 — CVSS 7.5",
-      "summary": "Vulnerability in Oracle REST Data Services (component: Mongoapi).  Supported versions that are affected are 24.2.0-26.1.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTPS to compromise Oracle REST Data Services.  Successful attacks of this vulnerability can result in unauthorized ability to cause a hang or frequently repeatable crash (complete DOS) of",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:32.950",
-      "cve_ids": [
-        "CVE-2026-46829"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "26619381d2254a30875e71ada09b676ec226c482278cc2b09bd36aa9d6d829ac",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46828",
-      "title": "CVE-2026-46828 — CVSS 8.1",
-      "summary": "Vulnerability in the Oracle Payroll product of Oracle E-Business Suite (component: Internal Operations).  Supported versions that are affected are 12.2.3-12.2.15. Easily exploitable vulnerability allows low privileged attacker with network access via HTTP to compromise Oracle Payroll.  Successful attacks of this vulnerability can result in  unauthorized creation, deletion or modification access to",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:32.820",
-      "cve_ids": [
-        "CVE-2026-46828"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "1661e2f60207232e4560f72791264def1bbbb024b7cf1a8e4ffb5783fdf930ca",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46827",
-      "title": "CVE-2026-46827 — CVSS 8.8",
-      "summary": "Vulnerability in the Oracle Payroll product of Oracle E-Business Suite (component: Self Service Manager).  Supported versions that are affected are 12.2.3-12.2.15. Easily exploitable vulnerability allows low privileged attacker with network access via HTTP to compromise Oracle Payroll.  Successful attacks of this vulnerability can result in takeover of Oracle Payroll. CVSS 3.1 Base Score 8.8 (Conf",
+      "id": "f8b4959023b42767de02658602371680a3b8247e2dcf6ad8420c2000bcd5d991",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9916",
+      "title": "CVE-2026-9916 — CVSS 8.3",
+      "summary": "Out of bounds write in ANGLE in Google Chrome prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-05-28T21:16:32.687",
+      "date": "2026-05-28T23:16:49.697",
       "cve_ids": [
-        "CVE-2026-46827"
+        "CVE-2026-9916"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "a3ea070b0ec873b7ab73e4d7b41e9d1fd85f33b2198f230e6b7363d85129f67a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9915",
+      "title": "CVE-2026-9915 — CVSS 8.3",
+      "summary": "Heap buffer overflow in ANGLE in Google Chrome prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:49.593",
+      "cve_ids": [
+        "CVE-2026-9915"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "e5ccb933cf73b42055427f90bc37f7574d08c8509079dd5d6968cafeecf6f3ae",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9914",
+      "title": "CVE-2026-9914 — CVSS 8.3",
+      "summary": "Insufficient validation of untrusted input in ANGLE in Google Chrome prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:49.487",
+      "cve_ids": [
+        "CVE-2026-9914"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "0ae6ced349ae135ac76a0807ed0383208553395450a5481e0996487cce0ad7a7",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9910",
+      "title": "CVE-2026-9910 — CVSS 8.8",
+      "summary": "Out of bounds memory access in ANGLE in Google Chrome prior to 148.0.7778.216 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:49.080",
+      "cve_ids": [
+        "CVE-2026-9910"
       ],
       "cvss": 8.8,
       "related_links": []
     },
     {
-      "id": "21441e19be54fb455a800b5948cc59232d57b58398356bdf0fac8a3ce945a45e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46826",
-      "title": "CVE-2026-46826 — CVSS 8.8",
-      "summary": "Vulnerability in the Oracle Payroll product of Oracle E-Business Suite (component: Internal Operations).  Supported versions that are affected are 12.2.3-12.2.15. Easily exploitable vulnerability allows low privileged attacker with network access via HTTPS to compromise Oracle Payroll.  Successful attacks of this vulnerability can result in takeover of Oracle Payroll. CVSS 3.1 Base Score 8.8 (Conf",
+      "id": "4e37e50e50af858d1bdb201ada8ff32bcf62d0411bad73c6e4d297f639fa1e0e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9909",
+      "title": "CVE-2026-9909 — CVSS 7.5",
+      "summary": "Integer overflow in Skia in Google Chrome prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-05-28T21:16:32.560",
+      "date": "2026-05-28T23:16:48.983",
       "cve_ids": [
-        "CVE-2026-46826"
+        "CVE-2026-9909"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "08a82269eb5a7c6ebae8208686ad1978e23aa158894384add85e68bb3ee4d1a7",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9906",
+      "title": "CVE-2026-9906 — CVSS 8.3",
+      "summary": "Out of bounds write in GPU in Google Chrome prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:48.663",
+      "cve_ids": [
+        "CVE-2026-9906"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "26a9a982afa057ab348001cf14d2c5859df8b04d80876d04e6339fa4c23939ac",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9905",
+      "title": "CVE-2026-9905 — CVSS 8.3",
+      "summary": "Use after free in Accessibility in Google Chrome on Windows prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:48.553",
+      "cve_ids": [
+        "CVE-2026-9905"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "b2dd1ef3c24fb32e9ca2a1ec1808b25eeae90f30525690f60f978e0d81bbe82e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9904",
+      "title": "CVE-2026-9904 — CVSS 8.3",
+      "summary": "Use after free in ANGLE in Google Chrome prior to 148.0.7778.216 allowed a remote attacker to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:48.413",
+      "cve_ids": [
+        "CVE-2026-9904"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "8fe418c71386ed1d1c95c62463fcf9e2a5576f26c5da72d42654d9ee08afa49c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9902",
+      "title": "CVE-2026-9902 — CVSS 8.3",
+      "summary": "Use after free in Accessibility in Google Chrome prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:48.207",
+      "cve_ids": [
+        "CVE-2026-9902"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "1eb5075ed0c94a6e0a552d6108256a89da3b2d637289015e7311c5ae8f385577",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9901",
+      "title": "CVE-2026-9901 — CVSS 7.5",
+      "summary": "Use after free in ANGLE in Google Chrome prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to execute arbitrary code via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:48.110",
+      "cve_ids": [
+        "CVE-2026-9901"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "79fe2abbf0ec7327c5d2c67bebf5743567427b665e9aa755fcb6a4e6c7e64f95",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9900",
+      "title": "CVE-2026-9900 — CVSS 8.3",
+      "summary": "Out of bounds write in ANGLE in Google Chrome prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:48.007",
+      "cve_ids": [
+        "CVE-2026-9900"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "04376bd60ed131b4b12d050ef9c0264ced013beba920bf953281bf293b98f0b0",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9899",
+      "title": "CVE-2026-9899 — CVSS 8.3",
+      "summary": "Use after free in ANGLE in Google Chrome prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:47.907",
+      "cve_ids": [
+        "CVE-2026-9899"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "8f2e8de8bf0725b82e330fecd9cfaa70347973709fdc1b482e1b517c3e8bbea0",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9898",
+      "title": "CVE-2026-9898 — CVSS 8.3",
+      "summary": "Insufficient validation of untrusted input in GPU in Google Chrome on Android prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:47.803",
+      "cve_ids": [
+        "CVE-2026-9898"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "f5812c788f682d462358cfc5d77805f3e9c5d2a6934dbf15178a59878a0d76d7",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9897",
+      "title": "CVE-2026-9897 — CVSS 8.8",
+      "summary": "Use after free in DOM in Google Chrome prior to 148.0.7778.216 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:47.703",
+      "cve_ids": [
+        "CVE-2026-9897"
       ],
       "cvss": 8.8,
       "related_links": []
     },
     {
-      "id": "3df03dce0340ada2ed6d758695fa469b96f56524d1eaee55c4a8921173c20970",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46824",
-      "title": "CVE-2026-46824 — CVSS 9.9",
-      "summary": "Vulnerability in the Oracle Universal Work Queue product of Oracle E-Business Suite (component: Work Provider Site Level Administration).  Supported versions that are affected are 12.2.3-12.2.15. Easily exploitable vulnerability allows low privileged attacker with network access via HTTP to compromise Oracle Universal Work Queue.  While the vulnerability is in Oracle Universal Work Queue, attacks ",
+      "id": "097918d4f27c6d5f53f2b593a360708ceb468044d6a2c9c8d51f200d9e33780d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9896",
+      "title": "CVE-2026-9896 — CVSS 8.8",
+      "summary": "Out of bounds write in V8 in Google Chrome prior to 148.0.7778.216 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
       "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:32.413",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:47.600",
       "cve_ids": [
-        "CVE-2026-46824"
+        "CVE-2026-9896"
       ],
-      "cvss": 9.9,
+      "cvss": 8.8,
       "related_links": []
     },
     {
-      "id": "f5e511a8d7540aadfeeab463afeaa67578f95a9ef52da0ee08c6d7e7a65b1a9f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46823",
-      "title": "CVE-2026-46823 — CVSS 7.7",
-      "summary": "Vulnerability in the Oracle Public Sector Financials (International) product of Oracle E-Business Suite (component: Authorization).  Supported versions that are affected are 12.2.6-12.2.15. Easily exploitable vulnerability allows low privileged attacker with network access via HTTPS to compromise Oracle Public Sector Financials (International).  While the vulnerability is in Oracle Public Sector F",
+      "id": "a756dfc15f4df0fa60c6b59ddd966cc344ac78d427425b470adea9aef31aa8da",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9895",
+      "title": "CVE-2026-9895 — CVSS 8.3",
+      "summary": "Out of bounds read in GPU in Google Chrome prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
       "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:32.280",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:47.497",
       "cve_ids": [
-        "CVE-2026-46823"
+        "CVE-2026-9895"
       ],
-      "cvss": 7.7,
+      "cvss": 8.3,
       "related_links": []
     },
     {
-      "id": "0f931e5931c9a9b5ca98637e79768011be8a3b1695a482ab069e3768a4fe9fd7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46822",
-      "title": "CVE-2026-46822 — CVSS 9.9",
-      "summary": "Vulnerability in the Oracle iAssets product of Oracle E-Business Suite (component: Internal Operations).  Supported versions that are affected are 12.2.3-12.2.15. Easily exploitable vulnerability allows low privileged attacker with network access via HTTP to compromise Oracle iAssets.  While the vulnerability is in Oracle iAssets, attacks may significantly impact additional products (scope change)",
+      "id": "a990a370b9e2587e25ab8bf1b6288d27e8627754e0ebd90a72306a3ac28520f3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9894",
+      "title": "CVE-2026-9894 — CVSS 8.3",
+      "summary": "Use after free in GPU in Google Chrome prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
       "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:32.157",
+      "category": "infrastructure",
+      "date": "2026-05-28T23:16:47.393",
       "cve_ids": [
-        "CVE-2026-46822"
+        "CVE-2026-9894"
       ],
-      "cvss": 9.9,
+      "cvss": 8.3,
       "related_links": []
     },
     {
-      "id": "2eb37e744211e340cb1aa1a4d3adb2e1dd543841b5c569fa1ac46e1a920b5ce4",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46821",
-      "title": "CVE-2026-46821 — CVSS 7.7",
-      "summary": "Vulnerability in the Oracle Financials Common Modules product of Oracle E-Business Suite (component: Common Components).  Supported versions that are affected are 12.2.3-12.2.15. Easily exploitable vulnerability allows low privileged attacker with network access via HTTP to compromise Oracle Financials Common Modules.  While the vulnerability is in Oracle Financials Common Modules, attacks may sig",
+      "id": "94fcfd3353349420524074290458a527603d185de2865a01583ef43ae4cd25c6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-9893",
+      "title": "CVE-2026-9893 — CVSS 8.3",
+      "summary": "Use after free in Skia in Google Chrome prior to 148.0.7778.216 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: Critical)",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-05-28T21:16:32.020",
+      "date": "2026-05-28T23:16:47.280",
       "cve_ids": [
-        "CVE-2026-46821"
+        "CVE-2026-9893"
       ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "0715c52f64ff3d85d9038ac9cedb644d41d933f9ca51d00301960aa0744e21af",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46820",
-      "title": "CVE-2026-46820 — CVSS 8.5",
-      "summary": "Vulnerability in the Oracle Financials Common Modules product of Oracle E-Business Suite (component: Common Components).  Supported versions that are affected are 12.2.3-12.2.15. Easily exploitable vulnerability allows low privileged attacker with network access via HTTP to compromise Oracle Financials Common Modules.  While the vulnerability is in Oracle Financials Common Modules, attacks may sig",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:31.890",
-      "cve_ids": [
-        "CVE-2026-46820"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "da6f9be5b6ff9026e20fa490792e9addddcdabdc1985544877c2758c44843704",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46819",
-      "title": "CVE-2026-46819 — CVSS 9.1",
-      "summary": "Vulnerability in the Oracle Internet Procurement Connector product of Oracle E-Business Suite (component: Internal Operations).  Supported versions that are affected are 12.2.3-12.2.15. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTP to compromise Oracle Internet Procurement Connector.  Successful attacks of this vulnerability can result in  unauthoriz",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:31.760",
-      "cve_ids": [
-        "CVE-2026-46819"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "4691d4a4f12e59350312bec2226a663c06320c386f4b5ab6c389d19c15ffc8dc",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46818",
-      "title": "CVE-2026-46818 — CVSS 7.4",
-      "summary": "Vulnerability in the Oracle Payments product of Oracle E-Business Suite (component: File Transmission).  Supported versions that are affected are 12.2.3-12.2.15. Difficult to exploit vulnerability allows unauthenticated attacker with network access via HTTPS to compromise Oracle Payments.  Successful attacks of this vulnerability can result in  unauthorized creation, deletion or modification acces",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:31.637",
-      "cve_ids": [
-        "CVE-2026-46818"
-      ],
-      "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "7817115cc1499925fbe991c05c87b640a9e3f3bfc411e53611e62cae4d18acc2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46817",
-      "title": "CVE-2026-46817 — CVSS 9.8",
-      "summary": "Vulnerability in the Oracle Payments product of Oracle E-Business Suite (component: File Transmission).  Supported versions that are affected are 12.2.3-12.2.15. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTP to compromise Oracle Payments.  Successful attacks of this vulnerability can result in takeover of Oracle Payments. CVSS 3.1 Base Score 9.8 (Con",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:31.503",
-      "cve_ids": [
-        "CVE-2026-46817"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "6a44f8628442a24ad9a49109ecd8896246be4d5dea10b47b3cc6b1aec114bc0e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-46775",
-      "title": "CVE-2026-46775 — CVSS 9.9",
-      "summary": "Vulnerability in Oracle REST Data Services (component: Core).  Supported versions that are affected are 24.2.0-26.1.0. Easily exploitable vulnerability allows low privileged attacker with network access via HTTPS to compromise Oracle REST Data Services.  While the vulnerability is in Oracle REST Data Services, attacks may significantly impact additional products (scope change).  Successful attacks",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:31.383",
-      "cve_ids": [
-        "CVE-2026-46775"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "809cc753da00d7a66d00113491264261ae00bffa84eb9e95af05503a6772acb8",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45288",
-      "title": "CVE-2026-45288 — CVSS 9.8",
-      "summary": "Marten is a .NET Transactional Document DB and Event Store on PostgreSQL. Prior to 8.36.1, Marten's full-text search APIs interpolated the user-supplied regConfig parameter directly into the generated SQL without parameterization or validation, making every code path that exposes regConfig to untrusted input a SQL injection sink. This vulnerability is fixed in 8.36.1.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:31.220",
-      "cve_ids": [
-        "CVE-2026-45288"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "e2e2eb88e5eba07c7ab05ef03b070cd4804cd53aa58496e6eef6647acb7cb407",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44657",
-      "title": "CVE-2026-44657",
-      "summary": "Mantis Bug Tracker (MantisBT) is an open source issue tracker. Prior to 2.28.2, using show_inline=1 parameter and a valid file_show_inline_token CSRF token on file_download.php, an attacker can execute code by uploading a crafted XHTML attachment referencing a JavaScript attachment. This vulnerability is fixed in 2.28.2.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:31.053",
-      "cve_ids": [
-        "CVE-2026-44657"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d15e6afc8e7aec4b54f7f9442247dfd577663660ec2938c17993e47418f8a79a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44655",
-      "title": "CVE-2026-44655",
-      "summary": "Mantis Bug Tracker (MantisBT) is an open source issue tracker. From 1.3.0 to 2.28.1, unescaped Project Name allows an attacker that can set it (which typically requires manager or administrator access level) to inject HTML in Move Attachments admin page. This vulnerability is fixed in 2.28.2.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:30.900",
-      "cve_ids": [
-        "CVE-2026-44655"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "e24c25752a58680886ae9c3e331a581d90b32ce7ae8a107e46e739761c313990",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42400",
-      "title": "CVE-2026-42400 — CVSS 6.5",
-      "summary": "Uncontrolled Resource Consumption (CWE-400) in Kibana can lead to denial of service via Excessive Allocation (CAPEC-130). An authenticated user can send a specially crafted compressed request payload that is processed prior to authorization checks, causing excessive memory and CPU resource consumption that can result in a Kibana instance becoming unresponsive or crashing.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:30.497",
-      "cve_ids": [
-        "CVE-2026-42400"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "e7443f46f3aa971ae17dcaa5ce8d704361d9f3f03103d865f3ba479181a37dea",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42399",
-      "title": "CVE-2026-42399 — CVSS 6.5",
-      "summary": "Uncontrolled Resource Consumption (CWE-400) in Kibana can lead to denial of service via Excessive Allocation (CAPEC-130). An authenticated low-privileged user can cause Kibana to consume exponentially increasing amounts of memory by submitting a specially crafted Timelion visualization expression containing deeply chained function calls. The resulting data structure grows without bound, exhausting",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:30.323",
-      "cve_ids": [
-        "CVE-2026-42399"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "bd7d735e9c565e422da18ee645653af39001baa130c69c708202f5e0a6804165",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42398",
-      "title": "CVE-2026-42398 — CVSS 7.7",
-      "summary": "Server-Side Request Forgery (CWE-918) in Kibana allows authenticated users with connector management privileges to bypass the operator-configured connection allowlist. By configuring a Webhook connector with a crafted target, an attacker can cause Kibana to issue outbound requests to destinations that the egress restriction controls were intended to block.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-05-28T21:16:30.180",
-      "cve_ids": [
-        "CVE-2026-42398"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "a60da543f7290a21da28c74caf09c25fad10f2b1c5657a96eff5c41aa6fd7cbf",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42071",
-      "title": "CVE-2026-42071",
-      "summary": "Mantis Bug Tracker (MantisBT) is an open source issue tracker. From 2.23.0 to 2.28.1, a missing authorization check in MantisBT's file visibility function allows any authenticated user (REPORTER+) to download attachments on private bugnotes they should not be able to access, via the REST API endpoint GET /api/rest/issues/{id}/files and SOAP API mc_issue_attachment_get endpoint. This vulnerability ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:30.017",
-      "cve_ids": [
-        "CVE-2026-42071"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d154f23bb8ffd14303cb63096b8cba41212e72468816565e624d5f15d98faba2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42070",
-      "title": "CVE-2026-42070",
-      "summary": "Mantis Bug Tracker (MantisBT) is an open source issue tracker. Prior to 2.28.2, the mc_issue_update() function in MantisBT allows users having update_bug_threshold access (UPDATER, with default settings) to edit, change view state, and modify time tracking on bugnotes belonging to other users — bypassing the default DEVELOPER (level 55) threshold required by the dedicated mc_issue_note_update() fu",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:29.830",
-      "cve_ids": [
-        "CVE-2026-42070"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "539bd9288bc97dd92f9b92d38da867e8841e06ea6ee62f41873c25f70a14ed77",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41897",
-      "title": "CVE-2026-41897",
-      "summary": "Mantis Bug Tracker (MantisBT) is an open source issue tracker. From 1.0.0 to 2.28.1, lack of validation of filter_target parameter on return_dynamic_filters.php (normally used as an AJAX in View Issues Page) allows an attacker to inject arbitrary HTML if the target is a TEXTAREA custom field. This vulnerability is fixed in 2.28.2.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:29.640",
-      "cve_ids": [
-        "CVE-2026-41897"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "764ce15eb656332583cccd19149eec5a58de82926c659f3eb6cb9ba12f95daea",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35277",
-      "title": "CVE-2026-35277 — CVSS 8.1",
-      "summary": "Vulnerability in Oracle REST Data Services (component: Core).  Supported versions that are affected are 24.2.0-26.1.0. Easily exploitable vulnerability allows low privileged attacker with network access via HTTPS to compromise Oracle REST Data Services.  Successful attacks of this vulnerability can result in  unauthorized creation, deletion or modification access to critical data or all Oracle RES",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:29.460",
-      "cve_ids": [
-        "CVE-2026-35277"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "d6104191cb021a4b144c25f1f1732fc7fead4a096a8ab2e9eeba66c26e70a368",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35266",
-      "title": "CVE-2026-35266 — CVSS 7.9",
-      "summary": "Vulnerability in Oracle REST Data Services (component: Core).  Supported versions that are affected are 24.2.0-26.1.0. Difficult to exploit vulnerability allows low privileged attacker with network access via HTTPS to compromise Oracle REST Data Services.  Successful attacks require human interaction from a person other than the attacker and while the vulnerability is in Oracle REST Data Services,",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:29.330",
-      "cve_ids": [
-        "CVE-2026-35266"
-      ],
-      "cvss": 7.9,
-      "related_links": []
-    },
-    {
-      "id": "aee6504c31bfc00bd7993b9aa69a9f23d6b54a9e12bb515b8f44b6ee81f2b684",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34311",
-      "title": "CVE-2026-34311 — CVSS 9.8",
-      "summary": "Vulnerability in the Oracle Hospitality OPERA 5 Property Services product of Oracle Hospitality Applications (component: Opera).  Supported versions that are affected are 5.6.19.24, 5.6.22, 5.6.25.19, 5.6.27.6 and  5.6.28. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTP to compromise Oracle Hospitality OPERA 5 Property Services.  Successful attacks of ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-28T21:16:29.180",
-      "cve_ids": [
-        "CVE-2026-34311"
-      ],
-      "cvss": 9.8,
+      "cvss": 8.3,
       "related_links": []
     }
   ]
