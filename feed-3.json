@@ -1,10 +1,304 @@
 {
-  "updated": "2026-06-05T14:52:15.247325+00:00",
+  "updated": "2026-06-05T17:55:34.881219+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "98543e8cfd1d73c7bb805c771f2ef2f395bcbb264a617deaca15de3a99e976c5",
+      "url": "https://github.com/advisories/GHSA-g8rr-7rj2-f627",
+      "title": "GHSA: praisonai-platform: Any workspace member can delete the entire workspace via DELETE /workspaces/{id}",
+      "summary": "## Summary\n\n**Type:** Authorization bypass enabling destructive action. The `DELETE /workspaces/{workspace_id}` endpoint is gated only by `require_workspace_member(workspace_id)` (default `min_role=\"member\"`). Any member of the workspace can issue a single DELETE to wipe the entire workspace, including every project, issue, comment, agent, label, and member record (cascading via the foreign-key re",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-01T14:24:39Z",
+      "cve_ids": [
+        "CVE-2026-47412"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "045a200eec547e7307eeb3b1b1bc0da1d233664adb86eafa4f9129d3f6fe9fb6",
+      "url": "https://github.com/advisories/GHSA-xwq8-frcg-77q8",
+      "title": "GHSA: praisonai-platform: Issue endpoints accept any issue_id without workspace ownership check, cross-workspace read/update/delete IDOR",
+      "summary": "## Summary\n\n**Type:** Insecure Direct Object Reference. The issue CRUD endpoints (`GET / PATCH / DELETE /workspaces/{workspace_id}/issues/{issue_id}`) gate access on `require_workspace_member(workspace_id)` only, then resolve `issue_id` through `IssueService.get(issue_id)` which is a primary-key lookup with no workspace constraint. A user who is a member of any workspace `W1` can read, modify, or ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-01T14:24:12Z",
+      "cve_ids": [
+        "CVE-2026-47415"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "aff0660697805731741aae1367f1d081e56e57734531a33b2e0d2901debc2176",
+      "url": "https://github.com/advisories/GHSA-8g2p-pqm3-fcfh",
+      "title": "GHSA: praisonai-platform: Any workspace member can add arbitrary user as owner via POST /workspaces/{id}/members",
+      "summary": "## Summary\n\n**Type:** Privilege escalation / cross-tenant member injection. The `POST /workspaces/{workspace_id}/members` endpoint is gated only by `require_workspace_member(workspace_id)` (default `min_role=\"member\"`) and forwards the request body's `user_id` and `role` straight into `MemberService.add(workspace_id, user_id, role)`, which has no caller-permission check. A user with the lowest wor",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-01T14:23:39Z",
+      "cve_ids": [
+        "CVE-2026-47413"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "b03c19dd786966a14c3097f5e5005af8ecc0f15cc0f511674fe54838ec9efdeb",
+      "url": "https://github.com/advisories/GHSA-rcmc-q9rj-4wmq",
+      "title": "GHSA: praisonai-platform: Any workspace member can rewrite workspace name, description, and settings via PATCH /workspaces/{id}",
+      "summary": "## Summary\n\n**Type:** Authorization bypass enabling workspace metadata + settings tampering. The `PATCH /workspaces/{workspace_id}` endpoint is gated only by `require_workspace_member(workspace_id)` (default `min_role=\"member\"`). Any member can rewrite the workspace's `name`, `description`, and the `settings` JSON blob. The settings field is a free-form JSON object — depending on which downstream ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-01T14:23:08Z",
+      "cve_ids": [
+        "CVE-2026-47411"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "07f61a305c48b91e1a170dd2fac632ae81430284b552913dab19e0d4d027ab4c",
+      "url": "https://github.com/advisories/GHSA-cp4f-5m9r-5jc2",
+      "title": "GHSA: praisonai-platform: Comment endpoints accept any issue_id without workspace ownership check, cross-workspace comment read and post IDOR",
+      "summary": "## Summary\n\n**Type:** Insecure Direct Object Reference. The comment endpoints (`POST /workspaces/{workspace_id}/issues/{issue_id}/comments` and `GET .../comments`) gate access on `require_workspace_member(workspace_id)` only, then call `CommentService.create(issue_id=issue_id, ...)` and `CommentService.list_for_issue(issue_id)` without verifying that `issue_id` belongs to `workspace_id`. A user wh",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-01T14:19:33Z",
+      "cve_ids": [
+        "CVE-2026-47417"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "5b95685204fabaf5d1719e1ba153202139a5334330ca7dbb3024bc73e9263f58",
+      "url": "https://github.com/advisories/GHSA-943m-6wx2-rc2j",
+      "title": "GHSA: praisonai-platform: Project endpoints accept any project_id without workspace ownership check, cross-workspace read/update/delete IDOR",
+      "summary": "## Summary\n\n**Type:** Insecure Direct Object Reference. The project CRUD endpoints (`GET / PATCH / DELETE /workspaces/{workspace_id}/projects/{project_id}` and `GET .../{project_id}/stats`) gate access on `require_workspace_member(workspace_id)` only, then resolve `project_id` through `ProjectService.get(project_id)` / `update(project_id, ...)` / `delete(project_id)` / `get_stats(project_id)`. Non",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-01T14:17:04Z",
+      "cve_ids": [
+        "CVE-2026-47418"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "720b916eb85523bec6d05a1e2e8e22f717675e57c5e9745ac2d56bc42c4157db",
+      "url": "https://github.com/advisories/GHSA-2h32-95rg-cppp",
+      "title": "GHSA: Vitest browser mode serves unsanitized otelCarrier query parameter as inline script",
+      "summary": "## Summary\n\nVitest browser mode served `/__vitest_test__/` with the `otelCarrier` query parameter inserted directly into an inline module script. Because this value was treated as JavaScript source rather than data, an attacker could craft a browser-runner URL that executes arbitrary JavaScript in the Vitest server origin.\n\nhttps://github.com/vitest-dev/vitest/blob/cba2036a197ec8ed42c35a37db78ef07",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-01T14:12:18Z",
+      "cve_ids": [
+        "CVE-2026-47428"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "f3837c416840ff631a01581f2dcf4872c3dd1efdeff5e9842790af2e2db61c3c",
+      "url": "https://github.com/advisories/GHSA-5xrq-8626-4rwp",
+      "title": "GHSA: When Vitest UI server is listening, arbitrary file can be read and executed",
+      "summary": "### Summary\nArbitrary file can be read on Windows when Vitest UI server is listening, especially when exposed to the network.\n\n### Impact\nOnly users that match either of the following conditions are affected:\n\n- explicitly exposes the Vitest UI server to the network (using `--api.host` or [`api.host` config option](https://vitest.dev/config/api.html))\n- running the Vitest UI or Browser Mode on Win",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-01T14:09:53Z",
+      "cve_ids": [
+        "CVE-2026-47429"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "63b0b8af3b4aab7a0a995460b80730e8c270acb6efb26f9ceba8f504e1fee7ac",
+      "url": "https://github.com/advisories/GHSA-87xg-pxx2-7hvx",
+      "title": "GHSA: DOMPurify XSS via selectedcontent re-clone",
+      "summary": "### Summary\nDOMPurify 3.4.4 allows `selectedcontent` by default, allowing a chain in which browsers \"re-clone\" an XSS payload after sanitization, effectively bypassing DOMPurify. \n\n### Details\nThe chain is as follows:\n1. The browser parses the input and creates a `<selectedcontent>` clone from the selected `<option>`\n2. DOMPurify walks and sanitizes that generated clone.\n3. DOMPurify reaches the o",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-01T14:07:29Z",
+      "cve_ids": [
+        "CVE-2026-47423"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "5f2574acb30734c9f0a7d9734d6061a8c5665d5b50ba7cf0b7d349668ece0419",
+      "url": "https://github.com/advisories/GHSA-4g6j-g789-rghm",
+      "title": "GHSA: Nezha's authenticated agents can forge service-monitor results for other users' services",
+      "summary": "#### Summary\n\nNezha accepts service-monitor `TaskResult` messages from an authenticated agent based only on whether the reported service ID exists. The dashboard authenticates the agent and derives the reporter server ID from the gRPC stream, but the service-monitor result worker does not verify that the reporter server was selected for that service, belongs to the service owner, or was actually a",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-01T14:05:06Z",
+      "cve_ids": [
+        "CVE-2026-48119"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "1048e5806dcb578c27cb0b5163bcb50d68aca3926438679dd8e1488e6c6020ed",
+      "url": "https://ubuntu.com/security/notices/USN-8354-1",
+      "title": "USN-8354-1: nginx vulnerabilities",
+      "summary": "It was discovered that nginx did not properly validate source addresses in the HTTP/3 QUIC module. A remote attacker could possibly use this issue to bypass authorization checks or rate limiting. This issue only affected Ubuntu 25.04 and Ubuntu 25.10. (CVE-2026-40460) It was discovered that nginx contained a use-after-free vulnerability in the ngx_http_ssl_module module when client certificate ver",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-06-01T13:52:07+00:00",
+      "cve_ids": [
+        "CVE-2026-40460",
+        "CVE-2026-40701",
+        "CVE-2026-42934",
+        "CVE-2026-42946",
+        "CVE-2026-9256",
+        "CVE-2025-53859",
+        "CVE-2026-1642",
+        "CVE-2026-27651",
+        "CVE-2026-27654",
+        "CVE-2026-27784",
+        "CVE-2026-28753",
+        "CVE-2026-32647",
+        "CVE-2026-42945"
+      ],
+      "cvss": null,
+      "related_links": [
+        "https://ubuntu.com/security/notices/USN-8375-1"
+      ]
+    },
+    {
+      "id": "61a17757da0d48f07d228010286a3de6901327e6c3967f1eb877391be5dc3bdc",
+      "url": "https://www.rapid7.com/blog/post/ve-cve-2026-0826-how-an-old-bug-can-feed-ai-powered-impersonation",
+      "title": "CVE-2026-0826: How an Old Bug Can Feed AI-Powered Impersonation",
+      "summary": "One of the more persistent myths in security is that old bug classes become old problems. They don’t. They just show up in different places, under different conditions, and usually at the exact moment we’ve convinced ourselves not to pay attention to them.That’s part of what makes enterprise voice infrastructure so interesting.Earlier this year, we wrote about a critical vulnerability in Grandstre",
+      "source": "Rapid7",
+      "category": "emergency",
+      "date": "2026-06-01T13:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-0826"
+      ],
+      "cvss": null,
+      "related_links": [
+        "https://www.rapid7.com/blog/post/ve-cve-2026-0826-critical-unauthenticated-stack-buffer-overflow-hp-poly-vvx-trio-voip-phones-fixed"
+      ]
+    },
+    {
+      "id": "9c10c0424399dec40a97968574a36adbd24feb2d0fb66353f8527ae5993ee897",
+      "url": "https://www.bleepingcomputer.com/news/microsoft/critical-windows-netlogon-remote-code-execution-flaw-now-exploited-in-attacks/",
+      "title": "Critical Windows Netlogon RCE flaw now exploited in attacks",
+      "summary": "The Centre for Cybersecurity Belgium (CCB), the country's national authority for cybersecurity, warned on Friday that threat actors are now exploiting a recently patched critical Windows Netlogon vulnerability in attacks. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-06-01T12:30:27+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "3e8a0226d35f5a448c45ea5ffaa3107d084482a7debc8f3be2c61b8ceb8eeb82",
+      "url": "https://ubuntu.com/security/notices/USN-8349-1",
+      "title": "USN-8349-1: rsync vulnerabilities",
+      "summary": "Calum Hutton discovered that rsync contained a heap-based out-of-bounds read when handling file transfers. A remote attacker with read access to an rsync server could possibly use this issue to cause a denial of service. (CVE-2025-10158) Batuhan Sancak, Damien Neil, and Michael Stapelberg discovered that rsync daemons configured without chroot protection were exposed to a race condition on parent ",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-06-01T09:20:17+00:00",
+      "cve_ids": [
+        "CVE-2025-10158",
+        "CVE-2026-29518",
+        "CVE-2026-41035",
+        "CVE-2026-43617",
+        "CVE-2026-43618",
+        "CVE-2026-43619",
+        "CVE-2026-43620",
+        "CVE-2026-45232"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "53928404284a2d72199c0863b2615777fdce7fb662813bf080ef99516373b302",
+      "url": "https://ubuntu.com/security/notices/LSN-120-1",
+      "title": "LSN-120-1: Kernel Live Patch Security Notice",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved: KVM: arm64: Tear down vGIC on failed vCPU creation If kvm_arch_vcpu_create() fails to share the vCPU page with the hypervisor, we propagate the error back to the ioctl but leave the vGIC vCPU data initialised. In the Linux kernel, the following vulnerability has been resolved: nvmet-tcp: add bounds checks in nvmet_tcp_build_pdu_io",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-06-01T09:05:55+00:00",
+      "cve_ids": [
+        "CVE-2026-31431",
+        "CVE-2023-7101",
+        "CVE-2023-7102",
+        "CVE-2026-20182",
+        "CVE-2026-24479",
+        "CVE-2026-41940",
+        "CVE-2026-20127",
+        "CVE-2025-71088",
+        "CVE-2025-71090",
+        "CVE-2025-71127",
+        "CVE-2025-71134",
+        "CVE-2025-71139",
+        "CVE-2025-71141",
+        "CVE-2025-71142",
+        "CVE-2025-71144",
+        "CVE-2025-71152",
+        "CVE-2025-71155",
+        "CVE-2026-23274",
+        "CVE-2026-23351",
+        "CVE-2026-23394",
+        "CVE-2026-31419",
+        "CVE-2026-31504",
+        "CVE-2026-31533",
+        "CVE-2026-31676",
+        "CVE-2026-43033",
+        "CVE-2026-43077",
+        "CVE-2026-43078",
+        "CVE-2026-43284",
+        "CVE-2026-43494",
+        "CVE-2026-43500",
+        "CVE-2026-43503",
+        "CVE-2026-45966",
+        "CVE-2026-45998",
+        "CVE-2026-46000",
+        "CVE-2026-46028",
+        "CVE-2026-46300",
+        "CVE-2026-46333",
+        "CVE-2026-47326",
+        "CVE-2026-47327",
+        "CVE-2026-47328",
+        "CVE-2026-47329",
+        "CVE-2026-47330",
+        "CVE-2026-47332",
+        "CVE-2026-47333",
+        "CVE-2026-47334",
+        "CVE-2026-47337"
+      ],
+      "cvss": null,
+      "related_links": [
+        "https://www.rapid7.com/blog/post/pt-metasploit-wrap-up-05-22-2026",
+        "https://www.rapid7.com/blog/post/ve-cve-2026-20182-critical-authentication-bypass-cisco-catalyst-sd-wan-controller-fixed",
+        "https://www.rapid7.com/blog/post/tr-efficiencys-dark-side-network-controllers-in-god-mode-attackers-sd-wan",
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-20182",
+        "https://ubuntu.com/security/notices/USN-8374-1"
+      ]
+    },
+    {
+      "id": "1c5aa772cd4f17a53a7cf3c76574c54d855308b28464a5481cd0b71b3e6e7388",
+      "url": "https://www.exploit-db.com/exploits/52608",
+      "title": "[webapps] Drupal Core 10.5.5 - Error-Based SQL Injection",
+      "summary": "Drupal Core 10.5.5 - Error-Based SQL Injection",
+      "source": "Exploit-DB",
+      "category": "web_app",
+      "date": "2026-06-01T00:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
     {
       "id": "154ae34c26562e549dd925cd7a591d33b3b71e3805a63b34cb688dca6bc8aa88",
       "url": "https://www.exploit-db.com/exploits/52607",
@@ -41,6 +335,34 @@
       "date": "2026-05-30T14:16:08+00:00",
       "cve_ids": [],
       "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "d77c2c0cf7218a1a88243b10725d17d25f828df4164c6764e8287d15ad6cf034",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-10111",
+      "title": "CVE-2026-10111 — CVSS 7.3",
+      "summary": "A flaw has been found in sambitraj STUDENT-MANAGEMENT-SYSTEM 1.0. This impacts an unknown function of the component Login Page. Executing a manipulation of the argument email can lead to sql injection. The attack may be performed from remote. The exploit has been published and may be used. The project was informed of the problem early through an issue report but has not responded yet.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-05-30T08:16:16.013",
+      "cve_ids": [
+        "CVE-2026-10111"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "0a14d34c32eabaeac97bb4a2916b1dd29033eecc65b6725430f77d99ade57646",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-10110",
+      "title": "CVE-2026-10110 — CVSS 7.3",
+      "summary": "A vulnerability was detected in code-projects Student Details Management System 1.0. This affects an unknown function of the file /index.php. Performing a manipulation of the argument roll results in sql injection. The attack is possible to be carried out remotely. The exploit is now public and may be used.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-05-30T07:16:27.813",
+      "cve_ids": [
+        "CVE-2026-10110"
+      ],
+      "cvss": 7.3,
       "related_links": []
     },
     {
@@ -445,252 +767,6 @@
         "CVE-2026-47201"
       ],
       "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "3acd91c97dd8609eeacfebdec3e06696aab53f95e9409c29364303dd7385ad4d",
-      "url": "https://github.com/advisories/GHSA-rfg2-pjw2-56x2",
-      "title": "GHSA: zeroconf has unbounded DNS record cache that allows LAN-local memory exhaustion via multicast flood",
-      "summary": "### Impact\n\n`DNSCache._async_add` inserted every response record into `cache`, `_expirations`, `_expire_heap`, and `service_cache` with no cap on entry count. The only pre-existing protection was a PTR TTL floor (`_DNS_PTR_MIN_TTL = 1125` s, RFC 6762 §10), which actually *prolonged* attacker-injected records, and a periodic `async_expire` on `_CACHE_CLEANUP_INTERVAL = 10` s that could not keep up ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T20:18:53Z",
-      "cve_ids": [
-        "CVE-2026-47184"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "2b15ad9a0bb2198f7d6f48de93429b1c88531f4d282a137e302e3ab15e1407fa",
-      "url": "https://github.com/advisories/GHSA-phvx-9mgw-67r5",
-      "title": "GHSA: zeroconf: Unbounded exception-dedup state retains packet buffers via traceback frame locals, enabling LAN-local memory exhaustion",
-      "summary": "### Impact\n`DNSIncoming._log_exception_debug` and the four `QuietLogger` exception-dedup methods stored an unbounded `_seen_logs` dict keyed by `str(sys.exc_info()[1])`. The seven `IncomingDecodeError` messages raised from `_read_name` / `_decode_labels_at_offset` (RFC 6762 §18 name-decoding error paths) all embed `self.source` — the peer's ephemeral source port, varying per packet — plus byte `of",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T20:13:08Z",
-      "cve_ids": [
-        "CVE-2026-47183"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "402c58ebb0be551d4d52c1ce2b618fbb7e3a35aa8cf0a5cfe23985bd27b45972",
-      "url": "https://github.com/advisories/GHSA-9pgc-3ccv-5297",
-      "title": "GHSA: zeroconf has unbounded recursion in DNS compression-pointer decoder that allows LAN-local denial of service",
-      "summary": "### Impact\n\n`DNSIncoming._decode_labels_at_offset` recurses once per DNS-name compression pointer (RFC 1035 §4.1.4). Pointer cycles and label counts were capped, but the chain length of unique forward pointers was not. A single ~3 kB mDNS packet carrying ~1500 chained pointers drives the recursion past CPython's default limit, and `RecursionError` was not listed in `DECODE_EXCEPTIONS`, so it escap",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T20:09:52Z",
-      "cve_ids": [
-        "CVE-2026-47180"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "caf2f93f4c029ae8b4f38f811ff0e47ac1f699141127005e05a859bce45748fd",
-      "url": "https://github.com/advisories/GHSA-92vj-hp7m-gwcj",
-      "title": "GHSA: Nerdbank.MessagePack has Inefficient CPU Computation",
-      "summary": "### Impact\n\nApplications that call `OptionalConverters.WithExpandoObjectConverter` and deserialize untrusted data are open to a vulnerability by which an attacker can exploit a `O(n²)` algorithm to burn an inordinate amount of CPU effort by adding a great many properties to an `ExpandoObject`, whose `Add` method is implemented as an `O(n)` algorithm.\n\n### Patches\n\nUpdate to a patched version.\n\nIf ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T20:02:59Z",
-      "cve_ids": [],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "054efad346a27824eac8d1a9af77f234b8ba191dfcddb2cb7cf075b47646e361",
-      "url": "https://github.com/advisories/GHSA-7j2f-6h2r-6cqc",
-      "title": "GHSA: Koel Vulnerable to SSRF via Podcast Episode Enclosure URLs",
-      "summary": "## Summary\n\nKoel validates the podcast feed URL via the `SafeUrl` rule (DNS resolution + public IP check), but the individual episode `<enclosure url=\"...\">` values extracted from the RSS XML are stored directly into the database without any SSRF validation. When a user plays an episode, the server downloads the full HTTP response from the unvalidated enclosure URL via `Http::sink()->get()` and st",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T19:56:06Z",
-      "cve_ids": [
-        "CVE-2026-47260"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "f52b33ca99b509c79f264ecc40be1e21e1be258d04e94db719dcbe67feb41e3b",
-      "url": "https://github.com/advisories/GHSA-qjvr-435c-5fjh",
-      "title": "GHSA: Nerdbank.MessagePack has a memory amplification DoS in collection deserialization",
-      "summary": "Nerdbank.MessagePack deserializers for many collection-shaped types trusted the element count declared in MessagePack array and map headers when allocating destination storage. A crafted payload could therefore force large arrays, pooled buffers, dictionaries, or collection instances to be allocated before the deserializer had consumed the corresponding elements.\n\nThe same allocation pattern exist",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T19:55:09Z",
-      "cve_ids": [],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "cfd287464e985fd6afa9b4f51cd034d9cbb056c2f9a5e9b21a09965e0c664d6d",
-      "url": "https://github.com/advisories/GHSA-g3hp-f6mg-559v",
-      "title": "GHSA: Sparkle's AppInstaller post-stage-1 XPC listener accepts unvalidated connections, allowing spoofed appcast item data injection",
-      "summary": "## Summary\n\nAppInstaller post-stage-1 XPC listener accepts unvalidated connections, allowing spoofed appcast item data injection.\n\n## Details\n\n`Autoupdate/AppInstaller.m`'s `shouldAcceptNewConnection:` only enforces `SUCodeSigningVerifier validateConnection:` before stage 1 completes. After `_performedStage1Installation = YES`, new connections to the registered Mach service `<bundleId>-spki` are a",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T19:47:19Z",
-      "cve_ids": [
-        "CVE-2026-47122"
-      ],
-      "cvss": 4.2,
-      "related_links": []
-    },
-    {
-      "id": "c53d9584142aa6fe9a490fd5f1222ebff5e048a32a3df2d9d56351ff7b6fcd6f",
-      "url": "https://github.com/advisories/GHSA-hg88-v3cw-3qrh",
-      "title": "GHSA: Sparkle: Binary delta apply intermediate-symlink traversal in malicious .delta",
-      "summary": "## Summary\n\nBinary delta apply intermediate-symlink traversal in malicious .delta\n\n`Autoupdate/SUBinaryDeltaApply.m` enforces `relativePath.pathComponents containsObject:@\"..\"` and rejects writes whose immediate parent directory IS itself a symbolic link, but does not detect symlinks deeper in the relative path. `Autoupdate/SPUSparkleDeltaArchive.m`'s `extractItem:` will create symlinks in the des",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T19:45:04Z",
-      "cve_ids": [
-        "CVE-2026-47121"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "a836a281d53fa8350a67d249381a68e988df153996e775dd6ed7435dfc8035ea",
-      "url": "https://github.com/advisories/GHSA-w5pp-99ch-qj29",
-      "title": "GHSA: go-git: Malformed Git object data may cause panics or resource exhaustion",
-      "summary": "### Impact\nSeveral denial-of-service issues were identified in `go-git` when parsing maliciously crafted Git repository data.\n\nAn attacker may craft a malicious `.pack`, `.idx` or loose objects that causes an application using an affected version of `go-git` to panic or consume excessive resources.\n\nThis can lead to denial of service in applications that use `go-git` to clone, fetch, open, or othe",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T19:43:27Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "803d23fc3363d1d9877509e573852b90f156f5cf0805dd2d150997c090849d05",
-      "url": "https://github.com/advisories/GHSA-hpv4-5h6f-wqr3",
-      "title": "GHSA: russh server userauth state is not reset when authentication principal changes",
-      "summary": "### Summary\nThe `russh` server authentication path keeps internal userauth state across `SSH_MSG_USERAUTH_REQUEST` messages without separating that state when the request principal changes.\n\nRFC 4252 allows the `user name` and `service name` fields to change between authentication requests. The issue is not that such changes are invalid. The issue is that russh-owned authentication state, such as ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-05-29T19:39:41Z",
-      "cve_ids": [
-        "CVE-2026-46705"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "fbfc941bd067f4d3ad5634bfa439c90745869bd368e69dd2c0f05fb9ceaded5a",
-      "url": "https://github.com/advisories/GHSA-wwx6-x28x-8259",
-      "title": "GHSA: russh: Post-decompression SSH packet size was not bounded, allowing remote oversized compressed packets",
-      "summary": "### Summary\n\nWhen SSH compression is enabled, `russh` accepted compressed packets whose on-wire size passed the normal transport packet-length checks but whose decompressed size was much larger. This allowed a remote peer to send oversized post-decompression packets that should have been rejected.\n\nIn current releases, this is a remote denial-of-service / resource-exhaustion issue in the post-deco",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T19:37:14Z",
-      "cve_ids": [
-        "CVE-2026-46702"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "3658841277d5e9625f66861c3dacb1161a2e14ba0df9bfcdbbd626977921fe12",
-      "url": "https://github.com/advisories/GHSA-29h4-r29x-hchv",
-      "title": "GHSA: amazon-redshift-python-driver vulnerable to Remote Code Execution via eval() Injection",
-      "summary": "### Summary\namazon-redshift-python-driver is the official Python connector for Amazon Redshift. In versions 2.1.13 and earlier, the driver insufficiently validates data received from the server during query result processing. A rogue server or man-in-the-middle could leverage this to execute arbitrary code on the client.\n\n### Impact\nWhen a client connects to a rogue server implementing the Postgre",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-05-29T19:32:28Z",
-      "cve_ids": [
-        "CVE-2026-8838"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "400631590955be5a3010e9efe94016ecf600f7ba5c472745bd3ad336d7f28c88",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-49367",
-      "title": "CVE-2026-49367 — CVSS 8.0",
-      "summary": "In JetBrains IntelliJ IDEA before 2026.1.1 command execution was possible via the guest user account",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-29T19:16:26.440",
-      "cve_ids": [
-        "CVE-2026-49367"
-      ],
-      "cvss": 8.0,
-      "related_links": []
-    },
-    {
-      "id": "a9ee94b3a12a259c277de25f7b1b584d6e177346958f309fa96a1d7e2651292e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-49366",
-      "title": "CVE-2026-49366 — CVSS 7.8",
-      "summary": "In JetBrains IntelliJ IDEA before 2026.1.1 command injection was possible via filename completion",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-05-29T19:16:26.313",
-      "cve_ids": [
-        "CVE-2026-49366"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "9ecc37c9009345bf5d2bb0c36f943ef10376d1a022286bb5f0f8d1726c3990b9",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-47745",
-      "title": "CVE-2026-47745 — CVSS 6.5",
-      "summary": "Shopper is a Headless e-commerce Admin Panel. Prior to 2.8.0, the admin tables for PaymentMethods, Currencies and Carriers exposed inline toggles and per-record actions (enable, disable, edit, delete) that were rendered for any authenticated panel user without checking the corresponding per-action permission. A low-privilege user could disable every payment method on the store, disable or alter th",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-29T19:16:26.177",
-      "cve_ids": [
-        "CVE-2026-47745"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "173fb359c10b5e1d6378524e52f6bee59e8b2fdc7c4ace9398d880136cc396b6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-47744",
-      "title": "CVE-2026-47744 — CVSS 9.9",
-      "summary": "Shopper is a Headless e-commerce Admin Panel. Prior to 2.8.0, two distinct authorization defects in the team settings allowed any authenticated panel user to take over the RBAC system. Settings/Team/Index had no mount() authorization. Any authenticated user could load the page and use its public actions to create new roles and delete other users, including administrators. Settings/Team/RolePermiss",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-29T19:16:26.037",
-      "cve_ids": [
-        "CVE-2026-47744"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "c7170c3513b6b66d0d0ff25e8b5534316420aa38c2374193d18935539d417d62",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-47742",
-      "title": "CVE-2026-47742 — CVSS 6.5",
-      "summary": "Shopper is a Headless e-commerce Admin Panel. Prior to 2.8.0, Sub-form Livewire components used in the product editor (Edit, Inventory, Seo, Shipping, Files) had no authorization on their store() method. Any authenticated panel user, regardless of role, could mutate any product's pricing, stock, SEO metadata, shipping dimensions, and attached media without holding edit_products. The affected compo",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-29T19:16:25.900",
-      "cve_ids": [
-        "CVE-2026-47742"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "5fa911469ccc26d6ec2931539252c88c3f1e012524935c5c400eff528f9e372e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-47741",
-      "title": "CVE-2026-47741 — CVSS 5.9",
-      "summary": "Shopper is a Headless e-commerce Admin Panel. Prior to 2.8.0, CreateOrderFromCartAction::execute previously created the Order row before checking and incrementing the discount's total_use counter. Under concurrent checkout pressure (Black Friday, flash sale, viral coupon), the global usage_limit was silently exceeded: orders were committed with the discount fully applied to price_amount while the ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-05-29T19:16:25.763",
-      "cve_ids": [
-        "CVE-2026-47741"
-      ],
-      "cvss": 5.9,
       "related_links": []
     }
   ]
