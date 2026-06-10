@@ -1,10 +1,88 @@
 {
-  "updated": "2026-06-10T15:35:32.046143+00:00",
+  "updated": "2026-06-10T18:30:54.788512+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "32738e800c75b5cd3d482764270122781d354d18bfa4ac6c1365dd2490a4d400",
+      "url": "https://github.com/advisories/GHSA-rm5c-5x2p-48wr",
+      "title": "GHSA: Klever-Go KVM: Unauthenticated remote node crash (nil-pointer DoS) in klever-go P2P transaction interceptor (txVersionChecker nil RawData) - potential chain halt",
+      "summary": "## Summary\nEvery transaction gossiped on the klever-go P2P network is decoded and validated\nsynchronously inside the libp2p pubsub topic-validator callback. The validator\n`txVersionChecker.CheckTxVersion` dereferences `tx.RawData.Version` with no nil\ncheck. A protobuf `Transaction` whose embedded `RawData` sub-message is omitted\ndecodes to `RawData == nil`, so validating it triggers a nil-pointer ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-05T16:42:38Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "f6b60187e824462da29533bfb385f154936d53e912241f3159b0cf4c8136edeb",
+      "url": "https://github.com/advisories/GHSA-w4c6-7r69-w7j9",
+      "title": "GHSA: klever-go: REST API slow-header connection exhaustion via Gin Engine.Run",
+      "summary": "### Summary\n\nThe Klever seednode REST API starts a Gin engine with `Engine.Run(restAPIInterface)`. In Gin v1.9.1, `Engine.Run` calls Go's default `http.ListenAndServe`, which constructs an HTTP server without application-level `ReadHeaderTimeout`, `ReadTimeout`, or `MaxHeaderBytes` limits.\n\nAn unauthenticated client that can reach a REST listener bound with Klever's documented `--rest-api-interfac",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-05T16:41:58Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "bfb8d678a0eacd170ce7a82bef8a6ff3702ac2e2c647f881343dcdaa5402a26b",
+      "url": "https://github.com/advisories/GHSA-hf2g-6j7h-98wg",
+      "title": "GHSA: klever-go: Unbounded goroutine spawn on direct-message ingress enables peer-driven DoS",
+      "summary": "### Summary\n\n`networkMessenger.directMessageHandler` in `network/p2p/libp2p/netMessenger.go` spawns a fresh goroutine for every incoming direct message before the antiflood layer makes an admission decision. There is no semaphore, throttler, or bound on concurrent in-flight spawns.\n\nA single connected libp2p peer can open a `DirectSendID` stream and send well-formed `TopicMessage` envelopes with v",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-05T16:41:23Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "6fbd8f8eb708bb30947144da6bed9b6e7fc7be83977d11306bc7d7d8397f46b7",
+      "url": "https://github.com/advisories/GHSA-fw38-pc54-jvx9",
+      "title": "GHSA: Klever-Go KVM: Throttler slot leak in trie account-data sync causes epoch bootstrap / state sync DoS",
+      "summary": "## Summary\n\n  The account-data trie syncers leak bounded throttler slots on error paths in `syncDataTrie()`. Each failed trie sync permanently consumes one slot from\n  the `NumGoRoutinesThrottler`, and the slot is never returned unless the sync succeeds or the root hash was already present.\n\n  I confirmed this on the current default branch `develop` at commit `9640d63` (observed on May 20, 2026). ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-05T16:40:40Z",
+      "cve_ids": [
+        "CVE-2026-49343"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "69e448b59a3a50ccf4c611ee873353f8b24c30b22f1ab37dfcdf039fd898045e",
+      "url": "https://github.com/advisories/GHSA-hv83-ggc4-v385",
+      "title": "GHSA: DbGate: Remote Code Execution via functionName injection in loadReader endpoint",
+      "summary": "### Summary\n\nThe `POST /runners/load-reader` endpoint in DbGate accepts a `functionName` parameter that is directly interpolated into a JavaScript code template without any sanitization or validation. An authenticated user (with basic access, no special permissions required) can inject arbitrary JavaScript code that executes on the server with full process privileges, bypassing the `require=null` ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-05T16:39:38Z",
+      "cve_ids": [
+        "CVE-2026-48017"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "d471d0e68c0cbb6c381a13e39dceecb0373ce796877e0e5ed72d4879480830b2",
+      "url": "https://github.com/advisories/GHSA-q4x5-8cj6-52wg",
+      "title": "GHSA: Sync-in Server: SSRF protection bypass via IPv4-mapped IPv6 addresses in regExpPrivateIP",
+      "summary": "Summary:\nThe private IP blocklist regex used in the URL download feature does not match IPv4-mapped IPv6 addresses (e.g. ::ffff:127.0.0.1), allowing SSRF protection to be bypassed on dual-stack systems.\n\nAffected components\n\nbackend/src/applications/files/services/files-manager.service.ts – downloadFromUrl() checks regExpPrivateIP against request.socket.remoteAddress.\nbackend/src/applications/file",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-05T16:34:59Z",
+      "cve_ids": [
+        "CVE-2026-47684"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
     {
       "id": "718f0ce4a8742df6f44f976018d0e7e29291e161c86d8df2c86bcde9a35db957",
       "url": "https://github.com/advisories/GHSA-7p8g-6c6g-h9w7",
@@ -613,88 +691,6 @@
         "CVE-2026-47706"
       ],
       "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "41644fd31c1dfce302a8ce883d5f6a12271155527dd9cfb5e277916fc4e8db16",
-      "url": "https://github.com/advisories/GHSA-fh3h-vg37-cc95",
-      "title": "GHSA: WebOb: Location header normalization during redirect leads to open redirect - again",
-      "summary": "### Impact\n\nWhen WebOb normalizes the HTTP Location header to include the request hostname, it does so by parsing the URL that the user is to be redirected to with Python's `urllib.parse`, and joining it to the base URL. `urlsplit` (called internally by `urljoin`) however treats a `//` at the start of a string as a URI without a scheme, and then treats the next part as the hostname. `urljoin` will",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-04T14:33:35Z",
-      "cve_ids": [
-        "CVE-2026-44889"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "85d8afceb74a0ec6a9eb6b656aca0e393ff42084c2f5b5c78f0e70d0014aad6f",
-      "url": "https://github.com/advisories/GHSA-hfxv-24rg-xrqf",
-      "title": "GHSA: Axios: Regular Expression Denial of Service (ReDoS) via Cookie Name Injection",
-      "summary": "## Summary\n\nAxios versions before `0.32.0` on the `0.x` line and before `1.16.0` on the `1.x` line build a regular expression from the configured XSRF cookie name without escaping regex metacharacters. In standard browser environments, an attacker who can influence the cookie name passed to axios can cause expensive regex backtracking while axios reads `document.cookie`.\n\nThe practical impact is c",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-04T14:24:06Z",
-      "cve_ids": [
-        "CVE-2026-44496"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "ae1d513070d8a3062c5591f23fe6b27472cea0c5f23dd82e5190b475c640014b",
-      "url": "https://github.com/advisories/GHSA-777c-7fjr-54vf",
-      "title": "GHSA: Allocation of Resources Without Limits or Throttling in Axios",
-      "summary": "## Summary\n\nAxios versions `1.7.0` through `1.15.x` did not enforce configured request and response size limits when requests were sent with the `fetch` adapter. Applications that selected `adapter: 'fetch'`, or ran in environments where axios resolved to the fetch adapter, could receive or send bodies larger than `maxContentLength` or `maxBodyLength` despite those limits being explicitly configur",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-04T14:21:37Z",
-      "cve_ids": [
-        "CVE-2026-44488"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "dc1fa096dab86c86485acd9c57866febdc02c8aea9fb1a4f24b0ba844158a232",
-      "url": "https://github.com/advisories/GHSA-j5f8-grm9-p9fc",
-      "title": "GHSA: Axios: Proxy-Authorization header leaks to redirect target when proxy is re-evaluated to direct connection",
-      "summary": "### Summary\n\nAxios’ Node.js HTTP adapter can leak proxy credentials to a redirect target in affected versions. When a request is sent through an authenticated proxy, Axios may add a `Proxy-Authorization` header. If Axios then follows a redirect and the redirected request is no longer sent through that proxy, the stale `Proxy-Authorization` header can remain on the redirected request and be sent to",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-04T14:15:01Z",
-      "cve_ids": [
-        "CVE-2026-44486"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "bdf71a89c968489bd70f9d8a11ea2d3bc9ba5ba2ef1e88547e76359a704760a5",
-      "url": "https://www.rapid7.com/blog/post/dr-swiss-cheese-model-helps-choose-mdr-providers",
-      "title": "How the “Swiss Cheese” model can help you choose the right MDR provider",
-      "summary": "Not all managed detection and response (MDR) solutions are equal. Finding the differences between vendors can be quite hard, and then understanding how those differences impact your business can be even harder. For instance, you may come across an MDR provider whose pricing is based on how much data you ingest rather than the number of assets you protect.Ingestion-based solutions have the potentia",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-06-04T13:53:41+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ef60e8308bb2c9c6a21a2beaec5e0a29333b12f1f084af47cfb660ac14042ce3",
-      "url": "https://github.com/advisories/GHSA-86qp-5c8j-p5mr",
-      "title": "GHSA: Starlette has missing Host header validation that poisons request.url.path, bypassing path-based security checks",
-      "summary": "### Summary\nIn affected versions, the HTTP `Host` request header was not validated before being used to reconstruct `request.url`. Because the routing algorithm relies on the raw HTTP path while `request.url` is rebuilt from the `Host` header, a malformed header could make `request.url.path` differ from the path that was actually requested. Middleware and endpoints that apply security restrictions",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-04T13:15:17Z",
-      "cve_ids": [
-        "CVE-2026-48710"
-      ],
-      "cvss": 6.5,
       "related_links": []
     }
   ]
