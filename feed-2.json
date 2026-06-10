@@ -1,10 +1,108 @@
 {
-  "updated": "2026-06-10T08:08:07.847600+00:00",
+  "updated": "2026-06-10T15:35:32.046143+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "fbb2d93978c5ad9f4226a8e3059ae03baef12cb21f265c9779163b75616b71da",
+      "url": "https://github.com/advisories/GHSA-5pvg-856g-cp85",
+      "title": "GHSA: Netty has Insufficient Bailiwick Validation for NS Records",
+      "summary": "### Summary\nNetty's `DnsResolveContext` insufficiently validates the bailiwick of NS records, enabling DNS Cache Poisoning. An attacker controlling an authoritative name server for a subdomain can poison the cache for parent domains (like `.co.uk`).\n\n### Details\nIn `io.netty.resolver.dns.DnsResolveContext.AuthoritativeNameServerList#add` method accepts any NS record from the AUTHORITY section as l",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-08T23:02:48Z",
+      "cve_ids": [
+        "CVE-2026-47691"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "2a61c83785b1d8c53fdc4b8f4107c5de98a58ad49440a0ef765de6ed1574587e",
+      "url": "https://github.com/advisories/GHSA-5x3r-wrvg-rp6q",
+      "title": "GHSA: Netty HTTP/2: Advertised MAX_CONCURRENT_STREAMS are not enforced",
+      "summary": "### Impact\nDefaultHttp2Connection.DefaultEndpoint initialises maxActiveStreams/maxStreams to Integer.MAX_VALUE, and Http2Settings never inserts SETTINGS_MAX_CONCURRENT_STREAMS by default (Http2Settings.java:305-307 only clamps a user-supplied value). Unless the application explicitly calls initialSettings().maxConcurrentStreams(n), a Netty HTTP/2 server advertises no limit and enforces none locall",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-08T23:02:40Z",
+      "cve_ids": [
+        "CVE-2026-47244"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "60833e5b8bd5c3a0fc2d297c3a979527267e30d4d3a5891237b87eecbd3258de",
+      "url": "https://github.com/advisories/GHSA-5xrh-qmmq-w6ch",
+      "title": "GHSA: Netty: SCTP reassembly nests buffers without bound",
+      "summary": "For each non-complete SctpMessage fragment the handler does `fragments.put(streamId, Unpooled.wrappedBuffer(frag, byteBuf))`, wrapping the previous accumulator and the new slice into a *new* CompositeByteBuf every time. After N fragments the accumulator is an N-deep chain of composites, each holding references and component arrays; readableBytes()/getBytes() on the final buffer recurse N levels. T",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-08T23:02:33Z",
+      "cve_ids": [
+        "CVE-2026-46340"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "62a5d7b775b6293d84eca29a73604b2f84b30d4e4d67f546da2c3d6a99777981",
+      "url": "https://github.com/advisories/GHSA-676x-f7gg-47vc",
+      "title": "GHSA: Netty Vulnerable to DNS Cache Poisoning via Missing Bailiwick Checks in CNAME Records",
+      "summary": "### Summary\nNetty's DnsResolveContext fails to validate the origin (bailiwick) of CNAME records in DNS responses.\n\n### Details\nIn `io.netty.resolver.dns.DnsResolveContext#buildAliasMap`, the resolver processes the ANSWER section of a DNS response and blindly caches all CNAME records it finds.\n\nAccording to https://datatracker.ietf.org/doc/html/rfc5452#section-6 \n\n```\nCare must be taken to only acc",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-08T23:02:26Z",
+      "cve_ids": [
+        "CVE-2026-45674"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "6a96b63629aa80ece23f5fb30ed3f03180f3eecf8ef6b35709497e88b08c044e",
+      "url": "https://github.com/advisories/GHSA-xmv7-r254-6q78",
+      "title": "GHSA: Netty: DNS Cache Poisoning due to Predictable PRNG and Default Static Source Port",
+      "summary": "### Summary\nNetty's DNS resolver uses a predictable PRNG for generating DNS transaction IDs and defaults to a static UDP source port. This combination reduces the entropy of DNS queries, enabling DNS Cache Poisoning (Kaminsky attack).\n\n### Details\nTwo factors contribute to this vulnerability in io.netty.resolver.dns:\n- Predictable Query IDs: `DnsQueryIdSpace` manages 16-bit transaction IDs in buck",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-08T23:02:05Z",
+      "cve_ids": [
+        "CVE-2026-45673"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "ff0dc50e7b5effc9adb0f221829e9a70f38325e6220a1ce6c6d767f8d3ab3bb9",
+      "url": "https://github.com/advisories/GHSA-w573-9ffj-6ff9",
+      "title": "GHSA: Netty: Unix-socket fd receive leaks descriptors when peer sends two at once",
+      "summary": "netty_unix_socket_recvFd sets msg_control to `char control[CMSG_SPACE(sizeof(int))]` (line 940) — 24 bytes on 64-bit Linux. A peer-sent SCM_RIGHTS cmsg carrying two ints has cmsg_len = CMSG_LEN(8) = 24, which fits exactly with no MSG_CTRUNC, so the kernel installs both fds in the receiving process. The subsequent check `cmsg->cmsg_len == CMSG_LEN(sizeof(int))` (line 972, expected 20) fails, the br",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-08T23:01:33Z",
+      "cve_ids": [
+        "CVE-2026-45536"
+      ],
+      "cvss": 4.0,
+      "related_links": []
+    },
+    {
+      "id": "400d8f93047d0ff63768fbd28ce259f425059214e6ccfd697e16ef9c9189afb1",
+      "url": "https://github.com/advisories/GHSA-x4gw-5cx5-pgmh",
+      "title": "GHSA: Netty: SNI handler pre-allocates up to 16 MiB from nine attacker bytes",
+      "summary": "SslClientHelloHandler.decode() reads the 24-bit TLS handshake length and, when the ClientHello does not fit in the first record, eagerly allocates `ctx.alloc().buffer(handshakeLength)` (line 161). The guard at line 140 is `handshakeLength > maxClientHelloLength && maxClientHelloLength != 0`, and the commonly-used SniHandler/AbstractSniHandler constructors (SniHandler(Mapping), SniHandler(AsyncMapp",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-08T23:01:04Z",
+      "cve_ids": [
+        "CVE-2026-45416"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
     {
       "id": "9cec8505179a3d16e91a5c4b2b32bf51aa1971d938b8863221a9a09ccc855f1d",
       "url": "https://github.com/advisories/GHSA-cmm3-54f8-px4j",
@@ -608,104 +706,6 @@
         "CVE-2026-47684"
       ],
       "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "718f0ce4a8742df6f44f976018d0e7e29291e161c86d8df2c86bcde9a35db957",
-      "url": "https://github.com/advisories/GHSA-7p8g-6c6g-h9w7",
-      "title": "GHSA: praisonai-platform: Agent endpoints accept any agent_id without workspace ownership check, cross-workspace read/update/delete IDOR",
-      "summary": "## Summary\n\n**Type:** Insecure Direct Object Reference. The agent CRUD endpoints (`GET / PATCH / DELETE /workspaces/{workspace_id}/agents/{agent_id}`) gate access on `require_workspace_member(workspace_id)` only, then resolve `agent_id` through `AgentService.get(agent_id)` which is a primary-key lookup with no workspace constraint. A user who is a member of any workspace `W1` can read, modify, or ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-05T16:28:32Z",
-      "cve_ids": [
-        "CVE-2026-47419"
-      ],
-      "cvss": 8.3,
-      "related_links": []
-    },
-    {
-      "id": "9f688865516068366a68dc9b8b89118b87b446fa2de2c4903c1c81d2fcf7b218",
-      "url": "https://github.com/advisories/GHSA-8v3q-9vmx-36vc",
-      "title": "GHSA: DbGate: Unauthenticated Remote Code Execution via JSON Script Runner",
-      "summary": "### Summary\nDbGate's JSON script runner (`POST /runners/start`) allows remote code execution via code injection in the `functionName` parameter of JSON script `assign` commands. The `functionName` value is interpolated directly into dynamically generated JavaScript source code via string concatenation. The generated code is then executed in a forked Node.js child process.\n\n### Details\n#### Step 1:",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-05T16:25:23Z",
-      "cve_ids": [
-        "CVE-2026-47668"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "39658cb490d8b4dc3f8d63a220c6ad8e24bb13fbc127327a974a4318b4aba3b4",
-      "url": "https://github.com/advisories/GHSA-cxv7-gmmp-228p",
-      "title": "GHSA: NocoDB: Postgres SQL Injection in Formula `ARRAYSORT`",
-      "summary": "### Summary\n\nAn authenticated user with `columnAdd` permission on a Postgres-backed base can inject arbitrary SQL into the formula engine via the optional `direction` argument of `ARRAYSORT(...)`. The value is unrestricted by formula validation and embedded into a `knex.raw` `ORDER BY` clause, executing during column creation and on every subsequent record read of the formula column.\n\n### Details\n",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-05T15:59:28Z",
-      "cve_ids": [
-        "CVE-2026-47375"
-      ],
-      "cvss": 6.0,
-      "related_links": []
-    },
-    {
-      "id": "73ca971e866aa43c13abc6ded1f77e4a7ade6f8bb9c5be0d234f78c923efb8c3",
-      "url": "https://github.com/advisories/GHSA-2r75-cxrj-cmph",
-      "title": "GHSA: wasmtime-wasi: WASI path_open(TRUNCATE) bypasses `FilePerms::WRITE` host restriction",
-      "summary": "## Summary\n\nIn `wasmtime-wasi`, when a filesystem preopen is given `DirPerms::all()` and `FilePerms::READ` without `FilePerms::WRITE`,  this wasmtime-wasi enforced access control mechanism can be bypassed by using the wasip2 `descriptor.open-at` or wasip1 `path_open` interfaces by opening a file with `OpenFlags::TRUNCATE` oflag only, for example:\n\n```rust\ndir_descriptor.open_at(\n   PathFlags::empt",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-05T15:47:02Z",
-      "cve_ids": [
-        "CVE-2026-47261"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "e7421f036c594a0224bd7326f7c5e2b88c1c12ebaa8df6cbd798d769372f6fc8",
-      "url": "https://github.com/advisories/GHSA-6mx4-4h42-r8vh",
-      "title": "GHSA: MCP Server Kubernetes: kubectl-generic flag injection enables Kubernetes bearer token exfiltration",
-      "summary": "### Summary\nThe `kubectl_generic` tool in `mcp-server-kubernetes` passes user-supplied flags directly to kubectl without any allowlist, enabling a **privilege escalation attack** within Kubernetes environments. An attacker who already has limited cluster or codebase access, for example, a developer with pod-deployment permissions but not cluster-admin credentials, can plant a single structured JSO",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-06-05T15:40:00Z",
-      "cve_ids": [
-        "CVE-2026-47250"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "1cb7b849c676ff3e70c3446f1a78eb9c34a0400c32748d30cd38825061324db3",
-      "url": "https://github.com/advisories/GHSA-w342-mj6g-v9c4",
-      "title": "GHSA: Klever-Go KVM: Hash-array amplification in P2P resolver request handling",
-      "summary": "### Summary\nA connected peer can send a compressed `RequestDataType_HashArrayType` direct request that is only `442` bytes on the wire but expands into `200000` decoded hash entries inside the resolver path. On `klever-go` `v1.7.17`, this allows remote memory and CPU amplification against nodes that accept P2P peer connections.\n\n### Details\nResolver antiflood logic accounts only one logical messag",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-05T15:27:42Z",
-      "cve_ids": [
-        "CVE-2026-47249"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "a07cdfd6998afc2f6030be3ffda825aacf5d315cc99f0ff69b0d77421d7a4ce8",
-      "url": "https://github.com/advisories/GHSA-wv8c-6mx2-xf4j",
-      "title": "GHSA: Omni: Reader-level users can retrieve imported cluster CA keys via ResourceService",
-      "summary": "## Summary\n\nOmni supports importing standalone Talos clusters.\n\nDuring this process, an ImportedClusterSecrets resource is created, which contains the full CA secrets bundle for the cluster being imported.\n\nIf these secrets are not rotated by the importing actor, an authenticated Omni user with Reader access can read this resource and gain full access to the Talos, Kubernetes and etcd APIs of the ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-05T15:26:24Z",
-      "cve_ids": [
-        "CVE-2026-45726"
-      ],
-      "cvss": 7.6,
       "related_links": []
     }
   ]
