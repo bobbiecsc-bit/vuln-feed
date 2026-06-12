@@ -1,10 +1,66 @@
 {
-  "updated": "2026-06-11T22:02:18.222691+00:00",
+  "updated": "2026-06-12T04:01:28.466643+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "62a5d7b775b6293d84eca29a73604b2f84b30d4e4d67f546da2c3d6a99777981",
+      "url": "https://github.com/advisories/GHSA-676x-f7gg-47vc",
+      "title": "GHSA: Netty Vulnerable to DNS Cache Poisoning via Missing Bailiwick Checks in CNAME Records",
+      "summary": "### Summary\nNetty's DnsResolveContext fails to validate the origin (bailiwick) of CNAME records in DNS responses.\n\n### Details\nIn `io.netty.resolver.dns.DnsResolveContext#buildAliasMap`, the resolver processes the ANSWER section of a DNS response and blindly caches all CNAME records it finds.\n\nAccording to https://datatracker.ietf.org/doc/html/rfc5452#section-6 \n\n```\nCare must be taken to only acc",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-08T23:02:26Z",
+      "cve_ids": [
+        "CVE-2026-45674"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "6a96b63629aa80ece23f5fb30ed3f03180f3eecf8ef6b35709497e88b08c044e",
+      "url": "https://github.com/advisories/GHSA-xmv7-r254-6q78",
+      "title": "GHSA: Netty: DNS Cache Poisoning due to Predictable PRNG and Default Static Source Port",
+      "summary": "### Summary\nNetty's DNS resolver uses a predictable PRNG for generating DNS transaction IDs and defaults to a static UDP source port. This combination reduces the entropy of DNS queries, enabling DNS Cache Poisoning (Kaminsky attack).\n\n### Details\nTwo factors contribute to this vulnerability in io.netty.resolver.dns:\n- Predictable Query IDs: `DnsQueryIdSpace` manages 16-bit transaction IDs in buck",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-08T23:02:05Z",
+      "cve_ids": [
+        "CVE-2026-45673"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "ff0dc50e7b5effc9adb0f221829e9a70f38325e6220a1ce6c6d767f8d3ab3bb9",
+      "url": "https://github.com/advisories/GHSA-w573-9ffj-6ff9",
+      "title": "GHSA: Netty: Unix-socket fd receive leaks descriptors when peer sends two at once",
+      "summary": "netty_unix_socket_recvFd sets msg_control to `char control[CMSG_SPACE(sizeof(int))]` (line 940) — 24 bytes on 64-bit Linux. A peer-sent SCM_RIGHTS cmsg carrying two ints has cmsg_len = CMSG_LEN(8) = 24, which fits exactly with no MSG_CTRUNC, so the kernel installs both fds in the receiving process. The subsequent check `cmsg->cmsg_len == CMSG_LEN(sizeof(int))` (line 972, expected 20) fails, the br",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-08T23:01:33Z",
+      "cve_ids": [
+        "CVE-2026-45536"
+      ],
+      "cvss": 4.0,
+      "related_links": []
+    },
+    {
+      "id": "400d8f93047d0ff63768fbd28ce259f425059214e6ccfd697e16ef9c9189afb1",
+      "url": "https://github.com/advisories/GHSA-x4gw-5cx5-pgmh",
+      "title": "GHSA: Netty: SNI handler pre-allocates up to 16 MiB from nine attacker bytes",
+      "summary": "SslClientHelloHandler.decode() reads the 24-bit TLS handshake length and, when the ClientHello does not fit in the first record, eagerly allocates `ctx.alloc().buffer(handshakeLength)` (line 161). The guard at line 140 is `handshakeLength > maxClientHelloLength && maxClientHelloLength != 0`, and the commonly-used SniHandler/AbstractSniHandler constructors (SniHandler(Mapping), SniHandler(AsyncMapp",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-08T23:01:04Z",
+      "cve_ids": [
+        "CVE-2026-45416"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
     {
       "id": "9cec8505179a3d16e91a5c4b2b32bf51aa1971d938b8863221a9a09ccc855f1d",
       "url": "https://github.com/advisories/GHSA-cmm3-54f8-px4j",
@@ -497,215 +553,157 @@
       "related_links": []
     },
     {
-      "id": "5154644880a63d63424f4ac36b821f76e494dc87d1dc2a2c2d97736c722a56f9",
-      "url": "https://github.com/advisories/GHSA-p462-prxw-mjx4",
-      "title": "GHSA: NASA AMMOS Instrument Toolkit: Path traversal resulting in arbitrary file append (can be triggered over the network by unauthenticated attacker)",
-      "summary": "## 1. Summary\n\nThe Binary Stream Capture (BSC) component exposes an unauthenticated HTTP API for dynamically creating packet capture “handlers.” Because the code blindly trusts path‑related form fields, a remote client can:\n\n- **Bypass the configured log root** and direct BSC to log to **arbitrary filesystem paths** (path traversal / directory escape), and\n- **Append attacker‑controlled data** to ",
-      "source": "GitHub Advisory",
+      "id": "3f062e9605b86e86b65ada7eee91ad0866c5ae2cbbe6e946ac10b36750063731",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45750",
+      "title": "CVE-2026-45750 — CVSS 9.0",
+      "summary": "Termix is a web-based server management platform with SSH terminal, tunneling, and file editing capabilities. Prior to version 2.3.2, the GET /ssh/file_manager/ssh/resolvePath endpoint in the Termix File Manager component unsafely processes the path parameter and embeds it into a shell command executed over the active SSH session. Because the user-controlled value is placed inside double quotes an",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-06-05T18:11:27Z",
+      "date": "2026-06-05T18:17:32.463",
       "cve_ids": [
-        "CVE-2026-47731"
+        "CVE-2026-45750"
       ],
-      "cvss": 9.1,
+      "cvss": 9.0,
       "related_links": []
     },
     {
-      "id": "572b6b23a9af15995816dc26700c05782b2db73ec4b63e953d9444a27a02e1f2",
-      "url": "https://www.rapid7.com/blog/post/pt-metasploit-wrap-up-05-06-2026",
-      "title": "Weekly Metasploit Update: Apache ActiveMQ RCE, Gogs Rebase RCE, and Windows Kernel Pointer Enum",
-      "summary": "When Open Source is a bit too OpenSeveral fun modules landed this week, including an Apache RCE, Windows Kernel pointer collection, and Gogs RCE via naming. Leading off is Gogs' RCE that allows an attacker to execute commands by naming their branch --exec &lt;command&gt; and requesting a rebase.Another useful post module by CharlesQuinnDev enumerates the Kernel pointers leaked via the popular NtQu",
-      "source": "Rapid7",
+      "id": "367525abc554fd607889d63f653d768fbd2f877e3470bf0a4d82d52df27b0ff1",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45749",
+      "title": "CVE-2026-45749 — CVSS 8.1",
+      "summary": "Termix is a web-based server management platform with SSH terminal, tunneling, and file editing capabilities. The `POST /users/totp/disable` and `POST /users/totp/backup-codes` endpoints in Termix prior to version 2.3.2 accept the account password as a sole authentication factor for MFA-critical operations. An attacker who obtains a user's password (phishing, credential stuffing, the passwordHash ",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-06-05T17:01:48+00:00",
+      "date": "2026-06-05T18:17:31.720",
       "cve_ids": [
-        "CVE-2012-2576",
-        "CVE-2015-10144",
-        "CVE-2019-19699",
-        "CVE-2020-36939",
-        "CVE-2023-28458",
-        "CVE-2023-28459",
-        "CVE-2025-14611",
-        "CVE-2026-32985",
-        "CVE-2026-34197"
+        "CVE-2026-45749"
       ],
-      "cvss": null,
+      "cvss": 8.1,
       "related_links": []
     },
     {
-      "id": "32738e800c75b5cd3d482764270122781d354d18bfa4ac6c1365dd2490a4d400",
-      "url": "https://github.com/advisories/GHSA-rm5c-5x2p-48wr",
-      "title": "GHSA: Klever-Go KVM: Unauthenticated remote node crash (nil-pointer DoS) in klever-go P2P transaction interceptor (txVersionChecker nil RawData) - potential chain halt",
-      "summary": "## Summary\nEvery transaction gossiped on the klever-go P2P network is decoded and validated\nsynchronously inside the libp2p pubsub topic-validator callback. The validator\n`txVersionChecker.CheckTxVersion` dereferences `tx.RawData.Version` with no nil\ncheck. A protobuf `Transaction` whose embedded `RawData` sub-message is omitted\ndecodes to `RawData == nil`, so validating it triggers a nil-pointer ",
-      "source": "GitHub Advisory",
+      "id": "70d61f4b90693fe1f6a5a32a4ad9e4258e790a058d78a9fb1a8860708a1fb4df",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45748",
+      "title": "CVE-2026-45748 — CVSS 9.8",
+      "summary": "Termix is a web-based server management platform with SSH terminal, tunneling, and file editing capabilities. The `POST /ssh/tunnel/connect` endpoint in Termix prior to version 2.3.2 builds an SSH tunnel command by interpolating user-controlled host record fields (`endpointIP`, `endpointUsername`, `password`) directly into a shell command without escaping, allowing persistent OS command injection ",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-06-05T16:42:38Z",
-      "cve_ids": [],
-      "cvss": 7.5,
+      "date": "2026-06-05T18:17:31.000",
+      "cve_ids": [
+        "CVE-2026-45748"
+      ],
+      "cvss": 9.8,
       "related_links": []
     },
     {
-      "id": "f6b60187e824462da29533bfb385f154936d53e912241f3159b0cf4c8136edeb",
-      "url": "https://github.com/advisories/GHSA-w4c6-7r69-w7j9",
-      "title": "GHSA: klever-go: REST API slow-header connection exhaustion via Gin Engine.Run",
-      "summary": "### Summary\n\nThe Klever seednode REST API starts a Gin engine with `Engine.Run(restAPIInterface)`. In Gin v1.9.1, `Engine.Run` calls Go's default `http.ListenAndServe`, which constructs an HTTP server without application-level `ReadHeaderTimeout`, `ReadTimeout`, or `MaxHeaderBytes` limits.\n\nAn unauthenticated client that can reach a REST listener bound with Klever's documented `--rest-api-interfac",
-      "source": "GitHub Advisory",
+      "id": "87b6b59198149f6733cf4e77a7e4df2fdcab0e33d47069b6c774e7c612b047b6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45746",
+      "title": "CVE-2026-45746 — CVSS 9.0",
+      "summary": "Termix is a web-based server management platform with SSH terminal, tunneling, and file editing capabilities. Prior to version 2.3.2, the File Manager functionality in Termix contains a critical Broken Access Control vulnerability due to improper validation of the sessionId parameter. The backend trusts a client-controlled identifier without verifying that it belongs to the authenticated user. Thi",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-06-05T16:41:58Z",
-      "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "bfb8d678a0eacd170ce7a82bef8a6ff3702ac2e2c647f881343dcdaa5402a26b",
-      "url": "https://github.com/advisories/GHSA-hf2g-6j7h-98wg",
-      "title": "GHSA: klever-go: Unbounded goroutine spawn on direct-message ingress enables peer-driven DoS",
-      "summary": "### Summary\n\n`networkMessenger.directMessageHandler` in `network/p2p/libp2p/netMessenger.go` spawns a fresh goroutine for every incoming direct message before the antiflood layer makes an admission decision. There is no semaphore, throttler, or bound on concurrent in-flight spawns.\n\nA single connected libp2p peer can open a `DirectSendID` stream and send well-formed `TopicMessage` envelopes with v",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-05T16:41:23Z",
-      "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "6fbd8f8eb708bb30947144da6bed9b6e7fc7be83977d11306bc7d7d8397f46b7",
-      "url": "https://github.com/advisories/GHSA-fw38-pc54-jvx9",
-      "title": "GHSA: Klever-Go KVM: Throttler slot leak in trie account-data sync causes epoch bootstrap / state sync DoS",
-      "summary": "## Summary\n\n  The account-data trie syncers leak bounded throttler slots on error paths in `syncDataTrie()`. Each failed trie sync permanently consumes one slot from\n  the `NumGoRoutinesThrottler`, and the slot is never returned unless the sync succeeds or the root hash was already present.\n\n  I confirmed this on the current default branch `develop` at commit `9640d63` (observed on May 20, 2026). ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-05T16:40:40Z",
+      "date": "2026-06-05T18:17:30.587",
       "cve_ids": [
-        "CVE-2026-49343"
+        "CVE-2026-45746"
       ],
-      "cvss": 5.9,
+      "cvss": 9.0,
       "related_links": []
     },
     {
-      "id": "69e448b59a3a50ccf4c611ee873353f8b24c30b22f1ab37dfcdf039fd898045e",
-      "url": "https://github.com/advisories/GHSA-hv83-ggc4-v385",
-      "title": "GHSA: DbGate: Remote Code Execution via functionName injection in loadReader endpoint",
-      "summary": "### Summary\n\nThe `POST /runners/load-reader` endpoint in DbGate accepts a `functionName` parameter that is directly interpolated into a JavaScript code template without any sanitization or validation. An authenticated user (with basic access, no special permissions required) can inject arbitrary JavaScript code that executes on the server with full process privileges, bypassing the `require=null` ",
-      "source": "GitHub Advisory",
+      "id": "19767d992570c8693fda78ba502a8dc86390af77fbf305768c6299a23f38af01",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45745",
+      "title": "CVE-2026-45745 — CVSS 8.0",
+      "summary": "Termix is a web-based server management platform with SSH terminal, tunneling, and file editing capabilities. Starting in version 1.7.0, Termix Desktop (Electron) disables TLS certificate validation, allowing a machine-in-the-middle attacker to intercept and modify HTTPS traffic to the configured Termix server. This can lead to credential theft and JWT/session theft during login and normal use. As",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-06-05T16:39:38Z",
+      "date": "2026-06-05T18:17:30.180",
       "cve_ids": [
-        "CVE-2026-48017"
+        "CVE-2026-45745"
       ],
-      "cvss": 8.8,
+      "cvss": 8.0,
       "related_links": []
     },
     {
-      "id": "d471d0e68c0cbb6c381a13e39dceecb0373ce796877e0e5ed72d4879480830b2",
-      "url": "https://github.com/advisories/GHSA-q4x5-8cj6-52wg",
-      "title": "GHSA: Sync-in Server: SSRF protection bypass via IPv4-mapped IPv6 addresses in regExpPrivateIP",
-      "summary": "Summary:\nThe private IP blocklist regex used in the URL download feature does not match IPv4-mapped IPv6 addresses (e.g. ::ffff:127.0.0.1), allowing SSRF protection to be bypassed on dual-stack systems.\n\nAffected components\n\nbackend/src/applications/files/services/files-manager.service.ts – downloadFromUrl() checks regExpPrivateIP against request.socket.remoteAddress.\nbackend/src/applications/file",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-05T16:34:59Z",
-      "cve_ids": [
-        "CVE-2026-47684"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "718f0ce4a8742df6f44f976018d0e7e29291e161c86d8df2c86bcde9a35db957",
-      "url": "https://github.com/advisories/GHSA-7p8g-6c6g-h9w7",
-      "title": "GHSA: praisonai-platform: Agent endpoints accept any agent_id without workspace ownership check, cross-workspace read/update/delete IDOR",
-      "summary": "## Summary\n\n**Type:** Insecure Direct Object Reference. The agent CRUD endpoints (`GET / PATCH / DELETE /workspaces/{workspace_id}/agents/{agent_id}`) gate access on `require_workspace_member(workspace_id)` only, then resolve `agent_id` through `AgentService.get(agent_id)` which is a primary-key lookup with no workspace constraint. A user who is a member of any workspace `W1` can read, modify, or ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-05T16:28:32Z",
-      "cve_ids": [
-        "CVE-2026-47419"
-      ],
-      "cvss": 8.3,
-      "related_links": []
-    },
-    {
-      "id": "9f688865516068366a68dc9b8b89118b87b446fa2de2c4903c1c81d2fcf7b218",
-      "url": "https://github.com/advisories/GHSA-8v3q-9vmx-36vc",
-      "title": "GHSA: DbGate: Unauthenticated Remote Code Execution via JSON Script Runner",
-      "summary": "### Summary\nDbGate's JSON script runner (`POST /runners/start`) allows remote code execution via code injection in the `functionName` parameter of JSON script `assign` commands. The `functionName` value is interpolated directly into dynamically generated JavaScript source code via string concatenation. The generated code is then executed in a forked Node.js child process.\n\n### Details\n#### Step 1:",
-      "source": "GitHub Advisory",
+      "id": "4d1c7db01a2b9ab6477da15708eb70551d58dfbd69bf16facb47e44c115816dd",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45744",
+      "title": "CVE-2026-45744 — CVSS 9.9",
+      "summary": "Termix is a web-based server management platform with SSH terminal, tunneling, and file editing capabilities. Prior to version 2.3.2, the GET /ssh/file_manager/ssh/resolvePath endpoint in Termix is vulnerable to OS command injection. The endpoint uses double-quote escaping for shell command construction, which does not prevent $(...) and backtick command substitution. Any authenticated user with a",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-06-05T16:25:23Z",
+      "date": "2026-06-05T18:17:29.510",
       "cve_ids": [
-        "CVE-2026-47668"
+        "CVE-2026-45744"
       ],
-      "cvss": 10.0,
+      "cvss": 9.9,
       "related_links": []
     },
     {
-      "id": "39658cb490d8b4dc3f8d63a220c6ad8e24bb13fbc127327a974a4318b4aba3b4",
-      "url": "https://github.com/advisories/GHSA-cxv7-gmmp-228p",
-      "title": "GHSA: NocoDB: Postgres SQL Injection in Formula `ARRAYSORT`",
-      "summary": "### Summary\n\nAn authenticated user with `columnAdd` permission on a Postgres-backed base can inject arbitrary SQL into the formula engine via the optional `direction` argument of `ARRAYSORT(...)`. The value is unrestricted by formula validation and embedded into a `knex.raw` `ORDER BY` clause, executing during column creation and on every subsequent record read of the formula column.\n\n### Details\n",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-05T15:59:28Z",
+      "id": "e8b37f60342d31d0af86c7112e6023f7e234566ae810904cbfc88f8c69214567",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45743",
+      "title": "CVE-2026-45743 — CVSS 8.1",
+      "summary": "Termix is a web-based server management platform with SSH terminal, tunneling, and file editing capabilities. 16 file-manager endpoints in Termix prior to version 2.3.2 do not verify that the requesting user owns the SSH session identified by `sessionId`. An authenticated attacker who knows or guesses another user's active `sessionId` can read, write, delete, download, and execute files on the vic",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-05T18:17:28.793",
       "cve_ids": [
-        "CVE-2026-47375"
+        "CVE-2026-45743"
       ],
-      "cvss": 6.0,
+      "cvss": 8.1,
       "related_links": []
     },
     {
-      "id": "73ca971e866aa43c13abc6ded1f77e4a7ade6f8bb9c5be0d234f78c923efb8c3",
-      "url": "https://github.com/advisories/GHSA-2r75-cxrj-cmph",
-      "title": "GHSA: wasmtime-wasi: WASI path_open(TRUNCATE) bypasses `FilePerms::WRITE` host restriction",
-      "summary": "## Summary\n\nIn `wasmtime-wasi`, when a filesystem preopen is given `DirPerms::all()` and `FilePerms::READ` without `FilePerms::WRITE`,  this wasmtime-wasi enforced access control mechanism can be bypassed by using the wasip2 `descriptor.open-at` or wasip1 `path_open` interfaces by opening a file with `OpenFlags::TRUNCATE` oflag only, for example:\n\n```rust\ndir_descriptor.open_at(\n   PathFlags::empt",
-      "source": "GitHub Advisory",
+      "id": "668692cd02ea6662e02d4ff2a490c97856f887957f5fc1f67f22942ff5117dff",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45327",
+      "title": "CVE-2026-45327 — CVSS 8.2",
+      "summary": "TinyIce is a streaming server for audio and video. In versions 0.8.95 through 2.4.1, missing authentication on WebRTC ingest endpoint allows unauthenticated stream injection. Version 2.5.0 fixes the issue by requiring either HTTP Basic auth or a `?password=` query parameter, comparing the supplied password against the per-mount source password (or the `default_source_password` fallback) using bcry",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-06-05T15:47:02Z",
+      "date": "2026-06-05T18:17:27.220",
       "cve_ids": [
-        "CVE-2026-47261"
+        "CVE-2026-45327"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "44adb7ef70d7343cc371707c6edd55cd3cda383b011b2ef90bb943da5fec7e20",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45291",
+      "title": "CVE-2026-45291 — CVSS 7.5",
+      "summary": "Cloudburst Network provides network components used within Cloudburst projects. A vulnerability in versions prior to `1.0.0.CR3-20260418.124334-32` impacts publicly accessible software depending on the affected versions of Network and allows an attacker to exploit a bug in Network to close the parent netty channel, rendering it inoperable. All consumers of the library should upgrade to at least ve",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-05T18:17:26.797",
+      "cve_ids": [
+        "CVE-2026-45291"
       ],
       "cvss": 7.5,
       "related_links": []
     },
     {
-      "id": "e7421f036c594a0224bd7326f7c5e2b88c1c12ebaa8df6cbd798d769372f6fc8",
-      "url": "https://github.com/advisories/GHSA-6mx4-4h42-r8vh",
-      "title": "GHSA: MCP Server Kubernetes: kubectl-generic flag injection enables Kubernetes bearer token exfiltration",
-      "summary": "### Summary\nThe `kubectl_generic` tool in `mcp-server-kubernetes` passes user-supplied flags directly to kubectl without any allowlist, enabling a **privilege escalation attack** within Kubernetes environments. An attacker who already has limited cluster or codebase access, for example, a developer with pod-deployment permissions but not cluster-admin credentials, can plant a single structured JSO",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-06-05T15:40:00Z",
+      "id": "8b1a8504ddf2dd2ccb6615f55a36a61a1568e7f107310087f5a56818de2f643f",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45290",
+      "title": "CVE-2026-45290 — CVSS 7.5",
+      "summary": "Cloudburst Network provides network components used within Cloudburst projects. A vulnerability in versions prior to `1.0.0.CR3-20260417.085727-30` impacts publicly accessible software depending on the affected versions of Network and allows an attacker to exploit a vulnerability in Network to stall the netty event loop, rendering it inoperable. All consumers of the library should upgrade to at le",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-05T18:17:26.343",
       "cve_ids": [
-        "CVE-2026-47250"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "1cb7b849c676ff3e70c3446f1a78eb9c34a0400c32748d30cd38825061324db3",
-      "url": "https://github.com/advisories/GHSA-w342-mj6g-v9c4",
-      "title": "GHSA: Klever-Go KVM: Hash-array amplification in P2P resolver request handling",
-      "summary": "### Summary\nA connected peer can send a compressed `RequestDataType_HashArrayType` direct request that is only `442` bytes on the wire but expands into `200000` decoded hash entries inside the resolver path. On `klever-go` `v1.7.17`, this allows remote memory and CPU amplification against nodes that accept P2P peer connections.\n\n### Details\nResolver antiflood logic accounts only one logical messag",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-05T15:27:42Z",
-      "cve_ids": [
-        "CVE-2026-47249"
+        "CVE-2026-45290"
       ],
       "cvss": 7.5,
       "related_links": []
     },
     {
-      "id": "a07cdfd6998afc2f6030be3ffda825aacf5d315cc99f0ff69b0d77421d7a4ce8",
-      "url": "https://github.com/advisories/GHSA-wv8c-6mx2-xf4j",
-      "title": "GHSA: Omni: Reader-level users can retrieve imported cluster CA keys via ResourceService",
-      "summary": "## Summary\n\nOmni supports importing standalone Talos clusters.\n\nDuring this process, an ImportedClusterSecrets resource is created, which contains the full CA secrets bundle for the cluster being imported.\n\nIf these secrets are not rotated by the importing actor, an authenticated Omni user with Reader access can read this resource and gain full access to the Talos, Kubernetes and etcd APIs of the ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-05T15:26:24Z",
+      "id": "0babfe26cc6d443db2c44531295533d3b613e27df0df845a637f2bd614b1662d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36501",
+      "title": "CVE-2026-36501 — CVSS 7.5",
+      "summary": "An issue in the Externalizable.readExternal() component of Controller v12.0.5 allows attackers to cause a Denial of Service (DoS) via a crafted input.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-05T18:17:16.927",
       "cve_ids": [
-        "CVE-2026-45726"
+        "CVE-2026-36501"
       ],
-      "cvss": 7.6,
+      "cvss": 7.5,
       "related_links": []
     }
   ]
