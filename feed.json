@@ -1,10 +1,50 @@
 {
-  "updated": "2026-06-12T11:43:19.402449+00:00",
+  "updated": "2026-06-12T15:15:24.522577+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "f010da8a89bc10bd8d1385d9cb424c3c405e3ccc5dc86fe716075db778de8d67",
+      "url": "https://github.com/advisories/GHSA-g6qx-g4pr-92v7",
+      "title": "GHSA: Budibase: SSRF via OAuth2 Config Validation — Missing fetchWithBlacklist Protection",
+      "summary": "### Summary\n\nThe OAuth2 token fetch function in `packages/server/src/sdk/workspace/oauth2/utils.ts` (line 59) uses raw `fetch(config.url)` with **no SSRF protection**. The safe wrapper `fetchWithBlacklist()` exists in the same codebase and is used in every other outbound HTTP call (automation steps, plugin downloads, object store), but was **not applied** to the OAuth2 token endpoint.\n\nA user with",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-12T15:08:28Z",
+      "cve_ids": [
+        "CVE-2026-48146"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "2913c7c98fc72ea7db4bd3fa3660b78402687ae65abc8b40fa782c5141ec9a10",
+      "url": "https://github.com/advisories/GHSA-98xf-r82g-9mhx",
+      "title": "GHSA: LangGraph has NoSQL parameter injection in MongoDBSaver, allowing cross-tenant state access",
+      "summary": "## Summary\n\nA NoSQL injection vulnerability existed in `MongoDBSaver` where checkpoint identifier fields from `config.configurable` were used in MongoDB queries without strict type enforcement. In vulnerable versions, attacker-controlled object payloads (for example MongoDB operators like `$gt` and `$ne`) could be interpreted as query operators instead of literal identifier values.\n\nThis could byp",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-12T15:05:32Z",
+      "cve_ids": [
+        "CVE-2026-48121"
+      ],
+      "cvss": 6.7,
+      "related_links": []
+    },
+    {
+      "id": "0b401a4015b39edf2617957e56dc9d4bf0d53ee1723fabe7ac082cc4b44c3431",
+      "url": "https://github.com/advisories/GHSA-9r4w-jg96-92mv",
+      "title": "GHSA: Go-Attestation: Hash injection into trusted measurement list via unskipped SignatureHeaderSize vendor bytes in parseEfiSignatureList()",
+      "summary": "## Summary\n\n`parseEfiSignatureList()` in `attest/internal/events.go` does not skip `SignatureHeaderSize` vendor bytes before reading `EFI_SIGNATURE_LIST` signature entries, violating UEFI specification section 31.4.1.\n\n## Impact\n\nFor `hashSHA256SigGUID` lists, attacker-controlled vendor header bytes are appended directly to the trusted SHA256 hash list. A crafted TPM event log can inject arbitrary",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-12T15:04:43Z",
+      "cve_ids": [],
+      "cvss": 6.8,
+      "related_links": []
+    },
     {
       "id": "97865ac01ae6aa13c24f3f96351fc0900c56b958631b5ec9e08188cdaee3b4ad",
       "url": "https://www.bleepingcomputer.com/news/security/cisa-gives-feds-3-days-to-patch-ivanti-flaw-exploited-in-attacks/",
@@ -197,10 +237,14 @@
       "category": "emergency",
       "date": "2026-06-11T19:39:53+00:00",
       "cve_ids": [
-        "CVE-2026-35273"
+        "CVE-2026-35273",
+        "CVE-2013-3821",
+        "CVE-2017-3548"
       ],
       "cvss": null,
-      "related_links": []
+      "related_links": [
+        "https://www.rapid7.com/blog/post/etr-active-exploitation-of-oracle-peoplesoft-zero-day-cve-2026-35273"
+      ]
     },
     {
       "id": "6c334c6ae2f0949b390bc532af782838ff00708a0af3eed7bd8f0db77b0f62ea",
@@ -674,48 +718,6 @@
       "date": "2026-06-10T13:44:19+00:00",
       "cve_ids": [],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "0e612ea0ae931500a9708caf8c8dbfb1c2bce5231e2772e5dd0f494b09beef5c",
-      "url": "https://github.com/advisories/GHSA-vrmh-5mmx-hjwx",
-      "title": "GHSA: Nezha's private services (`EnableShowInService: false`) are enumerable via per-server endpoints, leaking name and timing data",
-      "summary": "# Private services (`EnableShowInService: false`) are enumerable via per-server endpoints, leaking name and timing data\n\n**CWE**: CWE-285 (Improper Authorization) via CWE-200 (Exposure of Sensitive Information to an Unauthorized Actor) and CWE-863 (Incorrect Authorization — inconsistent gating across data-reader paths)\n\n**CVSS v3.1**: `CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N` → 5.3 (Medium)\n\n",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-10T13:39:24Z",
-      "cve_ids": [
-        "CVE-2026-49397"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "6bef6218ddda32e018604eddce649637b13dafe05b1c027932f9c0533177dc20",
-      "url": "https://github.com/advisories/GHSA-8qhj-4f8c-j8qg",
-      "title": "GHSA: Nezha has cross-site GET request that can trigger stored cron commands on a victim's agents",
-      "summary": "### Summary\n\nThe dashboard exposes the cron manual-trigger action as an authenticated `GET /api/v1/cron/:id/manual` endpoint. Dashboard JWTs are sent in the `nz-jwt` cookie and configured with `SameSite=Lax`, which browsers include on top-level cross-site GET navigations. Because this state-changing GET endpoint has no CSRF token, origin validation, or fetch-metadata guard, an attacker can cause a",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-10T13:39:21Z",
-      "cve_ids": [
-        "CVE-2026-49396"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "df86fc4c738f6a2b706b646f4adec82bf11c7667d437c7547f434109d364aac1",
-      "url": "https://github.com/advisories/GHSA-mqq6-462x-jxmm",
-      "title": "GHSA: Go Restful API Boilerplate: Hardcoded JWT Secret \"random\" Allows Token Forgery",
-      "summary": "## Vulnerability: CWE-798 — Hardcoded JWT Secret + Broken Mitigation\n\n### Affected Component\n- `github.com/dhax/go-base` — Go REST API boilerplate (go-chi/jwtauth/v5, Viper, PostgreSQL/Bun)\n- 1,685 stars on GitHub\n\n### Vulnerability Locations\n\n| File | Line | Role |\n|------|------|------|\n| `dev.env` | 10 | `AUTH_JWT_SECRET=random` — template default shipped to all users |\n| `cmd/serve.go` | 35 | ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-10T13:39:18Z",
-      "cve_ids": [
-        "CVE-2026-48031"
-      ],
-      "cvss": 9.1,
       "related_links": []
     }
   ]
