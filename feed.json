@@ -1,10 +1,530 @@
 {
-  "updated": "2026-06-16T12:53:36.888205+00:00",
+  "updated": "2026-06-16T19:36:40.992919+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "26f6e805f5035d53c21d847cdaba3ae769cbc8201e4adcaa4305c2e376632e5a",
+      "url": "https://github.com/advisories/GHSA-8xpq-cjcf-3wh9",
+      "title": "GHSA: Deno: Permission Bypass via Unicode Normalization Mismatch on macOS (APFS)",
+      "summary": "## Summary\n\nDeno's permission system enforces filesystem and execution restrictions by\ncomparing the requested path against the path supplied to `--deny-read`,\n`--deny-write`, `--deny-run`, or `--deny-ffi`. On macOS, that comparison was\ndone at the raw-byte level while the APFS filesystem treats different Unicode\nspellings of the same name as the same file.\n\nThat means a program could reach a deni",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-16T19:11:52Z",
+      "cve_ids": [
+        "CVE-2026-49401"
+      ],
+      "cvss": 5.2,
+      "related_links": []
+    },
+    {
+      "id": "07f8638d459bb11622503c2f7920bce5336d30e121e95491700a1081d5e21e60",
+      "url": "https://github.com/advisories/GHSA-968w-xfqw-vp9q",
+      "title": "GHSA: Deno: BYONM module resolution allows `package.json` main path traversal to bypass `--allow-read` restrictions",
+      "summary": "## Summary\n\nWhen Deno was run in BYONM mode (`nodeModulesDir: \"manual\"`), the module resolver did not validate that a package's resolved entrypoint stayed within its `node_modules/<pkg>/` directory. A malicious `package.json` whose `main` field contained `..` segments was able to resolve to an arbitrary path on disk, and the resolver then read that file without consulting the `--allow-read` allowl",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T19:11:26Z",
+      "cve_ids": [
+        "CVE-2026-49406"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "14354ea405702c169ac963fece4719798f36f6aa25e8dce8cf8a8d49dac766de",
+      "url": "https://github.com/advisories/GHSA-v8fw-85r8-5m23",
+      "title": "GHSA: Deno: Node TCPWrap numeric hostname aliases bypass --deny-net resolved-IP deny checks",
+      "summary": "## Summary\n\nDeno's network permission model is designed so that `--deny-net` rules apply to the **resolved IP address** of a destination, not just the literal string supplied by the caller. That means `--deny-net=127.0.0.1` (or `--deny-net=127.0.0.0/8`) is expected to block any attempt to reach loopback, regardless of how the hostname is spelled.\n\nOn affected versions, the Node.js compatibility TC",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T19:09:46Z",
+      "cve_ids": [
+        "CVE-2026-49411"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "74dc42cb7b7b5421287136577017c1e4f857ea3152114007c0281e540a45a05c",
+      "url": "https://github.com/advisories/GHSA-9xg4-qhm4-g43w",
+      "title": "GHSA: Deno: Miller-Rabin Primality Test Allows Zero Rounds",
+      "summary": "## Summary\n\n`node:crypto.checkPrime(candidate[, options][, callback])` and `crypto.checkPrimeSync(candidate[, options])` ran no Miller-Rabin rounds at all when the caller left `options.checks` at its default of `0`. In that mode, the only test applied to the candidate was trial division by the primes up to `17,863`. Any composite whose smallest prime factor exceeds that bound — for example the pro",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T19:08:55Z",
+      "cve_ids": [
+        "CVE-2026-49440"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "97ffd221d0b5335f60f5660f519897f77714b40906083146bd97bbde84731f1d",
+      "url": "https://github.com/advisories/GHSA-7xh3-mhg9-jcw8",
+      "title": "GHSA: Deno: Command Injection via spawnSync & spawn on Windows",
+      "summary": "## Summary\n\nDeno's `node:child_process` implementation provided an `escapeShellArg()` helper used when callers passed `shell: true` to `spawn` / `spawnSync` / `exec` and friends. On Windows, the helper failed to quote arguments that contained `cmd.exe` metacharacters such as `&`, `|`, `<`, `>`, `^`, `!`, `(`, `)`, and did not neutralize `%` (which `cmd.exe` expands even inside double-quoted string",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T19:07:44Z",
+      "cve_ids": [
+        "CVE-2026-49402"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "da2e5c5cf8bcbcbffef3a12d23237aadd72702148e17e48f14b4cc31568cb889",
+      "url": "https://github.com/advisories/GHSA-4c8g-jvcx-v4hv",
+      "title": "GHSA: Deno: process.loadEnvFile() bypasses env permission checks and mutates process.env with only read access",
+      "summary": "## Summary\n\nIn Deno, environment access is gated by the `env` permission. You can deny it\nwith `--deny-env`, or restrict it to a specific allowlist with\n`--allow-env=FOO,BAR`. The expectation is that a program running without `env`\npermission cannot change `process.env`.\n\n`process.loadEnvFile()` (the Node-compatible API for loading variables from a\n`.env` file) does **not** honor this. It only che",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T19:04:57Z",
+      "cve_ids": [
+        "CVE-2026-49983"
+      ],
+      "cvss": 5.2,
+      "related_links": []
+    },
+    {
+      "id": "b513a6f4c20814e2bad7282c004f9cc1433049e44aed0a3cb11ebef12dd33d7e",
+      "url": "https://github.com/advisories/GHSA-83pc-3rw9-qpwj",
+      "title": "GHSA: Deno: WebSocket API sandbox bypass via missing post-DNS check",
+      "summary": "## Summary\n\nWhen a WebSocket connection was opened, Deno checked the destination hostname\nagainst `--deny-net` rules but did not re-check the IP addresses that hostname\nresolved to. An attacker-controlled script could use a specially crafted domain\nname that passes the hostname check yet resolves to a denied IP, bypassing the\nnetwork restriction entirely.\n\n## Impact\n\nCode running under `--deny-net",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T19:04:07Z",
+      "cve_ids": [
+        "CVE-2026-49860"
+      ],
+      "cvss": 5.2,
+      "related_links": []
+    },
+    {
+      "id": "172bb08f6a9c903497311e5a53684c00eed81ba880c768c29af5d4757f26942f",
+      "url": "https://github.com/advisories/GHSA-cpgj-f7g3-2pp2",
+      "title": "GHSA: Deno: `fetch()` API sandbox bypass via missing DNS resolution check",
+      "summary": "## Summary\n\nWhen `fetch()` was called, Deno checked the destination hostname against\n`--deny-net` rules but did not re-check the IP addresses that hostname\nresolved to. An attacker-controlled script could use a specially crafted domain\nname that passes the hostname check yet resolves to a denied IP, bypassing the\nnetwork restriction entirely.\n\n## Impact\n\nCode running under `--deny-net` could reach",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T19:02:55Z",
+      "cve_ids": [
+        "CVE-2026-49859"
+      ],
+      "cvss": 5.2,
+      "related_links": []
+    },
+    {
+      "id": "560e93fd1844db0e537d72c20baab9641928c2e1728efeb7cbbba1d602592acc",
+      "url": "https://github.com/advisories/GHSA-9c38-2mcm-q7f7",
+      "title": "GHSA: n8n: Merge Node SQL Mode Prototype Pollution",
+      "summary": "## Impact\nAn authenticated user with permission to create or modify workflows could pollute the sandbox used by the Merge node's SQL Query mode. Because the sandbox context was cached and reused across all workflow executions on the instance, prototype mutations introduced by one user's workflow persist into subsequent Merge SQL executions belonging to other users or projects. This allowed a low-p",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T19:01:16Z",
+      "cve_ids": [
+        "CVE-2026-54311"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "024be7b4c67ee2b39812e984d760ab09e5ba610cc3c22febd6e734f6385d4e37",
+      "url": "https://github.com/advisories/GHSA-2vff-hj5x-8gq7",
+      "title": "GHSA: n8n: Prototype Pollution enables confused-deputy execution via public webhooks",
+      "summary": "## Impact\nA prototype pollution vulnerability allowed a crafted public webhook payload to inject attacker-controlled fields into workflow data during internal object copying. These fields could be surfaced and consumed as normal values by downstream built-in nodes.\n\nWhere a workflow combines a public webhook with action nodes that consume the resulting fields, an attacker could cause the workflow ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T19:00:41Z",
+      "cve_ids": [
+        "CVE-2026-54306"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "3baa8862333c38ce8d9b0a3a9a3cb07c503c4f3750f70da658f22ccf51dfef5d",
+      "url": "https://github.com/advisories/GHSA-v733-mwr6-fgcm",
+      "title": "GHSA: n8n: Same-Origin XSS in Respond to Webhook Node",
+      "summary": "## Impact\nAn authenticated user with workflow edit access could configure a `Respond to Webhook` node to serve binary content with an attacker-controlled `Content-Type`. The binary response path bypassed the central `Content-Security-Policy` sandbox header, allowing a public webhook to execute JavaScript in the n8n origin when visited by an authenticated user, with access to that user's session.\n\n",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T19:00:31Z",
+      "cve_ids": [
+        "CVE-2026-54301"
+      ],
+      "cvss": 7.6,
+      "related_links": []
+    },
+    {
+      "id": "fa4cfe862bac2e43803d287b70254c5a42ada4c38f025e7c763553167ed608c8",
+      "url": "https://github.com/advisories/GHSA-jvc7-762p-3743",
+      "title": "GHSA: n8n: Missing Token Validation on Microsoft Agent 365 Trigger and Stripe Nodes",
+      "summary": "## Impact\nThe `MicrosoftAgent365Trigger` and `StripeTrigger` node did not validate that inbound requests. As a result, an unauthenticated attacker who knows the webhook URL could submit a forged payload and cause the workflow to execute with attacker-controlled data.\n\n## Patches\nThe issue has been fixed in n8n versions 2.25.7, and 2.26.2. Users should upgrade to one of these versions or later to r",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-16T19:00:13Z",
+      "cve_ids": [
+        "CVE-2026-54308"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
+      "id": "27a4d7c284938eadfe8ec83e20b33396132f53957e1348648d8ce8ca113dcee5",
+      "url": "https://github.com/advisories/GHSA-hv7x-3x78-gx53",
+      "title": "GHSA: n8n: Wrong OAuth Scope On Evaluations Test Run Creation Endpoint",
+      "summary": "## Impact\nThe `POST /workflows/{workflowId}/test-runs/new` endpoint authorized access using `workflow:read` rather than `workflow:execute`. An authenticated user with read-only access to a workflow could trigger a real evaluation test run, causing the workflow to execute via the internal workflow runner. This could result in unintended outbound API calls, data mutations, or other side effects in d",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T18:59:58Z",
+      "cve_ids": [],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "bc1ccd3b5db2b82cc8e9075c8afb47329813d88940608f8a800a4fe510eefeeb",
+      "url": "https://github.com/advisories/GHSA-jpq7-226w-6cxx",
+      "title": "GHSA: n8n: NoSQL Injection in MongoDB Node Find And Replace Operation",
+      "summary": "## Impact\nAn authenticated user with workflow edit access could supply a malicious filter value in the MongoDB node's Find And Replace operation. The value was not validated before being passed to MongoDB as a query filter, allowing unintended documents to be matched and overwritten with attacker-controlled content.\n\n## Patches\nThe issue has been fixed in n8n version 2.24.0. Users should upgrade t",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T18:59:23Z",
+      "cve_ids": [
+        "CVE-2026-54313"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "94bf6fe7ac6f45d421a5c3d1af0b783ffa5282ffe4e705ef95e60b19df639414",
+      "url": "https://github.com/advisories/GHSA-c37g-w77q-m4vp",
+      "title": "GHSA: n8n: SQL Injection in Postgres v1/TimesclaeDB Nodes",
+      "summary": "## Impact\nAn authenticated user with permission to create or modify workflows could supply a crafted parameters to the TimescaleDB and/or legacy Postgres v1 node's allowing arbitrary SQL to be injected and executed against the connected database within the privileges of the configured database account.\n\n## Patches\nThe issue has been fixed in n8n versions 2.25.7, and 2.26.2. Users should upgrade to",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-16T17:51:32Z",
+      "cve_ids": [
+        "CVE-2026-54310"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "eccf05a91b6425bb68a0030c7df5212d97b316642d602721516541b2dc2a27e1",
+      "url": "https://github.com/advisories/GHSA-5xp3-2w67-427v",
+      "title": "GHSA: n8n: Git Node Clone and Push Operations Bypass File Sandbox",
+      "summary": "## Impact\nAn authenticated user with permission to create or modify workflows could supply a local filesystem path as the source repository in the Git node's Clone operation, or as the target repository in the Push operation, bypassing the `N8N_RESTRICT_FILE_ACCESS_TO` file sandbox. This allowed the contents of any local git repository accessible to the n8n process to be cloned into an allowed pat",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-16T17:37:54Z",
+      "cve_ids": [
+        "CVE-2026-49465"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "50eeec07f97f98647313e7776e2fd2e31d854834d011756317e922c6cdcd41d7",
+      "url": "https://github.com/advisories/GHSA-9pq8-m8gp-4p53",
+      "title": "GHSA: n8n: Python sandbox escape",
+      "summary": "## Impact\nAn authenticated user with permission to create or modify workflows containing a Python Code Node could escape the sandbox and achieve arbitrary code execution on the task runner container.\n\nThis issue only affects instances where the Python Task Runner is enabled.\n\n## Patches\nThe issue has been fixed in n8n versions 1.123.48, 2.21.8, and 2.22.4. Users should upgrade to one of these vers",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T17:37:21Z",
+      "cve_ids": [
+        "CVE-2026-49444"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "bdf405650b6f18ae6444a07d044abdaabfb92bbf5f3aa77bbe148ce3bf3df335",
+      "url": "https://github.com/advisories/GHSA-94f4-hr76-p5j6",
+      "title": "GHSA: vLLM: OpenAI auth bypass",
+      "summary": "### Summary\n\nA vulnerability in ASGI web servers and starlette's trust on those web servers enables an authentication bypass of the OpenAI API `AuthenticationMiddleware`, which was discovered during @x41sec's source code audit.\nIt allows to use the API without providing the configured `VLLM_API_KEY` or `--api-key`.\n\n### Details\n\nIn https://github.com/vllm-project/vllm/blob/v0.14.0/vllm/entrypoints",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-16T17:36:41Z",
+      "cve_ids": [
+        "CVE-2026-48746"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "c88232ea5ecb39ef9b26ea555eac61f2dc2cd82e0f5d1bcfd723bdbb90bc18be",
+      "url": "https://github.com/advisories/GHSA-rcjh-r59h-gq37",
+      "title": "GHSA: Langflow: Unauthenticated Shareable Playground arbitrary local or S3 file read",
+      "summary": "### Summary\nThe \"Shareable Playground\" (or \"Public Flows\" in code) contains a potential arbitrary file-read vulnerability, depending on the exact flow configuration used.\n\nBy making a flow public, public execution of the flow is allowed. The execution request can contain a list of files that gets read by Langflow and fed into the LLM.\nThe files path can be any path supported by the storage - it ca",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-16T17:36:00Z",
+      "cve_ids": [
+        "CVE-2026-48520"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "d2c4accd19efcb2ab941508ff7bab527509d6b14ad41ce32e18ce0aef8339024",
+      "url": "https://github.com/advisories/GHSA-v5ff-9q35-q26f",
+      "title": "GHSA: Langflow: Unauthenticated RCE in Shareable Playgrounds",
+      "summary": "### Summary\nThe \"Shareable Playground\" (or \"Public Flows\" in code) contains a critical RCE vulnerability.\nSimply sharing a flow exposes the deployment to RCE risk by authenticated users.\n\nTested on commit 2d67402b1dbaefcbce85a244d4a6cd5e4bda1cfe\n\n### Details\nShareable Playground feature works by enabling the execution of workflows by unauthenticated users, by accessing a link.\nSpecifically, it ena",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-16T17:35:32Z",
+      "cve_ids": [
+        "CVE-2026-48519"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "15c06a532901c8cd5ca38b33ca9370ff9a7edfaf2adb4ac9ed19673f6a1d7ac8",
+      "url": "https://github.com/advisories/GHSA-79ph-745m-6wxq",
+      "title": "GHSA: Langflow: Path Traversal in Knowledge Bases API via Creation Endpoint",
+      "summary": "## Summary\nLangflow is vulnerable to Path Traversal in the Knowledge Bases API (`POST /api/v1/knowledge_bases`). This occurs because user-supplied knowledge base names are used directly to create file paths without proper sanitization or containment checks. An authenticated attacker can exploit this flaw to create directories and write files anywhere on the server's filesystem.\n\n## Details\nThe vul",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T17:35:09Z",
+      "cve_ids": [
+        "CVE-2026-42867"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "f0020085c9f65bd463ebd78ef34c373806dde8a92bbbc7d4c82995c19cd10d49",
+      "url": "https://github.com/advisories/GHSA-q8gq-377p-jq3r",
+      "title": "GHSA: vLLM: Security Check Bypass via assert Statement in Activation Function Loading Allows Arbitrary Code Execution",
+      "summary": "### Summary\n\nAn `assert`-based security check in vLLM's activation function loading allows any unauthenticated attacker to achieve arbitrary code execution on the server by publishing a malicious HuggingFace model, when vLLM runs in Python optimized mode (`python -O` or `PYTHONOPTIMIZE=1`).\n\n### Details\n\nvLLM uses an `assert` statement at [`vllm/model_executor/layers/pooler/activations.py:48`](htt",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-16T17:34:49Z",
+      "cve_ids": [
+        "CVE-2026-41523"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "7314540128dd05c552d4bcd3d041d863a67bd4b3b7d4d2868c54890b69059415",
+      "url": "https://github.com/advisories/GHSA-9c59-2mvc-vfr8",
+      "title": "GHSA: Langflow: IDOR/BOLA in Monitor API — Missing Ownership Enforcement on 7 Endpoints ",
+      "summary": "### Summary\n\nLangflow's `/api/v1/monitor` router exposes 7 endpoints that perform read, write, and delete operations on user-owned resources — messages, sessions, build artifacts, and LLM transaction logs — without verifying that the authenticated requester owns the targeted resource. Any authenticated user can read, modify, rename, or permanently delete another user's data by supplying the target",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-16T17:34:21Z",
+      "cve_ids": [
+        "CVE-2026-33760"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "5feb71bcc7f6a21442512c9a19037db597daa1fbe6b25a60efd12a3ec569975b",
+      "url": "https://github.com/advisories/GHSA-m557-wrgg-6rp4",
+      "title": "GHSA: phpseclib: X.509 certificate validation sends attacker-controlled outbound requests (server-side request forgery) via Authority Information Access",
+      "summary": "### Summary\n\nWhen an application validates an untrusted X.509 certificate with phpseclib, **X509::validateSignature()** reads a URL out of that certificate's Authority Information Access (AIA) extension and connects to it. Attacker who supplies certificate fully controls host, port, and path of that connection. URL fetching is enabled by default, and no destination is blocked. An unauthenticated a",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-16T15:03:58Z",
+      "cve_ids": [],
+      "cvss": 5.8,
+      "related_links": []
+    },
+    {
+      "id": "9044b8381f95edda9a49cccaed2f008b165783fd05c20e99f140135a97c85a16",
+      "url": "https://github.com/advisories/GHSA-gr75-jv2w-4656",
+      "title": "GHSA: LangChain: Path traversal and sandbox escape in LangChain file-search middleware and loaders",
+      "summary": "## Summary\n\nSeveral LangChain components that resolve filesystem paths or expand search patterns do not consistently confine the *resolved* path to the intended root directory. Affected behaviors include: a file-search agent middleware that validates a starting directory but not the search pattern or the resolved target of matched files, so glob patterns and symlinks can reach files outside the co",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T15:03:14Z",
+      "cve_ids": [],
+      "cvss": 5.1,
+      "related_links": []
+    },
+    {
+      "id": "afde383ee8e5ed9d6974c5aada04e3a496730a50cbb835ed19422024d36c467a",
+      "url": "https://github.com/advisories/GHSA-jrpj-wcv7-9fh9",
+      "title": "GHSA: Astro: XSS via Unescaped Attribute Names in Spread Props",
+      "summary": "## Summary\n\nThe `spreadAttributes` function in Astro's server-side rendering pipeline iterates over object keys and passes them directly to `addAttribute`, which interpolates the key into the HTML output without escaping. When a developer uses the spread syntax `{...props}` on an HTML element and the object keys come from an untrusted source (API, CMS, URL parameters), an attacker can inject arbit",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-16T14:57:21Z",
+      "cve_ids": [
+        "CVE-2026-54298"
+      ],
+      "cvss": 4.2,
+      "related_links": []
+    },
+    {
+      "id": "284c11b54fc8d46969af7ef5ab7e3eb820c0819d1f730187a71f0693843d817d",
+      "url": "https://github.com/advisories/GHSA-2pvr-wf23-7pc7",
+      "title": "GHSA: Astro: Host header SSRF in prerendered error page fetch",
+      "summary": "## Summary\n\nAstro SSR apps with prerendered error pages (`/404` or `/500` using `export const prerender = true`) fetch those pages over HTTP at runtime when an error occurs. The URL for this fetch is derived from `request.url`, which in turn gets its origin from the incoming `Host` header. When the `Host` header is not validated against `allowedDomains`, an attacker can point the fetch at an arbit",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T14:38:06Z",
+      "cve_ids": [
+        "CVE-2026-54299"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "4cbac7e7eec32628a9fa2c9d0eb36166ad8acb7530bd4d996a3f18043590269f",
+      "url": "https://github.com/advisories/GHSA-529g-xq4f-cw38",
+      "title": "GHSA: @astrojs/netlify broadens Astro image.remotePatterns in Netlify Image CDN config",
+      "summary": "## Summary\n\n`@astrojs/netlify` converts Astro `image.remotePatterns` into Netlify Image CDN `images.remote_images` regular expressions with broader semantics than Astro's canonical matcher. A single wildcard hostname such as `*.example.com` is converted to an optional subdomain regex, so the apex host matches. A single wildcard pathname such as `/ok/*` is converted without end anchoring, so deeper",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T14:37:33Z",
+      "cve_ids": [
+        "CVE-2026-54300"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "802c12482b8c14afae29757187065acc8f6b317fecd54cb473d9f4725d97e3f1",
+      "url": "https://github.com/advisories/GHSA-p4gq-832x-fm9v",
+      "title": "GHSA: Natural Language Toolkit (NLTK): URL-Encoded Path Traversal in nltk.data.load() Allows Arbitrary Local File Read",
+      "summary": "### Summary\nnltk.data.load() in NLTK is vulnerable to path traversal via URL-encoded path separators and traversal segments when using the nltk: URL scheme. The unsafe-path regex check is performed before url2pathname() decodes the %xx sequences (a classic decode-after-check / TOCTOU-style flaw), allowing an attacker to bypass the protection documented in NLTK's SECURITY.md and read arbitrary file",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T14:34:15Z",
+      "cve_ids": [
+        "CVE-2026-54293"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "5e39f2e2c40d79c96f2934ec109f60ea2097a1da43ceabe30af933ef19f3e40d",
+      "url": "https://github.com/advisories/GHSA-rv63-4mwf-qqc2",
+      "title": "GHSA: hono: Body Limit Middleware can be bypassed on AWS Lambda by understating `Content-Length`",
+      "summary": "### Summary\n\nThe Body Limit Middleware trusts the request's `Content-Length` header to decide whether a body is within the limit. On AWS Lambda (API Gateway v1/v2, ALB, VPC Lattice, and Lambda@Edge) the body is delivered fully buffered and the adapter builds the request with the client-declared `Content-Length`, which need not match the actual payload. A client can declare a tiny `Content-Length` ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T14:32:49Z",
+      "cve_ids": [
+        "CVE-2026-54288"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "7286a18e7919326270478de72af58326fdddd125bcdc1d242ac7609bd8ab0486",
+      "url": "https://github.com/advisories/GHSA-wgpf-jwqj-8h8p",
+      "title": "GHSA: hono: Lambda@Edge adapter keeps only the last value of a repeated request header, dropping the rest",
+      "summary": "### Summary\n\nOn AWS Lambda@Edge, CloudFront delivers a request header that appears more than once as several separate entries. The adapter writes each value with `Headers.set` instead of `Headers.append`, so every value overwrites the previous one and only the last reaches the application. Repeated request headers such as `X-Forwarded-For`, `Forwarded`, and `Via` are silently truncated to a single",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T14:32:31Z",
+      "cve_ids": [
+        "CVE-2026-54289"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "a617c03a9d7224a2d4f90ea3a89e7253bcde9e82ef328538c0813e7e615d5557",
+      "url": "https://github.com/advisories/GHSA-88fw-hqm2-52qc",
+      "title": "GHSA: hono: CORS Middleware reflects any Origin with credentials when `origin` defaults to the wildcard",
+      "summary": "### Summary\n\nWith `credentials: true` and no explicit `origin` (the default wildcard), the CORS Middleware reflects the request's `Origin` and sends `Access-Control-Allow-Credentials: true`. Any site can then make credentialed cross-origin requests and read the responses, exposing cookie-authenticated endpoints to arbitrary origins.\n\n### Details\n\nThe spec forbids `Access-Control-Allow-Origin: *` w",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T14:15:39Z",
+      "cve_ids": [
+        "CVE-2026-54290"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "b8f10d1803e61670ae5a36d414f1b8d150a38b2b5fe2d0cb0656257eea656339",
+      "url": "https://github.com/advisories/GHSA-wwfh-h76j-fc44",
+      "title": "GHSA: hono: Path traversal in `serve-static` on Windows via encoded backslash (`%5C`)",
+      "summary": "### Summary\n\nOn Windows hosts, an encoded backslash (`%5C`) in the request path decodes to `\\`, which the Windows path resolver treats as a separator. `serve-static` then resolves a single URL segment such as `admin\\secret.txt` into a nested file under the root and serves it, letting an attacker read static files meant to be protected behind prefix-mounted middleware. Directory escape (`..`) remai",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T14:09:03Z",
+      "cve_ids": [
+        "CVE-2026-54286"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "0c8a73c244e1439c6bed35e29c6b183dafc082bc0919374f4657fce44885316c",
+      "url": "https://github.com/advisories/GHSA-j6c9-x7qj-28xf",
+      "title": "GHSA: hono: AWS Lambda adapter merges multiple `Set-Cookie` headers into one value, dropping cookies on ALB single-header and Lattice",
+      "summary": "### Summary\n\nOn AWS Lambda, the ALB single-header response and the VPC Lattice v2 response join multiple `Set-Cookie` headers into one comma-separated value. Because commas also appear inside cookie attributes (for example `Expires` dates), clients cannot split the value back into individual cookies and silently drop or misparse them.\n\n### Details\n\nPer RFC 6265, each cookie must be its own `Set-Co",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T14:08:40Z",
+      "cve_ids": [
+        "CVE-2026-54287"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "b0dec2d8f2aba5aaff8fa1828477b93acbbcc4051e8db9c43c5ea8f7e96d53fc",
+      "url": "https://github.com/advisories/GHSA-gj48-438w-jh9v",
+      "title": "GHSA: Bleach clean() / Cleaner() fails to sanitize dangerous URI schemes in allowed formaction attributes",
+      "summary": "### Summary\n\nBleach `clean()` / `Cleaner()` fails to sanitize dangerous URI schemes in allowed `formaction` attributes.\n\nBleach applies URI protocol sanitization only to attributes listed in `attr_val_is_uri`. While URI-bearing attributes such as `action`, `href`, `src`, and `poster` are included in that set, `formaction` is not. As a result, if a downstream application explicitly allows `formacti",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T14:07:49Z",
+      "cve_ids": [],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "fdbb3ffe4b1dfe5ac89635a878ab1e28b36762eb6d0b81eb4d97f13b97ae0ce9",
+      "url": "https://github.com/advisories/GHSA-g75f-g53v-794x",
+      "title": "GHSA: Bleach linkify(parse_email=True) CPU exhaustion via unbounded email regex scanning",
+      "summary": "## Summary\nBleach 6.3.0 exposes a documented email-linkification path through `bleach.linkify(..., parse_email=True)`. The implementation scans attacker-controlled text with `EMAIL_RE.finditer()` over the full character token and has no length, timeout, or linear prefilter before applying the dot-atom email regex. A non-email payload around 30 KB causes multi-second CPU consumption per request/cal",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T14:07:30Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "3175eaa16282aab8b1b13ac409191fd6e2872cd0fc218db61608ed9d2c77048b",
+      "url": "https://github.com/advisories/GHSA-8hv8-536x-4wqp",
+      "title": "GHSA: Astro: Reflected XSS via unescaped slot name",
+      "summary": "## Summary\n\nWhen a component uses a `client:*` directive, Astro inserts named slot content into a `data-astro-template` attribute without HTML escaping the slot name allowing an attacker to break out of the attribute context and inject arbitrary HTML, resulting in reflected XSS during SSR.\n\nThis is similar to GHSA-wrwg-2hg8-v723 but exploits a different injection point.\n\n## Vulnerable Code\n\n`packa",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T14:05:06Z",
+      "cve_ids": [
+        "CVE-2026-50146"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "7da400d4a43bb2c4d7ebde75447e67a99e91b48862c99e821778fb4f122f1529",
+      "url": "https://github.com/advisories/GHSA-534h-c3cw-v3h9",
+      "title": "GHSA: Nuxt dev server vite-node IPC socket is world-connectable on Linux",
+      "summary": "### Impact\n\nWhen running `nuxt dev` on Linux (Node.js 20+, outside Docker / StackBlitz), Nuxt's internal vite-node IPC server binds to a Linux abstract-namespace Unix socket (`\\0nuxt-vite-node-<pid>-<ts>.sock`). Abstract sockets have no filesystem inode and therefore no permission bits: any local UID on the host that can read `/proc/net/unix` can enumerate the socket and connect to it.\n\nThe IPC se",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-16T13:49:10Z",
+      "cve_ids": [],
+      "cvss": 5.5,
+      "related_links": []
+    },
     {
       "id": "b52d1f7b185037b170747c4833d7eaf6ae4e3cee972d7e37f6e721c30c5adfcd",
       "url": "https://www.bleepingcomputer.com/news/security/ransomware-gang-abuses-microsoft-teams-relays-to-hide-malicious-traffic/",
@@ -170,520 +690,6 @@
         "CVE-2026-48748"
       ],
       "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "c76078d73ca555c1f29e2ebcedff70c070ba6e67287d431d50beaf7e690d7725",
-      "url": "https://github.com/advisories/GHSA-6v5v-wf23-fmfq",
-      "title": "GHSA: markdown-it: Quadratic complexity DoS in smartquotes rule via replaceAt string operations",
-      "summary": "### Summary\n\nA quadratic time complexity vulnerability exists in markdown-it's smartquotes rule (enabled via the `typographer: true` option). An attacker can craft a markdown input consisting of consecutive quotation marks that causes the parser to consume excessive CPU time, leading to denial of service.\n\n### Details\n\nThe vulnerability is in the `replaceAt()` helper function used by the smartquot",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T20:41:06Z",
-      "cve_ids": [
-        "CVE-2026-48988"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "5b43e887745da242e7fc3b54394dabf7a7482b0ca0d60319dd275b6fb8e2a5c9",
-      "url": "https://github.com/advisories/GHSA-82w8-qh3p-5jfq",
-      "title": "GHSA: Starlette: request.form() limits silently ignored for application/x-www-form-urlencoded enable DoS",
-      "summary": "### Summary\n`request.form()` accepts `max_fields` and `max_part_size` to bound resource consumption while parsing form data. These limits are enforced for `multipart/form-data`, but silently ignored for `application/x-www-form-urlencoded`. An unauthenticated attacker can therefore send a urlencoded body with an arbitrarily large number of fields or an arbitrarily large field, even when the applica",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-15T20:39:53Z",
-      "cve_ids": [
-        "CVE-2026-54283"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "39d55c48eba84792aeca2be2bd987651db8e814f352394cc1b16f9919f2a7802",
-      "url": "https://github.com/advisories/GHSA-8988-4f7v-96qf",
-      "title": "GHSA: OpenTelemetry Core: Unbounded memory allocation in W3C Baggage propagation",
-      "summary": "## Overview\n\n`W3CBaggagePropagator.extract()` in `@opentelemetry/core` does not enforce size limits when parsing inbound `baggage` HTTP headers. The W3C Baggage specification recommends a maximum of 8,192 bytes and 180 entries; these limits were only enforced on the outbound (`inject()`) path, not on the inbound (`extract()`) path. Parsing oversized baggage causes memory allocation proportional to",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-15T20:38:30Z",
-      "cve_ids": [
-        "CVE-2026-54285"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "921d393af4f317ea1bdcc011695f48b243a5587e48fd952763a0dfaa3c2ee6d9",
-      "url": "https://github.com/advisories/GHSA-jp82-jpqv-5vv3",
-      "title": "GHSA: Starlette: Unvalidated request path concatenated into authority poisons request.url.hostname",
-      "summary": "### Summary\n\nIn affected versions, the HTTP request path is not validated before being used to reconstruct `request.url`. Because `request.url` is rebuilt by concatenating `{scheme}://{host}{path}` and re-parsing the result, a path that does not begin with `/` (for example `@google.com`) moves the authority boundary during re-parsing, so `request.url.hostname` and `request.url.netloc` become attac",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T20:38:08Z",
-      "cve_ids": [
-        "CVE-2026-54282"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "9c9d7f37d44ac116e761086f10b5b6ab0ee1cde95d470d4534b7489e977b00d7",
-      "url": "https://github.com/advisories/GHSA-pw6j-qg29-8w7f",
-      "title": "GHSA: Tornado: CurlAsyncHTTPClient leaks per-request credentials on handle reuse",
-      "summary": "# CurlAsyncHTTPClient leaks per-request credentials on handle reuse\n\n## Summary\n\n`CurlAsyncHTTPClient` pools and reuses `pycurl` handles across requests but does\nnot reset them between requests, and several per-request options are applied with\nno clearing branch. As a result, sensitive state set by one request persists onto\na later request on the same client that does not set it. Two credential ve",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T20:37:24Z",
-      "cve_ids": [],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "d5cd9b3cd47b457e59e49e28c1a060e7e367885818d6b70aa4e9f4f67674e03d",
-      "url": "https://github.com/advisories/GHSA-5rvq-cxj2-64vf",
-      "title": "GHSA: python-multipart: Quadratic-time querystring parsing with semicolon separators causes CPU denial of service",
-      "summary": "### Summary\n\nWhen parsing `application/x-www-form-urlencoded` bodies, `QuerystringParser` located the field separator with a two step lookup: it first scanned the entire remaining buffer for `&`, and only when no `&` existed anywhere ahead did it fall back to scanning for `;`. For a body that uses `;` as the separator and contains no `&`, every field iteration performed a full failed `&` scan over",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T20:24:09Z",
-      "cve_ids": [
-        "CVE-2026-53539"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "3183a2de5271f149f8695e1931a4620023f26cbf3bc72d66d049e110e49ab7eb",
-      "url": "https://github.com/advisories/GHSA-v9pg-7xvm-68hf",
-      "title": "GHSA: python-multipart: Negative Content-Length in parse_form buffers the entire body in memory",
-      "summary": "### Summary\n\n`parse_form()` did not validate the `Content-Length` header before using it to bound its chunked read of the request body. A negative `Content-Length` turned the bounded read into a read-until-EOF, so the entire body was loaded into memory in a single read instead of in fixed-size chunks.\n\n### Details\n\n`parse_form()` reads the input stream in chunks, never reading more than the remain",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T20:23:45Z",
-      "cve_ids": [
-        "CVE-2026-53540"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "0979399b1782fcfa35cfa4b82e524c0640418b20080135718af844d9c1195667",
-      "url": "https://github.com/advisories/GHSA-6jv3-5f52-599m",
-      "title": "GHSA: python-multipart: Semicolon treated as querystring field separator enables parameter smuggling",
-      "summary": "### Summary\n\n`QuerystringParser` treated `;` as a field separator in `application/x-www-form-urlencoded` bodies, in addition to `&`. The [WHATWG URL standard](https://url.spec.whatwg.org/#urlencoded-parsing), modern browsers, and Python's `urllib.parse` (since the CVE-2021-23336 fix) treat only `&` as a separator. This creates a parser differential: the same bytes are tokenized into different fiel",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T20:22:25Z",
-      "cve_ids": [
-        "CVE-2026-53538"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "612412cf725c6efd52667c823aaee6ca4214c05212546e8a0c122437a6a56d03",
-      "url": "https://github.com/advisories/GHSA-vffw-93wf-4j4q",
-      "title": "GHSA: python-multipart: Content-Disposition parameter smuggling via RFC 2231/5987 extended parameters",
-      "summary": "### Summary\n\n`parse_options_header` parsed `Content-Disposition` (and `Content-Type`) headers with [`email.message.Message`](https://docs.python.org/3/library/email.compat32-message.html#email.message.Message), which transparently applies [RFC 2231](https://datatracker.ietf.org/doc/html/rfc2231)/[5987](https://datatracker.ietf.org/doc/html/rfc5987) decoding. The extended parameter syntax (`filenam",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T20:20:51Z",
-      "cve_ids": [
-        "CVE-2026-53537"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "0eb8dbbbe36539e368ee19974b5a83fe51ddca2c68fc2900ad38eaf72c166b99",
-      "url": "https://github.com/advisories/GHSA-3x9g-8vmp-wqvf",
-      "title": "GHSA: Tornado: Authorization header forwarded across cross-origin redirects in SimpleAsyncHTTPClient",
-      "summary": "## Summary\n\nWhen SimpleAsyncHTTPClient follows a 3xx redirect, it shallow-copies the original HTTPRequest, rewrites the URL, decrements max_redirects, and removes only the Host header. It does not clear Authorization, auth_username, auth_password, or auth_mode when the redirect target changes origin.\n\nAs a result, credentials intended for one origin can be forwarded to a different origin when foll",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-06-15T20:20:00Z",
-      "cve_ids": [
-        "CVE-2026-49853"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "7bf4190aaa988b16619dcb74f001f3f90d20355242f1be75faa328b7564b45eb",
-      "url": "https://github.com/advisories/GHSA-mgf9-4vpg-hj56",
-      "title": "GHSA: tornado AsyncHTTPClient accumulates decompressed chunks without size limit (gzip bomb)",
-      "summary": "Tornado's gzip decompression routines work in limited-size chunks, but have no overall limit for the total size of decompressed chunks that they will accumulate (There has always been a limit for the total *compressed* size). This allows a malicious server to consume effectively unlimited amounts of memory if it is accessed via SimpleAsyncHTTPClient in its default configuration. `HTTPServer` is no",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T20:19:28Z",
-      "cve_ids": [
-        "CVE-2026-49855"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "10beb0cfcf7eb913b5f43e348c2ea70f452079556325c956d6deeeb01c3677be",
-      "url": "https://github.com/advisories/GHSA-wqp7-x3pw-xc5r",
-      "title": "GHSA: Starlette: SSRF and NTLM credential theft via UNC paths in StaticFiles on Windows",
-      "summary": "### Summary\n\nWhen serving static files on Windows, `StaticFiles` resolves the requested path with [`os.path.realpath`](https://docs.python.org/3/library/os.path.html#os.path.realpath). If a UNC path (such as `\\\\attacker.com\\share`) reaches the resolver, `realpath` causes the process to open a connection to the remote host over SMB (port 445). This is a server-side request forgery (SSRF) that leaks",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-06-15T20:16:30Z",
-      "cve_ids": [
-        "CVE-2026-48818"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "9ba4e4e76239bc216c4bd89350d6e895fb4ee7446eac4fea8aa70b0f1aaf7036",
-      "url": "https://github.com/advisories/GHSA-x746-7m8f-x49c",
-      "title": "GHSA: Starlette: Arbitrary HTTP method dispatched to `HTTPEndpoint` attributes via `getattr`",
-      "summary": "### Summary\n\nWhen dispatching a request, `HTTPEndpoint` selects the handler by lowercasing the HTTP method and looking it up as an attribute with `getattr`, without restricting the lookup to a known set of HTTP verbs.\n\nWhen an `HTTPEndpoint` subclass is registered through `Route(...)` without an explicit `methods=` argument, the route does not constrain the method and every method reaches the endp",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T20:16:05Z",
-      "cve_ids": [
-        "CVE-2026-48817"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "d113c2ede2e8f974a0bede7c545b96948efc37b883f09e614525342785dff87d",
-      "url": "https://github.com/advisories/GHSA-9h5v-pfqq-x599",
-      "title": "GHSA: UAParser.js: Unbounded `Sec-CH-UA-Model` parsing can trigger ReDoS in `withClientHints()`",
-      "summary": "### Summary\n\nA regular expression denial-of-service (ReDoS) vulnerability has been discovered in `ua-parser-js` when using the Client Hints API. By sending a crafted `Sec-CH-UA-Model` header to an application that calls `UAParser(headers).withClientHints()`, an attacker can cause the parser to spend excessive CPU time due to catastrophic backtracking in the device [regex](https://github.com/faisal",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T20:15:02Z",
-      "cve_ids": [
-        "CVE-2026-48125"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "3c15785e2e13a364d30a4efb70bbed60070497cd85132e67baa6cae50a991e2a",
-      "url": "https://github.com/advisories/GHSA-pr59-h9ph-3fr8",
-      "title": "GHSA: protobufjs-cli: Code injection in pbjs static output from crafted JSON descriptor names",
-      "summary": "## Summary\n\nA previous fix for unsafe name handling in `pbjs` static / static-module code generation was incomplete. Affected versions of `protobufjs-cli` could still emit unsafe JavaScript references when generating static output from crafted JSON descriptor input. The common case of parsing schemas from `.proto` files is not affected.\n\nThis is a bypass of GHSA-6r35-46g8-jcw9 / CVE-2026-44295.\n\n#",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T20:13:54Z",
-      "cve_ids": [
-        "CVE-2026-54271"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "2b247d340dce61d106be8cfd52ea00fc8e126431d33d6e2bf35a16b46584ffb2",
-      "url": "https://github.com/advisories/GHSA-94rc-8x27-4472",
-      "title": "GHSA: protobufjs: Memory amplification from preserved unknown fields in binary decode",
-      "summary": "## Summary\n\nprotobufjs 8.2.0 added support for preserving unknown fields encountered during binary decode. Affected versions preserved unknown wire elements in `message.$unknowns` and did not provide a decode-time option to discard unknown fields before retaining them.\n\nA crafted protobuf payload containing many unknown fields could therefore cause a decoded message to retain substantially more me",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T20:13:28Z",
-      "cve_ids": [
-        "CVE-2026-54270"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "c5832836a5a1320e66217877fa2b60e17e31fe5c8a8c32d158ffceb4d87a8857",
-      "url": "https://github.com/advisories/GHSA-537c-gmf6-5ccf",
-      "title": "GHSA: Vulnerable OpenSSL included in cryptography wheels",
-      "summary": "pyca/cryptography's wheels include a statically linked copy of OpenSSL. The versions of OpenSSL included in wheels prior to cryptograph 48.01 are vulnerable to a security issue. More details about the vulnerability itself can be found in https://openssl-library.org/news/secadv/20260609.txt.\n\nIf you are building cryptography source (\"sdist\") then you are responsible for upgrading your copy of OpenS",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-15T20:12:27Z",
-      "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "109afe17fa6d19ec58fd25456d91f3a9a7e68b019a5ff02ea673d5d1d4750d67",
-      "url": "https://www.bleepingcomputer.com/news/security/simplehelp-bug-lets-hackers-create-rogue-remote-support-accounts/",
-      "title": "SimpleHelp bug lets hackers create rogue remote support accounts",
-      "summary": "A vulnerability in the SimpleHelp remote management software allows unauthenticated attackers to create privileged technician accounts on servers using the OpenID Connect (OIDC) authentication protocol. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-06-15T20:06:52+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f5d9926d0cb372dd5213051b318bdfa1203f43fa8b594bf7b459062073f8f351",
-      "url": "https://github.com/advisories/GHSA-84g9-w2xq-vcv6",
-      "title": "GHSA: React Router: Potential CSRF via PUT/PATCH/DELETE document requests",
-      "summary": "Certain CSRF checks in React Router v7 [Framework Mode]() were insufficient and run on POST requests, but were bypassed on PUT/PATCH/DELETE requests.  This is a low severity vulnerability because modern browser protections (CORS preflight, SameSite cookies) already block the cross-origin attack vectors that this missing CSRF check would otherwise gate.\n\n> [!NOTE]\n> This does not impact your React ",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-06-15T20:06:15Z",
-      "cve_ids": [
-        "CVE-2026-53663"
-      ],
-      "cvss": 3.1,
-      "related_links": []
-    },
-    {
-      "id": "77bdfae441deb75b71c4998f773b0d799f114888fdd638f3ce8275f4c814a9df",
-      "url": "https://github.com/advisories/GHSA-g8mr-85jm-7xhm",
-      "title": "GHSA: Vitest Browser: Exposed Browser Mode API Can Proxy CDP and Overwrite Config Files, Leading to RCE",
-      "summary": "## Summary\n\nVitest Browser Mode exposes a `cdp()` API that forwards raw Chrome DevTools Protocol (CDP) methods over the Vitest browser WebSocket RPC. CDP is not gated by `browser.api.allowWrite`, `browser.api.allowExec`, `api.allowWrite`, or `api.allowExec`.\n\nAs a result, disabling Browser Mode write and exec operations does not prevent a browser API client from using CDP to perform equivalent act",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-15T20:05:15Z",
-      "cve_ids": [
-        "CVE-2026-53633"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "bf90e61c94fc43b9dad7f9f8a5a6a814ca99985895d166642313445def00e8c5",
-      "url": "https://github.com/advisories/GHSA-76mc-f452-cxcm",
-      "title": "GHSA: DOMPurify: Hook mutation of `data.allowedTags` / `data.allowedAttributes` permanently pollutes `DEFAULT_ALLOWED_TAGS` / `DEFAULT_ALLOWED_ATTR`",
-      "summary": "# Hook mutation of `data.allowedTags` / `data.allowedAttributes` permanently pollutes `DEFAULT_ALLOWED_TAGS` / `DEFAULT_ALLOWED_ATTR`\n\n**CWE**: CWE-501 (Trust Boundary Violation — hook-scoped mutation leaks to global default sets) via CWE-693 (Protection Mechanism Failure — the default allow-list is silently widened for all subsequent sanitize calls)\n\n## Summary\n\nThe `data.allowedTags` and `data.a",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T19:59:09Z",
-      "cve_ids": [],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "8a38694537242ad0db3c684fd1bdd57c8f6c209ca0b694541af8c978db440b4f",
-      "url": "https://github.com/advisories/GHSA-hpcv-96wg-7vj8",
-      "title": "GHSA: DOMPurify: Cross-realm IN_PLACE sanitization leaves executable markup intact via realm-bound `instanceof` checks",
-      "summary": "# Cross-realm IN_PLACE sanitization leaves executable markup intact via realm-bound `instanceof` checks\n\n**CWE**: CWE-79 (XSS — Improper Neutralization of Input During Web Page Generation) via CWE-693 (Protection Mechanism Failure — realm-bound `instanceof` checks fail-open on foreign-realm DOM nodes) and CWE-501 (Trust Boundary Violation — foreign-realm nodes accepted for sanitization but later c",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T19:56:35Z",
-      "cve_ids": [
-        "CVE-2026-49458"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "c2419245c288537cf1868d3a01cbe8bc7a16597d2f0834b8d04627127355cef1",
-      "url": "https://github.com/advisories/GHSA-r47g-fvhr-h676",
-      "title": "GHSA: DOMPurify: IN_PLACE mode preserves attributes of a clobbered root element, allowing XSS via attacker-controlled root DOM",
-      "summary": "# IN_PLACE mode preserves attributes of a clobbered root element, allowing XSS via attacker-controlled root DOM\n\n**CWE**: CWE-79 (XSS — Improper Neutralization of Input During Web Page Generation) via CWE-693 (Protection Mechanism Failure — silent no-op when `_forceRemove` is called on a parent-less node)\n\n## Summary\n\nWhen `DOMPurify.sanitize(root, { IN_PLACE: true })` is called and `root` is a `<",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-15T19:53:05Z",
-      "cve_ids": [
-        "CVE-2026-49459"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "ba29a27b9033c203006307d62d154149c335885e0f58fec0e3a2ba4f61b9ce0d",
-      "url": "https://github.com/advisories/GHSA-w7vc-732c-9m39",
-      "title": "GHSA: PyJWT: Unauthenticated DoS via unbounded Base64URL decoding of unused payload segment in b64=false detached JWS",
-      "summary": "> [!NOTE]\n> Practical impact depends on whether request body-size limits are enforced upstream (proxy/web-server/framework). Deployments with typical body-size caps (≤2 MB) bound the amplifier significantly; deployments accepting larger token inputs are more exposed.\n\nWhen verifying detached JWS tokens using the unencoded-payload option (`\"b64\": false`, RFC 7797), PyJWT performs **Base64URL decodi",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-15T19:29:12Z",
-      "cve_ids": [
-        "CVE-2026-48525"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "257ef681039d066033efd8e66aac660bffde2b618897d47df2a29e54c77ba5b2",
-      "url": "https://github.com/advisories/GHSA-993g-76c3-p5m4",
-      "title": "GHSA: PyJWKClient: missing scheme allowlist enables CVE-2024-21643-class SSRF + token forgery via file://, ftp://, data: schemes",
-      "summary": "> [!NOTE]\n> The library does not directly return non-HTTP(S) URI contents to the attacker; the chained \"plant a JWKS to forge tokens\" scenario described in the original report requires additional application-layer flaws (attacker write access to a filesystem path, untrusted jku derivation) that this fix does not address. Severity is scored for the scheme-acceptance bug in isolation.\n\n## Summary\n\nP",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T19:28:41Z",
-      "cve_ids": [
-        "CVE-2026-48522"
-      ],
-      "cvss": 4.2,
-      "related_links": []
-    },
-    {
-      "id": "747043c98cd5086d13ab9af01f35a20dda864e561825443db8771c669b913a86",
-      "url": "https://github.com/advisories/GHSA-xgmm-8j9v-c9wx",
-      "title": "GHSA: PyJWT: Public-key JWK accepted as HMAC secret enables forged HS256 tokens when mixed families are allowed",
-      "summary": "> [!NOTE]\n> Exploitation requires a verifier configured with both symmetric and asymmetric algorithms in `algorithms=[…]` and a raw-JSON JWK as the `key=` argument, both contrary to documented usage, hence the High attack-complexity rating.\n\n### Summary\nWhen the verifier is decoding JSON Web Tokens, while supporting both asymmetric and HMAC algorithms, the library does not validate use of JSON Web",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-06-15T19:28:06Z",
-      "cve_ids": [
-        "CVE-2026-48526"
-      ],
-      "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "4e5436ff62b015de140f37b7e66d4c45520b59bf94ab6576a667838298c8c022",
-      "url": "https://github.com/advisories/GHSA-jq35-7prp-9v3f",
-      "title": "GHSA: PyJWT: Algorithm allow-list bypass when decoding with `PyJWK` / `PyJWKClient` keys",
-      "summary": "> [!NOTE]\n> Scored assuming a deployment where algorithm policy functions as an authentication/authorization boundary. In deployments where the algorithm policy enforces crypto agility only, the practical confidentiality impact is lower and the issue is closer to an integrity-of-policy-enforcement bug.\n\nPyJWT `2.9.0` through `2.12.1` allows a verifier-side algorithm allow-list bypass when `jwt.dec",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-15T19:27:48Z",
-      "cve_ids": [
-        "CVE-2026-48523"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "c03f43dbcf74e3bd61501723db95dbafff28539810d78072e648a7c7e00301ad",
-      "url": "https://github.com/advisories/GHSA-268h-hp4c-crq3",
-      "title": "GHSA: Nodemailer: CRLF injection in Nodemailer List-* header comments allows arbitrary message header injection",
-      "summary": "### Summary\n\nNodemailer constructs `List-*` headers from the caller-provided `list` message option using internally prepared header values. The `list.*.comment` field is inserted into those prepared values without removing CR (`\\r`) or LF (`\\n`) characters. Because prepared headers bypass the normal header-value sanitizer and are passed to `mimeFuncs.foldLines()`, a CRLF sequence in a list comment",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T17:36:06Z",
-      "cve_ids": [],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "78919f5df340d5a6736f557bfca7779318c77b8b31d25fe2427f7defaf4a2dc3",
-      "url": "https://github.com/advisories/GHSA-wqvq-jvpq-h66f",
-      "title": "GHSA: Nodemailer jsonTransport bypasses disableFileAccess and disableUrlAccess during message normalization",
-      "summary": "### Summary\n\nNodemailer's `disableFileAccess` and `disableUrlAccess` options are intended to prevent message content and attachments from reading local files or fetching URLs. The normal MIME streaming path enforces those options in `MimeNode._getStream()`. However, `jsonTransport` serializes messages by calling `mail.normalize()`, which resolves `html`, `text`, alternatives, calendar events, and ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-15T17:35:10Z",
-      "cve_ids": [],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "0533dcd9f8bae7fce7dfe48b26eb884d33b01af228a4ba1008afa2be419804e0",
-      "url": "https://github.com/advisories/GHSA-r7g4-qg5f-qqm2",
-      "title": "GHSA: Nodemailer: Improper TLS Certificate Validation in OAuth2 Token Fetch Enables Credential Interception",
-      "summary": "### Summary\nNodemailer disables TLS certificate verification in its internal HTTPS fetch client through the use of rejectUnauthorized: false inside lib/fetch/index.js.\n\nAs a result, OAuth2 token requests trust invalid or self-signed HTTPS certificates and transmit sensitive OAuth credentials over connections that should fail TLS validation.\n\nAn attacker in a machine-in-the-middle position can inte",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-15T17:34:48Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "04e8dc55dfe61c2ab4a2d295e2afe45139e1f080ecf6cfc34af74a6d00709ceb",
-      "url": "https://github.com/advisories/GHSA-wcpc-wj8m-hjx6",
-      "title": "GHSA: protobufjs: Denial of service through unbounded Any expansion during JSON conversion",
-      "summary": "## Summary\n\nprotobufjs could recurse without a depth limit while converting decoded messages to plain objects or JSON. This affected generated `toObject()` conversion and the custom `google.protobuf.Any` JSON conversion path.\n\nA crafted protobuf binary payload containing deeply nested `Any` values could cause the JavaScript call stack to be exhausted during conversion to JSON.\n\n## Impact\n\nAn attac",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T17:30:15Z",
-      "cve_ids": [
-        "CVE-2026-48712"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "87b7ff365d896e8d15d1e80ac0a19a43d616475966fcb6469a4bb70b2a3f5659",
-      "url": "https://www.rapid7.com/blog/post/so-nis2-compliance-turn-readiness-into-resilience",
-      "title": "NIS2 is raising the bar. Here’s how to turn readiness into resilience.",
-      "summary": "The NIS2 directive asks covered organizations to take a more structured approach to risk management, governance, supply chain security, and incident reporting. It expands the scope of who may be covered, raises expectations around management body accountability, introduces clearer and more enforceable requirements, and increases pressure on organizations to show that security is being managed in a",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-06-15T17:29:15+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "59ec1989fe2b7b4651bbab6b08812dd7923d04a3b62f3d2e957a21ac33b82327",
-      "url": "https://github.com/advisories/GHSA-fhv5-28vv-h8m8",
-      "title": "GHSA: PyJWKClient unbounded JWKS endpoint requests via attacker-controlled kid values (DoS)",
-      "summary": "> [!NOTE]\n>  The vulnerability surfaces only when a JWKS fetch fails; an attacker can attempt to provoke that with sustained unknown-kid traffic, but the outcome depends on upstream JWKS-endpoint behavior (rate limiting, transient errors) which is beyond the attacker's control. Impact is reduced auth availability until the next successful fetch, not complete denial of service.\n\n## Summary\nPyJWKCli",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T17:28:46Z",
-      "cve_ids": [
-        "CVE-2026-48524"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "63b134655db93a29f39df42ff8cbaa949af8a2db6db3e57dc7ee7b7071960dc5",
-      "url": "https://github.com/advisories/GHSA-f38q-mgvj-vph7",
-      "title": "GHSA: protobufjs : Schema-derived names can shadow runtime-significant properties",
-      "summary": "## Summary\n\nprotobufjs accepted certain schema-derived names that could collide with properties used by protobufjs runtime helpers. The known affected names are fields named `hasOwnProperty`, field or oneof names such as `$type` when loaded through protobufjs JSON/reflection descriptors, and service methods whose generated helper name is `rpcCall`.\n\nWhen affected message or service types were used",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T17:27:18Z",
-      "cve_ids": [
-        "CVE-2026-54269"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "e0e9da44099899e9a21531a11eebe8da81a5cfc2dbb50dc72b64df9b8761f651",
-      "url": "https://github.com/advisories/GHSA-hmw2-7cc7-3qxx",
-      "title": "GHSA: form-data: CRLF injection in form-data via unescaped multipart field names and filenames",
-      "summary": "## Summary\n\n`form-data` builds `multipart/form-data` request bodies. Through v4.0.5, the `field` name passed to `FormData#append` and the `filename` option are concatenated directly into the `Content-Disposition` header with no escaping of CR (`\\r`), LF (`\\n`), or `\"`. An application that uses **untrusted input as a field name or filename** therefore lets an attacker terminate the header line and ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T17:26:26Z",
-      "cve_ids": [
-        "CVE-2026-12143"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "92801b94b639c57236d960af6d5cb733661f0336ebfdb9e3a5e6b4d4ba161387",
-      "url": "https://www.rapid7.com/blog/post/so-aligning-security-programmes-with-nis2-requirements",
-      "title": "Does Your Security Programme Align With NIS2 Requirements?",
-      "summary": "If your organization operates in the EU, or works with organizations that do, NIS2 is no longer something on the horizon. It is here and it applies to a far wider range of sectors than its predecessor, the original NIS Directive (Directive (EU) 2016/1148), and it comes with real consequences for organizations that cannot demonstrate they are meeting its requirements. The good news? You do not have",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-06-15T17:24:20+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "355d1046589e4753874b3aabdc63da1b562c52fd56cabf7489b8bff39b9c5cdd",
-      "url": "https://github.com/advisories/GHSA-h67p-54hq-rp68",
-      "title": "GHSA: JS-YAML: Quadratic-complexity DoS in merge key handling via repeated aliases",
-      "summary": "### Summary\nA crafted YAML document can trigger algorithmic CPU exhaustion in `js-yaml` merge-key processing (`<<`) by repeating the same alias many times in a merge sequence.  \nThis causes quadratic parse-time behavior relative to input size and can block a Node.js worker/event loop for seconds with a relatively small payload (tens of KB), resulting in denial of service.\n\n### Details\nThe issue is",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-15T17:15:07Z",
-      "cve_ids": [
-        "CVE-2026-53550"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "28a6069a3fc03afdb3ebc8142d776d1b1122e05ca885329d1fd669a0f27cef71",
-      "url": "https://github.com/advisories/GHSA-4x5r-pxfx-6jf8",
-      "title": "GHSA: @babel/core: Arbitrary File Read via sourceMappingURL Comment",
-      "summary": "## Impact\n\nUsing `@babel/core` to compile maliciously crafted code can allow ab attacker to read any source map from the system that is running Babel, if these conditions are _all_ true:\n- the attacker controls the input source code\n- the attacker can read the output source code\n- the attacker knows the path of the source map file that they want to read\n\n**Users that only compile trusted code are ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-15T17:14:14Z",
-      "cve_ids": [
-        "CVE-2026-49356"
-      ],
-      "cvss": 3.2,
       "related_links": []
     }
   ]
