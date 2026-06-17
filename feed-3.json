@@ -1,10 +1,52 @@
 {
-  "updated": "2026-06-17T04:10:44.976033+00:00",
+  "updated": "2026-06-17T12:16:33.920489+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "7bf4190aaa988b16619dcb74f001f3f90d20355242f1be75faa328b7564b45eb",
+      "url": "https://github.com/advisories/GHSA-mgf9-4vpg-hj56",
+      "title": "GHSA: tornado AsyncHTTPClient accumulates decompressed chunks without size limit (gzip bomb)",
+      "summary": "Tornado's gzip decompression routines work in limited-size chunks, but have no overall limit for the total size of decompressed chunks that they will accumulate (There has always been a limit for the total *compressed* size). This allows a malicious server to consume effectively unlimited amounts of memory if it is accessed via SimpleAsyncHTTPClient in its default configuration. `HTTPServer` is no",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-15T20:19:28Z",
+      "cve_ids": [
+        "CVE-2026-49855"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "10beb0cfcf7eb913b5f43e348c2ea70f452079556325c956d6deeeb01c3677be",
+      "url": "https://github.com/advisories/GHSA-wqp7-x3pw-xc5r",
+      "title": "GHSA: Starlette: SSRF and NTLM credential theft via UNC paths in StaticFiles on Windows",
+      "summary": "### Summary\n\nWhen serving static files on Windows, `StaticFiles` resolves the requested path with [`os.path.realpath`](https://docs.python.org/3/library/os.path.html#os.path.realpath). If a UNC path (such as `\\\\attacker.com\\share`) reaches the resolver, `realpath` causes the process to open a connection to the remote host over SMB (port 445). This is a server-side request forgery (SSRF) that leaks",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-06-15T20:16:30Z",
+      "cve_ids": [
+        "CVE-2026-48818"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "9ba4e4e76239bc216c4bd89350d6e895fb4ee7446eac4fea8aa70b0f1aaf7036",
+      "url": "https://github.com/advisories/GHSA-x746-7m8f-x49c",
+      "title": "GHSA: Starlette: Arbitrary HTTP method dispatched to `HTTPEndpoint` attributes via `getattr`",
+      "summary": "### Summary\n\nWhen dispatching a request, `HTTPEndpoint` selects the handler by lowercasing the HTTP method and looking it up as an attribute with `getattr`, without restricting the lookup to a known set of HTTP verbs.\n\nWhen an `HTTPEndpoint` subclass is registered through `Route(...)` without an explicit `methods=` argument, the route does not constrain the method and every method reaches the endp",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-15T20:16:05Z",
+      "cve_ids": [
+        "CVE-2026-48817"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
     {
       "id": "d113c2ede2e8f974a0bede7c545b96948efc37b883f09e614525342785dff87d",
       "url": "https://github.com/advisories/GHSA-9h5v-pfqq-x599",
@@ -856,48 +898,6 @@
       "date": "2026-06-12T18:28:52Z",
       "cve_ids": [],
       "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "f8337e02cd08d32a45161b0b99260abcf87821eeae7ac72acdb9f7a1a9959f02",
-      "url": "https://github.com/advisories/GHSA-3gp5-q4jw-3v94",
-      "title": "GHSA: Budibase: Basic app users can exfiltrate stored REST datasource auth by rewriting datasource base URL",
-      "summary": "### Summary\nBudibase stores external REST datasource credentials server-side and documents that database credentials are applied server-side and are not exposed in the UI. The REST datasource implementation redacts stored Basic/Bearer/OAuth2 auth secrets before returning datasource data to clients. However, the single-datasource `GET` and `PUT` routes are guarded by generic `TABLE READ`, not by Bu",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-12T18:28:40Z",
-      "cve_ids": [
-        "CVE-2026-48152"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "2166c8f1922ad15a896bce04af7173f033dae473b24a87c5d7eb3a1fbf16529c",
-      "url": "https://github.com/advisories/GHSA-qhv3-wjg8-6fx6",
-      "title": "GHSA: Budibase: Webhook schema endpoint authorization bypass allows unauthenticated mutation of webhook and automation schema",
-      "summary": "The webhook schema-building endpoint is registered under `builderRoutes`, but the generic authorization middleware skips authorization for all paths matching `/api/webhooks/schema`. As a result, an unauthenticated caller can update the body schema for a known webhook and mutate the corresponding automation trigger output schema.\n\n### Details\n\nThe route appears to be builder-only:\n\n- `packages/serv",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-12T18:28:34Z",
-      "cve_ids": [
-        "CVE-2026-48151"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "61f164dcadd794f97b46b6d19c0ac09354f5df6993b515f1dd833ac344a2dac5",
-      "url": "https://github.com/advisories/GHSA-6xp4-cf37-ppjh",
-      "title": "GHSA: Budibase: Workspace-scoped builder escalates to global admin via /api/public/v1/roles/assign",
-      "summary": "## Summary\n\n`/api/public/v1/roles/assign` is guarded by the `builderOrAdmin` middleware, which passes any user who is a builder for the app id in the `x-budibase-app-id` header. That check admits both global builders and workspace-scoped builders (`builder.apps` set but `builder.global` unset). The controller then spreads the request body into the SDK call, and the SDK grants `builder.global=true`",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-12T18:28:26Z",
-      "cve_ids": [
-        "CVE-2026-48150"
-      ],
-      "cvss": 9.0,
       "related_links": []
     }
   ]
