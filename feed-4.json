@@ -1,10 +1,106 @@
 {
-  "updated": "2026-06-22T13:34:53.311280+00:00",
+  "updated": "2026-06-22T19:28:01.166692+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "ae45d13634b48761f18f8b6c6e5dd472f345562728e1c29e5ac4a085333f0144",
+      "url": "https://github.com/advisories/GHSA-8ccj-p46r-jwqq",
+      "title": "GHSA: PraisonAI: PRAISONAI_CALL_AUTH=disabled environment variable unconditionally disables authentication",
+      "summary": "### Summary\nSetting `PRAISONAI_CALL_AUTH=disabled` completely disables all authentication on the `/api/v1/agents/{id}/invoke` endpoint. This bypass is advertised in the application's own error messages, making it likely to appear in production Docker and Compose configurations.\n\n### Details\n\n```python\n# src/praisonai/praisonai/api/agent_invoke.py:32\n_CALL_AUTH_DISABLED = os.getenv('PRAISONAI_CALL_",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-18T14:27:15Z",
+      "cve_ids": [],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "d4add076ad0f48ebfaac3f5fb7d50951dec0cdfd99f1fddfb6b9508574bf8dc7",
+      "url": "https://github.com/advisories/GHSA-4pcv-mg8v-vrgf",
+      "title": "GHSA: PraisonAI: Server-Side Request Forgery (SSRF) in SearxNG / search_web tools via attacker-controlled searxng_url parameter",
+      "summary": "### Summary\nA Server-Side Request Forgery (SSRF) vulnerability in the SearxNG / `search_web` search tools allows an attacker to make the server perform requests to arbitrary internal endpoints and read the responses back. The `searxng_url` argument is passed directly to `requests.get()` with no validation of scheme, host, or port. Because `searxng_url` is exposed to the LLM as a tool parameter and",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-18T14:27:12Z",
+      "cve_ids": [],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "c03bc2732d632bb79849df9c9e47b99aa258f93e4a5ec8907a4122c84a8ff3a2",
+      "url": "https://github.com/advisories/GHSA-f38v-77qj-h4jq",
+      "title": "GHSA: praisonai-platform 0.1.4 still boots on the hardcoded JWT secret dev-secret-change-me (default-open production guard)",
+      "summary": "- Affected: praisonai-platform (PyPI) <= 0.1.4 — including 0.1.4, the version GHSA-3qg8-5g3r-79v5 declares as the patch; main HEAD 8acf77c531e624c46d3d61dcae37e9942e90972c is also affected. File src/praisonai-platform/praisonai_platform/services/auth_service.py\n\n- CWE: CWE-1188 (Insecure Default Initialization) + CWE-798 (Use of Hard-coded Credentials) -> CWE-287 (Improper Authentication)\n\n## Over",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-18T14:27:08Z",
+      "cve_ids": [],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "1a554e2bea5e1c09a68c524a23c4eb6b17be39b8b89b346e5cd3c9cb9ecd3e7f",
+      "url": "https://github.com/advisories/GHSA-29w3-p9w9-wc47",
+      "title": "GHSA: PraisonAI: Arbitrary File Read/Write via `multiedit` Tool Without Path Validation",
+      "summary": "## Summary\n\nThe `multiedit` tool in `src/praisonai/praisonai/tools/multiedit.py` allows LLM-controlled arbitrary file read and write without any path validation, workspace boundary check, or protected path guard. This enables an attacker who can influence agent tool arguments (via crafted prompts, user input in chat bots, or malicious YAML workflow configs) to read sensitive files (e.g., `/etc/sha",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-18T14:27:03Z",
+      "cve_ids": [],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "23692a84000575ba3ecda05d08af1142d3f5625c304ae83540dfdb932f1c33f8",
+      "url": "https://github.com/advisories/GHSA-jxcw-qp4h-6jfq",
+      "title": "GHSA: PraisonAI A2U incomplete authentication fix leaves current serve command unauthenticated by default",
+      "summary": "## Summary\n\nThe published A2U advisory `GHSA-f292-66h9-fpmf` says unauthenticated A2U event streaming was fixed in `praisonai` `4.5.115`. Current head still exposes the same A2U subscription and event routes without authentication when the operator starts the documented CLI entrypoint:\n\n```text\npraisonai serve a2u --host 0.0.0.0 --port 8002\n```\n\nThe current CLI wrapper does not expose `--api-key`,",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-18T14:27:00Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "d34fda0ff69932c6d0ce7baa6874bf37ec6f59ce0cbceda44a25c91932579102",
+      "url": "https://github.com/advisories/GHSA-7qw2-w5rc-37x2",
+      "title": "GHSA: PraisonAI recipe workflow policy can be bypassed by declaring and YAML-approving dangerous tools outside TEMPLATE.yaml",
+      "summary": "## Summary\n\nPraisonAI recipe execution has a dangerous-tool policy that is supposed to block default-denied tools unless the caller explicitly passes `allow_dangerous_tools=True`. That policy only checks tools declared in `TEMPLATE.yaml` `requires.tools`.\n\nFor steps-based recipes, the actual execution path loads `workflow.yaml` with `YAMLWorkflowParser`. That parser resolves agent-level `tools:` d",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-18T14:26:57Z",
+      "cve_ids": [],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "c8d05974778bb82ca9c17ed5581dfd6371f8a423d982ee08c131ba4f76248803",
+      "url": "https://github.com/advisories/GHSA-5jv7-2mjm-h6qj",
+      "title": "GHSA: npm PraisonAI utility shell safe-command wrapper allowlist bypass via shell chaining",
+      "summary": "## Summary\n\nThe published npm package `praisonai` ships `dist/tools/utility-tools.js`, which exports a `shell(command)` helper described in source as:\n\n```text\nExecute shell command (safe version - read-only commands)\n```\n\nThe helper attempts to enforce a safe read-only command allowlist by checking only the first whitespace-delimited token:\n\n```ts\nconst safeCommands = ['ls', 'cat', 'head', 'tail'",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-18T14:26:54Z",
+      "cve_ids": [],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "9b1132a05751ebc702c46557f3bddc86da657eb735ff46d80fccaff3e5ec4790",
+      "url": "https://github.com/advisories/GHSA-h2w2-v7j6-xqm4",
+      "title": "GHSA: npm PraisonAI AgentLoop onToolCall approval runs after tool execution",
+      "summary": "## Summary\n\nThe published npm package `praisonai` exports `createAgentLoop()`, whose `onToolCall` callback is documented and exampled as an approval hook. The implementation calls PraisonAI's `generateText()` wrapper with the caller's executable tools first, receives `toolResults`, and only then calls `onToolCall()`.\n\nBecause AI SDK `generateText()` executes tools with an `execute` function as par",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-18T14:26:51Z",
+      "cve_ids": [],
+      "cvss": 8.8,
+      "related_links": []
+    },
     {
       "id": "1d7bfa2a488e044eabc6da33ee358ab028612f928556f237a56823a8a5a2ff86",
       "url": "https://github.com/advisories/GHSA-j4f3-55x4-r6q2",
@@ -563,116 +659,6 @@
         "CVE-2026-54013"
       ],
       "cvss": 7.6,
-      "related_links": []
-    },
-    {
-      "id": "4688ea6a9c9ad0bf5dcb60498046036cdbd75aeb4b2cfac581812e5ae34cdba9",
-      "url": "https://github.com/advisories/GHSA-vjqm-6gcc-62cr",
-      "title": "GHSA: Open WebUI: Forged model meta.knowledge allows cross-user file read and deletion",
-      "summary": "## Summary\n\nOpen WebUI lets a user who can create, update, or import workspace models store arbitrary `meta.knowledge` entries on their model without checking whether they own or can read the referenced files. Open WebUI then treats `meta.knowledge` entries of type `file` as an authorization source in two places: the built-in `view_file` tool reads the file's extracted text, and `has_access_to_fil",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-17T14:15:33Z",
-      "cve_ids": [
-        "CVE-2026-54012"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "37a60efa0ba5e11a99f5daa255c602d2a2134ee4682bba463424b1bc2c179dab",
-      "url": "https://github.com/advisories/GHSA-v8qj-hxv7-mgvv",
-      "title": "GHSA: Open WebUI: Stored XSS in Mermaid Markdown Preview",
-      "summary": "## Summary\n\nOpen WebUI renders Mermaid blocks from Markdown files in the file preview panel and inserts the generated SVG into the DOM using `innerHTML`.\n\nBecause Mermaid is configured with `securityLevel: 'loose'`, attacker-controlled Mermaid content can be rendered unsafely in this flow. A working payload was validated through the Markdown preview path, resulting in JavaScript execution in the v",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T14:14:05Z",
-      "cve_ids": [
-        "CVE-2026-54011"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "89dd65237f08f5d54446c397a68f51e97470234f43aee68772f26601cd91c5a7",
-      "url": "https://github.com/advisories/GHSA-vrhc-3fr6-pc3c",
-      "title": "GHSA: Open WebUI: Forged chat-file link allows cross-user file read and deletion",
-      "summary": "## Summary\n\nOpen WebUI `v0.9.5` lets an authenticated user attach arbitrary `file_id` values to their own chat message without checking whether they own or can read those files. If the attacker then shares that chat and grants themselves read access, `has_access_to_file()` treats the victim file as accessible through the shared chat, and the file endpoints read or delete the victim file.\n\n## Impac",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T14:12:20Z",
-      "cve_ids": [
-        "CVE-2026-54010"
-      ],
-      "cvss": 8.3,
-      "related_links": []
-    },
-    {
-      "id": "71861c6e293a347e0b0a58960e250e95053457305c68571023d52e29a2f82904",
-      "url": "https://github.com/advisories/GHSA-wch8-mhj5-9frg",
-      "title": "GHSA: Open WebUI: Cross-user file disclosure via /api/chat/completions image_url field",
-      "summary": "## summary\n\n`POST /api/chat/completions` accepts an `image_url.url` value that, when it does NOT start with `http://`, `https://`, or `data:image/`, is interpreted as a file id and resolved against the global file table with no ownership check. An authenticated user can therefore set `image_url.url` to another user's file id, the server reads that file from disk, base64-encodes it, and injects the",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T14:11:44Z",
-      "cve_ids": [
-        "CVE-2026-54009"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "6366212496a3c434fa1ee00a1513b2524d01821be675ad26b24e7deb97587ee4",
-      "url": "https://github.com/advisories/GHSA-226f-f24g-524w",
-      "title": "GHSA: Open WebUI: Redirect-Bypass SSRF in OAuth `_process_picture_url` (incomplete-fix sibling of CVE-2026-45401)",
-      "summary": "## Summary\n\n`backend/open_webui/utils/oauth.py::_process_picture_url` (v0.9.5, lines 1435-1470) calls `validate_url(picture_url)` on the initial URL only, then invokes `aiohttp.ClientSession.get(picture_url, ...)` without `allow_redirects=False`. aiohttp's default is `allow_redirects=True, max_redirects=10`; the function does not pass the project's `AIOHTTP_CLIENT_ALLOW_REDIRECTS` env constant eit",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T14:10:56Z",
-      "cve_ids": [
-        "CVE-2026-54008"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "a63142d29afa941679f0a21361d9d525c973558411fda6ce199792fe0fb3c311",
-      "url": "https://github.com/advisories/GHSA-f3g7-59qc-pqg6",
-      "title": "GHSA: Open WebUI IDOR: Calendar event re-parenting allows writing events into another user's calendar",
-      "summary": "### Summary\n\n`POST /api/v1/calendars/events/{event_id}/update` validates that the caller has **write** access to the calendar the event *currently* belongs to, but does not validate the **destination** `calendar_id` supplied in the request body. The model layer then persists the new `calendar_id` unconditionally.\n\nA regular `user`-role account can therefore create an event in their own calendar an",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T14:09:53Z",
-      "cve_ids": [
-        "CVE-2026-54006"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "1fdca6a7554ad3a2fff36b9a7bebbbb1eee8a6b5971dce03e38e3a180bd6d40b",
-      "url": "https://github.com/advisories/GHSA-6pr9-rp53-2pmc",
-      "title": "GHSA: vLLM: OOM Denial of Service via Audio Decompression Bomb",
-      "summary": "### Summary\nvLLM's `/v1/audio/transcriptions` endpoint limits compressed upload size but not decoded PCM output. A 25MB OPUS file expands to ~14.9GB of float32 PCM at decode time. Tested on vLLM v0.19.0.\n\n### Details\n`SpeechToTextProcessor` rejects uploads over `VLLM_MAX_AUDIO_CLIP_FILESIZE_MB` (default 25MB) based on compressed byte length, but the audio decoder in `audio.py` accumulates all deco",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T14:06:22Z",
-      "cve_ids": [
-        "CVE-2026-54233"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "08f3575f8653a874bc7fc25f76eb4f7e79799275dde63205996605466c20166f",
-      "url": "https://github.com/advisories/GHSA-8jr5-v98p-w75m",
-      "title": "GHSA: vLLM: image EXIF Rotation & PNG tRNS Transparency Not Normalized, Causing Mismatch Between Model Input and Expectations",
-      "summary": "## Summary\n\nIssue 1: EXIF orientation not normalized → The image orientation processed by the model differs from how humans view it, introducing interpretation bias.\n\nIssue 2: PNG tRNS not explicitly flattened before converting to RGB → After conversion, transparent/semi-transparent pixels are rendered unexpectedly, making otherwise subtle overlay elements visible and distorting the input content.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T14:02:42Z",
-      "cve_ids": [],
-      "cvss": 4.8,
       "related_links": []
     }
   ]
