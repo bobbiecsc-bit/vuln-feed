@@ -1,7 +1,187 @@
 {
-  "updated": "2026-06-23T17:55:48.031708+00:00",
+  "updated": "2026-06-23T21:42:56.001434+00:00",
   "total": 250,
   "articles": [
+    {
+      "id": "5d6620e2a37287997992b25c90061a23928b329b0d4964503385a3f7de6d6622",
+      "url": "https://github.com/advisories/GHSA-5hh8-q8hv-fr38",
+      "title": "GHSA: jackson-databind has @JsonView bypass for setterless creator properties",
+      "summary": "## Summary\nIn `BeanDeserializer._deserializeUsingPropertyBased`, the active-view (`@JsonView`) filter was applied only to creator properties; the regular property-buffering branch performed no `prop.visibleInView(activeView)` check. A change making `SetterlessProperty.isMerging()` return `true` routed setterless Collection/Map properties through this unguarded path, so a setterless collection anno",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:24:50Z",
+      "cve_ids": [
+        "CVE-2026-54517"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "1158703cf7d87706b88cd1f799936caa251193598387fbc67568cda22e6890be",
+      "url": "https://github.com/advisories/GHSA-9fxm-vc8v-hj55",
+      "title": "GHSA: jackson-databind's renamed @JsonIgnore'd setters can deserialize via private fields",
+      "summary": "## Summary\n`POJOPropertiesCollector._renameProperties()` allows a property with `@JsonProperty(\"renamed\")` on the getter and `@JsonIgnore` on the setter to be renamed rather than dropped. With `MapperFeature.INFER_PROPERTY_MUTATORS` enabled (default), the private backing field is retained; during deserialization `BeanDeserializerFactory.addBeanProps()` sees `hasField()==true`, builds a `FieldPrope",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:24:26Z",
+      "cve_ids": [
+        "CVE-2026-54516"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "437de2fd8f3990cc9e839761d3d5f40cc92c03c38336946f0bc3d1bd853e4f26",
+      "url": "https://github.com/advisories/GHSA-5jmj-h7xm-6q6v",
+      "title": "GHSA: jackson-databind has case-insensitive deserialization bypasses per-property @JsonIgnoreProperties",
+      "summary": "## Summary\nIn `BeanDeserializerBase.createContextual()`, per-property `@JsonIgnoreProperties` exclusions are applied by `_handleByNameInclusion()`, producing a `contextual` deserializer whose `BeanPropertyMap` has the ignored properties removed. The subsequent per-property case-insensitivity block (triggered by `@JsonFormat(ACCEPT_CASE_INSENSITIVE_PROPERTIES)`) rebuilds from `this._beanProperties`",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:23:58Z",
+      "cve_ids": [
+        "CVE-2026-54515"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "a08cc80dfefd119e7ddebe136b1df96e46c5f25599351292fa1bc0b05c99601d",
+      "url": "https://github.com/advisories/GHSA-hgj6-7826-r7m5",
+      "title": "GHSA: jackson-databind: InetSocketAddress deserialization triggers eager DNS resolution (SSRF)",
+      "summary": "## Summary\n`JDKFromStringDeserializer` constructed `InetSocketAddress` with `new InetSocketAddress(host, port)`, which performs eager DNS name resolution for hostname inputs at deserialization time. An application that binds untrusted JSON into a type containing an `InetSocketAddress` field issues an attacker-chosen DNS query during `readValue`, before any application-level validation or connect l",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:22:54Z",
+      "cve_ids": [
+        "CVE-2026-54514"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "9e140998e07b2559c7d86b8fdc0441beff80ebe5a534a5a4e5aa5e26f733d12d",
+      "url": "https://github.com/advisories/GHSA-rmj7-2vxq-3g9f",
+      "title": "GHSA: jackson-databind has an array subtype allowlist bypass in BasicPolymorphicTypeValidator (allowIfSubTypeIsArray)",
+      "summary": "## Summary\n`BasicPolymorphicTypeValidator.Builder.allowIfSubTypeIsArray()` allowlists any array type based only on `clazz.isArray()`, without validating the array's component (element) type against the configured allowlist. A PTV built with `allowIfSubTypeIsArray()` plus an explicit concrete-type allowlist therefore still permits `EvilType[]` even though `EvilType` is not allowlisted. When Jackson",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:22:15Z",
+      "cve_ids": [
+        "CVE-2026-54513"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "5238bf1f2853f0a5c4d594e68ee5f900f90f1be396c98850a5a8fa74c9a560ad",
+      "url": "https://github.com/advisories/GHSA-j3rv-43j4-c7qm",
+      "title": "GHSA: jackson-databind has a PolymorphicTypeValidator bypass via generic type parameters that allows arbitrary class instantiation",
+      "summary": "`jackson-databind`'s `PolymorphicTypeValidator` (PTV) is the primary safety mechanism guarding polymorphic deserialization. When polymorphic typing is enabled and a type identifier contains generic parameters (i.e. the type ID string contains `<`), `DatabindContext._resolveAndValidateGeneric()` validates **only the raw container class name** (the substring before `<`) against the configured PTV.\n\n",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:21:38Z",
+      "cve_ids": [
+        "CVE-2026-54512"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "84de3cc6119d848268fee788dbc570a2c205e003148a81361366171bb7198359",
+      "url": "https://github.com/advisories/GHSA-rcqc-6cw3-h962",
+      "title": "GHSA: jackson-databind has a @JsonView bypass for unwrapped creator parameters",
+      "summary": "## Summary\n`UnwrappedPropertyHandler.processUnwrappedCreatorProperties()` replays buffered JSON into creator parameters but never consults `prop.visibleInView(activeView)`. The normal property-based creator path gates creator properties on the active view, but this unwrapped-creator replay path bypasses that check, so a constructor parameter annotated with both `@JsonView(AdminView.class)` and `@J",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:17:02Z",
+      "cve_ids": [
+        "CVE-2026-54518"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "b0223bb35248291a451565ab17d751b7beccc6b0aa4b5a60e43e0e399ba33266",
+      "url": "https://github.com/advisories/GHSA-qxvg-h7q2-hcxh",
+      "title": "GHSA: motionEye: LFI → pass‑the‑hash admin → unsafe restore → unauth action exec (RCE)",
+      "summary": "## Summary\nA multi‑stage chain in motionEye leads to remote code execution. The chain combines:\n\n1. **Arbitrary file read (LFI)** via the picture download endpoint for **local motion cameras** using absolute paths.\n2. **Pass‑the‑hash admin auth** due to accepting request signatures computed with password hashes.\n3. **Unsafe config restore** that extracts attacker‑controlled tarballs into `CONF_PAT",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-23T18:53:04Z",
+      "cve_ids": [],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "90140de323b1aabfb53868925a65fae9aed5c1b1e61fd5a6e52fc200201d5f6c",
+      "url": "https://github.com/advisories/GHSA-j67x-q29f-qcvv",
+      "title": "GHSA: motionEye's missing authentication on ActionHandler allows unauthenticated camera action execution",
+      "summary": "## Summary\n\nThe `ActionHandler.post()` method in motionEye has no authentication decorator, allowing any unauthenticated attacker to trigger camera actions including snapshots, recording start/stop, and configured action scripts (PTZ controls, alarm triggers, etc.).\n\n## Vulnerability Details\n\n**File**: `motioneye/handlers/action.py` — `ActionHandler.post()` line 36\n**CWE**: CWE-862 — Missing Autho",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-23T18:37:51Z",
+      "cve_ids": [
+        "CVE-2026-55863"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "1503b7f70f530ebea80e20811837b4203634fc78382770437b744ae5630068ab",
+      "url": "https://github.com/advisories/GHSA-29hf-rm4x-xxph",
+      "title": "GHSA: Mise's local credential_command executes untrusted config",
+      "summary": "### Summary\n\n`mise` loads `github.credential_command` from local project config before any trust decision, then executes that value with `sh -c` when resolving a GitHub token. An attacker who can place a `.mise.toml` in a repository can execute arbitrary shell commands when the victim runs a GitHub-related mise command and no higher-priority GitHub token environment variable is set.\n\nThe current c",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T18:24:28Z",
+      "cve_ids": [
+        "CVE-2026-55448"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "d98a1e6ba976c48a6577d6a3f9a7fe28c7bb6e89dd04eb41be0229d37b7f4b40",
+      "url": "https://github.com/advisories/GHSA-77g9-363w-rccq",
+      "title": "GHSA: Mise vulnerable to arbitrary command execution via task-include files in an untrusted, config-less repository",
+      "summary": "### Summary\n\nmise's trust feature gates config files (`mise.toml`, `.tool-versions`) through `trust_check`, but task-include files are loaded on a path that never reaches it. When a directory has a task-include dir (`mise-tasks/`, `.mise/tasks/`, …) but no config file, mise falls back to the default includes and renders each task's tera fields — and that tera environment has `exec()` registered. A",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T18:24:08Z",
+      "cve_ids": [
+        "CVE-2026-55441"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "466e867cde1739ef4788ec536ed71a22f7026758e1240000dcd2ecd39a64ef2b",
+      "url": "https://github.com/advisories/GHSA-f94h-j2qg-fxw3",
+      "title": "GHSA: mise HTTP backend uses raw version path for install symlink destination",
+      "summary": "## Summary\n\nThe mise HTTP backend builds its install symlink destination from the raw resolved version string for non-latest versions. Normal tool install paths use the sanitized version pathname, but the HTTP backend's symlink path uses the raw value. On Unix-like systems, if that version is an absolute path, `PathBuf::join` discards the intended mise installs root.\n\nA repository-controlled `.too",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T18:13:53Z",
+      "cve_ids": [
+        "CVE-2026-54557"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "8625aa5369f2c7084a7c158792dcb2b08c3fd0085281d72b4b8b51fe1fac7b54",
+      "url": "https://github.com/advisories/GHSA-3vwc-qwhc-3mj7",
+      "title": "GHSA: Glances has arbitrary file write and command execution via `secure_popen` redirection and chaining operators in AMP command configuration",
+      "summary": "### Summary\n\nThe `secure_popen()` function in `glances/secure.py` interprets `>` (file redirection), `|` (pipe), and `&&` (command chaining) operators in command strings. These operators are applied without any validation on the target file path, piped command, or chained command.\n\nWhen Application Monitoring Process (AMP) modules load their `command` or `service_cmd` configuration values from `gl",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T17:59:01Z",
+      "cve_ids": [
+        "CVE-2026-53925"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
     {
       "id": "b4257a087f395b97c3ce73e30815dcd0203238f98fe264fd7faf05bfe2efb633",
       "url": "https://github.com/advisories/GHSA-8qv3-p479-cj62",
@@ -3207,190 +3387,6 @@
         "CVE-2026-28737"
       ],
       "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "bac5dbfdc8763e0181142ea5eea21deed5c1da70d464cc83400ea31b45e855dc",
-      "url": "https://github.com/advisories/GHSA-wrr5-99h5-gq57",
-      "title": "GHSA: Gitea: Public-only tokens bypass private-resource restrictions on `/api/v1/user` self routes",
-      "summary": "## Summary\n\nMany authenticated self routes under `/api/v1/user/...` do not enforce the `public-only` token restriction. As a result, a token or OAuth grant marked `public-only`, but otherwise carrying the route-required read/write scope category, can access or modify private account resources through self routes.\n\nThe canonical private-user endpoint correctly rejects the same tokens, for example `",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-17T18:09:41Z",
-      "cve_ids": [
-        "CVE-2026-24791"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "6b6caac0110b4b8eab5510554812e693008665c04451afab617138b996828236",
-      "url": "https://github.com/advisories/GHSA-fhx7-m96w-mv29",
-      "title": "GHSA: Gitea: API Fork Missing CanCreateOrgRepo Check Allows Org Secret Exfiltration",
-      "summary": "## Summary\n\nThe API endpoint `POST /api/v1/repos/{owner}/{repo}/forks` only checks `IsOrgMember()` when a user forks a repository into an organization, but does not check `CanCreateOrgRepo()`. The web UI fork handler correctly checks both. This allows a read-only organization member — in a team with `can_create_org_repo=false` — to create repositories in the organization namespace via the API. The",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-06-17T18:08:00Z",
-      "cve_ids": [
-        "CVE-2026-22555"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "1d392adbd9941f0229ca4164ac10cef8da7b2702209d93c5e306f839bfbc4da1",
-      "url": "https://github.com/advisories/GHSA-qwxf-2m7m-2m3x",
-      "title": "GHSA: Daytona: Cross-tenant data leak in notification WebSocket gateway via unverified organizationId join",
-      "summary": "### Summary\nA cross-tenant authorization flaw in Daytona's notification WebSocket gateway allowed any authenticated user to subscribe to another organization's realtime notification channel and passively receive that organization's events.\n\n### Impact\nThe notification gateway's JWT handshake joined a client-supplied organization identifier to the corresponding notification room without verifying t",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T18:07:30Z",
-      "cve_ids": [
-        "CVE-2026-54324"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "5aa4d54c2851ba0935d972c9ac386c2c027ca4397322d076318a3dba486aa649",
-      "url": "https://github.com/advisories/GHSA-8788-j68r-3cgh",
-      "title": "GHSA: Open WebUI: Any authenticated user can read other users' private notes via Socket.IO",
-      "summary": "### Summary\n\nThe `ydoc:document:join` Socket.IO handler checks note ownership only when the `document_id` starts with `note:` (colon). However, the `YdocManager` storage layer normalizes all document IDs by replacing colons with underscores (`document_id.replace(\":\", \"_\")`). An attacker can join a document room using `note_<id>` (underscore) instead of `note:<id>` (colon), bypassing the authorizat",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T18:05:21Z",
-      "cve_ids": [
-        "CVE-2026-54022"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "7d71edfe3df52607f3ac13a6b658cb706c15d9531cf85f707e22ca888941062a",
-      "url": "https://github.com/advisories/GHSA-9rpj-v7hf-vv2w",
-      "title": "GHSA: Open WebUI: Authenticated users can target arbitrary configured Ollama backends via unguarded url_idx path parameter",
-      "summary": "## Summary\n\nSeveral direct, index-addressed Ollama proxy routes accept a caller-supplied `url_idx`\npath parameter and use it as a raw index into the admin-configured `OLLAMA_BASE_URLS`\nlist. Access control on these routes validates only whether the user may use the\nrequested *model*, never which *backend* the request is routed to. Any authenticated\nuser can append an arbitrary `url_idx` to force t",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-17T18:01:50Z",
-      "cve_ids": [
-        "CVE-2026-54021"
-      ],
-      "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "7aed35ad5e0006cdbd2a74e8e4aa4ff7d7afd025f0fa3bf73ef90ad433517710",
-      "url": "https://github.com/advisories/GHSA-p5cp-r7rg-qpxc",
-      "title": "GHSA: Open WebUI: RAG ACL Bypass in Milvus Multitenancy Mode",
-      "summary": "# RAG ACL Bypass in Milvus Multitenancy Mode\n\n## Summary\n\nThis is a bypass of the fix for:\n\n- GHSA-h36f-rqpx-j5wx\n- CVE-2026-44560\n- \"Unauthorized File and Knowledge Base Content Access via RAG Vector Search\"\n\nOpen WebUI added collection-level ACL checks, but the patch can still be bypassed when Milvus multitenancy mode is enabled. The ACL allows unknown non-KB collection names as legacy/ephemeral",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T17:57:43Z",
-      "cve_ids": [
-        "CVE-2026-54019"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "7b17b4700df137f9b1af62bd3b64ea1387b4ac47aeee0172a3f061fddc77b718",
-      "url": "https://github.com/advisories/GHSA-jrfp-m64g-pcwv",
-      "title": "GHSA: Open WebUI: SSRF Protection Bypass in Playwright Web Loader via HTTP Redirects",
-      "summary": "### Summary\nThe SafePlaywrightURLLoader implements a validate_url function to prevent SSRF attacks by checking the IP address of the user-provided URL. However, this validation is performed only on the initial URL.\n\nSince Playwright automatically follows HTTP redirects (301/302) by default, an attacker can bypass the validation by providing a safe URL that redirects to a restricted internal networ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T17:55:44Z",
-      "cve_ids": [
-        "CVE-2026-54018"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "a0e52adfb405839729e39189162b56722aac7200a631c304a982e77a4c49b1cf",
-      "url": "https://github.com/advisories/GHSA-r2wg-2mcr-66rv",
-      "title": "GHSA: Open WebUI: Path traversal / SSRF in terminal server proxy via encoded path traversal",
-      "summary": "### Summary\n\nThe terminal-server reverse proxy in `backend/open_webui/routers/terminals.py` does not fully confine the user-controlled `path` segment before forwarding it to an admin-configured terminal server. An authenticated user who has been granted access to a terminal server can craft `path` values containing encoded `../` traversal sequences that escape the intended path (or policy) scope o",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-06-17T17:55:28Z",
-      "cve_ids": [
-        "CVE-2026-54017"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "b2e8d5aaa345415ff7015df40770f4fcf793bb7849ae75217492c4c09f6254b6",
-      "url": "https://github.com/advisories/GHSA-rjxq-qqhf-8hwh",
-      "title": "GHSA: OpenClaw: MCP Streamable HTTP redirects could forward configured custom headers to another origin",
-      "summary": "### Summary\n\nOpenClaw supports remote MCP Streamable HTTP servers with operator-configured custom headers. In affected releases, those headers could be forwarded when the MCP endpoint responded with a cross-origin redirect.\n\nThis issue is limited to configured MCP Streamable HTTP servers that use custom headers. It does not expose unrelated OpenClaw credentials.\n\n### Affected configurations\n\nThis ",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-06-17T17:55:06Z",
-      "cve_ids": [
-        "CVE-2026-53840"
-      ],
-      "cvss": 7.1,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-53840"
-      ]
-    },
-    {
-      "id": "01399a101a1140552c92c36844f74c3aa807bfa8ec408140707313b804f0b1ff",
-      "url": "https://github.com/advisories/GHSA-cx9v-4qj2-jrw6",
-      "title": "GHSA: Open WebUI BOLA: `search_knowledge_files` Allows Unauthorized Knowledge Base File Enumeration",
-      "summary": "## Summary\n\nOpen WebUI has a Broken Object Level Authorization (BOLA) vulnerability in the builtin `search_knowledge_files` tool.\n\nWhen native function calling is enabled and the selected model has no attached knowledge bases, an authenticated user can call `search_knowledge_files` with an arbitrary `knowledge_id`. The function then returns file metadata from that knowledge base without checking w",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T14:31:16Z",
-      "cve_ids": [
-        "CVE-2026-54016"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "b765c6e7b7b027978c0b72857144cf4688c4c4ce8a67ebf8a1348c774d22e245",
-      "url": "https://github.com/advisories/GHSA-4r4w-2wgp-w7cj",
-      "title": "GHSA: Open WebUI Prompt history IDOR: unbound history_id allows cross-prompt read and deletion",
-      "summary": "## Summary\n\nOpen WebUI's prompt version-history endpoints authorize the `prompt_id` in the URL but then act on caller-supplied history IDs without verifying that the history row belongs to that prompt (`history_entry.prompt_id == prompt.id`). Three operations are affected:\n\n- `GET /api/v1/prompts/id/{prompt_id}/history/diff` — returns another prompt's history snapshots (read).\n- `POST /api/v1/prom",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T14:16:50Z",
-      "cve_ids": [
-        "CVE-2026-54015"
-      ],
-      "cvss": 6.4,
-      "related_links": []
-    },
-    {
-      "id": "a9ddaad9d4cd18f7383e29cd671551ee0aeba5ce5732e42d59f47ae3afb15701",
-      "url": "https://github.com/advisories/GHSA-j2c8-v969-8r5c",
-      "title": "GHSA: Open WebUI: Sibling-Prefix Path Traversal via /cache/{path}",
-      "summary": "## Summary\n\nA path traversal vulnerability exists in open-webui's cache file serving endpoint that allows any authenticated user to read files from sibling directories outside the intended cache directory, by exploiting an incomplete `startswith` containment check that lacks a trailing path separator.\n\nThe root cause is that `serve_cache_file()` in `open_webui/main.py` validates the resolved path ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T14:16:25Z",
-      "cve_ids": [
-        "CVE-2026-54014"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "c03cf55b0221e7c76f2118c192763b4b2354e48689fecd689d482753f3151979",
-      "url": "https://github.com/advisories/GHSA-v2qm-5wxj-qhj7",
-      "title": "GHSA: Open WebUI: Stored XSS to Account Takeover via Model Profile Images ",
-      "summary": "# Stored XSS to Account Takeover via Model Profile Images in Open WebUI\n\n**Affected:** Open WebUI <= 0.9.5\n**Bypass of:** GHSA-3wgj-c2hg-vm6q, GHSA-3856-3vxq-m6fc\n\n---\n\n## TL;DR\n\nOpen WebUI patched SVG XSS in user profile images and webhook profile images  but forgot to apply the same fix to **model** profile images. The `ModelMeta` class has no `validate_profile_image_url` field validator, and th",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T14:15:52Z",
-      "cve_ids": [
-        "CVE-2026-54013"
-      ],
-      "cvss": 7.6,
       "related_links": []
     }
   ]

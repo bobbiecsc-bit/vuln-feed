@@ -1,10 +1,190 @@
 {
-  "updated": "2026-06-23T17:55:48.031708+00:00",
+  "updated": "2026-06-23T21:42:56.001434+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "5d6620e2a37287997992b25c90061a23928b329b0d4964503385a3f7de6d6622",
+      "url": "https://github.com/advisories/GHSA-5hh8-q8hv-fr38",
+      "title": "GHSA: jackson-databind has @JsonView bypass for setterless creator properties",
+      "summary": "## Summary\nIn `BeanDeserializer._deserializeUsingPropertyBased`, the active-view (`@JsonView`) filter was applied only to creator properties; the regular property-buffering branch performed no `prop.visibleInView(activeView)` check. A change making `SetterlessProperty.isMerging()` return `true` routed setterless Collection/Map properties through this unguarded path, so a setterless collection anno",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:24:50Z",
+      "cve_ids": [
+        "CVE-2026-54517"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "1158703cf7d87706b88cd1f799936caa251193598387fbc67568cda22e6890be",
+      "url": "https://github.com/advisories/GHSA-9fxm-vc8v-hj55",
+      "title": "GHSA: jackson-databind's renamed @JsonIgnore'd setters can deserialize via private fields",
+      "summary": "## Summary\n`POJOPropertiesCollector._renameProperties()` allows a property with `@JsonProperty(\"renamed\")` on the getter and `@JsonIgnore` on the setter to be renamed rather than dropped. With `MapperFeature.INFER_PROPERTY_MUTATORS` enabled (default), the private backing field is retained; during deserialization `BeanDeserializerFactory.addBeanProps()` sees `hasField()==true`, builds a `FieldPrope",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:24:26Z",
+      "cve_ids": [
+        "CVE-2026-54516"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "437de2fd8f3990cc9e839761d3d5f40cc92c03c38336946f0bc3d1bd853e4f26",
+      "url": "https://github.com/advisories/GHSA-5jmj-h7xm-6q6v",
+      "title": "GHSA: jackson-databind has case-insensitive deserialization bypasses per-property @JsonIgnoreProperties",
+      "summary": "## Summary\nIn `BeanDeserializerBase.createContextual()`, per-property `@JsonIgnoreProperties` exclusions are applied by `_handleByNameInclusion()`, producing a `contextual` deserializer whose `BeanPropertyMap` has the ignored properties removed. The subsequent per-property case-insensitivity block (triggered by `@JsonFormat(ACCEPT_CASE_INSENSITIVE_PROPERTIES)`) rebuilds from `this._beanProperties`",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:23:58Z",
+      "cve_ids": [
+        "CVE-2026-54515"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "a08cc80dfefd119e7ddebe136b1df96e46c5f25599351292fa1bc0b05c99601d",
+      "url": "https://github.com/advisories/GHSA-hgj6-7826-r7m5",
+      "title": "GHSA: jackson-databind: InetSocketAddress deserialization triggers eager DNS resolution (SSRF)",
+      "summary": "## Summary\n`JDKFromStringDeserializer` constructed `InetSocketAddress` with `new InetSocketAddress(host, port)`, which performs eager DNS name resolution for hostname inputs at deserialization time. An application that binds untrusted JSON into a type containing an `InetSocketAddress` field issues an attacker-chosen DNS query during `readValue`, before any application-level validation or connect l",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:22:54Z",
+      "cve_ids": [
+        "CVE-2026-54514"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "9e140998e07b2559c7d86b8fdc0441beff80ebe5a534a5a4e5aa5e26f733d12d",
+      "url": "https://github.com/advisories/GHSA-rmj7-2vxq-3g9f",
+      "title": "GHSA: jackson-databind has an array subtype allowlist bypass in BasicPolymorphicTypeValidator (allowIfSubTypeIsArray)",
+      "summary": "## Summary\n`BasicPolymorphicTypeValidator.Builder.allowIfSubTypeIsArray()` allowlists any array type based only on `clazz.isArray()`, without validating the array's component (element) type against the configured allowlist. A PTV built with `allowIfSubTypeIsArray()` plus an explicit concrete-type allowlist therefore still permits `EvilType[]` even though `EvilType` is not allowlisted. When Jackson",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:22:15Z",
+      "cve_ids": [
+        "CVE-2026-54513"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "5238bf1f2853f0a5c4d594e68ee5f900f90f1be396c98850a5a8fa74c9a560ad",
+      "url": "https://github.com/advisories/GHSA-j3rv-43j4-c7qm",
+      "title": "GHSA: jackson-databind has a PolymorphicTypeValidator bypass via generic type parameters that allows arbitrary class instantiation",
+      "summary": "`jackson-databind`'s `PolymorphicTypeValidator` (PTV) is the primary safety mechanism guarding polymorphic deserialization. When polymorphic typing is enabled and a type identifier contains generic parameters (i.e. the type ID string contains `<`), `DatabindContext._resolveAndValidateGeneric()` validates **only the raw container class name** (the substring before `<`) against the configured PTV.\n\n",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:21:38Z",
+      "cve_ids": [
+        "CVE-2026-54512"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "84de3cc6119d848268fee788dbc570a2c205e003148a81361366171bb7198359",
+      "url": "https://github.com/advisories/GHSA-rcqc-6cw3-h962",
+      "title": "GHSA: jackson-databind has a @JsonView bypass for unwrapped creator parameters",
+      "summary": "## Summary\n`UnwrappedPropertyHandler.processUnwrappedCreatorProperties()` replays buffered JSON into creator parameters but never consults `prop.visibleInView(activeView)`. The normal property-based creator path gates creator properties on the active view, but this unwrapped-creator replay path bypasses that check, so a constructor parameter annotated with both `@JsonView(AdminView.class)` and `@J",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:17:02Z",
+      "cve_ids": [
+        "CVE-2026-54518"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "b0223bb35248291a451565ab17d751b7beccc6b0aa4b5a60e43e0e399ba33266",
+      "url": "https://github.com/advisories/GHSA-qxvg-h7q2-hcxh",
+      "title": "GHSA: motionEye: LFI → pass‑the‑hash admin → unsafe restore → unauth action exec (RCE)",
+      "summary": "## Summary\nA multi‑stage chain in motionEye leads to remote code execution. The chain combines:\n\n1. **Arbitrary file read (LFI)** via the picture download endpoint for **local motion cameras** using absolute paths.\n2. **Pass‑the‑hash admin auth** due to accepting request signatures computed with password hashes.\n3. **Unsafe config restore** that extracts attacker‑controlled tarballs into `CONF_PAT",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-23T18:53:04Z",
+      "cve_ids": [],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "90140de323b1aabfb53868925a65fae9aed5c1b1e61fd5a6e52fc200201d5f6c",
+      "url": "https://github.com/advisories/GHSA-j67x-q29f-qcvv",
+      "title": "GHSA: motionEye's missing authentication on ActionHandler allows unauthenticated camera action execution",
+      "summary": "## Summary\n\nThe `ActionHandler.post()` method in motionEye has no authentication decorator, allowing any unauthenticated attacker to trigger camera actions including snapshots, recording start/stop, and configured action scripts (PTZ controls, alarm triggers, etc.).\n\n## Vulnerability Details\n\n**File**: `motioneye/handlers/action.py` — `ActionHandler.post()` line 36\n**CWE**: CWE-862 — Missing Autho",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-23T18:37:51Z",
+      "cve_ids": [
+        "CVE-2026-55863"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "1503b7f70f530ebea80e20811837b4203634fc78382770437b744ae5630068ab",
+      "url": "https://github.com/advisories/GHSA-29hf-rm4x-xxph",
+      "title": "GHSA: Mise's local credential_command executes untrusted config",
+      "summary": "### Summary\n\n`mise` loads `github.credential_command` from local project config before any trust decision, then executes that value with `sh -c` when resolving a GitHub token. An attacker who can place a `.mise.toml` in a repository can execute arbitrary shell commands when the victim runs a GitHub-related mise command and no higher-priority GitHub token environment variable is set.\n\nThe current c",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T18:24:28Z",
+      "cve_ids": [
+        "CVE-2026-55448"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "d98a1e6ba976c48a6577d6a3f9a7fe28c7bb6e89dd04eb41be0229d37b7f4b40",
+      "url": "https://github.com/advisories/GHSA-77g9-363w-rccq",
+      "title": "GHSA: Mise vulnerable to arbitrary command execution via task-include files in an untrusted, config-less repository",
+      "summary": "### Summary\n\nmise's trust feature gates config files (`mise.toml`, `.tool-versions`) through `trust_check`, but task-include files are loaded on a path that never reaches it. When a directory has a task-include dir (`mise-tasks/`, `.mise/tasks/`, …) but no config file, mise falls back to the default includes and renders each task's tera fields — and that tera environment has `exec()` registered. A",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T18:24:08Z",
+      "cve_ids": [
+        "CVE-2026-55441"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "466e867cde1739ef4788ec536ed71a22f7026758e1240000dcd2ecd39a64ef2b",
+      "url": "https://github.com/advisories/GHSA-f94h-j2qg-fxw3",
+      "title": "GHSA: mise HTTP backend uses raw version path for install symlink destination",
+      "summary": "## Summary\n\nThe mise HTTP backend builds its install symlink destination from the raw resolved version string for non-latest versions. Normal tool install paths use the sanitized version pathname, but the HTTP backend's symlink path uses the raw value. On Unix-like systems, if that version is an absolute path, `PathBuf::join` discards the intended mise installs root.\n\nA repository-controlled `.too",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T18:13:53Z",
+      "cve_ids": [
+        "CVE-2026-54557"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "8625aa5369f2c7084a7c158792dcb2b08c3fd0085281d72b4b8b51fe1fac7b54",
+      "url": "https://github.com/advisories/GHSA-3vwc-qwhc-3mj7",
+      "title": "GHSA: Glances has arbitrary file write and command execution via `secure_popen` redirection and chaining operators in AMP command configuration",
+      "summary": "### Summary\n\nThe `secure_popen()` function in `glances/secure.py` interprets `>` (file redirection), `|` (pipe), and `&&` (command chaining) operators in command strings. These operators are applied without any validation on the target file path, piped command, or chained command.\n\nWhen Application Monitoring Process (AMP) modules load their `command` or `service_cmd` configuration values from `gl",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T17:59:01Z",
+      "cve_ids": [
+        "CVE-2026-53925"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
     {
       "id": "b4257a087f395b97c3ce73e30815dcd0203238f98fe264fd7faf05bfe2efb633",
       "url": "https://github.com/advisories/GHSA-8qv3-p479-cj62",
@@ -517,184 +697,6 @@
         "CVE-2026-46606"
       ],
       "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "1a2d68f57b3b7df95f5a8e7439a99c7f7443444bc27cf4e061e53874e36a3d49",
-      "url": "https://www.bleepingcomputer.com/news/security/ffmpeg-fixes-pixelsmash-flaw-in-widely-used-video-decoder/",
-      "title": "FFmpeg fixes PixelSmash flaw in widely used video decoder",
-      "summary": "A newly disclosed FFmpeg flaw dubbed 'PixelSmash' could be exploited for remote code execution on Jellyfin servers under certain conditions, and can also trigger a denial-of-service condition in applications like Kodi, Emby, Nextcloud, PhotoPrism, and OBS Studio. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-06-22T21:05:01+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "741aeae6994d885f51f51066c8abb975613630ebdf8e46961003e75c93950181",
-      "url": "https://github.com/advisories/GHSA-c8q4-9h32-2ww8",
-      "title": "GHSA: Spinnaker has uon-safe yaml deserialization, allowing RCE when using specific types",
-      "summary": "### Impact\nThere's an unsafe YAML processing vulnerability that bypasses safe deserialization. This impacts users when when performing:\n* CloudFormation deployments\n* CloudFoundry Baking\n\nThe usage of a non-safe constructor use allows arbitrary loading of Java classes leading to RCE.\n\n### Patches\n 2025.3.3, 2026.0.3 and 2025.4.4.\n\n### Workarounds\nDisable the CloudFormation system and cloudfoundry ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-22T20:43:37Z",
-      "cve_ids": [
-        "CVE-2026-44795"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "89f28ec97cdf0ff7af14f6c3f13601228c9fc5e8b280f77ee370e2d1495d8c40",
-      "url": "https://github.com/advisories/GHSA-x93q-x9pc-w5hw",
-      "title": "GHSA: Paymenter has broken object level authorization via service reference manipulation on ticket creation",
-      "summary": "### Summary\nThe ticket creation endpoint accepts a user-supplied service identifier without enforcing ownership validation, allowing authenticated users to create support tickets referencing services belonging to other accounts by modifying the service ID in the request.\n\n### Technical Details\n\nThe ticket creation endpoint accepted a user-supplied service identifier without verifying ownership or ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-22T20:30:16Z",
-      "cve_ids": [
-        "CVE-2026-44585"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "2d8410f790c48e8f0774cc986df85f73e100b2c9ed16ce03b565453b90d6da7a",
-      "url": "https://github.com/advisories/GHSA-rv89-wch8-c574",
-      "title": "GHSA: Paymenter doesn't reset email verification status after email change",
-      "summary": "### Summary\nThe email update functionality fails to invalidate the existing verification state when a user changes their email address, allowing a verified account to retain its verified status after switching to an unverified or unowned email address.\n\n### Technical Details\nWhen a user updated their email address, the system did not reset or revalidate the associated email verification status. As",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-22T20:29:41Z",
-      "cve_ids": [
-        "CVE-2026-44584"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "10389939d2f12879003ca04770c404a187f433df8352592f04ed9e2dd0f5ac23",
-      "url": "https://github.com/advisories/GHSA-7wwh-xcc3-9fcg",
-      "title": "GHSA: Paymenter has Blind Unauthenticated SSRF on the Paypal gateway module",
-      "summary": "### Summary\nThe PayPal webhook endpoint `/extensions/paypal/webhook` processes the `PAYPAL-CERT-URL` HTTP header without validation, allowing attackers to control server-side HTTP request destinations.\n\n### Technical details:\n\nThe `/extensions/paypal/webhook` endpoint processes incoming webhook requests and trusts the value of the `PAYPAL-CERT-URL` HTTP header without validation.\n\nThis value is pa",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-22T20:28:29Z",
-      "cve_ids": [
-        "CVE-2026-44583"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "116a1b2fa361c65b87cfd7decf03c652e0af08d887d39d76abd51ac3eed08101",
-      "url": "https://github.com/advisories/GHSA-49p4-px3h-rq49",
-      "title": "GHSA: Build breakout using malicious Containerfile and Git Smart HTTP server or GitHub release tar archive",
-      "summary": "### Impact\n\nWhen processing a build contexts or `add`/`copy` instructions, a malicious server serving a Git repository or a tar archive file can cause files outside of the build context directory to be included in the build context or copied into the build.\n\n### Patches\n\nFixed in Buildah 1.44 and 1.43.2.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-22T20:15:48Z",
-      "cve_ids": [
-        "CVE-2026-44517"
-      ],
-      "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "e0f050090f1415c7639023c7d13b5bfda60f7f311e7f15a9a6c6ff01f2135195",
-      "url": "https://github.com/advisories/GHSA-fq9h-c788-fx73",
-      "title": "GHSA: OpenAM has pre-auth Reflected XSS in OAuth2 / OIDC response_mode=form_post via state parameter (FormPostResponse.ftl)",
-      "summary": "### Summary\n\nThe OAuth 2.0 / OpenID Connect authorization endpoint does not sufficiently sanitize certain user-supplied parameters before incorporating them into the HTML response generated for the `form_post` response mode. This may allow an attacker to inject content into the rendered page in the context of the OpenAM origin.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-22T20:11:49Z",
-      "cve_ids": [
-        "CVE-2026-44203"
-      ],
-      "cvss": 9.3,
-      "related_links": []
-    },
-    {
-      "id": "c7a159f7b6315e164cc25631bbab1c12589046043fb6d0be5e05d98517430abb",
-      "url": "https://github.com/advisories/GHSA-w56x-9778-rppx",
-      "title": "GHSA: xwiki-pro-macros has remote code execution from page title and content via excerpt-include macro",
-      "summary": "### Summary\nThe excerpt-include macro does not properly escape the title of the included page and executes the content of the excerpt with the macro's rights. Therefore, it is vulnerable to XWiki syntax injection via the included page's title and content, allowing remote code execution for any user who can edit a page.\n\n### Details\nThe title of the included page isn't escaped in [ExcerptInclude.xm",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-22T20:09:59Z",
-      "cve_ids": [
-        "CVE-2026-44179"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "f9e49c8b44c97dc7976fd2ddde847c7c03da54b2c635472b8a8e21c000c84314",
-      "url": "https://github.com/advisories/GHSA-xjvp-4fhw-gc47",
-      "title": "GHSA: runc: Malicious image with /dev symlink can trigger limited host filesystem integrity violations ",
-      "summary": "### Impact\nWhen setting up the container rootfs, `setupPtmx` and `setupDevSymlinks` call `os.Remove` and `os.Symlink` with a `filepath.Join` string which allow an image with `/dev` as a symlink to trick runc into deleting files called `ptmx` on the host or creating a hardcoded set of symlinks with specific names and targets in an arbitrary pre-existing host directory.\n\nPlease note that this issue ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-22T20:01:35Z",
-      "cve_ids": [
-        "CVE-2026-41579"
-      ],
-      "cvss": 3.3,
-      "related_links": []
-    },
-    {
-      "id": "3e2c39543fbaa3da50e035f2ed9776be1b2ad44438ece227f26d785de413d56b",
-      "url": "https://www.bleepingcomputer.com/news/security/fortibleed-campaign-used-custom-fortigate-sniffer-to-steal-credentials/",
-      "title": "FortiBleed campaign used custom FortiGate sniffer to steal credentials",
-      "summary": "Security firm SOCRadar says the large-scale FortiBleed campaign targeting Fortinet FortiGate devices used custom sniffers to harvest authentication secrets from compromised firewalls and steal credentials. [...]",
-      "source": "Bleeping Computer",
-      "category": "infrastructure",
-      "date": "2026-06-22T20:01:02+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "249d3d587f3aa90dfaf18eec13857b8395f79b2323dc26c8e0c956ac90df48f9",
-      "url": "https://github.com/advisories/GHSA-95jh-7r58-xmxw",
-      "title": "GHSA: AVideo has an Authorize.Net Webhook Signature Bypass that Enables Wallet Balance Inflation via Forged Payment Data",
-      "summary": "## Summary\n\nThe Authorize.Net webhook handler at `plugin/AuthorizeNet/webhook.php` contains a signature verification bypass that allows an attacker to forge webhook requests with arbitrary payment amounts and target user IDs. By supplying a valid transaction ID from a small legitimate purchase, the attacker bypasses signature validation and credits arbitrary wallet balances to any user account via",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-22T19:58:50Z",
-      "cve_ids": [
-        "CVE-2026-33731"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "7f56b71c06582d9c70e1631be7759bf15de0b55926736a403b42f0eb73f4122b",
-      "url": "https://github.com/advisories/GHSA-95pq-hr8p-f5g7",
-      "title": "GHSA: ComfyUI-Manager has an Unprotected Alternate Channel (CWE-420)",
-      "summary": "### Impact\n\nAn **Unprotected Alternate Channel (CWE-420)** vulnerability was discovered in ComfyUI-Manager versions prior to 3.38.\n\n#### Vulnerability Details\n\nIn affected versions, ComfyUI-Manager stored its configuration in the `user/default/ComfyUI-Manager/` directory, which was accessible via ComfyUI's web APIs without proper access control. This unprotected alternate channel allowed remote at",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-22T19:58:24Z",
-      "cve_ids": [
-        "CVE-2025-67303"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "b36e89e0ad7f5cbd02e5c15c7c9fa36b9d61a426b61016d464178562dcf6d68d",
-      "url": "https://github.com/advisories/GHSA-wf69-r4mx-43rr",
-      "title": "GHSA: AVideo Vulnerable to Unauthenticated .env File Exposure via Official Docker Compose Configuration",
-      "summary": "## Vulnerability Details\n\n**CWE**: CWE-538 - Insertion of Sensitive Information into Externally-Accessible File or Directory\n\nThe official `docker-compose.yml` (line 61) mounts the entire project root directory as the Apache document root:\n\n```yaml\nvolumes:\n  - \"./:/var/www/html/AVideo\"\n```\n\nThis causes the `.env` file — which contains database credentials, admin passwords, and infrastructure conf",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-22T19:54:15Z",
-      "cve_ids": [
-        "CVE-2026-33692"
-      ],
-      "cvss": 7.5,
       "related_links": []
     }
   ]
