@@ -1,10 +1,52 @@
 {
-  "updated": "2026-06-24T14:30:46.404138+00:00",
+  "updated": "2026-06-24T17:54:23.229984+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "1e4363f4e0ac36bc3fc072a09634bcbb24a284bfaa3af16e24cb584433d98005",
+      "url": "https://github.com/advisories/GHSA-p9f5-h3rx-j5qw",
+      "title": "GHSA: Gogs Missing Authorization in Attachment Download",
+      "summary": "## Summary\n\nIn Gogs 0.14.1, `GET /attachments/:uuid` returns the raw attachment file **without verifying whether the requester has view permission for the associated Issue/Comment/Release or the repository**.\nIn a test environment with `REQUIRE_SIGNIN_VIEW = false`, we confirmed that **an unauthenticated user can download attachments belonging to a private repository**.\n\n## Description\n\n`/attachme",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-22T23:59:03Z",
+      "cve_ids": [
+        "CVE-2026-52799"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "0eaea380afa45f7f344245575a6e8334b000bdd76def176ccb7f069a4c86c922",
+      "url": "https://github.com/advisories/GHSA-jq8v-rmf6-65jw",
+      "title": "GHSA: Gogs has Stored XSS in `.ipynb` Preview",
+      "summary": "# Summary\n\nAlthough `.ipynb` previews are sanitized on the server side via `/-/api/sanitize_ipynb`, the inserted content is **re-rendered on the client side without sanitization** using `marked()` on elements with the `.nb-markdown-cell` class. During this process, links containing schemes such as `javascript:` can be regenerated.\n\nAs a result, when a victim views an attacker-crafted `.ipynb` file",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-22T23:58:46Z",
+      "cve_ids": [
+        "CVE-2026-52798"
+      ],
+      "cvss": 8.9,
+      "related_links": []
+    },
+    {
+      "id": "f365cd502f74d28df0928d15e4449226865681cce210aac486c28e46758979eb",
+      "url": "https://github.com/advisories/GHSA-4j89-2c4f-44c6",
+      "title": "GHSA: Gogs has DoS in rendering issue index pattern",
+      "summary": "### Summary\nSpecial template of issue index pattern may cause panic.\n\n### Details\n\nin internal/markup/markup.go\n\n```go\nlink = fmt.Sprintf(`<a href=\"%s\">%s</a>`, com.Expand(metas[\"format\"], metas), m)\n```\n\nIssue index pattern is rendered to link with `com.Expand`.\n\nHowever, `com.Expand` is not safe.\n\n```go\ni = strings.Index(template, \"}\")\nif s, ok := match[template[:i]]; ok {\n```\n\nwhen `{` is found",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-22T23:58:17Z",
+      "cve_ids": [
+        "CVE-2026-52796"
+      ],
+      "cvss": 3.5,
+      "related_links": []
+    },
     {
       "id": "5803ef06797e5c284b20057ee1a111c7a356311411825fe45a6208e20472a8f9",
       "url": "https://github.com/advisories/GHSA-xqjm-27pc-rvwm",
@@ -643,42 +685,6 @@
       "date": "2026-06-19T22:10:48Z",
       "cve_ids": [],
       "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "b147a3075d5f9a26466a08d9eabceb6aa9d64352dba3c93dec243881f01dd39e",
-      "url": "https://github.com/advisories/GHSA-h5rg-8p7f-47g2",
-      "title": "GHSA: SurrealDB: SSRF via JWKS URL — Redirect Following in JWT Key Fetch",
-      "summary": "SurrealDB fetches the JWKS document for a JWT or record access method using a bare `reqwest` client that follows HTTP redirects by default. The network capability check in `core/src/iam/jwks.rs` (`check_capabilities_url`) is applied only to the originally configured URL; redirect targets are not re-validated. An `--allow-net`-permitted JWKS host that returns a `3xx Location` can therefore redirect",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-19T22:10:45Z",
-      "cve_ids": [],
-      "cvss": 4.1,
-      "related_links": []
-    },
-    {
-      "id": "f34e83c927bdb6cef79b4653c14ddb4e5a0dcd2bc66ae60d9fcdd64f9e4864c0",
-      "url": "https://github.com/advisories/GHSA-4xgf-cpjx-pc3j",
-      "title": "GHSA: pydantic-settings: NestedSecretsSettingsSource follows symlinks outside secrets_dir, enabling local file read and bypassing secrets_dir_max_size",
-      "summary": "### Summary\n\n`NestedSecretsSettingsSource` reads secret values from files in a configured `secrets_dir`. When `secrets_nested_subdir=True`, a directory entry inside `secrets_dir` that is a symbolic link pointing **outside** `secrets_dir` is followed, so files outside the configured directory are read into settings values. The same code path bypasses the documented `secrets_dir_max_size` protection",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-19T22:10:42Z",
-      "cve_ids": [],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "b5a06dd21e49fa8e713728fe77c4145033a813d8993731fe1099af443080a5d1",
-      "url": "https://github.com/advisories/GHSA-h5x8-xp6m-x6q4",
-      "title": "GHSA: @jhb.software/payload-cloudinary-plugin: Arbitrary Cloudinary API Parameter Signing",
-      "summary": "## Arbitrary Cloudinary API Parameter Signing in @jhb.software/payload-cloudinary-plugin\n\n### Summary\n\n`@jhb.software/payload-cloudinary-plugin` v0.3.4 exposes a server-side signing endpoint (`POST /api/cloudinary-generate-signature`) that passes attacker-supplied `paramsToSign` directly to `cloudinary.utils.api_sign_request()` without any allowlist, key filtering, or policy enforcement. Any authe",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-19T22:10:37Z",
-      "cve_ids": [],
-      "cvss": 7.1,
       "related_links": []
     }
   ]
