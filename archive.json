@@ -1,7 +1,241 @@
 {
-  "updated": "2026-06-23T21:42:56.001434+00:00",
+  "updated": "2026-06-24T03:37:10.170619+00:00",
   "total": 250,
   "articles": [
+    {
+      "id": "e77c9718dc8364cd9b1dfb79c7734cb2eabbf3bf1e2a8e31876ca320e8bdec55",
+      "url": "https://github.com/advisories/GHSA-pwpj-p52h-q484",
+      "title": "GHSA: Snipe-IT API Vulnerable to Cross-Tenant Accessory Injection",
+      "summary": "### Impact\nA cross-tenant data injection vulnerability was identified in the Snipe-IT Accessories API when Full Multiple Companies Support (FMCS) is enabled. A low-privileged authenticated user belonging to one company can create an accessory record under another company by supplying a foreign company_id value in the API request body.\n\nThe issue occurs because the API create path mass-assigns requ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T23:12:04Z",
+      "cve_ids": [
+        "CVE-2026-54329"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "cf8216327945f211627a51288cbb9e2869f3c1857ecc7cb5fe6ce26cf1add2dc",
+      "url": "https://github.com/advisories/GHSA-33g4-646g-qwmm",
+      "title": "GHSA: Snipe-IT has Multi-Tenancy Bypass via Bulk Asset Update",
+      "summary": "### Impact\nThe `BulkAssetsController::update()` method accepts `company_id` directly from user input without calling `Company::getIdForCurrentUser()`, the standard company-scoping function used by every other controller in the codebase. A non-superadmin user can move assets across company boundaries, breaking multi-tenancy isolation.\n\n### Patches\nPatched in https://github.com/grokability/snipe-it/",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T23:03:47Z",
+      "cve_ids": [
+        "CVE-2026-55482"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "bc3f07dab1e3aaee05d21ee7fd292ad0430ab61125094bac392d263ca06b3eb3",
+      "url": "https://github.com/advisories/GHSA-6x4j-8954-5hxm",
+      "title": "GHSA: Snipe-IT has a 2FA reset privilege bypass",
+      "summary": "### Impact\nA user who can edit other users could reset a superadmin's 2FA.\n\n### Patches\nPatched in 8.5.0",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T23:03:20Z",
+      "cve_ids": [
+        "CVE-2026-50550"
+      ],
+      "cvss": 5.8,
+      "related_links": []
+    },
+    {
+      "id": "d0e6ae7b6b75d4db04b92ad0f89fe9a0048cd26a4f7048ea0e8684dcdb7ec9c3",
+      "url": "https://github.com/advisories/GHSA-p68w-rgmg-3c2v",
+      "title": "GHSA: Snipe-IT Vulnerable to User Account Escalation via CSV Import",
+      "summary": "### Impact\nThe CSV user import in update mode bypasses user-edit authorization. A user with only the `import` permission can overwrite any non-admin user's email by uploading a CSV, then trigger a password reset to take over the account.\n\n`UserImporter.php` checks the `canEditAuthFields` gate and tries to strip auth fields from the model:\n\n```php\n// app/Importer/UserImporter.php:107-114\nif (Auth::",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T23:02:03Z",
+      "cve_ids": [
+        "CVE-2026-49976"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "32e924a6b3e310acf0155306a145233d453504d5878dbb274148e4331dbd7d4e",
+      "url": "https://github.com/advisories/GHSA-w2j7-f3c6-g8cw",
+      "title": "GHSA: Flask-Security has an Open Redirect issue",
+      "summary": "# Open Redirect in Flask-Security\n\n## Summary\n\n`flask_security.utils.validate_redirect_url()` can allow an attacker-controlled redirect URL when subdomain redirects are enabled.\n\nThe bypass uses a backslash inside the URL authority/host:\n\n```text\nhttp://evil.com\\.whitelist.com\nhttp://evil.com%5C.whitelist.com\n```\n\nPython's `urlsplit()` parses the full authority as `evil.com\\.whitelist.com` or `evi",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T22:46:31Z",
+      "cve_ids": [],
+      "cvss": 4.7,
+      "related_links": []
+    },
+    {
+      "id": "69ff7c9deb2e7fd3ec48da77c8c2b7acb1eb9cc56c240d2825877986cc0049cd",
+      "url": "https://github.com/advisories/GHSA-mr8g-2mj4-pcq2",
+      "title": "GHSA: Snipe-IT's TOTP is Brute-Forceable Due to Missing Rate Limiting on `POST /two-factor`",
+      "summary": "### Impact\n`POST /two-factor` had no rate limiting, lockout, or attempt counter. An attacker with valid credentials can submit unlimited TOTP guesses. The TOTP implementation accepts the current code plus one step on either side (`config/google2fa.php window=1`), so at any instant 3 of 1,000,000 codes are accepted.\n\nAfter a correct guess the attacker holds a fully authenticated session. If the ins",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-23T22:32:04Z",
+      "cve_ids": [
+        "CVE-2026-49870"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "2893d233e12c41e62880630c95e290b51337dc68bfe4465b35acb7062f92416d",
+      "url": "https://github.com/advisories/GHSA-8c6h-7g6x-m5x4",
+      "title": "GHSA: phpMyFAQ: Missing userHasPermission() in 4 API write endpoints (CVE-2026-24421 Incomplete Fix)",
+      "summary": "Missing Authorization in API CategoryController —  CVE-2026-24421 fixed BackupController by adding userHasPermission(PermissionType::BACKUP). The same fix was NOT applied to 4 other write endpoints in the public API.  All 4 only call hasValidToken() (shared API key) but never call userHasPermission(), allowing any API token holder to perform admin operations regardless of their user permissions.\n\n",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T22:27:34Z",
+      "cve_ids": [
+        "CVE-2026-49205"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "68f2a45a6802f633d4ff57b1abf97f97225552dffd4843fb4780adceb9454fb6",
+      "url": "https://github.com/advisories/GHSA-6f75-x745-xcpr",
+      "title": "GHSA: Snipe-IT: Bulk editing users allowed `ldap_import` and `activated_in` bulk editing users",
+      "summary": "### Impact\nThe vulnerability allows a non-admin user holding only the granular `users.edit` permission to lock every admin out of the instance  by editing the `activated` flag (which determines whether or not a user can login) and the `ldap_import` flag, which determines whether or not the user can request a password reset.\n\n### Patches\nPatched in https://github.com/grokability/snipe-it/commit/403",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-06-23T22:24:59Z",
+      "cve_ids": [
+        "CVE-2026-48507"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "a5e3f5ebedd7ab1953e4fb11dc1f21a3c7b347b77002420054671e237fd8cf08",
+      "url": "https://github.com/advisories/GHSA-wcmj-x466-56mm",
+      "title": "GHSA: OpenTofu: Provider cache installation follows root-module-controlled package directory symlink and writes outside the working tree",
+      "summary": "## Summary\n\nIf a symlink already exists under the `.terraform/providers` directory where a provider package needs to be installed, `tofu init` would follow that symlink and install the new package content into it.\n\nIf an attacker can coerce an operator into running `tofu init` in a directory whose contents are attacker-controlled, they can include such a symlink along with instruction to install a",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-23T22:23:01Z",
+      "cve_ids": [],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "e304d447ee7a11e47a298490ddca62f992c0c158c05f36fc9b6f0f9a34200986",
+      "url": "https://github.com/advisories/GHSA-44wp-g8f4-f4v5",
+      "title": "GHSA: Filament: Unauthenticated temporary file upload on auth pages",
+      "summary": "Any schema can contain a file upload form field, so Filament applies Livewire's `WithFileUploads` trait to the Livewire component the schema is embedded in. However, some schemas, such as the panel login form, do not require file uploads, and exposing unauthenticated temporary file uploads on these components is not an acceptable risk. On these components, an unauthenticated attacker could upload ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-23T22:16:58Z",
+      "cve_ids": [
+        "CVE-2026-48500"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "49342c70ec62d598a164cce5f4f9e8a7e430be7b55bec98f52862ed8499ed5f4",
+      "url": "https://github.com/advisories/GHSA-f2r5-5m7w-p5cx",
+      "title": "GHSA: opentelemetry-ebpf-profiler: Unprivileged process can trigger a denial of service on the ebpf-profiler agent",
+      "summary": "### Summary\n\nAn unprivileged process can easily trigger the `processPIDEvents` goroutine to be blocked indefinitely, preventing the goroutine from analyzing any new ELF file. The goroutine stays blocked in the `openat2` syscall forever and the profiler can no longer work properly, it is a denial of service.\n\n### Impact\n\nThe impact is limited to denial-of-service on the ebpf-profiler agent:\n- There",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T22:16:14Z",
+      "cve_ids": [
+        "CVE-2026-48496"
+      ],
+      "cvss": 6.2,
+      "related_links": []
+    },
+    {
+      "id": "e1ab98b36f9198eaf0fcf5473fe356a2ebaffdb1a02528685a7f58a46c6ab256",
+      "url": "https://github.com/advisories/GHSA-52fw-7fw2-fmv5",
+      "title": "GHSA: Snipe-IT Vulnerable to Privilege Escalation for self via API Permissions Assignment",
+      "summary": "### Impact\nA user with only users.edit AND api permissions can send a PATCH to /api/v1/users/{their_own_id} and grant themselves any permission except admin and superuser — for example `assets.view`, `assets.create`, `reports.view`, import, etc.\n\n### Patches\nPatched in https://github.com/grokability/snipe-it/pull/19024",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T22:12:11Z",
+      "cve_ids": [
+        "CVE-2026-48493"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "1b4705b6bae0d518494b5a3f21f46ca52e9b37be402c24b9bb2ecc9287d092d4",
+      "url": "https://github.com/advisories/GHSA-3fc8-8hp6-6jr4",
+      "title": "GHSA: Filament: Unvalidated ImageColumn and ImageEntry values can be used for XSS",
+      "summary": "The `ImageColumn` and `ImageEntry` components render raw database values without escaping HTML. Where the data passed to these components isn't validated, an attacker could plant malicious HTML or JavaScript and achieve stored XSS that executes for users who view the table or schema.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:57:49Z",
+      "cve_ids": [
+        "CVE-2026-48167"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "f08d95b9ea18e2113ff4ee0338f47ddf0ba17d19bf4cb2d1c3d1bc3f5674c7f2",
+      "url": "https://github.com/advisories/GHSA-5w46-g9pq-wh6f",
+      "title": "GHSA: Filament: Timing-based user enumeration on login page",
+      "summary": "The login page has an observable timing discrepancy that allows unauthenticated attackers to enumerate registered email addresses. The impact is limited to disclosing whether an account exists for a given email.",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-23T21:54:35Z",
+      "cve_ids": [
+        "CVE-2026-48166"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "565d5f6cdac50f99b2f0999390efd8b92785eb1f1663df7a2f7160660230b7b1",
+      "url": "https://github.com/advisories/GHSA-53h4-8rc4-f539",
+      "title": "GHSA: Slim has Reflected XSS in the HtmlErrorRenderer",
+      "summary": "### Impact\n\nIf an application uses `HttpException::setTitle()` and/or `setDescription()` to include untrusted/request-derived data in the error title or description (e.g. `\"No products found matching '{$query}'.\"`), an attacker could inject arbitrary HTML/JavaScript that executes in the victim's browser when they encounter an HTML error page generated by Slim.\n\nThe vulnerability is present even wi",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:54:06Z",
+      "cve_ids": [
+        "CVE-2026-48157"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "852206749f74ac583d3e40243a68a3dcc59425f673357530a5e5c6720781c1ca",
+      "url": "https://github.com/advisories/GHSA-jc3j-x6pg-4hmv",
+      "title": "GHSA: Algernon: Host header path traversal in --domain mode reads files and runs Lua from parent dir",
+      "summary": "### Summary\n\nWhen algernon is started with `--domain` (or `--letsencrypt`, which silently turns on `--domain` at `engine/flags.go:372`), the request handler resolves the served directory by joining the configured `--dir` with the value of the client-supplied `Host` header. The join is performed by `filepath.Join` with no validation, so a `Host: ..` header walks one level above the document root. S",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-23T21:49:11Z",
+      "cve_ids": [
+        "CVE-2026-48126"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "bca3c4953502f9cf1607896f65dfe015299be5c0e8d062d8a576fbcebf1a1db0",
+      "url": "https://www.bleepingcomputer.com/news/security/cisco-unified-cm-sme-flaw-cve-2026-20230-now-exploited-in-attacks/",
+      "title": "Cisco Unified CM flaw CVE-2026-20230 now exploited in attacks",
+      "summary": "A high-severity SSRF vulnerability, tracked as CVE-2026-20230, in Cisco Unified Communications Manager Server is now being exploited in attacks. [...]",
+      "source": "Bleeping Computer",
+      "category": "web_app",
+      "date": "2026-06-23T21:48:32+00:00",
+      "cve_ids": [
+        "CVE-2026-20230"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
     {
       "id": "5d6620e2a37287997992b25c90061a23928b329b0d4964503385a3f7de6d6622",
       "url": "https://github.com/advisories/GHSA-5hh8-q8hv-fr38",
@@ -3153,240 +3387,6 @@
       "date": "2026-06-18T12:55:36+00:00",
       "cve_ids": [],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "46079806e3c816680f41b91ca54c36a8fd3f240e1455a876cd57917b89cd62c2",
-      "url": "https://www.bleepingcomputer.com/news/security/fortibleed-leak-exposes-fortinet-vpn-credentials-for-73-000-devices/",
-      "title": "FortiBleed leak exposes Fortinet VPN credentials for 73,000 devices.",
-      "summary": "A newly discovered data leak dubbed \"FortiBleed\" has exposed what appears to be a collection of Fortinet and FortiGate VPN credentials for 73,932 firewall URLs at organizations worldwide. [...]",
-      "source": "Bleeping Computer",
-      "category": "infrastructure",
-      "date": "2026-06-18T12:54:39+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4b0167cdca52532431f328949a6c6d063d8af95ebccad7d50a7b120f370aade5",
-      "url": "https://www.bleepingcomputer.com/news/security/telegram-admits-it-couldnt-police-exam-leak-channels-india-tells-court/",
-      "title": "Telegram admits it couldn't police exam-leak channels, India tells court",
-      "summary": "India's government has told the Delhi High Court that Telegram was warned about two weeks before it was blocked, and that the platform admitted it could not proactively detect the channels selling leaked exam papers. Telegram says it cooperated and the ban is unlawful. [...]",
-      "source": "Bleeping Computer",
-      "category": "cloud",
-      "date": "2026-06-18T12:18:49+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "62e130f2198856e5bbbca4007e2d0342856e7c778b5f00170857507f8f93080b",
-      "url": "https://www.bleepingcomputer.com/news/security/f5-issues-out-of-band-patches-for-critical-nginx-vulnerabilities/",
-      "title": "F5 issues out-of-band patches for critical NGINX vulnerabilities",
-      "summary": "Cybersecurity company F5 has released out-of-band security updates to address multiple NGINX web server vulnerabilities, including two critical-severity flaws that could allow attackers to execute code on vulnerable systems. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-06-18T11:33:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "2a39965d9a1874974f24172c6e9b95e7a7851b8cb43ab36d3b9b6404ae534c2c",
-      "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-fixes-windows-server-2016-security-update-failures/",
-      "title": "Microsoft fixes Windows Server 2016 security update failures",
-      "summary": "Microsoft has fixed a known issue causing the June 2026 security updates to fail on Windows Server 2016 systems that weren't up to date. [...]",
-      "source": "Bleeping Computer",
-      "category": "infrastructure",
-      "date": "2026-06-18T10:14:20+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b271d07143ae5015a0b382569af0bc26274c365c42f71f1cde112a656b37953a",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-20253",
-      "title": "CVE-2026-20253: Splunk Enterprise Missing Authentication for Critical Function Vulnerability",
-      "summary": "Splunk Enterprise contains a missing authentication for critical function vulnerability which could allow an unauthenticated user to create or truncate arbitrary files through a PostgreSQL sidecar service endpoint. Affected product: Enterprise by Splunk. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Update",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-06-18T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-20253"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "484e5f64b8f2198ad76c0d418ab59bc0ec5c05acd16da5feb0c1446c17eb96b4",
-      "url": "https://github.com/advisories/GHSA-8fq9-273g-6mrg",
-      "title": "GHSA: Avo: Missing Authorization in Avo Association Attach Endpoint Allows Unauthorized Relationship Manipulation and Privilege Escalation",
-      "summary": "## Summary\n\nA critical missing authorization flaw exists in Avo's association attach workflow. The UI and `GET /resources/:resource/:id/:related/new` path can check `attach_<association>?`, but the actual write endpoint, `POST /resources/:resource/:id/:related`, does not run the same authorization check before mutating the association.\n\nAs a result, an authenticated low-privileged Avo user can byp",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-17T18:49:11Z",
-      "cve_ids": [
-        "CVE-2026-55518"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "609799fb085ae9c290e5cdaac20cc2714bd70cd2bf4df1c6d2979e2e296b7f1b",
-      "url": "https://github.com/advisories/GHSA-x2qc-cmh9-f4hf",
-      "title": "GHSA: Deno: Denial of service via non-ASCII bytes in WebSocket response headers",
-      "summary": "## Summary\n\nA Deno program that opens a client `WebSocket` connection could be crashed by\nthe remote server. While handling the WebSocket handshake response, Deno parsed\nthe `Sec-WebSocket-Protocol` and `Sec-WebSocket-Extensions` response headers in\na way that assumed their bytes were always printable ASCII. A response header\ncontaining non-visible-ASCII bytes (`0x80`-`0xFF`) caused a panic that a",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T18:48:18Z",
-      "cve_ids": [
-        "CVE-2026-55517"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "664f1f64f7c8b1e09dba7d09e789d7cee6f9943c5ed2221848f878055da68a50",
-      "url": "https://github.com/advisories/GHSA-fxj4-p9xp-37v5",
-      "title": "GHSA: HAPI FHIR: Incomplete fix for CVE-2026-45367: DSTU2 FHIRPathEngine.matches() missing RegexTimeout protection allows ReDoS",
-      "summary": "## Summary\nThe fix for CVE-2026-45367 added `RegexTimeout` protection to the `matches()` function in DSTU2016MAY, DSTU3, R4, R4B, and R5, but the DSTU2 module was incompletely patched. In `org.hl7.fhir.dstu2`, `replaceMatches()` was updated while `matches()` at line 2462 still calls the raw `String.matches(sw)` without any timeout, allowing an unauthenticated attacker to trigger catastrophic regex",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-17T18:47:23Z",
-      "cve_ids": [
-        "CVE-2026-55470"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "aa6c99d6464bd5da74ed229e532a72258d135848312cd504ac9f0993d761fbc7",
-      "url": "https://github.com/advisories/GHSA-x223-p2gf-v735",
-      "title": "GHSA: Langflow: Unauthenticated file upload leads to DoS (space exhaustion) and information leak",
-      "summary": "### Summary\nUnauthenticated users can upload any amount of data to the server without any limitations. No need for any prior knowledge, only network access to Langflow.\n\nThis can lead to space exhaustion on the server.\n\nIn adition, in the response, the absolute path of the uploaded file is reported to the attacker, which is an information leak that can assist in chaining other primitives.\n\nTested ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-17T18:43:12Z",
-      "cve_ids": [
-        "CVE-2026-55450"
-      ],
-      "cvss": 9.3,
-      "related_links": []
-    },
-    {
-      "id": "45992624dcbbd743e31f47d1ba98df1ffaaa67901c004055b7011abb6387d74c",
-      "url": "https://github.com/advisories/GHSA-r4gv-qr8j-p3pg",
-      "title": "GHSA: handlebars.java FileTemplateLoader Path Traversal",
-      "summary": "### Impact\nAny application that passes user-controlled input to Handlebars.compile() using a FileTemplateLoader (or ClassPathTemplateLoader) is vulnerable to arbitrary file read. This is a realistic attack surface for web applications that use template names from URL path parameters, request parameters, or other user-controlled sources.\n\n### Patches\ncom.github.jknack:handlebars:4.5.2\n\n### Workarou",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-17T18:42:09Z",
-      "cve_ids": [
-        "CVE-2026-55760"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "18439967961769b16966f12db42bd64c4517e7995b8d61aa973aa36f39600b9b",
-      "url": "https://github.com/advisories/GHSA-m9cv-24rx-8mv7",
-      "title": "GHSA: Filament: Disabled RichEditor field state can be used for XSS",
-      "summary": "In Filament v3, a disabled `RichEditor` field rendered its raw state without sanitizing HTML. Where the data stored in this field's state isn't sanitized already when the form state was filled, an attacker could plant malicious HTML or JavaScript and achieve XSS that executes for users who view the form.\n\nPlease note that Filament v4 and above does not use the same mechanism for rendering a disabl",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T18:41:12Z",
-      "cve_ids": [
-        "CVE-2026-55409"
-      ],
-      "cvss": 7.6,
-      "related_links": []
-    },
-    {
-      "id": "6342af4d6626e4106400c944a7b3a43d77a0d727e37ce43693965af486b063fa",
-      "url": "https://github.com/advisories/GHSA-2mfg-cc43-9pcj",
-      "title": "GHSA: LangChain4j: SQL injection via metadata filters in langchain4j-mariadb and langchain4j-pgvector",
-      "summary": "### Summary\nThe MariaDB and pgvector embedding stores build metadata-filter SQL by string-concatenating\nfilter **keys** (and, in MariaDB, string **values**) directly into the query without adequate\nescaping. A crafted metadata key in `EmbeddingSearchRequest.filter()` can break out of its SQL\ncontext and inject arbitrary SQL into the statements executed by the stores' search and\n`removeAll(Filter)`",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T18:39:56Z",
-      "cve_ids": [
-        "CVE-2026-55405"
-      ],
-      "cvss": 7.6,
-      "related_links": []
-    },
-    {
-      "id": "62d2fa07d335048ce15e1cf31a2cd32afb376c62bd8c452f1afde9f019bf2a74",
-      "url": "https://github.com/advisories/GHSA-gwxr-7h77-7777",
-      "title": "GHSA: Capsule: Incomplete fix of CVE-2026-30963: singular/plural typo leaves namespaces/finalize unprotected",
-      "summary": "### Summary\nCapsule v0.13.2 webhook rules contain `namespace/finalize` (singular) instead of `namespaces/finalize` (plural). K8s requires plural. The finalize defense from CVE-2026-30963 fix is absent.\n\n### Details\nPUT to `/api/v1/namespaces/<ns>/finalize` has resource=namespaces (plural). The singular rule never matches. `matchPolicy: Equivalent` does not compensate.\n\n### PoC\nConfirmed on kind + ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-17T18:14:12Z",
-      "cve_ids": [
-        "CVE-2026-55636"
-      ],
-      "cvss": 5.7,
-      "related_links": []
-    },
-    {
-      "id": "e1823372425c979132de5190097a3a617b2655d6797ef8f7f90ff4fb836ec4a0",
-      "url": "https://github.com/advisories/GHSA-mx8g-39q3-5c79",
-      "title": "GHSA: webpack-dev-server vulnerable to HMR WebSocket interception via permissive user proxies",
-      "summary": "### Impact\n\nWhen a user-configured proxy on `webpack-dev-server` has a broad context (e.g. `/`) and `ws: true`, it also intercepts the dev server's own HMR WebSocket and forwards it to the proxy target. This leaks the browser's cookies and `Origin` header to the backend, bypasses the dev server's Host/Origin validation, and corrupts the HMR socket (both HMR and the proxy end up writing to the same",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-17T18:13:31Z",
-      "cve_ids": [
-        "CVE-2026-9595"
-      ],
-      "cvss": 5.3,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-9595"
-      ]
-    },
-    {
-      "id": "181a7cc0a6f14c614df5c45245bff56f8fe242dadedde41f6544b3c91e0469cf",
-      "url": "https://github.com/advisories/GHSA-72gw-mp4g-v24j",
-      "title": "GHSA: Multer vulnerable to Denial of Service via deeply nested field names",
-      "summary": "### Impact\n\nMulter is vulnerable to a Denial of Service (DoS) via deeply nested field names in multipart form data. The `append-field` dependency parses bracket notation in field names (e.g., `a[b][c]`) with no limit on nesting depth, allowing an attacker to force allocation of deeply nested object structures that consume CPU and memory. A single HTTP request with a crafted multipart body is suffi",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-17T18:12:27Z",
-      "cve_ids": [
-        "CVE-2026-5079"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-5079"
-      ]
-    },
-    {
-      "id": "d31a51302a1f259b88a1057aee0e4fae068460e278e9fd65244143e132d550e4",
-      "url": "https://github.com/advisories/GHSA-3p4h-7m6x-2hcm",
-      "title": "GHSA: Multer vulnerable to Denial of Service via incomplete cleanup of aborted uploads",
-      "summary": "### Impact\n\nA vulnerability in Multer allows an attacker to trigger a Denial of Service (DoS) by aborting or sending malformed multipart uploads, causing orphaned partial files to accumulate on disk when using diskStorage.\n\n### Patches\n\nUsers should upgrade to `2.2.0`, `3.0.0-alpha.2` or higher\n\n### Workarounds\n\nNone",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T18:11:48Z",
-      "cve_ids": [
-        "CVE-2026-5038"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "8181d45da44de73664f5d04fb408136cae43d6f2a5405bb5e8c2787fd75b9bd2",
-      "url": "https://github.com/advisories/GHSA-9cpj-qc93-vw8v",
-      "title": "GHSA: Gitea: Stored XSS via glTF `extensionsRequired` in Gitea 3D File Viewer",
-      "summary": "## Summary\n\nMe again.\n\nGitea's built-in 3D file viewer (powered by Online3DViewer) is vulnerable to stored cross-site scripting (XSS) through crafted `.gltf` files. When a glTF file declares an unsupported required extension, Online3DViewer generates an error message containing the extension name and Gitea inserts it into the DOM using `innerHTML` without sanitization. An attacker who can push a `",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-17T18:10:19Z",
-      "cve_ids": [
-        "CVE-2026-28737"
-      ],
-      "cvss": 8.7,
       "related_links": []
     }
   ]
