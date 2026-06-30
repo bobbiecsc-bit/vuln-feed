@@ -1,10 +1,80 @@
 {
-  "updated": "2026-06-30T14:19:35.853253+00:00",
+  "updated": "2026-06-30T17:53:59.722975+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "9502369990c41f46ee759f7301a0fc0c3f2aaececf9307deb4cdeaa69f96f592",
+      "url": "https://github.com/advisories/GHSA-5g9f-cwwg-4p8g",
+      "title": "GHSA: PhpWeasyPrint vulnerable to arbitrary file deletion at shutdown via public $temporaryFiles",
+      "summary": "### Summary\n\n`AbstractGenerator::$temporaryFiles` is a public array, and `removeTemporaryFiles()` — invoked from `__destruct()` and from a registered shutdown function — calls `unlink()` on every entry without verifying that the path is contained within the temporary folder. Any code holding a reference to a generator instance can push an arbitrary path into the array and have it deleted on script",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-26T22:10:51Z",
+      "cve_ids": [
+        "CVE-2026-49358"
+      ],
+      "cvss": 3.0,
+      "related_links": []
+    },
+    {
+      "id": "4de6a22d328eaf22bd1d0f4aab48a31a6d633088a6ac03e8952d1bf7fb849f78",
+      "url": "https://github.com/advisories/GHSA-2fmj-p74r-3wjm",
+      "title": "GHSA: PhpWeasyPrint vulnerable to PHAR deserialization via output filename (CVE-2023-28115 case-insensitive bypass)",
+      "summary": "### Summary\n\n`pontedilana/php-weasyprint` guarded the output filename against the `phar://` stream wrapper with a case-sensitive blacklist:\n\n```php\nif (0 === \\strpos($filename, 'phar://')) {\n    throw new \\InvalidArgumentException('The output file cannot be a phar archive.');\n}\n```\n\nPHP stream wrappers are **case-insensitive**, so `PHAR://`, `Phar://`, etc. bypass the check and reach `fileExists()",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-26T22:10:00Z",
+      "cve_ids": [
+        "CVE-2026-49286"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "3e3dbeca211e9c5a893d53ad1aa00d15b80924c71e61a4c820b0e824aa59eb0b",
+      "url": "https://github.com/advisories/GHSA-73cv-556c-w3g6",
+      "title": "GHSA: mcp-pinot: Unauthenticated tool invocation via default oauth_enabled=False + host 0.0.0.0 bind",
+      "summary": "## Resolution\n\nFixed in [v3.1.0](https://github.com/startreedata/mcp-pinot/releases/tag/v3.1.0), released 2026-05-25. The fix was merged in [PR #95](https://github.com/startreedata/mcp-pinot/pull/95) at commit [`1c7d3f9`](https://github.com/startreedata/mcp-pinot/commit/1c7d3f9cd384854bf72c127d230bdb32299475ad).\n\nThe fix changes the default HTTP bind host to `127.0.0.1`, refuses non-loopback HTTP/",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-26T21:05:43Z",
+      "cve_ids": [
+        "CVE-2026-49257"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "2d6b89d81112be49c7fdcff4ee0b60ddd3c339f8fb6851c072e891ff07d3c6a7",
+      "url": "https://github.com/advisories/GHSA-jv46-xfwm-36j7",
+      "title": "GHSA: Relyra SAML SignatureValue not cryptographically verified -> authentication bypass",
+      "summary": "## Summary\n\nRelyra `1.0.0` and `1.1.0` accept forged SAML signatures because `SignatureValue` was not cryptographically verified before the library returned a successful authentication result.\n\n## Details\n\nIn `1.0.0` and `1.1.0`, the XMLDSig trust boundary was incomplete. `:public_key.verify` over the exclusive-C14N canonicalized `SignedInfo` was not performed against the configured IdP certificat",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-26T21:05:13Z",
+      "cve_ids": [
+        "CVE-2026-49454"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "281a0b8a5c9999b95bf1cf3546dc00a1b5ebfbca18d4433c3aa6f2e8e8f90942",
+      "url": "https://github.com/advisories/GHSA-2r68-g678-7qr3",
+      "title": "GHSA: mcp-memory-service: OAuth read-only clients can write and delete memories through MCP tools/call",
+      "summary": "## Summary\n\nThe HTTP MCP JSON-RPC endpoint at `/mcp` requires only OAuth `read` scope for all requests, then dispatches `tools/call` directly to handlers that include mutating tools. A read-only OAuth client can call `store_memory` and `delete_memory` through MCP even though the corresponding REST endpoints require `write` scope.\n\n## Technical Details\n\n`src/mcp_memory_service/web/api/mcp.py` decla",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-26T21:04:38Z",
+      "cve_ids": [
+        "CVE-2026-49291"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
     {
       "id": "d93681b3881dc94afc2251bb22ba6ed8bc8b6ce67374b4f085d2f77532cea07e",
       "url": "https://github.com/advisories/GHSA-9v98-6g37-x9g6",
@@ -612,76 +682,6 @@
       "date": "2026-06-25T22:18:17Z",
       "cve_ids": [
         "CVE-2026-39830"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "ab4aad263fe8f10db67b8e14264b0218a5e3ab0bdf4504aecaa693df937f28af",
-      "url": "https://github.com/advisories/GHSA-qpw4-5x99-6vjp",
-      "title": "GHSA: golang.org/x/crypto/ssh: Invoking memory leak when rejecting channels can lead to DoS",
-      "summary": "An authenticated SSH client that repeatedly opened channels which were rejected by the server caused unbounded memory growth, eventually crashing the server process and affecting all connected users. Rejected channels are now properly removed from the connection's internal state and released for garbage collection.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-25T22:15:43Z",
-      "cve_ids": [
-        "CVE-2026-39827"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "fa87a1fc805015accfb48112e4ab7810f30c0ee3d559e931b957c1bc3dd44484",
-      "url": "https://github.com/advisories/GHSA-78mq-xcr3-xm33",
-      "title": "GHSA: golang.org/x/crypto/ssh is vulnerable to invoking server panic during CheckHostKey/Authenticate flow",
-      "summary": "SSH servers which use CertChecker as a public key callback without setting IsUserAuthority or IsHostAuthority could be caused to panic by a client presenting a certificate. CertChecker now returns an error instead of panicking when these callbacks are nil.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-25T22:15:17Z",
-      "cve_ids": [
-        "CVE-2026-39835"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "bfe87ca47b01cfdfa4c18ecc73483279af5ff673192c4c4421964359a8b70d91",
-      "url": "https://github.com/advisories/GHSA-45gg-vh54-h5m9",
-      "title": "GHSA: golang.org/x/crypto/ssh vulnerable to invoking bypass of certificate restrictions",
-      "summary": "When an SSH server authentication callback returned PartialSuccessError with non-nil Permissions, those permissions were silently discarded, potentially dropping certificate restrictions such as force-command after a second factor succeeded. Returning non-nil Permissions with PartialSuccessError now results in a connection error.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-25T22:14:38Z",
-      "cve_ids": [
-        "CVE-2026-39828"
-      ],
-      "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "1b1bb28a267e297437285c400dcb2bd1f0d6ca26cfa72e55b77aa9422230ef69",
-      "url": "https://github.com/advisories/GHSA-q4h4-gmj2-qvw2",
-      "title": "GHSA: golang.org/x/crypto/ssh: Invoking byte arithmetic causes underflow and panic",
-      "summary": "An incorrectly placed cast from bytes to int allowed for server-side panic in the AES-GCM packet decoder for well-crafted inputs.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-25T22:14:22Z",
-      "cve_ids": [
-        "CVE-2026-46597"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "3573c7acfd144e80d8a985c3b162f391545b47d4d11799e6f276b86836d677b4",
-      "url": "https://github.com/advisories/GHSA-f5wc-c3c7-36mc",
-      "title": "GHSA: golang.org/x/crypto/ssh/agent doesn't drop invoking agent constraints when forwarding keys",
-      "summary": "When adding a key to a remote agent constraint extensions such as restrict-destination-v00@openssh.com were not serialized in the request. Destination restrictions were silently stripped when forwarding keys, allowing unrestricted use of the key on the remote host. The client now serializes all constraint extensions. Additionally, the in-memory keyring returned by NewKeyring() now rejects keys wit",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-25T22:14:00Z",
-      "cve_ids": [
-        "CVE-2026-39832"
       ],
       "cvss": 9.1,
       "related_links": []
