@@ -1,10 +1,24 @@
 {
-  "updated": "2026-07-01T08:16:42.938531+00:00",
+  "updated": "2026-07-01T14:36:11.337110+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "74f70a518e654dd294b78f42ff2239c8ace3e858e363462b2cf1b29c0ba4fdb6",
+      "url": "https://github.com/advisories/GHSA-pjp5-fpmr-3349",
+      "title": "GHSA: GitHub MCP Server: Lockdown mode singleton in HTTP server causes cross-user GraphQL client confusion",
+      "summary": "### Summary\n\nWhen running in HTTP mode with --lockdown-mode enabled, the RepoAccessCache is implemented as a process-global singleton initialized with the first authenticated user's GraphQL client. All subsequent requests from different users share this singleton and their lockdown-related GraphQL queries are executed using the first user's credentials. The singleton is never updated to reflect la",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-25T21:32:09Z",
+      "cve_ids": [
+        "CVE-2026-48529"
+      ],
+      "cvss": 6.0,
+      "related_links": []
+    },
     {
       "id": "f0d7bde38cd747bd457a915c3d47f6ff61422c09356760ffbcac7ae1aa687058",
       "url": "https://github.com/advisories/GHSA-2x83-8g95-xh59",
@@ -387,339 +401,325 @@
       "related_links": []
     },
     {
-      "id": "88df271a68e49cecb7df8831afbd08adf1c729abd4eab8392256242eb255f83f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52958",
-      "title": "CVE-2026-52958 — CVSS 9.1",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nlibceph: Fix potential out-of-bounds access in osdmap_decode()\n\nWhen decoding osd_state and osd_weight from an incoming osdmap in\nosdmap_decode(), both are decoded for each osd, i.e., map->max_osd\ntimes. The ceph_decode_need() check only accounts for\nsizeof(*map->osd_weight) once. This can potentially result in an\nout-of-bounds m",
+      "id": "896fd13e5ad89f811f449f1b05d3b774f82ac055a6fde774d7f9281061372b01",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53022",
+      "title": "CVE-2026-53022",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nplatform/x86: dell-wmi-sysman: bound enumeration string aggregation\n\npopulate_enum_data() aggregates firmware-provided value-modifier\nand possible-value strings into fixed 512-byte struct members.\nThe current code bounds each individual source string but then\nappends every string and separator with raw strcat() and no\nremaining-s",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-06-24T17:17:06.033",
+      "date": "2026-06-24T17:17:13.527",
       "cve_ids": [
-        "CVE-2026-52958"
+        "CVE-2026-53022"
       ],
-      "cvss": 9.1,
+      "cvss": null,
       "related_links": []
     },
     {
-      "id": "7e2d6bd8da75f156ad873a8ae2a1433f70a467e75747fd12387e01360b38aa33",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52957",
-      "title": "CVE-2026-52957 — CVSS 7.5",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nlibceph: Fix potential null-ptr-deref in decode_choose_args()\n\nA message of type CEPH_MSG_OSD_MAP contains an OSD map that itself\ncontains a CRUSH map. When decoding this CRUSH map in crush_decode(), an\narray of max_buckets CRUSH buckets is decoded, where some indices may\nnot refer to actual buckets and are therefore set to NULL.",
+      "id": "71220b80e54b2348fe6d2454891b158ac3dba51209f6c6dd69910636f3840af9",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53021",
+      "title": "CVE-2026-53021",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nscsi: target: core: Fix integer overflow in UNMAP bounds check\n\nsbc_execute_unmap() checks LBA + range does not exceed the device capacity,\nbut does not guard against LBA + range wrapping around on 64-bit overflow.\n\nAdd an overflow check matching the pattern already used for WRITE_SAME in\nthe same file.",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-24T17:17:05.900",
+      "date": "2026-06-24T17:17:13.410",
       "cve_ids": [
-        "CVE-2026-52957"
+        "CVE-2026-53021"
       ],
-      "cvss": 7.5,
+      "cvss": null,
       "related_links": []
     },
     {
-      "id": "4bc55b65ab7628be077c308ae62b6056de590550fc4e10614defd2f581b804fc",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52956",
-      "title": "CVE-2026-52956 — CVSS 7.5",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nlibceph: Fix potential out-of-bounds access in __ceph_x_decrypt()\n\nIn __ceph_x_decrypt(), a part of the buffer p is interpreted as a\nceph_x_encrypt_header, and the magic field of this struct is accessed.\nThis happens without any guarantee that the buffer is large enough to\nhold this struct. The function parameter ciphertext_len r",
+      "id": "9412a6c6e2ee65789f971437514a903403c05081befb5bb2bcc211c298e8cc69",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53020",
+      "title": "CVE-2026-53020 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\num: Fix potential race condition in TLB sync\n\nDuring the TLB sync, we need to traverse and modify the page table,\nso we should hold the page table lock. Since full SMP support for\nthreads within the same process is still missing, let's disable the\nsplit page table lock for simplicity.",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-24T17:17:05.807",
+      "date": "2026-06-24T17:17:13.317",
       "cve_ids": [
-        "CVE-2026-52956"
+        "CVE-2026-53020"
       ],
-      "cvss": 7.5,
+      "cvss": 7.8,
       "related_links": []
     },
     {
-      "id": "840f44fbe82ef9493ede71e819b715cdb7dc87e732061de4e948f5813d59b4ff",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52955",
-      "title": "CVE-2026-52955 — CVSS 9.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nlibceph: Fix potential out-of-bounds access in crush_decode()\n\nA message of type CEPH_MSG_OSD_MAP containing a crush map with at least\none bucket has two fields holding the bucket algorithm. If the values\nin these two fields differ, an out-of-bounds access can occur. This is\nthe case because the first algorithm field (alg) is use",
+      "id": "1457711c712ec806772d4ad2a1b64b16439b78edcd84b89a70b2ccf45cfb9666",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53019",
+      "title": "CVE-2026-53019",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nclk: spacemit: ccu_mix: fix inverted condition in ccu_mix_trigger_fc()\n\nFix inverted condition that skips frequency change trigger,\ncausing kernel panics during cpufreq scaling.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:13.227",
+      "cve_ids": [
+        "CVE-2026-53019"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "9a81942b93619fff06dd9ee93f27db665fbd12d32b1b80dae63fae539ac58140",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53018",
+      "title": "CVE-2026-53018",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nf2fs: avoid reading already updated pages during GC\n\nWe found the following issue during fuzz testing:\n\npage: refcount:3 mapcount:0 mapping:00000000b6e89c65 index:0x18b2dc pfn:0x161ba9\nmemcg:f8ffff800e269c00\naops:f2fs_meta_aops ino:2\nflags: 0x52880000000080a9(locked|waiters|uptodate|lru|private|zone=1|kasantag=0x4a)\nraw: 52880000",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:13.120",
+      "cve_ids": [
+        "CVE-2026-53018"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "123b4399ec374ef327fb142a0cc7ca88ec745759d96712cc2ec27911e4532a74",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53017",
+      "title": "CVE-2026-53017",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nf2fs: fix data loss caused by incorrect use of nat_entry flag\n\nData loss can occur when fsync is performed on a newly created file\n(before any checkpoint has been written) concurrently with a checkpoint\noperation. The scenario is as follows:\n\ncreate & write & fsync 'file A'                 write checkpoint\n- f2fs_do_sync_file // ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:13.020",
+      "cve_ids": [
+        "CVE-2026-53017"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "f1d3bae3acceb14d73589cb345f296e7782ac54465e47121e5ec31cdfca950e9",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53016",
+      "title": "CVE-2026-53016 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ncrypto: ccp - copy IV using skcipher ivsize\n\nAF_ALG rfc3686-ctr-aes-ccp requests pass an 8-byte IV to the driver.\n\nccp_aes_complete() restores AES_BLOCK_SIZE bytes into the caller's IV\nbuffer while RFC3686 skciphers expose an 8-byte IV, so the restore\noverruns the provided buffer.\n\nUse crypto_skcipher_ivsize() to copy only the al",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:12.893",
+      "cve_ids": [
+        "CVE-2026-53016"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "da067550074b64d4804e2078f2be020b431d2a4dc52a3d332cdbeab11e5ee0bf",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53015",
+      "title": "CVE-2026-53015",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nerofs: unify lcn as u64 for 32-bit platforms\n\nAs sashiko reported [1], `lcn` was typed as `unsigned long` (or\n`unsigned int` sometimes), which is only 32 bits wide on 32-bit\nplatforms, which causes `(lcn << lclusterbits)` to be truncated\nat 4 GiB.\n\nIn order to consolidate the logic, just use `u64` consistently\naround the codebase",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:12.790",
+      "cve_ids": [
+        "CVE-2026-53015"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "68fa05069913f5cbe12ba05433e6884caf4d34cf815fe1c4526785e71be118ba",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53014",
+      "title": "CVE-2026-53014",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet/sched: act_mirred: fix wrong device for mac_header_xmit check in tcf_blockcast_redir\n\nIn tcf_blockcast_redir(), when iterating block ports to redirect\npackets to multiple devices, the mac_header_xmit flag is queried\nfrom the wrong device. The loop sends to dev_prev but queries\ndev_is_mac_header_xmit(dev) — which is the NEXT d",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:12.683",
+      "cve_ids": [
+        "CVE-2026-53014"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "4e478f95599d3bf0fb891d7843095e0e523014ed4361b0f05dd0626d7b4be5db",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53013",
+      "title": "CVE-2026-53013",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nmacvlan: fix macvlan_get_size() not reserving space for IFLA_MACVLAN_BC_CUTOFF\n\nmacvlan_get_size() does not account for IFLA_MACVLAN_BC_CUTOFF, but\nmacvlan_fill_info() conditionally includes it when port->bc_cutoff != 1.\nThis causes nla_put_s32() to fail with -EMSGSIZE when the netlink skb\nruns out of space, triggering a WARN_ON ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:12.570",
+      "cve_ids": [
+        "CVE-2026-53013"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "a9399efa618016afe6fcfffef0866416a9f53955729fa26193303fb1b9c9cb6a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53012",
+      "title": "CVE-2026-53012",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnexthop: fix IPv6 route referencing IPv4 nexthop\n\nsyzbot reported a panic [1] [2].\n\nWhen an IPv6 nexthop is replaced with an IPv4 nexthop, the has_v4 flag\nof all groups containing this nexthop is not updated. This is because\nnh_group_v4_update is only called when replacing AF_INET to AF_INET6,\nbut the reverse direction (AF_INET6 ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:12.433",
+      "cve_ids": [
+        "CVE-2026-53012"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "168a9f516b9f06d1d7f920a20b38c2121f95ff0535bc9d62cb398976071fa40f",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53011",
+      "title": "CVE-2026-53011 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet/sched: taprio: fix use-after-free in advance_sched() on schedule switch\n\nIn advance_sched(), when should_change_schedules() returns true,\nswitch_schedules() is called to promote the admin schedule to oper.\nswitch_schedules() queues the old oper schedule for RCU freeing via\ncall_rcu(), but 'next' still points into an entry of ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:12.310",
+      "cve_ids": [
+        "CVE-2026-53011"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "3b2bd1fd1db6ab209bddc942b63b6d3fe0d93e009a017c5cd06deb7725f5c26f",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53010",
+      "title": "CVE-2026-53010 — CVSS 9.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nksmbd: fix use-after-free in smb2_open during durable reconnect\n\nIn smb2_open, the call to ksmbd_put_durable_fd(fp) drops the reference\nto the durable file descriptor early during the durable reconnect\nprocess. If an error occurs subsequently (eg, ksmbd_iov_pin_rsp fails)\nor a scavenger accesses the file, it leads to a use-after-",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-06-24T17:17:05.670",
+      "date": "2026-06-24T17:17:12.210",
       "cve_ids": [
-        "CVE-2026-52955"
+        "CVE-2026-53010"
       ],
       "cvss": 9.8,
       "related_links": []
     },
     {
-      "id": "8248bd910992e53fbd6956640efd10202c89ee19052e09320d91f7033aab2431",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52954",
-      "title": "CVE-2026-52954 — CVSS 7.5",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nlibceph: handle rbtree insertion error in decode_choose_args()\n\nA message of type CEPH_MSG_OSD_MAP contains an OSD map that itself\ncontains a CRUSH map. The received CRUSH map may optionally contain\nchoose_args that get decoded in decode_choose_args(). In this function,\nnum_choose_arg_maps is read from the message, and a correspo",
+      "id": "92ab54f48db1d47f7cf3de3fbb69067d57a56c60ec6771ebba2180113622b0e4",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53009",
+      "title": "CVE-2026-53009 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nice: fix double-free of tx_buf skb\n\nIf ice_tso() or ice_tx_csum() fail, the error path in\nice_xmit_frame_ring() frees the skb, but the 'first' tx_buf still points\nto it and is marked as valid (ICE_TX_BUF_SKB).\n'next_to_use' remains unchanged, so the potential problem will\nlikely fix itself when the next packet is transmitted and ",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-24T17:17:05.530",
+      "date": "2026-06-24T17:17:12.117",
       "cve_ids": [
-        "CVE-2026-52954"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "79a7dc29cc5937cc946da2175e7575655200e9ccd727a7c424262f053a39fc1f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52953",
-      "title": "CVE-2026-52953 — CVSS 7.1",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\niommu/vt-d: Fix oops due to out of scope access\n\nBelow oops triggers when kill QEMU process:\n\n  Oops: general protection fault, probably for non-canonical address 0x7fffffff844eaaa7: 0000 [#1] SMP NOPTI\n  Call Trace:\n   <TASK>\n   do_raw_spin_lock+0xaa/0xc0\n   _raw_spin_lock_irqsave+0x21/0x40\n   domain_remove_dev_pasid+0x52/0x160\n",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-24T17:17:05.430",
-      "cve_ids": [
-        "CVE-2026-52953"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "5ffae5655baf5ed3798900a7274d04f2955e1275e3e5d02009be91f51a04faaf",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52952",
-      "title": "CVE-2026-52952 — CVSS 8.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\niommu: Fix WARN_ON in __iommu_group_set_domain_nofail() due to reset\n\nIn __iommu_group_set_domain_internal(), concurrent domain attachments are\nrejected when any device in the group is recovering. This is necessary to\nfence concurrent attachments to a multi-device group where devices might\nshare the same RID due to PCI DMA alias ",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-24T17:17:05.333",
-      "cve_ids": [
-        "CVE-2026-52952"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "61829696b6b41eaff49501e1e13608ad1cecfaad78d83df1e02edbe94ac6222d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52951",
-      "title": "CVE-2026-52951 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/xe/dma-buf: handle empty bo and UAF races\n\nThere look to be some nasty races here when triggering the\ninvalidate_mappings hook:\n\n1) We do xe_bo_alloc() followed by the attach, before the actual full bo\n   init step in xe_dma_buf_init_obj(). However the bo is visible on the\n   attachments list after the attach.  This is bad si",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-24T17:17:05.230",
-      "cve_ids": [
-        "CVE-2026-52951"
+        "CVE-2026-53009"
       ],
       "cvss": 7.8,
       "related_links": []
     },
     {
-      "id": "b905e920b0bf6d63952e57a4e7b4d540ed341bd0248ef14640251fc5784a8596",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52950",
-      "title": "CVE-2026-52950 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/xe/dma-buf: fix UAF with retry loop\n\nRetry doesn't work here, since bo will be freed on error, leading to\nUAF. However, now that we do the alloc & init before the attach, we can\nnow combine this as one unit and have the init do the alloc for us. This\nshould make the retry safe.\n\nReported by Sashiko.\n\nv2: Fix up the error unwi",
+      "id": "c9dcbe32bf339160593416f0ecb7a276239444204128ab28d23c48be38e494cc",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53008",
+      "title": "CVE-2026-53008",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nice: fix race condition in TX timestamp ring cleanup\n\nFix a race condition between ice_free_tx_tstamp_ring() and ice_tx_map()\nthat can cause a NULL pointer dereference.\n\nice_free_tx_tstamp_ring currently clears the ICE_TX_FLAGS_TXTIME flag\nafter NULLing the tstamp_ring. This could allow a concurrent ice_tx_map\ncall on another CPU",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-24T17:17:05.127",
+      "date": "2026-06-24T17:17:12.023",
       "cve_ids": [
-        "CVE-2026-52950"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "7b24e7872436592ce85cee7b0c7263299f185cba07175197f131da4ee3faf85e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52949",
-      "title": "CVE-2026-52949",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/ttm: Fix ttm_bo_shrink() infinite LRU walk on backup failure\n\nApply the same fix as b2ed01e7ad (\"drm/ttm: Fix ttm_bo_swapout()\ninfinite LRU walk on swapout failure\") to the ttm_bo_shrink() path.\n\nMove del_bulk_move from before the backup to after success only,\nusing ttm_resource_del_bulk_move_unevictable() since the resource\n",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-24T17:17:05.033",
-      "cve_ids": [
-        "CVE-2026-52949"
+        "CVE-2026-53008"
       ],
       "cvss": null,
       "related_links": []
     },
     {
-      "id": "85121d8e574fb40a6ba0c9845e5dbdb26457d935cf67551323406d738fb2cdee",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52948",
-      "title": "CVE-2026-52948",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ni2c: dev: prevent integer overflow in I2C_TIMEOUT ioctl\n\nWhile fuzzing with Syzkaller, a persistent `schedule_timeout: wrong\ntimeout value` warning was observed, accompanied by SMBus controller\nstate machine corruption.\n\nThe I2C_TIMEOUT ioctl accepts a user-provided timeout in multiples of\n10 ms. The user argument is checked agai",
+      "id": "0b991f3c4508d0485daa4fe82c592e0c529ea1f382ac1769e914a494f8336490",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53007",
+      "title": "CVE-2026-53007",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nice: fix potential NULL pointer deref in error path of ice_set_ringparam()\n\nice_set_ringparam nullifies tstamp_ring of temporary tx_rings, without\nclearing ICE_TX_RING_FLAGS_TXTIME bit.\nWhen ICE_TX_RING_FLAGS_TXTIME is set and the subsequent\nice_setup_tx_ring() call fails, a NULL pointer dereference could happen\nin the unwinding ",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-24T17:17:04.900",
+      "date": "2026-06-24T17:17:11.920",
       "cve_ids": [
-        "CVE-2026-52948"
+        "CVE-2026-53007"
       ],
       "cvss": null,
       "related_links": []
     },
     {
-      "id": "ec897a93617526635f1136bfd0030af4bbed0ef441b39e39cf21d65fcc0d0f9e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52947",
-      "title": "CVE-2026-52947 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: qrtr: fix refcount saturation and potential UAF in qrtr_port_remove\n\nIn qrtr_port_remove(), the socket reference count is decremented via\n__sock_put() before the port is removed from the qrtr_ports XArray and\nbefore the RCU grace period elapses.\n\nThis breaks the fundamental RCU update paradigm. It exposes a race\nwindow where",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-24T17:17:04.760",
-      "cve_ids": [
-        "CVE-2026-52947"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "8cc0e4befcbca6ffa8002576c643dc10161f5a718ee7357477559809ae1b7490",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52946",
-      "title": "CVE-2026-52946 — CVSS 7.5",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nfs/fcntl: fix SOFTIRQ-unsafe lock order in fasync signaling\n\nA SOFTIRQ-safe to SOFTIRQ-unsafe lock order deadlock can occur in\nsend_sigio() and send_sigurg() when a process group receives a signal.\n\nWhen FASYNC is configured for a process group (PIDTYPE_PGID), both\nfunctions use read_lock(&tasklist_lock) to traverse the task list",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-24T17:17:04.610",
-      "cve_ids": [
-        "CVE-2026-52946"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "d8e6064d11ea65b8fdbba9e0711aec20d5eeb4f6beba7c1bec734995b644b055",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-52945",
-      "title": "CVE-2026-52945 — CVSS 7.5",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nRevert \"wireguard: device: enable threaded NAPI\"\n\nThis reverts commit 933466fc50a8e4eb167acbd0d8ec96a078462e9c which is\ncommit db9ae3b6b43c79b1ba87eea849fd65efa05b4b2e upstream.\n\nWe have had three independent production user reports in combination\nwith Cilium utilizing WireGuard as encryption underneath that k8s Pod\nE/W traffic t",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-24T17:17:04.430",
-      "cve_ids": [
-        "CVE-2026-52945"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "6dc41c8fde46f8812daff56495f191d8cf9a33e85c9beb0cb6ab4c7e0a31b8d8",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13164",
-      "title": "CVE-2026-13164",
-      "summary": "Missing Authentication for Critical Function (CWE-306) in the RegisterView (apps/accounts/views.py), exposed at POST /api/auth/register/, in MailerUp <1.0.1 allows a remote, unauthenticated attacker to self-register a working account on instances where registration is intended to be restricted, because the endpoint applies the AllowAny permission with no email verification, CAPTCHA, or administrat",
+      "id": "d7118291ed43345f955db8f3db30e9a92474588990d3a5e2a8afd753773d68c2",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53006",
+      "title": "CVE-2026-53006 — CVSS 9.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nipv6: fix possible UAF in icmpv6_rcv()\n\nCaching saddr and daddr before pskb_pull() is problematic\nsince skb->head can change.\n\nRemove these temporary variables:\n\n- We only access &ipv6_hdr(skb)->saddr and &ipv6_hdr(skb)->daddr\n  when net_dbg_ratelimited() is called in the slow path.\n\n- Avoid potential future misuse after pskb_pul",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-06-24T17:16:56.847",
+      "date": "2026-06-24T17:17:11.750",
       "cve_ids": [
-        "CVE-2026-13164"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4356e639baa3d5e971a454ea3cd8768bcc0c055e7bdef790480d8989fd2fa05e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-56121",
-      "title": "CVE-2026-56121 — CVSS 9.8",
-      "summary": "Feast before 0.63.0 contains an unsafe deserialization vulnerability that allows unauthenticated or unauthorized attackers to achieve remote code execution by sending a crafted gRPC request to the registry server. The user_defined_function.body field of an OnDemandFeatureView spec is decoded from base64 and passed to dill.loads() before any authorization check is performed, enabling attackers to e",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-24T16:16:33.193",
-      "cve_ids": [
-        "CVE-2026-56121"
+        "CVE-2026-53006"
       ],
       "cvss": 9.8,
       "related_links": []
     },
     {
-      "id": "70f9d492d85b7546955d8ed5bb9d04d174c4a8fdc7cef866173a4e17e2ca83b2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-56111",
-      "title": "CVE-2026-56111 — CVSS 9.1",
-      "summary": "Marlin Firmware through 2.1.2.7, fixed in commit 1f255d1, when built with MESH_BED_LEVELING enabled, contains an out-of-bounds write vulnerability in the M421 G-code handler that allows attackers to corrupt firmware memory by supplying out-of-range X and Y grid indices. Attackers can send a single crafted G-code command via USB serial, network interface, or malicious gcode file to write an attacke",
+      "id": "ae0d38e5b30af99380ae5ccbe369c0afa16713bfed3720be723bb5b702827ef6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53005",
+      "title": "CVE-2026-53005 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\naf_unix: Drop all SCM attributes for SOCKMAP.\n\nSOCKMAP can hide inflight fd from AF_UNIX GC.\n\nWhen a socket in SOCKMAP receives skb with inflight fd,\nsk_psock_verdict_data_ready() looks up the mapped socket and\nenqueue skb to its psock->ingress_skb.\n\nSince neither the old nor the new GC can inspect the psock\nqueue, the hidden skb",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:11.637",
+      "cve_ids": [
+        "CVE-2026-53005"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "ec534e3e8633282daaaa52731f1256aaba67b4674dd49572a85604a84d10054b",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53004",
+      "title": "CVE-2026-53004",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nsctp: fix OOB write to userspace in sctp_getsockopt_peer_auth_chunks\n\nsctp_getsockopt_peer_auth_chunks() checks that the caller's optval\nbuffer is large enough for the peer AUTH chunk list with\n\n    if (len < num_chunks)\n            return -EINVAL;\n\nbut then writes num_chunks bytes to p->gauth_chunks, which lives\nat offset offset",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:11.510",
+      "cve_ids": [
+        "CVE-2026-53004"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "fa2034315da5e32ac03de594c6548aa4fc5345d3f7a085a95f372b470be6c286",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53003",
+      "title": "CVE-2026-53003 — CVSS 7.5",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\npppoe: drop PFC frames\n\nRFC 2516 Section 7 states that Protocol Field Compression (PFC) is NOT\nRECOMMENDED for PPPoE. In practice, pppd does not support negotiating\nPFC for PPPoE sessions, and the current PPPoE driver assumes an\nuncompressed (2-byte) protocol field. However, the generic PPP layer\nfunction ppp_input() is not aware",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:11.383",
+      "cve_ids": [
+        "CVE-2026-53003"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "9e8726ea0b4ca89212399c310a6dc9f153adedf158613acfe1a75b77b1430bda",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53002",
+      "title": "CVE-2026-53002 — CVSS 9.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfilter: conntrack: remove sprintf usage\n\nReplace it with scnprintf, the buffer sizes are expected to be large enough\nto hold the result, no need for snprintf+overflow check.\n\nIncrease buffer size in mangle_content_len() while at it.\n\nBUG: KASAN: stack-out-of-bounds in vsnprintf+0xea5/0x1270\nWrite of size 1 at addr [..]\n vsnpri",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-06-24T16:16:32.930",
+      "date": "2026-06-24T17:17:11.263",
       "cve_ids": [
-        "CVE-2026-56111"
+        "CVE-2026-53002"
       ],
-      "cvss": 9.1,
+      "cvss": 9.8,
       "related_links": []
     },
     {
-      "id": "1c7b426cad471cbd87f995219e70178b91dcd61752863bd992c99c60e62e5a2b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55488",
-      "title": "CVE-2026-55488",
-      "summary": "motionEye (mEye) is an online interface for a piece of software called \"motion,\" which is a video surveillance program with motion detection. Versions prior to 0.44.0 contain an absolute path traversal vulnerability in multiple media file handlers that allows an attacker to read arbitrary files from the filesystem. The affected handlers accept a user-controlled filename parameter and construct fil",
+      "id": "d6883d5dd72592ce6e91f90074a3a326581640ff8b53d44fde284eaddcd72308",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53001",
+      "title": "CVE-2026-53001",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfilter: xtables: restrict several matches to inet family\n\nThis is a partial revert of:\n\n  commit ab4f21e6fb1c (\"netfilter: xtables: use NFPROTO_UNSPEC in more extensions\")\n\nto allow ipv4 and ipv6 only.\n\n- xt_mac\n- xt_owner\n- xt_physdev\n\nThese extensions are not used by ebtables in userspace.\n\nMoreover, xt_realm is only for ipv",
       "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-06-24T16:16:32.793",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:11.143",
       "cve_ids": [
-        "CVE-2026-55488"
+        "CVE-2026-53001"
       ],
       "cvss": null,
       "related_links": []
     },
     {
-      "id": "af732ae1b4112bb935a7a324d1d9d77825798ba28baa2164e65ff0167d0e9654",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-50712",
-      "title": "CVE-2026-50712",
-      "summary": "A Stored Cross-Site Scripting (XSS) vulnerability exists in Frappe Framework version 17.0.0-dev due to improper neutralization of user-controlled input in the frappe.ui.Tree component",
+      "id": "9afaebef7d4b60ac358d8a89b9524a95e465d0c173c06c44e3c337d2e0c8ed2c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53000",
+      "title": "CVE-2026-53000 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfilter: nat: use kfree_rcu to release ops\n\nFlorian Westphal says:\n\n\"Historically this is not an issue, even for normal base hooks: the data\npath doesn't use the original nf_hook_ops that are used to register the\ncallbacks.\n\nHowever, in v5.14 I added the ability to dump the active netfilter\nhooks from userspace.\n\nThis code will",
       "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-06-24T16:16:31.970",
+      "category": "infrastructure",
+      "date": "2026-06-24T17:17:11.047",
       "cve_ids": [
-        "CVE-2026-50712"
+        "CVE-2026-53000"
       ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "fb10c7524614ab7164fee61e22c302023ec8a43c495346ad1ff0e2657433a39b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-50711",
-      "title": "CVE-2026-50711",
-      "summary": "A Stored Cross-Site Scripting (XSS) vulnerability exists in Frappe Framework version 17.0.0-dev due to improper neutralization of user-controlled input in the Number Card component.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-06-24T16:16:31.857",
-      "cve_ids": [
-        "CVE-2026-50711"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "44c7b01ec835618132b81097adf3162c1fa2f5bf4e45454ab6edaf0324a5e65d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-50710",
-      "title": "CVE-2026-50710",
-      "summary": "A Stored Cross-Site Scripting (XSS) vulnerability exists in Frappe Framework version 17.0.0-dev due to unsafe evaluation of user-controlled data in the Number Card component.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-06-24T16:16:31.747",
-      "cve_ids": [
-        "CVE-2026-50710"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c164105b03f3da4c7877c06640cbb6416a5c0e5aeee9295814a1521ac9bd55c9",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-50709",
-      "title": "CVE-2026-50709",
-      "summary": "A Stored Cross-Site Scripting (XSS) vulnerability exists in Frappe Framework version 17.0.0-dev due to improper neutralization of user-controlled input in the Notifications > Events panel.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-06-24T16:16:31.630",
-      "cve_ids": [
-        "CVE-2026-50709"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f4dc787ef9bd24d2a27a47da44a1525860ce930c9b8af4d5c4d61f8c8c83b493",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-50708",
-      "title": "CVE-2026-50708",
-      "summary": "A Stored Cross-Site Scripting (XSS) vulnerability exists in Frappe Framework version 17.0.0-dev due to improper neutralization of user-controlled input in the MultiSelectDialog component.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-06-24T16:16:31.507",
-      "cve_ids": [
-        "CVE-2026-50708"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "2a37effef03f36208d46ca91c9d397471b58050e1fa49769eb9d2114ac410af6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-50705",
-      "title": "CVE-2026-50705",
-      "summary": "A Cross-Site Scripting (XSS) vulnerability exists in Frappe Framework version 17.0.0-dev due to improper neutralization of untrusted input in the Form Dashboard headline renderer.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-06-24T16:16:31.377",
-      "cve_ids": [
-        "CVE-2026-50705"
-      ],
-      "cvss": null,
+      "cvss": 7.8,
       "related_links": []
     }
   ]
