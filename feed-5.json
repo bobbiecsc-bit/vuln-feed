@@ -1,10 +1,52 @@
 {
-  "updated": "2026-07-02T10:40:43.309218+00:00",
+  "updated": "2026-07-02T14:01:01.201768+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "1b1bb28a267e297437285c400dcb2bd1f0d6ca26cfa72e55b77aa9422230ef69",
+      "url": "https://github.com/advisories/GHSA-q4h4-gmj2-qvw2",
+      "title": "GHSA: golang.org/x/crypto/ssh: Invoking byte arithmetic causes underflow and panic",
+      "summary": "An incorrectly placed cast from bytes to int allowed for server-side panic in the AES-GCM packet decoder for well-crafted inputs.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-06-25T22:14:22Z",
+      "cve_ids": [
+        "CVE-2026-46597"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "3573c7acfd144e80d8a985c3b162f391545b47d4d11799e6f276b86836d677b4",
+      "url": "https://github.com/advisories/GHSA-f5wc-c3c7-36mc",
+      "title": "GHSA: golang.org/x/crypto/ssh/agent doesn't drop invoking agent constraints when forwarding keys",
+      "summary": "When adding a key to a remote agent constraint extensions such as restrict-destination-v00@openssh.com were not serialized in the request. Destination restrictions were silently stripped when forwarding keys, allowing unrestricted use of the key on the remote host. The client now serializes all constraint extensions. Additionally, the in-memory keyring returned by NewKeyring() now rejects keys wit",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-25T22:14:00Z",
+      "cve_ids": [
+        "CVE-2026-39832"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "d891e1f020d9a8e39498c17bb34a91e75203972a3aa4b771a1b7445571590478",
+      "url": "https://github.com/advisories/GHSA-jppx-rxg9-jmrx",
+      "title": "GHSA: golang.org/x/crypto/ssh/agent doesn't enforce invoking key constraints",
+      "summary": "The in-memory keyring returned by NewKeyring() silently accepted keys with the ConfirmBeforeUse constraint but never enforced it. The key would sign without any confirmation prompt, with no indication to the caller that the constraint was not in effect. NewKeyring() now returns an error when unsupported constraints are requested.",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-06-25T22:13:31Z",
+      "cve_ids": [
+        "CVE-2026-39833"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
     {
       "id": "8a4817552e90b32f5151a650ecbc428d76099df55d10010a58d79a6619f82369",
       "url": "https://github.com/advisories/GHSA-9m57-25v3-79x9",
@@ -681,48 +723,6 @@
       "date": "2026-06-25T09:16:39.053",
       "cve_ids": [
         "CVE-2026-53214"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "6b0c3f1139d65ba7f511e504794e4e2cf7b86a7f4cf5125cb94b8d8654aa23cc",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53213",
-      "title": "CVE-2026-53213",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/vc4: fix krealloc() memory leak\n\nDon't just overwrite the original pointer passed to krealloc()\nwith its return value without checking latter:\n\n    MEM = krealloc(MEM, SZ, GFP);\n\nIf krealloc() returns NULL, that erases the pointer\nto the still allocated memory, hence leaks this memory.\nInstead, use a temporary variable, check",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-25T09:16:38.930",
-      "cve_ids": [
-        "CVE-2026-53213"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c5469e250907149a37003ac7ee0c2c776f87f56854c2bf740441213d53adcc72",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53212",
-      "title": "CVE-2026-53212 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfilter: nft_tunnel: fix use-after-free on object destroy\n\nnft_tunnel_obj_destroy() calls metadata_dst_free() which directly\nkfree()s the metadata_dst, ignoring the dst_entry refcount. Packets\nthat took a reference via dst_hold() in nft_tunnel_obj_eval() and\nare still queued (e.g. in a netem qdisc) are left with a dangling\npoin",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-25T09:16:38.793",
-      "cve_ids": [
-        "CVE-2026-53212"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "4cc4e2200306a43ff9481d0e36b15938cdd927eafaaa1b8c436ae511c53135ac",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53211",
-      "title": "CVE-2026-53211",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfilter: nft_meta_bridge: fix stale stack leak via IIFHWADDR register\n\nNFT_META_BRI_IIFHWADDR declares its destination register with\nlen = ETH_ALEN (6 bytes), which the register-init tracking rounds up to\ntwo 32-bit registers (8 bytes). nft_meta_bridge_get_eval() then does\nmemcpy(dest, br_dev->dev_addr, ETH_ALEN), writing only ",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-25T09:16:38.697",
-      "cve_ids": [
-        "CVE-2026-53211"
       ],
       "cvss": null,
       "related_links": []

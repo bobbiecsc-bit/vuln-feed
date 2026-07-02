@@ -1,7 +1,47 @@
 {
-  "updated": "2026-07-02T10:40:43.309218+00:00",
+  "updated": "2026-07-02T14:01:01.201768+00:00",
   "total": 250,
   "articles": [
+    {
+      "id": "c42e477c7282b1cfaad2e95c2b3f04106add9abc328243bd60f1567b48f4908b",
+      "url": "https://github.com/advisories/GHSA-gcfq-8gqf-4876",
+      "title": "GHSA: GoFiber Vulnerable to X-Real-IP Spoofing via Header.Add() in BalancerForward",
+      "summary": "## Summary\n\nThe `BalancerForward` proxy helper in GoFiber uses `Header.Add()` instead of `Header.Set()` when injecting the `X-Real-IP` header. This appends the real client IP as a second header value rather than replacing any attacker-supplied value. Upstream servers that read the first `X-Real-IP` header (nginx, Express, most HTTP servers) use the attacker's spoofed IP for logging, rate limiting,",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-02T13:50:45Z",
+      "cve_ids": [
+        "CVE-2026-45045"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "b08f2e23b82896afcccfefbd5e02c8d1ddd8da655c4517b1c45bdd6a33a1106e",
+      "url": "https://github.com/advisories/GHSA-g5vh-55hw-rxm8",
+      "title": "GHSA: GoFiber Vulnerable to Username Enumeration via Timing Oracle in BasicAuth Default Authorizer",
+      "summary": "## Summary\n\nThe default `Authorizer` function in GoFiber's BasicAuth middleware uses short-circuit evaluation that skips password hash comparison for non-existent usernames. With bcrypt-hashed passwords (the primary use case), the timing difference between a valid and invalid username is approximately 1,000,000:1 (~100ms vs ~100ns), enabling reliable remote username enumeration.\n\n## Vulnerable Cod",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-02T13:46:25Z",
+      "cve_ids": [
+        "CVE-2026-44332"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "7baac3cbeb6c86ab46ee4f1646bab2aa0b303c01f74da7040bdae011853ff999",
+      "url": "https://www.bleepingcomputer.com/news/security/cisa-microsoft-sharepoint-rce-flaw-now-actively-exploited/",
+      "title": "CISA: Microsoft SharePoint RCE flaw now actively exploited",
+      "summary": "CISA warned on Wednesday that attackers have begun exploiting a high-severity Microsoft SharePoint remote code execution vulnerability patched in May. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-07-02T10:52:43+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
     {
       "id": "1c6264bfc54a6526f6d4cfc67fa7dc3054939e31a978f483214309a807aaa954",
       "url": "https://github.com/advisories/GHSA-9c3v-684m-579c",
@@ -4018,48 +4058,6 @@
       "date": "2026-06-25T09:16:39.053",
       "cve_ids": [
         "CVE-2026-53214"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "6b0c3f1139d65ba7f511e504794e4e2cf7b86a7f4cf5125cb94b8d8654aa23cc",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53213",
-      "title": "CVE-2026-53213",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/vc4: fix krealloc() memory leak\n\nDon't just overwrite the original pointer passed to krealloc()\nwith its return value without checking latter:\n\n    MEM = krealloc(MEM, SZ, GFP);\n\nIf krealloc() returns NULL, that erases the pointer\nto the still allocated memory, hence leaks this memory.\nInstead, use a temporary variable, check",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-25T09:16:38.930",
-      "cve_ids": [
-        "CVE-2026-53213"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c5469e250907149a37003ac7ee0c2c776f87f56854c2bf740441213d53adcc72",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53212",
-      "title": "CVE-2026-53212 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfilter: nft_tunnel: fix use-after-free on object destroy\n\nnft_tunnel_obj_destroy() calls metadata_dst_free() which directly\nkfree()s the metadata_dst, ignoring the dst_entry refcount. Packets\nthat took a reference via dst_hold() in nft_tunnel_obj_eval() and\nare still queued (e.g. in a netem qdisc) are left with a dangling\npoin",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-25T09:16:38.793",
-      "cve_ids": [
-        "CVE-2026-53212"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "4cc4e2200306a43ff9481d0e36b15938cdd927eafaaa1b8c436ae511c53135ac",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53211",
-      "title": "CVE-2026-53211",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfilter: nft_meta_bridge: fix stale stack leak via IIFHWADDR register\n\nNFT_META_BRI_IIFHWADDR declares its destination register with\nlen = ETH_ALEN (6 bytes), which the register-init tracking rounds up to\ntwo 32-bit registers (8 bytes). nft_meta_bridge_get_eval() then does\nmemcpy(dest, br_dev->dev_addr, ETH_ALEN), writing only ",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-25T09:16:38.697",
-      "cve_ids": [
-        "CVE-2026-53211"
       ],
       "cvss": null,
       "related_links": []
