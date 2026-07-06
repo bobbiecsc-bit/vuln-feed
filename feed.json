@@ -1,10 +1,122 @@
 {
-  "updated": "2026-07-06T15:33:40.025848+00:00",
+  "updated": "2026-07-06T18:10:53.345940+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "88b0458dc0518456029a76a694a86c2a3ae492622c39cc218c47fb6b23118961",
+      "url": "https://github.com/advisories/GHSA-4c7q-4928-8445",
+      "title": "GHSA: chmod: --preserve-root bypassed by any path that resolves to root (e.g. /../)",
+      "summary": "`Chmoder::chmod()` only compares the literal argument against `Path::new(\"/\")`, so the `--preserve-root` guard is bypassed by any path that *resolves* to root — a symlink to `/` or simply `/../`.\n\n```\nif self.recursive && self.preserve_root && file == Path::new(\"/\") {\n    return Err(ChmodError::PreserveRoot(\"/\".to_string()).into());\n}\n```\n\n**PoC** — recursively chmods the entire filesystem to `000",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T17:41:45Z",
+      "cve_ids": [
+        "CVE-2026-35338"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "0ef708929ebaf0878f41caeb8557b1ef6a23853109533c01cfacae3bf694912b",
+      "url": "https://github.com/advisories/GHSA-h9f9-h6gm-wc85",
+      "title": "GHSA: flyto-core has Unauthenticated Command Execution via HTTP MCP `execute_module`",
+      "summary": "## Unauthenticated Command Execution via HTTP MCP `execute_module`\n\n### Summary\n\nThe HTTP MCP endpoint (`POST /mcp`) in flyto-core accepts unauthenticated JSON-RPC `tools/call` requests and dispatches them to arbitrary registered modules, including `sandbox.execute_shell`, which passes attacker-controlled input directly to `asyncio.create_subprocess_shell`. An unauthenticated attacker can execute ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T17:41:03Z",
+      "cve_ids": [
+        "CVE-2026-55786"
+      ],
+      "cvss": 8.4,
+      "related_links": []
+    },
+    {
+      "id": "6aea0ab99abcb8717815dd1365df23f68ea37abf0bb76adf74ce26958a68800b",
+      "url": "https://github.com/advisories/GHSA-794r-5rp2-fpg8",
+      "title": "GHSA: flyto-core has SSRF guard bypass via IPv6 transition addresses (IPv4-mapped / 6to4 / NAT64) in validate_url_ssrf",
+      "summary": "## Summary\n\n`flyto-core`'s SSRF protection (`validate_url_ssrf` / `is_private_ip` in `src/core/utils.py`) blocks private and metadata destinations by resolving the host and testing the resulting IP for membership in a hardcoded `PRIVATE_IP_RANGES` list. That list contains only the *native* RFC 1918 / loopback / link-local / unique-local ranges. It does **not** account for IPv6 transition address f",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T17:30:34Z",
+      "cve_ids": [
+        "CVE-2026-55787"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "cb6fd39452b6c9b4a10bf8746ab26e5ec04fdeae56b58e16a343152af1fe4565",
+      "url": "https://github.com/advisories/GHSA-jhhc-3hcp-qhm5",
+      "title": "GHSA: WeasyPrint has CSS Injection via Presentational Hints",
+      "summary": "### Summary\nA CSS injection issue exists in WeasyPrint when HTML presentational hints are enabled. Unescaped attribute values are embedded into CSS, allowing injection of arbitrary CSS declarations. This affects applications processing untrusted HTML input.\n\n### Details\nFile: weasyprint/css/__init__.py\n\nThe `background` attribute is used to construct CSS:\n\nbackground-image:url({element.get(\"backgr",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T17:29:53Z",
+      "cve_ids": [
+        "CVE-2026-49452"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "367467f4c53f54d559ed507f0a5a7551a77f2708a03c0182b960e6645e6af8a2",
+      "url": "https://github.com/advisories/GHSA-3fcv-jvfp-m4q9",
+      "title": "GHSA: Cilium vulnerable to sensitive information disclosure and cluster disruption via local Envoy admin socket access",
+      "summary": "### Impact\n\nWhen Cilium L7 functionality is enabled on a cluster, the Envoy instance supporting this functionality creates a world-accessible socket on cluster nodes. A local attacker would be able to access Envoy admin endpoints. Depending on deployment configuration, this can expose sensitive information or allow disruptive administrative operations, such as:\n\n- Exposing TLS secrets\n- Disrupting",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T17:03:20Z",
+      "cve_ids": [
+        "CVE-2026-49445"
+      ],
+      "cvss": 9.2,
+      "related_links": []
+    },
+    {
+      "id": "cd33fe35dca33c7c6da7dc60d3ce3e192b39aba0c25d50e98ac50a2ca1b86ce6",
+      "url": "https://github.com/advisories/GHSA-xj53-j257-hxvg",
+      "title": "GHSA: OpenRemote read-only asset users can write predicted datapoints",
+      "summary": "# Summary\n\nThe predicted datapoint write endpoint allows users with only `read:assets` privileges to write predicted datapoints.\n\nThe endpoint:\n\n```text\nPUT /api/{realm}/asset/predicted/{assetId}/{attributeName}\n```\n\naccepts write requests from users lacking `write:assets`.\n\nThe implementation appears to check `READ_ASSETS` while performing a write operation through:\n\n```java\nassetPredictedDatapoi",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T16:52:35Z",
+      "cve_ids": [
+        "CVE-2026-49439"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "31e6862a963857c79d457788a1b315617715c06517878606e342ee349ccddb71",
+      "url": "https://github.com/advisories/GHSA-565m-g33j-jq96",
+      "title": "GHSA: Formie Hidden field defaults vulnerable to Server-Side Template Injection",
+      "summary": "## Summary\nFormie Hidden fields could evaluate request-derived values as Twig during front-end form rendering.\n\nWhen a Hidden field used a dynamic default value such as HTTP User Agent, Referer URL, Current URL, Query Parameter, or Cookie Value, the value was copied from the incoming request and later passed to Craft’s Twig rendering layer. This allowed an unauthenticated attacker to provide Twig ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T16:52:16Z",
+      "cve_ids": [
+        "CVE-2026-52889"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "fecd98a210af6ecd0d79d475f7ae186d82a03d40d176d843f0e5f8399fe6ac01",
+      "url": "https://github.com/advisories/GHSA-55f6-pf8r-c2f4",
+      "title": "GHSA: Open Babel has out-of-bounds write in MOPAC translationVectors[] (UNIT CELL TRANSLATION)",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's MOPAC output parser\nallowed an out-of-bounds write into the `translationVectors[]` array\nwhen reading the \"UNIT CELL TRANSLATION\" block of a crafted input\nfile.\n\n### Details\n\nThe MOPAC output reader stored translation vectors from the UNIT CELL\nTRANSLATION block into a fixed-size `translationVectors[]` array. A\nmalformed block could push m",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T16:41:43Z",
+      "cve_ids": [
+        "CVE-2022-46292"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
     {
       "id": "46404f865f36b5244bb1117dc18a36a586b1da189ebbf765d76020a7c38d7730",
       "url": "https://www.rapid7.com/blog/post/so-ditl-day-with-your-vector-command-red-team-pod",
@@ -14,6 +126,29 @@
       "category": "emergency",
       "date": "2026-07-06T14:26:46+00:00",
       "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "3caf8d07ba3b01a35fbc96c4d364bea4e18313bf40d4492275e0ea5414331823",
+      "url": "https://ubuntu.com/security/notices/USN-8502-1",
+      "title": "USN-8502-1: GnuTLS vulnerabilities",
+      "summary": "It was discovered that GnuTLS had a timing side-channel when processing malformed ciphertexts in RSA-PSK ClientKeyExchange. A remote attacker could possibly use this issue to recover sensitive information. This issue only affected Ubuntu 18.04 LTS. (CVE-2024-0553) Bing Shi discovered that GnuTLS incorrectly handled decoding certain DER-encoded certificates. A remote attacker could possibly use thi",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-07-06T13:37:09+00:00",
+      "cve_ids": [
+        "CVE-2024-0553",
+        "CVE-2024-12243",
+        "CVE-2025-14831",
+        "CVE-2025-9820",
+        "CVE-2026-33845",
+        "CVE-2026-33846",
+        "CVE-2026-3833",
+        "CVE-2026-42009",
+        "CVE-2026-42010",
+        "CVE-2026-5260"
+      ],
       "cvss": null,
       "related_links": []
     },
@@ -583,122 +718,6 @@
       "date": "2026-07-02T19:42:05Z",
       "cve_ids": [],
       "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "8e5a5d7be1c6aab887e8a4ac448c1b2c86ac93bf327244b3d349feb221046653",
-      "url": "https://github.com/advisories/GHSA-4fc2-h7jh-287c",
-      "title": "GHSA: zebrad has mempool transaction admission denial via single-peer inbound queue saturation",
-      "summary": "### Am I affected\n\nYou are affected if:\n\n1. You run `zebrad` up to and including `v4.4.1`.\n2. Your node accepts inbound P2P connections (`network.listen_addr` is set, which is the default).\n3. Your node's mempool is active (node is synced near the chain tip).\n\nAll default configurations are affected.\n\n### Summary\n\nA single unauthenticated P2P peer can monopolize all 25 inbound mempool download/ver",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-02T19:39:02Z",
-      "cve_ids": [
-        "CVE-2026-52732"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "b336e5e2d5486a761f3ab69a2f32db5269f82cf826c4e7323c0af3df7d121468",
-      "url": "https://github.com/advisories/GHSA-c8w6-x74f-vmg3",
-      "title": "GHSA: zebrad vulnerable to full node denial of service via crafted Sapling receiver in z_listunifiedreceivers",
-      "summary": "### Am I affected\n\nYou are affected if:\n\n1. You run `zebrad` up to and including `v4.4.1`.\n2. Your `zebrad.toml` sets `rpc.listen_addr` to a TCP address (RPC server is enabled).\n3. An attacker can authenticate to the RPC endpoint. With the default `enable_cookie_auth = true`, this requires the attacker to read the `.cookie` file (typically local access). With `enable_cookie_auth = false`, any netw",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-02T19:37:58Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "eb957d47c4525709b70306392cca2da333956d0f847f6746b3c75d23f3a9ca06",
-      "url": "https://github.com/advisories/GHSA-443g-gwgp-49x4",
-      "title": "GHSA: zebrad vulnerable to getblocks/getheaders locator CPU amplification via uncapped vector length",
-      "summary": "### Am I affected\n\nYou are affected if:\n\n1. You run `zebrad` up to and including `v4.4.1`.\n2. Your node accepts inbound P2P connections.\n\n### Summary\n\nThe `read_getblocks` and `read_getheaders` codec paths accepted block locator vectors up to approximately 65,535 entries (the generic `TrustedPreallocate` ceiling derived from `MAX_PROTOCOL_MESSAGE_LEN`), rather than the protocol-specification limit",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-02T19:34:21Z",
-      "cve_ids": [],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "5fb685e0e2073eb4bad46543eb3f31c69980a3949a7bee8a312e4498a7f7d115",
-      "url": "https://github.com/advisories/GHSA-qv2r-v3mx-f4pf",
-      "title": "GHSA: zebrad has full node denial of service via non-ASCII LongPollId in getblocktemplate",
-      "summary": "### Am I affected\n\nYou are affected if:\n\n1. You run `zebrad` up to and including `v4.4.1`.\n2. Your `zebrad.toml` sets `rpc.listen_addr` to a TCP address (RPC server is enabled).\n3. An attacker can authenticate to the RPC endpoint. With the default `enable_cookie_auth = true`, this requires the attacker to read the `.cookie` file. With `enable_cookie_auth = false`, any network client reaching the R",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-02T19:28:03Z",
-      "cve_ids": [
-        "CVE-2026-52731"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "8f9f94e8614ea28408488e6cba0f0b864b8f6b7e27504409e9f9ae088e961311",
-      "url": "https://github.com/advisories/GHSA-fcmw-wx57-9p75",
-      "title": "GHSA: Mautic has SQL Injection in API Contact Filtering",
-      "summary": "### Summary\nAn SQL injection vulnerability exists in Mautic's API contact filtering mechanism. Due to insufficient recursive sanitization of nested query parameters, an authenticated API user can bypass input filtering and inject arbitrary SQL commands.\n\n### Impact\nAn authenticated user with API access can exploit this vulnerability to execute arbitrary SQL queries against the underlying database.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-02T19:25:18Z",
-      "cve_ids": [
-        "CVE-2026-4776"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "f75b2ee2968bbc41be3a874621db9474b546991ac14e9c6097fb6bc2ffaf6516",
-      "url": "https://seclists.org/fulldisclosure/2026/Jul/15",
-      "title": "OpenBlow Multiple Deanonymization Vulnerabilities",
-      "summary": "Posted by Red Nanaki via Fulldisclosure on Jul 02OpenBlow Multiple Deanonymization Vulnerabilities Summary A production deployment was observed (HTTP archive of a full, real whistleblower submission) to route its anonymous reporting flow through Google. The intake CAPTCHA is Google reCAPTCHA, enforced as a mandatory, server-validated gate on report submission, and the UI additionally pulls a web f",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-07-02T18:40:22+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "9879b5034b60361befea7d5c1d2420de834d8f87d4ea6b6cb4b75e8433eae78f",
-      "url": "https://seclists.org/fulldisclosure/2026/Jul/14",
-      "title": "Whistlelink: Site-access password exposed in web server access logs via GET query string",
-      "summary": "Posted by Red Nanaki via Fulldisclosure on Jul 02Whistlelink: Site-access password exposed in web server access logs via GET query string Severity: CRITICAL SUMMARY The Whistlelink reporting portal protects optionally-enabled, password-gated whistleblowing sites with a site-access password. When a visitor unlocks such a site, the client validates the password by issuing an HTTP GET request that ca",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-07-02T18:40:20+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f7d71f466fd60ca2758207af9df5980abaab526b8ba5ef700ac4be68814190ba",
-      "url": "https://seclists.org/fulldisclosure/2026/Jul/9",
-      "title": "[KIS-2026-12] Control Web Panel <= 0.9.8.1224 (userRes) SQL Injection Vulnerability",
-      "summary": "Posted by Egidio Romano on Jul 02--------------------------------------------------------------------- Control Web Panel &lt;= 0.9.8.1224 (userRes) SQL Injection Vulnerability --------------------------------------------------------------------- [-] Software Link: https://control-webpanel.com [-] Affected Versions: Version 0.9.8.1224 and prior versions. [-] Vulnerability Description: User input pa",
-      "source": "Full Disclosure",
-      "category": "web_app",
-      "date": "2026-07-02T18:22:45+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "5d96e6c78d52b5da5cd97a55fe06c9489c9607aaec86cf349c5d714f459d1c04",
-      "url": "https://seclists.org/fulldisclosure/2026/Jul/8",
-      "title": "[fulldis] CVE-2026-58451 - Horde Groupware IMP path traversal vuln",
-      "summary": "Posted by ㅤevan via Fulldisclosure on Jul 02this is my first time sending to a mailing list so ive chosen something easy. here goes: Summary: Horde Groupware’s IMP Webmail solution contains a path traversal/local file inclusion vulnerability which could be exploited to escalate privileges or bypass authentication (through CSRF if unauthenticated). the vulnerability is in here: } elseif (strcasecmp",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-07-02T18:22:33+00:00",
-      "cve_ids": [
-        "CVE-2026-58451"
-      ],
-      "cvss": null,
       "related_links": []
     }
   ]
