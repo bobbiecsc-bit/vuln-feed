@@ -1,10 +1,538 @@
 {
-  "updated": "2026-07-06T18:10:53.345940+00:00",
+  "updated": "2026-07-06T21:37:02.195450+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "0f2ab910a647e8ea286e080aa656c7cefdc1a7c4d19d14022803fa3c11ed67cd",
+      "url": "https://github.com/advisories/GHSA-whwg-vh4f-pmmf",
+      "title": "GHSA: SurrealDB: Edge PERMISSIONS FOR delete bypassed when a connected node is deleted",
+      "summary": "In SurrealDB, records can be connected as a graph: a `RELATE` statement creates an edge record between two node records. If either endpoint node is deleted, SurrealDB automatically removes the edge row to keep the graph consistent.\n\nA user with permission to delete a node could also delete the edges connected to that node, even when the edge table's `PERMISSIONS FOR delete` clause should have stop",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:23:49Z",
+      "cve_ids": [
+        "CVE-2026-49997"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "487bf8ffcfbfab5c2b7c4795d9d8aac5b5e2658582d7c44d4cf4aa66eedbf190",
+      "url": "https://github.com/advisories/GHSA-fwg2-gr34-q3w8",
+      "title": "GHSA: SurrealDB: ES512 silently downgraded to ES384 due to jsonwebtoken crate limitation",
+      "summary": "When a user configures `ALGORITHM ES512` for any JWT access method (`DEFINE ACCESS ... TYPE JWT ALGORITHM ES512`), SurrealDB silently substitutes ES384 at all four internal algorithm conversion points. This occurs because the underlying `jsonwebtoken` crate (v10.x) does not include an ES512 algorithm variant, so the mapping defaults to ES384 without raising an error, warning, or log message.\n \nUse",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:23:01Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "13ba236b484baa8585df223de12d5490ef16c3cb42e8eeba17be683db249ff14",
+      "url": "https://github.com/advisories/GHSA-c8jx-96c9-8xrp",
+      "title": "GHSA: SurrealDB: Field-level SELECT permissions bypassed via indexed COUNT fast paths",
+      "summary": "A record user could learn the value of a hidden field by counting how many records match a guess.\n\nWhen `DEFINE FIELD ... PERMISSIONS FOR select WHERE ...` hides a field's contents from a caller, and that field is indexed, running `SELECT count() FROM t WHERE hidden_field = \"guess\" GROUP ALL` returned a count greater than zero whenever a record actually had that value — even though the caller was ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:22:06Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "fc8fdfd9cbf535bca91550f15cf8151f26d9a45ba90f2708468f80b3a93621e4",
+      "url": "https://github.com/advisories/GHSA-wp87-mgvq-5j93",
+      "title": "GHSA: SurrealDB: USE NS/DB implicit creation bypasses DEFINE authorization",
+      "summary": "An anonymous caller could create new namespaces and databases on a running SurrealDB instance without holding `DEFINE NAMESPACE` or `DEFINE DATABASE` permission.\n\n`USE NS <name>` and `USE DB <name>` automatically create the target when it does not exist. The three places `USE` is handled — the RPC `use` method, `Datastore::process_use`, and the SurrealQL executor — did not check whether the caller",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:21:25Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "d7a152e4645aad648e0e9cc182004e1f454390545233db2214e11c80eb04328f",
+      "url": "https://github.com/advisories/GHSA-97vg-427p-8hx5",
+      "title": "GHSA: SurrealDB: Port-specific --deny-net rules silently bypassed on HTTP redirect",
+      "summary": "SurrealDB offers `http::*` functions that can access external network endpoints, with the `--allow-net` and `--deny-net` capabilities used to restrict the set of network targets that can be reached. An authenticated user of SurrealDB can bypass a port-scoped `--deny-net <host>:<port>` rule by chaining an HTTP redirect: the initial request goes to an `--allow-net`-permitted hostname, the response's",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:20:40Z",
+      "cve_ids": [],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "d7217898ec35983b063277bc630d873068b23f7f6713c76378b87b1c376a4c29",
+      "url": "https://github.com/advisories/GHSA-6wqw-vhfr-9999",
+      "title": "GHSA: SurrealDB: Authenticated subscribers can read records hidden by SELECT permissions via LIVE subscriptions",
+      "summary": "A record user could read records the table's SELECT permission expression should have hidden, when that expression referenced `$value`, `$before`, `$after`, or `$event`. Binding a chosen value to that name before registering a `LIVE SELECT` caused notifications to evaluate the permission against the attacker's input instead of the real document.\n\n### Impact\n\nA record user binds a value to `$value`",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:20:00Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "e1d0f8f9f9ac4a1d095005f7b7f91b0d364a307c0dc3a4ba503130de6a9e6fd5",
+      "url": "https://github.com/advisories/GHSA-f82j-v89j-mf86",
+      "title": "GHSA: SurrealDB: `RELATE` overwrites existing edge records without `UPDATE` permission",
+      "summary": "`RELATE` creates an edge record between two existing records, and SurrealDB enforces the `CREATE` permission on the edge table for this operation. When the statement included a `SET id = edge:existing` clause, however, the new edge's id ended up pointing at an record that was already in storage. Rather than failing because the target already existed — which is what a create operation should do — t",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:19:17Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "78f8cf257efdbc4300e4c0ca138b33f47880a7729a38cd35cd88af3d635c122d",
+      "url": "https://github.com/advisories/GHSA-fpxg-5xmv-922m",
+      "title": "GHSA: SurrealDB has bypass of field-level SELECT permissions through JSON Patch `copy` and `move` with empty `from`",
+      "summary": "SurrealDB lets callers modify records using JSON Patch operations via the `UPDATE … PATCH` statement (and SDK equivalents such as `db.patch()`). One of those operations is `copy`, which duplicates one field's value into another field of the same record. A `PATCH` with an empty `from` — for example, `UPDATE thing:1 PATCH [{ op: 'copy', from: '', path: '/leak' }]` — was treated as \"copy the entire r",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:18:06Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "2d991740fddfd8647071fe1735dcc6f12df82d5f5daa4170bc01dd61e1f47b58",
+      "url": "https://github.com/advisories/GHSA-6g9v-7gq3-p2c6",
+      "title": "GHSA: SurrealDB: Authenticated callers can read fields hidden by field-level SELECT permissions via error messages",
+      "summary": "A record user with UPDATE access could read field values that field-level SELECT permissions hid from them. Arithmetic operators and `extend` embedded the raw operand into their error messages, and UPDATE permission checks evaluate against the unreduced document — so triggering such an error against a hidden field returned its value in the resulting error.\n\n### Impact\n\nA record user issues an UPDA",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:16:52Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "36996456780634eb8cede02a42b77b0b71a5ed3fec939d73a3a46c599e412e09",
+      "url": "https://github.com/advisories/GHSA-4m82-p8cx-f94j",
+      "title": "GHSA: SurrealDB: LIVE query subscriptions survive session state changes, bypassing access controls",
+      "summary": "A `LIVE SELECT` subscription records the user's auth state (`$auth`, `$token`, `$session`, `$access`) when it is registered, and the server uses that recorded state to evaluate the table- and row-level `PERMISSIONS` clauses for every subsequent notification. The recorded state is never refreshed. \n\nWhen something changes the user's effective auth state — the originating session is invalidated, the",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:16:12Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "6ce4fc7ba83fd6b7197c14c24eae8e7937548dea55bef0a6673128b53ed70e4e",
+      "url": "https://github.com/advisories/GHSA-65rj-r9fh-jp2v",
+      "title": "GHSA: SurrealDB vulnerable to pre-auth memory amplification via unbounded `/sql` WebSocket frames",
+      "summary": "An anonymous caller could degrade `/sql` availability by streaming WebSocket frames many times larger than the operator-configured per-connection limit. The `/sql` upgrade handler accepted anonymous connections and did not propagate `SURREAL_WEBSOCKET_MAX_MESSAGE_SIZE` to the WebSocket protocol layer — incoming bytes accumulated in the per-connection read buffer before `check_anon` could reject th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:15:03Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "28ead3f28d67f941c3fe2792f34d4df77c644b976dc45abd9d574146b005ac70",
+      "url": "https://github.com/advisories/GHSA-gcwr-5mrf-fvch",
+      "title": "GHSA: SurrealDB: Authorization Bypass in KILL Statement Allows Termination of Other Users' Live Queries",
+      "summary": "The `KILL` statement is used to terminate `LIVE SELECT` subscriptions that capture real-time changes to data within a table. The `KILL` statement implementation in `core/src/expr/statements/kill.rs` verifies that the requesting user has database-level access, but does not verify that the requesting user is the owner of the live query being terminated.\n \nAfter passing the `valid_for_db()` check, th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:14:20Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "3a78766c1ea3406ba8600873f4a93a21c1da0b47d382c5560f00b29dfde34ada",
+      "url": "https://github.com/advisories/GHSA-4v76-cw68-4vc9",
+      "title": "GHSA: SurrealDB: Crafting malicious LIVE queries writes to the database, resulting in DoS, without permission to the table required",
+      "summary": "A `LIVE` query whose `WHERE` clause evaluates to an error caused the source data modifier (the user creating, updating, or deleting a record on the watched table) to fail instead. Calling any arbitrary SurrealQL function with a typed parameter and passing a value of the wrong type — for example `LIVE SELECT * FROM t WHERE string::trim(deny)` — triggered an evaluation error inside the LIVE notifica",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:13:37Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "1af6fba744141a485f217dde1f1b0b6b7b8394df21b78f10af277d8a8fb545e5",
+      "url": "https://github.com/advisories/GHSA-6vg3-hgrw-p5gf",
+      "title": "GHSA: SurrealDB has an Authorization Bypass via Composite Record-id Paths",
+      "summary": "An authenticated user could bypass permission rules that gated access on parts of a record's id — most commonly tenant-isolation rules of the form `PERMISSIONS FOR select WHERE id.tenant = $auth.id.tenant`. The same defect also let UNIQUE constraints defined on parts of an id admit duplicate entries.\n\nWhen a query referenced part of a composite record id (`id.tenant`, `id.uid`, …), SurrealDB read ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:12:25Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "59e5cee82de9946d8dd1b6a4a4f05be483901966f902fc8d01b9f30fefbb8844",
+      "url": "https://github.com/advisories/GHSA-vjjx-rfw4-rmfc",
+      "title": "GHSA: SurrealDB: Graph traversal bypasses table SELECT permissions",
+      "summary": "An authenticated record or scope user could read records on any table reachable through a graph edge or `REFERENCES TO` back-reference, regardless of that table's `PERMISSIONS FOR select` clause.\n\nTraversing `SELECT * FROM source->edge->target` returned full documents from `target` even when `target` was defined as `PERMISSIONS FOR select NONE`. The same bypass extended through multi-hop chains, s",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:10:34Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "d0720c2348693610e7aac338052771faf5b00f192b2a939ee3d46b0a9c38c0b6",
+      "url": "https://github.com/advisories/GHSA-98fx-66cf-fc7c",
+      "title": "GHSA: SurrealDB: Scraping a TABLE with no available PERMISSIONS to current auth level",
+      "summary": "A vulnerability was discovered where the user-supplied `WHERE` clause in a `SELECT` statement is evaluated against the full record data before `PERMISSIONS FOR SELECT WHERE` determines whether the principal is authorised to access that record. A side-effecting expression in the `WHERE` clause can exfiltrate record contents before the permission check runs. The same ordering bug affects the `SET`, ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:06:08Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "999cb6f0f259c28c6459fa62114829f19f4139d276a3e034fe21164759eda8c7",
+      "url": "https://github.com/advisories/GHSA-q8qp-67f9-wr3f",
+      "title": "GHSA: SurrealDB vulnerable to Denial of Service due to nested types annotations",
+      "summary": "The SurrealDB type/kind parser did not enforce the configured recursion depth limit when parsing nested type annotations. The expression parser already enforced the limit for analogous constructs; the kind parser omitted it. An authenticated attacker could send a query with deeply nested type annotations (e.g., `array<option<array<option<...>>>>`) and exhaust server memory, crashing the process.\n\n",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:05:14Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "86a5eb22a7e2176eda6cd31f4ab7d9f845b9ed41464de25c981889ffae650e66",
+      "url": "https://github.com/advisories/GHSA-wjjj-24cx-f28g",
+      "title": "GHSA: SurrealDB has unauthenticated remote DoS via malformed RPC `use` call",
+      "summary": "A single unauthenticated WebSocket message to `/rpc` crashed the SurrealDB server. Sending `use { db: \"x\" }` without first selecting a namespace hit `.expect(\"namespace should be set\")` in the `use` handler; because `surrealdb-core` is built with `panic = 'abort'`, the panic terminated the process. `use` is callable before `signin`, and the per-method capability check passes by default for guest c",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:04:22Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "722d1e0d514c141feb0cf05b54b48730b191c005e0bba881df4e0471539eeaf0",
+      "url": "https://github.com/advisories/GHSA-q729-696q-g9pq",
+      "title": "GHSA: SurrealDB has Denial of Service in JSON parser due to nested objects",
+      "summary": "The SurrealDB value and JSON parser did not enforce the configured recursion depth limit when parsing nested `{`, `[`, or `(` tokens. The expression parser already enforced the limit for these tokens; the value/JSON parser omitted it. An unauthenticated attacker could send a deeply nested JSON payload to the WebSocket `/rpc` endpoint and exhaust server memory, crashing the process.\n\nThis is an inc",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:03:33Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "8b229d0245ecbcd7d88f3393929358da5d5c4953d1c0a81de97ef471584ae594",
+      "url": "https://github.com/advisories/GHSA-4vgr-h27g-cf9p",
+      "title": "GHSA: SurrealDB: HTTP RPC Session Race Condition Allows Privilege Escalation",
+      "summary": "The HTTP `/rpc` endpoint has a time-of-check/time-of-use (TOCTOU) race condition on internal session state. When authenticated and unauthenticated requests are processed concurrently, the unauthenticated request can inherit the authenticated user's session and privileges. The `/rpc` endpoint is the primary interface used by all official SurrealDB SDKs.\n\nThe HTTP `/rpc` handler does not bind each i",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:02:06Z",
+      "cve_ids": [],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "61421f586dd7ab01127bb9d8e287074a7b954e754cbcb173b07abc0b1af01a6a",
+      "url": "https://github.com/advisories/GHSA-5qfp-32cf-69jh",
+      "title": "GHSA: SurrealDB: HTTP /rpc `sessions` method leaks attached session UUIDs, enabling full session hijack by anonymous callers",
+      "summary": "The HTTP `/rpc` `sessions` method returned every attached session UUID without authentication, and the `/rpc` handler accepted an arbitrary `session` field with no ownership check. An anonymous caller could enumerate UUIDs and impersonate any authenticated session.\n\n\"Attached\" means sessions registered via `{\"method\":\"attach\"}` — the only writer to the HTTP session map. Ordinary stateless `/rpc` r",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:00:17Z",
+      "cve_ids": [],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "f0307514d379322ebada254634fd70e88921b9abff6f1d70d3950ac69f5b88e5",
+      "url": "https://github.com/advisories/GHSA-52v5-jr5w-gjxr",
+      "title": "GHSA: sigstore's `certificateOIDs` verification constraints are silently dropped and never enforced",
+      "summary": "### Summary\n\nThe documented `certificateOIDs` option in `sigstore.verify()` is accepted by the public API but discarded before verification, so required certificate extension OIDs are never checked.\n\n### Details\n\nThe public verify options include `certificateOIDs` and the documentation says those OID/value pairs “must be present in the certificate’s extension list.” The policy-construction path us",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T19:58:28Z",
+      "cve_ids": [
+        "CVE-2026-48815"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "3052bc77778284cf96ec5bffdf2584495368db18d0667d9ba55f476db2bb9844",
+      "url": "https://github.com/advisories/GHSA-xgjw-pm74-86q4",
+      "title": "GHSA: sigstore-js has Insufficient Verification of Data Authenticity",
+      "summary": "sigstore-js derives a transparency-log timestamp from `tlogEntries[].integratedTime` and uses it to validate certificate validity windows and satisfy `timestampThreshold`. For bundle v0.2, a tlog entry can be inclusionProof-only (no signed inclusionPromise/set), and the inclusion proof path does not cryptographically bind `integratedTime`. As a result, an attacker who can supply an untrusted bundl",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T19:57:45Z",
+      "cve_ids": [
+        "CVE-2026-48816"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "ba06bb98d0145ce0c420b038e108a0abd34d6f194f547ab3336945d2523bcae4",
+      "url": "https://github.com/advisories/GHSA-9mm9-rqhj-j5mx",
+      "title": "GHSA: repomix Vulnerable to Command Injection (RCE) via `--remote-branch` Argument Injection",
+      "summary": "### Vulnerability Metadata\n\n| Field | Detail |\n| --- | --- |\n| **Affected Component** | `src/core/git/gitCommand.ts` (`execGitShallowClone`) |\n| **Impact** | Arbitrary Command Execution / Security Control Bypass |\n\n### Summary\n\nThe `--remote-branch` CLI option in `repomix` is vulnerable to argument injection. User-supplied input is passed directly to `git fetch` and `git checkout` subprocesses via",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T19:00:50Z",
+      "cve_ids": [
+        "CVE-2026-49987"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "0a844b192dff49f31b3772672481c0868bf75977ac03caf34b5df5bb3bf82f45",
+      "url": "https://github.com/advisories/GHSA-mjgf-xj26-9qf9",
+      "title": "GHSA: pay-rails/pay: non-constant-time HMAC comparison in Paddle Billing webhook signature verifier",
+      "summary": "## Summary\n\n`Pay::Webhooks::PaddleBillingController#valid_signature?` (`app/controllers/pay/webhooks/paddle_billing_controller.rb`) verifies the Paddle Billing webhook signature by computing `OpenSSL::HMAC.hexdigest(...)` and comparing it to the attacker-supplied header value using Ruby's `String#==`. Ruby's `==` is non-constant-time — it returns as soon as the first byte mismatches — and exposes ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T18:57:02Z",
+      "cve_ids": [],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "20a7c98dd4d07ab3c1ddc417f8008616f51b74a6bc7556b708b6dcc9fed8098d",
+      "url": "https://github.com/advisories/GHSA-3ccm-4qq2-5wrp",
+      "title": "GHSA: Constrata's coordinator transit engine `ciphertextContainer.UnmarshalJSON` panics on attacker-controlled short ciphertexts",
+      "summary": "## Summary\n\n`ciphertextContainer.UnmarshalJSON` decodes the third `:`-separated component of a `vault:vX:base64...` ciphertext and then unconditionally takes a 12-byte prefix slice for the AES-GCM nonce: `c.nonce = fullCiphertext[:aesGCMNonceSize]`. If the decoded blob is shorter than 12 bytes, the slice expression panics. The panic happens before any cryptographic operation, while the JSON body o",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T18:47:53Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "18d760faea6c7dbe9d143f9a105fcc9ecd50cb5ab4fcac4c4daf4babe14a4689",
+      "url": "https://github.com/advisories/GHSA-6c87-g9pw-78fx",
+      "title": "GHSA: Contrast's Imagepuller registryFor uses unanchored suffix matching, leaking auth credentials and trusted CA configuration to sibling-domain registries",
+      "summary": "# Summary\n\n`Config.registryFor` selected a per-registry credential / CA / mirror block by checking `strings.HasSuffix(name, fqdn)` after stripping a single trailing dot. \nThe match has no boundary between the configured FQDN and any preceding characters in the request hostname.\nA registry configured as `[registries.\"ghcr.io.\"]` is therefore also applied to any image pulled from a host whose name h",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T18:43:55Z",
+      "cve_ids": [],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "6c5109104360c4acde98e44fb17e6221bff36d06aca960f257759b787980db54",
+      "url": "https://github.com/advisories/GHSA-f8h2-c479-vqxf",
+      "title": "GHSA: Open Babel has out-of-bounds write in MSI translationVectors[]",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's MSI parser allowed an\nout-of-bounds write into the `translationVectors[]` array when\nreading a crafted input file.\n\n### Details\n\nThe MSI reader stored cell translation vectors into a fixed-size\n`translationVectors[]` array. A malformed input could push more\nvectors than the array had slots, causing a write past the end of\nthe array. One of",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:54:42Z",
+      "cve_ids": [
+        "CVE-2022-46295"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "c0f1e9b506ef2661f41c936d3e44621cff14b2bd0dc70ef26cc5a2a7acfe353a",
+      "url": "https://github.com/advisories/GHSA-mjmg-352j-f456",
+      "title": "GHSA: Open Babel has out-of-bounds write in MOPAC IN translationVectors[] (Tv atom)",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's MOPAC input parser\nallowed an out-of-bounds write into the `translationVectors[]` array\nwhen reading Tv (translation-vector) atoms from a crafted input\nfile.\n\n### Details\n\nThe MOPAC IN reader stored Tv-atom translation vectors into a\nfixed-size `translationVectors[]` array. A malformed input with\nmore than three Tv atoms (or three plus ext",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:54:07Z",
+      "cve_ids": [
+        "CVE-2022-46294"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "e6b3045439d1f905d98896b85560bfe67705caef878ed85077825230067942eb",
+      "url": "https://github.com/advisories/GHSA-7h6r-6p76-68c9",
+      "title": "GHSA: Open Babel has out-of-bounds write in MOPAC translationVectors[] (FINAL POINT)",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's MOPAC output parser\nallowed an out-of-bounds write into the `translationVectors[]` array\nwhen reading the \"FINAL POINT\" block of a crafted input file.\n\n### Details\n\nThe MOPAC output reader stored translation vectors from the FINAL\nPOINT block into a fixed-size `translationVectors[]` array. A\nmalformed block could push more vectors than the",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:53:28Z",
+      "cve_ids": [
+        "CVE-2022-46293"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "03d1cecfd1652b1655c628ceb82b1520166e88c7c69d1ceb4fabd8e51ab473a0",
+      "url": "https://github.com/advisories/GHSA-jg3h-pv7c-4f9c",
+      "title": "GHSA: Open Babel has out-of-bounds write in Gaussian translationVectors[]",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's Gaussian output parser\nallowed an out-of-bounds write into the `translationVectors[]` array\nwhen reading a crafted input file.\n\n### Details\n\nThe Gaussian reader stored periodic-cell translation vectors into a\nfixed-size `translationVectors[]` array. A malformed input could push\nmore vectors than the array had slots, causing a write past th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:51:06Z",
+      "cve_ids": [
+        "CVE-2022-46291"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "f4552329f13c85dd0c3a66bed2e0ab2af234b58ee25256b07d6cae7afea7f0c8",
+      "url": "https://github.com/advisories/GHSA-5rff-8f7c-8jmw",
+      "title": "GHSA: Open Babel has out-of-bounds write in ORCA nAtoms parser (second variant)",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's ORCA parser allowed an\nout-of-bounds write when reading a crafted input file.\n\n### Details\n\nA second variant of the `nAtoms` out-of-bounds write in the ORCA\nreader: a different malformed-input path produced the same class of\nwrite past the end of the destination buffer.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and writ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:50:21Z",
+      "cve_ids": [
+        "CVE-2022-46290"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "ecc3b2ffa471e21d53ed7488af77d7d07976f5d535fa5622388856cb64d75a4a",
+      "url": "https://github.com/advisories/GHSA-rj4c-r689-cm87",
+      "title": "GHSA: Open Babel has out-of-bounds write in ORCA nAtoms parser",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's ORCA parser allowed an\nout-of-bounds write when reading a crafted input file.\n\n### Details\n\nThe flaw was in the `nAtoms` handling of the ORCA reader. A malformed\ninput caused the parser to write past the end of its destination\nbuffer.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write chemistry\nfile formats; it is ship",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:49:41Z",
+      "cve_ids": [
+        "CVE-2022-46289"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "ea66fa02a18459e71b9d23ccc562b367f7994c21ec6c6ff979757510a218b375",
+      "url": "https://github.com/advisories/GHSA-8qxc-57hf-hc9j",
+      "title": "GHSA: Open Babel has uninitialized pointer dereference in PQS pFormat",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's PQS parser caused an\nuninitialized pointer dereference when reading a crafted input file.\n\n### Details\n\nThe flaw was in the `pFormat` handling of the PQS reader. A malformed\ninput caused the parser to dereference a format pointer that had\nnever been initialized.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write chemis",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:48:54Z",
+      "cve_ids": [
+        "CVE-2022-46280"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "ad4df5a4aab7275ce1fd4d8081d584afc8d033481e00b8c43bc408a2e2093497",
+      "url": "https://github.com/advisories/GHSA-jr2x-6qf6-q5mc",
+      "title": "GHSA: Open Babel has uninitialized pointer dereference in MSI atom parser",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's MSI parser caused an\nuninitialized pointer dereference when reading a crafted input file.\n\n### Details\n\nThe flaw was in the atom handling of the MSI reader. A malformed\nrecord caused the parser to dereference an atom pointer that had\nnever been initialized.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write chemistry\nf",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:48:17Z",
+      "cve_ids": [
+        "CVE-2022-44451"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "3e87e58e6b4a78bb144f111b9377f2f717aedfa25b1917e1eb492d0c0178395a",
+      "url": "https://github.com/advisories/GHSA-vjg6-gm8m-v5g6",
+      "title": "GHSA: Open Babel has out-of-bounds write in MOL2 attribute/value parser",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's MOL2 parser allowed an\nout-of-bounds write when reading a crafted input file.\n\n### Details\n\nThe flaw was in the attribute/value parsing path of the MOL2 reader.\nAn over-long attribute or value caused the parser to write past the\nend of a fixed-size destination buffer.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:47:33Z",
+      "cve_ids": [
+        "CVE-2022-43607"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "bb553c09244b7224122990986aa3ee2b60e757812f36aa5b0a3a5eb748409823",
+      "url": "https://github.com/advisories/GHSA-f29h-2h58-48r7",
+      "title": "GHSA: Open Babel has out-of-bounds write in PQS coord_file parser",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's PQS parser allowed an\nout-of-bounds write when reading a crafted input file.\n\n### Details\n\nThe flaw was in the `coord_file` parsing path of the PQS reader. A\nmalformed coord file specifier caused the parser to write past the\nend of its destination buffer.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write chemistry\nfil",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:46:44Z",
+      "cve_ids": [
+        "CVE-2022-43467"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "b5175e236ec86cc1a8b60e9c8699a22d79b333df1039d9ae878beede6b3ea599",
+      "url": "https://github.com/advisories/GHSA-mw5r-wq2m-397c",
+      "title": "GHSA: Open Babel has uninitialized pointer dereference in GRO residue parser",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's GRO parser caused an\nuninitialized pointer dereference when reading a crafted input file.\n\n### Details\n\nThe flaw was in the residue handling of the GRO reader. A malformed\nrecord caused the parser to use a residue pointer that had never been\ninitialized.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write chemistry\nfile",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:45:46Z",
+      "cve_ids": [
+        "CVE-2022-42885"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "7ee63709cdb2a5cc945302f7a59fee5bfc6393541ed4f911fced821ad6707dc7",
+      "url": "https://github.com/advisories/GHSA-p594-7xw4-g76p",
+      "title": "GHSA: Open Babel has out-of-bounds write in CSR PadString (title field)",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's CSR parser allowed an\nout-of-bounds write when reading a crafted input file.\n\n### Details\n\nThe flaw was in the `PadString` helper used to handle the CSR title\nfield. A title longer than the fixed destination buffer caused the\nparser to write past the end of the buffer.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:45:02Z",
+      "cve_ids": [
+        "CVE-2022-41793"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "23bee4e8ccebdafe6a1e31bc2a5f03d07e2ca14a0fa5f9950d22870184fc2030",
+      "url": "https://github.com/advisories/GHSA-vr3p-gg26-45v9",
+      "title": "GHSA: Open Babel has out-of-bounds write in Gaussian coords_type orientation parser",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's Gaussian output parser\nallowed an out-of-bounds write when reading a crafted input file.\n\n### Details\n\nThe flaw was in the `coords_type` orientation parser inside the\nGaussian output reader. A malformed orientation block caused the\nparser to write past the end of its destination buffer.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:44:00Z",
+      "cve_ids": [
+        "CVE-2022-37331"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "2de138b2171a67d8743465cb8cf3a8b03ad2922e6d3deeee8a4c11444bf5bbbf",
+      "url": "https://github.com/advisories/GHSA-m982-7q3h-r784",
+      "title": "GHSA: Open Babel has out-of-bounds read in PQS lowerit (pre-buffer read)",
+      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's PQS parser caused an\nout-of-bounds (pre-buffer) read when reading a crafted input file.\n\n### Details\n\nThe flaw was in the `lowerit` helper used by the PQS parser. A\nmalformed input caused the helper to read one or more bytes before\nthe start of its input buffer.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write chemis",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T17:42:20Z",
+      "cve_ids": [
+        "CVE-2025-11000"
+      ],
+      "cvss": 4.4,
+      "related_links": []
+    },
     {
       "id": "2ddb1f0bf10753c9f25e3a6e97f39c787c7d96d901b78804bc02c3a7ae7476df",
       "url": "https://github.com/advisories/GHSA-55j6-rjhx-hwfh",
@@ -928,570 +1456,6 @@
         "CVE-2025-10996"
       ],
       "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "c89ce37dca255f8a25acd74d0ae3a0e7a7be9d12b5ebd31c07daae506742d21c",
-      "url": "https://github.com/advisories/GHSA-8j3x-m868-cpw8",
-      "title": "GHSA: Open Babel has out-of-bounds write (overlapping memcpy) in zipstream basic_unzip_streambuf::underflow",
-      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's bundled zipstream\ndecompression code caused an out-of-bounds write via overlapping\n`memcpy` when reading a crafted gzip-compressed chemistry file.\n\n### Details\n\nThe flaw was in `basic_unzip_streambuf::underflow`. The decompression\nbuffer refill path invoked `memcpy` with overlapping source and\ndestination regions, which is undefined behavi",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-30T21:25:25Z",
-      "cve_ids": [
-        "CVE-2025-10995"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "e1f38ad12459c8829f8353763de4a56e3cd7de152ba12bb362316bda09bf7604",
-      "url": "https://www.bleepingcomputer.com/news/security/malicious-pypi-packages-give-hackers-control-of-telegram-bot-servers/",
-      "title": "Malicious PyPI packages give hackers control of Telegram bot servers",
-      "summary": "A campaign active since last November has been targeting Python developers building Telegram bots with trojanized Pyrogram forks that allow attackers to read arbitrary files on compromised servers. [...]",
-      "source": "Bleeping Computer",
-      "category": "web_app",
-      "date": "2026-06-30T21:02:55+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "451b63ae457e09d95dbb06f49e7bce7cdca4c56b599b7a778c9f3d23e2769357",
-      "url": "https://github.com/advisories/GHSA-pgcq-8grm-5rx9",
-      "title": "GHSA: Paymenter has race condition in payWithCredit() that enables credit double-spend",
-      "summary": "### Summary\nThe credit payment implementation in `app/Livewire/Invoices/Show.php` executes a pessimistic row lock (`lockForUpdate()`) outside of an active database transaction. Because MySQL/MariaDB requires an enclosing transaction to enforce row-level locks, the guard is ineffective. Concurrent payment requests can exploit this race condition to read the same credit balance simultaneously, allow",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-30T19:11:24Z",
-      "cve_ids": [
-        "CVE-2026-55219"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "727b4ac700649273ece3300d19e0d669ee579f101c623a33f0b0fe1ad19dd9b1",
-      "url": "https://github.com/advisories/GHSA-pp85-5j63-xpq3",
-      "title": "GHSA: Open Babel has Use-after-free in GAMESS GAMESSOutputFormat::ReadMolecule",
-      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's GAMESS output parser\ncaused a use-after-free when reading a crafted input file.\n\n### Details\n\nThe flaw was in `GAMESSOutputFormat::ReadMolecule`. A malformed input\ncaused the parser to dereference a stale pointer after the underlying\nobject had been freed.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write chemistry\nfi",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:48:57Z",
-      "cve_ids": [
-        "CVE-2025-10994"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "e96a4bb1822cb41cf28fad94644d2657794149814358cbced16bcfd51b9b686b",
-      "url": "https://github.com/advisories/GHSA-rxpr-wq63-jr7p",
-      "title": "GHSA: Open Babel has a NULL pointer dereference in CDXML OBAtom::GetExplicitValence",
-      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's CDXML file format parser\ncaused a NULL pointer dereference when reading a crafted input file.\n\n### Details\n\nThe flaw was in `OBAtom::GetExplicitValence` as called from the CDXML\nparser. A malformed fragment caused the parser to invoke the method\non a NULL atom pointer.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:47:28Z",
-      "cve_ids": [
-        "CVE-2026-3408"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "ca8a2d29e83d57b118a28ded488df04a2e370003b541604242c62ef5be730d1d",
-      "url": "https://github.com/advisories/GHSA-4w5w-4fhm-q483",
-      "title": "GHSA: Open Babel has NULL pointer dereference in MOL2 OBAtom::SetFormalCharge",
-      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's MOL2 file format parser\ncaused a NULL pointer dereference when reading a crafted input file.\n\n### Details\n\nThe flaw was in `OBAtom::SetFormalCharge` as called from the MOL2\nparser. A malformed atom record caused the parser to call the method\non a NULL atom pointer.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write che",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:47:00Z",
-      "cve_ids": [
-        "CVE-2026-2705"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "3f383b02c1d446714afe6e746c0ab8dedf9c99e9e4e444b6489d5e14a1c78e1b",
-      "url": "https://github.com/advisories/GHSA-6xw4-2g22-26h8",
-      "title": "GHSA: Open Babel has an out-of-bounds read in CIF transform3d::DescribeAsString",
-      "summary": "> ### Summary\n>\n> A memory-safety vulnerability in Open Babel's CIF file format parser\n> allowed an out-of-bounds read when reading a crafted input file.\n>\n> ### Details\n>\n> The flaw was in `OpenBabel::transform3d::DescribeAsString`. A malformed\n> symmetry-operation string caused the parser to read past the end of its\n> internal buffer while formatting the description.\n>\n> ### Impact\n>\n> Open Babe",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:46:12Z",
-      "cve_ids": [
-        "CVE-2026-2704"
-      ],
-      "cvss": 4.4,
-      "related_links": []
-    },
-    {
-      "id": "fa7ab6095ca2e48ade96ac601b706b817344c2946849def15c33d7275eebc8c5",
-      "url": "https://github.com/advisories/GHSA-9c54-x2g4-v92j",
-      "title": "GHSA: Sigstore Timestamp Authority has OOM due to unbounded metric label cardinality",
-      "summary": "### Impact\n\nAn unauthenticated remote attacker can trigger unbounded memory growth on the timestamp authority server.\n\nThis vulnerability exists because the global `wrapMetrics` middleware records the raw HTTP request path (`r.URL.Path`) and raw HTTP request method (`r.Method`) as Prometheus labels for latency and request count metric vectors. Since this middleware runs before standard routing occ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-30T18:40:39Z",
-      "cve_ids": [
-        "CVE-2026-49835"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "6ec855f79a3cb6bbc86bd27da3761cbcaee264428c9dc953ab33e2ab881cd3b6",
-      "url": "https://github.com/advisories/GHSA-f5mr-q85p-6hh6",
-      "title": "GHSA: Fulcio has OIDC Discovery Redirect Following Allows SSRF and JWKS Substitution for Meta-Issuer Paths, with Kubernetes Service-Account Token Leakage",
-      "summary": "## Impact\n\nThree security vulnerabilities were identified in the OIDC Discovery client:\n\n1. **Blind Server-Side Request Forgery (SSRF) via Cross-Host Redirects**:\n   Fulcio uses an HTTP client to fetch OIDC discovery metadata (`/.well-known/openid-configuration`). Prior to this fix, if a configured issuer returned an HTTP redirect to a different host, the client followed it by default. This allowe",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:38:45Z",
-      "cve_ids": [
-        "CVE-2026-49478"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "44f93d06639aed31f2b0743cc4649e0b3577e48fde877578efcb770d60893967",
-      "url": "https://github.com/advisories/GHSA-85jm-cwp2-mvpv",
-      "title": "GHSA: CefSharp.Common: `FolderSchemeHandlerFactory` path boundary check can expose files outside the configured root folder",
-      "summary": "### Summary\n\n`FolderSchemeHandlerFactory` was intended to restrict served files to a configured `rootFolder`, but its path validation used a raw string prefix check. A request could escape to a sibling directory whose full path starts with the root folder path, allowing files outside the configured root to be served.\n\n### Details\n\nIn affected versions, `FolderSchemeHandlerFactory` canonicalized `r",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:36:12Z",
-      "cve_ids": [
-        "CVE-2026-48796"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "a28a56c66e717aefdcd8335f623ad89d22100cd56862fe50327d3bdb16c80e27",
-      "url": "https://github.com/advisories/GHSA-qcm7-3vpr-hj5h",
-      "title": "GHSA: @adonisjs/bodyparser has an incomplete fix for CVE-2026-25754",
-      "summary": "### Summary\n\nThe fix for [GHSA-f5x2-vj4h-vg4c](https://github.com/adonisjs/core/security/advisories/GHSA-f5x2-vj4h-vg4c) / CVE-2026-25754 introduced in commit [`40e1c71`](https://github.com/adonisjs/bodyparser/commit/40e1c71f958cffb74f6b91bed6630dca979062ed) is incomplete and can be bypassed through nested prototype pollution payloads.\n\nThe original patch replaced the internal `FormFields` storage",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:34:32Z",
-      "cve_ids": [
-        "CVE-2026-48795"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "f0270a90461154bfa1f4f760dc4788e53a52494a04d1d6e22cf71062f449e7ca",
-      "url": "https://github.com/advisories/GHSA-x7qq-m748-8p2c",
-      "title": "GHSA: Probo has an open redirect bypass via path normalization",
-      "summary": "### Impact\nProbo's `saferedirect` package validates redirect URLs used across authentication flows (OIDC, SAML, session transfer, OAuth connectors, and trust-center magic links). The validator only inspected the second character of relative paths, so a URL like `/../\\evil.com` passed validation because the second character is `.`. Go's `http.Redirect` normalizes this path to `/\\evil.com` before se",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:31:50Z",
-      "cve_ids": [
-        "CVE-2026-49820"
-      ],
-      "cvss": 4.7,
-      "related_links": []
-    },
-    {
-      "id": "018db0682dce5e6c8533a686deff0abc3569e6e5ecc40f7af362402ea356c422",
-      "url": "https://github.com/advisories/GHSA-m63v-2g9w-2w6v",
-      "title": "GHSA: Fission: Environment Runtime.Container and Builder.Container SecurityContext bypass allows privileged pod creation",
-      "summary": "### Summary\n\nA follow-up bypass of the round-4 PodSpec hardening (GHSA-gx55-f84r-v3r7, GHSA-wmgg-3p4h-48x7, GHSA-v455-mv2v-5g92). Those advisories validate and sanitize the `PodSpec` (`spec.runtime.podSpec` / `spec.builder.podSpec` /\n`function.spec.podSpec`), but the Environment CRD also exposes `spec.runtime.container` and `spec.builder.container` — a standalone `Container` merged into the runtim",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-30T18:20:39Z",
-      "cve_ids": [
-        "CVE-2026-50566"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "765cff9db6cb2024cbb5bb30801389a7de23ce62568e72f17c504234727f2360",
-      "url": "https://github.com/advisories/GHSA-8wcj-mfrc-jx5q",
-      "title": "GHSA: Fission builder pods auto-mount the fission-builder ServiceAccount token in the user-supplied builder container",
-      "summary": "### Summary\n\nFission builder pods were created with `ServiceAccountName: fission-builder` and no `AutomountServiceAccountToken: false`, so the kubelet auto-mounted the service-account token into every container in the pod — including the\nuser-supplied builder image.\n\n### Details\n\nThe user controls the builder container image, command, and podspec through `Environment.spec.builder.image` / `.contai",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:20:03Z",
-      "cve_ids": [
-        "CVE-2026-50565"
-      ],
-      "cvss": 4.9,
-      "related_links": []
-    },
-    {
-      "id": "9cb71dad7870a4349d3ed9a275bea6b6721fc29e39ffef870a5d539989896802",
-      "url": "https://github.com/advisories/GHSA-gx55-f84r-v3r7",
-      "title": "GHSA: Fission Environment CRD podspec passthrough enables hostPID/hostNetwork/privileged pods, node escape",
-      "summary": "### Summary\n\nFission's `Environment` CRD exposes `spec.runtime.podSpec` and `spec.builder.podSpec`, which are merged into the Kubernetes pod specs for runtime and builder pods. The merge logic propagated `hostNetwork`, `hostPID`, `hostIPC`, container\n `privileged`, and `serviceAccountName` from the user-supplied podspec with no filtering, and `Environment.Validate` performed no security-relevant c",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-30T18:19:32Z",
-      "cve_ids": [
-        "CVE-2026-50564"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "394cad649605adaa2935eeaa9500e3a610a75762877a2776a52db66d32383903",
-      "url": "https://github.com/advisories/GHSA-v455-mv2v-5g92",
-      "title": "GHSA: Fission Container Executor Function PodSpec Injection Leading to Node Escape",
-      "summary": "### Summary\n\nFission's Container Executor path lets a tenant supply `Function.spec.podspec` directly; the executor merges it into the executor-built podspec and creates a Deployment whose pods run the user's container image.\n\n### Details\n\nTwo flaws compounded:\n\n1. `pkg/apis/core/v1/validation.go::FunctionSpec.Validate` only checked that `spec.PodSpec != nil` when `executorType: container`; it did ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-30T18:18:42Z",
-      "cve_ids": [
-        "CVE-2026-50563"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "102bb6b93c5f2371b723de681f10c7d4a5557888f4bae11b3dd7a6acf737ec65",
-      "url": "https://github.com/advisories/GHSA-wmgg-3p4h-48x7",
-      "title": "GHSA: Fission Environment CRD PodSpec Injection Leading to Node Escape and Cluster Takeover",
-      "summary": "### Summary\n\nA stronger framing of the same root cause as GHSA-gx55-f84r-v3r7: the `Environment.spec.runtime.podSpec` / `spec.builder.podSpec` passthrough lacked validation, and `MergePodSpec` propagated dangerous fields into the generated pods.\n\n### Details\n\nThree independent flaws compounded:\n\n1. **Validate gap.** `pkg/apis/core/v1/validation.go::Environment.Validate` checked only container nami",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-30T18:18:05Z",
-      "cve_ids": [
-        "CVE-2026-50545"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "c9e2341110c81814504193501d256f74a697d8c313cf5c0597c5c1297f2eb80e",
-      "url": "https://github.com/advisories/GHSA-cvw6-gfvv-953q",
-      "title": "GHSA: Fission: Cross-namespace Environment reference via unvalidated EnvironmentRef in Function admission webhook",
-      "summary": "### Summary\n\nThe Fission Function admission webhook (`pkg/webhook/function.go`) validated that `spec.secrets[].namespace` and `spec.configmaps[].namespace` equalled the function's own namespace but performed no equivalent check on\n`spec.environment.namespace`.\n\n### Details\n\nAn attacker with permission to create Functions in their own namespace could set `spec.environment.namespace` to any other te",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-06-30T18:17:02Z",
-      "cve_ids": [
-        "CVE-2026-49824"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "90f363158bed9b2102c466c49e0df19f394b11aeb65700ee6c5ff7ba32b93c09",
-      "url": "https://github.com/advisories/GHSA-3r8v-2xmj-5c39",
-      "title": "GHSA: Fission: Cross-namespace Package read via unvalidated PackageRef in Function admission webhook",
-      "summary": "### Summary\n\nA Fission Function spec carries three reference types — Secret, ConfigMap, and Package. The first two were namespace-validated by the admission webhook; `PackageRef.Namespace` was not.\n\n### Details\n\nA tenant with `functions.fission.io/create` in their own namespace could set `spec.package.packageref.namespace` to any other namespace. When the function is invoked, the fetcher sidecar r",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-06-30T18:16:33Z",
-      "cve_ids": [
-        "CVE-2026-49823"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "dfea9c0ed45bff81fbddc528a2a6a55d70d09417b8c032fd198d24d0331811cf",
-      "url": "https://github.com/advisories/GHSA-gc3j-79f2-7vvw",
-      "title": "GHSA: Fission: Cross-namespace event leakage via KubernetesWatchTrigger allows persistent tenant surveillance",
-      "summary": "### Summary\n\nA low-privilege developer who could create a `KubernetesWatchTrigger` (KWT) in their own namespace was able to establish a persistent surveillance channel over any other namespace.\n\n### Details\n\nTwo independent flaws compounded:\n\n1. `pkg/kubewatcher/kubewatcher.go::createKubernetesWatch` used `w.Spec.Namespace` (user-controlled) directly as the Watch target without checking it against",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-06-30T18:16:03Z",
-      "cve_ids": [
-        "CVE-2026-49822"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "b24c60ff7fee96b832e96354aa288cb54d85b225d77952eee06ae7cbacd8d71d",
-      "url": "https://github.com/advisories/GHSA-vjhc-cf4p-72q4",
-      "title": "GHSA: Fission: Cross-namespace Environment reference in Package allows build-time command execution and SA token exfiltration",
-      "summary": "### Summary\n\nFission's `buildermgr` controller processed `Package` CRDs without verifying that `Package.spec.environment.namespace` matched `Package.metadata.namespace`.\n\n### Details\n\nAn attacker with `packages.fission.io/create` in their own namespace could set `spec.environment.namespace` to any other tenant's namespace. The controller then used its high-privilege service account to fetch the En",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:15:27Z",
-      "cve_ids": [
-        "CVE-2026-49821"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "d5d3a3877be9848f88fcedb55023170892e76e8344d756a6dd92fc16873e4912",
-      "url": "https://github.com/advisories/GHSA-7m8x-qg2j-4m3v",
-      "title": "GHSA: Fission: MessageQueueTrigger scaler manager materializes Secret values into Deployment envvars and accepts arbitrary user PodSpec",
-      "summary": "### Summary\n\nThe Fission MessageQueueTrigger (MQT) scaler controller exposed two privilege-escalation primitives to any subject able to create MQTs in a namespace.\n\n### Details\n\n**1. Secret materialization.** `getEnvVarlist` in `pkg/mqtrigger/scalermanager.go` read the Secret named in `Spec.Secret` using the controller's cluster-wide `secrets/get` RBAC and emitted each key as a literal `EnvVar.Val",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-06-30T18:12:48Z",
-      "cve_ids": [],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "94be36cf88a37e41145bc96f3f79eb453317bd93e9d82d8290b08e5564278d42",
-      "url": "https://github.com/advisories/GHSA-qqw8-7c2r-jxch",
-      "title": "GHSA: Sigstore Java has a vulnerability with bundle verification of integratedTime",
-      "summary": "### Summary\nRegression: Verification of `integratedTime` from Rekor V1 Log Entry against Fuclio Certificate validity was missing\n\n### Details\n- PR [#1008](https://github.com/sigstore/sigstore-java/pull/1008) erroneously removed verification of the integrated (Rekor entry) time) against the Fulcio certificate. \n- PR [#1185](https://github.com/sigstore/sigstore-java/pull/1185) re-added this verifica",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:10:28Z",
-      "cve_ids": [
-        "CVE-2026-48791"
-      ],
-      "cvss": 2.0,
-      "related_links": []
-    },
-    {
-      "id": "606c5c16175bee164af2f5ae53d4748e449e24277dd78b16782ff0f6558c4522",
-      "url": "https://github.com/advisories/GHSA-g4w6-vmgf-xqvx",
-      "title": "GHSA: @cedar-policy/authorization-for-expressjs has an authorization bypass via query string manipulation",
-      "summary": "### Summary\n@cedar-policy/authorization-for-expressjs is an open-source Express.js middleware that integrates Cedar authorization into Express applications by mapping HTTP requests to Cedar actions and evaluating authorization policies before allowing requests to proceed. An issue exists where, under certain circumstances, the middleware matches incoming requests against Cedar action mappings usin",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-30T18:09:13Z",
-      "cve_ids": [
-        "CVE-2026-49473"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "57c8dfac4ec1af92c9ae94b0f95ebb550263e753a496c33b79df27bcbac16faf",
-      "url": "https://github.com/advisories/GHSA-5q4q-834j-g8g4",
-      "title": "GHSA: Paymenter has URL parameter injection that bypasses paid plan limits at checkout",
-      "summary": "### Summary\nThe checkout component improperly filters URL-writable properties, allowing authenticated users to inject arbitrary key-value pairs into server provisioning parameters. Because bundled server extensions prioritize these user-supplied properties over administrator-defined configurations, a regular user can override hosting plans and resource limits at checkout without special privileges",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-30T16:44:31Z",
-      "cve_ids": [
-        "CVE-2026-47198"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "26113ad2facfa29c24598b03defbabd083c5de21478abc4bd203c40fe3892293",
-      "url": "https://github.com/advisories/GHSA-w6cq-9cf4-gqpg",
-      "title": "GHSA: RabbitMQ vulnerable to Denial of Service by publishing large messages over the HTTP API",
-      "summary": "### Summary\n\nResponsibly disclosed by @NSEcho.\n\nHTTP API did not enforce an HTTP request body limit, making it vulnerable for DoS attacks with very large messages. \n\n### Details\n\nAn authenticated user with sufficient credentials can publish a very large messages over the HTTP API\nand cause target node to be terminated by an \"out-of-memory killer\"-like mechanism.\n\nA PoC was provided to Team RabbitM",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-30T16:39:12Z",
-      "cve_ids": [
-        "CVE-2023-46118"
-      ],
-      "cvss": 4.9,
-      "related_links": []
-    },
-    {
-      "id": "d6d00776fa6d5594e14fc8acf2b0e7c0321b823964703ba6e84c7b3247ee2ee1",
-      "url": "https://github.com/advisories/GHSA-v9gv-xp36-jgj8",
-      "title": "GHSA: RabbitMQ has predictable credential obfuscation seed value used in Shovel and Federation plugins",
-      "summary": "### Impact\n\nShovel and Federation plugins perform URI obfuscation in their worker (link) state. The encryption key used to encrypt\nthe URI was seeded with a predictable secret.\n\nThis means that in case of certain exceptions related to Shovel and Federation plugins,\nreasonably easily deobfuscatable data could appear in the node log.\n\nPatched versions correctly use a cluster-wide secret for that pur",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-06-30T16:15:48Z",
-      "cve_ids": [
-        "CVE-2022-31008"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "7466bb8361abeeeacae9d00dfeb664dd4e656519ad7b05338b295983fb9040cb",
-      "url": "https://github.com/advisories/GHSA-v5pm-xwqc-g5wc",
-      "title": "GHSA: Microsoft.OpenAPI: Circular schema references may terminate OpenAPI parsing",
-      "summary": "### Impact\n\nA small OpenAPI document containing a circular schema reference can cause process termination through stack overflow in Microsoft.OpenApi. The issue affects OpenAPI document parsing through public OpenAPI.NET reader APIs and has been confirmed across both JSON and YAML reader paths.\n\n## Affected versions\n\n- `>= 2.0.0-preview11, <= 2.7.4`\n- `>= 3.0.0, <= 3.5.3`\n\n### Patches\n\n- For the 2",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T15:56:24Z",
-      "cve_ids": [
-        "CVE-2026-49451"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "707d892f3c08c0ac20b6ee89372868a73d2a0aab45e0c67db6227cb0b0726fe5",
-      "url": "https://www.bleepingcomputer.com/news/security/fake-perplexity-extension-on-chrome-web-store-tracked-searches/",
-      "title": "Fake Perplexity extension on Chrome Web Store tracked searches",
-      "summary": "A malicious extension in the Chrome Web Store is masquerading as the Perplexity AI answer engine, intercepting search traffic and collecting browsing information. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-06-30T15:46:19+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "2f24b5758f06196a08c2135e95eec30174eb670f1c89ff19d5af86aba6b2633d",
-      "url": "https://www.bleepingcomputer.com/news/security/cisa-windows-bluehammer-flaw-now-exploited-by-ransomware-gangs/",
-      "title": "CISA: Windows BlueHammer flaw now exploited by ransomware gangs",
-      "summary": "CISA confirmed on Monday that ransomware gangs are now exploiting a Microsoft Defender privilege escalation vulnerability, dubbed BlueHammer, that has previously been abused in zero-day attacks. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-06-30T08:53:13+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "56162408142ae2de3ba9d4b339ecfea0f854a906e00a1a8a553b34f800030622",
-      "url": "https://ubuntu.com/security/notices/USN-8482-1",
-      "title": "USN-8482-1: Roundcube Webmail vulnerability",
-      "summary": "It was discovered that Roundcube Webmail was prone to a Cross-Site-Scripting (XSS) vulnerability via the animate tag in an SVG document. An attacker could use this issue to execute arbitrary web script in the context of an affected user's session.",
-      "source": "Ubuntu Security",
-      "category": "web_app",
-      "date": "2026-06-30T08:41:53+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "eaf852ca8eea58ec8fe4ee142a8498723b59914d2501ae72c2e824992504681c",
-      "url": "https://github.com/advisories/GHSA-q2m9-6jp9-c6mc",
-      "title": "GHSA: Dgraph Vulnerable to DQL Injection via checkUserPassword GraphQL Query",
-      "summary": "## Summary\n\nThe `checkUserPassword` GraphQL query in Dgraph is vulnerable to DQL (Dgraph Query Language) injection. User-supplied password values are interpolated directly into a DQL `checkpwd()` query via `fmt.Sprintf` without any escaping or parameterization. An attacker can inject a password containing a double-quote character to break out of the DQL string literal and append arbitrary DQL quer",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-29T22:53:52Z",
-      "cve_ids": [
-        "CVE-2026-44840"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "5a2429eb2248fed303c34244a32c6be21d79c4c82c1e97aca62ffae875d00f9d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-57997",
-      "title": "CVE-2026-57997 — CVSS 4.8",
-      "summary": "Strapi users-permissions plugin fails to restrict JWT algorithms when plugin::users-permissions.jwt.algorithm is not explicitly configured, allowing acceptance of HS384 and HS512 tokens alongside HS256. Attackers possessing the jwtSecret can mint tokens with non-standard HMAC variants to bypass algorithm restrictions and weaken authentication controls.",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-06-29T22:16:49.350",
-      "cve_ids": [
-        "CVE-2026-57997"
-      ],
-      "cvss": 4.8,
-      "related_links": []
-    },
-    {
-      "id": "9c1072c768d56f3d6f4454589cf02e94850cfb42a30a863231104942d14f20ed",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-51221",
-      "title": "CVE-2026-51221 — CVSS 7.5",
-      "summary": "A buffer overflow in the Get_Attribute_List function of EIPStackGroup OpENer commit 76b95c allows attackers to cause a Denial of Service (DoS) via supplying a crafted Common Packet Format (CPF) packet.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-29T22:16:49.070",
-      "cve_ids": [
-        "CVE-2026-51221"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "4ffbab503e204a26beb122e5ab6afff821422a415674fb52dfed82626c11fd1b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34592",
-      "title": "CVE-2026-34592 — CVSS 7.7",
-      "summary": "Coolify is an open-source and self-hostable tool for managing servers, applications, and databases. Prior to 4.0.0-beta.471, Coolify server and project lookups are not scoped to the current team, allowing any authenticated user to access servers and projects belonging to other teams by specifying their IDs directly. This vulnerability is fixed in 4.0.0-beta.471.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-29T22:16:44.120",
-      "cve_ids": [
-        "CVE-2026-34592"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "2f790ae87aa92a1bc33962a0048b9815ac94222b23e14fb47a3f86fc7e288465",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55957",
-      "title": "CVE-2026-55957 — CVSS 7.3",
-      "summary": "Missing Critical Step in Authentication vulnerability in Apache Tomcat when the JNDIRealm was configured to authenticate binds using GSSAPI allowed attackers to authenticate without provided the correct password.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.4, from 10.1.0-M1 through 10.1.36, from 9.0.0.M1 through 9.0.100, from 8.5.0 through 8.5.100, from 7.0.0 through 7.0.109.\n\nU",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-29T21:16:45.700",
-      "cve_ids": [
-        "CVE-2026-55957"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "707beb237828dd7307b952f03d582388b5d325fc6744a6f0945eeb8baddbf39e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55955",
-      "title": "CVE-2026-55955 — CVSS 6.5",
-      "summary": "Improper Authentication vulnerability in Apache Tomcat allowed a replay attack against the EncryptionInterceptor in the cluster component.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.22, from 10.1.0-M1 through 10.1.55, from 9.0.13 through 9.0.18, from 8.5.38 through 8.5.100, from 7.0.100 through 7.0.109.\n\nUsers are recommended to upgrade to version 11.0.23, 10.1.56, 9.0.119, whi",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-29T21:16:45.490",
-      "cve_ids": [
-        "CVE-2026-55955"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "79dffc4fcbfd9fc4b9bd274bb405005f715fd4cf36a950177b3c4b6e61099817",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55276",
-      "title": "CVE-2026-55276 — CVSS 9.1",
-      "summary": "Always-Incorrect Control Flow Implementation vulnerability in Apache Tomcat meant that special roles and empty authorisation constraints were not included when the effective web.xml was logged.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.22, from 10.1.0-M1 through 10.1.55, from 9.0.0.M1 through 9.0.118, from 8.5.0 through 8.5.100. Other versions that have reached end of support ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-29T21:16:45.380",
-      "cve_ids": [
-        "CVE-2026-55276"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "4bded542d3772288e917b98e5f1ced8c78a495f32630d476f3c4f0cf8a6367b3",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53434",
-      "title": "CVE-2026-53434 — CVSS 9.1",
-      "summary": "Detection of Error Condition Without Action vulnerability in Apache Tomcat when configuring CRLs for a FFM based connector.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.22, from 10.1.0-M7 through 10.1.55, from 9.0.83 through 9.0.118.\n\nUsers are recommended to upgrade to version 11.0.23, 10.1.56 or 9.0.119, which fixes the issue.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-29T21:16:44.937",
-      "cve_ids": [
-        "CVE-2026-53434"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "a553f584e151fa5b4abc9061458245e82e1d559b1c899ba3fad8280c2798cc04",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53404",
-      "title": "CVE-2026-53404 — CVSS 7.3",
-      "summary": "Always-Incorrect Control Flow Implementation vulnerability in Apache Tomcat's rewrite valve meant that if the first condition in an OR chain matched, subsequent non-OR conditions were skipped.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.22, from 10.1.0-M1 through 10.1.55, from 9.0.0.M1 through 9.0.118, from 8.5.0 through 8.5.100. Other versions that have reached end of support m",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-29T21:16:44.527",
-      "cve_ids": [
-        "CVE-2026-53404"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "0eadabba99547b6091c58d1b9bf6ad01cce9986912af7a7b86ccd454f462681e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-50229",
-      "title": "CVE-2026-50229 — CVSS 6.1",
-      "summary": "Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS) vulnerability in the number guess example for Apache Tomcat.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.22, from 10.1.0-M1 through 10.1.55, from 9.0.0.M1 through 9.0.118, from 8.5.0 through 8.5.100, from 7.0.0 through 7.0.109. Other versions that have reached end of support may also be affected.\n\nUser",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-06-29T21:16:44.413",
-      "cve_ids": [
-        "CVE-2026-50229"
-      ],
-      "cvss": 6.1,
       "related_links": []
     }
   ]
