@@ -1,10 +1,96 @@
 {
-  "updated": "2026-07-06T08:20:40.994227+00:00",
+  "updated": "2026-07-06T15:33:40.025848+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "0f2ab910a647e8ea286e080aa656c7cefdc1a7c4d19d14022803fa3c11ed67cd",
+      "url": "https://github.com/advisories/GHSA-whwg-vh4f-pmmf",
+      "title": "GHSA: SurrealDB: Edge PERMISSIONS FOR delete bypassed when a connected node is deleted",
+      "summary": "In SurrealDB, records can be connected as a graph: a `RELATE` statement creates an edge record between two node records. If either endpoint node is deleted, SurrealDB automatically removes the edge row to keep the graph consistent.\n\nA user with permission to delete a node could also delete the edges connected to that node, even when the edge table's `PERMISSIONS FOR delete` clause should have stop",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:23:49Z",
+      "cve_ids": [
+        "CVE-2026-49997"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "487bf8ffcfbfab5c2b7c4795d9d8aac5b5e2658582d7c44d4cf4aa66eedbf190",
+      "url": "https://github.com/advisories/GHSA-fwg2-gr34-q3w8",
+      "title": "GHSA: SurrealDB: ES512 silently downgraded to ES384 due to jsonwebtoken crate limitation",
+      "summary": "When a user configures `ALGORITHM ES512` for any JWT access method (`DEFINE ACCESS ... TYPE JWT ALGORITHM ES512`), SurrealDB silently substitutes ES384 at all four internal algorithm conversion points. This occurs because the underlying `jsonwebtoken` crate (v10.x) does not include an ES512 algorithm variant, so the mapping defaults to ES384 without raising an error, warning, or log message.\n \nUse",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:23:01Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "13ba236b484baa8585df223de12d5490ef16c3cb42e8eeba17be683db249ff14",
+      "url": "https://github.com/advisories/GHSA-c8jx-96c9-8xrp",
+      "title": "GHSA: SurrealDB: Field-level SELECT permissions bypassed via indexed COUNT fast paths",
+      "summary": "A record user could learn the value of a hidden field by counting how many records match a guess.\n\nWhen `DEFINE FIELD ... PERMISSIONS FOR select WHERE ...` hides a field's contents from a caller, and that field is indexed, running `SELECT count() FROM t WHERE hidden_field = \"guess\" GROUP ALL` returned a count greater than zero whenever a record actually had that value — even though the caller was ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:22:06Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "fc8fdfd9cbf535bca91550f15cf8151f26d9a45ba90f2708468f80b3a93621e4",
+      "url": "https://github.com/advisories/GHSA-wp87-mgvq-5j93",
+      "title": "GHSA: SurrealDB: USE NS/DB implicit creation bypasses DEFINE authorization",
+      "summary": "An anonymous caller could create new namespaces and databases on a running SurrealDB instance without holding `DEFINE NAMESPACE` or `DEFINE DATABASE` permission.\n\n`USE NS <name>` and `USE DB <name>` automatically create the target when it does not exist. The three places `USE` is handled — the RPC `use` method, `Datastore::process_use`, and the SurrealQL executor — did not check whether the caller",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:21:25Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "d7a152e4645aad648e0e9cc182004e1f454390545233db2214e11c80eb04328f",
+      "url": "https://github.com/advisories/GHSA-97vg-427p-8hx5",
+      "title": "GHSA: SurrealDB: Port-specific --deny-net rules silently bypassed on HTTP redirect",
+      "summary": "SurrealDB offers `http::*` functions that can access external network endpoints, with the `--allow-net` and `--deny-net` capabilities used to restrict the set of network targets that can be reached. An authenticated user of SurrealDB can bypass a port-scoped `--deny-net <host>:<port>` rule by chaining an HTTP redirect: the initial request goes to an `--allow-net`-permitted hostname, the response's",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:20:40Z",
+      "cve_ids": [],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "d7217898ec35983b063277bc630d873068b23f7f6713c76378b87b1c376a4c29",
+      "url": "https://github.com/advisories/GHSA-6wqw-vhfr-9999",
+      "title": "GHSA: SurrealDB: Authenticated subscribers can read records hidden by SELECT permissions via LIVE subscriptions",
+      "summary": "A record user could read records the table's SELECT permission expression should have hidden, when that expression referenced `$value`, `$before`, `$after`, or `$event`. Binding a chosen value to that name before registering a `LIVE SELECT` caused notifications to evaluate the permission against the attacker's input instead of the real document.\n\n### Impact\n\nA record user binds a value to `$value`",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:20:00Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "e1d0f8f9f9ac4a1d095005f7b7f91b0d364a307c0dc3a4ba503130de6a9e6fd5",
+      "url": "https://github.com/advisories/GHSA-f82j-v89j-mf86",
+      "title": "GHSA: SurrealDB: `RELATE` overwrites existing edge records without `UPDATE` permission",
+      "summary": "`RELATE` creates an edge record between two existing records, and SurrealDB enforces the `CREATE` permission on the edge table for this operation. When the statement included a `SET id = edge:existing` clause, however, the new edge's id ended up pointing at an record that was already in storage. Rather than failing because the target already existed — which is what a create operation should do — t",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:19:17Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
     {
       "id": "78f8cf257efdbc4300e4c0ca138b33f47880a7729a38cd35cd88af3d635c122d",
       "url": "https://github.com/advisories/GHSA-fpxg-5xmv-922m",
@@ -1262,7 +1348,20 @@
         "CVE-2026-43078",
         "CVE-2026-47331",
         "CVE-2026-47335",
-        "CVE-2026-47336"
+        "CVE-2026-47336",
+        "CVE-2025-71088",
+        "CVE-2025-71090",
+        "CVE-2025-71127",
+        "CVE-2025-71134",
+        "CVE-2025-71141",
+        "CVE-2025-71142",
+        "CVE-2025-71144",
+        "CVE-2025-71152",
+        "CVE-2025-71155",
+        "CVE-2026-23112",
+        "CVE-2026-23231",
+        "CVE-2026-23273",
+        "CVE-2026-45966"
       ],
       "cvss": 7.8,
       "related_links": [
@@ -1279,7 +1378,9 @@
         "https://ubuntu.com/security/notices/USN-8498-1",
         "https://ubuntu.com/security/notices/USN-8497-1",
         "https://ubuntu.com/security/notices/USN-8492-2",
-        "https://ubuntu.com/security/notices/USN-8488-2"
+        "https://ubuntu.com/security/notices/USN-8488-2",
+        "https://ubuntu.com/security/notices/USN-8492-3",
+        "https://ubuntu.com/security/notices/USN-8508-1"
       ]
     },
     {
@@ -1355,102 +1456,6 @@
         "CVE-2025-10996"
       ],
       "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "c89ce37dca255f8a25acd74d0ae3a0e7a7be9d12b5ebd31c07daae506742d21c",
-      "url": "https://github.com/advisories/GHSA-8j3x-m868-cpw8",
-      "title": "GHSA: Open Babel has out-of-bounds write (overlapping memcpy) in zipstream basic_unzip_streambuf::underflow",
-      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's bundled zipstream\ndecompression code caused an out-of-bounds write via overlapping\n`memcpy` when reading a crafted gzip-compressed chemistry file.\n\n### Details\n\nThe flaw was in `basic_unzip_streambuf::underflow`. The decompression\nbuffer refill path invoked `memcpy` with overlapping source and\ndestination regions, which is undefined behavi",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-30T21:25:25Z",
-      "cve_ids": [
-        "CVE-2025-10995"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "e1f38ad12459c8829f8353763de4a56e3cd7de152ba12bb362316bda09bf7604",
-      "url": "https://www.bleepingcomputer.com/news/security/malicious-pypi-packages-give-hackers-control-of-telegram-bot-servers/",
-      "title": "Malicious PyPI packages give hackers control of Telegram bot servers",
-      "summary": "A campaign active since last November has been targeting Python developers building Telegram bots with trojanized Pyrogram forks that allow attackers to read arbitrary files on compromised servers. [...]",
-      "source": "Bleeping Computer",
-      "category": "web_app",
-      "date": "2026-06-30T21:02:55+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "451b63ae457e09d95dbb06f49e7bce7cdca4c56b599b7a778c9f3d23e2769357",
-      "url": "https://github.com/advisories/GHSA-pgcq-8grm-5rx9",
-      "title": "GHSA: Paymenter has race condition in payWithCredit() that enables credit double-spend",
-      "summary": "### Summary\nThe credit payment implementation in `app/Livewire/Invoices/Show.php` executes a pessimistic row lock (`lockForUpdate()`) outside of an active database transaction. Because MySQL/MariaDB requires an enclosing transaction to enforce row-level locks, the guard is ineffective. Concurrent payment requests can exploit this race condition to read the same credit balance simultaneously, allow",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-06-30T19:11:24Z",
-      "cve_ids": [
-        "CVE-2026-55219"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "727b4ac700649273ece3300d19e0d669ee579f101c623a33f0b0fe1ad19dd9b1",
-      "url": "https://github.com/advisories/GHSA-pp85-5j63-xpq3",
-      "title": "GHSA: Open Babel has Use-after-free in GAMESS GAMESSOutputFormat::ReadMolecule",
-      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's GAMESS output parser\ncaused a use-after-free when reading a crafted input file.\n\n### Details\n\nThe flaw was in `GAMESSOutputFormat::ReadMolecule`. A malformed input\ncaused the parser to dereference a stale pointer after the underlying\nobject had been freed.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write chemistry\nfi",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:48:57Z",
-      "cve_ids": [
-        "CVE-2025-10994"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "e96a4bb1822cb41cf28fad94644d2657794149814358cbced16bcfd51b9b686b",
-      "url": "https://github.com/advisories/GHSA-rxpr-wq63-jr7p",
-      "title": "GHSA: Open Babel has a NULL pointer dereference in CDXML OBAtom::GetExplicitValence",
-      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's CDXML file format parser\ncaused a NULL pointer dereference when reading a crafted input file.\n\n### Details\n\nThe flaw was in `OBAtom::GetExplicitValence` as called from the CDXML\nparser. A malformed fragment caused the parser to invoke the method\non a NULL atom pointer.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:47:28Z",
-      "cve_ids": [
-        "CVE-2026-3408"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "ca8a2d29e83d57b118a28ded488df04a2e370003b541604242c62ef5be730d1d",
-      "url": "https://github.com/advisories/GHSA-4w5w-4fhm-q483",
-      "title": "GHSA: Open Babel has NULL pointer dereference in MOL2 OBAtom::SetFormalCharge",
-      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's MOL2 file format parser\ncaused a NULL pointer dereference when reading a crafted input file.\n\n### Details\n\nThe flaw was in `OBAtom::SetFormalCharge` as called from the MOL2\nparser. A malformed atom record caused the parser to call the method\non a NULL atom pointer.\n\n### Impact\n\nOpen Babel is a C++ library and CLI used to read and write che",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:47:00Z",
-      "cve_ids": [
-        "CVE-2026-2705"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "3f383b02c1d446714afe6e746c0ab8dedf9c99e9e4e444b6489d5e14a1c78e1b",
-      "url": "https://github.com/advisories/GHSA-6xw4-2g22-26h8",
-      "title": "GHSA: Open Babel has an out-of-bounds read in CIF transform3d::DescribeAsString",
-      "summary": "> ### Summary\n>\n> A memory-safety vulnerability in Open Babel's CIF file format parser\n> allowed an out-of-bounds read when reading a crafted input file.\n>\n> ### Details\n>\n> The flaw was in `OpenBabel::transform3d::DescribeAsString`. A malformed\n> symmetry-operation string caused the parser to read past the end of its\n> internal buffer while formatting the description.\n>\n> ### Impact\n>\n> Open Babe",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-06-30T18:46:12Z",
-      "cve_ids": [
-        "CVE-2026-2704"
-      ],
-      "cvss": 4.4,
       "related_links": []
     }
   ]
