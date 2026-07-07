@@ -1,10 +1,206 @@
 {
-  "updated": "2026-07-07T17:59:18.525559+00:00",
+  "updated": "2026-07-07T21:24:16.988989+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "8e7b3fb1352dcfdcdeea132c8738ab205d278aeeae8b15dded3f65dbc1a24c97",
+      "url": "https://github.com/advisories/GHSA-2mg2-p7r7-g27f",
+      "title": "GHSA: Coder: Zip upload decompression lacks aggregate size limit, enabling denial of service",
+      "summary": "### Summary\n\n`POST /api/v2/files` converts zip uploads to tar in memory via `CreateTarFromZip`, which enforced a per-entry size limit but no aggregate limit on total decompressed output, writing to an unbounded in-memory buffer.\n\n> **Note:** Exploitation requires authenticated file-upload access and the impact is limited to availability (denial of service).\n\n### Impact\n\nAn authenticated user could",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T21:06:45Z",
+      "cve_ids": [
+        "CVE-2026-55078"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "5c70c7d56348f9fccf37d6748295770d8b971588059674d0e33be828622c3d1e",
+      "url": "https://github.com/advisories/GHSA-5g4w-3vw9-478w",
+      "title": "GHSA: Coder's subdomain workspace app routing trusts unauthenticated X-Forwarded-Host header, enabling cross-app data access",
+      "summary": "### Summary\n\nThe workspace app proxy resolves the target app from `httpapi.RequestHost()` which prefers the `X-Forwarded-Host` header over the real `Host` header. No middleware strips `X-Forwarded-Host` before routing and the header is not browser-forbidden so client-side JavaScript can set it on `fetch()` calls.\n\n> **Note:** Practical exploitation requires subdomain app routing (wildcard hostname",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T21:05:31Z",
+      "cve_ids": [
+        "CVE-2026-55430"
+      ],
+      "cvss": 5.8,
+      "related_links": []
+    },
+    {
+      "id": "625a6e440d0ba3b457d43efe27ae3cb979dcb36f6df30fb7856938a7f20ed5c0",
+      "url": "https://github.com/advisories/GHSA-wrq8-fcv5-8hvp",
+      "title": "GHSA: Coder: Route hijacking through lack of validation of agent-supplied AllowedIPs in tailnet coordinator",
+      "summary": "### Summary\n\nThe tailnet coordinator validates that an agent's `Addresses` derive from its authenticated UUID but applies no equivalent check to `AllowedIPs`. The coordinator forwards agent-supplied `AllowedIPs` verbatim to tunnel peers which install them into the WireGuard peer configuration.\n\n### Impact\n\nA malicious workspace agent can advertise arbitrary `AllowedIPs` prefixes including another ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:58:30Z",
+      "cve_ids": [
+        "CVE-2026-55428"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "f7b1773d5b91f42ef57b509cf29d5755a9c64557f79c46ed87bd2acf8159899e",
+      "url": "https://github.com/advisories/GHSA-9rjw-3gwp-f59v",
+      "title": "GHSA: Coder's workspace app upsert allows cross-workspace agent rebinding via user-controlled app ID",
+      "summary": "### Summary\n\n`UpsertWorkspaceApp` overwrites an existing app's `agent_id` on a primary-key conflict and `insertAgentApp` accepts the app ID from the provisioner's `CompleteJob` payload without verifying it belongs to the workspace being built. `CompleteJob` runs under `dbauthz.AsProvisionerd` so the authorization layer does not block the cross-workspace upsert.\n\n> **Note:** Exploitation requires e",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:55:37Z",
+      "cve_ids": [
+        "CVE-2026-55429"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "1f3e7d45ef3ebdf6656c557d59dab8239c549c11ed5711c3f13815090b0bd0b3",
+      "url": "https://github.com/advisories/GHSA-f962-qm93-mj4c",
+      "title": "GHSA: Coder's unbounded memory allocation in provisioner file upload allows authenticated denial of service",
+      "summary": "### Summary\n\n`NewDataBuilder` in `provisionersdk/proto/dataupload.go` allocated a byte slice using the client-supplied `FileSize` from a `DataUpload` message without an upper-bound check. Although the DRPC wire limit is 4 MiB, the `FileSize` value itself was unconstrained\n\n### Impact\n\nAn authenticated user able to reach the provisioner daemon serve endpoint could send a roughly 50-byte message dec",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:54:41Z",
+      "cve_ids": [
+        "CVE-2026-55079"
+      ],
+      "cvss": 4.9,
+      "related_links": []
+    },
+    {
+      "id": "378595be01c378ecceb00b9ccea971dbe739b50397b9e86de3923f0a132a0d04",
+      "url": "https://github.com/advisories/GHSA-mcqq-fqgf-rxwm",
+      "title": "GHSA: Coder vulnerable to SSH config injection via unsanitized server-supplied values in `coder config-ssh`",
+      "summary": "### Summary\n\n`coder config-ssh` wrote server-supplied SSH settings (`HostnameSuffix`, `SSHConfigOptions`) into the user's `~/.ssh/config` without sanitizing embedded newlines or restricting directives so a malicious or compromised Coder server could inject arbitrary SSH configuration.\n\n> **Note:** Practical exploitation requires control of the server-supplied values through a malicious or compromi",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:53:54Z",
+      "cve_ids": [
+        "CVE-2026-55427"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "8d53ac534fa72b672f70eddf0bf23fae432c70c6df1b698e5cdacdcbf891fa43",
+      "url": "https://github.com/advisories/GHSA-29xf-69gq-m9jx",
+      "title": "GHSA: Coder: User-admin role can reset owner account password",
+      "summary": "### Summary\n\nThe `PUT /api/v2/users/{user}/password` endpoint authorized only `ActionUpdatePersonal` and did not prevent a `user-admin` from resetting an `owner` account's password. It also did not require the current password when an admin reset another user's password.\n\n> **Note:** Exploitation requires the privileged `user-admin` role so practical risk is limited to deployments that grant `user",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:53:04Z",
+      "cve_ids": [
+        "CVE-2026-55077"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
+      "id": "5aedddae7b0c4db923a26d9348a41bc3469d1285c6eb37b702131adc15845e14",
+      "url": "https://github.com/advisories/GHSA-9r87-mvcw-x35f",
+      "title": "GHSA: Coder vulnerable to OIDC account takeover via email-based user matching and email_verified bypass",
+      "summary": "### Summary\n\nTwo flaws in Coder's OIDC login chained into account takeover: email-based user matching fell back to linking by email without checking for an existing link to a different IdP subject and the `email_verified` claim was only enforced when present as a boolean `false` so an absent or non-boolean claim was treated as verified.\n\n### Impact\n\nAn attacker who could authenticate at the config",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T20:52:13Z",
+      "cve_ids": [
+        "CVE-2026-55075"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "6dd745830e9e465d02827154f79d1cc222c66496c1d646123601b07c5b0f3f5d",
+      "url": "https://github.com/advisories/GHSA-75vm-6w67-gwvp",
+      "title": "GHSA: Coder's OIDC email_verified type coercion bypass enables account takeover via unverified email linking",
+      "summary": "### Summary\n\nCoder's OIDC callback checked `email_verified` with a direct Go `bool` type assertion. When an IdP returned the claim as a non-boolean (for example the string `\"false\"`) or omitted it, the assertion failed open and the email was treated as verified. Combined with an unconditional email-based account fallback, this enabled account takeover.\n\n### Impact\n\nAn attacker who registered a vic",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:50:35Z",
+      "cve_ids": [
+        "CVE-2026-55076"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "265b6f61db5242c9a5b9cb7f1ce2fe7a300914890ca23d2b81af00c927361255",
+      "url": "https://github.com/advisories/GHSA-7v6w-c3f4-9wpq",
+      "title": "GHSA: OpenRemote has an incomplete fix for CVE-2026-40882: XXE in KNXProtocol.startAssetImport() allows arbitrary file read via unprotected XMLInputFactory",
+      "summary": "### Summary\nThe fix for CVE-2026-40882 addressed only the Velbus asset import handler. The KNX asset import handler (`KNXProtocol`) processes user-uploaded ETS project ZIP files through Saxon XSLT and `XMLInputFactory.newInstance()` with no XXE protection, allowing any authenticated user to read arbitrary files from the server filesystem (e.g. `/etc/passwd`, `openmrs-runtime.properties`, cloud cre",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:49:51Z",
+      "cve_ids": [
+        "CVE-2026-54640"
+      ],
+      "cvss": 7.6,
+      "related_links": []
+    },
+    {
+      "id": "f5ac1e405fd9f5f8a49e237e437f9742ba8b963b44d90b9d728da5f6ab311908",
+      "url": "https://github.com/advisories/GHSA-xqr9-4wvv-gvch",
+      "title": "GHSA: OpenRemote has Cross-Realm User Information Disclosure in UserResourceImpl",
+      "summary": "### Summary\n\nA realm admin of tenant B can read the profile, client roles, and realm roles of any user in any other realm (including the master realm) by supplying the target user's UUID in the REST API path. Three read endpoints in UserResourceImpl check whether the caller holds the read:admin role but omit a check that the target user belongs to the caller's own realm. The vulnerability enables ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T20:47:57Z",
+      "cve_ids": [
+        "CVE-2026-54641"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "39182d39d8045607f2999e2283bbaf734cfe48eb2243b86e7f6861e132f3c23f",
+      "url": "https://github.com/advisories/GHSA-q6h5-q3q6-f87x",
+      "title": "GHSA: CiliumLocalRedirectPolicy addressMatcher allows cross-namespace service traffic hijacking and can break service translation",
+      "summary": "### Impact\n\nUsers with the ability to create CiliumLocalRedirectPolicies can specify arbitrary ClusterIPs via addressMatcher, which enables hijacking traffic to Services in any namespace, bypassing the namespace-scoping guarantees enforced by serviceMatcher.\n\nIn addition, deleting such a policy can corrupt Cilium's internal service state, causing service translation to stop working entirely for th",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T20:45:38Z",
+      "cve_ids": [
+        "CVE-2026-53935"
+      ],
+      "cvss": 6.9,
+      "related_links": []
+    },
+    {
+      "id": "137d8fa38de9bb914bb826973d9ab48f9c1b99a30b2f7030d3b78d97167bc2d9",
+      "url": "https://github.com/advisories/GHSA-gv83-gqw6-9j2c",
+      "title": "GHSA: GoFiber never set HSTS header in helmet middleware due to incorrect protocol check",
+      "summary": "### Summary\n\nThe `helmet` middleware in gofiber/fiber never sets the `Strict-Transport-Security` (HSTS) response header, even when `HSTSMaxAge` is explicitly configured, because the condition check at `helmet.go:67` uses `c.Protocol()` — which returns the HTTP protocol version string (e.g., `\"HTTP/1.1\"`, `\"HTTP/2.0\"`) — instead of `c.Scheme()` — which returns the URL scheme (`\"http\"` or `\"https\"`)",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:43:12Z",
+      "cve_ids": [
+        "CVE-2026-53624"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "a1c22324bc1a451eca0c1a350a873bf153ba98a247d712e339a2d75c6de4478b",
+      "url": "https://github.com/advisories/GHSA-gjgq-w2m6-wr5q",
+      "title": "GHSA: Langroid: handle_message() executes user-supplied tool JSON without sender verification ",
+      "summary": "## Summary\n\nA Langroid application exposing a chat interface to untrusted users may allow direct tool invocation via raw JSON payloads, even when tools are registered with `use=False, handle=True`.\n\n## Details\n\n`enable_message(..., use=False, handle=True)` only prevents the LLM from being instructed to generate the tool. The tool dispatch path in `agent_response()` → `handle_message()` → `get_tool",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:42:18Z",
+      "cve_ids": [
+        "CVE-2026-54771"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
     {
       "id": "f20fbaed8de53ea3efe1b14d4358fb9e0773a4893dce52cd9016d2d505d3407e",
       "url": "https://github.com/advisories/GHSA-q9p7-wqxg-mrhc",
@@ -524,198 +720,6 @@
       "date": "2026-07-02T21:01:22Z",
       "cve_ids": [
         "CVE-2026-46599"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "602837638bc869a7e53d0f5e2a55b108e682725913b5d2f6fe197d01331d6a83",
-      "url": "https://github.com/advisories/GHSA-jphh-m39h-6gwx",
-      "title": "GHSA: 9router's Hardcoded Default fallback JWT Secret  Allows Authentication Bypass",
-      "summary": "### Summary\n9router uses a publicly known hardcoded string `\"9router-default-secret-change-me\"` as the fallback of JWT secret for all Dashboard session JWTs when the `JWT_SECRET` environment variable is not set. Because this secret is committed in the public repository and unchanged across all releases, any unauthenticated remote attacker can forge a valid `auth_token` cookie and gain full access ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-02T20:56:55Z",
-      "cve_ids": [
-        "CVE-2026-49352"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "ecf199cdfaefdd3f8d1b7b58f46c3fc6786c9834f54f84843968f7882485254a",
-      "url": "https://github.com/advisories/GHSA-5g75-477j-2c2f",
-      "title": "GHSA: LaunchServer FileServerHandler has an unauthenticated path traversal issue",
-      "summary": "### Summary\nAn unauthenticated path traversal in the LaunchServer HTTP file server (`FileServerHandler`) lets any remote actor read **any file** readable by the LaunchServer process (e.g. `../../../../etc/passwd`). This is a generic arbitrary-file-read primitive, so the fix must address the traversal itself, not any specific file.\n\nThe readable files include the server's own secrets, which turns t",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-02T20:49:18Z",
-      "cve_ids": [
-        "CVE-2026-54617"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "c6b1f8325f51c4c5fc58383aecb174f77ddf8af51e9dfac1558bd20ce084ee03",
-      "url": "https://github.com/advisories/GHSA-q8r6-xj3f-wrrm",
-      "title": "GHSA: SimpleSAMLphp SP accepts a response from an unexpected IdP when unsigned `Response/InResponseTo` is combined with a signed assertion lacking `SubjectConfirmationData/InResponseTo`",
-      "summary": "## Summary\n\nSimpleSAMLphp's SAML SP ACS path does not enforce the IdP selected for an SP-initiated login. If a saved SP state contains `ExpectedIssuer = IdP A`, but the ACS receives a valid response from `IdP B`, the code logs a warning and continues processing instead of rejecting the response.\n\nThat behavior becomes security-relevant when combined with the response-processing rule that accepts a",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-02T20:47:21Z",
-      "cve_ids": [
-        "CVE-2026-49284"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "d2b4cc9c3e08f6f70383604895aad0f870b04ad30331ab11acf959799be75cea",
-      "url": "https://github.com/advisories/GHSA-5pmv-rx8r-wmv5",
-      "title": "GHSA: jxl-grid on 32-bit platforms has an out-of-bounds writes due to integer overflow",
-      "summary": "### Summary\n\nOn 32-bit platforms, decoding a crafted image may lead to out-of-bounds writes due to integer overflow in length calculation.\n\n### Details & PoC\n\nThe test listed below fail under miri with command `cargo +nightly miri test --release -p jxl-grid`\n\nOr you can use Address Sanitizer, which ignores Rust-specific UB like aliasing but still flags out-of-bounds accesses:\n\n`RUSTFLAGS=-Zsanitiz",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-02T20:45:59Z",
-      "cve_ids": [
-        "CVE-2026-52834"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "3ee771c4fa2dae4828b185026bad9c1d79518af4ddddb84aa9342395314a7c80",
-      "url": "https://github.com/advisories/GHSA-66m8-c62j-h6v5",
-      "title": "GHSA: jxl-oxide: `FrameBuffer::new` creates out-of-bounds slices on overflow",
-      "summary": "### Summary\n`jxl-oxide` exposes a public safe API that can construct an undersized `FrameBuffer` due to unchecked `usize` multiplication, which immediately trigger panic while initializing the buffer in normal decoding path.\n\nAdditionally, calling the safe grouped buffer accessors afterward can create invalid oversized slices from a much smaller allocation, causing undefined behavior; however norm",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-02T20:45:10Z",
-      "cve_ids": [],
-      "cvss": 6.2,
-      "related_links": []
-    },
-    {
-      "id": "65f16af2f648a344a7c86a3d5c09672dddbdb9c021e89a1e26981ffcc04ad5a9",
-      "url": "https://github.com/advisories/GHSA-2v8p-fqpx-2q3w",
-      "title": "GHSA: jxl-oxide: integer subtraction overflow panic in cluster_from_table via crafted JXL input (DoS)",
-      "summary": "### Summary\nLogic bug in `decode_simple_table_slow` may cause integer arithmetic overflow when decoding Modular image with certain kind of MA tree, which may panic with `overflow-checks` enabled.\n\n### Impact\nDenial of service: any application passing untrusted JXL data to `JxlImage::render_frame` (or equivalent) can be\ncrashed. Affects all builds with overflow checks enabled, which includes debug ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-02T20:44:57Z",
-      "cve_ids": [],
-      "cvss": 6.2,
-      "related_links": []
-    },
-    {
-      "id": "679635108830442ec7e24ac7989e7e3f9c4d864be5d20a52678bb3e9860f387f",
-      "url": "https://github.com/advisories/GHSA-794g-x443-36f7",
-      "title": "GHSA: Keycloak: Unauthorized access via improper validation of encrypted SAML assertions",
-      "summary": "Keycloak's SAML broker endpoint does not properly validate encrypted assertions when the overall SAML response is not signed. An attacker with a valid signed SAML assertion can exploit this by crafting a malicious SAML response, injecting an encrypted assertion for an arbitrary principal, leading to unauthorized access and potential information disclosure.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-02T20:42:23Z",
-      "cve_ids": [
-        "CVE-2026-2092"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "e25504c374bfdee99cb6fbd79308ce89f5d0baae9a4fd9d370b90cf34d6a163b",
-      "url": "https://github.com/advisories/GHSA-rxw2-pc8j-vxwm",
-      "title": "GHSA: fast-mcp-telegram: Bearer token path traversal bypasses reserved Telegram session protection",
-      "summary": "## Summary\n\nfast-mcp-telegram validates HTTP Bearer tokens by joining the raw token string into a session-file path. The verifier rejects the exact reserved token `telegram`, but it does not reject path separators or normalize the path before checking whether the session file exists. A remote HTTP client can therefore authenticate as the default legacy session with a token such as `../fast-mcp-tel",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-02T20:38:50Z",
-      "cve_ids": [
-        "CVE-2026-52830"
-      ],
-      "cvss": 9.4,
-      "related_links": []
-    },
-    {
-      "id": "e4d31a20ac225cb695c3ca22c1dd35c944d4056041774f739ee2f169a11140bf",
-      "url": "https://github.com/advisories/GHSA-4j9m-h44m-2hv8",
-      "title": "GHSA: Steeltoe: OAEP setting silently selects PKCS#1 v1.5 padding",
-      "summary": "### Summary\n\nConfiguring `encrypt:rsa:algorithm=OAEP` does not enable OAEP encryption. Due to an incorrect BouncyCastle transformation string, the `OAEP` setting selects PKCS#1 v1.5, which is the same algorithm as the `DEFAULT` setting.\n\n### Impact\n\nOperators who configure `encrypt:rsa:algorithm=OAEP` to obtain CCA2-secure padding receive PKCS#1 v1.5 instead. Currently, `Decrypt()` is called only ",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-07-02T20:32:21Z",
-      "cve_ids": [
-        "CVE-2026-50268"
-      ],
-      "cvss": 1.9,
-      "related_links": []
-    },
-    {
-      "id": "f2c6edab25d9e0a0fc15913706ed35ba71a81ac6d9d4ca9d4741d6ac0a004d21",
-      "url": "https://github.com/advisories/GHSA-rxrh-4j9h-xgg9",
-      "title": "GHSA: Steeltoe: TLS private keys written to /tmp with default permissions, never deleted",
-      "summary": "### Summary\n\nWhen MySQL or PostgreSQL service bindings from `VCAP_SERVICES` include TLS client credentials, the Connectors library writes those credentials to temporary files in `Path.GetTempPath()` using `File.CreateText`. On Linux, `File.CreateText` creates files with mode `0644` (world-readable) under the process umask, and the files are never deleted. The same key material is protected at mode",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-02T20:32:09Z",
-      "cve_ids": [
-        "CVE-2026-50267"
-      ],
-      "cvss": 4.7,
-      "related_links": []
-    },
-    {
-      "id": "d1d3308a1ae57bb6d5e5157fe82025e87fae99deb8cbf4cba021cd099ffcba29",
-      "url": "https://github.com/advisories/GHSA-7fqc-p256-7pwj",
-      "title": "GHSA: Steeltoe's static JWKS cache shared across schemes and never invalidated",
-      "summary": "### Summary\n\nThe JWT signing key cache in `TokenKeyResolver` uses `kid` as the sole cache key without namespacing by authority. In applications with multiple `JwtBearer` schemes pointing to different identity providers, a key fetched for one scheme can satisfy token validation for another. Additionally, cached keys have no expiration, so rotated or revoked keys remain trusted until the application",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-02T20:31:47Z",
-      "cve_ids": [
-        "CVE-2026-50202"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "cb95ba8e63e68dd99ef21ebb94e308ea294b332150b7d407090a51271a4e6ddd",
-      "url": "https://github.com/advisories/GHSA-227r-jm2g-7cp4",
-      "title": "GHSA: Steeltoe's sensitive actuators (heapdump/env) only require Restricted permission",
-      "summary": "### Summary\n\nAll Steeltoe actuator endpoints default to `EndpointPermissions.Restricted`, which is mapped to Cloud Foundry's `read_basic_data` permission (granted to Space Auditors and similar low-trust roles). Sensitive actuators including heap dump, environment, and thread dump do not raise this to `EndpointPermissions.Full`, so CF's `read_sensitive_data` permission flag is not enforced for thos",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-02T20:31:26Z",
-      "cve_ids": [
-        "CVE-2026-50201"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "7d2d39ab17864be96f6706a2a53484aaac87a9641e4f5297f670071d176d734e",
-      "url": "https://github.com/advisories/GHSA-q62h-354g-5r85",
-      "title": "GHSA: Steeltoe's env sanitizer misses connection strings — leaks embedded DB passwords",
-      "summary": "### Summary\n\nThe `Sanitizer` component in the Environment actuator redacts configuration values by matching the configuration key name against a suffix list. The default list (`password`, `secret`, `key`, `token`, `.*credentials.*`, `vcap_services`) does not cover the standard .NET pattern `ConnectionStrings:<name>` or Steeltoe Connectors' `Steeltoe:Client:<type>:Default:ConnectionString`. There i",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-07-02T20:31:11Z",
-      "cve_ids": [
-        "CVE-2026-50200"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "2ec054df231d56a8caa73e3a4273197c9e457583f8a95b4e97a089aff47bac15",
-      "url": "https://github.com/advisories/GHSA-j8ph-6fxj-g533",
-      "title": "GHSA: Steeltoe.Discovery.Eureka: Unrecognized DataCenterInfo.Name poisons entire registry fetch",
-      "summary": "### Summary\n\n`DataCenterInfo.FromJson` throws `ArgumentException` for any `name` value other than `\"MyOwn\"` or `\"Amazon\"`, despite the Java Eureka specification defining a third valid value: `\"Netflix\"`. The exception propagates through the entire registry deserialization chain and is swallowed by the periodic cache refresh task, leaving the local service registry permanently empty or stale.\n\n### ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-02T20:30:03Z",
-      "cve_ids": [
-        "CVE-2026-50196"
       ],
       "cvss": 7.5,
       "related_links": []

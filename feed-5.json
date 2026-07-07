@@ -1,10 +1,184 @@
 {
-  "updated": "2026-07-07T17:59:18.525559+00:00",
+  "updated": "2026-07-07T21:24:16.988989+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "28ead3f28d67f941c3fe2792f34d4df77c644b976dc45abd9d574146b005ac70",
+      "url": "https://github.com/advisories/GHSA-gcwr-5mrf-fvch",
+      "title": "GHSA: SurrealDB: Authorization Bypass in KILL Statement Allows Termination of Other Users' Live Queries",
+      "summary": "The `KILL` statement is used to terminate `LIVE SELECT` subscriptions that capture real-time changes to data within a table. The `KILL` statement implementation in `core/src/expr/statements/kill.rs` verifies that the requesting user has database-level access, but does not verify that the requesting user is the owner of the live query being terminated.\n \nAfter passing the `valid_for_db()` check, th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:14:20Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "3a78766c1ea3406ba8600873f4a93a21c1da0b47d382c5560f00b29dfde34ada",
+      "url": "https://github.com/advisories/GHSA-4v76-cw68-4vc9",
+      "title": "GHSA: SurrealDB: Crafting malicious LIVE queries writes to the database, resulting in DoS, without permission to the table required",
+      "summary": "A `LIVE` query whose `WHERE` clause evaluates to an error caused the source data modifier (the user creating, updating, or deleting a record on the watched table) to fail instead. Calling any arbitrary SurrealQL function with a typed parameter and passing a value of the wrong type — for example `LIVE SELECT * FROM t WHERE string::trim(deny)` — triggered an evaluation error inside the LIVE notifica",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:13:37Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "1af6fba744141a485f217dde1f1b0b6b7b8394df21b78f10af277d8a8fb545e5",
+      "url": "https://github.com/advisories/GHSA-6vg3-hgrw-p5gf",
+      "title": "GHSA: SurrealDB has an Authorization Bypass via Composite Record-id Paths",
+      "summary": "An authenticated user could bypass permission rules that gated access on parts of a record's id — most commonly tenant-isolation rules of the form `PERMISSIONS FOR select WHERE id.tenant = $auth.id.tenant`. The same defect also let UNIQUE constraints defined on parts of an id admit duplicate entries.\n\nWhen a query referenced part of a composite record id (`id.tenant`, `id.uid`, …), SurrealDB read ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:12:25Z",
+      "cve_ids": [],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "59e5cee82de9946d8dd1b6a4a4f05be483901966f902fc8d01b9f30fefbb8844",
+      "url": "https://github.com/advisories/GHSA-vjjx-rfw4-rmfc",
+      "title": "GHSA: SurrealDB: Graph traversal bypasses table SELECT permissions",
+      "summary": "An authenticated record or scope user could read records on any table reachable through a graph edge or `REFERENCES TO` back-reference, regardless of that table's `PERMISSIONS FOR select` clause.\n\nTraversing `SELECT * FROM source->edge->target` returned full documents from `target` even when `target` was defined as `PERMISSIONS FOR select NONE`. The same bypass extended through multi-hop chains, s",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:10:34Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "d0720c2348693610e7aac338052771faf5b00f192b2a939ee3d46b0a9c38c0b6",
+      "url": "https://github.com/advisories/GHSA-98fx-66cf-fc7c",
+      "title": "GHSA: SurrealDB: Scraping a TABLE with no available PERMISSIONS to current auth level",
+      "summary": "A vulnerability was discovered where the user-supplied `WHERE` clause in a `SELECT` statement is evaluated against the full record data before `PERMISSIONS FOR SELECT WHERE` determines whether the principal is authorised to access that record. A side-effecting expression in the `WHERE` clause can exfiltrate record contents before the permission check runs. The same ordering bug affects the `SET`, ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:06:08Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "999cb6f0f259c28c6459fa62114829f19f4139d276a3e034fe21164759eda8c7",
+      "url": "https://github.com/advisories/GHSA-q8qp-67f9-wr3f",
+      "title": "GHSA: SurrealDB vulnerable to Denial of Service due to nested types annotations",
+      "summary": "The SurrealDB type/kind parser did not enforce the configured recursion depth limit when parsing nested type annotations. The expression parser already enforced the limit for analogous constructs; the kind parser omitted it. An authenticated attacker could send a query with deeply nested type annotations (e.g., `array<option<array<option<...>>>>`) and exhaust server memory, crashing the process.\n\n",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:05:14Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "86a5eb22a7e2176eda6cd31f4ab7d9f845b9ed41464de25c981889ffae650e66",
+      "url": "https://github.com/advisories/GHSA-wjjj-24cx-f28g",
+      "title": "GHSA: SurrealDB has unauthenticated remote DoS via malformed RPC `use` call",
+      "summary": "A single unauthenticated WebSocket message to `/rpc` crashed the SurrealDB server. Sending `use { db: \"x\" }` without first selecting a namespace hit `.expect(\"namespace should be set\")` in the `use` handler; because `surrealdb-core` is built with `panic = 'abort'`, the panic terminated the process. `use` is callable before `signin`, and the per-method capability check passes by default for guest c",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:04:22Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "722d1e0d514c141feb0cf05b54b48730b191c005e0bba881df4e0471539eeaf0",
+      "url": "https://github.com/advisories/GHSA-q729-696q-g9pq",
+      "title": "GHSA: SurrealDB has Denial of Service in JSON parser due to nested objects",
+      "summary": "The SurrealDB value and JSON parser did not enforce the configured recursion depth limit when parsing nested `{`, `[`, or `(` tokens. The expression parser already enforced the limit for these tokens; the value/JSON parser omitted it. An unauthenticated attacker could send a deeply nested JSON payload to the WebSocket `/rpc` endpoint and exhaust server memory, crashing the process.\n\nThis is an inc",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:03:33Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "8b229d0245ecbcd7d88f3393929358da5d5c4953d1c0a81de97ef471584ae594",
+      "url": "https://github.com/advisories/GHSA-4vgr-h27g-cf9p",
+      "title": "GHSA: SurrealDB: HTTP RPC Session Race Condition Allows Privilege Escalation",
+      "summary": "The HTTP `/rpc` endpoint has a time-of-check/time-of-use (TOCTOU) race condition on internal session state. When authenticated and unauthenticated requests are processed concurrently, the unauthenticated request can inherit the authenticated user's session and privileges. The `/rpc` endpoint is the primary interface used by all official SurrealDB SDKs.\n\nThe HTTP `/rpc` handler does not bind each i",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:02:06Z",
+      "cve_ids": [],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "61421f586dd7ab01127bb9d8e287074a7b954e754cbcb173b07abc0b1af01a6a",
+      "url": "https://github.com/advisories/GHSA-5qfp-32cf-69jh",
+      "title": "GHSA: SurrealDB: HTTP /rpc `sessions` method leaks attached session UUIDs, enabling full session hijack by anonymous callers",
+      "summary": "The HTTP `/rpc` `sessions` method returned every attached session UUID without authentication, and the `/rpc` handler accepted an arbitrary `session` field with no ownership check. An anonymous caller could enumerate UUIDs and impersonate any authenticated session.\n\n\"Attached\" means sessions registered via `{\"method\":\"attach\"}` — the only writer to the HTTP session map. Ordinary stateless `/rpc` r",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:00:17Z",
+      "cve_ids": [],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "f0307514d379322ebada254634fd70e88921b9abff6f1d70d3950ac69f5b88e5",
+      "url": "https://github.com/advisories/GHSA-52v5-jr5w-gjxr",
+      "title": "GHSA: sigstore's `certificateOIDs` verification constraints are silently dropped and never enforced",
+      "summary": "### Summary\n\nThe documented `certificateOIDs` option in `sigstore.verify()` is accepted by the public API but discarded before verification, so required certificate extension OIDs are never checked.\n\n### Details\n\nThe public verify options include `certificateOIDs` and the documentation says those OID/value pairs “must be present in the certificate’s extension list.” The policy-construction path us",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T19:58:28Z",
+      "cve_ids": [
+        "CVE-2026-48815"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "3052bc77778284cf96ec5bffdf2584495368db18d0667d9ba55f476db2bb9844",
+      "url": "https://github.com/advisories/GHSA-xgjw-pm74-86q4",
+      "title": "GHSA: sigstore-js has Insufficient Verification of Data Authenticity",
+      "summary": "sigstore-js derives a transparency-log timestamp from `tlogEntries[].integratedTime` and uses it to validate certificate validity windows and satisfy `timestampThreshold`. For bundle v0.2, a tlog entry can be inclusionProof-only (no signed inclusionPromise/set), and the inclusion proof path does not cryptographically bind `integratedTime`. As a result, an attacker who can supply an untrusted bundl",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T19:57:45Z",
+      "cve_ids": [
+        "CVE-2026-48816"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "ba06bb98d0145ce0c420b038e108a0abd34d6f194f547ab3336945d2523bcae4",
+      "url": "https://github.com/advisories/GHSA-9mm9-rqhj-j5mx",
+      "title": "GHSA: repomix Vulnerable to Command Injection (RCE) via `--remote-branch` Argument Injection",
+      "summary": "### Vulnerability Metadata\n\n| Field | Detail |\n| --- | --- |\n| **Affected Component** | `src/core/git/gitCommand.ts` (`execGitShallowClone`) |\n| **Impact** | Arbitrary Command Execution / Security Control Bypass |\n\n### Summary\n\nThe `--remote-branch` CLI option in `repomix` is vulnerable to argument injection. User-supplied input is passed directly to `git fetch` and `git checkout` subprocesses via",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T19:00:50Z",
+      "cve_ids": [
+        "CVE-2026-49987"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "0a844b192dff49f31b3772672481c0868bf75977ac03caf34b5df5bb3bf82f45",
+      "url": "https://github.com/advisories/GHSA-mjgf-xj26-9qf9",
+      "title": "GHSA: pay-rails/pay: non-constant-time HMAC comparison in Paddle Billing webhook signature verifier",
+      "summary": "## Summary\n\n`Pay::Webhooks::PaddleBillingController#valid_signature?` (`app/controllers/pay/webhooks/paddle_billing_controller.rb`) verifies the Paddle Billing webhook signature by computing `OpenSSL::HMAC.hexdigest(...)` and comparing it to the attacker-supplied header value using Ruby's `String#==`. Ruby's `==` is non-constant-time — it returns as soon as the first byte mismatches — and exposes ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T18:57:02Z",
+      "cve_ids": [],
+      "cvss": 7.4,
+      "related_links": []
+    },
     {
       "id": "20a7c98dd4d07ab3c1ddc417f8008616f51b74a6bc7556b708b6dcc9fed8098d",
       "url": "https://github.com/advisories/GHSA-3ccm-4qq2-5wrp",
@@ -1114,381 +1288,185 @@
       "related_links": []
     },
     {
-      "id": "98589788d812a433be2f6291d40c32b6a744beb3b4cdd57d0ee79ce2ff1384e5",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13800",
-      "title": "CVE-2026-13800 — CVSS 7.8",
-      "summary": "Inappropriate implementation in Updater in Google Chrome on Windows prior to 150.0.7871.47 allowed a local attacker to perform OS-level privilege escalation via a malicious file. (Chromium security severity: High)",
+      "id": "555a9e59bb791cffa1dd935ebbdafb3ef1808438596934338cbfe0f67f48c3f4",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13849",
+      "title": "CVE-2026-13849 — CVSS 8.6",
+      "summary": "Insufficient validation of untrusted input in Chromoting in Google Chrome on Windows prior to 150.0.7871.47 allowed a local attacker to potentially perform a sandbox escape via a malicious file. (Chromium security severity: High)",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-30T23:16:54.743",
+      "date": "2026-06-30T23:16:59.390",
       "cve_ids": [
-        "CVE-2026-13800"
+        "CVE-2026-13849"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "ad35eafef7a9533a9d9f3dd884dc6af5419983522e22cdd7a178bd9562188373",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13848",
+      "title": "CVE-2026-13848 — CVSS 8.8",
+      "summary": "Use after free in Forms in Google Chrome prior to 150.0.7871.47 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-30T23:16:59.300",
+      "cve_ids": [
+        "CVE-2026-13848"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "975b8df697717caaa208b9a7ea34bbcc6549f041e3a8f65bc7c521d87a10f28a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13846",
+      "title": "CVE-2026-13846 — CVSS 9.6",
+      "summary": "Use after free in USB in Google Chrome on Mac prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-06-30T23:16:59.113",
+      "cve_ids": [
+        "CVE-2026-13846"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "225495399db7403e65dcd98c304c0e21c430942bf6e436983ab3aa86996ad853",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13845",
+      "title": "CVE-2026-13845 — CVSS 8.8",
+      "summary": "Use after free in DOM in Google Chrome prior to 150.0.7871.47 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-30T23:16:59.020",
+      "cve_ids": [
+        "CVE-2026-13845"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "5abecbf7b1ed4866f082323149ff5ded20755829b9f728901623720c7c54ba0e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13844",
+      "title": "CVE-2026-13844 — CVSS 7.8",
+      "summary": "Use after free in Updater in Google Chrome on Windows prior to 150.0.7871.47 allowed a local attacker to perform OS-level privilege escalation via a malicious file. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-30T23:16:58.927",
+      "cve_ids": [
+        "CVE-2026-13844"
       ],
       "cvss": 7.8,
       "related_links": []
     },
     {
-      "id": "d4bc6aaba728507236d3273955f7e509115ebc645d3eeb0bf340bf19ccb4ff35",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13799",
-      "title": "CVE-2026-13799 — CVSS 8.1",
-      "summary": "Use after free in QUIC in Google Chrome prior to 150.0.7871.47 allowed a remote attacker to potentially exploit heap corruption via malicious network traffic. (Chromium security severity: High)",
+      "id": "4dfa3646ec435ccdad4430ffc4a22b4afb1d1e951f5bf5af93563cc73ab36cc0",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13843",
+      "title": "CVE-2026-13843 — CVSS 9.6",
+      "summary": "Insufficient validation of untrusted input in Chrome for iOS in Google Chrome on iOS prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-06-30T23:16:58.837",
+      "cve_ids": [
+        "CVE-2026-13843"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "71914af47dd403c82c6f75d2ab11c18fa8657ece5e0cc21d294f11c38ec80713",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13841",
+      "title": "CVE-2026-13841 — CVSS 8.3",
+      "summary": "Integer overflow in Skia in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-30T23:16:54.650",
+      "date": "2026-06-30T23:16:58.653",
       "cve_ids": [
-        "CVE-2026-13799"
+        "CVE-2026-13841"
       ],
-      "cvss": 8.1,
+      "cvss": 8.3,
       "related_links": []
     },
     {
-      "id": "c95e5f45807ea254f962c8661d86bd116423b87c6c752924762f8f6a0c56b138",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13798",
-      "title": "CVE-2026-13798 — CVSS 9.6",
-      "summary": "Heap buffer overflow in Chromecast in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "id": "0138b5169ad732b572dce047987286738a109a0a7366963b2567672503407500",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13840",
+      "title": "CVE-2026-13840 — CVSS 6.5",
+      "summary": "Insufficient policy enforcement in Canvas in Google Chrome prior to 150.0.7871.47 allowed a remote attacker to leak cross-origin data via a crafted HTML page. (Chromium security severity: High)",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-06-30T23:16:54.557",
+      "date": "2026-06-30T23:16:58.563",
       "cve_ids": [
-        "CVE-2026-13798"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "a10cbf09a1b110d983d4c1792847b2386acc80e3d51393985771b13d8601b1da",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13797",
-      "title": "CVE-2026-13797 — CVSS 9.6",
-      "summary": "Insufficient validation of untrusted input in Chromecast in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:54.460",
-      "cve_ids": [
-        "CVE-2026-13797"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "cfa328bb2a743b7265305db575bf44d13d85dd1c23cd5ee3f25d8aed698d85bd",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13796",
-      "title": "CVE-2026-13796 — CVSS 9.6",
-      "summary": "Integer overflow in Chromecast in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:54.367",
-      "cve_ids": [
-        "CVE-2026-13796"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "732f75474fb29da23f9933843dc667fe799a54d6280b33ea2f376720d6e5cb90",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13795",
-      "title": "CVE-2026-13795 — CVSS 6.5",
-      "summary": "Insufficient policy enforcement in Chrome for iOS in Google Chrome on iOS prior to 150.0.7871.47 allowed a remote attacker to bypass navigation restrictions via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:54.280",
-      "cve_ids": [
-        "CVE-2026-13795"
+        "CVE-2026-13840"
       ],
       "cvss": 6.5,
       "related_links": []
     },
     {
-      "id": "e542131ceb9d1678789d088eb993ac1f09343db45567e1ebd9d219285ed6f74c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13794",
-      "title": "CVE-2026-13794 — CVSS 7.5",
-      "summary": "Insufficient validation of untrusted input in WebAppInstalls in Google Chrome on Windows prior to 150.0.7871.47 allowed a remote attacker who convinced a user to engage in specific UI gestures to execute arbitrary code via a crafted HTML page. (Chromium security severity: High)",
+      "id": "bff2b6a043b2681eedf1942973bfe591eeddf7e6421905fbac4d4f8f1976cbbf",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13836",
+      "title": "CVE-2026-13836 — CVSS 6.1",
+      "summary": "Inappropriate implementation in CSS in Google Chrome prior to 150.0.7871.47 allowed a remote attacker to inject arbitrary scripts or HTML (UXSS) via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-06-30T23:16:58.220",
+      "cve_ids": [
+        "CVE-2026-13836"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "cc235adbd5117b337a4b41dbcc0737e2d2eb291093a19cd777ec6b2dd708576e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13835",
+      "title": "CVE-2026-13835 — CVSS 8.8",
+      "summary": "Inappropriate implementation in XML in Google Chrome prior to 150.0.7871.47 allowed a remote attacker to potentially exploit heap corruption via a crafted HTML page. (Chromium security severity: High)",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-30T23:16:54.187",
+      "date": "2026-06-30T23:16:58.130",
       "cve_ids": [
-        "CVE-2026-13794"
+        "CVE-2026-13835"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "5382100acb80448d62acf83c3f12ec837e20981e23ad4d9d25e4dc15963e06ac",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13834",
+      "title": "CVE-2026-13834 — CVSS 8.3",
+      "summary": "Insufficient validation of untrusted input in ANGLE in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-30T23:16:58.037",
+      "cve_ids": [
+        "CVE-2026-13834"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "dda547192a8ad4e2eeacb780d6aefc1ab9e1991eb3625ffa6a3d6a170247551a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13832",
+      "title": "CVE-2026-13832 — CVSS 8.3",
+      "summary": "Use after free in Headless in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-30T23:16:57.833",
+      "cve_ids": [
+        "CVE-2026-13832"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "dbbd7045000a1cbe3731c6f8337aae12420aef9931e77f84b0537b2de07e395f",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13831",
+      "title": "CVE-2026-13831 — CVSS 7.5",
+      "summary": "Out of bounds read and write in GPU in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-06-30T23:16:57.730",
+      "cve_ids": [
+        "CVE-2026-13831"
       ],
       "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "1eef414cd66f63a1d8db52f0ce31e472f9147293609718d1c45b389e80eb9c5a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13793",
-      "title": "CVE-2026-13793 — CVSS 6.5",
-      "summary": "Insufficient policy enforcement in SVG in Google Chrome prior to 150.0.7871.47 allowed a remote attacker to leak cross-origin data via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:54.097",
-      "cve_ids": [
-        "CVE-2026-13793"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "6c0b1b139b62ad5db9d760e51bdf90a22f4cba96936a854d124769eaaca6665d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13792",
-      "title": "CVE-2026-13792 — CVSS 9.6",
-      "summary": "Use after free in Touchbar in Google Chrome on Mac prior to 150.0.7871.47 allowed a remote attacker to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:53.997",
-      "cve_ids": [
-        "CVE-2026-13792"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "d202575f1f27632ca135e8b2042214888fdc17c53e6d4431af388e795a6a293d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13791",
-      "title": "CVE-2026-13791 — CVSS 8.1",
-      "summary": "Insufficient validation of untrusted input in Downloads in Google Chrome prior to 150.0.7871.47 allowed an attacker who convinced a user to install a malicious extension to execute arbitrary code via a crafted Chrome Extension. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-30T23:16:53.900",
-      "cve_ids": [
-        "CVE-2026-13791"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "4b8cfa9ef50cceedef59097db7fe5933d2fb7a8684a563ad443d8abe543129f6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13789",
-      "title": "CVE-2026-13789 — CVSS 9.6",
-      "summary": "Use after free in GPU in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:53.713",
-      "cve_ids": [
-        "CVE-2026-13789"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "df2426ada2d821d5d0fe89ae40ccaf75ba34d337f8340bccae1476dc5d061bb5",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13788",
-      "title": "CVE-2026-13788 — CVSS 8.8",
-      "summary": "Use after free in Fullscreen in Google Chrome on Android prior to 150.0.7871.47 allowed a remote attacker to execute arbitrary code via a crafted HTML page. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:53.623",
-      "cve_ids": [
-        "CVE-2026-13788"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "da1ebdfd652c9ae063a78602970b0168c692ba5fb14f7cb5667b98f066ee7ceb",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13787",
-      "title": "CVE-2026-13787 — CVSS 8.1",
-      "summary": "Use after free in Chromoting in Google Chrome on Windows prior to 150.0.7871.47 allowed a remote attacker to execute arbitrary code via malicious network traffic. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:53.530",
-      "cve_ids": [
-        "CVE-2026-13787"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "fcc114909fabdf5277ba1afb32a6391409fce0e3cce7c6b4ab37d3c9b118aba5",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13786",
-      "title": "CVE-2026-13786 — CVSS 8.8",
-      "summary": "Use after free in Ozone in Google Chrome prior to 150.0.7871.47 allowed a remote attacker to execute arbitrary code via a crafted HTML page. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:53.437",
-      "cve_ids": [
-        "CVE-2026-13786"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "3e19c8a227b21a6fbf336d874ba06b7d4121d2c45e8fd6395c0f163095950030",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13785",
-      "title": "CVE-2026-13785 — CVSS 9.6",
-      "summary": "Use after free in Bluetooth in Google Chrome on Mac prior to 150.0.7871.47 allowed a remote attacker who convinced a user to engage in specific UI gestures to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:53.347",
-      "cve_ids": [
-        "CVE-2026-13785"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "462a813d5e4122fb5baed523d94e91617b0e71abec8cda05da43658b875c28b0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13784",
-      "title": "CVE-2026-13784 — CVSS 8.8",
-      "summary": "Use after free in Views in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who convinced a user to engage in specific UI gestures to potentially exploit heap corruption via a crafted HTML page. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:53.253",
-      "cve_ids": [
-        "CVE-2026-13784"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "c934ca8569ff98c64a95c486d726b1d3b28fbc655b7ce6044a7d3b7ff891e035",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13783",
-      "title": "CVE-2026-13783 — CVSS 8.8",
-      "summary": "Use after free in Views in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who convinced a user to engage in specific UI gestures to potentially exploit heap corruption via a crafted HTML page. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:53.160",
-      "cve_ids": [
-        "CVE-2026-13783"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "7585705405d4252eb4033cb3b9422733f72b5c17587d9e0431c9de5600d131a6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13782",
-      "title": "CVE-2026-13782 — CVSS 10.0",
-      "summary": "Use after free in Browser in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:53.063",
-      "cve_ids": [
-        "CVE-2026-13782"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "a4fe9f31644033ba56b39381954c54f284b5cb85fb2bf0e93317aab2be5e27e2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13781",
-      "title": "CVE-2026-13781 — CVSS 9.6",
-      "summary": "Insufficient validation of untrusted input in Skia in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:52.967",
-      "cve_ids": [
-        "CVE-2026-13781"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "4f563ca0a8ee071b9fea3dbd18a94a50e812d9950ae3eeefda3abad118b25aed",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13780",
-      "title": "CVE-2026-13780 — CVSS 9.6",
-      "summary": "Insufficient validation of untrusted input in ANGLE in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:52.873",
-      "cve_ids": [
-        "CVE-2026-13780"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "ef8c9fc469e3273a7fb538c57407b1c46661dfa3fc294e3a436e9761b8259e09",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13779",
-      "title": "CVE-2026-13779 — CVSS 8.1",
-      "summary": "Use after free in Chromoting in Google Chrome on ChromeOS prior to 150.0.7871.47 allowed a remote attacker to execute arbitrary code via malicious network traffic. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:52.780",
-      "cve_ids": [
-        "CVE-2026-13779"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "cbf18214ee4f2329c361d20ea50b8f5c2475e8985bf0f61ec96fbee579b31fd1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13778",
-      "title": "CVE-2026-13778 — CVSS 7.8",
-      "summary": "Use after free in WebUSB in Google Chrome on Mac prior to 150.0.7871.47 allowed a local attacker to execute arbitrary code via a malicious peripheral. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:52.683",
-      "cve_ids": [
-        "CVE-2026-13778"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "6600b23f7ff2203c31cb78448be9402339d7570da763041e8a576ec6a2b2bcc8",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13777",
-      "title": "CVE-2026-13777 — CVSS 8.8",
-      "summary": "Insufficient validation of untrusted input in iOSWeb in Google Chrome on iOS prior to 150.0.7871.47 allowed a remote attacker to potentially exploit heap corruption via a crafted HTML page. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:52.583",
-      "cve_ids": [
-        "CVE-2026-13777"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "19e23e0bb16152499f4bfc9f65a4b7ad2a675f0a5c900b4598f0286141570628",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13776",
-      "title": "CVE-2026-13776 — CVSS 9.8",
-      "summary": "Type Confusion in Dawn in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:52.490",
-      "cve_ids": [
-        "CVE-2026-13776"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "75f57b081a44520e5e208e2977a6b7b790349be1f31b7275bb5edc7d27da01dc",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13775",
-      "title": "CVE-2026-13775 — CVSS 9.8",
-      "summary": "Use after free in GPU in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:52.397",
-      "cve_ids": [
-        "CVE-2026-13775"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "99fdceaae8d21434629430571071fbbf9ac12fa402718ae603f472fa9d9bef3d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13774",
-      "title": "CVE-2026-13774 — CVSS 8.1",
-      "summary": "Use after free in Extensions in Google Chrome prior to 150.0.7871.47 allowed an attacker who convinced a user to install a malicious extension to execute arbitrary code via a crafted Chrome Extension. (Chromium security severity: Critical)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:52.280",
-      "cve_ids": [
-        "CVE-2026-13774"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "2e537827ddbc8ec68825c32a7d2b2cddf5db1a02faaf354d55df8fa4cc078dc4",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-71381",
-      "title": "CVE-2025-71381 — CVSS 6.5",
-      "summary": "Hono before 4.10.2 (fixed in 4.10.3) contains a flaw in its CORS middleware: when the origin is not set to \"*\", the middleware copies the Vary header from the incoming request into the response. Because Vary is a response header that should be managed by the server, an attacker can supply arbitrary Vary values that are reflected into the response, potentially causing cache key pollution and incons",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:52.027",
-      "cve_ids": [
-        "CVE-2025-71381"
-      ],
-      "cvss": 6.5,
       "related_links": []
     }
   ]
