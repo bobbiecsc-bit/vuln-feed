@@ -1,7 +1,89 @@
 {
-  "updated": "2026-07-06T21:37:02.195450+00:00",
+  "updated": "2026-07-07T03:25:04.919270+00:00",
   "total": 250,
   "articles": [
+    {
+      "id": "c8be06f61ea6d3719932950356631bfd0572f05e2c39a102e369aaf13f266fcd",
+      "url": "https://github.com/advisories/GHSA-pmfc-4wjj-gmhx",
+      "title": "GHSA: cut: -s ignored in -z -d '' newline-delimiter mode",
+      "summary": "`cut` routes `-z -d ''` through a special newline-delimiter path that ignores the `-s` only-delimited flag, emitting whole undelimited records (plus NUL) that should be suppressed. Pipelines relying on `cut -s` to drop undelimited records process data that should be filtered.\n```\nprintf 'abc' | cut -z -d '' -s -f 1 | od -An -tx1   # GNU: no output ; uutils: 61 62 63 00\n```\n\n---\n_Zellic private fin",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T21:54:29Z",
+      "cve_ids": [
+        "CVE-2026-35381"
+      ],
+      "cvss": 3.3,
+      "related_links": []
+    },
+    {
+      "id": "109627de34420d5934343936d99b21df80517ba590f7431580e55933e37eeec1",
+      "url": "https://github.com/advisories/GHSA-r9hw-mj3w-phcq",
+      "title": "GHSA: mknod: Device nodes created mislabeled on SELinux, with broken cleanup (remove_dir on a node)",
+      "summary": "uutils calls `mknod` *before* setting the SELinux context (GNU uses `setfscreatecon` first, labeling atomically). If `set_selinux_security_context` fails, cleanup uses `std::fs::remove_dir`, which cannot remove device nodes or FIFOs, leaving the mislabeled node behind.\n\n**Impact:** on SELinux-enforcing systems the node is created with the wrong context; the command reports failure but leaves a mis",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T21:54:05Z",
+      "cve_ids": [
+        "CVE-2026-35361"
+      ],
+      "cvss": 3.4,
+      "related_links": []
+    },
+    {
+      "id": "1e81d89393b6b48c2b554bfc33a5852b7ab078da5727c5f2363a5d687f578c67",
+      "url": "https://github.com/advisories/GHSA-pmf6-rcx4-v53v",
+      "title": "GHSA: mkfifo: permissions of an existing file are changed after FIFO creation fails",
+      "summary": "When `mkfifo()` fails (e.g. target already exists), the code shows an error but is missing a `continue;`, so it falls through to `fs::set_permissions` and changes the permissions of the pre-existing file to the default FIFO mode (`0o666` & umask -> `0644`).\n\n```\n$ touch secret; chmod 000 secret\n$ coreutils mkfifo secret fifo3 fifo4\nmkfifo: cannot create fifo 'secret': File exists\n$ ll secret      ",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-07-06T21:53:34Z",
+      "cve_ids": [
+        "CVE-2026-35341"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "c7a2548980a138d071677dff435730ed2975a76957b10c5a38fa6cd6a12ff073",
+      "url": "https://github.com/advisories/GHSA-qrwj-vh9x-gw5v",
+      "title": "GHSA: Coder's workspace agent API insecure redirect handling allowed cross-agent file read and write",
+      "summary": "### Summary\n\n`agentConn.apiClient()` used the default redirect behavior of `http.Client` while its custom transport dialed the host from the request URL as long as the port was the workspace agent HTTP API port (`4`). Agent tailnet IPs are deterministic from agent UUIDs, so a malicious workspace agent could return a redirect to another agent's tailnet IP and cause the control-plane client to send ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T21:52:31Z",
+      "cve_ids": [],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "a769bf6c813cbecb42c09d3f79b63794f33eb1f752d49ea410fd20420ea27d84",
+      "url": "https://github.com/advisories/GHSA-7cfm-pqrj-xgq7",
+      "title": "GHSA: 9router: Login brute-force protection bypass via spoofed X-Forwarded-For header",
+      "summary": "## Summary\n\nThe 9router dashboard login rate limiter derives the client identity from the attacker-controlled `X-Forwarded-For` HTTP header. When 9router is directly exposed, or deployed behind a reverse proxy that does not overwrite untrusted forwarding headers, a remote attacker can rotate the `X-Forwarded-For` value on each login attempt and receive a fresh rate-limit bucket every time.\n\nThis b",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T21:46:20Z",
+      "cve_ids": [
+        "CVE-2026-55501"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "75a6fa3b1eec566067f5fd6222fd39cbe80d998b5b45783a107f9a9413be77f7",
+      "url": "https://github.com/advisories/GHSA-qvfm-67h2-2qfx",
+      "title": "GHSA: 9routers has Exposure of Sensitive Information and Unprotected Database Import/Export, Allowing Complete Credential Theft and Database Takeover",
+      "summary": "## Summary\n\nThe `/api/settings/database` endpoint allows full database export (containing all credentials, API keys, OAuth tokens, and settings) and full database import (complete overwrite) without any authentication requirement beyond the `ALWAYS_PROTECTED` middleware check, which only validates JWT or CLI token. Combined with other vulnerabilities (e.g., default password, tunnel exposure), this",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T21:37:49Z",
+      "cve_ids": [
+        "CVE-2026-55500"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
     {
       "id": "69a29a8b28d4f289857de5b00c67f26f642892c2947b22d6b512cc08dba74a13",
       "url": "https://github.com/advisories/GHSA-hmj5-jm8h-h9fh",
@@ -3902,6 +3984,118 @@
       "related_links": []
     },
     {
+      "id": "628489d37f8b0dcda7011c111d2aaa12e0075077cb764c6580ba7c20e41fef3a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48285",
+      "title": "CVE-2026-48285 — CVSS 8.6",
+      "summary": "ColdFusion versions 2025.9, 2023.20 and earlier are affected by a Server-Side Request Forgery (SSRF) vulnerability that could result in a Security feature bypass. An attacker could leverage this vulnerability to bypass security measures and gain unauthorized read access. Exploitation of this issue does not require user interaction. Scope is changed.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-06-30T16:16:54.753",
+      "cve_ids": [
+        "CVE-2026-48285"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "8e2db57c4f87280bf5413854391ebf548490065d9e6c343f167bc5eb722658cc",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48283",
+      "title": "CVE-2026-48283 — CVSS 10.0",
+      "summary": "ColdFusion versions 2025.9, 2023.20 and earlier are affected by an Unrestricted Upload of File with Dangerous Type vulnerability that could result in arbitrary code execution in the context of the current user. Exploitation of this issue does not require user interaction. Scope is changed.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-06-30T16:16:54.643",
+      "cve_ids": [
+        "CVE-2026-48283"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "71636e49326f6bdf8baed7e557885afedcce3d84d208d20630660b5b764f0618",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48282",
+      "title": "CVE-2026-48282 — CVSS 10.0",
+      "summary": "ColdFusion versions 2025.9, 2023.20 and earlier are affected by an Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal') vulnerability that could lead to arbitrary code execution in the context of the current user. Exploitation of this issue does not require user interaction. Scope is changed.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-06-30T16:16:54.533",
+      "cve_ids": [
+        "CVE-2026-48282"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "eb97f5a175cc920c52bfa6141ace7e38a48c8beb56241c3f34195be16753474a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48281",
+      "title": "CVE-2026-48281 — CVSS 10.0",
+      "summary": "ColdFusion versions 2025.9, 2023.20 and earlier are affected by an Improper Input Validation vulnerability that could result in arbitrary code execution in the context of the current user. Exploitation of this issue does not require user interaction. Scope is changed.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-06-30T16:16:54.427",
+      "cve_ids": [
+        "CVE-2026-48281"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "4fdfe4e36d77719ee47b8d4ce5d366bba65855835dd3f97ef0ca7a63f9ea5bdb",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48277",
+      "title": "CVE-2026-48277 — CVSS 10.0",
+      "summary": "ColdFusion versions 2025.9, 2023.20 and earlier are affected by an Improper Input Validation vulnerability that could result in arbitrary code execution in the context of the current user. Exploitation of this issue does not require user interaction. Scope is changed.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-06-30T16:16:54.320",
+      "cve_ids": [
+        "CVE-2026-48277"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "f776b93b6df30bc23771b4cfcebaf17c78c762dbf52caebc4d56e9da693db508",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48276",
+      "title": "CVE-2026-48276 — CVSS 10.0",
+      "summary": "ColdFusion versions 2025.9, 2023.20 and earlier are affected by an Unrestricted Upload of File with Dangerous Type vulnerability that could result in arbitrary code execution in the context of the current user. Exploitation of this issue does not require user interaction. Scope is changed.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-06-30T16:16:54.193",
+      "cve_ids": [
+        "CVE-2026-48276"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "0f8f5efdb45718ce077f64b384b1dcf336bb285a4e7b7027192d8b1721e87f2a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44948",
+      "title": "CVE-2026-44948",
+      "summary": "A path traversal vulnerability was found in Fleet's ImageScan subsystem in Rancher Fleet 0.12.0 up to 0.12.16, 0.13.0 up to 0.13.12, 0.14.0 up to 0.14.7 and 0.15.0 up to 0.15.3 could be used to traverse outside of the intended directory, causing a denial of service.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-06-30T16:16:52.607",
+      "cve_ids": [
+        "CVE-2026-44948"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "33f072c8ac6f2aa7aa503b1992c171915c911b48dba56b6bfcbc4faeff726a7e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13455",
+      "title": "CVE-2026-13455 — CVSS 4.3",
+      "summary": "PostgreSQL Anonymizer contains a vulnerability that allows unprivileged masked users to repeatedly call the anon.hash() function and collects (seed, hash_output) pairs to perform an offline brute-force attack and deduce the salt. The problem is resolved in PostgreSQL Anonymizer 3.1.2 and later versions",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-06-30T16:16:44.547",
+      "cve_ids": [
+        "CVE-2026-13455"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
       "id": "d6d00776fa6d5594e14fc8acf2b0e7c0321b823964703ba6e84c7b3247ee2ee1",
       "url": "https://github.com/advisories/GHSA-v9gv-xp36-jgj8",
       "title": "GHSA: RabbitMQ has predictable credential obfuscation seed value used in Shovel and Federation plugins",
@@ -3939,6 +4133,34 @@
       "date": "2026-06-30T15:46:19+00:00",
       "cve_ids": [],
       "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "b0ec1de233453b0831632220a7acbe1602702a85004033355d44933a6beb8f43",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44949",
+      "title": "CVE-2026-44949",
+      "summary": "A Rancher FleetWorkspace admission path allowed side effects to occur in\n the Rancher webhook handler for versions 0.7.0 up to 0.7.10, 0.8.0 up to 0.8.7, 0.9.0 up to 0.9.6 and 0.10.0 up to 0.10.7. An unauthenticated attacker with network access to\n the in-cluster rancher-webhook service\n could submit a crafted admission payload and cause workspace-related \nKubernetes objects to be created with att",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-06-30T15:16:56.853",
+      "cve_ids": [
+        "CVE-2026-44949"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "580ec85e54b8e0561af7fe4891d564b43fe92f82a20ab465b6db2367c43fd32e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-27957",
+      "title": "CVE-2026-27957 — CVSS 8.8",
+      "summary": "Coolify is an open-source and self-hostable tool for managing servers, applications, and databases. Prior to 4.0.0-beta.464, an authenticated command injection vulnerability in the CA Certificate management feature allows any authenticated user to execute arbitrary commands as the configured SSH user on the managed server host. As the SSH user typically would have to either be root or part of the ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-06-30T15:16:52.863",
+      "cve_ids": [
+        "CVE-2026-27957"
+      ],
+      "cvss": 8.8,
       "related_links": []
     },
     {
@@ -4009,230 +4231,6 @@
         "CVE-2026-27881"
       ],
       "cvss": 5.0,
-      "related_links": []
-    },
-    {
-      "id": "851c337fc488d5981c14bbc7c0c02b91ea3d9b294ed2a56a5cc8e4e8f7d0696d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35098",
-      "title": "CVE-2026-35098",
-      "summary": "KTM System e-BOK does not implement any limit or timeout on consecutive login attempts, allowing an attacker to perform unlimited authentication requests. This lack of rate‑limiting enables efficient brute‑force attacks against user accounts. When combined with vulnerability CVE-2026-35097, where passwords are restricted to a six‑digit numeric format, this becomes a critical issue, as such passwor",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T14:16:26.633",
-      "cve_ids": [
-        "CVE-2026-35098"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "021256b12faceb2c57cd22533fd8bd7acdb042cc0c153564b45470baefa5af06",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35097",
-      "title": "CVE-2026-35097",
-      "summary": "KTM System e-BOK enforces a maximum password length of six numeric digits and does not permit the use of any alphabetic, special, or extended characters.\n\nThis issue was fixed in the patch published in June 2026.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T14:16:26.520",
-      "cve_ids": [
-        "CVE-2026-35097"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3c8f934404ad409f490640af3889cca736306a7e47169901487abc2e9dd63798",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-35096",
-      "title": "CVE-2026-35096",
-      "summary": "KTM System e-BOK is vulnerable to Cross‑Site Request Forgery (CSRF) in both the email-change and password-change functionalities. An attacker can craft a malicious website that, when visited by an authenticated user, automatically sends a forged POST request to the application. This allows the attacker to trigger an unauthorized email or password change on behalf of the victim without their knowle",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-06-30T14:16:26.410",
-      "cve_ids": [
-        "CVE-2026-35096"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "2a35f14f02b3b14db1c99929d18b49e36f834dd7eac25de5a0919227b18d5eea",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-14241",
-      "title": "CVE-2026-14241 — CVSS 9.8",
-      "summary": "Memory safety bugs present in Firefox 152.0.3. Some of these bugs showed evidence of memory corruption and we presume that with enough effort some of these could have been exploited to run arbitrary code. This vulnerability was fixed in Firefox 152.0.4.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T14:16:26.087",
-      "cve_ids": [
-        "CVE-2026-14241"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "f9c6f7c7664b357787cd0d0a4c9d9a6ebbb07f494d67557b925f6960fb6d905d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-8655",
-      "title": "CVE-2026-8655 — CVSS 9.8",
-      "summary": "Multiple Memory overflow vulnerabilities in NetScaler ADC and NetScaler Gateway leading to unpredictable or erroneous behavior and Denial of Service if NetScaler ADC is configured as an LB of type Oracle OR NetScaler ADC is configured as a DNS Proxy OR NetScaler ADC is configured as a DNS recursive resolver deployment",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T13:19:34.083",
-      "cve_ids": [
-        "CVE-2026-8655"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "c638e0fb21ff7765ae80481f6d890378228fc944a0260513732ad7425e09ac00",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-8452",
-      "title": "CVE-2026-8452 — CVSS 9.8",
-      "summary": "Memory overflow vulnerability NetScaler ADC and NetScaler Gateway leading to unpredictable or erroneous behavior and Denial of Service if the appliance is configured as a Gateway (SSL VPN, ICA Proxy, CVPN, RDP Proxy) or AAA virtual server",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T13:19:33.450",
-      "cve_ids": [
-        "CVE-2026-8452"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "d1da0e52fe3f788fae03b99762bfd95d9c1686bd3a857a6480d0243b59b6503b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-8451",
-      "title": "CVE-2026-8451 — CVSS 7.5",
-      "summary": "Insufficient input validation in NetScaler ADC and NetScaler Gateway leading to memory overread if NetScaler ADC or NetScaler Gateway is configured as a SAML IDP",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-30T13:19:33.347",
-      "cve_ids": [
-        "CVE-2026-8451"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "e59594e7f64e51f0e4407a5974579209ff1ac52dc820f3254c6f47841ab481bd",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-8403",
-      "title": "CVE-2026-8403 — CVSS 6.1",
-      "summary": "Improper neutralization of input during web page generation ('cross-site scripting') vulnerability in Eksagate Electronic Engineering and Computer Industry Trade Inc. SYSGUARD 6001 allows Stored XSS.\n\nThis issue affects SYSGUARD 6001: from 2.0.2 before 6.1.4.0. \n\nNOTE: The vendor was contacted and it was learned that the product is not supported.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-06-30T13:19:33.237",
-      "cve_ids": [
-        "CVE-2026-8403"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "b2c69a29eae2d8b32e11739cbe58ddf665007177fe1913bec754b989c54e215f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-6556",
-      "title": "CVE-2026-6556 — CVSS 9.1",
-      "summary": "@fastify/express versions 4.0.6 and earlier only rewrite the plugin prefix for middleware mount paths when the path argument is a string. Non-string mount paths (arrays of paths and regular expressions) are left unprefixed inside prefixed plugin scopes, so middleware registered with those forms does not match the actual prefixed request path. Applications that use path-scoped middleware for authen",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T13:19:25.467",
-      "cve_ids": [
-        "CVE-2026-6556"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "c2a21a5beb4769049317d04d1c31aa34e97cb9755916c674ebd500e47405f72f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58374",
-      "title": "CVE-2026-58374 — CVSS 6.5",
-      "summary": "In hostapd before 2.12, a missing bounds check in AP-mode Wi-Fi 7 (IEEE 802.11be) Multi-Link Operation (MLO) association request processing allows an unauthenticated attacker within wireless range to send a crafted management frame containing a malformed Multi-Link Element or Per-STA Profile subelement. In hostapd_process_ml_assoc_req() in src/ap/ieee802_11_eht.c, the received link_id field can be",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T13:19:18.960",
-      "cve_ids": [
-        "CVE-2026-58374"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "a8b7dc5624422c85cec0f00dfdc8669968f9cd2837cc4c86f59597f04889f826",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58116",
-      "title": "CVE-2026-58116 — CVSS 9.8",
-      "summary": "LLaMA-Factory through 0.9.5 contains a remote code execution vulnerability that allows attackers with WebUI access to execute arbitrary Python code by supplying a malicious model path in the Chat or Training interfaces. The application passes user-supplied model path input unvalidated into AutoTokenizer.from_pretrained() and AutoModel.from_pretrained() with a hardcoded trust_remote_code=True param",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T13:19:18.490",
-      "cve_ids": [
-        "CVE-2026-58116"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "862b738345538e0b74f47cab3805e1bf62198429b68a2ab053bab699c4da61f7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58016",
-      "title": "CVE-2026-58016 — CVSS 7.5",
-      "summary": "A flaw was found in GLib. A state confusion issue exists in g_dbus_node_info_new_for_xml() in the gio/gdbusintrospection.c file when processing malformed D-Bus introspection XML, specifically with a <node> element nested within other elements like <method>, <signal>, <property> or <arg>. This issue can cause an unsigned integer overflow and lead to an out-of-bounds read, resulting in a denial of s",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-30T13:19:17.840",
-      "cve_ids": [
-        "CVE-2026-58016"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "c7988c379f3aeac4f65c75ffb1f447a7ebf9c2d400d7fb3eea0dce4bfdac8677",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58015",
-      "title": "CVE-2026-58015 — CVSS 5.9",
-      "summary": "A flaw was found in GLib. The D-Bus client-side implementation of the DBUS_COOKIE_SHA1 SASL authentication mechanism does not validate the cookie_context parameter received from the server. A malicious D-Bus server can supply a cookie_context containing path traversal sequences, causing the client to read an arbitrary file and exfiltrate sensitive data by verifying guessed file contents against a ",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-06-30T13:19:17.707",
-      "cve_ids": [
-        "CVE-2026-58015"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "5cf5d5acd046f4a1baff5e9dfbcfcc990019fbde955b0392da4a7fbe4f247c69",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58014",
-      "title": "CVE-2026-58014 — CVSS 7.3",
-      "summary": "A flaw was found in GLib. An off-by-one error can occur in the g_key_file_get_locale_string_list function in the gkeyfile.c file when loading a key file with an empty value. This flaw can cause an out-of-bounds access of 1 byte or a denial of service when the out-of-bounds access crosses a page boundary.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-30T13:19:17.580",
-      "cve_ids": [
-        "CVE-2026-58014"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "f98164c4fe92634d863e6cbd8c5815f64a9e2dbb510a2e983e67f467c8809216",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53433",
-      "title": "CVE-2026-53433 — CVSS 7.5",
-      "summary": "fzf is vulnerable to a Denial of Service (DoS) due to inefficient HTTP body processing in the --listen mode due to inefficient HTTP body processing using repeated string concatenation, resulting in quadratic time complexity (O(n²)). A crafted POST request with many small segments can trigger excessive CPU usage during request handling.This allows a single malicious request to monopolize the single",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-30T13:19:13.407",
-      "cve_ids": [
-        "CVE-2026-53433"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "5a51764b326f83f475a7336b14a15476c5d188076795e8ccdee3051f4b595f90",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53432",
-      "title": "CVE-2026-53432 — CVSS 7.5",
-      "summary": "fzf is vulnerable to Integer Overflow leading to crash in FuzzyMatchV2 function. When input line length is approximately 2,200,000 bytes and pattern length is 999 bytes, the product overflows. The Go runtime detects the invalid slice bounds and terminates the process immediately with a non-recoverable panic.\n\nThis issue was fixed in version 0.73.1.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-30T13:19:13.290",
-      "cve_ids": [
-        "CVE-2026-53432"
-      ],
-      "cvss": 7.5,
       "related_links": []
     }
   ]

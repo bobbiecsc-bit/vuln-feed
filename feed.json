@@ -1,10 +1,92 @@
 {
-  "updated": "2026-07-06T21:37:02.195450+00:00",
+  "updated": "2026-07-07T03:25:04.919270+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "c8be06f61ea6d3719932950356631bfd0572f05e2c39a102e369aaf13f266fcd",
+      "url": "https://github.com/advisories/GHSA-pmfc-4wjj-gmhx",
+      "title": "GHSA: cut: -s ignored in -z -d '' newline-delimiter mode",
+      "summary": "`cut` routes `-z -d ''` through a special newline-delimiter path that ignores the `-s` only-delimited flag, emitting whole undelimited records (plus NUL) that should be suppressed. Pipelines relying on `cut -s` to drop undelimited records process data that should be filtered.\n```\nprintf 'abc' | cut -z -d '' -s -f 1 | od -An -tx1   # GNU: no output ; uutils: 61 62 63 00\n```\n\n---\n_Zellic private fin",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T21:54:29Z",
+      "cve_ids": [
+        "CVE-2026-35381"
+      ],
+      "cvss": 3.3,
+      "related_links": []
+    },
+    {
+      "id": "109627de34420d5934343936d99b21df80517ba590f7431580e55933e37eeec1",
+      "url": "https://github.com/advisories/GHSA-r9hw-mj3w-phcq",
+      "title": "GHSA: mknod: Device nodes created mislabeled on SELinux, with broken cleanup (remove_dir on a node)",
+      "summary": "uutils calls `mknod` *before* setting the SELinux context (GNU uses `setfscreatecon` first, labeling atomically). If `set_selinux_security_context` fails, cleanup uses `std::fs::remove_dir`, which cannot remove device nodes or FIFOs, leaving the mislabeled node behind.\n\n**Impact:** on SELinux-enforcing systems the node is created with the wrong context; the command reports failure but leaves a mis",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T21:54:05Z",
+      "cve_ids": [
+        "CVE-2026-35361"
+      ],
+      "cvss": 3.4,
+      "related_links": []
+    },
+    {
+      "id": "1e81d89393b6b48c2b554bfc33a5852b7ab078da5727c5f2363a5d687f578c67",
+      "url": "https://github.com/advisories/GHSA-pmf6-rcx4-v53v",
+      "title": "GHSA: mkfifo: permissions of an existing file are changed after FIFO creation fails",
+      "summary": "When `mkfifo()` fails (e.g. target already exists), the code shows an error but is missing a `continue;`, so it falls through to `fs::set_permissions` and changes the permissions of the pre-existing file to the default FIFO mode (`0o666` & umask -> `0644`).\n\n```\n$ touch secret; chmod 000 secret\n$ coreutils mkfifo secret fifo3 fifo4\nmkfifo: cannot create fifo 'secret': File exists\n$ ll secret      ",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-07-06T21:53:34Z",
+      "cve_ids": [
+        "CVE-2026-35341"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "c7a2548980a138d071677dff435730ed2975a76957b10c5a38fa6cd6a12ff073",
+      "url": "https://github.com/advisories/GHSA-qrwj-vh9x-gw5v",
+      "title": "GHSA: Coder's workspace agent API insecure redirect handling allowed cross-agent file read and write",
+      "summary": "### Summary\n\n`agentConn.apiClient()` used the default redirect behavior of `http.Client` while its custom transport dialed the host from the request URL as long as the port was the workspace agent HTTP API port (`4`). Agent tailnet IPs are deterministic from agent UUIDs, so a malicious workspace agent could return a redirect to another agent's tailnet IP and cause the control-plane client to send ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T21:52:31Z",
+      "cve_ids": [],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "a769bf6c813cbecb42c09d3f79b63794f33eb1f752d49ea410fd20420ea27d84",
+      "url": "https://github.com/advisories/GHSA-7cfm-pqrj-xgq7",
+      "title": "GHSA: 9router: Login brute-force protection bypass via spoofed X-Forwarded-For header",
+      "summary": "## Summary\n\nThe 9router dashboard login rate limiter derives the client identity from the attacker-controlled `X-Forwarded-For` HTTP header. When 9router is directly exposed, or deployed behind a reverse proxy that does not overwrite untrusted forwarding headers, a remote attacker can rotate the `X-Forwarded-For` value on each login attempt and receive a fresh rate-limit bucket every time.\n\nThis b",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T21:46:20Z",
+      "cve_ids": [
+        "CVE-2026-55501"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "75a6fa3b1eec566067f5fd6222fd39cbe80d998b5b45783a107f9a9413be77f7",
+      "url": "https://github.com/advisories/GHSA-qvfm-67h2-2qfx",
+      "title": "GHSA: 9routers has Exposure of Sensitive Information and Unprotected Database Import/Export, Allowing Complete Credential Theft and Database Takeover",
+      "summary": "## Summary\n\nThe `/api/settings/database` endpoint allows full database export (containing all credentials, API keys, OAuth tokens, and settings) and full database import (complete overwrite) without any authentication requirement beyond the `ALWAYS_PROTECTED` middleware check, which only validates JWT or CLI token. Combined with other vulnerabilities (e.g., default password, tunnel exposure), this",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T21:37:49Z",
+      "cve_ids": [
+        "CVE-2026-55500"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
     {
       "id": "69a29a8b28d4f289857de5b00c67f26f642892c2947b22d6b512cc08dba74a13",
       "url": "https://github.com/advisories/GHSA-hmj5-jm8h-h9fh",
@@ -617,88 +699,6 @@
         "CVE-2026-55787"
       ],
       "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "cb6fd39452b6c9b4a10bf8746ab26e5ec04fdeae56b58e16a343152af1fe4565",
-      "url": "https://github.com/advisories/GHSA-jhhc-3hcp-qhm5",
-      "title": "GHSA: WeasyPrint has CSS Injection via Presentational Hints",
-      "summary": "### Summary\nA CSS injection issue exists in WeasyPrint when HTML presentational hints are enabled. Unescaped attribute values are embedded into CSS, allowing injection of arbitrary CSS declarations. This affects applications processing untrusted HTML input.\n\n### Details\nFile: weasyprint/css/__init__.py\n\nThe `background` attribute is used to construct CSS:\n\nbackground-image:url({element.get(\"backgr",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T17:29:53Z",
-      "cve_ids": [
-        "CVE-2026-49452"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "367467f4c53f54d559ed507f0a5a7551a77f2708a03c0182b960e6645e6af8a2",
-      "url": "https://github.com/advisories/GHSA-3fcv-jvfp-m4q9",
-      "title": "GHSA: Cilium vulnerable to sensitive information disclosure and cluster disruption via local Envoy admin socket access",
-      "summary": "### Impact\n\nWhen Cilium L7 functionality is enabled on a cluster, the Envoy instance supporting this functionality creates a world-accessible socket on cluster nodes. A local attacker would be able to access Envoy admin endpoints. Depending on deployment configuration, this can expose sensitive information or allow disruptive administrative operations, such as:\n\n- Exposing TLS secrets\n- Disrupting",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-06T17:03:20Z",
-      "cve_ids": [
-        "CVE-2026-49445"
-      ],
-      "cvss": 9.2,
-      "related_links": []
-    },
-    {
-      "id": "cd33fe35dca33c7c6da7dc60d3ce3e192b39aba0c25d50e98ac50a2ca1b86ce6",
-      "url": "https://github.com/advisories/GHSA-xj53-j257-hxvg",
-      "title": "GHSA: OpenRemote read-only asset users can write predicted datapoints",
-      "summary": "# Summary\n\nThe predicted datapoint write endpoint allows users with only `read:assets` privileges to write predicted datapoints.\n\nThe endpoint:\n\n```text\nPUT /api/{realm}/asset/predicted/{assetId}/{attributeName}\n```\n\naccepts write requests from users lacking `write:assets`.\n\nThe implementation appears to check `READ_ASSETS` while performing a write operation through:\n\n```java\nassetPredictedDatapoi",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T16:52:35Z",
-      "cve_ids": [
-        "CVE-2026-49439"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "31e6862a963857c79d457788a1b315617715c06517878606e342ee349ccddb71",
-      "url": "https://github.com/advisories/GHSA-565m-g33j-jq96",
-      "title": "GHSA: Formie Hidden field defaults vulnerable to Server-Side Template Injection",
-      "summary": "## Summary\nFormie Hidden fields could evaluate request-derived values as Twig during front-end form rendering.\n\nWhen a Hidden field used a dynamic default value such as HTTP User Agent, Referer URL, Current URL, Query Parameter, or Cookie Value, the value was copied from the incoming request and later passed to Craft’s Twig rendering layer. This allowed an unauthenticated attacker to provide Twig ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-06T16:52:16Z",
-      "cve_ids": [
-        "CVE-2026-52889"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "fecd98a210af6ecd0d79d475f7ae186d82a03d40d176d843f0e5f8399fe6ac01",
-      "url": "https://github.com/advisories/GHSA-55f6-pf8r-c2f4",
-      "title": "GHSA: Open Babel has out-of-bounds write in MOPAC translationVectors[] (UNIT CELL TRANSLATION)",
-      "summary": "### Summary\n\nA memory-safety vulnerability in Open Babel's MOPAC output parser\nallowed an out-of-bounds write into the `translationVectors[]` array\nwhen reading the \"UNIT CELL TRANSLATION\" block of a crafted input\nfile.\n\n### Details\n\nThe MOPAC output reader stored translation vectors from the UNIT CELL\nTRANSLATION block into a fixed-size `translationVectors[]` array. A\nmalformed block could push m",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T16:41:43Z",
-      "cve_ids": [
-        "CVE-2022-46292"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "46404f865f36b5244bb1117dc18a36a586b1da189ebbf765d76020a7c38d7730",
-      "url": "https://www.rapid7.com/blog/post/so-ditl-day-with-your-vector-command-red-team-pod",
-      "title": "A Day With Your Vector Command Red Team Pod",
-      "summary": "Anyone trying to understand continuous red teaming usually gets the same high-level explanation: it is ongoing, attacker-informed, and designed to uncover risk between formal assessments. Useful as that description is, it still leaves most people with the same question, which is what the service actually looks like when a team is working against a real environment day after day.A Vector Command po",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-07-06T14:26:46+00:00",
-      "cve_ids": [],
-      "cvss": null,
       "related_links": []
     }
   ]
