@@ -1,10 +1,106 @@
 {
-  "updated": "2026-07-07T21:24:16.988989+00:00",
+  "updated": "2026-07-08T02:42:30.796348+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "fc8fdfd9cbf535bca91550f15cf8151f26d9a45ba90f2708468f80b3a93621e4",
+      "url": "https://github.com/advisories/GHSA-wp87-mgvq-5j93",
+      "title": "GHSA: SurrealDB: USE NS/DB implicit creation bypasses DEFINE authorization",
+      "summary": "An anonymous caller could create new namespaces and databases on a running SurrealDB instance without holding `DEFINE NAMESPACE` or `DEFINE DATABASE` permission.\n\n`USE NS <name>` and `USE DB <name>` automatically create the target when it does not exist. The three places `USE` is handled — the RPC `use` method, `Datastore::process_use`, and the SurrealQL executor — did not check whether the caller",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:21:25Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "d7a152e4645aad648e0e9cc182004e1f454390545233db2214e11c80eb04328f",
+      "url": "https://github.com/advisories/GHSA-97vg-427p-8hx5",
+      "title": "GHSA: SurrealDB: Port-specific --deny-net rules silently bypassed on HTTP redirect",
+      "summary": "SurrealDB offers `http::*` functions that can access external network endpoints, with the `--allow-net` and `--deny-net` capabilities used to restrict the set of network targets that can be reached. An authenticated user of SurrealDB can bypass a port-scoped `--deny-net <host>:<port>` rule by chaining an HTTP redirect: the initial request goes to an `--allow-net`-permitted hostname, the response's",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:20:40Z",
+      "cve_ids": [],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "d7217898ec35983b063277bc630d873068b23f7f6713c76378b87b1c376a4c29",
+      "url": "https://github.com/advisories/GHSA-6wqw-vhfr-9999",
+      "title": "GHSA: SurrealDB: Authenticated subscribers can read records hidden by SELECT permissions via LIVE subscriptions",
+      "summary": "A record user could read records the table's SELECT permission expression should have hidden, when that expression referenced `$value`, `$before`, `$after`, or `$event`. Binding a chosen value to that name before registering a `LIVE SELECT` caused notifications to evaluate the permission against the attacker's input instead of the real document.\n\n### Impact\n\nA record user binds a value to `$value`",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:20:00Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "e1d0f8f9f9ac4a1d095005f7b7f91b0d364a307c0dc3a4ba503130de6a9e6fd5",
+      "url": "https://github.com/advisories/GHSA-f82j-v89j-mf86",
+      "title": "GHSA: SurrealDB: `RELATE` overwrites existing edge records without `UPDATE` permission",
+      "summary": "`RELATE` creates an edge record between two existing records, and SurrealDB enforces the `CREATE` permission on the edge table for this operation. When the statement included a `SET id = edge:existing` clause, however, the new edge's id ended up pointing at an record that was already in storage. Rather than failing because the target already existed — which is what a create operation should do — t",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-01T20:19:17Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "78f8cf257efdbc4300e4c0ca138b33f47880a7729a38cd35cd88af3d635c122d",
+      "url": "https://github.com/advisories/GHSA-fpxg-5xmv-922m",
+      "title": "GHSA: SurrealDB has bypass of field-level SELECT permissions through JSON Patch `copy` and `move` with empty `from`",
+      "summary": "SurrealDB lets callers modify records using JSON Patch operations via the `UPDATE … PATCH` statement (and SDK equivalents such as `db.patch()`). One of those operations is `copy`, which duplicates one field's value into another field of the same record. A `PATCH` with an empty `from` — for example, `UPDATE thing:1 PATCH [{ op: 'copy', from: '', path: '/leak' }]` — was treated as \"copy the entire r",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:18:06Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "2d991740fddfd8647071fe1735dcc6f12df82d5f5daa4170bc01dd61e1f47b58",
+      "url": "https://github.com/advisories/GHSA-6g9v-7gq3-p2c6",
+      "title": "GHSA: SurrealDB: Authenticated callers can read fields hidden by field-level SELECT permissions via error messages",
+      "summary": "A record user with UPDATE access could read field values that field-level SELECT permissions hid from them. Arithmetic operators and `extend` embedded the raw operand into their error messages, and UPDATE permission checks evaluate against the unreduced document — so triggering such an error against a hidden field returned its value in the resulting error.\n\n### Impact\n\nA record user issues an UPDA",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:16:52Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "36996456780634eb8cede02a42b77b0b71a5ed3fec939d73a3a46c599e412e09",
+      "url": "https://github.com/advisories/GHSA-4m82-p8cx-f94j",
+      "title": "GHSA: SurrealDB: LIVE query subscriptions survive session state changes, bypassing access controls",
+      "summary": "A `LIVE SELECT` subscription records the user's auth state (`$auth`, `$token`, `$session`, `$access`) when it is registered, and the server uses that recorded state to evaluate the table- and row-level `PERMISSIONS` clauses for every subsequent notification. The recorded state is never refreshed. \n\nWhen something changes the user's effective auth state — the originating session is invalidated, the",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:16:12Z",
+      "cve_ids": [],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "6ce4fc7ba83fd6b7197c14c24eae8e7937548dea55bef0a6673128b53ed70e4e",
+      "url": "https://github.com/advisories/GHSA-65rj-r9fh-jp2v",
+      "title": "GHSA: SurrealDB vulnerable to pre-auth memory amplification via unbounded `/sql` WebSocket frames",
+      "summary": "An anonymous caller could degrade `/sql` availability by streaming WebSocket frames many times larger than the operator-configured per-connection limit. The `/sql` upgrade handler accepted anonymous connections and did not propagate `SURREAL_WEBSOCKET_MAX_MESSAGE_SIZE` to the WebSocket protocol layer — incoming bytes accumulated in the per-connection read buffer before `check_anon` could reject th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-01T20:15:03Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
     {
       "id": "28ead3f28d67f941c3fe2792f34d4df77c644b976dc45abd9d574146b005ac70",
       "url": "https://github.com/advisories/GHSA-gcwr-5mrf-fvch",
@@ -1250,223 +1346,115 @@
       ]
     },
     {
-      "id": "bb8831b92008a9a6ffb890249e3528987726049f65e8f64f5eb04baf5f83082d",
-      "url": "https://www.bleepingcomputer.com/news/security/over-900-oracle-e-business-instances-exposed-to-ongoing-attacks/",
-      "title": "Over 900 Oracle E-Business instances exposed to ongoing attacks",
-      "summary": "Over 900 Oracle E-Business Suite (EBS) instances have been found exposed online amid ongoing attacks exploiting a critical security flaw. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-07-01T12:30:01+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "6900699e16500885db99cd55a54218aa490bc8c5691183278476cebd8b6de9b7",
-      "url": "https://www.bleepingcomputer.com/news/artificial-intelligence/anthropic-to-restore-claude-fable-access-on-wednesday/",
-      "title": "Anthropic to restore Claude Fable access on Wednesday",
-      "summary": "Anthropic has confirmed that the Department of Commerce has lifted export controls on Claude's two most powerful models, Fable 5 and Mythos 5. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-07-01T00:35:14+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "98cd9614b6dedde78f7848e75b94d1c8d2bc31e656290fe1de1035ccc00f7e9b",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-45659",
-      "title": "CVE-2026-45659: Microsoft SharePoint Server Deserialization of Untrusted Data Vulnerability",
-      "summary": "Microsoft SharePoint Server contains a deserialization of untrusted data vulnerability which allows an authorized attacker to execute code over a network. Affected product: SharePoint Server by Microsoft. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CI",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-07-01T00:00:00+00:00",
+      "id": "e7cb9aa791952a33645f79c60cb7388154b24e3e2e0da3fda386aa490397814e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53334",
+      "title": "CVE-2026-53334",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nmm/damon/reclaim: handle ctx allocation failure\n\nPatch series \"mm/damon/{reclaim,lru_sort}: handle ctx allocation failures\".\n\nDAMON_RECLAIM and DAMON_LRU_SORT could dereference NULL pointers if their\ndamon_ctx object allocations fail.  The bugs are expected to happen\ninfrequently because the allocations are arguably too small to ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-01T14:16:41.350",
       "cve_ids": [
-        "CVE-2026-45659"
+        "CVE-2026-53334"
       ],
       "cvss": null,
       "related_links": []
     },
     {
-      "id": "555a9e59bb791cffa1dd935ebbdafb3ef1808438596934338cbfe0f67f48c3f4",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13849",
-      "title": "CVE-2026-13849 — CVSS 8.6",
-      "summary": "Insufficient validation of untrusted input in Chromoting in Google Chrome on Windows prior to 150.0.7871.47 allowed a local attacker to potentially perform a sandbox escape via a malicious file. (Chromium security severity: High)",
+      "id": "3b9580c0e19e23e50bb04ed99121e9294806ec157b11cef4b4051b569b8dbd00",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53333",
+      "title": "CVE-2026-53333",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nmm/mincore: handle non-swap entries before !CONFIG_SWAP guard\n\nmincore_swap() also fields migration/hwpoison entries (and shmem\nswapin-error entries), which can exist on !CONFIG_SWAP builds when\nCONFIG_MIGRATION or CONFIG_MEMORY_FAILURE is enabled.  The\n!IS_ENABLED(CONFIG_SWAP) guard ran before the non-swap-entry early return,\nso",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-30T23:16:59.390",
+      "date": "2026-07-01T14:16:41.243",
       "cve_ids": [
-        "CVE-2026-13849"
+        "CVE-2026-53333"
       ],
-      "cvss": 8.6,
+      "cvss": null,
       "related_links": []
     },
     {
-      "id": "ad35eafef7a9533a9d9f3dd884dc6af5419983522e22cdd7a178bd9562188373",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13848",
-      "title": "CVE-2026-13848 — CVSS 8.8",
-      "summary": "Use after free in Forms in Google Chrome prior to 150.0.7871.47 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "id": "030c86461db3e80e5f7d69a0a96d17cb2e20251d5bb7efb9c358e11a3f6b611b",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53332",
+      "title": "CVE-2026-53332",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nslimbus: qcom-ngd-ctrl: Register callbacks after creating the ngd\n\nWhen the remoteproc starts in parallel with the NGD driver being probed,\nor the remoteproc is already up when the PDR lookup is being registered,\nor in the theoretical event that we get an interrupt from the hardware,\nthese callbacks will operate on uninitialized ",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-30T23:16:59.300",
+      "date": "2026-07-01T14:16:41.137",
       "cve_ids": [
-        "CVE-2026-13848"
+        "CVE-2026-53332"
       ],
-      "cvss": 8.8,
+      "cvss": null,
       "related_links": []
     },
     {
-      "id": "975b8df697717caaa208b9a7ea34bbcc6549f041e3a8f65bc7c521d87a10f28a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13846",
-      "title": "CVE-2026-13846 — CVSS 9.6",
-      "summary": "Use after free in USB in Google Chrome on Mac prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:59.113",
-      "cve_ids": [
-        "CVE-2026-13846"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "225495399db7403e65dcd98c304c0e21c430942bf6e436983ab3aa86996ad853",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13845",
-      "title": "CVE-2026-13845 — CVSS 8.8",
-      "summary": "Use after free in DOM in Google Chrome prior to 150.0.7871.47 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "id": "c7200beb796ebe2ed3abfd32f025872cb7e0121d64b923a22e28d26bc9009873",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53331",
+      "title": "CVE-2026-53331",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nslimbus: qcom-ngd-ctrl: Avoid ABBA on tx_lock/ctrl->lock\n\nDuring the SSR/PDR down notification the tx_lock is taken with the\nintent to provide synchronization with active DMA transfers.\n\nBut during this period qcom_slim_ngd_down() is invoked, which ends up in\nslim_report_absent(), which takes the slim_controller lock. In multiple",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-30T23:16:59.020",
+      "date": "2026-07-01T14:16:40.997",
       "cve_ids": [
-        "CVE-2026-13845"
+        "CVE-2026-53331"
       ],
-      "cvss": 8.8,
+      "cvss": null,
       "related_links": []
     },
     {
-      "id": "5abecbf7b1ed4866f082323149ff5ded20755829b9f728901623720c7c54ba0e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13844",
-      "title": "CVE-2026-13844 — CVSS 7.8",
-      "summary": "Use after free in Updater in Google Chrome on Windows prior to 150.0.7871.47 allowed a local attacker to perform OS-level privilege escalation via a malicious file. (Chromium security severity: High)",
+      "id": "2bc6092cb41756ab6696e0b7498303521874f9f00a84aefcf1d315f2b96079cc",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53330",
+      "title": "CVE-2026-53330",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/amd/display: Fix out-of-bounds read in dp_get_eq_aux_rd_interval()\n\n[Why & How]\nThe aux_rd_interval array in struct dc_lttpr_caps is declared with\nMAX_REPEATER_CNT - 1 (7) elements, indexed 0..6. However, the offset\nparameter passed to dp_get_eq_aux_rd_interval() can be as large as\nMAX_REPEATER_CNT (8) when a sink reports 8 L",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-30T23:16:58.927",
+      "date": "2026-07-01T14:16:40.893",
       "cve_ids": [
-        "CVE-2026-13844"
+        "CVE-2026-53330"
       ],
-      "cvss": 7.8,
+      "cvss": null,
       "related_links": []
     },
     {
-      "id": "4dfa3646ec435ccdad4430ffc4a22b4afb1d1e951f5bf5af93563cc73ab36cc0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13843",
-      "title": "CVE-2026-13843 — CVSS 9.6",
-      "summary": "Insufficient validation of untrusted input in Chrome for iOS in Google Chrome on iOS prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:58.837",
-      "cve_ids": [
-        "CVE-2026-13843"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "71914af47dd403c82c6f75d2ab11c18fa8657ece5e0cc21d294f11c38ec80713",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13841",
-      "title": "CVE-2026-13841 — CVSS 8.3",
-      "summary": "Integer overflow in Skia in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "id": "63479e9776eed372f530f0cd4a1a10c51e2699c17b761fabcfbf364d6f95ab2e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53329",
+      "title": "CVE-2026-53329",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/amd/display: Use krealloc_array() in dal_vector_reserve()\n\n[Why & How]\ndal_vector_reserve() computes the allocation size as\n\"capacity * vector->struct_size\" using uint32_t arithmetic, which can\nsilently wrap to a small value on overflow. This would cause krealloc to\nreturn a smaller buffer than expected, leading to heap overf",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-30T23:16:58.653",
+      "date": "2026-07-01T14:16:40.760",
       "cve_ids": [
-        "CVE-2026-13841"
+        "CVE-2026-53329"
       ],
-      "cvss": 8.3,
+      "cvss": null,
       "related_links": []
     },
     {
-      "id": "0138b5169ad732b572dce047987286738a109a0a7366963b2567672503407500",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13840",
-      "title": "CVE-2026-13840 — CVSS 6.5",
-      "summary": "Insufficient policy enforcement in Canvas in Google Chrome prior to 150.0.7871.47 allowed a remote attacker to leak cross-origin data via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-06-30T23:16:58.563",
-      "cve_ids": [
-        "CVE-2026-13840"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "bff2b6a043b2681eedf1942973bfe591eeddf7e6421905fbac4d4f8f1976cbbf",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13836",
-      "title": "CVE-2026-13836 — CVSS 6.1",
-      "summary": "Inappropriate implementation in CSS in Google Chrome prior to 150.0.7871.47 allowed a remote attacker to inject arbitrary scripts or HTML (UXSS) via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-06-30T23:16:58.220",
-      "cve_ids": [
-        "CVE-2026-13836"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "cc235adbd5117b337a4b41dbcc0737e2d2eb291093a19cd777ec6b2dd708576e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13835",
-      "title": "CVE-2026-13835 — CVSS 8.8",
-      "summary": "Inappropriate implementation in XML in Google Chrome prior to 150.0.7871.47 allowed a remote attacker to potentially exploit heap corruption via a crafted HTML page. (Chromium security severity: High)",
+      "id": "288dcca1279d15b821fc1fcf3eb517088c4f3b5250fee89b166ac8ff5a776b96",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53328",
+      "title": "CVE-2026-53328",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nsched_ext: Don't warn on NULL cgrp_moving_from in scx_cgroup_move_task()\n\nA WARN fires when systemd's user manager writes \"+cpu +memory +pids\" to\nits own subtree_control while a sched_ext scheduler is loaded:\n\n  WARNING: at kernel/sched/ext.c:3227 scx_cgroup_move_task+0xa8/0xb0\n   scx_cgroup_move_task+0xa8/0xb0\n   sched_move_task",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-30T23:16:58.130",
+      "date": "2026-07-01T14:16:40.650",
       "cve_ids": [
-        "CVE-2026-13835"
+        "CVE-2026-53328"
       ],
-      "cvss": 8.8,
+      "cvss": null,
       "related_links": []
     },
     {
-      "id": "5382100acb80448d62acf83c3f12ec837e20981e23ad4d9d25e4dc15963e06ac",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13834",
-      "title": "CVE-2026-13834 — CVSS 8.3",
-      "summary": "Insufficient validation of untrusted input in ANGLE in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "id": "3526b30b8dc574664fd56e761b6339a280bea21fc8af40628db380383c03baf2",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53327",
+      "title": "CVE-2026-53327",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndebugobjects: Do not fill_pool() if pi_blocked_on\n\nOn RT enabled kernels, fill_pool() ends up calling rtlock_lock(), which\nasserts if current::pi_blocked_on is set, because a task can obviously only\nblock on one lock as otherwise the priority inheritenace chain gets\ncorrupted.\n\nPrevent this by expanding the conditional to take cu",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-06-30T23:16:58.037",
+      "date": "2026-07-01T14:16:40.550",
       "cve_ids": [
-        "CVE-2026-13834"
+        "CVE-2026-53327"
       ],
-      "cvss": 8.3,
-      "related_links": []
-    },
-    {
-      "id": "dda547192a8ad4e2eeacb780d6aefc1ab9e1991eb3625ffa6a3d6a170247551a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13832",
-      "title": "CVE-2026-13832 — CVSS 8.3",
-      "summary": "Use after free in Headless in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-30T23:16:57.833",
-      "cve_ids": [
-        "CVE-2026-13832"
-      ],
-      "cvss": 8.3,
-      "related_links": []
-    },
-    {
-      "id": "dbbd7045000a1cbe3731c6f8337aae12420aef9931e77f84b0537b2de07e395f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13831",
-      "title": "CVE-2026-13831 — CVSS 7.5",
-      "summary": "Out of bounds read and write in GPU in Google Chrome prior to 150.0.7871.47 allowed a remote attacker who had compromised the renderer process to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-06-30T23:16:57.730",
-      "cve_ids": [
-        "CVE-2026-13831"
-      ],
-      "cvss": 7.5,
+      "cvss": null,
       "related_links": []
     }
   ]
