@@ -1,10 +1,52 @@
 {
-  "updated": "2026-07-08T06:27:50.319728+00:00",
+  "updated": "2026-07-08T10:18:18.669750+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "58402be16ad0d9473bda6492f9eef632371694d111c2e71df6e9fa2b518d47ed",
+      "url": "https://github.com/advisories/GHSA-fg23-3346-88f5",
+      "title": "GHSA: Langroid: Path traversal in the file tools allows read/write outside configured current directory",
+      "summary": "### Summary\n\nLangroid's `ReadFileTool` and `WriteFileTool` appear to treat `curr_dir` as the intended working-directory boundary for file operations. However, the tools only change the process working directory to `curr_dir` and then operate on the user-supplied `file_path` without resolving and enforcing that the final path remains inside `curr_dir`.\n\nAs a result, a tool caller can supply path tr",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-02T17:38:03Z",
+      "cve_ids": [
+        "CVE-2026-50181"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "92e6b07a553e322afb0fcdcb7d1d7f35f95412585edbcb6abdf8c208d5926b94",
+      "url": "https://github.com/advisories/GHSA-g3xr-5w5j-w4q4",
+      "title": "GHSA: Contour has Improper JWT Verification for Non-SNI Requests on Virtual Hosts with Fallback Certificate Enabled",
+      "summary": "### Impact\n\nWhen an `HTTPProxy` is configured with incompatible combination of both `.spec.virtualhost.tls.enableFallbackCertificate: true` and `.spec.virtualhost.jwtProviders`, Contour does not reject the configuration. Consequently, requests from clients that do not send TLS SNI or send an unrecognized SNI (one that does not match any `HTTPProxy` FQDN) bypass configured JWT verification and are ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-02T17:15:20Z",
+      "cve_ids": [
+        "CVE-2026-50149"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "421e11c403b704819cd81ea72ff2407f108b8d4f51c92920aef4c78b76e1b509",
+      "url": "https://github.com/advisories/GHSA-7hxm-f538-3xp6",
+      "title": "GHSA: OpenClaw: Matrix allowFrom could bind to mutable display names",
+      "summary": "### Summary\n\nMatrix allowFrom could bind to mutable display names. In affected versions, a Matrix account able to change display name metadata could match a policy entry through mutable display metadata.\n\nThis advisory is scoped to the named feature and configuration. It does not change OpenClaw's trusted-operator model: authenticated Gateway operators, installed plugins, and intentional local exe",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-02T17:13:58Z",
+      "cve_ids": [
+        "CVE-2026-53811"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
     {
       "id": "6673d522448d77a606a0a53827e00cf29a09575108ea7d3652d7163d622f264b",
       "url": "https://github.com/advisories/GHSA-3c6j-hq33-3jv4",
@@ -644,44 +686,6 @@
         "CVE-2026-49998"
       ],
       "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "0f2ab910a647e8ea286e080aa656c7cefdc1a7c4d19d14022803fa3c11ed67cd",
-      "url": "https://github.com/advisories/GHSA-whwg-vh4f-pmmf",
-      "title": "GHSA: SurrealDB: Edge PERMISSIONS FOR delete bypassed when a connected node is deleted",
-      "summary": "In SurrealDB, records can be connected as a graph: a `RELATE` statement creates an edge record between two node records. If either endpoint node is deleted, SurrealDB automatically removes the edge row to keep the graph consistent.\n\nA user with permission to delete a node could also delete the edges connected to that node, even when the edge table's `PERMISSIONS FOR delete` clause should have stop",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-01T20:23:49Z",
-      "cve_ids": [
-        "CVE-2026-49997"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "487bf8ffcfbfab5c2b7c4795d9d8aac5b5e2658582d7c44d4cf4aa66eedbf190",
-      "url": "https://github.com/advisories/GHSA-fwg2-gr34-q3w8",
-      "title": "GHSA: SurrealDB: ES512 silently downgraded to ES384 due to jsonwebtoken crate limitation",
-      "summary": "When a user configures `ALGORITHM ES512` for any JWT access method (`DEFINE ACCESS ... TYPE JWT ALGORITHM ES512`), SurrealDB silently substitutes ES384 at all four internal algorithm conversion points. This occurs because the underlying `jsonwebtoken` crate (v10.x) does not include an ES512 algorithm variant, so the mapping defaults to ES384 without raising an error, warning, or log message.\n \nUse",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-01T20:23:01Z",
-      "cve_ids": [],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "13ba236b484baa8585df223de12d5490ef16c3cb42e8eeba17be683db249ff14",
-      "url": "https://github.com/advisories/GHSA-c8jx-96c9-8xrp",
-      "title": "GHSA: SurrealDB: Field-level SELECT permissions bypassed via indexed COUNT fast paths",
-      "summary": "A record user could learn the value of a hidden field by counting how many records match a guess.\n\nWhen `DEFINE FIELD ... PERMISSIONS FOR select WHERE ...` hides a field's contents from a caller, and that field is indexed, running `SELECT count() FROM t WHERE hidden_field = \"guess\" GROUP ALL` returned a count greater than zero whenever a record actually had that value — even though the caller was ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-01T20:22:06Z",
-      "cve_ids": [],
-      "cvss": 4.3,
       "related_links": []
     }
   ]
