@@ -1,10 +1,36 @@
 {
-  "updated": "2026-07-08T14:07:29.427698+00:00",
+  "updated": "2026-07-08T17:36:17.598501+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "1e81d89393b6b48c2b554bfc33a5852b7ab078da5727c5f2363a5d687f578c67",
+      "url": "https://github.com/advisories/GHSA-pmf6-rcx4-v53v",
+      "title": "GHSA: mkfifo: permissions of an existing file are changed after FIFO creation fails",
+      "summary": "When `mkfifo()` fails (e.g. target already exists), the code shows an error but is missing a `continue;`, so it falls through to `fs::set_permissions` and changes the permissions of the pre-existing file to the default FIFO mode (`0o666` & umask -> `0644`).\n\n```\n$ touch secret; chmod 000 secret\n$ coreutils mkfifo secret fifo3 fifo4\nmkfifo: cannot create fifo 'secret': File exists\n$ ll secret      ",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-07-06T21:53:34Z",
+      "cve_ids": [
+        "CVE-2026-35341"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "c7a2548980a138d071677dff435730ed2975a76957b10c5a38fa6cd6a12ff073",
+      "url": "https://github.com/advisories/GHSA-qrwj-vh9x-gw5v",
+      "title": "GHSA: Coder's workspace agent API insecure redirect handling allowed cross-agent file read and write",
+      "summary": "### Summary\n\n`agentConn.apiClient()` used the default redirect behavior of `http.Client` while its custom transport dialed the host from the request URL as long as the port was the workspace agent HTTP API port (`4`). Agent tailnet IPs are deterministic from agent UUIDs, so a malicious workspace agent could return a redirect to another agent's tailnet IP and cause the control-plane client to send ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T21:52:31Z",
+      "cve_ids": [],
+      "cvss": 8.3,
+      "related_links": []
+    },
     {
       "id": "a769bf6c813cbecb42c09d3f79b63794f33eb1f752d49ea410fd20420ea27d84",
       "url": "https://github.com/advisories/GHSA-7cfm-pqrj-xgq7",
@@ -673,34 +699,6 @@
         "CVE-2026-49445"
       ],
       "cvss": 9.2,
-      "related_links": []
-    },
-    {
-      "id": "cd33fe35dca33c7c6da7dc60d3ce3e192b39aba0c25d50e98ac50a2ca1b86ce6",
-      "url": "https://github.com/advisories/GHSA-xj53-j257-hxvg",
-      "title": "GHSA: OpenRemote read-only asset users can write predicted datapoints",
-      "summary": "# Summary\n\nThe predicted datapoint write endpoint allows users with only `read:assets` privileges to write predicted datapoints.\n\nThe endpoint:\n\n```text\nPUT /api/{realm}/asset/predicted/{assetId}/{attributeName}\n```\n\naccepts write requests from users lacking `write:assets`.\n\nThe implementation appears to check `READ_ASSETS` while performing a write operation through:\n\n```java\nassetPredictedDatapoi",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T16:52:35Z",
-      "cve_ids": [
-        "CVE-2026-49439"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "31e6862a963857c79d457788a1b315617715c06517878606e342ee349ccddb71",
-      "url": "https://github.com/advisories/GHSA-565m-g33j-jq96",
-      "title": "GHSA: Formie Hidden field defaults vulnerable to Server-Side Template Injection",
-      "summary": "## Summary\nFormie Hidden fields could evaluate request-derived values as Twig during front-end form rendering.\n\nWhen a Hidden field used a dynamic default value such as HTTP User Agent, Referer URL, Current URL, Query Parameter, or Cookie Value, the value was copied from the incoming request and later passed to Craft’s Twig rendering layer. This allowed an unauthenticated attacker to provide Twig ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-06T16:52:16Z",
-      "cve_ids": [
-        "CVE-2026-52889"
-      ],
-      "cvss": 9.8,
       "related_links": []
     }
   ]
