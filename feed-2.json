@@ -1,10 +1,52 @@
 {
-  "updated": "2026-07-08T21:07:24.387139+00:00",
+  "updated": "2026-07-09T03:18:55.047152+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "796b0c5bd2f6f3df2e0be0fc75ce831306f527ab29ff7deac6dfb7bf8b686f4f",
+      "url": "https://github.com/advisories/GHSA-xc8p-9rr6-97r2",
+      "title": "GHSA: Open WebUI vulnerable to Stored XSS via iFrame in citations model",
+      "summary": "### Summary\nManually modifying chat history allows setting the `html` property within document metadata. This causes the frontend to enter a code path that treats document contents as HTML, and render them in an iFrame when the citation is previewed. This allows stored XSS via a weaponised document payload in a chat. The payload also executes when the citation is viewed on a shared chat.\n\n### Deta",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-07T16:51:13Z",
+      "cve_ids": [
+        "CVE-2026-26192"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "234da15c498ea9c023b7939e699abf576e5a88bb6319b063f687782400c58eae",
+      "url": "https://github.com/advisories/GHSA-c8m7-r2jv-rw63",
+      "title": "GHSA: EGroupware Vulnerable to Local File Inclusion via file:// URI in Mail Compose",
+      "summary": "### Summary\nThe function processes image URLs embedded in an HTML email body without validating or restricting URI schemes. The check `!str_starts_with($myUrl, 'http')` evaluates to true for `file://` URIs, causing `file_get_contents($basedir . urldecode($myUrl))` to read arbitrary files from the server filesystem and embed them as inline MIME attachments in outgoing email.\n\nstr_starts_with('file:",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-07T13:02:43Z",
+      "cve_ids": [
+        "CVE-2026-45016"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "ec22e99e899b15013634bf2eb87140eabed839e71d953eed8f4f822eed5ce55a",
+      "url": "https://github.com/advisories/GHSA-hwpq-hmq9-wj77",
+      "title": "GHSA: ONNX has Null Pointer Dereference in Upsample Version Converter Adapter (Zero Inputs)",
+      "summary": "### Summary\n\nNull pointer dereference (SIGSEGV) in `Upsample_6_7::adapt_upsample_6_7()` (`onnx/version_converter/adapters/upsample_6_7.h:31`) when `convert_version()` processes a model with an Upsample node that has zero inputs. The adapter accesses `node->inputs()[0]->sizes()` without checking input count. 107-byte PoC crashes on Release build.\n\nThis is the same class of bug as the Cast adapter a",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-07T13:02:10Z",
+      "cve_ids": [
+        "CVE-2026-44512"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
     {
       "id": "9d6d897916abdf021d8bd850b2fbd423aa1601e232ff1604edab7a5ac0dc858f",
       "url": "https://github.com/advisories/GHSA-26v7-h57m-gh9m",
@@ -645,48 +687,6 @@
         "CVE-2026-53486"
       ],
       "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "892bf756bd38380d6e5517511c44538f9a741ad6815e38de5e037aad90608025",
-      "url": "https://github.com/advisories/GHSA-p7h3-7q52-72w8",
-      "title": "GHSA: printenv: environment variables with invalid UTF-8 are silently skipped (evades inspection)",
-      "summary": "The printenv utility in uutils coreutils fails to display environment variables containing invalid UTF-8 byte sequences. While POSIX permits arbitrary bytes in environment strings, the uutils implementation silently skips these entries rather than printing the raw bytes. This vulnerability allows malicious environment variables (e.g., adversarial LD_PRELOAD values) to evade inspection by administr",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T20:25:42Z",
-      "cve_ids": [
-        "CVE-2026-35366"
-      ],
-      "cvss": 4.4,
-      "related_links": []
-    },
-    {
-      "id": "362587fdd47adc3d1350cab8f1e8d33c2849e4ed133fc2de4f27d74a37f07a23",
-      "url": "https://github.com/advisories/GHSA-w6xc-g9qj-vp32",
-      "title": "GHSA: uucore: safe_traversal TOCTOU protection only enabled on Linux",
-      "summary": "The safe_traversal module in uutils coreutils, which provides protection against Time-of-Check to Time-of-Use (TOCTOU) symlink races using file-descriptor-relative syscalls, is incorrectly limited to Linux targets. On other Unix-like systems such as macOS and FreeBSD, the utility fails to utilize these protections, leaving directory traversal operations vulnerable to symlink race conditions.\n\n---\n",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T20:25:15Z",
-      "cve_ids": [
-        "CVE-2026-35362"
-      ],
-      "cvss": 3.6,
-      "related_links": []
-    },
-    {
-      "id": "6f2df51ded9aabb8c6a38159c711bdeb3e4c8ce52010daccb9f9a807032e7579",
-      "url": "https://github.com/advisories/GHSA-h444-6j9x-p8vh",
-      "title": "GHSA: mv: symlinks expanded during cross-device move (resource exhaustion / data duplication)",
-      "summary": "When moving directories across filesystems, uutils `mv` dereferences symlinks inside the tree, copying their targets as real files/dirs instead of preserving the symlinks. GNU preserves symlinks by default. E.g. a `etc_link -> /etc` inside the source becomes a full copy of `/etc` at the destination.\n\n**Impact:** (1) resource exhaustion — a small tree can expand into a huge copy (time/disk DoS); (2",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-06T20:24:53Z",
-      "cve_ids": [
-        "CVE-2026-35365"
-      ],
-      "cvss": 6.6,
       "related_links": []
     }
   ]

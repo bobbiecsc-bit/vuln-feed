@@ -1,10 +1,52 @@
 {
-  "updated": "2026-07-08T21:07:24.387139+00:00",
+  "updated": "2026-07-09T03:18:55.047152+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "892bf756bd38380d6e5517511c44538f9a741ad6815e38de5e037aad90608025",
+      "url": "https://github.com/advisories/GHSA-p7h3-7q52-72w8",
+      "title": "GHSA: printenv: environment variables with invalid UTF-8 are silently skipped (evades inspection)",
+      "summary": "The printenv utility in uutils coreutils fails to display environment variables containing invalid UTF-8 byte sequences. While POSIX permits arbitrary bytes in environment strings, the uutils implementation silently skips these entries rather than printing the raw bytes. This vulnerability allows malicious environment variables (e.g., adversarial LD_PRELOAD values) to evade inspection by administr",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:25:42Z",
+      "cve_ids": [
+        "CVE-2026-35366"
+      ],
+      "cvss": 4.4,
+      "related_links": []
+    },
+    {
+      "id": "362587fdd47adc3d1350cab8f1e8d33c2849e4ed133fc2de4f27d74a37f07a23",
+      "url": "https://github.com/advisories/GHSA-w6xc-g9qj-vp32",
+      "title": "GHSA: uucore: safe_traversal TOCTOU protection only enabled on Linux",
+      "summary": "The safe_traversal module in uutils coreutils, which provides protection against Time-of-Check to Time-of-Use (TOCTOU) symlink races using file-descriptor-relative syscalls, is incorrectly limited to Linux targets. On other Unix-like systems such as macOS and FreeBSD, the utility fails to utilize these protections, leaving directory traversal operations vulnerable to symlink race conditions.\n\n---\n",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:25:15Z",
+      "cve_ids": [
+        "CVE-2026-35362"
+      ],
+      "cvss": 3.6,
+      "related_links": []
+    },
+    {
+      "id": "6f2df51ded9aabb8c6a38159c711bdeb3e4c8ce52010daccb9f9a807032e7579",
+      "url": "https://github.com/advisories/GHSA-h444-6j9x-p8vh",
+      "title": "GHSA: mv: symlinks expanded during cross-device move (resource exhaustion / data duplication)",
+      "summary": "When moving directories across filesystems, uutils `mv` dereferences symlinks inside the tree, copying their targets as real files/dirs instead of preserving the symlinks. GNU preserves symlinks by default. E.g. a `etc_link -> /etc` inside the source becomes a full copy of `/etc` at the destination.\n\n**Impact:** (1) resource exhaustion — a small tree can expand into a huge copy (time/disk DoS); (2",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T20:24:53Z",
+      "cve_ids": [
+        "CVE-2026-35365"
+      ],
+      "cvss": 6.6,
+      "related_links": []
+    },
     {
       "id": "e6a6beeeebf8be798f123aa5920ffdb34dbc1ccccebe514b016f112d527e6ae0",
       "url": "https://github.com/advisories/GHSA-8vrf-r662-2w2v",
@@ -674,48 +716,6 @@
       "date": "2026-07-02T20:27:23Z",
       "cve_ids": [
         "CVE-2026-49289"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "e8c19103e4b1284e11e4d200544096909362b627ae8d8b269ed2afec73533515",
-      "url": "https://github.com/advisories/GHSA-63wg-wjjj-7cp8",
-      "title": "GHSA: Zebra Address Book Aborted by IPv4-Mapped Mempool Misbehavior Update",
-      "summary": "### Am I affected\n\nYou are affected if:\n\n1. You run `zebrad` up to and including `v4.4.1`.\n2. Your node listens on the default `[::]` address on a Linux host (the standard deployment configuration — `net.ipv6.bindv6only=0` is the default on all common Linux distributions).\n3. Your node is synced near the chain tip (the expected production state for any node participating in the network).\n\n### Summ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-02T20:26:56Z",
-      "cve_ids": [
-        "CVE-2026-52829"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "13dcebd65cfa87bd20996889092911d0acbeca8110cf864487ca00de2134561e",
-      "url": "https://github.com/advisories/GHSA-6929-8p9f-26jx",
-      "title": "GHSA: SimpleSAMLphp HTTP-Artifact TLS validator confusion allows cross-IdP authentication bypass",
-      "summary": "## Summary\n\nSimpleSAMLphp's HTTP-Artifact receive path can treat an unsigned embedded SAML `Response` as cryptographically valid for the wrong IdP.\n\nIn the `HTTPArtifact::receive()` flow, the SOAP `ArtifactResponse` receives a TLS-based validator from `SOAPClient::addSSLValidator()`. The embedded SAML `Response` then receives a validator that delegates signature validation to that outer `ArtifactR",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-02T20:25:56Z",
-      "cve_ids": [
-        "CVE-2026-49283"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "c17d1716df2695030487fee664cef374f0eb5fa4a7622b6163b2aff9ad35d5c7",
-      "url": "https://github.com/advisories/GHSA-86vw-mfpg-wwv9",
-      "title": "GHSA: jsonata: Malicious inputs to \"$toMillis\" function can cause resource exhaustion",
-      "summary": "### Impact\nIn JSONata `<v2.2.0`, it is possible to craft non-matching inputs to the [$toMillis](https://docs.jsonata.org/date-time-functions#tomillis) function that cause superlinear backtracking in the ISO-8601 validation regex. This may lead to denial of service in applications that evaluate user-provided JSONata expressions.\n\n### Patches\nThis issue has been addressed in JSONata version >= 2.2.0",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-02T20:13:55Z",
-      "cve_ids": [
-        "CVE-2026-52746"
       ],
       "cvss": 7.5,
       "related_links": []

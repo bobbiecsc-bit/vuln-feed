@@ -1,10 +1,52 @@
 {
-  "updated": "2026-07-08T21:07:24.387139+00:00",
+  "updated": "2026-07-09T03:18:55.047152+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "b857b511447de09871a99b7b033070b2c3816d48418841b6eee7080fe4d39256",
+      "url": "https://github.com/advisories/GHSA-37h2-6p4f-mp3q",
+      "title": "GHSA: Serena: Unauthenticated Flask dashboard on fixed port enables DNS rebinding → memory poisoning → RCE",
+      "summary": "### Summary\n\nSerena's built-in web dashboard exposes an unauthenticated Flask API on a fixed, predictable port (TCP 24282, hardcoded as `0x5EDA` in `constants.py`). The server has no authentication, no CSRF protection, and no Host header validation. A DNS rebinding attack allows a malicious webpage to reach this API from any browser and write arbitrary content to the agent's persistent memory stor",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-08T21:12:08Z",
+      "cve_ids": [
+        "CVE-2026-49471"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "afcea4c841c08fcca88cfbaf1ea99365ef0c4ef1208d8701f3a083cda4f84ca6",
+      "url": "https://github.com/advisories/GHSA-6h3c-r723-7fx3",
+      "title": "GHSA: NL Portal: IDOR allows any authenticated user to complete and tamper with another user's taak",
+      "summary": "## Impact\n\nIn versions from 1.5.0 up to and including 3.0.0, any authenticated portal user could complete and tamper with another user's open task by submitting it on their behalf. The task submission endpoint accepted a task ID and a payload, but it never checked whether the task actually belonged to the user making the call.\n\nAn attacker who held a valid login (a normal `burger` OAuth token) and",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-08T21:12:00Z",
+      "cve_ids": [
+        "CVE-2026-49464"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "ef6b1fc65f4ebfba48657040efcd75ad7b940e37ae19aac6916b6d7b460022e2",
+      "url": "https://github.com/advisories/GHSA-qpm9-h556-mwxm",
+      "title": "GHSA: NL Portal: Missing per-user authorization on document and decision GraphQL queries in nl-portal-backend-libraries",
+      "summary": "## Impact\n\nIn versions up to and including 3.0.0, two parts of the GraphQL API returned data without checking whether the data belonged to the logged-in user:\n\n- **Document content.** A logged-in user could download the raw content of any document by its ID, regardless of who owned it. The resolver has lacked an authentication parameter since the initial commit of the project (2022-11-22) — so eve",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-08T21:11:54Z",
+      "cve_ids": [
+        "CVE-2026-49463"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
     {
       "id": "351bb530e3eb95a5f05a948eab85b853bb48256176ac304b49b89f491ecd7305",
       "url": "https://github.com/advisories/GHSA-43fc-v873-qw85",
@@ -638,48 +680,6 @@
         "CVE-2026-26193"
       ],
       "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "796b0c5bd2f6f3df2e0be0fc75ce831306f527ab29ff7deac6dfb7bf8b686f4f",
-      "url": "https://github.com/advisories/GHSA-xc8p-9rr6-97r2",
-      "title": "GHSA: Open WebUI vulnerable to Stored XSS via iFrame in citations model",
-      "summary": "### Summary\nManually modifying chat history allows setting the `html` property within document metadata. This causes the frontend to enter a code path that treats document contents as HTML, and render them in an iFrame when the citation is previewed. This allows stored XSS via a weaponised document payload in a chat. The payload also executes when the citation is viewed on a shared chat.\n\n### Deta",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-07T16:51:13Z",
-      "cve_ids": [
-        "CVE-2026-26192"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "234da15c498ea9c023b7939e699abf576e5a88bb6319b063f687782400c58eae",
-      "url": "https://github.com/advisories/GHSA-c8m7-r2jv-rw63",
-      "title": "GHSA: EGroupware Vulnerable to Local File Inclusion via file:// URI in Mail Compose",
-      "summary": "### Summary\nThe function processes image URLs embedded in an HTML email body without validating or restricting URI schemes. The check `!str_starts_with($myUrl, 'http')` evaluates to true for `file://` URIs, causing `file_get_contents($basedir . urldecode($myUrl))` to read arbitrary files from the server filesystem and embed them as inline MIME attachments in outgoing email.\n\nstr_starts_with('file:",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-07T13:02:43Z",
-      "cve_ids": [
-        "CVE-2026-45016"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "ec22e99e899b15013634bf2eb87140eabed839e71d953eed8f4f822eed5ce55a",
-      "url": "https://github.com/advisories/GHSA-hwpq-hmq9-wj77",
-      "title": "GHSA: ONNX has Null Pointer Dereference in Upsample Version Converter Adapter (Zero Inputs)",
-      "summary": "### Summary\n\nNull pointer dereference (SIGSEGV) in `Upsample_6_7::adapt_upsample_6_7()` (`onnx/version_converter/adapters/upsample_6_7.h:31`) when `convert_version()` processes a model with an Upsample node that has zero inputs. The adapter accesses `node->inputs()[0]->sizes()` without checking input count. 107-byte PoC crashes on Release build.\n\nThis is the same class of bug as the Cast adapter a",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-07T13:02:10Z",
-      "cve_ids": [
-        "CVE-2026-44512"
-      ],
-      "cvss": 5.5,
       "related_links": []
     }
   ]
