@@ -1,10 +1,276 @@
 {
-  "updated": "2026-07-10T17:47:19.369914+00:00",
+  "updated": "2026-07-10T21:05:28.909356+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "625a6e440d0ba3b457d43efe27ae3cb979dcb36f6df30fb7856938a7f20ed5c0",
+      "url": "https://github.com/advisories/GHSA-wrq8-fcv5-8hvp",
+      "title": "GHSA: Coder: Route hijacking through lack of validation of agent-supplied AllowedIPs in tailnet coordinator",
+      "summary": "### Summary\n\nThe tailnet coordinator validates that an agent's `Addresses` derive from its authenticated UUID but applies no equivalent check to `AllowedIPs`. The coordinator forwards agent-supplied `AllowedIPs` verbatim to tunnel peers which install them into the WireGuard peer configuration.\n\n### Impact\n\nA malicious workspace agent can advertise arbitrary `AllowedIPs` prefixes including another ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:58:30Z",
+      "cve_ids": [
+        "CVE-2026-55428"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "f7b1773d5b91f42ef57b509cf29d5755a9c64557f79c46ed87bd2acf8159899e",
+      "url": "https://github.com/advisories/GHSA-9rjw-3gwp-f59v",
+      "title": "GHSA: Coder's workspace app upsert allows cross-workspace agent rebinding via user-controlled app ID",
+      "summary": "### Summary\n\n`UpsertWorkspaceApp` overwrites an existing app's `agent_id` on a primary-key conflict and `insertAgentApp` accepts the app ID from the provisioner's `CompleteJob` payload without verifying it belongs to the workspace being built. `CompleteJob` runs under `dbauthz.AsProvisionerd` so the authorization layer does not block the cross-workspace upsert.\n\n> **Note:** Exploitation requires e",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:55:37Z",
+      "cve_ids": [
+        "CVE-2026-55429"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "1f3e7d45ef3ebdf6656c557d59dab8239c549c11ed5711c3f13815090b0bd0b3",
+      "url": "https://github.com/advisories/GHSA-f962-qm93-mj4c",
+      "title": "GHSA: Coder's unbounded memory allocation in provisioner file upload allows authenticated denial of service",
+      "summary": "### Summary\n\n`NewDataBuilder` in `provisionersdk/proto/dataupload.go` allocated a byte slice using the client-supplied `FileSize` from a `DataUpload` message without an upper-bound check. Although the DRPC wire limit is 4 MiB, the `FileSize` value itself was unconstrained\n\n### Impact\n\nAn authenticated user able to reach the provisioner daemon serve endpoint could send a roughly 50-byte message dec",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:54:41Z",
+      "cve_ids": [
+        "CVE-2026-55079"
+      ],
+      "cvss": 4.9,
+      "related_links": []
+    },
+    {
+      "id": "378595be01c378ecceb00b9ccea971dbe739b50397b9e86de3923f0a132a0d04",
+      "url": "https://github.com/advisories/GHSA-mcqq-fqgf-rxwm",
+      "title": "GHSA: Coder vulnerable to SSH config injection via unsanitized server-supplied values in `coder config-ssh`",
+      "summary": "### Summary\n\n`coder config-ssh` wrote server-supplied SSH settings (`HostnameSuffix`, `SSHConfigOptions`) into the user's `~/.ssh/config` without sanitizing embedded newlines or restricting directives so a malicious or compromised Coder server could inject arbitrary SSH configuration.\n\n> **Note:** Practical exploitation requires control of the server-supplied values through a malicious or compromi",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:53:54Z",
+      "cve_ids": [
+        "CVE-2026-55427"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "8d53ac534fa72b672f70eddf0bf23fae432c70c6df1b698e5cdacdcbf891fa43",
+      "url": "https://github.com/advisories/GHSA-29xf-69gq-m9jx",
+      "title": "GHSA: Coder: User-admin role can reset owner account password",
+      "summary": "### Summary\n\nThe `PUT /api/v2/users/{user}/password` endpoint authorized only `ActionUpdatePersonal` and did not prevent a `user-admin` from resetting an `owner` account's password. It also did not require the current password when an admin reset another user's password.\n\n> **Note:** Exploitation requires the privileged `user-admin` role so practical risk is limited to deployments that grant `user",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:53:04Z",
+      "cve_ids": [
+        "CVE-2026-55077"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
+      "id": "5aedddae7b0c4db923a26d9348a41bc3469d1285c6eb37b702131adc15845e14",
+      "url": "https://github.com/advisories/GHSA-9r87-mvcw-x35f",
+      "title": "GHSA: Coder vulnerable to OIDC account takeover via email-based user matching and email_verified bypass",
+      "summary": "### Summary\n\nTwo flaws in Coder's OIDC login chained into account takeover: email-based user matching fell back to linking by email without checking for an existing link to a different IdP subject and the `email_verified` claim was only enforced when present as a boolean `false` so an absent or non-boolean claim was treated as verified.\n\n### Impact\n\nAn attacker who could authenticate at the config",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T20:52:13Z",
+      "cve_ids": [
+        "CVE-2026-55075"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "6dd745830e9e465d02827154f79d1cc222c66496c1d646123601b07c5b0f3f5d",
+      "url": "https://github.com/advisories/GHSA-75vm-6w67-gwvp",
+      "title": "GHSA: Coder's OIDC email_verified type coercion bypass enables account takeover via unverified email linking",
+      "summary": "### Summary\n\nCoder's OIDC callback checked `email_verified` with a direct Go `bool` type assertion. When an IdP returned the claim as a non-boolean (for example the string `\"false\"`) or omitted it, the assertion failed open and the email was treated as verified. Combined with an unconditional email-based account fallback, this enabled account takeover.\n\n### Impact\n\nAn attacker who registered a vic",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:50:35Z",
+      "cve_ids": [
+        "CVE-2026-55076"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "265b6f61db5242c9a5b9cb7f1ce2fe7a300914890ca23d2b81af00c927361255",
+      "url": "https://github.com/advisories/GHSA-7v6w-c3f4-9wpq",
+      "title": "GHSA: OpenRemote has an incomplete fix for CVE-2026-40882: XXE in KNXProtocol.startAssetImport() allows arbitrary file read via unprotected XMLInputFactory",
+      "summary": "### Summary\nThe fix for CVE-2026-40882 addressed only the Velbus asset import handler. The KNX asset import handler (`KNXProtocol`) processes user-uploaded ETS project ZIP files through Saxon XSLT and `XMLInputFactory.newInstance()` with no XXE protection, allowing any authenticated user to read arbitrary files from the server filesystem (e.g. `/etc/passwd`, `openmrs-runtime.properties`, cloud cre",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:49:51Z",
+      "cve_ids": [
+        "CVE-2026-54640"
+      ],
+      "cvss": 7.6,
+      "related_links": []
+    },
+    {
+      "id": "f5ac1e405fd9f5f8a49e237e437f9742ba8b963b44d90b9d728da5f6ab311908",
+      "url": "https://github.com/advisories/GHSA-xqr9-4wvv-gvch",
+      "title": "GHSA: OpenRemote has Cross-Realm User Information Disclosure in UserResourceImpl",
+      "summary": "### Summary\n\nA realm admin of tenant B can read the profile, client roles, and realm roles of any user in any other realm (including the master realm) by supplying the target user's UUID in the REST API path. Three read endpoints in UserResourceImpl check whether the caller holds the read:admin role but omit a check that the target user belongs to the caller's own realm. The vulnerability enables ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T20:47:57Z",
+      "cve_ids": [
+        "CVE-2026-54641"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "39182d39d8045607f2999e2283bbaf734cfe48eb2243b86e7f6861e132f3c23f",
+      "url": "https://github.com/advisories/GHSA-q6h5-q3q6-f87x",
+      "title": "GHSA: CiliumLocalRedirectPolicy addressMatcher allows cross-namespace service traffic hijacking and can break service translation",
+      "summary": "### Impact\n\nUsers with the ability to create CiliumLocalRedirectPolicies can specify arbitrary ClusterIPs via addressMatcher, which enables hijacking traffic to Services in any namespace, bypassing the namespace-scoping guarantees enforced by serviceMatcher.\n\nIn addition, deleting such a policy can corrupt Cilium's internal service state, causing service translation to stop working entirely for th",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T20:45:38Z",
+      "cve_ids": [
+        "CVE-2026-53935"
+      ],
+      "cvss": 6.9,
+      "related_links": []
+    },
+    {
+      "id": "137d8fa38de9bb914bb826973d9ab48f9c1b99a30b2f7030d3b78d97167bc2d9",
+      "url": "https://github.com/advisories/GHSA-gv83-gqw6-9j2c",
+      "title": "GHSA: GoFiber never set HSTS header in helmet middleware due to incorrect protocol check",
+      "summary": "### Summary\n\nThe `helmet` middleware in gofiber/fiber never sets the `Strict-Transport-Security` (HSTS) response header, even when `HSTSMaxAge` is explicitly configured, because the condition check at `helmet.go:67` uses `c.Protocol()` — which returns the HTTP protocol version string (e.g., `\"HTTP/1.1\"`, `\"HTTP/2.0\"`) — instead of `c.Scheme()` — which returns the URL scheme (`\"http\"` or `\"https\"`)",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:43:12Z",
+      "cve_ids": [
+        "CVE-2026-53624"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "a1c22324bc1a451eca0c1a350a873bf153ba98a247d712e339a2d75c6de4478b",
+      "url": "https://github.com/advisories/GHSA-gjgq-w2m6-wr5q",
+      "title": "GHSA: Langroid: handle_message() executes user-supplied tool JSON without sender verification ",
+      "summary": "## Summary\n\nA Langroid application exposing a chat interface to untrusted users may allow direct tool invocation via raw JSON payloads, even when tools are registered with `use=False, handle=True`.\n\n## Details\n\n`enable_message(..., use=False, handle=True)` only prevents the LLM from being instructed to generate the tool. The tool dispatch path in `agent_response()` → `handle_message()` → `get_tool",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:42:18Z",
+      "cve_ids": [
+        "CVE-2026-54771"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "f20fbaed8de53ea3efe1b14d4358fb9e0773a4893dce52cd9016d2d505d3407e",
+      "url": "https://github.com/advisories/GHSA-q9p7-wqxg-mrhc",
+      "title": "GHSA: Langroid: Sandbox Escape to Remote Code Execution via Incomplete `eval()` Mitigation in TableChatAgent",
+      "summary": "### Advisory Details\n**Title**: Sandbox Escape to Remote Code Execution via Incomplete `eval()` Mitigation in TableChatAgent\n\n**Description**:\n### Summary\nLangroid is vulnerable to a critical Sandbox Escape leading to Remote Code Execution (RCE) in its `TableChatAgent` and `VectorStore` capabilities. When these agents evaluate LLM-generated tool messages with `full_eval=True`, they attempt to sand",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T20:42:00Z",
+      "cve_ids": [
+        "CVE-2026-54769"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "6cdcf7a347d4fc204b863c81831a3bd1e42ad5efc88b47bfc8bbdafa7d273f2b",
+      "url": "https://github.com/advisories/GHSA-mp2f-45pm-3cg9",
+      "title": "GHSA: Decompress: Archive extraction can create files and links outside of the target directory",
+      "summary": "### Impact\n\nWhen extracting an archive to a directory, a crafted archive can read or write files outside that directory. The flaw is in the code that writes the parsed entries, so it affects every format decompress handles: tar, tar.gz, tar.bz2, and zip by default, plus any others added through the plugins option.\n\nA link (hardlink) or symlink entry is created without checking where its target poi",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T20:27:38Z",
+      "cve_ids": [
+        "CVE-2026-53486"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "892bf756bd38380d6e5517511c44538f9a741ad6815e38de5e037aad90608025",
+      "url": "https://github.com/advisories/GHSA-p7h3-7q52-72w8",
+      "title": "GHSA: printenv: environment variables with invalid UTF-8 are silently skipped (evades inspection)",
+      "summary": "The printenv utility in uutils coreutils fails to display environment variables containing invalid UTF-8 byte sequences. While POSIX permits arbitrary bytes in environment strings, the uutils implementation silently skips these entries rather than printing the raw bytes. This vulnerability allows malicious environment variables (e.g., adversarial LD_PRELOAD values) to evade inspection by administr",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:25:42Z",
+      "cve_ids": [
+        "CVE-2026-35366"
+      ],
+      "cvss": 4.4,
+      "related_links": []
+    },
+    {
+      "id": "362587fdd47adc3d1350cab8f1e8d33c2849e4ed133fc2de4f27d74a37f07a23",
+      "url": "https://github.com/advisories/GHSA-w6xc-g9qj-vp32",
+      "title": "GHSA: uucore: safe_traversal TOCTOU protection only enabled on Linux",
+      "summary": "The safe_traversal module in uutils coreutils, which provides protection against Time-of-Check to Time-of-Use (TOCTOU) symlink races using file-descriptor-relative syscalls, is incorrectly limited to Linux targets. On other Unix-like systems such as macOS and FreeBSD, the utility fails to utilize these protections, leaving directory traversal operations vulnerable to symlink race conditions.\n\n---\n",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:25:15Z",
+      "cve_ids": [
+        "CVE-2026-35362"
+      ],
+      "cvss": 3.6,
+      "related_links": []
+    },
+    {
+      "id": "6f2df51ded9aabb8c6a38159c711bdeb3e4c8ce52010daccb9f9a807032e7579",
+      "url": "https://github.com/advisories/GHSA-h444-6j9x-p8vh",
+      "title": "GHSA: mv: symlinks expanded during cross-device move (resource exhaustion / data duplication)",
+      "summary": "When moving directories across filesystems, uutils `mv` dereferences symlinks inside the tree, copying their targets as real files/dirs instead of preserving the symlinks. GNU preserves symlinks by default. E.g. a `etc_link -> /etc` inside the source becomes a full copy of `/etc` at the destination.\n\n**Impact:** (1) resource exhaustion — a small tree can expand into a huge copy (time/disk DoS); (2",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T20:24:53Z",
+      "cve_ids": [
+        "CVE-2026-35365"
+      ],
+      "cvss": 6.6,
+      "related_links": []
+    },
+    {
+      "id": "e6a6beeeebf8be798f123aa5920ffdb34dbc1ccccebe514b016f112d527e6ae0",
+      "url": "https://github.com/advisories/GHSA-8vrf-r662-2w2v",
+      "title": "GHSA: cp: -R reads device nodes as streams, destroying device semantics",
+      "summary": "The cp utility in uutils coreutils, when performing recursive copies (-R), incorrectly treats character and block device nodes as stream sources rather than preserving them. Because the implementation reads bytes into regular files at the destination instead of using mknod, device semantics are destroyed (e.g., /dev/null becomes a regular file). This behavior can lead to runtime denial of service ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T20:21:18Z",
+      "cve_ids": [
+        "CVE-2026-35358"
+      ],
+      "cvss": 4.4,
+      "related_links": []
+    },
+    {
+      "id": "6a1486e79d110f6d3f2e415f373ca4f741d0409ff9ceb63351ee079cbd9ff4b0",
+      "url": "https://github.com/advisories/GHSA-89p7-7cq3-hhr2",
+      "title": "GHSA: rm: 'rm -rf ./' (and ./// variants) silently deletes current directory contents, bypassing dot protection",
+      "summary": "`rm -rf .` is correctly refused, but `clean_trailing_slashes` normalizes `.///` to `./` while `path_is_current_or_parent_directory` only matches `.`/`..` (and `/.`/`/..`), not `./` or `../`. So `rm -rf ./` recursively deletes the directory's contents and then prints a misleading `cannot remove './': Invalid input`.\n\n**Impact:** all files/subdirectories in the current directory are silently deleted",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T20:20:56Z",
+      "cve_ids": [
+        "CVE-2026-35363"
+      ],
+      "cvss": 5.6,
+      "related_links": []
+    },
     {
       "id": "36203d05affc9ec5b08e15688a2697ec7ad03ade782cf80e0fe91c35c282d6aa",
       "url": "https://github.com/advisories/GHSA-3wfc-mgpm-9rq6",
@@ -367,363 +633,101 @@
       "related_links": []
     },
     {
-      "id": "5cb38aebc5bdf3a44e65eac0db086f5bf442b63c08a8e34722d40a4f79519127",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-71345",
-      "title": "CVE-2025-71345 — CVSS 8.1",
-      "summary": "picklescan before 0.0.30 fails to detect malicious pickle files that invoke torch.utils.bottleneck.__main__.run_autograd_prof function. Attackers can embed undetected code in pickle files that executes during deserialization, enabling remote code execution.",
+      "id": "3774a39d433b65fd648d8eca0e35b677a881fe73e2a7ffb1d135d14ebddffb84",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-71364",
+      "title": "CVE-2025-71364 — CVSS 8.1",
+      "summary": "picklescan before 0.0.30 fails to detect the asyncio.unix_events._UnixSubprocessTransport._start function in pickle reduce methods, allowing remote code execution. Attackers can craft malicious pickle files embedding this built-in function that evade detection but execute arbitrary commands when loaded.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-07-04T02:16:21.670",
+      "date": "2026-07-04T02:16:22.583",
       "cve_ids": [
-        "CVE-2025-71345"
+        "CVE-2025-71364"
       ],
       "cvss": 8.1,
       "related_links": []
     },
     {
-      "id": "b4c6d85e4067214dc7d566bf296d65ba22997f8971c13596e140be03f1fb2b25",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-71343",
-      "title": "CVE-2025-71343 — CVSS 8.1",
-      "summary": "picklescan before 0.0.30 fails to detect malicious pickle files that exploit lib2to3.pgen2.pgen.ParserGenerator.make_label function in the reduce method. Attackers can craft malicious pickle files with embedded code that evades detection but executes arbitrary commands when pickle.load() is called.",
+      "id": "217ad9a61f7d06eef373650209429375b01df28d764b2e4e25737ce035a315be",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-71362",
+      "title": "CVE-2025-71362 — CVSS 8.1",
+      "summary": "picklescan before 0.0.33 fails to detect unsafe deserialization when numpy.f2py.crackfortran functions call eval on arbitrary strings. Attackers can embed malicious code in pickle files that executes when loaded from untrusted sources.",
       "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-04T02:16:21.527",
+      "category": "emergency",
+      "date": "2026-07-04T02:16:22.457",
       "cve_ids": [
-        "CVE-2025-71343"
+        "CVE-2025-71362"
       ],
       "cvss": 8.1,
       "related_links": []
     },
     {
-      "id": "d8c95e30a4dbcd03ee9ea324d739b62b12bba5234162c1dcff46dcf57812c215",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-71342",
-      "title": "CVE-2025-71342 — CVSS 8.1",
-      "summary": "picklescan before 0.0.30 fails to detect malicious pickle files using idlelib.run.Executive.runcode in reduce methods. Attackers can embed undetected code in pickle files that executes during pickle.load, enabling remote code execution in PyTorch models and supply chain attacks.",
+      "id": "541b315f9e5669fd0d74294da9de6cc3a3b69514cd7ce9018a21ef966dc24d61",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-71360",
+      "title": "CVE-2025-71360 — CVSS 8.1",
+      "summary": "picklescan before 0.0.29 fails to detect malicious pickle files using idlelib.calltip.get_entity function in reduce methods. Attackers can embed undetected code in pickle files that executes remote commands when loaded by victims.",
       "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-04T02:16:21.387",
+      "category": "infrastructure",
+      "date": "2026-07-04T02:16:22.327",
       "cve_ids": [
-        "CVE-2025-71342"
+        "CVE-2025-71360"
       ],
       "cvss": 8.1,
       "related_links": []
     },
     {
-      "id": "fd08ca8a5e32395562003d5958417770985f9794bc538499522dcc7c45f41c42",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-54424",
-      "title": "CVE-2026-54424 — CVSS 8.4",
-      "summary": "An Incorrect Use of Privileged APIs vulnerability in Unity Parsec on Windows hosts leads to a potential Elevation of Privilege. This issue affects Parsec through v2026-05-04.0. The patched version is Parsec for Windows version 150-104a. A user can generate a situation where there is an instance of parsecd.exe running as NT AUTHORITY\\SYSTEM with a user-controlled value of the AppData environment va",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-04T01:16:27.340",
-      "cve_ids": [
-        "CVE-2026-54424"
-      ],
-      "cvss": 8.4,
-      "related_links": []
-    },
-    {
-      "id": "0b3e7aed3a8661e5600da4485a43139dfe75c8c9ebbdf757f2175e99fd7bff59",
-      "url": "https://www.rapid7.com/blog/post/pt-metasploit-wrap-up-07-03-2026/",
-      "title": "Weekly Metasploit Update: Modules for SMB-to-Meterpreter, Peyara Remote Mouse RCE exploit, and more",
-      "summary": "It's Time to Upgrade Your SMB SessionThis week, Metasploit contributor Dean Welch has added an SMB to Meterpreter session upgrade module. It uses PsExec to facilitate the upgrade. Users can load the module with use windows/manage/smb_to_meterpreter and specify the session number they wish to upgrade. This functionality is also available with the command sessions -u &lt;session_id&gt;. This work is",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-07-03T22:11:22+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "7a3ea79e5a88fe0413d6c454c1e4e8673dbb1df646ed24b162aab83750fde64a",
-      "url": "https://www.rapid7.com/blog/post/pt-metasploit-wrap-up-07-03-2026",
-      "title": "Weekly Metasploit Update: Modules for SMB-to-Meterpreter, Peyara Remote Mouse RCE exploit, and more",
-      "summary": "It's Time to Upgrade Your SMB SessionThis week, Metasploit contributor Dean Welch has added an SMB to Meterpreter session upgrade module. It uses PsExec to facilitate the upgrade. Users can load the module with use windows/manage/smb_to_meterpreter and specify the session number they wish to upgrade. This functionality is also available with the command sessions -u &lt;session_id&gt;. This work is",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-07-03T22:11:22+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "7102c6d124d784de849f40f30d1129b9a911b2424c56dc1f3fb8b338053d421e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58524",
-      "title": "CVE-2026-58524 — CVSS 5.4",
-      "summary": "Improper neutralization of input during web page generation ('cross-site scripting') in Microsoft Edge (Chromium-based) allows an unauthorized attacker to perform spoofing over a network.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-07-03T21:17:06.000",
-      "cve_ids": [
-        "CVE-2026-58524"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "1b65037967ea26eb78d5b9991e0f552158534a6b8b23f849a150c3ff52135b52",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58522",
-      "title": "CVE-2026-58522 — CVSS 6.8",
-      "summary": "Relative path traversal in Microsoft Edge for Android allows an unauthorized attacker to disclose information locally.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-07-03T21:17:05.883",
-      "cve_ids": [
-        "CVE-2026-58522"
-      ],
-      "cvss": 6.8,
-      "related_links": []
-    },
-    {
-      "id": "32062d08435f7a13220cad1e859a1ff16db981cd1157cf03fc6abc2470263bb2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58426",
-      "title": "CVE-2026-58426 — CVSS 9.6",
-      "summary": "Gitea Actions Artifacts V4 signed URL HMAC ambiguity allows cross-repository artifact read and cross-task upload-state write",
+      "id": "73920118a049131fd166cb1594a3fae249937877e4ade0c2cfd63b7104fa77b8",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-71359",
+      "title": "CVE-2025-71359 — CVSS 8.1",
+      "summary": "picklescan before 0.0.29 fails to detect malicious pickle payloads that utilize lib2to3.pgen2.grammar.Grammar.loads in the reduce method, allowing remote code execution. Attackers can craft pickle files embedding dangerous code that evades picklescan detection and executes during pickle.load() deserialization.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-07-03T21:17:05.770",
+      "date": "2026-07-04T02:16:22.197",
       "cve_ids": [
-        "CVE-2026-58426"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "1b6bdb099af7199108f55f59a029fcc07ea634b43cd1c7f7e3e978cccaf94245",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58424",
-      "title": "CVE-2026-58424 — CVSS 8.9",
-      "summary": "Permanent Fork PR Workflow Approval Gate Bypass",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-03T21:17:05.660",
-      "cve_ids": [
-        "CVE-2026-58424"
-      ],
-      "cvss": 8.9,
-      "related_links": []
-    },
-    {
-      "id": "746197c45b24be706688159de00d169f79980837228eb134ade27e52d61eeb9e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58423",
-      "title": "CVE-2026-58423 — CVSS 7.7",
-      "summary": "LFS authentication bypass via malformed SSH sub-verb allows unauthorized read access to private repositories",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-03T21:17:05.550",
-      "cve_ids": [
-        "CVE-2026-58423"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "9b5be782df7d9e1edc0e9e1477e79dfc42c306b55b17ab31916f678acb2b5126",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58422",
-      "title": "CVE-2026-58422 — CVSS 9.8",
-      "summary": "Improper authorization on OAuth sign-in callback silently re-enables administrator-disabled accounts",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-03T21:17:05.447",
-      "cve_ids": [
-        "CVE-2026-58422"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "900b626b181aa2e66d5c9fe2e88a98e8c8ccc347438ef12cb5cb53d5b85a1907",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58421",
-      "title": "CVE-2026-58421 — CVSS 7.5",
-      "summary": "Unauthenticated ReDoS via CODEOWNERS pattern matching allows denial of service",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-03T21:17:05.347",
-      "cve_ids": [
-        "CVE-2026-58421"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "06a3d655d800ee7c6714e99638fc68a844356c75e877cadd68930c31a91be1b8",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58419",
-      "title": "CVE-2026-58419 — CVSS 7.5",
-      "summary": "Notification API leaks private issue metadata after access revocation",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-03T21:17:05.243",
-      "cve_ids": [
-        "CVE-2026-58419"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "4976ed436cb205aefc92a611a2db58c0659e020ea318718f235abdd279556ace",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58418",
-      "title": "CVE-2026-58418 — CVSS 6.5",
-      "summary": "SSRF via HTTP Redirect in Repository Migration",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-07-03T21:17:05.140",
-      "cve_ids": [
-        "CVE-2026-58418"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "bb3c163c8b62339af11d2af0c1459fb68b7a15576ad6414307451f5602dd5352",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58300",
-      "title": "CVE-2026-58300 — CVSS 6.2",
-      "summary": "Absolute path traversal in Microsoft Edge for Android allows an unauthorized attacker to disclose information locally.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-07-03T21:17:05.023",
-      "cve_ids": [
-        "CVE-2026-58300"
-      ],
-      "cvss": 6.2,
-      "related_links": []
-    },
-    {
-      "id": "09da4ba1d4e60ba8b79b7ce37dfacd44fa4e33d1f4c0c0e79e16cfe482251985",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58299",
-      "title": "CVE-2026-58299 — CVSS 7.5",
-      "summary": "Time-of-check time-of-use (toctou) race condition in Microsoft Edge for Android allows an unauthorized attacker to execute code over a network.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-03T21:17:04.907",
-      "cve_ids": [
-        "CVE-2026-58299"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "2037bc4ad7f5cfce7bc902fbd009b14b94d962bfc0fa3c49c93dc618d51b5096",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58298",
-      "title": "CVE-2026-58298 — CVSS 7.2",
-      "summary": "Improper neutralization of input during web page generation ('cross-site scripting') in Microsoft Edge (Chromium-based) allows an unauthorized attacker to perform spoofing over a network.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-07-03T21:17:04.790",
-      "cve_ids": [
-        "CVE-2026-58298"
-      ],
-      "cvss": 7.2,
-      "related_links": []
-    },
-    {
-      "id": "88ca760fdfa6413f91295d73fa039d5725ea11aaae8669cc21797a83718aa2a5",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58297",
-      "title": "CVE-2026-58297 — CVSS 7.1",
-      "summary": "Exposure of private personal information to an unauthorized actor in Microsoft Edge for Android allows an unauthorized attacker to disclose information over a network.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-03T21:17:04.663",
-      "cve_ids": [
-        "CVE-2026-58297"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "8b9d073a4d03ea37017d723ebef9f3809277383fd4185eb9f1fc3ddb88086a3f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58296",
-      "title": "CVE-2026-58296 — CVSS 7.1",
-      "summary": "Exposure of private personal information to an unauthorized actor in Microsoft Edge for Android allows an unauthorized attacker to disclose information over a network.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-03T21:17:04.547",
-      "cve_ids": [
-        "CVE-2026-58296"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "961fdcf79a77576f1e7fe87befdde5916e7364dc86b32ddd6173cb171476d12c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58295",
-      "title": "CVE-2026-58295 — CVSS 8.3",
-      "summary": "Access of resource using incompatible type ('type confusion') in Microsoft Edge (Chromium-based) allows an unauthorized attacker to bypass a security feature over a network.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-03T21:17:04.417",
-      "cve_ids": [
-        "CVE-2026-58295"
-      ],
-      "cvss": 8.3,
-      "related_links": []
-    },
-    {
-      "id": "697159e7b7f690f4c2f0081a4f219d994b73fae29e4f700b3b56b0f471cb7344",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58294",
-      "title": "CVE-2026-58294 — CVSS 7.5",
-      "summary": "Use after free in Microsoft Edge (Chromium-based) allows an unauthorized attacker to execute code over a network.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-03T21:17:04.293",
-      "cve_ids": [
-        "CVE-2026-58294"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "f05c95a23972e65764d66087b1c8aeaca14baa03d0c531f986499166a5a5c5ed",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58293",
-      "title": "CVE-2026-58293 — CVSS 8.1",
-      "summary": "External control of file name or path in Microsoft Edge (Chromium-based) allows an unauthorized attacker to execute code over a network.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-03T21:17:04.143",
-      "cve_ids": [
-        "CVE-2026-58293"
+        "CVE-2025-71359"
       ],
       "cvss": 8.1,
       "related_links": []
     },
     {
-      "id": "4f65bdd8d26e31ea25180a0dd904b52124c14ed7aba4024b6e4c35bb438c2543",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58292",
-      "title": "CVE-2026-58292 — CVSS 7.5",
-      "summary": "Improper input validation in Microsoft Edge (Chromium-based) allows an unauthorized attacker to execute code over a network.",
+      "id": "ea90b4460c2735a54fc1a182b38ec716237aa475d5aba7f200140a3c211976eb",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-71356",
+      "title": "CVE-2025-71356 — CVSS 8.1",
+      "summary": "picklescan before 0.0.28 fails to detect malicious torch.fx.experimental.symbolic_shapes.ShapeEnv.evaluate_guards_expression function calls in pickle files. Attackers can embed undetected code in pickle files that executes remote code when loaded by victims.",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-07-03T21:17:04.013",
+      "date": "2026-07-04T02:16:22.063",
       "cve_ids": [
-        "CVE-2026-58292"
+        "CVE-2025-71356"
       ],
-      "cvss": 7.5,
+      "cvss": 8.1,
       "related_links": []
     },
     {
-      "id": "ed935731e6f017ea3fa245ab03c72a40e8b724ce4257f5bc3190d268eeefda84",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58291",
-      "title": "CVE-2026-58291 — CVSS 6.1",
-      "summary": "Operation on a resource after expiration or release in Microsoft Edge (Chromium-based) allows an unauthorized attacker to disclose information over a network.",
+      "id": "60e6e72dc61ef8f5a6145166ae3714ff89fb7ba6488c97ece63c355eaef02edb",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-71353",
+      "title": "CVE-2025-71353 — CVSS 8.1",
+      "summary": "picklescan before 0.0.28 fails to detect malicious pickle files that exploit torch._dynamo.guards.GuardBuilder.get function in reduce methods. Attackers can craft pickle files with embedded code that evades picklescan detection and executes arbitrary commands when loaded.",
       "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-03T21:17:03.890",
+      "category": "infrastructure",
+      "date": "2026-07-04T02:16:21.933",
       "cve_ids": [
-        "CVE-2026-58291"
+        "CVE-2025-71353"
       ],
-      "cvss": 6.1,
+      "cvss": 8.1,
       "related_links": []
     },
     {
-      "id": "9b8c2bdc8b91cb91eb4e8fcb96412026af211e5cbf713a4f621847abcc29f234",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58290",
-      "title": "CVE-2026-58290 — CVSS 7.5",
-      "summary": "Access of resource using incompatible type ('type confusion') in Microsoft Edge (Chromium-based) allows an unauthorized attacker to execute code over a network.",
+      "id": "2a2ba67651328ce48cc3714b31d5ed7be7f7ac5a31901c069382523e0d61b1c0",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-71347",
+      "title": "CVE-2025-71347 — CVSS 8.1",
+      "summary": "picklescan before 0.0.33 fails to detect malicious pickle files using numpy.f2py.crackfortran.param_eval function in reduce methods, allowing attackers to bypass security checks. Remote attackers can embed undetected code in pickle files that executes during deserialization, enabling arbitrary code execution in applications loading untrusted pickle data.",
       "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-03T21:17:03.770",
+      "category": "web_app",
+      "date": "2026-07-04T02:16:21.803",
       "cve_ids": [
-        "CVE-2026-58290"
+        "CVE-2025-71347"
       ],
-      "cvss": 7.5,
+      "cvss": 8.1,
       "related_links": []
     }
   ]
