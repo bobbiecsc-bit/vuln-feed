@@ -1,10 +1,24 @@
 {
-  "updated": "2026-07-13T06:52:44.596953+00:00",
+  "updated": "2026-07-13T11:10:52.395877+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "4d5cc081896008ae75ae384f2f3697f143b7b71324e1f09ff5a04b8c881bc2e7",
+      "url": "https://github.com/advisories/GHSA-gvhc-wv3v-7pf8",
+      "title": "GHSA: Kite has an authenticated cluster RBAC bypass in /api/v1/overview",
+      "summary": "## Summary\n\nAuthenticated Kite users with any role can request `/api/v1/overview` for a cluster that their roles do not permit by selecting that cluster with `x-cluster-name`. The overview route is registered before `middleware.RBACMiddleware()` and `GetOverview` only checks `len(user.Roles) > 0`, so it returns aggregate Kubernetes inventory and capacity data from unauthorized clusters.\n\nThe issue",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-07-07T23:40:35Z",
+      "cve_ids": [
+        "CVE-2026-53487"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
     {
       "id": "8b7dadd2802da2169b005c76d0e4b1f0daa4e3cf45b67ead146f3710c217bd0a",
       "url": "https://www.bleepingcomputer.com/news/security/accenture-confirms-breach-after-hacker-offers-stolen-data-for-sale/",
@@ -562,115 +576,101 @@
       "related_links": []
     },
     {
-      "id": "2d639e419a6f922a4f8f6ac7cc9602c7c8766500b89fd511a5ba0e60733eacca",
-      "url": "https://github.com/advisories/GHSA-5wg6-jmq2-53pw",
-      "title": "GHSA: Coder's workspace app CORS origin check can be bypassed via UUID-based subdomain spoofing",
-      "summary": "### Summary\n\nCoder's subdomain-based workspace app proxy allowed the same-owner CORS check to be bypassed. When a workspace-name subdomain segment parsed as a UUID, the workspace was resolved by ID without confirming the URL's username matched the real owner, while the CORS middleware trusted the unverified username in the hostname.\n\n> **Note:** Practical exploitation requires subdomain app routin",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T21:14:49Z",
-      "cve_ids": [
-        "CVE-2026-55438"
-      ],
-      "cvss": 5.8,
-      "related_links": []
-    },
-    {
-      "id": "10474c301fd94bcbd992dc1897d0754e6ac7d90d3714fe2468af20c5d9018102",
-      "url": "https://github.com/advisories/GHSA-798h-hpph-m24j",
-      "title": "GHSA: Linuxfabrik Monitoring Plugins have local privilege escalation using embedded command",
-      "summary": "### Summary\nWhen a check plugin places user provided input inside a command which is passed to `shell_exec`, an attacker can abuse this to run arbitrary commands. This is mainly dangerous for plugins which are listed in the sudoers file, because this allows an attacker controlling the nagios user to get root privileges.\n\n### Details\nAn example for this is the `restic-check` plugin, where the `--re",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T21:13:38Z",
-      "cve_ids": [
-        "CVE-2026-55426"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "7d57a32f2175fd27ae9beebe5276903e6fff057db13591a7f15450d151a9952a",
-      "url": "https://github.com/advisories/GHSA-7qw2-f75v-62f7",
-      "title": "GHSA: Coder vulnerable to stored HTML injection via workspace agent logs in AgentLogLine component",
-      "summary": "### Summary\n\nThe `AgentLogLine` dashboard component instantiated `ansi-to-html` without `escapeXML: true` and inserted the result via `dangerouslySetInnerHTML` so HTML embedded in workspace agent log lines was rendered as live markup. Server-side sanitization did not neutralize HTML metacharacters.\n\n> **Note:** Exploitation requires a victim to view attacker-controlled agent logs in the dashboard.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T21:12:56Z",
-      "cve_ids": [
-        "CVE-2026-55437"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "b71f3ad6dc506f7d1bf57dc4a2ba70a242e350a1049d03f54b8bd33af56c4042",
-      "url": "https://github.com/advisories/GHSA-84rm-42xw-mx52",
-      "title": "GHSA: Coder's AI Bridge Proxy skips TLS certificate verification in default configuration",
-      "summary": "### Summary\n\nThe AI Bridge Proxy (`aibridgeproxyd`) created a goproxy server whose default transport set `InsecureSkipVerify: true` and only assigned a secure transport when an upstream proxy was configured. In the default configuration (no upstream proxy), outbound HTTPS to the Coder access URL accepted any TLS certificate.\n\n> **Note:** Practical exploitation requires an on-path (man-in-the-middl",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T21:12:05Z",
-      "cve_ids": [
-        "CVE-2026-55436"
-      ],
-      "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "4142e0e458280f9035cc1cb84be6ab3dc4ade5375d0b0b635849d17d9ffa7c33",
-      "url": "https://github.com/advisories/GHSA-wqxv-w64v-5wh6",
-      "title": "GHSA: Suspended Coder users retain access to AI Bridge LLM proxy endpoints",
-      "summary": "### Summary\n\nAI Bridge proxy endpoints authenticate via `Server.IsAuthorized` in `coderd/aibridgedserver`, which validates key format, expiry, secret and deleted or system users but does not check whether the account is suspended. Because suspension does not revoke existing API keys, a suspended user's unexpired token keeps working.\n\n> **Note:** Practical impact is limited to already-issued API ke",
-      "source": "GitHub Advisory",
+      "id": "0536b8100d8432ff1f8eba38f831e91e80d5de945d6616b72c646d63bb1413f4",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59712",
+      "title": "CVE-2026-59712 — CVSS 8.1",
+      "summary": "Leantime's Users::getUser method in the JSON-RPC API lacks proper authorization checks, allowing authenticated users to retrieve full user credential rows including password hashes, TOTP secrets, and session tokens. Attackers can exploit this by calling users.getUser with arbitrary user IDs to enumerate all accounts and obtain credentials for offline password cracking, 2FA bypass, and session hija",
+      "source": "NVD/NIST",
       "category": "cloud",
-      "date": "2026-07-06T21:11:20Z",
+      "date": "2026-07-06T21:16:58.793",
       "cve_ids": [
-        "CVE-2026-55435"
+        "CVE-2026-59712"
       ],
-      "cvss": 5.4,
+      "cvss": 8.1,
       "related_links": []
     },
     {
-      "id": "588af9f4bdc838e1907b85f9c1f69630eb25b793a12dbb6eeda466de831d543e",
-      "url": "https://github.com/advisories/GHSA-f5vp-w269-392g",
-      "title": "GHSA: Coder vulnerable to denial of service via unbounded request body in AI Bridge provider endpoints",
-      "summary": "### Summary\n\nAI Bridge provider handlers read request bodies with `io.ReadAll` without a maximum size so an authenticated user with AI Bridge access could send an arbitrarily large body and exhaust memory.\n\n> **Note:** Exploitation requires authenticated access to the AI Bridge endpoints and the impact is limited to availability (denial of service).\n\n### Impact\n\nAn authenticated member-level user ",
-      "source": "GitHub Advisory",
+      "id": "19839edc1a48d4e5bb505fe7674a2d05a5b0b610f667095598a4bd095086e87b",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59711",
+      "title": "CVE-2026-59711 — CVSS 6.1",
+      "summary": "showdown contains a cross-site scripting vulnerability in metadata title handling that allows attackers to inject arbitrary HTML and JavaScript. When completeHTMLDocument option is enabled, unescaped less-than and greater-than characters in markdown frontmatter metadata are inserted directly into HTML title tags, enabling attackers to break out of the title context and execute malicious scripts in",
+      "source": "NVD/NIST",
       "category": "web_app",
-      "date": "2026-07-06T21:10:13Z",
+      "date": "2026-07-06T21:16:58.660",
       "cve_ids": [
-        "CVE-2026-55434"
+        "CVE-2026-59711"
       ],
-      "cvss": 6.5,
+      "cvss": 6.1,
       "related_links": []
     },
     {
-      "id": "aead977ab95bf7d778df4dad96e9b817664b6acefe87db5c0122bd6b3139544e",
-      "url": "https://github.com/advisories/GHSA-jqj2-x4c5-jfxm",
-      "title": "GHSA: Coder: Devcontainer recreate endpoint missing write authorization allows read-only roles to destroy containers",
-      "summary": "### Summary\n\nThe devcontainer recreate endpoint relied on route middleware that checked only `ActionRead` on the workspace and, unlike the sibling delete endpoint, performed no `ActionUpdate` check before triggering the destructive rebuild.\n\n> **Note:** Exploitation requires an existing low-privilege role with access to the target workspace.\n\n### Impact\n\nAny authenticated principal with read-only ",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-07-06T21:09:11Z",
-      "cve_ids": [
-        "CVE-2026-55433"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "269449ff1ad243355984e7dfad9ee693a4866b909bf7162d5093ae9347cfebbc",
-      "url": "https://github.com/advisories/GHSA-x9qq-2qh5-8rxf",
-      "title": "GHSA: Coder's sub-agent app registration bypasses template port-sharing policy enforcement",
-      "summary": "### Summary\n\nThe `CreateSubAgent` RPC did not validate a requested app sharing level against the template's `MaxPortSharingLevel` before persisting workspace apps, letting a workspace owner exceed the administrator's configured maximum.\n\n> **Note:** Exploitation requires the ability to register sub-agent apps in a workspace the attacker controls.\n\n### Impact\n\nA workspace owner with an agent token ",
-      "source": "GitHub Advisory",
+      "id": "6e585f33658b56f3e7cc9706a2ba66fe93f462043798313bd9a1fb82f734f0a3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-57573",
+      "title": "CVE-2026-57573 — CVSS 8.6",
+      "summary": "Crawl4AI is an open-source LLM-friendly web crawler and scraper. Prior to 0.9.0, the Docker API server applied its SSRF destination check on the non-streaming /crawl path but not on the streaming path. handle_stream_crawl_request passed seed URLs straight to the crawler with no destination validation, allowing a remote unauthenticated client to call POST /crawl/stream or POST /crawl with crawler_c",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-07-06T21:08:32Z",
+      "date": "2026-07-06T21:16:58.197",
       "cve_ids": [
-        "CVE-2026-55432"
+        "CVE-2026-57573"
       ],
-      "cvss": 5.4,
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "0f030d2376dd964d109caf4d8d4f4a30f0032069d8351f7f9beae1c9797567a4",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-57572",
+      "title": "CVE-2026-57572 — CVSS 10.0",
+      "summary": "Crawl4AI is an open-source LLM-friendly web crawler and scraper. Prior to 0.9.0, the Docker API server accepted request-supplied browser_config.extra_args, which flowed into Chromium's launch arguments. An attacker could inject Chromium switches that replace a child-process launch command together with --no-zygote, causing Chromium to fork or exec an attacker-controlled command as the container's ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-06T21:16:58.047",
+      "cve_ids": [
+        "CVE-2026-57572"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "6bdfc2e6be3eac1791bdd7aa1608d21a61ee5be8423f7e9a3afc4da7b4136d71",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-57571",
+      "title": "CVE-2026-57571 — CVSS 9.6",
+      "summary": "Crawl4AI is an open-source LLM-friendly web crawler and scraper. Prior to 0.9.0, when the crawler saves a downloaded file, the destination filename was taken from attacker-influenced input and joined to the downloads directory with no confinement. A filename containing an absolute path or traversal escaped the downloads directory, giving an arbitrary file write with attacker-controlled contents; t",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-06T21:16:57.907",
+      "cve_ids": [
+        "CVE-2026-57571"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "bdee55070c41d93b08ae44d78b8eee25ef2ddad4fbb1d940f5298d62841ffc8c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55727",
+      "title": "CVE-2026-55727 — CVSS 7.5",
+      "summary": "A flaw in the authentication mechanism for video stream requests in Genetec Security Center 5.14.0.0 prior to build 5.14.178.18 may allow an unauthenticated attacker to access live video streams.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-06T21:16:57.580",
+      "cve_ids": [
+        "CVE-2026-55727"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "5bf0409a2e656201cb37df312ff22ed88643ad784c36c2e1822c9eebee12f240",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55574",
+      "title": "CVE-2026-55574 — CVSS 7.5",
+      "summary": "vLLM is a high-throughput and memory-efficient inference and serving engine for LLMs. Prior to 0.24.0, the structured_outputs.regex API parameter passes a user-supplied regular expression string directly to the grammar compiler backends with no compilation timeout; in the xgrammar backend the string reaches the regex compiler with no guard, and in the outlines backend the validation step blocks st",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-06T21:16:57.347",
+      "cve_ids": [
+        "CVE-2026-55574"
+      ],
+      "cvss": 7.5,
       "related_links": []
     }
   ]
