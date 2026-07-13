@@ -1,10 +1,230 @@
 {
-  "updated": "2026-07-13T11:10:52.395877+00:00",
+  "updated": "2026-07-13T14:34:20.648804+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "109627de34420d5934343936d99b21df80517ba590f7431580e55933e37eeec1",
+      "url": "https://github.com/advisories/GHSA-r9hw-mj3w-phcq",
+      "title": "GHSA: mknod: Device nodes created mislabeled on SELinux, with broken cleanup (remove_dir on a node)",
+      "summary": "uutils calls `mknod` *before* setting the SELinux context (GNU uses `setfscreatecon` first, labeling atomically). If `set_selinux_security_context` fails, cleanup uses `std::fs::remove_dir`, which cannot remove device nodes or FIFOs, leaving the mislabeled node behind.\n\n**Impact:** on SELinux-enforcing systems the node is created with the wrong context; the command reports failure but leaves a mis",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T21:54:05Z",
+      "cve_ids": [
+        "CVE-2026-35361"
+      ],
+      "cvss": 3.4,
+      "related_links": []
+    },
+    {
+      "id": "1e81d89393b6b48c2b554bfc33a5852b7ab078da5727c5f2363a5d687f578c67",
+      "url": "https://github.com/advisories/GHSA-pmf6-rcx4-v53v",
+      "title": "GHSA: mkfifo: permissions of an existing file are changed after FIFO creation fails",
+      "summary": "When `mkfifo()` fails (e.g. target already exists), the code shows an error but is missing a `continue;`, so it falls through to `fs::set_permissions` and changes the permissions of the pre-existing file to the default FIFO mode (`0o666` & umask -> `0644`).\n\n```\n$ touch secret; chmod 000 secret\n$ coreutils mkfifo secret fifo3 fifo4\nmkfifo: cannot create fifo 'secret': File exists\n$ ll secret      ",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-07-06T21:53:34Z",
+      "cve_ids": [
+        "CVE-2026-35341"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "c7a2548980a138d071677dff435730ed2975a76957b10c5a38fa6cd6a12ff073",
+      "url": "https://github.com/advisories/GHSA-qrwj-vh9x-gw5v",
+      "title": "GHSA: Coder's workspace agent API insecure redirect handling allowed cross-agent file read and write",
+      "summary": "### Summary\n\n`agentConn.apiClient()` used the default redirect behavior of `http.Client` while its custom transport dialed the host from the request URL as long as the port was the workspace agent HTTP API port (`4`). Agent tailnet IPs are deterministic from agent UUIDs, so a malicious workspace agent could return a redirect to another agent's tailnet IP and cause the control-plane client to send ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-06T21:52:31Z",
+      "cve_ids": [],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "a769bf6c813cbecb42c09d3f79b63794f33eb1f752d49ea410fd20420ea27d84",
+      "url": "https://github.com/advisories/GHSA-7cfm-pqrj-xgq7",
+      "title": "GHSA: 9router: Login brute-force protection bypass via spoofed X-Forwarded-For header",
+      "summary": "## Summary\n\nThe 9router dashboard login rate limiter derives the client identity from the attacker-controlled `X-Forwarded-For` HTTP header. When 9router is directly exposed, or deployed behind a reverse proxy that does not overwrite untrusted forwarding headers, a remote attacker can rotate the `X-Forwarded-For` value on each login attempt and receive a fresh rate-limit bucket every time.\n\nThis b",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T21:46:20Z",
+      "cve_ids": [
+        "CVE-2026-55501"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "75a6fa3b1eec566067f5fd6222fd39cbe80d998b5b45783a107f9a9413be77f7",
+      "url": "https://github.com/advisories/GHSA-qvfm-67h2-2qfx",
+      "title": "GHSA: 9routers has Exposure of Sensitive Information and Unprotected Database Import/Export, Allowing Complete Credential Theft and Database Takeover",
+      "summary": "## Summary\n\nThe `/api/settings/database` endpoint allows full database export (containing all credentials, API keys, OAuth tokens, and settings) and full database import (complete overwrite) without any authentication requirement beyond the `ALWAYS_PROTECTED` middleware check, which only validates JWT or CLI token. Combined with other vulnerabilities (e.g., default password, tunnel exposure), this",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T21:37:49Z",
+      "cve_ids": [
+        "CVE-2026-55500"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "69a29a8b28d4f289857de5b00c67f26f642892c2947b22d6b512cc08dba74a13",
+      "url": "https://github.com/advisories/GHSA-hmj5-jm8h-h9fh",
+      "title": "GHSA: Kiwi TCMS has an Open Redirect via unvalidated next parameter in account confirmation endpoint",
+      "summary": "### Summary\n\nAn open redirect vulnerability in the account confirmation endpoint allows an unauthenticated attacker to craft a URL hosted on a legitimate Kiwi TCMS instance that redirects victims to an arbitrary external domain. The attack surface is particularly relevant for phishing campaigns targeting Kiwi TCMS users, as the malicious link originates from a trusted organizational hostname.\n\n###",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T21:27:27Z",
+      "cve_ids": [
+        "CVE-2026-54724"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "a6fc17b4693decbdf9d7c4ab4dd170c8cbd88ed4382c862cfe89624485f0c8ac",
+      "url": "https://github.com/advisories/GHSA-ww9q-8r59-xv46",
+      "title": "GHSA: Zebra: Missing copy constraint in halo2_gadgets variable-base scalar multiplication allows under-constrained base, breaking Orchard Action circuit soundness",
+      "summary": "### Summary\n\nA soundness vulnerability in the variable-base scalar multiplication gadget of `halo2_gadgets` allowed a malicious prover to produce a valid proof for an Orchard Action with an *under-constrained* base point. Because this gadget enforces the diversified-address-integrity condition of the Orchard Action statement, the flaw let a prover satisfy that condition for an arbitrary (pk<sub>d<",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T21:23:41Z",
+      "cve_ids": [
+        "CVE-2026-54496"
+      ],
+      "cvss": 9.3,
+      "related_links": []
+    },
+    {
+      "id": "9d9560ee8dfe7c25cecefb56182bde28135d9bd48df68120437c80498b961d39",
+      "url": "https://github.com/advisories/GHSA-vjc7-jrh9-9j86",
+      "title": "GHSA: 9router has unauthenticated CRUD on /api/providers and Full API Key Leak via /api/usage/stats",
+      "summary": "---\ntitle: Unauthenticated CRUD on /api/providers and Full API Key Leak via /api/usage/stats\nproduct: 9Router\nversion: <= 0.4.41\nseverity: critical\ncve_request: true\n---\n\n## Summary\n\nMultiple critical API security vulnerabilities were discovered in 9Router's Next.js dashboard. The `/api/providers` endpoints lack authentication entirely, allowing anyone to create, read, update, and delete provider ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-06T21:22:10Z",
+      "cve_ids": [],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "ba06e409a6aa40e82018a6b50e9cc30c19e4f98f5ebaefd44127d4289ffc2b7c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59713",
+      "title": "CVE-2026-59713 — CVSS 8.1",
+      "summary": "Leantime contains an OIDC login CSRF vulnerability in the verifyState() method that unconditionally returns true without validating state parameters. Attackers can craft malicious callback URLs with attacker-controlled authorization codes to perform session fixation, logging victims in as the attacker.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-07-06T21:16:58.930",
+      "cve_ids": [
+        "CVE-2026-59713"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "0536b8100d8432ff1f8eba38f831e91e80d5de945d6616b72c646d63bb1413f4",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59712",
+      "title": "CVE-2026-59712 — CVSS 8.1",
+      "summary": "Leantime's Users::getUser method in the JSON-RPC API lacks proper authorization checks, allowing authenticated users to retrieve full user credential rows including password hashes, TOTP secrets, and session tokens. Attackers can exploit this by calling users.getUser with arbitrary user IDs to enumerate all accounts and obtain credentials for offline password cracking, 2FA bypass, and session hija",
+      "source": "NVD/NIST",
+      "category": "cloud",
+      "date": "2026-07-06T21:16:58.793",
+      "cve_ids": [
+        "CVE-2026-59712"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "19839edc1a48d4e5bb505fe7674a2d05a5b0b610f667095598a4bd095086e87b",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59711",
+      "title": "CVE-2026-59711 — CVSS 6.1",
+      "summary": "showdown contains a cross-site scripting vulnerability in metadata title handling that allows attackers to inject arbitrary HTML and JavaScript. When completeHTMLDocument option is enabled, unescaped less-than and greater-than characters in markdown frontmatter metadata are inserted directly into HTML title tags, enabling attackers to break out of the title context and execute malicious scripts in",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-07-06T21:16:58.660",
+      "cve_ids": [
+        "CVE-2026-59711"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "6e585f33658b56f3e7cc9706a2ba66fe93f462043798313bd9a1fb82f734f0a3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-57573",
+      "title": "CVE-2026-57573 — CVSS 8.6",
+      "summary": "Crawl4AI is an open-source LLM-friendly web crawler and scraper. Prior to 0.9.0, the Docker API server applied its SSRF destination check on the non-streaming /crawl path but not on the streaming path. handle_stream_crawl_request passed seed URLs straight to the crawler with no destination validation, allowing a remote unauthenticated client to call POST /crawl/stream or POST /crawl with crawler_c",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-06T21:16:58.197",
+      "cve_ids": [
+        "CVE-2026-57573"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "0f030d2376dd964d109caf4d8d4f4a30f0032069d8351f7f9beae1c9797567a4",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-57572",
+      "title": "CVE-2026-57572 — CVSS 10.0",
+      "summary": "Crawl4AI is an open-source LLM-friendly web crawler and scraper. Prior to 0.9.0, the Docker API server accepted request-supplied browser_config.extra_args, which flowed into Chromium's launch arguments. An attacker could inject Chromium switches that replace a child-process launch command together with --no-zygote, causing Chromium to fork or exec an attacker-controlled command as the container's ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-06T21:16:58.047",
+      "cve_ids": [
+        "CVE-2026-57572"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "6bdfc2e6be3eac1791bdd7aa1608d21a61ee5be8423f7e9a3afc4da7b4136d71",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-57571",
+      "title": "CVE-2026-57571 — CVSS 9.6",
+      "summary": "Crawl4AI is an open-source LLM-friendly web crawler and scraper. Prior to 0.9.0, when the crawler saves a downloaded file, the destination filename was taken from attacker-influenced input and joined to the downloads directory with no confinement. A filename containing an absolute path or traversal escaped the downloads directory, giving an arbitrary file write with attacker-controlled contents; t",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-06T21:16:57.907",
+      "cve_ids": [
+        "CVE-2026-57571"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "bdee55070c41d93b08ae44d78b8eee25ef2ddad4fbb1d940f5298d62841ffc8c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55727",
+      "title": "CVE-2026-55727 — CVSS 7.5",
+      "summary": "A flaw in the authentication mechanism for video stream requests in Genetec Security Center 5.14.0.0 prior to build 5.14.178.18 may allow an unauthenticated attacker to access live video streams.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-06T21:16:57.580",
+      "cve_ids": [
+        "CVE-2026-55727"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "5bf0409a2e656201cb37df312ff22ed88643ad784c36c2e1822c9eebee12f240",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55574",
+      "title": "CVE-2026-55574 — CVSS 7.5",
+      "summary": "vLLM is a high-throughput and memory-efficient inference and serving engine for LLMs. Prior to 0.24.0, the structured_outputs.regex API parameter passes a user-supplied regular expression string directly to the grammar compiler backends with no compilation timeout; in the xgrammar backend the string reaches the regex compiler with no guard, and in the outlines backend the validation step blocks st",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-06T21:16:57.347",
+      "cve_ids": [
+        "CVE-2026-55574"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
     {
       "id": "1f4dbdc4f9aedf7f63178caabc82df650d4d36b0ef2bb185a1bdd5ca5a054636",
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-54765",
@@ -479,230 +699,6 @@
         "CVE-2026-54640"
       ],
       "cvss": 7.6,
-      "related_links": []
-    },
-    {
-      "id": "f5ac1e405fd9f5f8a49e237e437f9742ba8b963b44d90b9d728da5f6ab311908",
-      "url": "https://github.com/advisories/GHSA-xqr9-4wvv-gvch",
-      "title": "GHSA: OpenRemote has Cross-Realm User Information Disclosure in UserResourceImpl",
-      "summary": "### Summary\n\nA realm admin of tenant B can read the profile, client roles, and realm roles of any user in any other realm (including the master realm) by supplying the target user's UUID in the REST API path. Three read endpoints in UserResourceImpl check whether the caller holds the read:admin role but omit a check that the target user belongs to the caller's own realm. The vulnerability enables ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-06T20:47:57Z",
-      "cve_ids": [
-        "CVE-2026-54641"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "39182d39d8045607f2999e2283bbaf734cfe48eb2243b86e7f6861e132f3c23f",
-      "url": "https://github.com/advisories/GHSA-q6h5-q3q6-f87x",
-      "title": "GHSA: CiliumLocalRedirectPolicy addressMatcher allows cross-namespace service traffic hijacking and can break service translation",
-      "summary": "### Impact\n\nUsers with the ability to create CiliumLocalRedirectPolicies can specify arbitrary ClusterIPs via addressMatcher, which enables hijacking traffic to Services in any namespace, bypassing the namespace-scoping guarantees enforced by serviceMatcher.\n\nIn addition, deleting such a policy can corrupt Cilium's internal service state, causing service translation to stop working entirely for th",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-06T20:45:38Z",
-      "cve_ids": [
-        "CVE-2026-53935"
-      ],
-      "cvss": 6.9,
-      "related_links": []
-    },
-    {
-      "id": "137d8fa38de9bb914bb826973d9ab48f9c1b99a30b2f7030d3b78d97167bc2d9",
-      "url": "https://github.com/advisories/GHSA-gv83-gqw6-9j2c",
-      "title": "GHSA: GoFiber never set HSTS header in helmet middleware due to incorrect protocol check",
-      "summary": "### Summary\n\nThe `helmet` middleware in gofiber/fiber never sets the `Strict-Transport-Security` (HSTS) response header, even when `HSTSMaxAge` is explicitly configured, because the condition check at `helmet.go:67` uses `c.Protocol()` — which returns the HTTP protocol version string (e.g., `\"HTTP/1.1\"`, `\"HTTP/2.0\"`) — instead of `c.Scheme()` — which returns the URL scheme (`\"http\"` or `\"https\"`)",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T20:43:12Z",
-      "cve_ids": [
-        "CVE-2026-53624"
-      ],
-      "cvss": 4.8,
-      "related_links": []
-    },
-    {
-      "id": "a1c22324bc1a451eca0c1a350a873bf153ba98a247d712e339a2d75c6de4478b",
-      "url": "https://github.com/advisories/GHSA-gjgq-w2m6-wr5q",
-      "title": "GHSA: Langroid: handle_message() executes user-supplied tool JSON without sender verification ",
-      "summary": "## Summary\n\nA Langroid application exposing a chat interface to untrusted users may allow direct tool invocation via raw JSON payloads, even when tools are registered with `use=False, handle=True`.\n\n## Details\n\n`enable_message(..., use=False, handle=True)` only prevents the LLM from being instructed to generate the tool. The tool dispatch path in `agent_response()` → `handle_message()` → `get_tool",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T20:42:18Z",
-      "cve_ids": [
-        "CVE-2026-54771"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "f20fbaed8de53ea3efe1b14d4358fb9e0773a4893dce52cd9016d2d505d3407e",
-      "url": "https://github.com/advisories/GHSA-q9p7-wqxg-mrhc",
-      "title": "GHSA: Langroid: Sandbox Escape to Remote Code Execution via Incomplete `eval()` Mitigation in TableChatAgent",
-      "summary": "### Advisory Details\n**Title**: Sandbox Escape to Remote Code Execution via Incomplete `eval()` Mitigation in TableChatAgent\n\n**Description**:\n### Summary\nLangroid is vulnerable to a critical Sandbox Escape leading to Remote Code Execution (RCE) in its `TableChatAgent` and `VectorStore` capabilities. When these agents evaluate LLM-generated tool messages with `full_eval=True`, they attempt to sand",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-06T20:42:00Z",
-      "cve_ids": [
-        "CVE-2026-54769"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "6cdcf7a347d4fc204b863c81831a3bd1e42ad5efc88b47bfc8bbdafa7d273f2b",
-      "url": "https://github.com/advisories/GHSA-mp2f-45pm-3cg9",
-      "title": "GHSA: Decompress: Archive extraction can create files and links outside of the target directory",
-      "summary": "### Impact\n\nWhen extracting an archive to a directory, a crafted archive can read or write files outside that directory. The flaw is in the code that writes the parsed entries, so it affects every format decompress handles: tar, tar.gz, tar.bz2, and zip by default, plus any others added through the plugins option.\n\nA link (hardlink) or symlink entry is created without checking where its target poi",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-06T20:27:38Z",
-      "cve_ids": [
-        "CVE-2026-53486"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "892bf756bd38380d6e5517511c44538f9a741ad6815e38de5e037aad90608025",
-      "url": "https://github.com/advisories/GHSA-p7h3-7q52-72w8",
-      "title": "GHSA: printenv: environment variables with invalid UTF-8 are silently skipped (evades inspection)",
-      "summary": "The printenv utility in uutils coreutils fails to display environment variables containing invalid UTF-8 byte sequences. While POSIX permits arbitrary bytes in environment strings, the uutils implementation silently skips these entries rather than printing the raw bytes. This vulnerability allows malicious environment variables (e.g., adversarial LD_PRELOAD values) to evade inspection by administr",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T20:25:42Z",
-      "cve_ids": [
-        "CVE-2026-35366"
-      ],
-      "cvss": 4.4,
-      "related_links": []
-    },
-    {
-      "id": "362587fdd47adc3d1350cab8f1e8d33c2849e4ed133fc2de4f27d74a37f07a23",
-      "url": "https://github.com/advisories/GHSA-w6xc-g9qj-vp32",
-      "title": "GHSA: uucore: safe_traversal TOCTOU protection only enabled on Linux",
-      "summary": "The safe_traversal module in uutils coreutils, which provides protection against Time-of-Check to Time-of-Use (TOCTOU) symlink races using file-descriptor-relative syscalls, is incorrectly limited to Linux targets. On other Unix-like systems such as macOS and FreeBSD, the utility fails to utilize these protections, leaving directory traversal operations vulnerable to symlink race conditions.\n\n---\n",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T20:25:15Z",
-      "cve_ids": [
-        "CVE-2026-35362"
-      ],
-      "cvss": 3.6,
-      "related_links": []
-    },
-    {
-      "id": "6f2df51ded9aabb8c6a38159c711bdeb3e4c8ce52010daccb9f9a807032e7579",
-      "url": "https://github.com/advisories/GHSA-h444-6j9x-p8vh",
-      "title": "GHSA: mv: symlinks expanded during cross-device move (resource exhaustion / data duplication)",
-      "summary": "When moving directories across filesystems, uutils `mv` dereferences symlinks inside the tree, copying their targets as real files/dirs instead of preserving the symlinks. GNU preserves symlinks by default. E.g. a `etc_link -> /etc` inside the source becomes a full copy of `/etc` at the destination.\n\n**Impact:** (1) resource exhaustion — a small tree can expand into a huge copy (time/disk DoS); (2",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-06T20:24:53Z",
-      "cve_ids": [
-        "CVE-2026-35365"
-      ],
-      "cvss": 6.6,
-      "related_links": []
-    },
-    {
-      "id": "e6a6beeeebf8be798f123aa5920ffdb34dbc1ccccebe514b016f112d527e6ae0",
-      "url": "https://github.com/advisories/GHSA-8vrf-r662-2w2v",
-      "title": "GHSA: cp: -R reads device nodes as streams, destroying device semantics",
-      "summary": "The cp utility in uutils coreutils, when performing recursive copies (-R), incorrectly treats character and block device nodes as stream sources rather than preserving them. Because the implementation reads bytes into regular files at the destination instead of using mknod, device semantics are destroyed (e.g., /dev/null becomes a regular file). This behavior can lead to runtime denial of service ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-06T20:21:18Z",
-      "cve_ids": [
-        "CVE-2026-35358"
-      ],
-      "cvss": 4.4,
-      "related_links": []
-    },
-    {
-      "id": "6a1486e79d110f6d3f2e415f373ca4f741d0409ff9ceb63351ee079cbd9ff4b0",
-      "url": "https://github.com/advisories/GHSA-89p7-7cq3-hhr2",
-      "title": "GHSA: rm: 'rm -rf ./' (and ./// variants) silently deletes current directory contents, bypassing dot protection",
-      "summary": "`rm -rf .` is correctly refused, but `clean_trailing_slashes` normalizes `.///` to `./` while `path_is_current_or_parent_directory` only matches `.`/`..` (and `/.`/`/..`), not `./` or `../`. So `rm -rf ./` recursively deletes the directory's contents and then prints a misleading `cannot remove './': Invalid input`.\n\n**Impact:** all files/subdirectories in the current directory are silently deleted",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T20:20:56Z",
-      "cve_ids": [
-        "CVE-2026-35363"
-      ],
-      "cvss": 5.6,
-      "related_links": []
-    },
-    {
-      "id": "36203d05affc9ec5b08e15688a2697ec7ad03ade782cf80e0fe91c35c282d6aa",
-      "url": "https://github.com/advisories/GHSA-3wfc-mgpm-9rq6",
-      "title": "GHSA: comm: FIFO/pipe inputs are drained before comparison (data loss / hang)",
-      "summary": "The comm utility in uutils coreutils incorrectly consumes data from non-regular file inputs before performing comparison operations. The are_files_identical function opens and reads from both input paths to compare content without first verifying if the paths refer to regular files. If an input path is a FIFO or a pipe, this pre-read operation drains the stream, leading to silent data loss before ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-06T20:17:59Z",
-      "cve_ids": [
-        "CVE-2026-35347"
-      ],
-      "cvss": 4.4,
-      "related_links": []
-    },
-    {
-      "id": "efc597c726114a0c1b59896947447ae45b0deaee2b9582a556893c594668120c",
-      "url": "https://github.com/advisories/GHSA-47c7-qrm7-mqw7",
-      "title": "GHSA: id: groups= computed from real GID instead of effective GID",
-      "summary": "The id utility in uutils coreutils miscalculates the groups= section of its output. The implementation uses a user's real GID instead of their effective GID to compute the group list, leading to potentially divergent output compared to GNU coreutils. Because many scripts and automated processes rely on the output of id to make security-critical access-control or permission decisions, this discrepa",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-06T20:16:46Z",
-      "cve_ids": [
-        "CVE-2026-35370"
-      ],
-      "cvss": 4.4,
-      "related_links": []
-    },
-    {
-      "id": "efb36d69a3c03f67fb2394bd07fcd40bef2b4d80455f5a96e0009d58560c11ea",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58404",
-      "title": "CVE-2026-58404 — CVSS 6.8",
-      "summary": "Hugo is a static site generator. From v0.162.0 through v0.163.0, the default security.http.urls policy denies requests to loopback, internal, and cloud-metadata IPv4 literals, but the deny rule only matched dotted-decimal notation, so alternate IPv4 encodings of the same addresses, including integer, hex, or octal, passed the policy. When a template passes an untrusted or data-derived URL to resou",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-06T20:16:38.307",
-      "cve_ids": [
-        "CVE-2026-58404"
-      ],
-      "cvss": 6.8,
-      "related_links": []
-    },
-    {
-      "id": "4082b7fe6c057215177cbee4047c031176a68fb601ee3d32786604aa3d5d0ab1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55646",
-      "title": "CVE-2026-55646 — CVSS 6.5",
-      "summary": "vLLM is an inference and serving engine for large language models. From 0.22.0 to 0.23.0, the /v1/audio/transcriptions and /v1/audio/translations routes call request.file.read() to fully materialize an uploaded audio file into memory before vLLM checks the documented VLLM_MAX_AUDIO_CLIP_FILESIZE_MB compressed upload size limit (default 25 MB) later in the speech-to-text preprocessing step, so an A",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-06T20:16:37.663",
-      "cve_ids": [
-        "CVE-2026-55646"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "737fd3656f0e3193a38df95e6686537efd108458998d10aa0ddd526a6f9946e1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53763",
-      "title": "CVE-2026-53763 — CVSS 3.8",
-      "summary": "OP-TEE is a Trusted Execution Environment (TEE) designed as companion to a non-secure Linux kernel running on Arm; Cortex-A cores using the TrustZone technology. Starting in version 3.0.0 and prior to version 4.11.0, 32-bit integer overflows in OP-TEE core's AES-GCM implementation cause the authentication tag to be computed with incorrect bit-length values after processing more than 512 megabytes ",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-06T20:16:37.327",
-      "cve_ids": [
-        "CVE-2026-53763"
-      ],
-      "cvss": 3.8,
       "related_links": []
     }
   ]
