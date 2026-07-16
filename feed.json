@@ -1,10 +1,286 @@
 {
-  "updated": "2026-07-16T17:15:31.824956+00:00",
+  "updated": "2026-07-16T20:58:19.556966+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "2f867bbcb10d67c90ebc8723d99b624011ad0c5152d2b483ea63c69cc554146c",
+      "url": "https://github.com/advisories/GHSA-48qw-824m-86pr",
+      "title": "GHSA: ArcadeDB: Privilege escalation via reader role in /api/v1/command JS scripting language — arbitrary host file read",
+      "summary": "### Impact\n\nA user holding only `reader` (read-only) privileges on a single database could execute arbitrary JVM code by sending a `\"language\": \"js\"` command to the `POST /api/v1/command/{database}` HTTP endpoint, and use it to read arbitrary files on the host filesystem (e.g. `/etc/passwd`, configuration files), outside the scope of the database itself.\n\nTwo cooperating defects made this possible",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-16T20:13:20Z",
+      "cve_ids": [],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "e07f93f525674ae41275dccd45f4ee30255c3215b2b59428dd30e1fa1b96aa12",
+      "url": "https://github.com/advisories/GHSA-p4h7-p9rj-2pq2",
+      "title": "GHSA: Pheditor: Hardcoded default password 'admin' with no forced change enables full application compromise",
+      "summary": "### Summary\n\nPheditor ships with a hardcoded default password `admin` (SHA-512 hash stored at `pheditor.php:11`). There is no mechanism to force a password change on first login. Any deployment using the default credentials grants an attacker full access to the file editor, file upload, and terminal features, enabling arbitrary file read/write and remote code execution.\n\n### Details\n\nTested reposi",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-16T20:11:23Z",
+      "cve_ids": [
+        "CVE-2026-55579"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "8373d5efb56769fea95cdfa7de6e29cbfd5e9c2438509b558ca50bc6408dc8c8",
+      "url": "https://github.com/advisories/GHSA-wg4w-wr5q-6vjc",
+      "title": "GHSA: Pheditor: Incomplete command sanitization in terminal feature allows RCE via pipe operator, backtick substitution, and newline injection",
+      "summary": "### Summary\n\nThe terminal feature in Pheditor uses an incomplete character blocklist to sanitize user-supplied commands before passing them to `shell_exec()`. After the fix for GHSA-9643-6xjp-vx57 (which added `$` to the blocklist), the characters `|` (single pipe), `` ` `` (backtick), and the newline byte (`0x0A`) remain unblocked. An authenticated user with the `terminal` permission (enabled by ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-16T20:10:47Z",
+      "cve_ids": [
+        "CVE-2026-55578"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "097abe19c9371cc70b8d739d1fdfe380911d758c546081517180c3aef6fe0abd",
+      "url": "https://github.com/advisories/GHSA-vg6x-6pg9-6qwg",
+      "title": "GHSA: ArcadeDB: Read-only users can mutate database schema (incomplete fix of CVE-2026-44221)",
+      "summary": "### Impact\n\nThe fix for CVE-2026-44221 (GHSA-fxc7-fm93-6q77) added an `UPDATE_SCHEMA` authorization check to a single schema-mutating method (`LocalDocumentType.createProperty`). The remaining public schema mutators were left unchecked, so an authenticated identity (including a **read-only API token**) that lacks the `UPDATE_SCHEMA` permission could still mutate the database schema on its own data",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-16T20:08:24Z",
+      "cve_ids": [
+        "CVE-2026-54076"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "289c5b6ed2737f4a8c11346994c592875a658b3e5be836ca3f6ea83f59b28ae0",
+      "url": "https://github.com/advisories/GHSA-8w86-m9h8-hvqg",
+      "title": "GHSA: ArcadeDB: IMPORT DATABASE allows SSRF and arbitrary local file read by authenticated users",
+      "summary": "### Impact\n\nThe SQL `IMPORT DATABASE` statement did not require administrative privileges and passed its source URL to the importer without validation. Any authenticated user with SQL command access (not only `root`/administrators) could therefore:\n\n- **Server-Side Request Forgery (CWE-918):** cause the server to issue HTTP(S) requests to arbitrary destinations, including cloud metadata endpoints ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-16T20:05:56Z",
+      "cve_ids": [
+        "CVE-2026-54077"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "4b448ca885217621af7db4cfb1e974a0197bcf32e6352f070427234571bf096a",
+      "url": "https://github.com/advisories/GHSA-5rg2-xv9j-gv5p",
+      "title": "GHSA: nimiq-primitives: Out-of-bounds panic in KeyNibbles::Add from oversized child suffix in a deserialized proof",
+      "summary": "### Impact\n\nA malicious peer acting as a state-sync source can crash a syncing node with a crafted `TrieChunk` whose proof contains a `TrieNodeChild` whose `suffix`, when concatenated with the parent key via `KeyNibbles::Add`, exceeds the fixed 63-byte backing array. `Add` (`primitives/src/key_nibbles.rs:332` / `:341`) indexes `bytes[self.bytes_len()..self.bytes_len() + other.bytes_len()]` with no",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-16T20:03:25Z",
+      "cve_ids": [
+        "CVE-2026-54542"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "8bf43d8b79289e54dd015c787da11cb21d557c4d11105346aa5dadf7945fb1eb",
+      "url": "https://github.com/advisories/GHSA-46wq-28cx-mhw4",
+      "title": "GHSA: nimiq-primitives: Panic in TrieProof::verify via child_index unwrap on equal-length keys",
+      "summary": "### Impact\n\nA malicious peer acting as a state-sync source can crash a syncing node by sending a crafted `TrieChunk` whose proof contains two `TrieProofNode`s with identical keys. `TrieProof::verify()` calls `TrieProofNode::child_index()` (`primitives/src/trie/trie_proof_node.rs:94`), which unconditionally unwraps `KeyNibbles::get(self.key.len())`. Because `is_prefix_of` returns `true` for two equ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-16T20:03:00Z",
+      "cve_ids": [
+        "CVE-2026-54541"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "6898702d7dd73807abab6ada4ebeddf3a72a7ccb27b687cba7e31a35aff963c2",
+      "url": "https://github.com/advisories/GHSA-9643-6xjp-vx57",
+      "title": "GHSA: Pheditor has an authenticated terminal command whitelist bypass",
+      "summary": "### Summary\n\nPheditor 2.0.4 has an authenticated terminal command whitelist bypass.\n\nThe terminal feature checks whether the submitted command starts with one of the configured `TERMINAL_COMMANDS` values, then passes the full command string to `shell_exec()`. Shell command substitution such as `$()` is not blocked, so an authenticated user with the `terminal` permission can bypass a restricted com",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-16T20:01:05Z",
+      "cve_ids": [
+        "CVE-2026-54540"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "e429db1d7dc2e1b835cf5fadb0cb8ff33144a8321e09856f736025130e9e98aa",
+      "url": "https://github.com/advisories/GHSA-jpw9-pfvf-9f58",
+      "title": "GHSA: MCP Python SDK: HTTP transports serve session requests without verifying the authenticated principal",
+      "summary": "### Summary\nIn affected versions, the SSE and Streamable HTTP server transports routed incoming requests to an existing session based only on the session identifier, without verifying that the request was authenticated as the same principal that created the session. Anyone who learned or guessed a session ID could send JSON-RPC messages on that session, regardless of which bearer token the request",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-16T19:58:53Z",
+      "cve_ids": [
+        "CVE-2026-52869"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "fa65c9b4e8ff6d1521e9fadcbac01e9398f4905541b83f8550888e43a59a29e8",
+      "url": "https://github.com/advisories/GHSA-hvrp-rf83-w775",
+      "title": "GHSA: MCP Python SDK: Experimental task handlers allow any client to access and cancel other clients' tasks",
+      "summary": "### Summary\nIn affected versions, the default request handlers installed by the experimental tasks feature (`server.experimental.enable_tasks()`) did not check which session created a task before acting on it. On a server with more than one connected client, any client could observe, read results from, and cancel tasks belonging to other clients.\n\n### Am I affected?\nOnly if the developer's applica",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-16T19:56:12Z",
+      "cve_ids": [
+        "CVE-2026-52870"
+      ],
+      "cvss": 7.6,
+      "related_links": []
+    },
+    {
+      "id": "3866ad104fb9ae358ed37201bc798d08cdfc291b85d98d693936b6c3ec082bbd",
+      "url": "https://github.com/advisories/GHSA-wpcj-rmv4-86qg",
+      "title": "GHSA: Nuclio: Unauthenticated path traversal in spec.handler allows arbitrary file write in Dashboard container",
+      "summary": "## Summary\n\nNuclio Dashboard exposes `POST /api/functions` without authentication by default (NOP auth mode). The `spec.handler` field (e.g., `mymodule:myfunction`) is parsed by `functionconfig.ParseHandler()` which splits on `:` only — no path validation is applied to the module portion.\n\nDuring function build, `writeFunctionSourceCodeToTempFile()` passes the module name directly to `path.Join(te",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-16T19:47:17Z",
+      "cve_ids": [
+        "CVE-2026-52832"
+      ],
+      "cvss": 4.9,
+      "related_links": []
+    },
+    {
+      "id": "488218c28160cf260f1faf441d842a3af5e4b6285bb3f38f29618c1353fbab05",
+      "url": "https://github.com/advisories/GHSA-3v79-m2cg-89ww",
+      "title": "GHSA: Nuclio: Unsanitized runtimeAttributes.repositories injected into Groovy build.gradle leads to build-time RCE",
+      "summary": "## Summary\n\nNuclio's Java runtime generates a `build.gradle` file during function builds using Go's `text/template` package. The template renders `runtimeAttributes.repositories[]` values with the `{{ . }}` action, which performs no escaping. An attacker can embed a closing brace (`}`) to break out of the `repositories {}` block and append arbitrary Groovy statements that execute unconditionally d",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-16T19:40:53Z",
+      "cve_ids": [
+        "CVE-2026-52833"
+      ],
+      "cvss": 8.0,
+      "related_links": []
+    },
+    {
+      "id": "7779e460cc8a939bcdce788f38b692fbdfa25a72e635e8b9d66bac0fa0b9e076",
+      "url": "https://github.com/advisories/GHSA-22xc-xg2r-9j7v",
+      "title": "GHSA: Envoy Gateway: xDS Control Plane Information Disclosure when operating in GatewayNamespaceMode ",
+      "summary": "### Impact\nWhen Envoy Gateway runs in GatewayNamespaceMode (`provider.kubernetes.deploy.type=GatewayNamespace`), the xDS gRPC server is configured with a `StreamInterceptor` for JWT authentication but no UnaryInterceptor. The go-control-plane xDS server exposes both streaming and unary (Fetch) RPC methods for all registered discovery services. Since there is no unary interceptor, these Fetch endpo",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-16T19:32:23Z",
+      "cve_ids": [
+        "CVE-2026-53714"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "f6538113513daf94b02e895a9929be82e28a71fb50f28a089050f9152dcb7e22",
+      "url": "https://www.bleepingcomputer.com/news/security/claude-chrome-extension-flaw-lets-malicious-extensions-trigger-ai-actions/",
+      "title": "Claude Chrome extension flaw lets malicious extensions trigger AI actions",
+      "summary": "A flaw in Anthropic's Claude for Chrome browser extension could allow a malicious extension to trigger predefined AI actions by simulating user clicks, potentially allowing it to abuse Claude's access to connected services such as Gmail, Google Docs, Google Calendar, and Salesforce. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-07-16T19:26:07+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "7584c024436de8fb0dd5475a274cc8996f9d5db6fcc98aa7deb942e6c61e391b",
+      "url": "https://github.com/advisories/GHSA-wcrf-9vrr-854f",
+      "title": "GHSA: Envoy Gateway: Authentication Bypass via Improper Input Validation in EnvoyExtensionPolicy Lua Allows Secret Disclosure",
+      "summary": "### Impact\n\nThe `to_absolute_normalized_path` function (security.lua:28-43) does not collapse redundant path separators (// → /). On Linux, `//etc/passwd` is equivalent to `/etc/passwd` (POSIX path semantics), but `is_critical_path` fails to match the double-slash variant because `//etc/passwd` does not start with `/etc/`.\n\nThis allows Lua code submitted as an `EnvoyExtensionPolicy` to read arbitr",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-16T19:23:38Z",
+      "cve_ids": [
+        "CVE-2026-53713"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "dcb893faf6324b87278e00952a9e2502fdb3aca544089b62df23fd92f4124e48",
+      "url": "https://github.com/advisories/GHSA-8fv2-88gg-hm7q",
+      "title": "GHSA: Envoy Gateway: Wasm cache ServeHTTP reads mappingPath2Cache without lock",
+      "summary": "Vulnerability report without repro case. Repro case may be added later after harness is complete.\n\n**Preconditions (4):**\n- Pod-network reachability to :18002 (no auth)\n- Tenant can create EnvoyExtensionPolicy (baseline)\n- Attacker pod floods GET while churning EnvoyExtensionPolicy with distinct Wasm URLs\n- Read at :153 must overlap a write at :201/:209 (probabilistic, attacker controls both rates",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-16T19:21:15Z",
+      "cve_ids": [
+        "CVE-2026-53715"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "6c67b4e6c93517c2d32177e4951ce5588d32549572b59cb8c771864d5cfe0ba7",
+      "url": "https://github.com/advisories/GHSA-h7pq-86h8-rp5x",
+      "title": "GHSA: Envoy Gateway: OCI layer extraction allocates make([]byte, h.Size) from untrusted tar header",
+      "summary": "Vulnerability report without repro case. Repro case may be added later after harness is complete.\n\n**Preconditions (4):**\n- Tenant can create EnvoyExtensionPolicy (baseline)\n- Controller has egress to attacker-controlled OCI registry\n- No registry allowlist (none exists in code)\n- Layer presents Docker/OCI media type\n\n**Description**\n\nAt imagefetcher.go:287, make([]byte, h.Size) uses the attacker-",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-16T19:20:05Z",
+      "cve_ids": [
+        "CVE-2026-53717"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "8faf9011e84ff98376b1f9b8247cc71658aca16ee2302f9cc40e5de37cb07896",
+      "url": "https://github.com/advisories/GHSA-m2v6-2jmh-4c68",
+      "title": "GHSA: Envoy Gateway: Nil-dereference when SecurityPolicy targets TCPRoute without spec.authorization",
+      "summary": "Vulnerability report without repro case. Repro case may be added later after harness is complete.\n\n**Preconditions (4):**\n- Tenant has SecurityPolicy + TCPRoute RBAC (baseline)\n- Tenant namespace permitted to attach TCPRoute to a Gateway listener\n- spec.authorization omitted (the trigger)\n- No admission webhook blocks the shape\n\n**Description:**\n\nA namespace-scoped tenant can deterministically pan",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-16T19:19:17Z",
+      "cve_ids": [
+        "CVE-2026-53719"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "35209e55484fd11b15f00dc1530b4388547722e1eb8ae2c1c509214d22c9f0ce",
+      "url": "https://github.com/advisories/GHSA-cxpq-8v7q-cg56",
+      "title": "GHSA: Envoy Gateway: Wasm HTTP fetch decompresses gzip without output-size limit",
+      "summary": "Vulnerability report without repro case. Repro case may be added later after harness is complete.\n\n**Preconditions (4):**\n- Tenant can create EnvoyExtensionPolicy (baseline)\n- Attacker hosts a gzip-bomb at a reachable URL\n- sha256 unset (optional field; check is post-decompression anyway)\n- No operator Wasm-URL allowlist (none exists in code)\n\n**Description**\n\ngetFileFromGZ calls io.ReadAll on a r",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-16T19:18:08Z",
+      "cve_ids": [
+        "CVE-2026-53716"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "22c24184a92377a5d70667b884cebf1f34462e9273ee3e7142169e2dbfd17386",
+      "url": "https://github.com/advisories/GHSA-fcrp-7gc2-93g7",
+      "title": "GHSA: Envoy Gateway custom backendRef cross-namespace ReferenceGrant bypass",
+      "summary": "### Impact\nEnvoy Gateway accepts extension-managed custom backendRefs from an HTTPRoute to a backend resource in another namespace without requiring a matching Gateway API ReferenceGrant in the target namespace. This breaks the Gateway API cross-namespace consent model: the namespace that owns the referenced backend resource does not need to opt in with a ReferenceGrant before another namespace’s ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-16T19:14:50Z",
+      "cve_ids": [
+        "CVE-2026-53718"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
     {
       "id": "41b50f667cf255d1c55708f59f040482c024a628876947a0478d36199e3af241",
       "url": "https://www.rapid7.com/blog/post/ve-sunsetting-public-attackerkb-platform",
@@ -55,6 +331,34 @@
       "date": "2026-07-16T04:41:06+00:00",
       "cve_ids": [
         "CVE-2026-56877"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "6f778cad127205704c81e082fb719d165d9f430740a8a685ca12239a60b223b9",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-25089",
+      "title": "CVE-2026-25089: Fortinet FortiSandbox OS Command Injection Vulnerability",
+      "summary": "Fortinet FortiSandbox, FortiSandbox Cloud, and FortiSandbox PaaS contain an OS command injection vulnerability that allows an unauthenticated attacker to execute unauthorized commands via specifically crafted HTTP requests. Affected product: FortiSandbox by Fortinet. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Se",
+      "source": "CISA KEV",
+      "category": "emergency",
+      "date": "2026-07-16T00:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-25089"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "d827c6bbe2615de116b28ab49d1e5477ea40d160dd95879f7cf7ecb4589667d3",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-39808",
+      "title": "CVE-2026-39808: Fortinet FortiSandbox OS Command Injection Vulnerability",
+      "summary": "Fortinet FortiSandbox contains an OS command injection vulnerability that could allow an unauthenticated attacker to execute unauthorized code or commands via crafted HTTP requests. Affected product: FortiSandbox by Fortinet. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in N",
+      "source": "CISA KEV",
+      "category": "emergency",
+      "date": "2026-07-16T00:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-39808"
       ],
       "cvss": null,
       "related_links": []
@@ -383,397 +687,6 @@
         "CVE-2026-54493"
       ],
       "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "5a36556db891b9034805e342dc35fd6a33c84951cb313a2873caa40330537c7d",
-      "url": "https://github.com/advisories/GHSA-w79m-f3jx-779v",
-      "title": "GHSA: Koel: Authenticated Blind SSRF via Subsonic Podcast Channel Creation",
-      "summary": "### Summary\nKoel `v9.6.0` protects the regular podcast subscription API with `SafeUrl`, but the Subsonic-compatible `createPodcastChannel.view` route does not apply the same protection. An authenticated user can supply a private URL and cause Koel to fetch it server-side during podcast parsing.\n\nThis was validated against `v9.6.0` (`352ea5ec27fa22294da8fb6beacb3d5552f0d09c`) using the official `ph",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-15T17:07:16Z",
-      "cve_ids": [
-        "CVE-2026-54492"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "2765d5a2787925026e1547fdf10718be1660d230e12d3d08dfd049588c08386e",
-      "url": "https://www.bleepingcomputer.com/news/security/-asyncapi-npm-packages-infected-with-credential-stealing-malware/",
-      "title": "AsyncAPI npm packages infected with credential-stealing malware",
-      "summary": "Five malicious versions of AsyncAPI packages were published to the Node Package Manager (npm) in a supply-chain attack that delivered a remote access trojan with info-stealing capabilities. [...]",
-      "source": "Bleeping Computer",
-      "category": "web_app",
-      "date": "2026-07-15T15:37:27+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "21286d1e2967071679eb50b3b0ab5a10fd13d2960f0b4ec88c102d0f7960444e",
-      "url": "https://ubuntu.com/security/notices/USN-8552-1",
-      "title": "USN-8552-1: Sympa vulnerability",
-      "summary": "It was discovered that Sympa did not properly validate input on the generic SSO login. A remote attacker could possibly use this issue to perform a path traversal attack and gain unintended access.",
-      "source": "Ubuntu Security",
-      "category": "web_app",
-      "date": "2026-07-15T14:50:01+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ed768e48f9441f472d9978f1e101c722f7d8617d978c3cb5df6ed33ec36d22e7",
-      "url": "https://ubuntu.com/security/notices/USN-8551-1",
-      "title": "USN-8551-1: Tomcat vulnerabilities",
-      "summary": "It was discovered that Tomcat incorrectly handled authorization when multiple method constraints defined the same HTTP method. A remote attacker could possibly use this issue to bypass authorization restrictions. (CVE-2026-43515) It was discovered that the Tomcat number guess example application did not properly sanitize user-supplied input. An attacker could possibly use this issue to inject mali",
-      "source": "Ubuntu Security",
-      "category": "web_app",
-      "date": "2026-07-15T14:15:28+00:00",
-      "cve_ids": [
-        "CVE-2026-43515",
-        "CVE-2026-50229",
-        "CVE-2026-53404",
-        "CVE-2026-55276"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "59dbd682588b3a523ff60d2c4e42306783cff1004bd8e0ce2170a44e2ca65674",
-      "url": "https://www.bleepingcomputer.com/news/security/we-built-a-vulnerability-vending-machine-ai-tokens-in-zero-days-out/",
-      "title": "We built a vulnerability vending machine: AI tokens in, zero-days out",
-      "summary": "Intruder built an AI-powered \"vulnerability vending machine\" that combines code slicing with LLMs to automatically discover complex software vulnerabilities. The company explains how the system found and exploited a previously unknown WordPress plugin zero-day, with additional discoveries already under responsible disclosure. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-07-15T14:01:11+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f7fcd442b5007283f0caa785f5d146aef1f84caaa06c18cabdfe4f5bd3356221",
-      "url": "https://ubuntu.com/security/notices/USN-8549-1",
-      "title": "USN-8549-1: idna vulnerability",
-      "summary": "It was discovered that idna did not properly reject oversized inputs before performing expensive processing. An attacker could possibly use this issue to cause idna to consume significant resources, leading to a denial of service.",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-07-15T13:46:50+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4154f325ef12127d7d0c69063dcc51e078776af81fb45f2df9376abcd552a243",
-      "url": "https://www.rapid7.com/blog/post/dr-investigating-aws-persistence-mechanisms",
-      "title": "Investigating Persistence Mechanisms in AWS",
-      "summary": "OverviewIn the cloud, your infrastructure may be short-lived, but an attacker’s persistence doesn't have to be. While your environment scales and changes in seconds, adversaries are embedding themselves into your IAM policies, Lambda functions, and federated sessions, creating invisible footholds that survive long after you believe an incident is closed.Persistence in AWS is not just a technical o",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-07-15T13:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b5a012c0da8b207b02e05ff05d1a8aaeecb11899d04658d5a5dd2497cccca7cb",
-      "url": "https://ubuntu.com/security/notices/USN-8548-1",
-      "title": "USN-8548-1: Linux kernel vulnerabilities",
-      "summary": "It was discovered that a logic flaw existed in the XFRM ESP-in-TCP subsystem in the Linux kernel when handling socket buffer fragments. This flaw is known as Fragnesia. A local attacker could use this to escalate privileges, or possibly escape a container. (CVE-2026-43503) Several security issues were discovered in the Linux kernel. An attacker could possibly use these to compromise the system. Th",
-      "source": "Ubuntu Security",
-      "category": "infrastructure",
-      "date": "2026-07-15T12:07:51+00:00",
-      "cve_ids": [
-        "CVE-2021-47117",
-        "CVE-2021-47202",
-        "CVE-2023-52646",
-        "CVE-2024-56643",
-        "CVE-2026-23455",
-        "CVE-2026-31402",
-        "CVE-2026-31607",
-        "CVE-2026-31637",
-        "CVE-2026-31659",
-        "CVE-2026-31685",
-        "CVE-2026-43011",
-        "CVE-2026-43037",
-        "CVE-2026-43038",
-        "CVE-2026-43383",
-        "CVE-2026-43407",
-        "CVE-2026-43414",
-        "CVE-2026-43503",
-        "CVE-2026-45988",
-        "CVE-2026-46119",
-        "CVE-2026-46243",
-        "CVE-2022-48816",
-        "CVE-2023-53673",
-        "CVE-2025-37778",
-        "CVE-2025-37822",
-        "CVE-2025-37924",
-        "CVE-2025-38201",
-        "CVE-2025-40082",
-        "CVE-2025-68214",
-        "CVE-2025-68263",
-        "CVE-2025-71089",
-        "CVE-2025-71220",
-        "CVE-2025-71222",
-        "CVE-2025-71224",
-        "CVE-2026-23176",
-        "CVE-2026-23180",
-        "CVE-2026-23182",
-        "CVE-2026-23190",
-        "CVE-2026-23193",
-        "CVE-2026-23198",
-        "CVE-2026-23202",
-        "CVE-2026-23206",
-        "CVE-2026-23216",
-        "CVE-2026-23256",
-        "CVE-2026-23257",
-        "CVE-2026-23258",
-        "CVE-2026-23262",
-        "CVE-2026-23272",
-        "CVE-2026-23278",
-        "CVE-2026-23428",
-        "CVE-2026-23450",
-        "CVE-2026-31418",
-        "CVE-2026-31478",
-        "CVE-2026-31649",
-        "CVE-2026-31657",
-        "CVE-2026-31668",
-        "CVE-2026-31669",
-        "CVE-2026-31682",
-        "CVE-2026-43071",
-        "CVE-2026-43114",
-        "CVE-2026-43117",
-        "CVE-2026-43185",
-        "CVE-2026-43186",
-        "CVE-2026-43304",
-        "CVE-2026-43341",
-        "CVE-2026-43406",
-        "CVE-2026-43493",
-        "CVE-2026-43501",
-        "CVE-2026-46043",
-        "CVE-2026-46135",
-        "CVE-2026-46195",
-        "CVE-2026-22984",
-        "CVE-2026-23392",
-        "CVE-2026-23427",
-        "CVE-2026-31436",
-        "CVE-2026-31448",
-        "CVE-2026-31635",
-        "CVE-2026-31718",
-        "CVE-2026-43083",
-        "CVE-2026-43125",
-        "CVE-2026-43197",
-        "CVE-2026-43376",
-        "CVE-2026-43378",
-        "CVE-2026-43384",
-        "CVE-2026-43402",
-        "CVE-2026-45898",
-        "CVE-2026-46039",
-        "CVE-2026-46115",
-        "CVE-2026-46185",
-        "CVE-2026-46244",
-        "CVE-2026-46266",
-        "CVE-2026-46289",
-        "CVE-2026-46316",
-        "CVE-2026-46325"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://ubuntu.com/security/notices/USN-8547-1",
-        "https://ubuntu.com/security/notices/USN-8546-1",
-        "https://ubuntu.com/security/notices/USN-8545-1"
-      ]
-    },
-    {
-      "id": "98464d0ee1e848f1bddfc9eed33b81c1876c3cb81a5b82e29fcef5721dbc61e9",
-      "url": "https://www.bleepingcomputer.com/news/security/cisa-warns-admins-to-patch-actively-exploited-sharepoint-flaws/",
-      "title": "CISA warns admins to patch actively exploited SharePoint flaws",
-      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) warned Tuesday that attackers are actively exploiting three vulnerabilities to hack Internet-exposed on-premises SharePoint Server instances. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-07-15T09:44:52+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b51c79e665b0c13383aeaf6507c44be73a0f8f8afd7c28267974e36ea1da2b01",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-404/",
-      "title": "ZDI-26-404: Delta Electronics DTM Soft Project File Parsing Deserialization of Untrusted Data Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Delta Electronics DTM Soft. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-12578.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-07-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-12578"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a9984ab4d2211b3a52ce8cca4da52d3470fe032e750b1776096d01daeb0ff186",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-444/",
-      "title": "ZDI-26-444: 7-Zip XZ Decompression Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of 7-Zip. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.0. The following CVEs are assigned: CVE-2026-14266.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-07-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-14266"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "9654b5cc188d06838c8bd48d1215b7b758f8d8bfe8c13ad2c542b3379fb71212",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-443/",
-      "title": "ZDI-26-443: Linux Kernel vmwgfx Integer Overflow Local Privilege Escalation Vulnerability",
-      "summary": "This vulnerability allows local attackers to escalate privileges on affected installations of Linux Kernel. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.8.",
-      "source": "Zero Day Initiative",
-      "category": "infrastructure",
-      "date": "2026-07-15T05:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "70bd4375e46f21ddb0b73ced9ca5b657de1ddd652bf6a9ebacfc8fa52988c294",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-442/",
-      "title": "ZDI-26-442: Linux Kernel CAN ISO-TP Protocol Race Condition Local Privilege Escalation Vulnerability",
-      "summary": "This vulnerability allows local attackers to escalate privileges on affected installations of Linux Kernel. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "infrastructure",
-      "date": "2026-07-15T05:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a249a4f5cc2a8dd0f3879b63b9d19b3a8f7572bba45a900136dbcf5d0b612d2a",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-441/",
-      "title": "ZDI-26-441: dnsmasq DNS Response Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of dnsmasq. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.1. The following CVEs are assigned: CVE-2026-2291.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-07-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-2291"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "5c8d2001497af4395c0fc0ad9b7ecaddfd2ce36d7b29ea4c05ba8f8339731edd",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-438/",
-      "title": "ZDI-26-438: Rockwell Automation Arena Simulation DOE File Parsing Out-Of-Bounds Write Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Rockwell Automation Arena Simulation. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-6071.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-07-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-6071"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "61b2038cc409fbfdf6ae29f3c80df2f1428e6bb15f4968b4ff91ce1c9577b0e1",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-437/",
-      "title": "ZDI-26-437: (Pwn2Own) Autel MaxiCharger AC Elite Home WebSockets Integer Underflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Autel MaxiCharger AC Elite Home EV chargers. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.1. The following CVEs are assigned: CVE-2026-13308.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-07-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-13308"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f2e76eb86b4a6a27da4b315b2afb4301091ae7d7c814e0305bee1164a867b884",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-429/",
-      "title": "ZDI-26-429: NVIDIA NeMo Framework Deserialization of Untrusted Data Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of NVIDIA NeMo Framework. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-24157.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-07-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-24157"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "e1d9e89e6bac0e3a672b8e6c64018c41764c3cc16234cc177568edad214e72ed",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-428/",
-      "title": "ZDI-26-428: WatchGuard FireWare OS admd Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of WatchGuard FireWare OS. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.5. The following CVEs are assigned: CVE-2026-8247.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-07-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-8247"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "fe66169e6d34c592f15be10d5c187b16a8532650892288a10542abe282ea8e4f",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-425/",
-      "title": "ZDI-26-425: OpenSSL OCSP Stapling Verification Double Free Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of OpenSSL. User interaction is required to exploit this vulnerability in that the target must make a request to a malicious server. The ZDI has assigned a CVSS rating of 7.5. The following CVEs are assigned: CVE-2026-35188.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-07-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-35188"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4d4e6af705cc7de13c116e8ede8f78f55aade6609605b75ddcc9295def61f7f5",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-423/",
-      "title": "ZDI-26-423: Synology DiskStation DS925+ MailPlus Redis Weak Cryptography for Passwords Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of Synology DiskStation DS925+ devices. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.8. The following CVEs are assigned: CVE-2025-15660.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-07-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2025-15660"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "2f9f9ae104dca3e31bf18df951c02f81b3c5dd01a0ad25548bf3506e7da43103",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-422/",
-      "title": "ZDI-26-422: Samsung rlottie Numeric Truncation Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Samsung rlottie. Interaction with the rlottie library is required to exploit this vulnerability but attack vectors may vary depending on the implementation. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-15551.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-07-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-15551"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "81d88da06180e25726acebcf0f9637bc836df4a4d16ae36e142ca94498404660",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-411/",
-      "title": "ZDI-26-411: NVIDIA NVTabular Pickle File Parsing Deserialization of Untrusted Data Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of NVIDIA NVTabular. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-24237.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-07-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-24237"
-      ],
-      "cvss": null,
       "related_links": []
     }
   ]
