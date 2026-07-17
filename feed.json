@@ -1,10 +1,52 @@
 {
-  "updated": "2026-07-17T13:37:08.059087+00:00",
+  "updated": "2026-07-17T17:11:47.209055+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "1ea2efc7009451c0f09cf9049b4ef7db54ff1b3948d96ccd3ce2e7325b12601a",
+      "url": "https://github.com/advisories/GHSA-rwxx-mrjm-wc2m",
+      "title": "GHSA: vLLM: ReDoS via structured_outputs.regex compiled without timeout in xgrammar and outlines backends",
+      "summary": "## Summary\n\nThe `structured_outputs.regex` API parameter passes a user-supplied regex string directly to grammar compiler backends with no compilation timeout. In the xgrammar backend, the string reaches `compile_regex()` with no guard. In the outlines backend, `validate_regex_is_buildable()` blocks structural issues (lookarounds, backreferences) but provides zero protection against exponential DF",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-17T17:10:37Z",
+      "cve_ids": [
+        "CVE-2026-55574"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "e10ed4c7c0b29a310c63b41d21b749c467e8a792d99315f231f96cd3ee8f68f9",
+      "url": "https://github.com/advisories/GHSA-8wr5-jm2h-8r4f",
+      "title": "GHSA: vLLM has Remote DoS via Invalid Recovered Token Reinjection",
+      "summary": "## Summary\n\nA frontend-legal multi-request speculative workload can make vLLM produce an out-of-vocabulary recovered token equal to `vocab_size`, convert that value to `-1` when choosing the next live token for a request, and then feed that `-1` back into the next drafter input ids. On Qwen3 GPTQ this reaches the worker-side drafting / attention path and crashes the engine with a GPU `device-side ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-17T17:08:03Z",
+      "cve_ids": [
+        "CVE-2026-54234"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "5dd793f876942a5d03a5c939a1a58fc4c64cfbf2fbcd2407373f1bd991c80259",
+      "url": "https://github.com/advisories/GHSA-6c4r-fmh3-7rh8",
+      "title": "GHSA: vLLM: Processing differential in multi-channel audio downmixing enables hidden-input/moderation bypass for audio models",
+      "summary": "## Issue Description\nLibrosa defaults to using `numpy.mean` for mono downmixing (`to_mono`), while the international standard ITU-R BS.775-4 specifies a weighted downmixing algorithm. This discrepancy results in:\n- Inconsistency between audio heard by humans (e.g., through headphones/regular speakers) and audio processed by AI models (Which infra via Librosa, such as vllm, transformer).\n\nhttps://g",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-17T16:52:53Z",
+      "cve_ids": [
+        "CVE-2026-34760"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
     {
       "id": "3ad33dd2b52a84b6a75b0ab42aaaac9b80c23873514b8822e3e527035e75b895",
       "url": "https://www.bleepingcomputer.com/news/security/new-windows-legacyhive-zero-day-exploit-grants-hackers-admin-access/",
@@ -641,46 +683,6 @@
       "date": "2026-07-15T20:16:02+00:00",
       "cve_ids": [],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b748ab90fbca9729e9f6355896bd449d9d9dd00709f762505c2715d1ad156aef",
-      "url": "https://www.bleepingcomputer.com/news/security/google-gemini-cli-abused-as-a-hacking-agent-malware-botnet-operator/",
-      "title": "Google Gemini CLI abused as a hacking agent, malware botnet operator",
-      "summary": "A Russian-speaking threat actor known as \"bandcampro\" used Google's open-source Gemini CLI AI tool as a hacking agent and to operate a small-scale botnet. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-07-15T18:33:48+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d88be7481062c6d0d708825f05702c558a0085892441a1be2c728ec3106bd165",
-      "url": "https://github.com/advisories/GHSA-jr4p-4xjh-fwvw",
-      "title": "GHSA: Koel: Server-Side Request Forgery (SSRF) in radio station creation due to missing validation bail",
-      "summary": "Summary\n\nKoel v9.5.0 contains a Server-Side Request Forgery (SSRF) vulnerability in the radio station creation endpoint (POST /api/radio/stations). The url field validation rules are declared without the bail keyword, so the HasAudioContentType rule — which issues HTTP requests to the supplied URL — still executes even after the SafeUrl rule has rejected the URL as pointing to a private/reserved a",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-15T18:21:04Z",
-      "cve_ids": [
-        "CVE-2026-50552"
-      ],
-      "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "c7a65073e16bbf6d1b62fb9aac0525185716d8e833a83b6243a88f836c3e576b",
-      "url": "https://github.com/advisories/GHSA-6qvr-wjmv-v8mm",
-      "title": "GHSA: Koel: Incomplete fix for CVE-2026-47260 — systemic SSRF in podcast & radio fetch paths",
-      "summary": "### Summary\n\nThe fix for **CVE-2026-47260** (v9.3.5) added an **initial** `isSafeUrl()` check to several fetchers (`synchronizeEpisodes`, `getStreamableUrl`, `AddRadioStation`, `EpisodePlayable`), but the **redirect-target validation** — the per-hop Guzzle `on_redirect` callback added in follow-up commit `be1e867` — was applied to **only one** path, `EpisodePlayable`. Every other server-side fetch",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-15T17:59:30Z",
-      "cve_ids": [
-        "CVE-2026-54491"
-      ],
-      "cvss": 7.1,
       "related_links": []
     }
   ]
