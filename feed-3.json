@@ -1,10 +1,80 @@
 {
-  "updated": "2026-07-21T13:50:08.187252+00:00",
+  "updated": "2026-07-21T17:19:39.535549+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "097abe19c9371cc70b8d739d1fdfe380911d758c546081517180c3aef6fe0abd",
+      "url": "https://github.com/advisories/GHSA-vg6x-6pg9-6qwg",
+      "title": "GHSA: ArcadeDB: Read-only users can mutate database schema (incomplete fix of CVE-2026-44221)",
+      "summary": "### Impact\n\nThe fix for CVE-2026-44221 (GHSA-fxc7-fm93-6q77) added an `UPDATE_SCHEMA` authorization check to a single schema-mutating method (`LocalDocumentType.createProperty`). The remaining public schema mutators were left unchecked, so an authenticated identity (including a **read-only API token**) that lacks the `UPDATE_SCHEMA` permission could still mutate the database schema on its own data",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-16T20:08:24Z",
+      "cve_ids": [
+        "CVE-2026-54076"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "289c5b6ed2737f4a8c11346994c592875a658b3e5be836ca3f6ea83f59b28ae0",
+      "url": "https://github.com/advisories/GHSA-8w86-m9h8-hvqg",
+      "title": "GHSA: ArcadeDB: IMPORT DATABASE allows SSRF and arbitrary local file read by authenticated users",
+      "summary": "### Impact\n\nThe SQL `IMPORT DATABASE` statement did not require administrative privileges and passed its source URL to the importer without validation. Any authenticated user with SQL command access (not only `root`/administrators) could therefore:\n\n- **Server-Side Request Forgery (CWE-918):** cause the server to issue HTTP(S) requests to arbitrary destinations, including cloud metadata endpoints ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-16T20:05:56Z",
+      "cve_ids": [
+        "CVE-2026-54077"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "4b448ca885217621af7db4cfb1e974a0197bcf32e6352f070427234571bf096a",
+      "url": "https://github.com/advisories/GHSA-5rg2-xv9j-gv5p",
+      "title": "GHSA: nimiq-primitives: Out-of-bounds panic in KeyNibbles::Add from oversized child suffix in a deserialized proof",
+      "summary": "### Impact\n\nA malicious peer acting as a state-sync source can crash a syncing node with a crafted `TrieChunk` whose proof contains a `TrieNodeChild` whose `suffix`, when concatenated with the parent key via `KeyNibbles::Add`, exceeds the fixed 63-byte backing array. `Add` (`primitives/src/key_nibbles.rs:332` / `:341`) indexes `bytes[self.bytes_len()..self.bytes_len() + other.bytes_len()]` with no",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-16T20:03:25Z",
+      "cve_ids": [
+        "CVE-2026-54542"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "8bf43d8b79289e54dd015c787da11cb21d557c4d11105346aa5dadf7945fb1eb",
+      "url": "https://github.com/advisories/GHSA-46wq-28cx-mhw4",
+      "title": "GHSA: nimiq-primitives: Panic in TrieProof::verify via child_index unwrap on equal-length keys",
+      "summary": "### Impact\n\nA malicious peer acting as a state-sync source can crash a syncing node by sending a crafted `TrieChunk` whose proof contains two `TrieProofNode`s with identical keys. `TrieProof::verify()` calls `TrieProofNode::child_index()` (`primitives/src/trie/trie_proof_node.rs:94`), which unconditionally unwraps `KeyNibbles::get(self.key.len())`. Because `is_prefix_of` returns `true` for two equ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-16T20:03:00Z",
+      "cve_ids": [
+        "CVE-2026-54541"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "6898702d7dd73807abab6ada4ebeddf3a72a7ccb27b687cba7e31a35aff963c2",
+      "url": "https://github.com/advisories/GHSA-9643-6xjp-vx57",
+      "title": "GHSA: Pheditor has an authenticated terminal command whitelist bypass",
+      "summary": "### Summary\n\nPheditor 2.0.4 has an authenticated terminal command whitelist bypass.\n\nThe terminal feature checks whether the submitted command starts with one of the configured `TERMINAL_COMMANDS` values, then passes the full command string to `shell_exec()`. Shell command substitution such as `$()` is not blocked, so an authenticated user with the `terminal` permission can bypass a restricted com",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-16T20:01:05Z",
+      "cve_ids": [
+        "CVE-2026-54540"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
     {
       "id": "e429db1d7dc2e1b835cf5fadb0cb8ff33144a8321e09856f736025130e9e98aa",
       "url": "https://github.com/advisories/GHSA-jpw9-pfvf-9f58",
@@ -619,71 +689,6 @@
       "source": "Bleeping Computer",
       "category": "web_app",
       "date": "2026-07-15T15:37:27+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "21286d1e2967071679eb50b3b0ab5a10fd13d2960f0b4ec88c102d0f7960444e",
-      "url": "https://ubuntu.com/security/notices/USN-8552-1",
-      "title": "USN-8552-1: Sympa vulnerability",
-      "summary": "It was discovered that Sympa did not properly validate input on the generic SSO login. A remote attacker could possibly use this issue to perform a path traversal attack and gain unintended access.",
-      "source": "Ubuntu Security",
-      "category": "web_app",
-      "date": "2026-07-15T14:50:01+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ed768e48f9441f472d9978f1e101c722f7d8617d978c3cb5df6ed33ec36d22e7",
-      "url": "https://ubuntu.com/security/notices/USN-8551-1",
-      "title": "USN-8551-1: Tomcat vulnerabilities",
-      "summary": "It was discovered that Tomcat incorrectly handled authorization when multiple method constraints defined the same HTTP method. A remote attacker could possibly use this issue to bypass authorization restrictions. (CVE-2026-43515) It was discovered that the Tomcat number guess example application did not properly sanitize user-supplied input. An attacker could possibly use this issue to inject mali",
-      "source": "Ubuntu Security",
-      "category": "web_app",
-      "date": "2026-07-15T14:15:28+00:00",
-      "cve_ids": [
-        "CVE-2026-43515",
-        "CVE-2026-50229",
-        "CVE-2026-53404",
-        "CVE-2026-55276"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "59dbd682588b3a523ff60d2c4e42306783cff1004bd8e0ce2170a44e2ca65674",
-      "url": "https://www.bleepingcomputer.com/news/security/we-built-a-vulnerability-vending-machine-ai-tokens-in-zero-days-out/",
-      "title": "We built a vulnerability vending machine: AI tokens in, zero-days out",
-      "summary": "Intruder built an AI-powered \"vulnerability vending machine\" that combines code slicing with LLMs to automatically discover complex software vulnerabilities. The company explains how the system found and exploited a previously unknown WordPress plugin zero-day, with additional discoveries already under responsible disclosure. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-07-15T14:01:11+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f7fcd442b5007283f0caa785f5d146aef1f84caaa06c18cabdfe4f5bd3356221",
-      "url": "https://ubuntu.com/security/notices/USN-8549-1",
-      "title": "USN-8549-1: idna vulnerability",
-      "summary": "It was discovered that idna did not properly reject oversized inputs before performing expensive processing. An attacker could possibly use this issue to cause idna to consume significant resources, leading to a denial of service.",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-07-15T13:46:50+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4154f325ef12127d7d0c69063dcc51e078776af81fb45f2df9376abcd552a243",
-      "url": "https://www.rapid7.com/blog/post/dr-investigating-aws-persistence-mechanisms",
-      "title": "Investigating Persistence Mechanisms in AWS",
-      "summary": "OverviewIn the cloud, your infrastructure may be short-lived, but an attacker’s persistence doesn't have to be. While your environment scales and changes in seconds, adversaries are embedding themselves into your IAM policies, Lambda functions, and federated sessions, creating invisible footholds that survive long after you believe an incident is closed.Persistence in AWS is not just a technical o",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-07-15T13:00:00+00:00",
       "cve_ids": [],
       "cvss": null,
       "related_links": []
