@@ -1,10 +1,52 @@
 {
-  "updated": "2026-07-22T17:19:06.038089+00:00",
+  "updated": "2026-07-22T21:07:25.737293+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "ade958e4a928a8be716f4a2070be2688828e3bf14238af6e0ff39e5375877650",
+      "url": "https://github.com/advisories/GHSA-q9pg-jj6x-j9p6",
+      "title": "GHSA: Gitea: draft release attachment disclosure via missing web authorization",
+      "summary": "### Summary\n\nGitea's draft-release access control is enforced only on the API release endpoints (`/api/v1/repos/{owner}/{repo}/releases/{id}` and its `/assets/...` sub-routes) but not on the web-level UUID-based attachment endpoints (`/attachments/{uuid}`, `/{owner}/{repo}/attachments/{uuid}`, `/{owner}/{repo}/releases/attachments/{uuid}`). Anyone (including unauthenticated callers) who has, learn",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-21T20:19:25Z",
+      "cve_ids": [
+        "CVE-2026-58432"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "a5d9f27fb38eb42ab7811ab3a64703d6365960b62c5f9fb3da6db9b98343f893",
+      "url": "https://github.com/advisories/GHSA-25gq-j9jx-43pg",
+      "title": "GHSA: Gitea: Release attachment extension allowlist bypass via web release edit form (variant of CVE-2025-68939)",
+      "summary": "## Summary\n\nThe web handler `EditReleasePost` (`routers/web/repo/release.go`) reads form fields with prefix `attachment-edit-{uuid}` into a `map[uuid]newName`, passes that map to `release_service.UpdateRelease`, which writes the new name to the database via `repo_model.UpdateAttachmentByUUID` WITHOUT calling `upload.Verify` against `setting.Repository.Release.AllowedTypes`. The parent CVE-2025-689",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-07-21T20:18:44Z",
+      "cve_ids": [
+        "CVE-2026-58428"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "454fa8ceae79be8d13d5b14cfd610ba2944bad7dc952be2289effcd1f5ca729d",
+      "url": "https://github.com/advisories/GHSA-7p4h-3gxq-x3h3",
+      "title": "GHSA: Gitea: Token public-only scope bypassed on Limited-visibility owners (Repository + Package categories) — residual after CVE-2026-25714 / PR #37118",
+      "summary": "## Summary\n\nAfter [PR #37118](https://github.com/go-gitea/gitea/pull/37118) / **CVE-2026-25714**\n(`fix: Unify public-only token filtering in API queries and repo access checks`,\nmerged 2026-05-18, backport `#37773` to 1.26.2 — the May 2026 unification pass\nfor public-only token filtering, reporter Medoedus per the 1.26.2 release notes),\nthe `public-only` PAT scope is still bypassable on **Reposito",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-21T20:17:19Z",
+      "cve_ids": [
+        "CVE-2026-56443"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
     {
       "id": "2ee784871a12f0215fb2a05faa4e9b68c54c8913d8b7d51c90aeed35096f20d6",
       "url": "https://github.com/advisories/GHSA-w5pg-649r-p6gg",
@@ -638,48 +680,6 @@
         "CVE-2026-14631"
       ],
       "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "c6d011ac3967514d590d32be25036ec8fd3637500ee9d8e43134d9a8d0da8309",
-      "url": "https://github.com/advisories/GHSA-f5vj-f2hx-8m93",
-      "title": "GHSA: webpack-dev-server vulnerable to cross-site request forgery via internal developer endpoints",
-      "summary": "### Impact\n\nThe internal `/webpack-dev-server/open-editor` and `/webpack-dev-server/invalidate` endpoints perform state-changing actions on any `GET` request, without verifying that the request originated from the dev server's own page. Any website a developer visits while the dev server is running can trigger them cross-origin with no interaction beyond the visit.\n\nAn attacker can open an arbitra",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-20T22:01:56Z",
-      "cve_ids": [
-        "CVE-2026-14620"
-      ],
-      "cvss": 4.7,
-      "related_links": []
-    },
-    {
-      "id": "23fcab3943ed897710a72a72783b0aee09db078b70912e7e6b829f306c885f67",
-      "url": "https://github.com/advisories/GHSA-g446-98w2-8p5w",
-      "title": "GHSA: Guzzle: Cookie Disclosure and Injection via IP-Address Domains",
-      "summary": "### Impact\n\n`CookieJar` does not restrict a cookie scoped to an IP address to the exact host that set it. When a stored cookie's `Domain` attribute is an IPv4 literal (`Domain=192.168.0.1`), a bracketed IPv6 literal (`Domain=[::1]`), or a bare numeric value that denotes an IPv4 address (`Domain=1`, which is `0.0.0.1`), `SetCookie::matchesDomain()` applies ordinary subdomain (suffix) matching to it",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-20T22:00:09Z",
-      "cve_ids": [
-        "CVE-2026-59883"
-      ],
-      "cvss": 4.7,
-      "related_links": []
-    },
-    {
-      "id": "43e8fc888ea644b5d7e2564ae23b5079341e9f490026dc574b675aeac4367b85",
-      "url": "https://github.com/advisories/GHSA-vj59-8hwv-xxmv",
-      "title": "GHSA: Astro: Authorization Bypass via Decode Iteration Limit and Rewrite Path Canonicalization Mismatch",
-      "summary": "# Astro 6.4.7 Authorization Bypass via Decode Iteration Limit and Rewrite Path Canonicalization Mismatch\n\n## Summary\n\nAstro 6.4.7 appears to reintroduce a middleware authorization bypass pattern when a request path is encoded more deeply than the newly introduced iterative URL decoder's maximum decoding depth.\n\nThe issue occurs because Astro performs authorization decisions on a partially decoded ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-20T21:58:27Z",
-      "cve_ids": [
-        "CVE-2026-59731"
-      ],
-      "cvss": 8.2,
       "related_links": []
     }
   ]
