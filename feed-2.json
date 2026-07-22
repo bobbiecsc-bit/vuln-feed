@@ -1,10 +1,52 @@
 {
-  "updated": "2026-07-22T13:53:28.612941+00:00",
+  "updated": "2026-07-22T17:19:06.038089+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "2ee784871a12f0215fb2a05faa4e9b68c54c8913d8b7d51c90aeed35096f20d6",
+      "url": "https://github.com/advisories/GHSA-w5pg-649r-p6gg",
+      "title": "GHSA: Gitea: Branch Protection Bypass via PR Retargeting Preserves Stale `official` Approval Flag",
+      "summary": "## Summary\n\nGitea does not re-evaluate the `official` flag on existing pull request reviews when a PR's target branch is changed. An attacker with write access to a repository can obtain an `official: true` approval on a PR targeting an unprotected branch, then retarget the PR to a protected branch (e.g., `master`). The approval, which would have been `official: false` if submitted against the pro",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-21T20:14:12Z",
+      "cve_ids": [
+        "CVE-2026-58439"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "3734c0a00bbf42c9706d06452222994189f1c8e8bf682162d0dd2c6c8a0b3242",
+      "url": "https://github.com/advisories/GHSA-qf2f-qh6p-7v89",
+      "title": "GHSA: Gitea CVE-2026-20800 sibling endpoints not covered: revoked user still reads private repo objects via `/api/v1/user/starred` and private issue titles via `/api/v1/user/times`",
+      "summary": "## Summary\nCVE-2026-20800 fixed private-info leakage to revoked users only for the notification endpoint. Two\nsibling endpoints that return data keyed on the caller's own relationship still do not re-check repo\naccess at output time:\n- `GET /api/v1/user/starred` — `getStarredRepos()` computes a per-repo permission but still lists every\n  starred repo (no filtering), so the full repo object (`full_",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-21T20:13:03Z",
+      "cve_ids": [
+        "CVE-2026-59766"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "e0153723dfe558615fe3f59024c2375eceb2373a8c3f4b7b9c609900a31c17aa",
+      "url": "https://github.com/advisories/GHSA-66m4-5jjr-2rg5",
+      "title": "GHSA: Gitea: Webhooks created by a collaborator keep firing after their repo access is revoked → ongoing real-time exfiltration of private repo content",
+      "summary": "## Affected product\nGitea — `services/repository/collaboration.go` (`DeleteCollaboration`) + webhook delivery\n\n## Summary\nWhen a collaborator with admin permission on a private repo creates a webhook, that webhook keeps firing\nafter the collaborator's access is revoked. Gitea's revocation cleanup `DeleteCollaboration` removes the\ncollaboration record, recalculates accesses, drops watches, and unas",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-21T20:11:36Z",
+      "cve_ids": [
+        "CVE-2026-58440"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
     {
       "id": "e017e76102853ea8cbafec5f67883ee239c6b1002966d7cbb143367aade0f9eb",
       "url": "https://github.com/advisories/GHSA-956x-8gvw-wg5v",
@@ -638,48 +680,6 @@
         "CVE-2026-59731"
       ],
       "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "bf7ef56df7c596a969ba2d9c18582dab433329fd7c7935fe071d30907c197ae3",
-      "url": "https://github.com/advisories/GHSA-gjfg-22fp-rrxx",
-      "title": "GHSA: Composer: Path traversal in package bin field lets dependencies chmod arbitrary host files",
-      "summary": "## Summary\n\nA Composer package declares its executables in the `bin` field of its `composer.json`. When Composer installs a package, it processes each `bin` entry and changes the file mode of the corresponding file so it is executable.\n\nIf a `bin` entry contains `..` path segments, it can resolve to a path outside the package's own install directory. A malicious package can use this to make Compos",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-20T21:57:40Z",
-      "cve_ids": [
-        "CVE-2026-59946"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "a313e4ee2c165006c819c6513679256c82336107e1c66e85c0f926a438d14c89",
-      "url": "https://github.com/advisories/GHSA-g6xq-892h-64w3",
-      "title": "GHSA: Composer: URL-embedded HTTP-Basic username leaks to verbose logs (GitHub PAT exposure)",
-      "summary": "## Summary\n\nWhen Composer is run with -vvv (debug verbosity), it could print a credential that was embedded directly in a repository or package URL, but not as a password, to its debug output. Composer already masked the password portion of such URLs, but the username portion was shown in clear text. Because GitHub and several other services support placing an access token in the username position",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-20T21:55:05Z",
-      "cve_ids": [
-        "CVE-2026-59947"
-      ],
-      "cvss": 4.7,
-      "related_links": []
-    },
-    {
-      "id": "782e6f91ac78e3ed6c25dde1600e3595b88dcae1ba49712afb889e0ba27df0d5",
-      "url": "https://github.com/advisories/GHSA-w8wr-v893-vjvp",
-      "title": "GHSA: node-tar: Process crash via PAX numeric path type confusion",
-      "summary": "### Summary\n\nA crafted 2.5KB tar archive crashes any Node.js process that extracts it. The PAX header parser coerces all-digit path values to JavaScript numbers, which causes an uncaught TypeError when downstream code calls `.split('/')` on the numeric value. Error handlers and `strict: false` cannot intercept the crash.\n\n### Details\n\nIn `pax.ts` line 180, `parseKV` converts PAX values matching `/",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-20T21:53:14Z",
-      "cve_ids": [
-        "CVE-2026-59871"
-      ],
-      "cvss": 5.3,
       "related_links": []
     }
   ]
