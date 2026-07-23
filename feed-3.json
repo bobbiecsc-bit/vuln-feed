@@ -1,10 +1,110 @@
 {
-  "updated": "2026-07-23T17:22:52.824782+00:00",
+  "updated": "2026-07-23T21:04:08.455510+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "8093b723d3c17727b177e061a9cd0eb7654a0b2a716b5dab12e1bb023a1a0745",
+      "url": "https://github.com/advisories/GHSA-pg7v-jwj7-p798",
+      "title": "GHSA: Pillow EpsImagePlugin negative %%BeginBinary byte count causes infinite loop denial of service",
+      "summary": "### Summary\n\nPillow's EPS parser (PIL/EpsImagePlugin.py) accepts a negative byte count in the %%BeginBinary directive. A crafted EPS file can cause Image.open() to seek backwards to the same directive and parse it repeatedly, resulting in an infinite loop and CPU denial of service.\n\nThe issue is triggered during Image.open(), does not require Image.load(), and does not require Ghostscript executio",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-20T23:11:51Z",
+      "cve_ids": [
+        "CVE-2026-59203"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "5d8a65c6578080950e70946fb02851ce4a1e88dfb5c6956cf2905df3659160e8",
+      "url": "https://github.com/advisories/GHSA-jjj6-mw9f-p565",
+      "title": "GHSA: Pillow: Decompression Bomb DoS via PdfParser.PdfStream.decode()",
+      "summary": "### Summary\n`PdfParser.PdfStream.decode()` in Pillow's `PdfParser.py` calls `zlib.decompress()` with the `bufsize` parameter set to the value of the PDF stream's `Length` field, without any upper bound on the actual decompressed output size. Python's `zlib.decompress()` `bufsize` argument is an *initial output buffer hint*, not a maximum size limit — the function will expand memory until the full ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-20T23:11:29Z",
+      "cve_ids": [
+        "CVE-2026-59200"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "715809d2e30894fab544a9715240e9145d38e1f4422aebbc070972bb525ca6d9",
+      "url": "https://github.com/advisories/GHSA-6r8x-57c9-28j4",
+      "title": "GHSA: Pillow: Heap out-of-bounds write `Image.paste()` / `Image.crop()` via signed coordinate overflow",
+      "summary": "### Summary\n\nPillow's public image coordinate APIs can trigger a native heap out-of-bounds\nwrite when given coordinates near the signed 32-bit integer limits. In 4-byte\npixel modes such as `RGBA`, this becomes a controlled backward heap underwrite:\nfor a source image of width `W`, Pillow writes `4 * W` attacker-controlled bytes\nstarting `4 * W` bytes before the destination row pointer. With succes",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-20T23:09:53Z",
+      "cve_ids": [
+        "CVE-2026-59199"
+      ],
+      "cvss": 7.5,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-59199"
+      ]
+    },
+    {
+      "id": "14b518711b49f49340304e54cc99802b7355380c1f15578067d3ad7f9d560bd6",
+      "url": "https://github.com/advisories/GHSA-fj7v-r99m-22gq",
+      "title": "GHSA: Pillow TGA RLE encoder can serialize up to ~57 KB of adjacent heap data into generated images",
+      "summary": "### Summary\n\nPillow's TGA RLE encoder reads past its row buffer when saving a mode `\"1\"`\nimage. Adjacent process heap bytes can be copied into the generated TGA file.\n\nThe bug is reachable through the public save API:\n\n```python\nim.save(out, format=\"TGA\", compression=\"tga_rle\")\n```\n\nOlder affected Pillow versions use the equivalent public option `rle=True`.\n\nFor mode `\"1\"`, Pillow allocates a pack",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-20T23:09:36Z",
+      "cve_ids": [
+        "CVE-2026-59198"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "f0e00375047f19e8634bee706e42ce67d2aed4fabe06adc7dfe2da12432a4456",
+      "url": "https://github.com/advisories/GHSA-xj96-63gp-2gmr",
+      "title": "GHSA: Pillow: Heap out-of-bounds write in `ImageFilter.RankFilter` via integer overflow in `ImagingExpand`",
+      "summary": "### Summary\n\nPillow's public rank-filter API can trigger a native heap out-of-bounds write\nwhen given a very large odd filter size.\n\nMinimal public API trigger:\n\n```python\nfrom PIL import Image, ImageFilter\n\nim = Image.new(\"L\", (3, 3), 128)\nim.filter(ImageFilter.MedianFilter(4294967295))\n```\n\n`ImageFilter.RankFilter.filter()` calls `image.expand(size // 2, size // 2)`\nbefore rank-filter size valid",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-20T23:08:58Z",
+      "cve_ids": [
+        "CVE-2026-59197"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "dbb7638588af0cd1ec553e7a9573e733c2932a5ab1b50c7456cd3a4b9f80bd76",
+      "url": "https://github.com/advisories/GHSA-wp74-jgxh-gv4q",
+      "title": "GHSA: Microsoft Security Advisory CVE-2026-50651 – .NET Denial of Service Vulnerability",
+      "summary": "## Executive summary\n\nMicrosoft is releasing this security advisory to provide information about a vulnerability in .NET HTTP client (System.Net.Http). This advisory also provides guidance on what developers can do to update their applications to remove this vulnerability.\n\nA denial of service vulnerability exists in .NET 8, .NET 9, and .NET 10 where an attacker can exploit the HTTP/2 protocol to ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-20T23:02:43Z",
+      "cve_ids": [
+        "CVE-2026-50651"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "e142bc408254e6ecbabe281a4b38595f4a022c298bcfd4f7e3c9a83e81c21070",
+      "url": "https://github.com/advisories/GHSA-74jp-vm22-8q8x",
+      "title": "GHSA: Microsoft Security Advisory CVE-2026-50659 – .NET Spoofing Vulnerability",
+      "summary": "## Executive summary\n\nMicrosoft is releasing this security advisory to provide information about a vulnerability in .NET SMTP client (System.Net.Mail). This advisory also provides guidance on what developers can do to update their applications to remove this vulnerability.\n\nA spoofing vulnerability exists in the SMTP client implementation (System.Net.Mail) in .NET 8, .NET 9, and .NET 10, where an ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-20T23:02:29Z",
+      "cve_ids": [
+        "CVE-2026-50659"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
     {
       "id": "39c67f4ee0e7a59fbf1883f0f2a739e948a27e2fc8d96f381a0016728e29543c",
       "url": "https://github.com/advisories/GHSA-8q5v-6pqq-x66h",
@@ -2586,102 +2686,6 @@
       "date": "2026-07-18T19:32:02+00:00",
       "cve_ids": [],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b5637df4b14a86fe50ce9dc2957298759ba83a5f13e5cc0af4dae77372610183",
-      "url": "https://www.bleepingcomputer.com/news/security/wordpress-core-wp2shell-rce-flaws-get-public-exploits-patch-now/",
-      "title": "WordPress Core \"wp2shell\" RCE flaws get public exploits, patch now",
-      "summary": "Public exploits have been released for the critical \"wp2shell\" remote code execution vulnerabilities affecting WordPress Core, making it imperative that administrators patch their sites immediately. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-07-18T17:22:47+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "2fecc5d25c8e7888d4d12cfbdda9b40cff259dd978c1975575f2103791f4db13",
-      "url": "https://www.rapid7.com/blog/post/etr-cve-2026-63030-wp2shell-a-critical-remote-code-execution-vulnerability-in-wordpress-core",
-      "title": "CVE-2026-63030: wp2shell a Critical Remote Code Execution Vulnerability in WordPress Core",
-      "summary": "OverviewOn July 17, 2026, a GitHub Security Advisory was published for CVE-2026-63030, a critical unauthenticated remote code execution vulnerability affecting WordPress Core. While the official GitHub security advisory classifies the severity as Critical, the vulnerability has currently been assigned a CVSS score of 7.5. WordPress is one of the most widely deployed content management systems, mak",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-07-17T22:23:03+00:00",
-      "cve_ids": [
-        "CVE-2026-63030",
-        "CVE-2026-60137"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://www.bleepingcomputer.com/news/security/critical-wp2shell-wordpress-flaws-exploited-to-install-webshells/",
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-63030"
-      ]
-    },
-    {
-      "id": "cf1d1ca5e3024da5283313cf461e1b3f53a4ce95fe2ec709d797a311a1fbd8ff",
-      "url": "https://github.com/advisories/GHSA-8qqm-fp2q-v734",
-      "title": "GHSA: Skipper: Incomplete fix for CVE-2026-50197: an oversized body can bypass OPA deny-on-presence Rego policies",
-      "summary": "### Summary\n\nA wrong policy can be an open door. \nYou have to check `input.attributes.request.http.truncated_body` in your policy.\n\n### Description\n\nIncomplete fix for CVE-2026-50197: an oversized declared-`Content-Length` body still hands OPA an empty `parsed_body`, so deny-on-presence Rego policies fail OPEN while the full payload reaches upstream.\n\nThe CVE-2026-50197 fix (commit `3152f3b0`, PR ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-17T21:49:48Z",
-      "cve_ids": [],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "783bafaca1ef090ebf7eb43a5302f4e127bd388bad8ed3441f2f86353855be0d",
-      "url": "https://github.com/advisories/GHSA-5587-2x54-jj6h",
-      "title": "GHSA: Skipper's routesrv-no-auth component: All routesrv API Endpoints Lack Authentication",
-      "summary": "## Description\n\nThe `routesrv` component exposes the full cluster route topology (Ingress/RouteGroup configurations, backend URLs, filter chains, OAuth/OIDC callback paths) and cache-cluster topology (Redis/Valkey shard addresses) over plain HTTP with **zero authentication**. Any pod in the Kubernetes cluster can reach routesrv via its predictable DNS name and retrieve sensitive cluster-wide routi",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-07-17T21:46:18Z",
-      "cve_ids": [
-        "CVE-2026-54246"
-      ],
-      "cvss": 5.7,
-      "related_links": []
-    },
-    {
-      "id": "ef03a77e4f4f702bf09ec347e4d7be8417ac243b2f53d45782c24c96201c5dd5",
-      "url": "https://github.com/advisories/GHSA-pgww-w46g-26qg",
-      "title": "GHSA: AngleSharp HTML5 Spec Compliance: mXSS via annotation-xml HTML Integration Point Bypass",
-      "summary": "### Summary\nThe HTML specification requires that a MathML `<annotation-xml>` element with `encoding=\"text/html\"` or `encoding=\"application/xhtml+xml\"` is treated as an HTML integration point. Content inside it must be parsed as HTML, not MathML.\n\nAngleSharp does not implement this correctly. As a result, the parser produces a DOM tree that differs from what a browser will build (different namespac",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-17T21:17:10Z",
-      "cve_ids": [
-        "CVE-2026-54570"
-      ],
-      "cvss": 6.9,
-      "related_links": []
-    },
-    {
-      "id": "c753671ed9751fcaebfbba485f81dd6f3ccff01425604ed591b2923c023a409c",
-      "url": "https://github.com/advisories/GHSA-mfr4-mq8w-vmg6",
-      "title": "GHSA: PRoot-Distro has Path Traversal in proot-distro copy — Arbitrary Read, Write, and Persistent Code Execution Outside Container Rootfs",
-      "summary": "<html><head></head><body><h1>Path Traversal in <code>proot-distro copy</code> — Arbitrary Read, Write, and Persistent Code Execution Outside Container Rootfs</h1>\n<h2>Repository</h2>\n<p>https://github.com/termux/proot-distro</p>\n<p><strong>Maintainer:</strong> @sylirre</p>\n<hr>\n<h2>Affected Component</h2>\n<ul>\n<li><strong>Package:</strong> proot-distro</li>\n<li><strong>Affected command:</strong> <",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-17T20:25:37Z",
-      "cve_ids": [],
-      "cvss": 6.6,
-      "related_links": []
-    },
-    {
-      "id": "c3163e00416fdc740506a984e5676c6dd1acf0a848e67c3cfa6b3df85b812ff9",
-      "url": "https://github.com/advisories/GHSA-g77h-45rf-hcx4",
-      "title": "GHSA: ExifReader HEIC/AVIF ISO-BMFF parser throws uncaught RangeError on truncated boxes",
-      "summary": "## Summary\n\nExifReader 4.40.0 can throw an uncaught `RangeError: Offset is outside the bounds of the DataView` while parsing crafted HEIC/AVIF files. The file only needs a valid leading `ftyp` box with a HEIC/AVIF major brand followed by a malformed ISO-BMFF box, such as an empty 8-byte `free` box or a truncated extended-size box.\n\nThis is reachable through the public `ExifReader.load()` API for i",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-17T20:19:39Z",
-      "cve_ids": [
-        "CVE-2026-53496"
-      ],
-      "cvss": 5.3,
       "related_links": []
     }
   ]

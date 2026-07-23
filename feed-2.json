@@ -1,10 +1,108 @@
 {
-  "updated": "2026-07-23T17:22:52.824782+00:00",
+  "updated": "2026-07-23T21:04:08.455510+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "c803502f6147e987a6859f8010ec3e630aa46b97005eb465759d5b10c2a244b7",
+      "url": "https://github.com/advisories/GHSA-94v3-77j7-vm48",
+      "title": "GHSA: Gitea: Internal API HTTP client hardcodes InsecureSkipVerify:true with no config override",
+      "summary": "Summary\n\nGitea's internal API HTTP client (modules/private/internal.go) hardcodes\nTLSClientConfig.InsecureSkipVerify = true with no configuration override. It is the only\noutbound TLS client in the codebase that cannot be made to verify its peer's certificate —\nwebhook, migrations, MinIO, LDAP, SMTP, Redis and incoming-mail all expose a secure-by-default\nSkipVerify toggle, this one does not.\n\nWhen",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-07-21T20:41:25Z",
+      "cve_ids": [
+        "CVE-2026-54481"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "c3aa5208b6565d595f73b88a65f316b916ba16d9f3ff9731d7c3b3190e497812",
+      "url": "https://github.com/advisories/GHSA-6cqf-375w-639g",
+      "title": "GHSA: Gitea: RSS/Atom feed handlers bypass API-token scope & public-only confinement (incomplete fix of #37698)",
+      "summary": "### Summary\n\nGitea's RSS/Atom feed handlers accept API-token Basic auth but perform **no token-scope or\npublic-only enforcement**. A personal access token that is correctly blocked (HTTP 403) from a\nprivate repository on `/raw`, `/media`, `/archive`, and `/releases/download/...` — because it is\nmarked *public-only* or lacks the `repository` scope category — still returns that repository's\nprivate ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-21T20:40:24Z",
+      "cve_ids": [
+        "CVE-2026-50105"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "5a6897fd4ab83e1cce288f803ed0c5a1af6c29f1d8d258ac7857306a8c34a666",
+      "url": "https://github.com/advisories/GHSA-fj8v-hjwv-qm88",
+      "title": "GHSA: Gitea: Fork-PR Actions task can read a third private repository via the collaborative-owner branch (missing fork-PR guard)",
+      "summary": "### Summary\n\n`GetActionsUserRepoPermission` (`models/perm/access/repo_permission.go`) decides whether an Actions\ntask token may access a target repo. Its cross-repo branches each enforce a fork-PR discriminator —\n**except the collaborative-owner branch**, which is missing the `!task.IsForkPullRequest` guard that\nits sibling has. As a result, when a private repo **B** lists owner **A** as a collabo",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-21T20:40:03Z",
+      "cve_ids": [
+        "CVE-2026-58416"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "ef1afc63b53109a9959cb9b1a3e61da088bc6d0fd307894f25a6f619377faa97",
+      "url": "https://github.com/advisories/GHSA-wwqq-x6w4-frm2",
+      "title": "GHSA: Gitea: Denial of Service via Unbounded io.ReadAll in NPM Package Tag Endpoint",
+      "summary": "### Summary\nAn unbounded `io.ReadAll(ctx.Req.Body)` call in the NPM package tag API endpoint allows any authenticated user to crash the Gitea server by sending a single large HTTP request. The request body is read entirely into memory with no size limit, causing an Out-of-Memory (OOM) kill. With concurrent requests, the attack produces a persistent denial of service that survives automatic restart",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-21T20:39:37Z",
+      "cve_ids": [
+        "CVE-2026-42931"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "15f1cce41fafee2a38bf70c06bce64269738c64f8ce9c2c2fd7dbb77e745e33d",
+      "url": "https://github.com/advisories/GHSA-pgqf-926r-548m",
+      "title": "GHSA: Gitea: Cross-repository label-ID enumeration oracle via unscoped DeleteIssueLabel API",
+      "summary": "## Summary\n\nThe API endpoint `DELETE /repos/{owner}/{repo}/issues/{index}/labels/{id}` loads the label by ID with a **global,\nunscoped** lookup and never verifies the label belongs to the URL's repository (or its owning organization). Because\nthe response status differs by whether the label ID exists **anywhere on the instance** (204) versus not (422), an\nauthenticated user can use the endpoint as",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-21T20:39:22Z",
+      "cve_ids": [
+        "CVE-2026-58445"
+      ],
+      "cvss": 2.7,
+      "related_links": []
+    },
+    {
+      "id": "8b0b737493c5c6a59c641710a54f7eb7f854e43b2dee067996ad47100d9f918a",
+      "url": "https://github.com/advisories/GHSA-cp3q-vrj2-ghhh",
+      "title": "GHSA: Gitea: Personal access token scope enforcement bypass on the repository home page (`GET /{owner}/{repo}`) discloses private repository contents",
+      "summary": "### Summary\nA personal access token (PAT) or OAuth2 token that does **not** carry the\n`repository` scope or that is **public-only** is correctly rejected (HTTP 403)\nby the recently hardened web content routes (archive download, raw/media file\ndownload, and repository RSS/Atom feeds). However, the repository home page route\n`GET /{owner}/{repo}` (handler `repo.Home`) serves the **private** reposito",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-21T20:38:31Z",
+      "cve_ids": [
+        "CVE-2026-58444"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "4184cf32c040fea3d2879bbc2192f5863c3fc2feac548de31d2abcca4056926a",
+      "url": "https://github.com/advisories/GHSA-xxjv-752h-3vp2",
+      "title": "GHSA: Gitea: Public-only repository tokens can update private PR head branches",
+      "summary": "### Summary\nGitea allows a `public-only,write:repository` token to update a private pull request head branch through a public base repository route.\n\nThe vulnerable endpoint is:\n\n```text\nPOST /api/v1/repos/{public-owner}/{public-repo}/pulls/{index}/update\n```\n\nGitea checks the token's public-only restriction against the route repository, which is the public base repository. `UpdatePullRequest()` t",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-21T20:38:06Z",
+      "cve_ids": [
+        "CVE-2026-58443"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
     {
       "id": "2bfb4b6071c89c481226802469d9f9f3a85b203aff65e579ce87317a491d0219",
       "url": "https://github.com/advisories/GHSA-h2x6-g7q6-344v",
@@ -585,106 +683,6 @@
       "related_links": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-59205"
       ]
-    },
-    {
-      "id": "8093b723d3c17727b177e061a9cd0eb7654a0b2a716b5dab12e1bb023a1a0745",
-      "url": "https://github.com/advisories/GHSA-pg7v-jwj7-p798",
-      "title": "GHSA: Pillow EpsImagePlugin negative %%BeginBinary byte count causes infinite loop denial of service",
-      "summary": "### Summary\n\nPillow's EPS parser (PIL/EpsImagePlugin.py) accepts a negative byte count in the %%BeginBinary directive. A crafted EPS file can cause Image.open() to seek backwards to the same directive and parse it repeatedly, resulting in an infinite loop and CPU denial of service.\n\nThe issue is triggered during Image.open(), does not require Image.load(), and does not require Ghostscript executio",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-20T23:11:51Z",
-      "cve_ids": [
-        "CVE-2026-59203"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "5d8a65c6578080950e70946fb02851ce4a1e88dfb5c6956cf2905df3659160e8",
-      "url": "https://github.com/advisories/GHSA-jjj6-mw9f-p565",
-      "title": "GHSA: Pillow: Decompression Bomb DoS via PdfParser.PdfStream.decode()",
-      "summary": "### Summary\n`PdfParser.PdfStream.decode()` in Pillow's `PdfParser.py` calls `zlib.decompress()` with the `bufsize` parameter set to the value of the PDF stream's `Length` field, without any upper bound on the actual decompressed output size. Python's `zlib.decompress()` `bufsize` argument is an *initial output buffer hint*, not a maximum size limit — the function will expand memory until the full ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-20T23:11:29Z",
-      "cve_ids": [
-        "CVE-2026-59200"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "715809d2e30894fab544a9715240e9145d38e1f4422aebbc070972bb525ca6d9",
-      "url": "https://github.com/advisories/GHSA-6r8x-57c9-28j4",
-      "title": "GHSA: Pillow: Heap out-of-bounds write `Image.paste()` / `Image.crop()` via signed coordinate overflow",
-      "summary": "### Summary\n\nPillow's public image coordinate APIs can trigger a native heap out-of-bounds\nwrite when given coordinates near the signed 32-bit integer limits. In 4-byte\npixel modes such as `RGBA`, this becomes a controlled backward heap underwrite:\nfor a source image of width `W`, Pillow writes `4 * W` attacker-controlled bytes\nstarting `4 * W` bytes before the destination row pointer. With succes",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-20T23:09:53Z",
-      "cve_ids": [
-        "CVE-2026-59199"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-59199"
-      ]
-    },
-    {
-      "id": "14b518711b49f49340304e54cc99802b7355380c1f15578067d3ad7f9d560bd6",
-      "url": "https://github.com/advisories/GHSA-fj7v-r99m-22gq",
-      "title": "GHSA: Pillow TGA RLE encoder can serialize up to ~57 KB of adjacent heap data into generated images",
-      "summary": "### Summary\n\nPillow's TGA RLE encoder reads past its row buffer when saving a mode `\"1\"`\nimage. Adjacent process heap bytes can be copied into the generated TGA file.\n\nThe bug is reachable through the public save API:\n\n```python\nim.save(out, format=\"TGA\", compression=\"tga_rle\")\n```\n\nOlder affected Pillow versions use the equivalent public option `rle=True`.\n\nFor mode `\"1\"`, Pillow allocates a pack",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-20T23:09:36Z",
-      "cve_ids": [
-        "CVE-2026-59198"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "f0e00375047f19e8634bee706e42ce67d2aed4fabe06adc7dfe2da12432a4456",
-      "url": "https://github.com/advisories/GHSA-xj96-63gp-2gmr",
-      "title": "GHSA: Pillow: Heap out-of-bounds write in `ImageFilter.RankFilter` via integer overflow in `ImagingExpand`",
-      "summary": "### Summary\n\nPillow's public rank-filter API can trigger a native heap out-of-bounds write\nwhen given a very large odd filter size.\n\nMinimal public API trigger:\n\n```python\nfrom PIL import Image, ImageFilter\n\nim = Image.new(\"L\", (3, 3), 128)\nim.filter(ImageFilter.MedianFilter(4294967295))\n```\n\n`ImageFilter.RankFilter.filter()` calls `image.expand(size // 2, size // 2)`\nbefore rank-filter size valid",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-20T23:08:58Z",
-      "cve_ids": [
-        "CVE-2026-59197"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "dbb7638588af0cd1ec553e7a9573e733c2932a5ab1b50c7456cd3a4b9f80bd76",
-      "url": "https://github.com/advisories/GHSA-wp74-jgxh-gv4q",
-      "title": "GHSA: Microsoft Security Advisory CVE-2026-50651 – .NET Denial of Service Vulnerability",
-      "summary": "## Executive summary\n\nMicrosoft is releasing this security advisory to provide information about a vulnerability in .NET HTTP client (System.Net.Http). This advisory also provides guidance on what developers can do to update their applications to remove this vulnerability.\n\nA denial of service vulnerability exists in .NET 8, .NET 9, and .NET 10 where an attacker can exploit the HTTP/2 protocol to ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-20T23:02:43Z",
-      "cve_ids": [
-        "CVE-2026-50651"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "e142bc408254e6ecbabe281a4b38595f4a022c298bcfd4f7e3c9a83e81c21070",
-      "url": "https://github.com/advisories/GHSA-74jp-vm22-8q8x",
-      "title": "GHSA: Microsoft Security Advisory CVE-2026-50659 – .NET Spoofing Vulnerability",
-      "summary": "## Executive summary\n\nMicrosoft is releasing this security advisory to provide information about a vulnerability in .NET SMTP client (System.Net.Mail). This advisory also provides guidance on what developers can do to update their applications to remove this vulnerability.\n\nA spoofing vulnerability exists in the SMTP client implementation (System.Net.Mail) in .NET 8, .NET 9, and .NET 10, where an ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-20T23:02:29Z",
-      "cve_ids": [
-        "CVE-2026-50659"
-      ],
-      "cvss": 6.5,
-      "related_links": []
     }
   ]
 }
