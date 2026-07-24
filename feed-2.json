@@ -1,10 +1,52 @@
 {
-  "updated": "2026-07-23T21:04:08.455510+00:00",
+  "updated": "2026-07-24T02:40:51.189948+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "fca258c06abb04c19167fdf72e2cc74ad278d934e1a9c83e6c9fa3c8d6951a86",
+      "url": "https://github.com/advisories/GHSA-vrhc-jjfc-m3m3",
+      "title": "GHSA: Gitea: OAuth2 sign-in reactivates an administrator-deactivated account on auth sources without refresh tokens (incomplete fix of #38009)",
+      "summary": "## Description\n\nGitea's OAuth2 sign-in callback reactivates a deactivated user account (`IsActive=false`) when the user signs in through an authentication source that does not issue refresh tokens (notably GitHub, and any OIDC/OAuth2 source configured without `offline_access`). PR #38009 added a gate intended to reactivate users only when the OAuth2 auto-sync cron had disabled them, using \"the sto",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-21T21:02:10Z",
+      "cve_ids": [
+        "CVE-2026-55987"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "80b8a4e51f48a692d63bb023c41c2bd34ace8fee0e46e92786d823f8a9e316f8",
+      "url": "https://github.com/advisories/GHSA-rh79-75qm-gwjr",
+      "title": "GHSA: Gitea LFS Deploy-Key Privilege Escalation",
+      "summary": "## Vulnerability Header\n\n| Field               | Value                                                       |\n| ------------------- | ----------------------------------------------------------- |\n| Vulnerability Title | Gitea LFS Deploy-Key Privilege Escalation                   |\n| Severity Rating     | High                                                        |\n| Bug Category        | Insuffi",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-21T21:00:51Z",
+      "cve_ids": [
+        "CVE-2026-58435"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "179b72e1a0a26a5f309881f5b621777623a38fb132c1f7a099ff939a9bd7e853",
+      "url": "https://github.com/advisories/GHSA-m932-crvm-gcp5",
+      "title": "GHSA: Gitea: Null Pointer Dereference in AddTime API Causes Authenticated Denial of Service",
+      "summary": "### Summary\n\nThe AddTime API handler continues execution after an error returned by `GetUserByName()`.\n\nWhen a repository administrator specifies a non-existent user name, an error response is generated but execution does not stop. Subsequent code dereferences a nil user pointer, resulting in a runtime panic.\n\n### Details\n\nAffected endpoint:\n\n```http\nPOST /api/v1/repos/{owner}/{repo}/issues/{index",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-21T20:59:14Z",
+      "cve_ids": [
+        "CVE-2026-55984"
+      ],
+      "cvss": 2.7,
+      "related_links": []
+    },
     {
       "id": "c803502f6147e987a6859f8010ec3e630aa46b97005eb465759d5b10c2a244b7",
       "url": "https://github.com/advisories/GHSA-94v3-77j7-vm48",
@@ -639,50 +681,6 @@
       "cve_ids": [],
       "cvss": 3.7,
       "related_links": []
-    },
-    {
-      "id": "8af8c6e50bc09934f841ff9d9a761e5d222d6acc7b91159653e01b953302ec9b",
-      "url": "https://github.com/advisories/GHSA-v422-hmwv-36x6",
-      "title": "GHSA: body-parser vulnerable to denial of service when invalid limit value silently disables size enforcement",
-      "summary": "### Impact\n\nWhen body-parser is configured with an invalid `limit` option value, such as an unparseable string or `NaN`, `bytes.parse()` returns `null` and the request body size check is silently skipped. Applications that rely on `limit` as their primary safeguard against oversized request bodies will accept arbitrarily large payloads, leading to excessive memory and CPU usage and denial of servi",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-20T23:23:26Z",
-      "cve_ids": [
-        "CVE-2026-12590"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "4466276105f8b8697f53886d184ada469c9826f9cea4dfc891c115791d9a5e72",
-      "url": "https://github.com/advisories/GHSA-8j5q-mfj2-5q9q",
-      "title": "GHSA: @astrojs/rss: XML Injection via Unescaped RSS Feed Fields",
-      "summary": "## Summary\n\nIn `@astrojs/rss`, the `source.title` and `enclosure.type` item fields are interpolated directly into XML template strings without XML-character escaping before being parsed by `fast-xml-parser`. An attacker who controls these field values can inject arbitrary XML elements into the generated RSS feed.\n\n## Details\n\nTwo fields in `packages/astro-rss/src/index.ts` are affected:\n\n### `sour",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-20T23:21:47Z",
-      "cve_ids": [
-        "CVE-2026-59728"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "3fd79daa1d8e501cf089b5f7a0c393827de09347e1f6f9c0020a7a9aeb14bfc0",
-      "url": "https://github.com/advisories/GHSA-9hw9-ch79-4vh6",
-      "title": "GHSA: Pillow: Controlled heap out-of-bounds write in Pillow `ImageCmsTransform.apply()` via output mode mismatch",
-      "summary": "### Summary\n\nPillow's public `ImageCms.ImageCmsTransform.apply(im, imOut)` API can trigger\ncontrolled native heap corruption when the caller supplies an output image whose\nmode does not match the transform's declared output mode.\n\nFor example, a transform built as `RGBA -> RGBA` can be applied to an `L` output\nimage. Pillow checks dimensions only, then calls LittleCMS with the output row\npointer. ",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-07-20T23:19:00Z",
-      "cve_ids": [
-        "CVE-2026-59205"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-59205"
-      ]
     }
   ]
 }
