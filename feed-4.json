@@ -1,10 +1,52 @@
 {
-  "updated": "2026-07-27T14:33:53.307517+00:00",
+  "updated": "2026-07-27T17:41:58.315101+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "c803502f6147e987a6859f8010ec3e630aa46b97005eb465759d5b10c2a244b7",
+      "url": "https://github.com/advisories/GHSA-94v3-77j7-vm48",
+      "title": "GHSA: Gitea: Internal API HTTP client hardcodes InsecureSkipVerify:true with no config override",
+      "summary": "Summary\n\nGitea's internal API HTTP client (modules/private/internal.go) hardcodes\nTLSClientConfig.InsecureSkipVerify = true with no configuration override. It is the only\noutbound TLS client in the codebase that cannot be made to verify its peer's certificate —\nwebhook, migrations, MinIO, LDAP, SMTP, Redis and incoming-mail all expose a secure-by-default\nSkipVerify toggle, this one does not.\n\nWhen",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-07-21T20:41:25Z",
+      "cve_ids": [
+        "CVE-2026-54481"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "c3aa5208b6565d595f73b88a65f316b916ba16d9f3ff9731d7c3b3190e497812",
+      "url": "https://github.com/advisories/GHSA-6cqf-375w-639g",
+      "title": "GHSA: Gitea: RSS/Atom feed handlers bypass API-token scope & public-only confinement (incomplete fix of #37698)",
+      "summary": "### Summary\n\nGitea's RSS/Atom feed handlers accept API-token Basic auth but perform **no token-scope or\npublic-only enforcement**. A personal access token that is correctly blocked (HTTP 403) from a\nprivate repository on `/raw`, `/media`, `/archive`, and `/releases/download/...` — because it is\nmarked *public-only* or lacks the `repository` scope category — still returns that repository's\nprivate ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-21T20:40:24Z",
+      "cve_ids": [
+        "CVE-2026-50105"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "5a6897fd4ab83e1cce288f803ed0c5a1af6c29f1d8d258ac7857306a8c34a666",
+      "url": "https://github.com/advisories/GHSA-fj8v-hjwv-qm88",
+      "title": "GHSA: Gitea: Fork-PR Actions task can read a third private repository via the collaborative-owner branch (missing fork-PR guard)",
+      "summary": "### Summary\n\n`GetActionsUserRepoPermission` (`models/perm/access/repo_permission.go`) decides whether an Actions\ntask token may access a target repo. Its cross-repo branches each enforce a fork-PR discriminator —\n**except the collaborative-owner branch**, which is missing the `!task.IsForkPullRequest` guard that\nits sibling has. As a result, when a private repo **B** lists owner **A** as a collabo",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-21T20:40:03Z",
+      "cve_ids": [
+        "CVE-2026-58416"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
     {
       "id": "ef1afc63b53109a9959cb9b1a3e61da088bc6d0fd307894f25a6f619377faa97",
       "url": "https://github.com/advisories/GHSA-wwqq-x6w4-frm2",
@@ -642,50 +684,6 @@
       "cvss": 7.5,
       "related_links": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-59205"
-      ]
-    },
-    {
-      "id": "8093b723d3c17727b177e061a9cd0eb7654a0b2a716b5dab12e1bb023a1a0745",
-      "url": "https://github.com/advisories/GHSA-pg7v-jwj7-p798",
-      "title": "GHSA: Pillow EpsImagePlugin negative %%BeginBinary byte count causes infinite loop denial of service",
-      "summary": "### Summary\n\nPillow's EPS parser (PIL/EpsImagePlugin.py) accepts a negative byte count in the %%BeginBinary directive. A crafted EPS file can cause Image.open() to seek backwards to the same directive and parse it repeatedly, resulting in an infinite loop and CPU denial of service.\n\nThe issue is triggered during Image.open(), does not require Image.load(), and does not require Ghostscript executio",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-20T23:11:51Z",
-      "cve_ids": [
-        "CVE-2026-59203"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "5d8a65c6578080950e70946fb02851ce4a1e88dfb5c6956cf2905df3659160e8",
-      "url": "https://github.com/advisories/GHSA-jjj6-mw9f-p565",
-      "title": "GHSA: Pillow: Decompression Bomb DoS via PdfParser.PdfStream.decode()",
-      "summary": "### Summary\n`PdfParser.PdfStream.decode()` in Pillow's `PdfParser.py` calls `zlib.decompress()` with the `bufsize` parameter set to the value of the PDF stream's `Length` field, without any upper bound on the actual decompressed output size. Python's `zlib.decompress()` `bufsize` argument is an *initial output buffer hint*, not a maximum size limit — the function will expand memory until the full ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-20T23:11:29Z",
-      "cve_ids": [
-        "CVE-2026-59200"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "715809d2e30894fab544a9715240e9145d38e1f4422aebbc070972bb525ca6d9",
-      "url": "https://github.com/advisories/GHSA-6r8x-57c9-28j4",
-      "title": "GHSA: Pillow: Heap out-of-bounds write `Image.paste()` / `Image.crop()` via signed coordinate overflow",
-      "summary": "### Summary\n\nPillow's public image coordinate APIs can trigger a native heap out-of-bounds\nwrite when given coordinates near the signed 32-bit integer limits. In 4-byte\npixel modes such as `RGBA`, this becomes a controlled backward heap underwrite:\nfor a source image of width `W`, Pillow writes `4 * W` attacker-controlled bytes\nstarting `4 * W` bytes before the destination row pointer. With succes",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-20T23:09:53Z",
-      "cve_ids": [
-        "CVE-2026-59199"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-59199"
       ]
     }
   ]
