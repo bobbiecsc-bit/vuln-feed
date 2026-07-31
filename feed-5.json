@@ -1,10 +1,52 @@
 {
-  "updated": "2026-07-31T02:49:32.834233+00:00",
+  "updated": "2026-07-31T06:43:25.213876+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "07d51189c57f60b2be5d658c3741c3e6d23e9fdc5a8250377d87fcc89f316a51",
+      "url": "https://github.com/advisories/GHSA-g9j2-8w95-3vwv",
+      "title": "GHSA: Cloudreve: Denial of Service - Image decompression / pixel bomb in thumbnail & avatar decoding crashes the server",
+      "summary": "## Summary\n\nCloudreve's built-in image processor decodes user-supplied images with Go's standard-library decoders (`image/png`, `image/jpeg`, `image/gif`) and guards **only the compressed file size** — never the *decoded* pixel dimensions. Go's decoders allocate a pixel buffer sized `bytesPerPixel × width × height` taken straight from the image header (e.g. a PNG's IHDR), with no upper bound on `w",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-24T20:48:10Z",
+      "cve_ids": [
+        "CVE-2026-55497"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "ec9ac651a29d443b8209176adfb45dfcd42844dcac63bd60d0e370d637c2c2a3",
+      "url": "https://github.com/advisories/GHSA-8r7f-r8hj-r3rv",
+      "title": "GHSA: Cloudreve: Information Exposure in `GET /api/v4/user/search`: `SearchActive` omits the active-status predicate, leaking inactive/banned account emails",
+      "summary": "## Summary\n \n`GET /api/v4/user/search` is available to any logged-in user. The service calls `userClient.SearchActive`, but despite its name that method filters only by email/nickname keyword and **never adds a `StatusActive` predicate** — while the sibling lookups `GetActiveByID` and `GetActiveByDavAccount`, defined a few lines above it, do. Search hits are serialized at `RedactLevelUser`, which ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-24T20:46:49Z",
+      "cve_ids": [
+        "CVE-2026-55496"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "4db3d19424fc25086c955b43c1da56a563e0005bb85410296763756625b7cb6b",
+      "url": "https://github.com/advisories/GHSA-49h3-cwhj-4737",
+      "title": "GHSA: Cloudreve: Path Traversal in WOPI PUT_RELATIVE Allows Arbitrary File Creation in Owner Account",
+      "summary": "## Summary\n \nCloudreve's WOPI `PUT_RELATIVE` handler treats `X-WOPI-SuggestedTarget` as a path, not a filename. It splits the header on `/` and joins the segments onto the source file's directory with `URI.JoinRaw`, which feeds Go's `url.JoinPath`. `url.JoinPath` resolves `.`/`..` segments, so a slash-bearing target such as `a/../../evil.docx` collapses to a location outside the source file's dire",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-24T20:41:16Z",
+      "cve_ids": [
+        "CVE-2026-55495"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
     {
       "id": "f80f0be8edaa5af6bd264c0db9bedbc857571de8af5acedb8529b581bbb2fbb9",
       "url": "https://github.com/advisories/GHSA-6v4j-43gg-vj32",
@@ -528,143 +570,101 @@
       "related_links": []
     },
     {
-      "id": "f0c660eb9ef2777ff84295c832f5f54d3879ead53556fea7bce7892a233b4615",
-      "url": "https://github.com/advisories/GHSA-mv8w-475r-vwqw",
-      "title": "GHSA: seroval: `seroval.fromJSON()` Promise resolver type confusion invokes attacker-controlled methods during deserialization",
-      "summary": "## Summary\n\nA type confusion issue in `seroval.fromJSON()` allowed attacker-controlled JSON input to cause Promise control nodes to operate on values from the general deserialization reference table without first verifying that those values were genuine internal promise resolver records.\n\nIn applications that deserialize untrusted Seroval JSON with plugins enabled, this could allow attacker-contro",
-      "source": "GitHub Advisory",
+      "id": "eb627fd5054fc06bcc80c7a9adcd81174bf27a2b3aced9318728a5b38c16d176",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64224",
+      "title": "CVE-2026-64224",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nocteontx2-pf: fix double free in rvu_rep_rsrc_init()\n\nrvu_rep_rsrc_init() allocates queue memory before calling\notx2_init_hw_resources(). When hardware resource setup fails,\notx2_init_hw_resources() already unwinds the partially initialized\nSQ, CQ, and aura state before returning an error. The representor\nerror path then calls ot",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-07-24T16:14:05Z",
+      "date": "2026-07-24T16:16:51.320",
       "cve_ids": [
-        "CVE-2026-59940"
+        "CVE-2026-64224"
       ],
-      "cvss": 9.8,
+      "cvss": null,
       "related_links": []
     },
     {
-      "id": "ba2c0ef62cdab8d8dea75ba42da81087bdb0992d7726c613c7f30a710059a109",
-      "url": "https://github.com/advisories/GHSA-xx22-p4ch-683r",
-      "title": "GHSA: LZ4 Java: Native XXHash implementations can crash the JVM when passed invalid byte array ranges",
-      "summary": "### Summary\n\nInsufficient validation of byte array arguments in JNI-based XXHash implementations in lz4-java 1.11.0 and earlier allows callers to crash the JVM by passing an invalid array reference or invalid range to native XXHash methods.\n\nThis affects applications where an attacker can influence the byte array object or the `off` / `len` arguments passed to affected XXHash APIs. It does **not**",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-24T16:13:41Z",
-      "cve_ids": [
-        "CVE-2026-59949"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "d0bdd5cb6976141ef227bcfffb21b22d6f1410c25ff186cc2784f310e130d75c",
-      "url": "https://github.com/advisories/GHSA-rg4h-fpcp-2qm8",
-      "title": "GHSA: Microsoft Kiota: Generation-time SSRF + remote/local file inclusion via unrestricted $ref",
-      "summary": "## Summary\n\nMicrosoft Kiota resolved OpenAPI `$ref`s by fetching remote `http(s)` URLs and reading local files\n(including absolute / out-of-tree paths), inlining the referenced schema into the generated client.\nRunning `kiota generate` on a spec whose `$ref` pointed at an attacker/internal URL or an arbitrary\nlocal file yielded SSRF, remote file inclusion, and local file inclusion. Verified on **1",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-24T16:10:17Z",
-      "cve_ids": [
-        "CVE-2026-59867"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "744a6dc21f434eafb8db99cf530efa865b94dacf0c58b5216b09aed922fb5e76",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-8789",
-      "title": "CVE-2026-8789 — CVSS 8.1",
-      "summary": "The Easy Appointments plugin for WordPress is vulnerable to unauthorized modification of data due to a missing capability check and missing nonce verification on the `ea_delete_multiple_connections` AJAX action in all versions up to, and including, 3.12.27. This makes it possible for authenticated attackers, with Contributor-level access and above, to delete arbitrary connection records from the `",
+      "id": "1c2d1a083142d0795581cad0e7b8bc7c4984cdc6fe0521a604b461d9de6f7258",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64223",
+      "title": "CVE-2026-64223 — CVSS 8.1",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nwifi: mac80211: consume only present negotiated TTLM maps\n\nieee80211_tid_to_link_map_size_ok() validates negotiated TTLM elements\nagainst the number of link-map entries indicated by link_map_presence.\nieee80211_parse_neg_ttlm() must consume the same layout.\n\nThe parser advanced its cursor for every TID, including TIDs whose\nprese",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-07-24T15:19:08.320",
+      "date": "2026-07-24T16:16:50.197",
       "cve_ids": [
-        "CVE-2026-8789"
+        "CVE-2026-64223"
       ],
       "cvss": 8.1,
       "related_links": []
     },
     {
-      "id": "450bb1e5ed11ad4b12198646c10bbaab1c14914067120dfdfb298d66ff7ef56f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-8308",
-      "title": "CVE-2026-8308 — CVSS 6.1",
-      "summary": "Improper neutralization of input during web page generation ('cross-site scripting') vulnerability in Polen Media Software and Information Services Website Template allows Reflected XSS.\n\nThis issue affects Website Template: before v2.",
+      "id": "b6d50e45d313314447d656cd92730b763923c4736348446cf77ab4579f84bc44",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64222",
+      "title": "CVE-2026-64222 — CVSS 7.0",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nocteontx2-pf: avoid double free of pool->stack on AQ init failure\n\notx2_pool_aq_init() frees pool->stack when mailbox sync or retry\nallocation fails, but leaves the pointer unchanged. Later,\notx2_sq_aura_pool_init() unwinds the partial setup through\notx2_aura_pool_free(), which frees pool->stack again. The CN20K-specific\ncn20k_po",
       "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-07-24T15:19:08.187",
+      "category": "infrastructure",
+      "date": "2026-07-24T16:16:50.053",
       "cve_ids": [
-        "CVE-2026-8308"
+        "CVE-2026-64222"
       ],
-      "cvss": 6.1,
+      "cvss": 7.0,
       "related_links": []
     },
     {
-      "id": "f4da12ef569be36ff532c7538255fbd280dd29e69cdcaa9dc6263aa93dad7c0a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66007",
-      "title": "CVE-2026-66007 — CVSS 6.5",
-      "summary": "Datasets through 5.0.0, fixed in commit f989ef9, contains a path traversal vulnerability in folder-based dataset builders where the file_name metadata field is not properly validated before being joined to the dataset directory. Attackers can supply crafted file_name values with directory traversal sequences to read arbitrary local files, which are then embedded into output when save_to_disk or pu",
+      "id": "5e2045e3c794634773f125b13be39c685519dd0df7661c375a5c2b62dca25c86",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64217",
+      "title": "CVE-2026-64217 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfs: Fix overrun check in netfs_extract_user_iter()\n\nFix netfs_extract_user_iter() so that if iov_iter_extract_pages() overfills\npages[], then those pages don't get included in the iterator constructed at\nthe end of the function.  If there was an overfill, memory corruption has\nalready happened.",
       "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-07-24T15:19:07.493",
+      "category": "infrastructure",
+      "date": "2026-07-24T16:16:49.417",
       "cve_ids": [
-        "CVE-2026-66007"
+        "CVE-2026-64217"
       ],
-      "cvss": 6.5,
+      "cvss": 7.8,
       "related_links": []
     },
     {
-      "id": "272ad4b0640f341d6284f4b73754ec629ba93d038229e0c4761b2931bacac686",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66006",
-      "title": "CVE-2026-66006 — CVSS 5.3",
-      "summary": "lakeFS through 1.83.0, fixed in commit 71a45ee, contains an authentication bypass vulnerability in the /setup_comm_prefs endpoint that allows unauthenticated attackers to overwrite operator metadata including email, name, and company after setup completion. Attackers can POST to this endpoint to modify security update preferences, disable security communications, and trigger falsified telemetry ev",
+      "id": "30f10caa098f3c5d30e3bf5e18a7b33eafa7814b7ba1a1dabd71eedde4debd1e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64216",
+      "title": "CVE-2026-64216 — CVSS 9.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnetfs: Fix potential UAF in netfs_unlock_abandoned_read_pages()\n\nnetfs_unlock_abandoned_read_pages(rreq) accesses the index of the folios it\nis wanting to unlock and compares that to rreq->no_unlock_folio so that it\ndoesn't unlock a folio being read for netfs_perform_write() or\nnetfs_write_begin().\n\nHowever, given that netfs_unlo",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-07-24T15:19:07.353",
+      "date": "2026-07-24T16:16:49.310",
       "cve_ids": [
-        "CVE-2026-66006"
+        "CVE-2026-64216"
       ],
-      "cvss": 5.3,
+      "cvss": 9.8,
       "related_links": []
     },
     {
-      "id": "34d5303a3885071630e94768c4ebc6aeb6cb9c09019313f8b524cfc2309ebc98",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66005",
-      "title": "CVE-2026-66005 — CVSS 6.3",
-      "summary": "Jan through 0.8.4, fixed in commit 3e1c1e7, contains a CORS misconfiguration vulnerability in its local API server that allows network-adjacent attackers to bypass trusted host restrictions by exploiting the server's replacement of user-configured trusted hosts with a wildcard that reflects arbitrary origins with credentials. Attackers on the local network or using DNS rebinding can reach the unau",
+      "id": "7761f8ed4e41625b6d80ba7666b928b7a0ff2c59e599c65f19ab0f3ecfb5d19e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64215",
+      "title": "CVE-2026-64215",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/msm/a6xx: Check kzalloc return in a8xx_hfi_send_perf_table\n\nCheck the return value of kzalloc() to prevent a NULL pointer\ndereference on allocation failure.\n\nPatchwork: https://patchwork.freedesktop.org/patch/721342/",
       "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-24T15:19:07.203",
+      "category": "infrastructure",
+      "date": "2026-07-24T16:16:49.193",
       "cve_ids": [
-        "CVE-2026-66005"
+        "CVE-2026-64215"
       ],
-      "cvss": 6.3,
+      "cvss": null,
       "related_links": []
     },
     {
-      "id": "8f91f8e5cb0e4cbd48cff4a2a99ae5ee8aeb9ff6c98cd23e7b85664af811b7ec",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66004",
-      "title": "CVE-2026-66004 — CVSS 5.3",
-      "summary": "BlenderMCP before commit 30a3308 contains a path traversal vulnerability in the download_polyhaven_asset method that allows attackers to write arbitrary files by injecting traversal sequences in API response include keys. Attackers performing MITM attacks or prompt injection can supply malicious paths like '../../.bashrc' to overwrite sensitive files and achieve persistent code execution.",
+      "id": "b50660df8ad940447e57a22114f9099ffa945b918554857a81d3d0d40314cc74",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64214",
+      "title": "CVE-2026-64214",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\npowerpc/time: Remove redundant preempt_disable|enable() calls from arch_irq_work_raise()\n\nA kernel panic is observed when handling machine check exceptions from\nreal mode.\n\n  BUG: Unable to handle kernel data access on read at 0xc00000006be21300\n  Oops: Kernel access of bad area, sig: 11 [#1]\n  MSR:  8000000000001003 <SF,ME,RI,LE",
       "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-07-24T15:19:07.050",
+      "category": "infrastructure",
+      "date": "2026-07-24T16:16:49.053",
       "cve_ids": [
-        "CVE-2026-66004"
+        "CVE-2026-64214"
       ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "75d61280abb94ede0e21d9640e00aaa63aa63ada2dffb061d47b2a03dc442fc7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58630",
-      "title": "CVE-2026-58630 — CVSS 10.0",
-      "summary": "Improper access control in Azure App Service allows an unauthorized attacker to elevate privileges over a network.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-24T15:18:47.847",
-      "cve_ids": [
-        "CVE-2026-58630"
-      ],
-      "cvss": 10.0,
+      "cvss": null,
       "related_links": []
     }
   ]
