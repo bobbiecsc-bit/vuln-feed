@@ -1,10 +1,122 @@
 {
-  "updated": "2026-07-31T21:03:26.118207+00:00",
+  "updated": "2026-08-01T02:47:50.772188+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "b413b58525072f510b0e1229803d2544c70618d5145c2c0060aab4479bf1506a",
+      "url": "https://github.com/advisories/GHSA-vx7x-vcc2-c44g",
+      "title": "GHSA: datamodel-code-generator vulnerable to SSRF protection bypass via DNS rebinding",
+      "summary": "### Summary\n\n`datamodel-code-generator`'s anti-SSRF guard validates the resolved IP of a fetch target once and then lets `httpx` perform its own independent DNS resolution to connect, so the validated address is never pinned. A hostname that resolves to a public IP at validation time and a private IP at connection time (DNS rebinding) bypasses the guard and reaches loopback, link-local cloud-metad",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-28T21:45:48Z",
+      "cve_ids": [
+        "CVE-2026-55391"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "36ee5086f24a2ad1c40b96bc08dc31616de8bac34e719665ce309b10f687d3d3",
+      "url": "https://github.com/advisories/GHSA-8m8r-38jm-f355",
+      "title": "GHSA: `datamodel-code-generator` vulnerable to code execution on import via unescaped `validators` entries in --extra-template-data",
+      "summary": "### Summary\n\nWhen the Pydantic v2 output mode is in use, `datamodel-code-generator` reads a `validators` array from each model entry in the `--extra-template-data` file and synthesises a Pydantic `@field_validator(...)` decorator from each entry. The field names and the validator mode are interpolated into the decorator call wrapped in *unescaped* single quotes. A value containing `'` breaks out o",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-28T21:44:09Z",
+      "cve_ids": [
+        "CVE-2026-54656"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "70e443d9014fc516dd85c5ed0239b38b937c3d2931687e2e2b592371a6007919",
+      "url": "https://github.com/advisories/GHSA-954p-556p-r752",
+      "title": "GHSA: datamodel-code-generator vulnerable to SSRF via JSON-Schema `$ref` to HTTP URL (silent by default)",
+      "summary": "### Summary\n\nJSON-Schema `$ref` values pointing at HTTP or HTTPS URLs are silently dereferenced by `datamodel-code-generator` with no IP/host validation, no scheme allow-list, and redirects followed unconditionally. The `--allow-remote-refs` gate added in 0.56.0 defaults to `None`, which only emits a deprecation warning and then fetches the URL anyway; only explicit `--allow-remote-refs=false` blo",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-28T21:42:22Z",
+      "cve_ids": [
+        "CVE-2026-54690"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "4c2756efe67340bb4792f36a52100172b3c42c5589407786fff55538d1ac54ce",
+      "url": "https://github.com/advisories/GHSA-5578-w22f-pfx9",
+      "title": "GHSA: datamodel-code-generator vulnerable to code injection via `x-python-import` / `customTypePath` in generated import statements",
+      "summary": "#### Summary\n\nA malicious input schema (OpenAPI / JSON Schema) can execute arbitrary Python code on the machine that **imports** the generated model. The `x-python-import` and `customTypePath` schema extensions flow, unsanitized, into the `import` statements datamodel-code-generator emits. A newline embedded in the extension value breaks out of the `from … import …` line and injects an attacker-co",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-28T21:40:20Z",
+      "cve_ids": [
+        "CVE-2026-55415"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "c8969223050c581e89ae78ab60dcb575bfc52f405927501acbd9c7bf01b071d2",
+      "url": "https://github.com/advisories/GHSA-j884-q54q-mmx3",
+      "title": "GHSA: `datamodel-code-generator` vulnerable to code injection via unescaped carriage return in GraphQL Union description",
+      "summary": "### Summary\n\n`datamodel-code-generator` is vulnerable to code injection when generating Python models from an attacker-controlled GraphQL schema. A description on a Union type, written in the regular-string form (`\"...\"`) with a literal `\\r` escape, is rendered into a Python `#` comment by a Jinja2 filter that handles only `\\n`. Python's tokenizer treats a bare CR as a physical-line terminator, so",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-28T21:35:49Z",
+      "cve_ids": [
+        "CVE-2026-54621"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "00f9a032b375cda779b3d628082a0f1108f28ef9a2131c21882d5824cc9fc70c",
+      "url": "https://github.com/advisories/GHSA-m34r-v34r-rf9q",
+      "title": "GHSA: `datamodel-code-generator` vulnerable to code execution on import via `x-python-type` JSON-Schema extension in datamodel-code-generator",
+      "summary": "### Summary\n`datamodel-code-generator` honours a custom `x-python-type` JSON-Schema extension that lets a schema author override the generated Python type for a field. The value is forwarded verbatim into the generated Python source as the field annotation, with a single sanitisation pass that is trivial to bypass. An attacker who controls a JSON Schema fed to `datamodel-codegen` can therefore emb",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-28T21:33:57Z",
+      "cve_ids": [
+        "CVE-2026-54655"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "e1582367724f6190fb32d796fa41bf048773de0f86348f05b58f542b20facf53",
+      "url": "https://github.com/advisories/GHSA-r5vv-ff45-prp2",
+      "title": "GHSA: datamodel-code-generator: Authorization / request headers leaked to cross-origin redirect target when fetching remote schemas",
+      "summary": "### Summary\n\nWhen `datamodel-code-generator` fetches a remote schema and follows an HTTP redirect, it re-sends the original request headers, including any `Authorization` header, to the redirect target even when the redirect changes origin (host/port/scheme). Credentials that an operator scoped to a trusted schema host are therefore forwarded to an attacker-controlled or otherwise different host, ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-28T21:32:08Z",
+      "cve_ids": [
+        "CVE-2026-55403"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "4f4e6863dac39024d4852ac9dd73f83ae24be2d29f50f9c760d17487090393af",
+      "url": "https://github.com/advisories/GHSA-rfr2-mq9m-x2qx",
+      "title": "GHSA: datamodel-code-generator vulnerable to SSRF via --url: no host/IP validation, follows redirects",
+      "summary": "### Summary\n\n`datamodel-code-generator`'s built-in HTTP fetcher (`http.get_body`) issues an `httpx.GET` against any URL passed to `--url` (or reached via a redirect chain) with **no allow-list, no deny-list, no IP/host validation, and `follow_redirects=True`**. Loopback addresses, RFC1918 ranges, link-local (`169.254.169.254` cloud metadata), unique-local IPv6 and any other network-accessible targ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-28T21:30:18Z",
+      "cve_ids": [
+        "CVE-2026-54691"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
     {
       "id": "352062e6bac4f51561bbec6b21005efb286bfa8481db65258ac7d6e159807656",
       "url": "https://github.com/advisories/GHSA-442q-2j6p-642g",
@@ -577,127 +689,15 @@
       "related_links": []
     },
     {
-      "id": "7cbd2d4fcd73a6ef7b3703676bc088f8bafc69fa4873e37a87ff913a52f65a51",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64338",
-      "title": "CVE-2026-64338",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nUSB: misc: uss720: unregister parport on probe failure\n\nuss720_probe() registers a parport before reading the 1284 register used\nto detect unsupported Belkin F5U002 adapters. If get_1284_register()\nfails, the error path drops the driver private data and the USB device\nreference, but leaves the parport device registered.\n\nLeaving ",
+      "id": "796faa96345a2d49ee63a482761200fa923f68da5a23331aede974b59670a5eb",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64351",
+      "title": "CVE-2026-64351",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: usb: kalmia: bound RX frame length in kalmia_rx_fixup()\n\nkalmia_rx_fixup() computes usb_packet_length = skb->len - (2 *\nKALMIA_HEADER_LENGTH) as a u16, guarded only by a pre-loop check that\nskb->len is at least KALMIA_HEADER_LENGTH, which is 6. A device can\ndeliver a short bulk-IN frame with skb->len in the 6 to 11 range, or",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-07-25T10:17:15.717",
+      "date": "2026-07-25T10:17:17.407",
       "cve_ids": [
-        "CVE-2026-64338"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "122a5a99f9064789fbbead20585a7aba40ac83f0619bd178c3d3ee7458deb18f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64337",
-      "title": "CVE-2026-64337",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nusb: mtu3: unmap request DMA on queue failure\n\nmtu3_gadget_queue() maps the request before checking whether\nthe QMU GPD ring can accept another transfer. the request is\nreturned with -EAGAIN before it is linked on the endpoint\nrequest list if mtu3_prepare_transfer() fails.\n\nNormal completion and dequeue paths unmap requests from\n",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-25T10:17:15.590",
-      "cve_ids": [
-        "CVE-2026-64337"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "6c07e2f11bd3efd8051559d9a22c11d8a31dcf65f4026f9c9e8e77e6d07e27bf",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64336",
-      "title": "CVE-2026-64336",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nUSB: serial: keyspan_pda: fix information leak\n\nThe write() callback is supposed to return the number of characters\naccepted or a negative errno. Since the addition of write fifo support\nthe keyspan_pda implementation will however return the number characters\nsubmitted to the device if the write urb is not already in use. If this",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-25T10:17:15.463",
-      "cve_ids": [
-        "CVE-2026-64336"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "155a6098c71f7fcae758569c3991ff0b78dc0b5fe234e467ddf2089c7feedb9c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64335",
-      "title": "CVE-2026-64335",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nUSB: serial: digi_acceleport: fix broken rx after throttle\n\nIf the port is closed while throttled, the read urb is never resubmitted\nand the port will not receive any further data until the device is\nreconnected (or the driver is rebound).\n\nClear the throttle flags and submit the urb if needed when opening the\nport.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-25T10:17:15.337",
-      "cve_ids": [
-        "CVE-2026-64335"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a6104b039b31973e9e04abec9c5228e990e14600e94effa13600556e3f009354",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64334",
-      "title": "CVE-2026-64334",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nUSB: serial: digi_acceleport: fix hard lockup on disconnect\n\nIf submitting the OOB write urb fails persistently (e.g if the device is\nbeing disconnected) the driver would loop indefinitely with interrupts\ndisabled.\n\nCheck for urb submission errors when sending OOB commands to avoid\nhanging if, for example, open(), set_termios() o",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-25T10:17:15.207",
-      "cve_ids": [
-        "CVE-2026-64334"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "16eb3df5922ec94a55426d2d8e52e6b9c3dbfc8af8064e6f62b2f7e3a630ee16",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64333",
-      "title": "CVE-2026-64333 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nUSB: serial: digi_acceleport: fix write buffer corruption\n\nThe digi_write_inb_command() is supposed to wait for the write urb to\nbecome available or return an error, but instead it updates the transfer\nbuffer and tries to resubmit the urb on timeout.\n\nTo make things worse, for commands like break control where no timeout\nis used,",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-25T10:17:15.080",
-      "cve_ids": [
-        "CVE-2026-64333"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "b7d7f648f7812398ccd0a95f7a575f7655502ca320d5be6b0f52a2f66615b125",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64332",
-      "title": "CVE-2026-64332",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nUSB: ulpi: fix memory leak on registration failure\n\nThe allocated device name is never freed on early ULPI device\nregistration failures.\n\nFix this by initialising the device structure earlier and releasing the\ninitial reference whenever registration fails.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-25T10:17:14.950",
-      "cve_ids": [
-        "CVE-2026-64332"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "e9905cb6621e64cf3545e63343b841e420b8280f5bcd71875a7c4fe5fd26c765",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64331",
-      "title": "CVE-2026-64331",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nusbip: vudc: fix NULL deref in vep_dequeue()\n\nvep_alloc_request() wasn't initializing vrequest->udc, so cancellations\non the FunctionFS AIO path were arriving in vep_dequeue without a valid\nUDC reference.\n\nSince vrequest->udc is never actually properly used anywhere, we opt to\nremove it, and update vep_dequeue to obtain a referen",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-25T10:17:14.813",
-      "cve_ids": [
-        "CVE-2026-64331"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "8e2a7ad7afc8a966296e211daef3cb6042c90dd7bd89ac397ef6f590c9a2a4a6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64330",
-      "title": "CVE-2026-64330",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nusb: typec: tcpm: Validate SVID index in svdm_consume_modes()\n\nIn svdm_consume_modes(), the SVID value is read from pmdata->svids using\npmdata->svid_index as an array index without bounds validation:\n\n    paltmode->svid = pmdata->svids[pmdata->svid_index];\n\nIf pmdata->svid_index is driven beyond SVID_DISCOVERY_MAX (16), it result",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-25T10:17:14.673",
-      "cve_ids": [
-        "CVE-2026-64330"
+        "CVE-2026-64351"
       ],
       "cvss": null,
       "related_links": []

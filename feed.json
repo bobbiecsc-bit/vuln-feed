@@ -1,10 +1,122 @@
 {
-  "updated": "2026-07-31T21:03:26.118207+00:00",
+  "updated": "2026-08-01T02:47:50.772188+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "e33a915a16c03db234e82f2788924f8bfb109766332abb311fe8cde5dc430933",
+      "url": "https://github.com/advisories/GHSA-vvp7-h4fj-m28w",
+      "title": "GHSA: FileBrowser Quantum's path traversal issue in subtitle handler allows any authenticated user to read arbitrary files",
+      "summary": "### Summary\n\nThe `subtitlesHandler` endpoint (`GET /api/media/subtitles`) accepts two user-controlled query parameters: `path` and `name`, both of which are used in filesystem operations without sanitization, creating two independent path traversal vectors.\n\nThe primary vector is the `path` parameter: it is passed directly to `idx.GetRealPath()` without calling `SanitizeUserPath()`, allowing an at",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-31T22:35:05Z",
+      "cve_ids": [
+        "CVE-2026-54910"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "f9731404f9a7daf9edb4e34b91d3b11be7321d948b9170208c1c54faf0f86baa",
+      "url": "https://github.com/advisories/GHSA-c5px-58j2-7fqp",
+      "title": "GHSA: gemini-bridge vulnerable to arbitrary local file read via consult_gemini_with_files inline mode",
+      "summary": "### Summary\n`consult_gemini_with_files` in **inline mode** read any file path supplied in\nthe `files` argument without confining it to the working `directory`, then\nforwarded the contents to the Gemini CLI. Because the caller also controls\n`query`, the file contents are echoed back through the Gemini round-trip\n(and sent to Google), making this an arbitrary local file read.\n\n### Impact\nAn MCP clie",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-31T22:31:20Z",
+      "cve_ids": [
+        "CVE-2026-54785"
+      ],
+      "cvss": 6.2,
+      "related_links": []
+    },
+    {
+      "id": "47fbf4757aa6b16e1f2e5bc859ca4ccf83353b253c357cef5d0c38c7b326c698",
+      "url": "https://github.com/advisories/GHSA-34rh-wp3j-6cxc",
+      "title": "GHSA: Pion STUN vulnerable to remote denial of service via panic while parsing a malformed XOR-MAPPED-ADDRESS attribute",
+      "summary": "### Impact\nRemote denial of service via panic while parsing a malformed XOR-MAPPED-ADDRESS attribute\n\n### Patches\nUpgrade to v3.1.5 or later. This version includes this patch https://github.com/pion/stun/pull/278 which fixes the issue.\n\n### Workarounds\nNo work around; please upgrade to v3.1.5 or a newer version.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-31T22:03:42Z",
+      "cve_ids": [
+        "CVE-2026-54909"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "46a73c69659653d4ec09709874a881f860d5aebfc9aee0994533e58ece6ce025",
+      "url": "https://github.com/advisories/GHSA-wqqc-jjcq-vfxm",
+      "title": "GHSA: sigstore-go fails to check signature timestamps against a signing key's validity period",
+      "summary": "sigstore-go fails to check signature timestamps against a signing key's validity period for self-managed long-lived keys without certificates.\n\n## Impact\n\nTo verify a bundle with a self-managed long-lived key, the key needs to be wrapped in an `ExpiringKey` type that implies expiration semantics:\n\n```go\nsignatureVerifier, _ := signature.LoadDefaultVerifier(publicKey)\nexpiredKey := root.NewExpiring",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-31T21:58:39Z",
+      "cve_ids": [
+        "CVE-2026-54787"
+      ],
+      "cvss": 3.1,
+      "related_links": []
+    },
+    {
+      "id": "948c63b3de675b28f5bde751fe8997ca01f77449a2942e6dcb45004195994092",
+      "url": "https://github.com/advisories/GHSA-wf43-fpp3-cf65",
+      "title": "GHSA: @apostrophecms/seo Vulnerable to Stored XSS via Unsanitized Google Analytics / GTM ID Injected into Script Tag",
+      "summary": "<img width=\"1919\" height=\"1046\" alt=\"curl\" src=\"https://github.com/user-attachments/assets/8aa19ff1-7f4b-44ee-83d5-d0dd1a0269f6\" />\n<img width=\"1919\" height=\"775\" alt=\"xss\" src=\"https://github.com/user-attachments/assets/a65012e8-9b2f-416f-94df-c00493f2ca1d\" />\n\n### Summary\n\nThe `@apostrophecms/seo` package injects the Google Analytics Tracking ID (`seoGoogleTrackingId`) and Google Tag Manager ID ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-31T21:53:56Z",
+      "cve_ids": [
+        "CVE-2026-53608"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "9e9a3c83d9adc45ce8405bcf7857713d0cb0dea01bfec5c09d8084b82056e9cf",
+      "url": "https://github.com/advisories/GHSA-34pj-2622-jvxq",
+      "title": "GHSA: @apostrophecms/file pretty-URL Vulnerable to Unauthenticated SSRF via Host header",
+      "summary": "### Summary\n\nWhen `prettyUrls: true` is enabled on `@apostrophecms/file` (a documented SEO\nfeature for serving uploaded files at clean URLs), the public pretty-URL\nhandler builds the upstream URL using the raw `Host` HTTP request header:\n\n```js\nproxyUrl = `${req.protocol}://${req.get('host')}${uglyUrl}`\n```\n\nThat URL is then `fetch`'ed and the response body + headers are streamed\nstraight back to ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-31T21:51:41Z",
+      "cve_ids": [
+        "CVE-2026-53607"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "a211ec7fa1dbae91f3fabc3230fc9b999e640516bf4c3ec7b6a67922209bb09f",
+      "url": "https://github.com/advisories/GHSA-6h5j-32cf-4253",
+      "title": "GHSA: Apostrophe has Server-Side Prototype Pollution in apos.util.set via patch operators that leads to process-wide authorization bypass",
+      "summary": "<img width=\"1919\" height=\"1046\" alt=\"proto\" src=\"https://github.com/user-attachments/assets/c5c69718-6448-448d-b64b-e3db41ab6ff6\" />\n\n## Summary\n\n`apos.util.set()` traverses dot-notation paths without sanitizing `__proto__`, allowing an authenticated editor to write arbitrary values to `Object.prototype` via the `$pullAll` patch operator.\n\nA confirmed gadget in `publicApiCheck()` causes this to by",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-31T21:49:25Z",
+      "cve_ids": [
+        "CVE-2026-53609"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "fdc40281146f43c667ede10b4916b7e7f8d9345a63f95544264af7f4c869024a",
+      "url": "https://github.com/advisories/GHSA-vccv-cmxp-4j9h",
+      "title": "GHSA: sanitize-html has incomplete URI scheme validation in that allows javascript: URIs through action, formaction, data, poster, and background attributes",
+      "summary": "## Summary\n\nsanitize-html uses `allowedSchemesAppliedToAttributes` (default: `['href', 'src', 'cite']`) to gate the `naughtyHref()` function that blocks dangerous URI schemes like `javascript:` and `vbscript:`. The HTML specification defines 10+ attributes that accept URIs (`action`, `formaction`, `data`, `poster`, `background`, `ping`, `xlink:href`, `dynsrc`, `lowsrc`), but none of these are incl",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-31T21:43:51Z",
+      "cve_ids": [
+        "CVE-2026-53606"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
     {
       "id": "82a98e85f0b3838c62bde31acb9400c650e0af980c0ebbcbacd38a0da76e2662",
       "url": "https://github.com/advisories/GHSA-p849-8hwh-84j9",
@@ -571,118 +683,6 @@
       "date": "2026-07-30T15:14:40+00:00",
       "cve_ids": [],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3ab2251788b01c18a3ae09f71218473401491022e0daaad606731be0b65d610a",
-      "url": "https://github.com/advisories/GHSA-c9hr-64h3-gxpc",
-      "title": "GHSA: Flyto2 Core: Guarded HTTP modules follow redirects into internal space without per-hop SSRF revalidation",
-      "summary": "## Summary\nThe HTTP modules that DO call the SSRF guard (`http.get`, `http.request`, `http.batch`) validate only the initial URL, then issue the request with aiohttp's default `allow_redirects=True` and perform no per-hop revalidation. An attacker hosts a public URL that 302-redirects to an internal address; the guard passes on the public host and aiohttp transparently follows the redirect into in",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-30T14:48:16Z",
-      "cve_ids": [
-        "CVE-2026-67424"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "259c885c3763a6950a6cf0c200546760f08b621e02ac8ff9d80efc58f5dd0b49",
-      "url": "https://github.com/advisories/GHSA-pgwh-4jj4-qm8v",
-      "title": "GHSA: Flyto2 Core: Multiple HTTP-family modules fetch client-controlled URLs without the SSRF guard their siblings apply (SSRF to internal/metadata)",
-      "summary": "## Summary\nNumerous HTTP-emitting modules (`core.api.http_get`, `core.api.http_post`, `graphql.query`/`graphql.mutation`, `monitor.http_check`, `communication.slack_send`, `notification.{discord,slack,teams}.send_message`, `ai.vision_analyze` [anthropic path], `verify.visual_diff`, `browser.proxy_rotate`, and the `agent`/`llm` inline base_url branch) perform outbound requests to a fully client-con",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-30T14:48:05Z",
-      "cve_ids": [
-        "CVE-2026-67428"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "ec771c78d74bf83a4129fc14710a058b4b2d9521fa6bbbfe51aabeb87a2a6f6b",
-      "url": "https://github.com/advisories/GHSA-jx74-cqjv-2c67",
-      "title": "GHSA: Flyto2 Core: Unauthenticated flyto-verification /run: callback_url SSRF and internal runner-secret exfiltration",
-      "summary": "## Summary\nThe standalone `flyto-verification` service exposes `POST /run` with **no authentication**, on all interfaces (0.0.0.0:8344 per the shipped Dockerfile). The request body's `callback_url` is used verbatim for an outbound POST that **unconditionally attaches `X-Internal-Key: $FLYTO_RUNNER_SECRET`**. The `callback_url` bypasses the service's `target_allowed` allowlist (which only inspects ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-30T14:47:41Z",
-      "cve_ids": [
-        "CVE-2026-67426"
-      ],
-      "cvss": 9.3,
-      "related_links": []
-    },
-    {
-      "id": "7cc08fbaab5c7e4d38674e781f611e46715cbc75177a5cad13ab0a3ca17f03e0",
-      "url": "https://github.com/advisories/GHSA-qq9q-xgm3-xv9g",
-      "title": "GHSA: Flyto2 Core: LLM/API keys leak to an attacker-controlled base_url",
-      "summary": "## Summary\n\n`llm.chat` reads the operator's provider key from the environment (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, ...) and sends it in the `Authorization: Bearer` header to `base_url`, a parameter the caller controls. `base_url` is only checked against the SSRF guard, and the guard allows any public host, so pointing `base_url` at an attacker's server hands them the operator's key. flyto-core'",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-30T14:47:16Z",
-      "cve_ids": [
-        "CVE-2026-67425"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "29808309e41e7d1bd06ce453c165dc4a8acc6c6a76d4185ac908d1a13c3e61d4",
-      "url": "https://github.com/advisories/GHSA-hr7p-wg7r-hg9m",
-      "title": "GHSA: Flyto2 Core: ${env.VAR} interpolation reads any env secret despite env.get being denylisted",
-      "summary": "## Summary\n\nThe capability policy denies the `env.get` and `env.load_dotenv` modules by default, with the stated reason that they read arbitrary host environment variables (API keys, DSNs) and are a secret-exfil risk. But the workflow engine's variable resolver expands `${env.VAR}` for any environment variable with no allowlist and no policy check, so the exact capability the denylist blocks is av",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-07-30T14:47:01Z",
-      "cve_ids": [
-        "CVE-2026-67427"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "42072bd2f9110c71750a4c8f871f31e5fb8755d517930e08cebe17f72d23ca99",
-      "url": "https://github.com/advisories/GHSA-2956-977x-2w3r",
-      "title": "GHSA: Flyto2 Core: Arbitrary file write via image.download (and other file-writing modules)",
-      "summary": "## Summary\n\n`image.download` fetches a URL and writes the response to disk. It does not use the central path guard (`validate_path_with_env_config`, which confines writes to `FLYTO_SANDBOX_DIR`); instead it confines the output to `output_dir`, but `output_dir` is itself a caller parameter. Since the attacker sets both the target and the base it is checked against, the check is meaningless, and att",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-30T14:46:43Z",
-      "cve_ids": [
-        "CVE-2026-67429"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "5bcda088ca25bcfda20d54658ab66f580a468c5595479bec26b53d14b7f4d599",
-      "url": "https://github.com/advisories/GHSA-h669-8m4g-r2hc",
-      "title": "GHSA: MCP Ruby SDK: Unbounded JSON-RPC request body causes uncontrolled memory allocation in StreamableHTTPTransport",
-      "summary": "## Summary\n\nAn unauthenticated remote attacker can force any MCP Ruby SDK server using `MCP::Server::Transports::StreamableHTTPTransport` to allocate gigabytes of memory by sending a single oversized JSON-RPC POST. The transport reads the entire HTTP body into a Ruby `String` and parses it with `JSON.parse(body, symbolize_names: true)` with no size limit, no `Content-Length` pre-check, and no stre",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-30T14:44:06Z",
-      "cve_ids": [
-        "CVE-2026-67432"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "e231bbe9c75745e26b478a11666f750736590e9694ab29d75c7920b1ace9010f",
-      "url": "https://github.com/advisories/GHSA-52jp-gj8w-j6xh",
-      "title": "GHSA: MCP Ruby SDK: Unbounded session retention in StreamableHTTPTransport allows memory exhaustion via initialize flood",
-      "summary": "## Summary\n\nIn its default configuration, `MCP::Server::Transports::StreamableHTTPTransport` never expires sessions. Every successful `initialize` request stores a new `ServerSession` and a session record under a fresh UUID, and the only path that removes them is an explicit client-issued HTTP `DELETE`. An unauthenticated attacker can repeatedly initialize new sessions and immediately disconnect, ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-30T14:43:29Z",
-      "cve_ids": [
-        "CVE-2026-67430"
-      ],
-      "cvss": 5.3,
       "related_links": []
     }
   ]
