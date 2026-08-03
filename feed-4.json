@@ -1,10 +1,66 @@
 {
-  "updated": "2026-08-03T14:38:29.787971+00:00",
+  "updated": "2026-08-03T17:50:38.297375+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "dc2d8e06b227a67b3f87c6cef0f5d271af2adeb2694316377857ff71d145326a",
+      "url": "https://github.com/advisories/GHSA-hq33-8jgp-8qq3",
+      "title": "GHSA: goshs --no-delete WebDAV MOVE bypass allows file deletion/overwrite",
+      "summary": "## Summary\n\nThe WebDAV mode-flag guard added to fix GHSA-3whc-qvhv-xqjp still does not enforce `--no-delete` on the WebDAV `MOVE` verb. `MOVE` deletes the source file (rename removes it from its original path), and with `Overwrite: T` it additionally performs an explicit `RemoveAll` on the destination. Under `-w --no-delete`, `DELETE` is correctly blocked (403) but `MOVE` still destroys existing f",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-28T22:03:12Z",
+      "cve_ids": [
+        "CVE-2026-64863"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "7457bd5a56d3c3ec1532eaee983a86e10f43fe1c3dc0dc7a8db2008c2f7ec382",
+      "url": "https://github.com/advisories/GHSA-rmxw-pq4x-3fvh",
+      "title": "GHSA: goshs: File-based .goshs ACL authorization bypass via the ?bulk zip-download route (unauthenticated read; residual of GHSA-wvhv-qcqf-f3cx)",
+      "summary": "GHSA-wvhv-qcqf-f3cx fixed the per-folder .goshs ACL bypass on the state-changing routes (PUT/POST upload/?mkdir/?delete) and added recursive ACL resolution, and its description states the read/list path correctly enforces .goshs. That premise does not hold for the ?bulk zip-download route. bulkDownload (httpserver/updown.go) takes one or more ?file= parameters, runs each through sanitizePath(fs.We",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-28T21:59:48Z",
+      "cve_ids": [
+        "CVE-2026-54719"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "052c98ac7d86b5fa0b179a2bf3daf973e58d2732d1f9fa6ddee95efe694a8ab0",
+      "url": "https://github.com/advisories/GHSA-rjrw-mjq6-hpmm",
+      "title": "GHSA: goshs SFTP authentication bypass via empty password (incomplete fix of CVE-2026-40884)",
+      "summary": "## Summary\n\nStart goshs v2.1.3 with `-b 'admin:' -sftp`. No `-fkf`. SFTP accepts connections without password. CVE-2026-40884 blocks the empty-username variant (`-b ':pass'`). The empty-password variant bypasses that fix.\n\n## CVE-2026-40884\n\n**CVE-2026-40884** (GHSA-c29w-qq4m-2gcv, Apr 13 2026) reported the empty-username case: `-b ':pass'` with `-sftp`. `sftpserver.go:85` uses `&&`:\n\n```go\nif s.U",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-07-28T21:56:28Z",
+      "cve_ids": [
+        "CVE-2026-62325"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "f76df16af43e9560aa588e243bc7c6d7fba414486ae2a9beab88092008a44d88",
+      "url": "https://github.com/advisories/GHSA-wjv6-jcfj-mf9r",
+      "title": "GHSA: `datamodel-code-generator` vulnerable to code injection via unescaped carriage return in `--extra-template-data` `comment` field",
+      "summary": "### Summary\n\n`datamodel-code-generator` is vulnerable to code injection when a developer passes an `--extra-template-data` file whose `comment` value contains a literal `\\r` (carriage return). The `comment` variable is rendered into a Python `#` comment in six built-in templates with **no** line-terminator escaping. Python's tokenizer treats a bare CR as a physical-line terminator (see [Python lan",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-07-28T21:50:09Z",
+      "cve_ids": [
+        "CVE-2026-54654"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
     {
       "id": "9b9ea92dc0f3f0b60a5f792172d9bf82746f1e596fa6057128c706a0c2893003",
       "url": "https://github.com/advisories/GHSA-8359-h9fx-j6v9",
@@ -631,71 +687,17 @@
       "related_links": []
     },
     {
-      "id": "4911b57668ad6ecff18f653c4d0c22568c9da1fe487c319ec8892cf165afee01",
-      "url": "https://www.bleepingcomputer.com/news/security/new-certighost-poc-exploit-lets-attackers-hijack-windows-domains/",
-      "title": "New Certighost PoC exploit lets attackers hijack Windows domains",
-      "summary": "A proof-of-concept exploit for \"Certighost,\" a Windows Active Directory Certificate Services vulnerability, has been released that can allow authenticated attackers to potentially compromise a Windows domain. [...]",
-      "source": "Bleeping Computer",
-      "category": "infrastructure",
-      "date": "2026-07-27T21:00:25+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d1e523dc7b40c30d6e76dcdc7cb6e4552c032ba30aa3ce1b7ed657bc53b8ca9d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17570",
-      "title": "CVE-2026-17570 — CVSS 4.3",
-      "summary": "Improper access control in the PAM password history endpoints in Devolutions Server allows an authenticated low-privileged user to disclose plaintext credential secrets via crafted API requests.\n\nThis issue affects :\n\n  *  Devolutions Server 2026.2.4.0 through 2026.2.12.0\n  *  Devolutions Server 2026.1.23.0 and earlier",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-07-27T18:16:54.520",
-      "cve_ids": [
-        "CVE-2026-17570"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "aff026ae1e7a02fe2b44a1fd4fb26935d50d6c465c05a8ade729b0dfb1675928",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17568",
-      "title": "CVE-2026-17568 — CVSS 8.8",
-      "summary": "Improper access control in the role membership management endpoint in Devolutions Server allows an authenticated non-administrative user holding the user-group membership management permission to escalate privileges to administrator via a crafted API request.\n\nThis issue affects :\n\n  *  Devolutions Server 2026.2.4.0 through 2026.2.12.0\n  *  Devolutions Server 2026.1.23.0 and earlier",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-27T18:16:54.273",
-      "cve_ids": [
-        "CVE-2026-17568"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "31440b182b29f5b59cea8454d27a2bc5b3666ba2285b665658ba309175a445fc",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17552",
-      "title": "CVE-2026-17552 — CVSS 9.1",
-      "summary": "Plack::App::Prerender versions before 0.3.0 for Perl can proxy to an arbitrary host via unvalidated REQUEST_URI concatenation in call.\n\nWhen the rewrite base is a plain string, the REQUEST_URI is appended to it, with no check that the path starts with a forward slash ('/').\n\nWhen the rewrite base does not contain a path (which is the standard given in the SYNOPSIS), an attacker can create a reques",
+      "id": "a7499946a0af95c0825d382d0b40cedc1b89421d1243f08fed8edcae6e9a4b30",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-43757",
+      "title": "CVE-2026-43757 — CVSS 9.8",
+      "summary": "An out-of-bounds read was addressed with improved bounds checking. This issue is fixed in macOS Sequoia 15.7.8, macOS Sonoma 14.8.8, macOS Tahoe 26.6. An app may be able to cause unexpected system termination.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-07-27T18:16:54.150",
+      "date": "2026-07-27T21:17:00.257",
       "cve_ids": [
-        "CVE-2026-17552"
+        "CVE-2026-43757"
       ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "1bd5c231b12e8890d3f36e666cb91a920d7364f3468295c70154b5718ed0af8c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66731",
-      "title": "CVE-2026-66731 — CVSS 7.5",
-      "summary": "facil.io 0.7.5 through 0.7.6 contains a denial-of-service vulnerability in the HTTP/1.1 chunked transfer encoding parser that allows unauthenticated remote attackers to crash the server by sending a negative chunk size value. Attackers can send a single POST request with a Transfer-Encoding: chunked header containing a leading minus sign in the chunk size field, causing the parser in http1_parser.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-27T17:16:42.793",
-      "cve_ids": [
-        "CVE-2026-66731"
-      ],
-      "cvss": 7.5,
+      "cvss": 9.8,
       "related_links": []
     }
   ]
