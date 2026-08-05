@@ -1,7 +1,271 @@
 {
-  "updated": "2026-08-05T17:36:32.261222+00:00",
+  "updated": "2026-08-05T21:07:39.755567+00:00",
   "total": 250,
   "articles": [
+    {
+      "id": "afaf1a2ec5fe907827f17ae356903cc0a7249bbea4b9faaf9804b8533e2111b3",
+      "url": "https://github.com/advisories/GHSA-hxvh-4h3w-prp9",
+      "title": "GHSA: Nuxt route rules silently dropped for mixed-case paths, bypassing appMiddleware auth gates (incomplete fix for CVE-2026-53721)",
+      "summary": "### Impact\n\nNuxt matches route rules case-insensitively by default (mirroring vue-router's default `sensitive: false` routing). The fix for GHSA-mm7m-92g8-7m47 / CVE-2026-53721 lowercased the *lookup* path before matching route rules, but the route-rule *keys* compiled into the matcher were left verbatim. As a result, any route rule whose key contains an uppercase character (for example `/Admin`, ",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-08-05T21:05:18Z",
+      "cve_ids": [
+        "CVE-2026-71315"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "cb81d31bc1f4c8f4c14a0642326d3c186fccec291be8cdbc001debeda25c83a4",
+      "url": "https://github.com/advisories/GHSA-hxcr-hm88-mpq6",
+      "title": "GHSA: Nuxt: Unauthenticated out-of-memory crash via unbounded v-for expansion in island rendering",
+      "summary": "### Impact\n\nAn unauthenticated attacker can crash a Nuxt server that renders any island / server component containing a `v-for` over a prop (for example `v-for=\"n in count\"` or a `<slot v-for>`). Because the island URL hash is a non-secret digest of the request, the attacker can compute a valid hash for arbitrary props and send the iterated prop as a large integer. The server then expands the `v-f",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-05T20:59:04Z",
+      "cve_ids": [
+        "CVE-2026-71314"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "1a0e99a563b1b365c6cf866567da28f3442c074b9396b1e09752d041d41a4b3d",
+      "url": "https://github.com/advisories/GHSA-7p4m-qxvv-g567",
+      "title": "GHSA: rclone: Local Encoding Path Traversal",
+      "summary": "## Summary\n\nThe local backend relies on its configurable filename encoder to prevent remote filename data from becoming operating-system path syntax. If a local destination uses an encoding that omits `Dot`, such as `Slash`, `None`, or `Raw`, a remote object's standard-encoded `．．` component is decoded into an actual `..` component. `backend/local.localPath` then passes the decoded name to `filepa",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:48:46Z",
+      "cve_ids": [
+        "CVE-2026-71313"
+      ],
+      "cvss": 6.9,
+      "related_links": []
+    },
+    {
+      "id": "ffe43c795e386a9aa054f70f60e9a49c2a898f742f00cc68732017a71f46565b",
+      "url": "https://github.com/advisories/GHSA-4vr5-p2gc-h23p",
+      "title": "GHSA: rclone archive extract allows S3 destination prefix escape via crafted archive paths",
+      "summary": "### Summary\n\n`rclone archive extract` can write extracted files outside the user-selected destination prefix when extracting a crafted archive. A malicious archive entry containing parent path components such as `../` can escape the requested extraction prefix and create or overwrite sibling objects in the same bucket/path scope.\n\n### Details\n\nThe affected code path is in `cmd/archive/extract/extr",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:43:47Z",
+      "cve_ids": [
+        "CVE-2026-59732"
+      ],
+      "cvss": 5.0,
+      "related_links": []
+    },
+    {
+      "id": "e813741cbec985153257d262c91d77218d58c246b2ea628d5939b2bd11ba8fa8",
+      "url": "https://github.com/advisories/GHSA-gx4c-2hqx-cw2r",
+      "title": "GHSA: rclone: S3 backend does not strip X-Amz-Security-Token on a same-host HTTPS->HTTP redirect",
+      "summary": "## Vulnerability Details\n\n**File**: `backend/s3/s3.go`\n**Lines**: 1359-1380 (functions `s3CheckRedirect` / `s3RedirectCrossesHost`)\n\n### Root Cause\nCommit `e7b1eb774` (released in v1.74.3) added a `CheckRedirect` policy for\nthe S3 HTTP client whose purpose is to strip the `X-Amz-Security-Token`\nheader (the AWS STS session token) whenever a redirect chain \"crosses a\nhost\", so the token isn't forwar",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:43:11Z",
+      "cve_ids": [],
+      "cvss": 3.1,
+      "related_links": []
+    },
+    {
+      "id": "12eb437177c41b9d1815ec015a09a6a9b836b4f91ae078171b6e156ff55889a6",
+      "url": "https://github.com/advisories/GHSA-fqj9-69pf-6pjg",
+      "title": "GHSA: rclone `serve restic --private-repos` authorization bypass: `..` in the URL path lets an authenticated user read, overwrite and delete other users' repositories",
+      "summary": "## Summary\n\n`rclone serve restic --private-repos` exists to let one rclone instance host many users' restic backup repositories behind HTTP Basic auth while keeping each user confined to a path prefix of `/<username>/`. The documentation states the flag \"can be used to limit users to repositories starting with a path of `/<username>/`\", and the shipped test `TestResticPrivateRepositories` asserts ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:41:22Z",
+      "cve_ids": [
+        "CVE-2026-59733"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "96c46f741f60dbb40e545204e8dac280bcab5b58e976b6b571b760e2a4cd70b8",
+      "url": "https://github.com/advisories/GHSA-2m8m-jhrm-w6j2",
+      "title": "GHSA: rclone: PowerShell Smart-Quote Filename Injection Enables SFTP Server-Side Command Execution",
+      "summary": "## 1. Summary\n\nrclone interpolates remote SFTP paths into PowerShell hash commands. Its quoting helper escapes only ASCII apostrophe, although PowerShell accepts four Unicode smart quotes as single-quote delimiters. An attacker-controlled filename can therefore terminate the intended path literal and append PowerShell statements executed as the victim's SSH account.\n\n## 2. Affected Assets & Attack",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:37:56Z",
+      "cve_ids": [
+        "CVE-2026-71312"
+      ],
+      "cvss": 8.0,
+      "related_links": []
+    },
+    {
+      "id": "61b3230c2acdb713c6b9f1877187719517121977bb44c7b5949a80333231d3de",
+      "url": "https://github.com/advisories/GHSA-h4mf-4v27-hggj",
+      "title": "GHSA: rclone: WebDAV Credentials Survive a Same-Host HTTPS-to-HTTP Redirect",
+      "summary": "## 1. Summary\n\nWebDAV's default redirect handling can replay Basic authorization and configured Cookie headers over plaintext HTTP after a same-host HTTPS-to-HTTP redirect. This was reproduced through the real backend. Unlike the low-impact STS token in rclone's published S3 redirect advisory, Basic passwords and session cookies are complete reusable credentials, supporting a High rating when they",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:36:10Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "b61379ec368d7270f4e2c74e89702f0fc5a045bb801946447c8263418828bc8b",
+      "url": "https://github.com/advisories/GHSA-8c48-q9wj-3w37",
+      "title": "GHSA: rclone: FTP Command Arguments Permit CRLF Injection When Custom Encoding Preserves Newlines",
+      "summary": "## 1. Summary\n\nA valid but nondefault FTP filename encoding can restore raw CR/LF immediately before an attacker-controlled path is interpolated into the line-oriented FTP control channel. The dependency does not reject CR or LF in command arguments, so a filename can inject an independent authenticated command. A real test server observed the injected `DELE` command.\n\nThe default FTP encoding and",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:33:57Z",
+      "cve_ids": [
+        "CVE-2026-71311"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "719141af876d1c87ae024746235c904304e80bb65ae44ec9715ff6c568338fd2",
+      "url": "https://github.com/advisories/GHSA-8mxv-9xhp-86h4",
+      "title": "GHSA: rclone: S3 Redirect Sanitization Omits IBM IAM Bearer Tokens and SSE-C Keys",
+      "summary": "## 1. Summary\n\nThe S3 redirect callback strips `X-Amz-Security-Token` when a redirect changes scheme or host, but it does not strip IBM IAM bearer authorization or customer-provided encryption keys. Two independently validated paths remain:\n\n- a same-host HTTPS-to-HTTP redirect preserves `Authorization: Bearer ...` and exposes a reusable IBM IAM token to the plaintext network path;\n- a cross-origi",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:27:50Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "6f7ae49023b9575d141bf90901d7d767fd9024f170efdbaca1ab86bf5aa4792b",
+      "url": "https://github.com/advisories/GHSA-8v25-v8p6-qf7v",
+      "title": "GHSA:  rclone: Path traversal in serve s3 allows reading and overwriting root-level files",
+      "summary": "### Summary\n\nrclone serve s3 allows a client to read and write files at the root of the remote which would normally be inaccessible by using dot-dot path segments in the object key. It does not allow reading files outside of the root. A request such as GET /bucket/../root-secret.txt is handled as an object request for bucket \"bucket\", but rclone normalizes the backend path and reads root-secret.tx",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:27:42Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "ca554d76de0bf5341e08ccf0be25aff56c43b6b5499ff938e35d70653b0e8350",
+      "url": "https://github.com/advisories/GHSA-3x6r-wxxg-53vv",
+      "title": "GHSA: rclone: Infinite Scale TUS Creation Transport Error Causes a Nil-Response Panic",
+      "summary": "## 1. Summary\n\nA transport failure during the initial Infinite Scale TUS creation POST can return `(nil response, non-nil error)`. Rclone dereferences the nil response before processing the error and panics. The production `CreateUploader` path reproduced the crash against a closed endpoint.\n\nThe security case is deployment-dependent. A one-shot upload already fails when its endpoint resets, while",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:26:07Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "e737144ba4639877399f22fb6a36bc860d9ac4691438dca4a2950c77dad11284",
+      "url": "https://github.com/advisories/GHSA-xhf4-832v-7xcr",
+      "title": "GHSA: rclone: Unbounded HTTP CONNECT Response Headers Can Exhaust rclone Memory",
+      "summary": "## 1. Summary\n\nThe shared HTTP CONNECT helper parses a proxy response with `http.ReadResponse` over an unrestricted buffered reader. The production helper accepted a valid response containing a 2 MiB header in three consecutive runs. A malicious or compromised configured proxy, or an active on-path actor controlling a plaintext HTTP-proxy hop, can grow memory until the process fails.\n\nThe security",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:17:52Z",
+      "cve_ids": [
+        "CVE-2026-71310"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "336df87c175c6dd9a554af63d63db3f07dd6806c177bbbd412701f3b5a6d1f68",
+      "url": "https://github.com/advisories/GHSA-cf44-9pgv-m4xc",
+      "title": "GHSA: rclone: Unvalidated symlink target in local `--links` — arbitrary file write from an untrusted remote",
+      "summary": "### Summary\nWith `-l/--links`, rclone serializes symlinks as `<name>.rclonelink` text objects whose body is the link target. When rclone writes such an object to a local destination, it recreates the symlink with `os.Symlink(<object body>, <dest path>)` and performs NO validation of the target. If the source is attacker-controlled, the attacker sets the body to any absolute or `../` path, so rclon",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-05T20:15:01Z",
+      "cve_ids": [
+        "CVE-2026-54572"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "7bea7c793e57816bfe3871cb6e9bb11e0a90df2723999397f2800c8106a25d59",
+      "url": "https://github.com/advisories/GHSA-945v-v9p3-v5xw",
+      "title": "GHSA: rclone local `--metadata` applies attacker-controlled mode/uid - setuid binary planted from an untrusted remote",
+      "summary": "### Summary\nWhen writing an object with metadata, the local backend applies the source-supplied `mode`, `uid`, and `gid` verbatim: it parses `mode` as an octal integer and passes it straight into `os.Chmod(o.path, os.FileMode(umode))`, and passes `uid`/`gid` straight into `os.Chown`. The value is never masked to permission bits, so any value with Go's `ModeSetuid` (1<<23) or `ModeSetgid` (1<<22) b",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-05T20:03:14Z",
+      "cve_ids": [],
+      "cvss": 3.6,
+      "related_links": []
+    },
+    {
+      "id": "a2d42fef24c6678ae7d5b35cf874c6b68c35a60f4bbff9da156ccc1a3312063d",
+      "url": "https://github.com/advisories/GHSA-gwfq-86j8-7qhv",
+      "title": "GHSA: rclone: Verbose Stack Trace Disclosure in RC API Error Responses",
+      "summary": "### Summary\n\nWhen an RC API call triggers a panic (recovered by the job runner), the full Go stack trace is included in the JSON error response. This leaks internal file paths, Go module versions, goroutine state, and memory addresses to the API caller.\n\n### Details\n\nThe panic recovery in `fs/rc/jobs/job.go:110-115`:\n\n```go\nfunc (j *Job) run(ctx context.Context, fn rc.Func, in rc.Params) {\n    def",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T19:59:55Z",
+      "cve_ids": [],
+      "cvss": 2.7,
+      "related_links": []
+    },
+    {
+      "id": "167589835478151c7b5994b81cd083067440bdba54ee584e72b1c2d8f4d78674",
+      "url": "https://www.bleepingcomputer.com/news/security/hackers-run-khunt-post-exploitation-toolkit-from-oracle-database/",
+      "title": "Hackers run khunt post-exploitation toolkit from Oracle database",
+      "summary": "Hackers exploited a SQL injection vulnerability to install a post-exploitation toolkit directly inside an Oracle database that was used to breach a corporate network. [...]",
+      "source": "Bleeping Computer",
+      "category": "web_app",
+      "date": "2026-08-05T19:55:25+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "a705e7f06e33573b938f40f40c48b8d55ebb10e76aea4a6c62ece553fb5beef0",
+      "url": "https://github.com/advisories/GHSA-p2rr-rvmm-c5fp",
+      "title": "GHSA: Electron: Sandboxed iframes can launch external protocol handlers",
+      "summary": "### Impact\nRequests to open external protocol URLs from web content did not take iframe sandbox restrictions into account, so a sandboxed iframe could cause an OS-registered external application to be launched. The frame's sandbox state was also not made available to the app's permission handlers.\n\nApps are only affected if they render untrusted content in sandboxed iframes and grant the `openExte",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T17:56:50Z",
+      "cve_ids": [
+        "CVE-2026-70612"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "3b41db6b4d7ad3c8dc00685d8e8f0b5ec4a8b92f4203f2bfde378b11be4494c5",
+      "url": "https://github.com/advisories/GHSA-f2r8-jv7c-xqmp",
+      "title": "GHSA: Electron: DevTools embedder handler executes arbitrary files via shell open",
+      "summary": "### Impact\nThe DevTools \"reveal in file manager\" action could launch the target file rather than reveal it. An attacker with a separate means of running script inside the DevTools frontend (such as a malicious DevTools extension) could use this to execute native code outside the sandbox.\n\nApps are only affected if DevTools is opened for windows exposed to untrusted content or untrusted DevTools ex",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T17:49:14Z",
+      "cve_ids": [
+        "CVE-2026-70611"
+      ],
+      "cvss": 6.9,
+      "related_links": []
+    },
+    {
+      "id": "004b0a9f6fe7157e97cbc60bb82e518d12b68474615eecf54f48d0d3e762d783",
+      "url": "https://github.com/advisories/GHSA-ff2p-hmqr-hxm4",
+      "title": "GHSA: Electron: contextBridge object copy honors prototype setters",
+      "summary": "### Impact\nObjects copied across the `contextBridge` boundary from untrusted content could carry an attacker-influenced prototype, enabling prototype-pollution-style attacks against preload code despite context isolation being enabled.\n\nApps are only affected if their preload code accepts object arguments from untrusted content and reads properties from them without own-property checks. Apps that ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T17:41:20Z",
+      "cve_ids": [
+        "CVE-2026-70610"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
     {
       "id": "55a86f88049c5059fdb1b8ddfe7654d84b20feb4ba71fd3bf53d21d7bde79d9d",
       "url": "https://github.com/advisories/GHSA-4f78-qhmw-8j8m",
@@ -2928,6 +3192,664 @@
       "related_links": []
     },
     {
+      "id": "323b58e531f3bdb50ddd36101db06c82af69d642b3cfa38eb72bb7ac074f0148",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17713",
+      "title": "CVE-2026-17713 — CVSS 9.6",
+      "summary": "Insufficient validation of untrusted input in Accessibility in Google Chrome on Android prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:33.820",
+      "cve_ids": [
+        "CVE-2026-17713"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "d6876a415c941ba4a5e9da814b7bc207b4d84014daaca9033c0b871886777b4e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17712",
+      "title": "CVE-2026-17712 — CVSS 8.8",
+      "summary": "Race in Skia in Google Chrome on Mac prior to 151.0.7922.72 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:33.713",
+      "cve_ids": [
+        "CVE-2026-17712"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "9143f669f1d7621a3939d6c1ce1dac2e9b1cfa97e90d27fee685f006cbe2105e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17711",
+      "title": "CVE-2026-17711 — CVSS 9.6",
+      "summary": "Race in Downloads in Google Chrome on Mac prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:33.607",
+      "cve_ids": [
+        "CVE-2026-17711"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "110d40a985a57cf99f7b2c1cfcedc9515e9a6249a1cc9cb851cd0a182c298607",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17710",
+      "title": "CVE-2026-17710 — CVSS 9.6",
+      "summary": "Inappropriate implementation in MHTML in Google Chrome on Mac prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:33.500",
+      "cve_ids": [
+        "CVE-2026-17710"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "6c3aa06767ff409bcbdb938703e6eeec07c0aa1d4dcf3eee50483e50fbb23277",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17709",
+      "title": "CVE-2026-17709 — CVSS 9.6",
+      "summary": "Race in Downloads in Google Chrome on Mac prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:33.390",
+      "cve_ids": [
+        "CVE-2026-17709"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "42621dad54d6b15248dbed90e7f54f2104c3e2c76ed9d7a30aa862bb055ba482",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17708",
+      "title": "CVE-2026-17708 — CVSS 9.6",
+      "summary": "Use after free in Audio in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:33.283",
+      "cve_ids": [
+        "CVE-2026-17708"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "fa0a7bf48d3efb4cf157ad4594cd2748180316c12096a98bf9203ab1480dc5f8",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17705",
+      "title": "CVE-2026-17705 — CVSS 8.8",
+      "summary": "Integer overflow in libxml in Google Chrome prior to 151.0.7922.72 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:32.950",
+      "cve_ids": [
+        "CVE-2026-17705"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "67551ee4099011f5bcba0005f389249aecf3905541f77da1f2c338cba34fb564",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17704",
+      "title": "CVE-2026-17704 — CVSS 9.6",
+      "summary": "Use after free in ANGLE in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:32.837",
+      "cve_ids": [
+        "CVE-2026-17704"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "f229fdb6585d59db37f66362702bba0935a560288c098306bab81c2b4cd9880e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17703",
+      "title": "CVE-2026-17703 — CVSS 6.5",
+      "summary": "Insufficient policy enforcement in Chrome for iOS in Google Chrome on iOS prior to 151.0.7922.72 allowed a remote attacker to bypass navigation restrictions via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:32.737",
+      "cve_ids": [
+        "CVE-2026-17703"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "629122eb427f492e5b0f08f87f5b9a0feded9192553142dcc252d4d4c0ce9131",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17701",
+      "title": "CVE-2026-17701 — CVSS 9.6",
+      "summary": "Insufficient validation of untrusted input in ANGLE in Google Chrome on Mac prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:32.523",
+      "cve_ids": [
+        "CVE-2026-17701"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "bc79614a79334f48f54e4ef79e9a88cf02f71c2094223e4e9abc1444dcc712cc",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17699",
+      "title": "CVE-2026-17699 — CVSS 8.6",
+      "summary": "Use after free in Views in Google Chrome prior to 151.0.7922.72 allowed a local attacker to potentially perform a sandbox escape via a malicious file. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:32.310",
+      "cve_ids": [
+        "CVE-2026-17699"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "464c0a81e1d7204e87d5502688e707c631b6ffc5bd1677e99fac064d7b1c08fe",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17698",
+      "title": "CVE-2026-17698 — CVSS 7.5",
+      "summary": "Insufficient validation of untrusted input in UI in Google Chrome on Android prior to 151.0.7922.72 allowed a local attacker to leak cross-origin data via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:32.200",
+      "cve_ids": [
+        "CVE-2026-17698"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "39831c50219a66c794a60c594f7499ec8f900d236a4ae64ff6cf3bb218dcd3f9",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17697",
+      "title": "CVE-2026-17697 — CVSS 9.6",
+      "summary": "Type Confusion in ANGLE in Google Chrome prior to 151.0.7922.72 allowed a remote attacker to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:32.087",
+      "cve_ids": [
+        "CVE-2026-17697"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "bac77ab9a72071b60e08d10242dd957aa93d1266731402fbdd28fdb79cd819c4",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17695",
+      "title": "CVE-2026-17695 — CVSS 9.6",
+      "summary": "Inappropriate implementation in ANGLE in Google Chrome on Mac prior to 151.0.7922.72 allowed a remote attacker to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:31.877",
+      "cve_ids": [
+        "CVE-2026-17695"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "0923a3ec6b673a31e44a0deb700c5b99ab9cbff88fb302523758f1885a8c5eb5",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17694",
+      "title": "CVE-2026-17694 — CVSS 8.8",
+      "summary": "Use after free in DOM in Google Chrome prior to 151.0.7922.72 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:31.763",
+      "cve_ids": [
+        "CVE-2026-17694"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "c04b526ded86b55fd0932ad458a8903aa8933f87de9fa019ef6536192b7808b1",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17693",
+      "title": "CVE-2026-17693 — CVSS 4.3",
+      "summary": "Insufficient policy enforcement in FileSystem in Google Chrome prior to 151.0.7922.72 allowed a remote attacker to leak cross-origin data via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:31.663",
+      "cve_ids": [
+        "CVE-2026-17693"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "ebc7d2c22c4ec67eac7735c4665b174c55cca8c0c716bdbe81c7e405cdebd469",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17692",
+      "title": "CVE-2026-17692 — CVSS 9.6",
+      "summary": "Use after free in DataTransfer in Google Chrome on Windows prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:31.550",
+      "cve_ids": [
+        "CVE-2026-17692"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "ffa217d48ffd619ba4547e9f7a94afb708a00a98425770276b14593869db2566",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17691",
+      "title": "CVE-2026-17691 — CVSS 9.6",
+      "summary": "Out of bounds write in ANGLE in Google Chrome on Windows prior to 151.0.7922.72 allowed a remote attacker to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:31.443",
+      "cve_ids": [
+        "CVE-2026-17691"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "7e84116472c7f1e3060802323b1ffe117edb123f85a868fc32f60282dfbe5be3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17688",
+      "title": "CVE-2026-17688 — CVSS 9.6",
+      "summary": "Use after free in Input in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:31.100",
+      "cve_ids": [
+        "CVE-2026-17688"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "4489ff3ba7e07bec2c56887d86565f44dd6db497c52c0ac278db28ab84ffc3d6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17687",
+      "title": "CVE-2026-17687 — CVSS 9.6",
+      "summary": "Type Confusion in ANGLE in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:30.990",
+      "cve_ids": [
+        "CVE-2026-17687"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "cfc2468d65ff879d3f958f90628ff5063a2fe0e0a4f77092169ef160ee71b3e2",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17686",
+      "title": "CVE-2026-17686 — CVSS 8.1",
+      "summary": "Insufficient validation of untrusted input in Passwords in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to bypass site isolation via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:30.880",
+      "cve_ids": [
+        "CVE-2026-17686"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "62fbde9d1371d0f432408383c3c14b07621706630ebffce4625b6166abe9e0e9",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17685",
+      "title": "CVE-2026-17685 — CVSS 8.8",
+      "summary": "Use after free in Autofill in Google Chrome prior to 151.0.7922.72 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:30.770",
+      "cve_ids": [
+        "CVE-2026-17685"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "0874c71c149663f1c92645bf406ebfe69f0cdaa78f42f42d6e71ffeae45dba35",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17684",
+      "title": "CVE-2026-17684 — CVSS 9.6",
+      "summary": "Insufficient validation of untrusted input in Chrome for iOS in Google Chrome on iOS prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:30.660",
+      "cve_ids": [
+        "CVE-2026-17684"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "fc6040427e3aa66f24f998c8d6018bcac37d16b0deef7fb9cb7821b6ecc89d73",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17682",
+      "title": "CVE-2026-17682 — CVSS 9.6",
+      "summary": "Integer overflow in ANGLE in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:30.443",
+      "cve_ids": [
+        "CVE-2026-17682"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "35b7049b79d431b2ca3d852d47ac1e73f3506109cf8ca42c27ac74352db9876a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17681",
+      "title": "CVE-2026-17681 — CVSS 9.6",
+      "summary": "Insufficient validation of untrusted input in Web Authentication in Google Chrome on Android prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:30.330",
+      "cve_ids": [
+        "CVE-2026-17681"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "7ae524efc99ec4f00f597a73f2ace15f99ddc9a7a0ebd39cf77276c98bd62299",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17680",
+      "title": "CVE-2026-17680 — CVSS 9.6",
+      "summary": "Heap buffer overflow in Color in Google Chrome on ChromeOS prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:30.217",
+      "cve_ids": [
+        "CVE-2026-17680"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "c34aeca3acc84fc313502b3c0898e239d4d0a433e6090412b66be3b12d183e21",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17678",
+      "title": "CVE-2026-17678 — CVSS 8.8",
+      "summary": "Out of bounds read in ANGLE in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:29.990",
+      "cve_ids": [
+        "CVE-2026-17678"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "c7f8204cc5c390845d13086fbf5f3e002a455f029f3ab22629b009c56b1c6076",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17677",
+      "title": "CVE-2026-17677 — CVSS 8.8",
+      "summary": "Inappropriate implementation in ANGLE in Google Chrome on Android prior to 151.0.7922.72 allowed a remote attacker to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:29.883",
+      "cve_ids": [
+        "CVE-2026-17677"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "39e7e4c1cdcb1d822b51edb5ce23085ed0fa61c021f4182e839fcbba948946fd",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17676",
+      "title": "CVE-2026-17676 — CVSS 9.6",
+      "summary": "Inappropriate implementation in ANGLE in Google Chrome on Android prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:29.783",
+      "cve_ids": [
+        "CVE-2026-17676"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "c7ba23f76f2c536484d5bfbe6212c2e70c32b1608c7ca77a8a638dcde8c51e12",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17675",
+      "title": "CVE-2026-17675 — CVSS 9.6",
+      "summary": "Out of bounds write in ANGLE in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:29.670",
+      "cve_ids": [
+        "CVE-2026-17675"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "c91a277c54e60692948aab5f64f59686a22b7d8e803eb52708871788b43da50a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17673",
+      "title": "CVE-2026-17673 — CVSS 9.6",
+      "summary": "Integer overflow in QUIC in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:29.447",
+      "cve_ids": [
+        "CVE-2026-17673"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "68625d8e5237a962bd3a22c9bded8e975357a8c086946493761ad6b53f0260cc",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17672",
+      "title": "CVE-2026-17672 — CVSS 9.6",
+      "summary": "Insufficient validation of untrusted input in Chromecast in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:29.330",
+      "cve_ids": [
+        "CVE-2026-17672"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "a941964f3b70f34504aed605cab07ea78b779374036b388a10891c77c4e3ce52",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17671",
+      "title": "CVE-2026-17671 — CVSS 9.6",
+      "summary": "Insufficient validation of untrusted input in ANGLE in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:29.220",
+      "cve_ids": [
+        "CVE-2026-17671"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "1fda97d9a843cca99ca8c66a80500159ad6d7e31ca41f069c6eb11cfa55cdc41",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17670",
+      "title": "CVE-2026-17670 — CVSS 9.6",
+      "summary": "Use after free in Views in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:29.110",
+      "cve_ids": [
+        "CVE-2026-17670"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "2ac1f09ba0040c011f53cc2378bd618c95b1a38720d204b8f361bbe4a247b9fe",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17669",
+      "title": "CVE-2026-17669 — CVSS 9.6",
+      "summary": "Inappropriate implementation in Chrome for iOS in Google Chrome on iOS prior to 151.0.7922.72 allowed a remote attacker to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:29.010",
+      "cve_ids": [
+        "CVE-2026-17669"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "00f433df7050135dfc50c30e903fbe1a43d64a51840c39da6c02bb56480e2016",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17666",
+      "title": "CVE-2026-17666 — CVSS 9.1",
+      "summary": "Cryptographic Flaw in Enterprise in Google Chrome prior to 151.0.7922.72 allowed an attacker in a privileged network position to bypass discretionary access control via malicious network traffic. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:28.680",
+      "cve_ids": [
+        "CVE-2026-17666"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "6872d86daddc4ccec35b2524930dc9a0608cd9e2844b92bc7e29cb780ba6e0f3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17665",
+      "title": "CVE-2026-17665 — CVSS 8.8",
+      "summary": "Use after free in V8 in Google Chrome prior to 151.0.7922.72 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:28.540",
+      "cve_ids": [
+        "CVE-2026-17665"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "d1c14f154e6c9b76db9a6247486a9f83c8281e6ec91426ff4e5b7d544f846eb7",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17663",
+      "title": "CVE-2026-17663 — CVSS 8.3",
+      "summary": "Insufficient validation of untrusted input in GPU in Google Chrome on Android prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:28.303",
+      "cve_ids": [
+        "CVE-2026-17663"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "56036a0fe4d9f253a74915065cc9bf677dba78e87d0086060982ac84571a242f",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17662",
+      "title": "CVE-2026-17662 — CVSS 4.3",
+      "summary": "Insufficient policy enforcement in Prefetch in Google Chrome prior to 151.0.7922.72 allowed a remote attacker to leak cross-origin data via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:28.203",
+      "cve_ids": [
+        "CVE-2026-17662"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "1113a3aa7587bb5985d057d8fa5cd2915604d7fc6a9c52e2c7a884584b2dcbaf",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17661",
+      "title": "CVE-2026-17661 — CVSS 8.8",
+      "summary": "Use after free in Loader in Google Chrome prior to 151.0.7922.72 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:28.090",
+      "cve_ids": [
+        "CVE-2026-17661"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "fd54ec80afbb9f7cddd344807e0333bdf2d79eb4f60bc17647aabcbf33e50cd7",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17660",
+      "title": "CVE-2026-17660 — CVSS 8.3",
+      "summary": "Insufficient validation of untrusted input in Network in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:27.980",
+      "cve_ids": [
+        "CVE-2026-17660"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "a82eed770f7a2345f292357517eaf5b481e97ee231333dff01d1eb3d36542cd8",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17658",
+      "title": "CVE-2026-17658 — CVSS 8.8",
+      "summary": "Use after free in V8 in Google Chrome prior to 151.0.7922.72 allowed a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:27.763",
+      "cve_ids": [
+        "CVE-2026-17658"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "7f2f707b7baff93b2457495b8bce7b2443fb376dc15a16a4d40fa308d9dfe942",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17657",
+      "title": "CVE-2026-17657 — CVSS 8.3",
+      "summary": "Use after free in Navigation in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-07-30T01:16:27.640",
+      "cve_ids": [
+        "CVE-2026-17657"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "a8310a6134c32271d3e8bb8807099f492bf52115eb3f715390c6a68263b28ae8",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17656",
+      "title": "CVE-2026-17656 — CVSS 9.6",
+      "summary": "Use after free in Ozone in Google Chrome prior to 151.0.7922.72 allowed a remote attacker to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: Critical)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:27.530",
+      "cve_ids": [
+        "CVE-2026-17656"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "fb295b73dec3c7f3de3b6a965addd448af1a52e2f6b6654cca1a3ac8b84d9c22",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17655",
+      "title": "CVE-2026-17655 — CVSS 9.6",
+      "summary": "Insufficient validation of untrusted input in ANGLE in Google Chrome prior to 151.0.7922.72 allowed a remote attacker to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: Critical)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:27.420",
+      "cve_ids": [
+        "CVE-2026-17655"
+      ],
+      "cvss": 9.6,
+      "related_links": []
+    },
+    {
+      "id": "7301e1c6cdca9c98d4c4590045997a391cfb42d749160dd1706c4374fda76977",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17654",
+      "title": "CVE-2026-17654 — CVSS 7.8",
+      "summary": "Race in Updater in Google Chrome on Mac prior to 151.0.7922.72 allowed a local attacker to perform OS-level privilege escalation via a malicious file. (Chromium security severity: Critical)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:27.303",
+      "cve_ids": [
+        "CVE-2026-17654"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "439116d0cc13c87b9f26c4cddf35254077a16bfcd8b6476e6b18a08746d992b9",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17653",
+      "title": "CVE-2026-17653 — CVSS 8.3",
+      "summary": "Use after free in Skia in Google Chrome prior to 151.0.7922.72 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: Critical)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-07-30T01:16:27.190",
+      "cve_ids": [
+        "CVE-2026-17653"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
       "id": "b5eaf0c7e6164d7ed658ce7b483e8c608e1440d2af597cd8e6de453f50976cf0",
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17652",
       "title": "CVE-2026-17652 — CVSS 9.6",
@@ -3301,953 +4223,6 @@
         "CVE-2026-6336"
       ],
       "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "703394f62a94087dfc5535f9bdd86a64f2688c809a35eedae6398f1baf218ef1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-6267",
-      "title": "CVE-2026-6267 — CVSS 8.5",
-      "summary": "GitLab has remediated an issue in GitLab CE/EE affecting all versions from 10.1.0 before 19.0.5, 19.1 before 19.1.3, and 19.2 before 19.2.1 that under certain conditions could have allowed an authenticated user with Developer role to access unauthorized information due to insufficient access controls on internal request handling.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T20:17:13.123",
-      "cve_ids": [
-        "CVE-2026-6267"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "54a86eababae639b6ed07c15eff79d6b907715f5eb49eaedfa2a1e23d4fffac2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-6102",
-      "title": "CVE-2026-6102 — CVSS 7.8",
-      "summary": "MSI Center NTIOLib_X64 Origin Validation Error Local Privilege Escalation Vulnerability. This vulnerability allows local attackers to escalate privileges on affected installations of MSI Center. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability.\n\nThe specific flaw exists within the NTIOLib_X64.sys driver. The issue ",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T20:17:12.980",
-      "cve_ids": [
-        "CVE-2026-6102"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "ae274f0f1f8326827715a225db2a966631e571415cd3c8c61fa60cb74cfaf3cf",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5491",
-      "title": "CVE-2026-5491 — CVSS 7.5",
-      "summary": "DriveLock Directory Traversal Information Disclosure Vulnerability. This vulnerability allows remote attackers to disclose sensitive information on affected installations of DriveLock. Authentication is not required to exploit this vulnerability.\n\nThe specific flaw exists within the web service, which listens on TCP port 6067 by default. The issue results from the lack of proper validation of a us",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T20:17:06.020",
-      "cve_ids": [
-        "CVE-2026-5491"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "23a567ad42a39ff206d27e46003ee957bc782bcef54adaa30fed3e5dac11343c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5490",
-      "title": "CVE-2026-5490 — CVSS 8.8",
-      "summary": "DriveLock SQL Injection Privilege Escalation Vulnerability. This vulnerability allows remote attackers to escalate privileges on affected installations of DriveLock. Authentication is required to exploit this vulnerability.\n\nThe specific flaw exists within the web service, which listens on TCP port 4568 by default. The issue results from the lack of proper validation of a user-supplied string befo",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T20:17:05.893",
-      "cve_ids": [
-        "CVE-2026-5490"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "30abef616ee68949831bc9d963d9c6df67abf768cfaa17cdbdc5029fadde5c2f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5487",
-      "title": "CVE-2026-5487 — CVSS 7.5",
-      "summary": "DriveLock Directory Traversal Information Disclosure Vulnerability. This vulnerability allows remote attackers to disclose sensitive information on affected installations of DriveLock. Authentication is not required to exploit this vulnerability.\n\nThe specific flaw exists within the web service, which listens on TCP port 4568 by default. The issue results from the lack of proper validation of a us",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T20:17:05.653",
-      "cve_ids": [
-        "CVE-2026-5487"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "d9ba657b32c4421cfb95bf3fe9600035593aeb3ff9e64865d0e2fa8755d2b145",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5057",
-      "title": "CVE-2026-5057 — CVSS 7.5",
-      "summary": "ATEN Unizon RpcProvider Missing Authentication Denial-of-Service Vulnerability. This vulnerability allows remote attackers to create a denial-of-service condition on affected installations of ATEN Unizon. Authentication is not required to exploit this vulnerability.\n\nThe specific flaw exists within the RpcProvider class. The issue results from the lack of authentication prior to allowing access to",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T20:17:05.497",
-      "cve_ids": [
-        "CVE-2026-5057"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "0acbee3866a11bec804306002ea6af7a23653a87bd3785a309eb1ab7daa30e98",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-5056",
-      "title": "CVE-2026-5056 — CVSS 7.8",
-      "summary": "GStreamer qtdemux Stack-based Buffer Overflow Remote Code Execution Vulnerability. This vulnerability allows remote attackers to execute arbitrary code on affected installations of GStreamer. Interaction with this library is required to exploit this vulnerability but attack vectors may vary depending on the implementation.\n\nThe specific flaw exists within the parsing of UncompressedFrameConfigBox ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T20:17:05.337",
-      "cve_ids": [
-        "CVE-2026-5056"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "dae6e1b6717029c1cf9aaf42ec22d42ade59a15d03f88177e321f1718b7c602a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-4672",
-      "title": "CVE-2026-4672 — CVSS 4.3",
-      "summary": "GitLab has remediated an issue in GitLab CE/EE affecting all versions from 18.4 before 19.0.5, 19.1 before 19.1.3, and 19.2 before 19.2.1 that under certain conditions could have allowed an authenticated user with guest-role permissions to access test report contents they were not authorized to view due to improper access control enforcement.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T20:17:03.963",
-      "cve_ids": [
-        "CVE-2026-4672"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "2bf71f4993965cbae454bf66c024fd7e53f7151053043d0a6fd41ca365952cb7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18266",
-      "title": "CVE-2026-18266 — CVSS 5.4",
-      "summary": "Dify AI Workflow oauth_redirect_url Open Redirect Vulnerability. This vulnerability allows remote attackers to disclose sensitive information on affected installations of Dify. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file.\n\nThe specific flaw exists within the OAuth flow handling in the AppInitializer component. A",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T20:17:02.730",
-      "cve_ids": [
-        "CVE-2026-18266"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "066a732122e17cd573258a4187ec38672b17adb3071adaf5dfc614d4adf69194",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18022",
-      "title": "CVE-2026-18022 — CVSS 8.8",
-      "summary": "Integer wraparound in IVFFlat index build in pgvector before 0.8.6 allows a database user to write data out-of-bounds, which could lead to arbitrary code execution. Only 32-bit systems are affected.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T20:17:02.593",
-      "cve_ids": [
-        "CVE-2026-18022"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "99d50aba54fc113b6021ea618d9a39f91ae0189f33195ac4519de30acc3c9714",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15975",
-      "title": "CVE-2026-15975 — CVSS 7.5",
-      "summary": "GitLab has remediated an issue in GitLab CE/EE affecting all versions from 11.8 before 19.0.5, 19.1 before 19.1.3, and 19.2 before 19.2.1 that under certain conditions could have allowed an unauthenticated user to cause a denial of service due to insufficient resource throttling when processing merge request discussions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T20:17:02.117",
-      "cve_ids": [
-        "CVE-2026-15975"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "a5524f4d2032c0505352d66f89646fbf22b330d2b8bc8b28669a5dffb25e1e06",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15831",
-      "title": "CVE-2026-15831 — CVSS 4.3",
-      "summary": "GitLab has remediated an issue in GitLab EE affecting all versions from 19.1 before 19.1.3 and 19.2 before 19.2.1 that under certain conditions could have allowed an authenticated user to bypass administrator-configured tool governance policies due to improper authorization enforcement during token generation.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T20:17:01.983",
-      "cve_ids": [
-        "CVE-2026-15831"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "109b0687851b0d1a85eda544ed01395541a54ae11828c8a1ccd78101a916154c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-14351",
-      "title": "CVE-2026-14351 — CVSS 4.3",
-      "summary": "GitLab has remediated an issue in GitLab CE/EE affecting all versions from 8.8 before 19.0.5, 19.1 before 19.1.3, and 19.2 before 19.2.1 that under certain conditions could have allowed an unauthenticated user to view the title of a confidential issue through a publicly accessible merge request due to improper authorization checks.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T20:17:01.197",
-      "cve_ids": [
-        "CVE-2026-14351"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "61db592bd1573c515a981917d57b789bfd4e1344dca9af1d071d3281824f1d7e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13268",
-      "title": "CVE-2026-13268 — CVSS 7.8",
-      "summary": "G DATA Total Security Backup Service Link Following Local Privilege Escalation Vulnerability. This vulnerability allows local attackers to escalate privileges on affected installations of G DATA Total Security. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability.\n\nThe specific flaw exists within the Backup Service. By",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T20:17:00.700",
-      "cve_ids": [
-        "CVE-2026-13268"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "0d0e065e6b03c336dd83ff8f06e1773c6c9beed499e2ab169f6a9a705e4eead2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-12436",
-      "title": "CVE-2026-12436 — CVSS 8.4",
-      "summary": "GitLab has remediated an issue in GitLab CE/EE affecting all versions from 18.0 before 19.0.5, 19.1 before 19.1.3, and 19.2 before 19.2.1 that under certain conditions could have allowed an authenticated user to modify CI/CD configuration belonging to another user due to improper validation of user-supplied attributes when processing pipeline schedule inputs.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T20:17:00.417",
-      "cve_ids": [
-        "CVE-2026-12436"
-      ],
-      "cvss": 8.4,
-      "related_links": []
-    },
-    {
-      "id": "df9bc2ac3065a0bc31531cdd5e34204c9028814b5660c7a35831d7181e64f534",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-67201",
-      "title": "CVE-2026-67201 — CVSS 8.6",
-      "summary": "V through 0.5.2, fixed in commit 85859f0, contains a server-side request forgery (SSRF) bypass vulnerability that allows attackers to circumvent host-based allowlists by exploiting a parser differential between net.urllib and net.http. Attackers can craft a URL containing a backslash in the authority section such that net.urllib.parse() extracts the trusted host for allowlist validation while net.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-07-29T19:16:51.330",
-      "cve_ids": [
-        "CVE-2026-67201"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "c9edfebbdddea2409e5155209aeefc4a13c08abe20524f2c2da436d2c1aca7a1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59898",
-      "title": "CVE-2026-59898",
-      "summary": "Netty is an asynchronous, event-driven network application framework.  Prior to versions 4.1.136.Final and 4.2.16.Final, ab attacker can force WebSocket upgrade via the lax V07 (or V08) handshaker by sending `Sec-WebSocket-Version: 7` and omitting `Connection: Upgrade` / `Upgrade: websocket` headers, completing a protocol switch that a proxy would not recognize as an Upgrade request and enabling H",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T19:16:48.740",
-      "cve_ids": [
-        "CVE-2026-59898"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b750df04d0676bd95e0532ba56985079337b80a2c0313a24a10d98d91bbf1539",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-16328",
-      "title": "CVE-2026-16328 — CVSS 8.6",
-      "summary": "In consul-mcp-server, versions 0.1.0 up to 0.1.3 did not restrict how the Consul backend address was supplied, allowing a connected client to override the server's configured Consul address via a request header. This may allow a malicious client to redirect the server's Consul API traffic to an attacker-controlled endpoint, potentially exfiltrating the Consul token configured on the server. This v",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T19:16:45.060",
-      "cve_ids": [
-        "CVE-2026-16328"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "9122fe17c9354641ef367707730e4f615f01738485be864563f69a7b2d772ce1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-16326",
-      "title": "CVE-2026-16326 — CVSS 10.0",
-      "summary": "In consul-mcp-server, versions 0.1.0 up to 0.1.3 did not properly isolate session state in stateless mode, which may allow one client's Consul authentication token to be used for subsequent requests from other clients. This vulnerability (CVE-2026-16326) is fixed in consul-mcp-server 0.1.4.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T19:16:44.900",
-      "cve_ids": [
-        "CVE-2026-16326"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "24f50354d47cfcad83e3b25d263fba47b35965eb46f1f46a0c68a7f1524bad6a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-14529",
-      "title": "CVE-2026-14529 — CVSS 9.4",
-      "summary": "IBM WebSphere Application Server 9.0, and 8.5 and IBM WebSphere Application Server - Liberty 17.0.0.3 through 26.0.0.8 traditional is vulnerable to server-side request forgery (SSRF) when the SIP container feature (sipServlet-1.1) is enabled.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T19:16:44.720",
-      "cve_ids": [
-        "CVE-2026-14529"
-      ],
-      "cvss": 9.4,
-      "related_links": []
-    },
-    {
-      "id": "5a02fd0459b41ccefbd1a23c7e5e2fa781780475d7379fada50060f0d276c94d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13346",
-      "title": "CVE-2026-13346",
-      "summary": "pip would incorrectly handle doubly-encoded package URLs from indexes allowing for files to be installed to arbitrary locations on disk even when installing wheels.\n\n\n\n\nThis vulnerability requires downloading or installing a package from a malicious package index to succeed, malicious packages alone are not able to exploit this vulnerability. Note that this vulnerability only materially impacts us",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T19:16:44.267",
-      "cve_ids": [
-        "CVE-2026-13346"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d55895490dd495fffe96d5499434eac4b9389c62ffb7a2ced8f655440f8adaab",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-12935",
-      "title": "CVE-2026-12935",
-      "summary": "The\nTL-WR940N v6 router contains a vulnerability in its RTSP connection tracking\nmodule that can lead to a stack-based buffer overflow. The issue occurs when a\nLAN client initiates a connection to a malicious RTSP server controlled by an\nattacker. A specially crafted RTSP message may trigger improper memory handling\nwithin the kernel module\n\n\n\n\n\n\n\n\n\nSuccessful\nexploitation of this vulnerability ma",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T19:16:44.113",
-      "cve_ids": [
-        "CVE-2026-12935"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b10e575fea58ec0b7ad9fae876152601181e70da71f9af0f02f45bad0bb94060",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-8497",
-      "title": "CVE-2026-8497 — CVSS 7.4",
-      "summary": "Improper certificate validation in the Devolutions Server connection handling in Devolutions Password Manager 2026.2.1.0 and earlier on Android, iOS, and macOS allows an adjacent-network attacker to intercept and modify sensitive information via a forged TLS certificate.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T18:16:58.787",
-      "cve_ids": [
-        "CVE-2026-8497"
-      ],
-      "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "b6c1d7a5b676ccedc001d853fdba5c352d2a4e1c2c7daedca2b35397012d39cb",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59919",
-      "title": "CVE-2026-59919 — CVSS 5.5",
-      "summary": "Netty is an asynchronous, event-driven network application framework. In versions prior to 4.1.136.Final and 4.2.16.Final, Netty's HAProxy encoder ( HAProxyMessageEncoder ) writes AF_UNIX source and destination socket addresses into the HAProxy V1 text protocol without validating them for CRLF characters, so an attacker who controls an AF_UNIX address can inject  \\r\\n  sequences and split the sing",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T18:16:56.610",
-      "cve_ids": [
-        "CVE-2026-59919"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "2edc1b497f9ba18e894bf5ceda5c70e485f40144d9bc584f54c66e541d8454f6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59899",
-      "title": "CVE-2026-59899",
-      "summary": "Netty is an asynchronous, event-driven network application framework. Prior to versions 4.1.136.Final and 4.2.16.Final, `HttpContentEncoder` (the superclass of the production handler `HttpContentCompressor`) maintains a per-channel `ArrayDeque<CharSequence>` named `acceptEncodingQueue` that accumulates attacker-controlled data without any size limit. The queue is filled on the I/O thread for every",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T18:16:56.137",
-      "cve_ids": [
-        "CVE-2026-59899"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "52c17143eec90d5ac117097a50730db676875503c96066d3ee7d99e9cc88a617",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41939",
-      "title": "CVE-2026-41939 — CVSS 9.8",
-      "summary": "Care Everywhere Gateway 14.3.10 contains a hard-coded credentials vulnerability in the bundled WildFly 8.2.0.Final management interface that allows unauthenticated remote attackers to gain administrative access by using default credentials identical across all installations. Attackers can authenticate to the exposed WildFly management console on port 20990 and deploy a malicious Web Application Ar",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T18:16:53.477",
-      "cve_ids": [
-        "CVE-2026-41939"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "d767519b141b4b1b9dde9333c3764d108c2d3243ac04b72804e13fb5f76b6ceb",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40272",
-      "title": "CVE-2026-40272 — CVSS 7.0",
-      "summary": "Improper Input Validation in the decode() function of the traceparser library could allow an attacker with a corrupted kernel trace event log (.kev) file, to execute arbitrary code or cause a crash in processes that use libtraceparser in QNX hosts or targets.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T18:16:53.347",
-      "cve_ids": [
-        "CVE-2026-40272"
-      ],
-      "cvss": 7.0,
-      "related_links": []
-    },
-    {
-      "id": "dd3618c71d76a383228387c3190b6dfd4e94e07d5383cdf8170c65563e93422d",
-      "url": "https://github.com/advisories/GHSA-fm7p-gw32-828p",
-      "title": "GHSA: mathlive's Lack of Escaping of HTML allows for XSS",
-      "summary": "### Summary\n\nDespite the 0.104.0 patch escaping attribute-bearing constructs (`\\htmlData`, `\\href`), text-content reflection was missed. The `\\text{}`, `\\mbox{}` commands accept arbitrary characters in their body and emit them raw and unescaped into both the HTML markup and the MathML output, leading to XSS.\n\n### Details\n\n`Box.toMarkup` at `src/core/box.ts:356` concatenates `this.value` into the r",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-29T17:21:26Z",
-      "cve_ids": [
-        "CVE-2026-54705"
-      ],
-      "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "1248d77f18fe536dafaea9629b0f08f49d9e7aa2f847e46758bbde06d84d9b14",
-      "url": "https://github.com/advisories/GHSA-rwqx-fvqh-6wm4",
-      "title": "GHSA: OpenTelemetry Java Instrumentation: JDBC Auto-Instrumentation Logging Clear-Text Passwords",
-      "summary": "OpenTelemetry Java Instrumentation JDBC auto-instrumentation may fail to sanitize passwords in SQL CONNECT statements when the password is double-quoted. As a result, clear-text database passwords can be added to trace span attributes and exported to observability backends.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-29T17:18:34Z",
-      "cve_ids": [
-        "CVE-2026-54704"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "66fa95ec823910019c9c476bf8ce46ff79fa3fafb1075c943a343b4ba379e457",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-8339",
-      "title": "CVE-2026-8339",
-      "summary": "A SQL injection vulnerability exists in the Coverity Connect SOAP API for versions between 2024.6.0 and 2026.3.0 (inclusive). A malicious, authenticated threat actor who sends a specially crafted payload can achieve full read access to database contents and other unauthorized commands.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-07-29T17:16:54.347",
-      "cve_ids": [
-        "CVE-2026-8339"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "dac89cec1b4912b46a2e10a8a47f0dd85b4f141166a57457dc54f11978500ad9",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-8338",
-      "title": "CVE-2026-8338",
-      "summary": "A Spring Security authentication and authorization bypass exists in Coverity Connect versions between 2023.6.0 and 2026.3.0. An unauthenticated malicious threat actor that can send a specially crafted HTTP request is able to bypass authentication and authorization controls on certain API endpoints to access data within Coverity.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T17:16:54.177",
-      "cve_ids": [
-        "CVE-2026-8338"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "44446cd6e170943c099e5a5eec972b338a5225d666acd972e86d00eaccf6d7da",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64560",
-      "title": "CVE-2026-64560 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nposix-cpu-timers: Prevent UAF caused by non-leader exec() race\n\nWongi and Jungwoo decoded and reported a non-leader exec() related race\nwhich can result in an UAF:\n\n sys_timer_delete()\t\t\texec()\n   posix_cpu_timer_del()\n   // Observes old leader\n   p = pid_task(pid, pid_type);\t\tde_thread()\n   \t\t\t\t\t  switch_leader();\n\t\t\t\t\t  release",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T17:16:53.637",
-      "cve_ids": [
-        "CVE-2026-64560"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "d06c286ba174a92ae0c9d6d5463b15fee2231da4df895a9e77511dfedacab586",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64559",
-      "title": "CVE-2026-64559 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ns390/pkey: Check length in PKEY_VERIFYPROTK ioctl\n\nExplicitly check the buffer length request structure provided by\nuser-space and fail, if it exceeds the buffer size.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T17:16:53.523",
-      "cve_ids": [
-        "CVE-2026-64559"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "14e35e968596f5ff9a76f2c10928a24b4d8256b822506978616b62800c586a90",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64558",
-      "title": "CVE-2026-64558 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ns390/pkey: Check length in pkey_pckmo handler implementation\n\nExplicitly check the length of the target buffer in the pkey_pckmo\nimplementation of the key_to_protkey() handler function. The handler\nfunction fails, if the generated output data exceeds the length of the\nprovided target buffer.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T17:16:53.410",
-      "cve_ids": [
-        "CVE-2026-64558"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "1d5739787dbb122bcaa9a34ec4a3c1945fee782786312cb0d955e7edbc43e758",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-54693",
-      "title": "CVE-2026-54693",
-      "summary": "ZITADEL is an open source identity management platform. From 2.43.0 through 2.71.19, from 3.0.0 until 3.4.11, and from 4.0.0 until 4.15.1, the email and phone self-management API paths in internal/command/user_v2_email.go, internal/command/user_v2_phone.go, and internal/command/user_v2_human.go allowed users to request returned verification codes without the required permission, allowing users to ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T17:16:53.067",
-      "cve_ids": [
-        "CVE-2026-54693"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ec2097aac3c1481cc1d06104e7422be41f2ede369b41075b43bbbedc4ced7855",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-51992",
-      "title": "CVE-2026-51992 — CVSS 9.1",
-      "summary": "SQL Injection vulnerability in ClickHouse Server Versions <= 26.3.9.8 allows a remote attacker to execute arbitrary code via the create dictionaries function.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T17:16:52.040",
-      "cve_ids": [
-        "CVE-2026-51992"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "483ca399ef65a59fc48854fa2e8623ff29a0890a8c3bd0cb587f3852a3fe993d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18257",
-      "title": "CVE-2026-18257 — CVSS 5.6",
-      "summary": "Improper validity period check for root issuer certificate in CycloneCrypto cryptographic wrapper of S2OPC allows a certificate issued by this root issuer to be considered trusted",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-07-29T17:16:51.540",
-      "cve_ids": [
-        "CVE-2026-18257"
-      ],
-      "cvss": 5.6,
-      "related_links": []
-    },
-    {
-      "id": "dbbffb3a9cf6dd1fee32fc029528fd8af122daa889ccb4d49ba6a5a5d42d803d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18255",
-      "title": "CVE-2026-18255 — CVSS 7.2",
-      "summary": "A flaw was found in Quay. A user configured in GLOBAL_READONLY_SUPER_USERS is able to view robot account tokens for repositories they are not a member of, allowing an attacker with read-only superuser privileges to impersonate any robot account.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T17:16:51.393",
-      "cve_ids": [
-        "CVE-2026-18255"
-      ],
-      "cvss": 7.2,
-      "related_links": []
-    },
-    {
-      "id": "3184b925d6c0ac3b4db47dd137f08dbce22b87ed8af2e8bf6fafebea2067b743",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15144",
-      "title": "CVE-2026-15144 — CVSS 7.3",
-      "summary": "@fastify/rate-limit before 11.2.0 keys rate-limit buckets by the verbatim client IP string returned from request.ip. Because a single IPv6 client can control a large address range (a /64 holds 2^64 distinct addresses) and the same address has multiple valid textual representations, an IPv6 capable client can defeat the rate-limit boundary by rotating addresses or by rewriting the same address in d",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T17:16:50.637",
-      "cve_ids": [
-        "CVE-2026-15144"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "23ee91eea3f29d728529425f89a4c9bb77c36f1f363c9e1c69e9401352b802cb",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-60931",
-      "title": "CVE-2025-60931 — CVSS 7.5",
-      "summary": "An Insecure Direct Object Reference (IDOR) in the Employee Compensation View function of Infor Global HR v11.24.10.01.33 allows unauthorized attackers to arbitrarily view the compensation information of other employees via a crafted GET request.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-07-29T17:16:50.367",
-      "cve_ids": [
-        "CVE-2025-60931"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "deb4975004c5d3c5a52b600df61c240a627f37fbb9540a8e35cbbdd2698352b7",
-      "url": "https://github.com/advisories/GHSA-fq3f-m5qm-99f5",
-      "title": "GHSA: OpenTelemetry Javaagent RMI context propagation allows resource exhaustion",
-      "summary": "The RMI context propagation payload reader limits the number of context entries but does not limit the aggregate size of the strings read from the stream.\n\nAn attacker who can reach an RMI endpoint on an instrumented JVM can send an oversized context propagation payload. This can cause excessive memory allocation while the JVM reads the payload, potentially leading to denial of service.\n\nThe issue",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-29T17:16:32Z",
-      "cve_ids": [
-        "CVE-2026-54712"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "a35bd458b48d8da6694116e13f28c172b81f8638709ba8ed1df8bd88099ebcfd",
-      "url": "https://github.com/advisories/GHSA-mjqf-28ph-426h",
-      "title": "GHSA: Logging operator has Fluentd configuration injection that allows remote code execution",
-      "summary": "### Summary\n\nThe Fluentd configuration renderer in Logging operator writes strings from CRDs such as `Flow` directly into `fluent.conf` without escaping them. As a result, a user who can create `Flow` resources can inject Fluentd configuration by providing values that contain newlines.\n\nIn the confirmed path, a value in `record_transformer.records` can close the current `<record>` / `<filter>` blo",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-29T17:01:29Z",
-      "cve_ids": [
-        "CVE-2026-54680"
-      ],
-      "cvss": 9.9,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-54680"
-      ]
-    },
-    {
-      "id": "356a7b2f57c3b98a06e9cff7d5f2ee4b52b6254c79118ad9b39e3d87178df48e",
-      "url": "https://github.com/advisories/GHSA-7h3g-4w2f-fj2f",
-      "title": "GHSA: proot-distro has a Container Isolation Bypass via Crafted Restore Archive",
-      "summary": "## Affected Component\n\n- **Package:** proot-distro\n- **Affected command:** `restore`\n- **Attack surface:** Host-side Termux CLI processing a user-supplied backup archive\n- **Vulnerability type:** Container Isolation Bypass / Cross-Container Read and Write\n\n---\n\n## Affected Versions\n\n| Component | Version |\n|---|---|\n| proot-distro | 5.1.5 (confirmed affected) |\n| Test distro | Alpine Linux |\n| Arc",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-29T16:42:11Z",
-      "cve_ids": [
-        "CVE-2026-54727"
-      ],
-      "cvss": 8.2,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-54727"
-      ]
-    },
-    {
-      "id": "3ceb1c50f53b6b2f85c423e9aa05ba45b8c83c62ef2bfab57e2fc65f454a8c22",
-      "url": "https://github.com/advisories/GHSA-9xq3-3fqg-4vg7",
-      "title": "GHSA: `proot-distro install` has a Symlink Escape (Arbitrary Host File Write) via Malicious Tar Archive",
-      "summary": "**Repository:** `termux/proot-distro`  \n**Component:** `proot_distro/commands/install.py` → `_extract_plain_tar()`; also `helpers/docker.py` → `_apply_layer()`    \n\n---\n\n## Affected Versions\n\n| Component     | Version                      |\n|---------------|------------------------------|\n| proot-distro  | 5.0.2 (confirmed vulnerable) |\n| Termux app    | 0.119.0-beta.3               |\n| Device / A",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-07-29T16:32:34Z",
-      "cve_ids": [
-        "CVE-2026-54574"
-      ],
-      "cvss": 8.2,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-54574"
-      ]
-    },
-    {
-      "id": "a90e3ff18c17df504d39afa3c0734f517390dac5f2e261d5ff50f14cf11ed7a3",
-      "url": "https://github.com/advisories/GHSA-996f-334j-67g7",
-      "title": "GHSA: Easy!Appointments disable_booking_message rendered as raw HTML on public booking page — Stored XSS",
-      "summary": "## Summary\n \nEasy!Appointments allows administrators to define a custom \"booking disabled\" message through the booking settings page. That value is stored in the `disable_booking_message` setting via a rich-text editor and later passed directly to the public `booking_message` view without escaping or sanitization:\n \n```php\n<p><?= vars('message_text') ?></p>\n```\n \nAn authenticated administrator can",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-29T16:30:09Z",
-      "cve_ids": [
-        "CVE-2026-52838"
-      ],
-      "cvss": 2.6,
-      "related_links": []
-    },
-    {
-      "id": "fbeaaaaa4f398fcac1ed5a14f2213cbb91189bb5a4173279c7302b944b6ee833",
-      "url": "https://github.com/advisories/GHSA-8hm4-r66f-29wr",
-      "title": "GHSA: Easy!Appointments: Authorization bypass in Google OAuth provider binding lets any backend user rebind a peer provider's Google sync",
-      "summary": "### Summary\n\n`Google::oauth` at `application/controllers/Google.php:278` stores its URL-supplied `provider_id` in the session, and `oauth_callback` saves the issued Google OAuth token against that row without checking the caller owns the provider. Any logged-in backend user (admin, provider, or secretary) rebinds a peer provider's Google sync to a Google account they control. The peer's appointmen",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-07-29T16:29:26Z",
-      "cve_ids": [
-        "CVE-2026-52841"
-      ],
-      "cvss": 3.1,
-      "related_links": []
-    },
-    {
-      "id": "af8ae980a47620e3de466284b40e9bd1ea8f4e8d72fe9f99b734c17847029fcc",
-      "url": "https://github.com/advisories/GHSA-w8xc-8g92-v77h",
-      "title": "GHSA: Easy!Appointments appointments/store and appointments/update allow cross-provider appointment injection — Authorization Bypass",
-      "summary": "## Summary\n \nEasy!Appointments correctly filters provider-scoped appointments in the `appointments/search` response, proving that provider isolation is an intended security boundary. However, the direct mutation endpoints `appointments/store` and `appointments/update` only check generic appointment privileges and never verify that the submitted `id_users_provider` belongs to the current session.\n ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-29T16:26:25Z",
-      "cve_ids": [
-        "CVE-2026-52839"
-      ],
-      "cvss": 3.3,
-      "related_links": []
-    },
-    {
-      "id": "87c3aa7712f5d4d499c62d65d81a271d9013aad44830c59ab5350333622d09e9",
-      "url": "https://github.com/advisories/GHSA-pm5p-7w5h-jm5q",
-      "title": "GHSA: Easy!Appointments has server-side request forgery in CalDAV connection test that exposes the deployment's internal network",
-      "summary": "### Summary\n\n`Caldav::connect_to_server` at `application/controllers/Caldav.php:60` hands the request's `caldav_url` to a Guzzle `REPORT` call without scheme or host validation. A logged-in backend user (admin, provider, or secretary) reaches loopback, RFC1918, and link-local hosts on the deployment's network. The Guzzle exception path returns the upstream status code plus ~120 bytes of response b",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-29T16:24:27Z",
-      "cve_ids": [
-        "CVE-2026-52840"
-      ],
-      "cvss": 2.7,
-      "related_links": []
-    },
-    {
-      "id": "dcf02e8e7eef471d2d32d2f08139ac2c76ba489e5ecd6322e98e4037147c135e",
-      "url": "https://github.com/advisories/GHSA-4vmm-5qvc-w5p7",
-      "title": "GHSA: Easy!Appointments Vulnerable to Appointments Takeover via Excessive Data Exposure",
-      "summary": "### Summary\nAn Excessive Data Exposure vulnerability in the customers search endpoint allows an authenticated user to obtain appointment hashes belonging to other users.\nUsing these hashes, an attacker can modify or delete appointments of other providers, resulting in an Appointments Takeover.\n\n### Details\nThe customers search endpoint exposes excessive information, including appointment hashes, t",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-29T16:22:17Z",
-      "cve_ids": [
-        "CVE-2026-55651"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "ecd54a6adb80fe2bf13f59d0559e8b4cdf9bb310ee904ea978b7e41bcd3cff61",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-67193",
-      "title": "CVE-2026-67193 — CVSS 5.3",
-      "summary": "Xlight FTP Server before 3.9.5 contains an information disclosure vulnerability that allows unauthenticated attackers to obtain the server's current GetTickCount() value by sending a USER command with a username ending in the :adm suffix. Attackers can trigger the admin protocol path within the standard FTP listener pre-authentication to leak timing information from the FTP 331 response without re",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T16:17:57.833",
-      "cve_ids": [
-        "CVE-2026-67193"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "3039edc6e8d3e04bda22b69981feda81ca0f503e7b6b090644ea00f7a9f3ff69",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-67192",
-      "title": "CVE-2026-67192 — CVSS 8.1",
-      "summary": "Xlight FTP Server before 3.9.5 contains a pre-authentication stack buffer overflow vulnerability that allows unauthenticated attackers to corrupt stack memory by sending malformed SSH packets when a GCM cipher is negotiated. Attackers can craft packets with an unvalidated length field passed directly to the GCM decrypt function, overwriting the stack cookie and return address to potentially achiev",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T16:17:57.683",
-      "cve_ids": [
-        "CVE-2026-67192"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "4cff4ea8ee27087cd7c20ea1589318bccbc7949764a99aad296e248a1358e21a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-67191",
-      "title": "CVE-2026-67191 — CVSS 9.8",
-      "summary": "Xlight FTP Server before 3.9.5 contains a pre-authentication heap buffer overflow vulnerability that allows remote unauthenticated attackers to write past the end of a heap buffer by sending a malformed SSH client identification string. A logic error in the recv loop's termination condition uses an incorrect OR operator where an AND operator is required, enabling exploitation on any SSH or SFTP co",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T16:17:57.540",
-      "cve_ids": [
-        "CVE-2026-67191"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "501a7b12e5097560ad4a2f97b164337f39582d513e3745d06c113be803f1bd3b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-60113",
-      "title": "CVE-2026-60113 — CVSS 9.8",
-      "summary": "AMMOS Instrument Toolkit (AIT) Deep Space Network (DSN) Interface before 2.2.2 contains a missing authentication vulnerability in the Space Link Extension (SLE) interface manager that allows unauthenticated network attackers to access seven unprotected API routes by sending direct HTTP requests with no credentials. Attackers can reach the exposed SLE endpoints to start or stop Deep Space Network c",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T16:17:55.560",
-      "cve_ids": [
-        "CVE-2026-60113"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "db742d4aa1dd2043bf9ce89fa45309d6b5cdd154c90d97ee6af2d194b42533f8",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-60112",
-      "title": "CVE-2026-60112 — CVSS 9.8",
-      "summary": "AMMOS Instrument Toolkit (AIT) GUI before 2.5.1 contains a missing authentication vulnerability that allows any unauthenticated network attacker to obtain a valid session and issue arbitrary spacecraft commands by calling Sessions.create() without any credential check. Attackers can exploit the unauthenticated session issuance in Sessions.create() and subsequently invoke handle_cmd() to forward ar",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T16:17:55.413",
-      "cve_ids": [
-        "CVE-2026-60112"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "5e949ba7969d065256279abc2ffb3254c595bc4f3967e9c91e20543d07f2a43c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17550",
-      "title": "CVE-2026-17550 — CVSS 5.5",
-      "summary": "A maliciously crafted DWG or DXF file, when parsed through Autodesk AutoCAD, can force an Out-of-Bounds Read vulnerability. A malicious actor can leverage this vulnerability to cause a crash or disclose sensitive information.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T16:17:51.180",
-      "cve_ids": [
-        "CVE-2026-17550"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "eea664b450f972c7fdbc4d9d67504cd69ce99a2708a66f3106e92e1fd0cb1f02",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-16543",
-      "title": "CVE-2026-16543",
-      "summary": "Kong Operator's embedded Kong Kubernetes Ingress Controller (KIC) allows a user with namespace-scoped Secret creation privileges to cause a cluster-wide ingress configuration denial of service. The embedded KIC collects CA-certificate Secrets across all watched namespaces using a label selector alone, without ingress-class or namespace restrictions. The CA-certificate primary key is derived from a",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-07-29T16:17:50.660",
-      "cve_ids": [
-        "CVE-2026-16543"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d6c4d18bc12b6329f306187cf75ee66ebf61dd8d623ed6641a03cfcab63332b6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-16465",
-      "title": "CVE-2026-16465 — CVSS 6.1",
-      "summary": "A maliciously crafted DWG or DXF file, when parsed through Autodesk AutoCAD, can force an Out-of-Bounds Read vulnerability. A malicious actor can leverage this vulnerability to cause a crash or disclose sensitive information.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T16:17:50.530",
-      "cve_ids": [
-        "CVE-2026-16465"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "67780053cc0629b04eb9b2576fd86e746f6b4ff3a7fe3f07b810c52c63a4f77c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-16463",
-      "title": "CVE-2026-16463 — CVSS 7.8",
-      "summary": "A maliciously crafted DXF file, when parsed through Autodesk AutoCAD, can force a Heap-Based Overflow vulnerability. A malicious actor can leverage this vulnerability to cause a crash, read sensitive data, or execute arbitrary code in the context of the current process.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T16:17:50.377",
-      "cve_ids": [
-        "CVE-2026-16463"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "8ef0fdf5989aa2319f2c073fbe6e58567167d0196e9d546d14fef8152eb2bb33",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15228",
-      "title": "CVE-2026-15228",
-      "summary": "Kong Kubernetes Ingress Controller (KIC) allows a user with namespace-scoped Secret creation privileges to cause a cluster-wide ingress configuration denial of service. KIC collects CA-certificate Secrets across all watched namespaces using a label selector alone, without ingress-class or namespace restrictions. The CA-certificate primary key is derived from a user-supplied field in the Secret. Du",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-07-29T16:17:49.723",
-      "cve_ids": [
-        "CVE-2026-15228"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "805e665f94dd2be6574d9b1629e11e24a5f36bdf2164556f56adabdd71198c09",
-      "url": "https://www.rapid7.com/blog/post/etr-cve-2026-63077-critical-unauthenticated-remote-code-execution-in-jetbrains-teamcity",
-      "title": "CVE-2026-63077: Critical unauthenticated remote code execution in JetBrains TeamCity",
-      "summary": "OverviewOn July 27, 2026, JetBrains published a security advisory for CVE-2026-63077, a critical unauthenticated vulnerability affecting all versions of TeamCity On-Premises. The issue is classified as deserialization of untrusted data and has a CVSS score of 9.8. An unauthenticated remote attacker with HTTP(S) access to a TeamCity server can exploit the agent polling protocol to bypass authentica",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-07-29T16:16:48+00:00",
-      "cve_ids": [
-        "CVE-2026-63077"
-      ],
-      "cvss": 9.8,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-63077",
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-63077"
-      ]
-    },
-    {
-      "id": "90e731bcb377e770e94c18667365fed3a89084891c15838de143b2a00829b8eb",
-      "url": "https://github.com/advisories/GHSA-m4x6-gwgp-4pm7",
-      "title": "GHSA: AgentCore CLI Bedrock Agent Import Vulnerable to Code Injection via Improper Triple-Quote Escaping",
-      "summary": "### Summary\nThe AgentCore CLI (@aws/agentcore) is a developer tool for managing agent infrastructure lifecycle on Amazon Bedrock AgentCore. An issue exists where, under certain circumstances, a crafted collaborationInstruction value stored in Bedrock Agent collaborator metadata can break out of a Python triple-quoted string in code generated by the `agentcore add agent --type import` command, resu",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-29T16:10:46Z",
-      "cve_ids": [
-        "CVE-2026-11393"
-      ],
-      "cvss": 9.0,
-      "related_links": []
-    },
-    {
-      "id": "a76bb62e87f90ad353c9a5d34bb9abf625543971bcfa8593b2a908be04909378",
-      "url": "https://github.com/advisories/GHSA-4p3g-4hcj-wpvx",
-      "title": "GHSA: prebid-server's request forgery vulnerability allows for possible host environment data extraction",
-      "summary": "### Impact\nCertain bidder adapters accept user-supplied parameters that are interpolated into outbound request URLs. Without proper input validation, a malicious actor could craft bid request parameters that cause the server to send HTTP requests to unintended destinations, potentially exposing internal network services or sensitive server endpoints to unauthorized access.\n\n### Patches\nPatched in ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-29T16:00:36Z",
-      "cve_ids": [
-        "CVE-2026-54735"
-      ],
-      "cvss": 10.0,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-54735"
-      ]
-    },
-    {
-      "id": "e6d6eddef8b9410331db33522334aff750d914410b5b20da4ae21e9864364bf9",
-      "url": "https://github.com/advisories/GHSA-qcxp-gm7m-4j5v",
-      "title": "GHSA: Quarkus: Authentication/Authorization Bypass via Advanced Path Normalization Vulnerabilities",
-      "summary": "Quarkus HTTP path-based authorization policies can be bypassed using encoded semicolons (%3B) to smuggle matrix\n  parameters past the security layer, and using encoded slashes (%2F) or backslashes (%5C) to access protected static\n  resources. This is a distinct issue from CVE-2026-39852, which addressed only literal semicolon stripping.\n\n  ### Technical Details\n\n  The security layer (AbstractPathM",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-07-29T15:40:05Z",
-      "cve_ids": [
-        "CVE-2026-50559"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "b96d85355b438199886e22eb3cb4f54e39d74780e40fc11ae3036d54d2610ddf",
-      "url": "https://github.com/advisories/GHSA-pc2w-4mq8-32qw",
-      "title": "GHSA: @dynatrace-oss/dynatrace-mcp-server's create_dynatrace_notebook missing the human-approval gate",
-      "summary": "### Summary\nA missing human-approval gate on the `create_dynatrace_notebook` tool allows a caller to create persistent tenant-visible documents containing arbitrary content (including embedded DQL that other users execute when opening the notebook) without operator consent.\n\n### Details\n`dynatrace-mcp-server` registers six write tools: `send_slack_message`, `send_email`, `send_event`, `create_work",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-29T15:36:19Z",
-      "cve_ids": [],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "6cf1101150e3e81cd8ff38522d8bf6b111ba33eefec89987441e5c9512eb2f3b",
-      "url": "https://github.com/advisories/GHSA-f42x-p2mx-hm8r",
-      "title": "GHSA: Penelope unsafe tar extraction allows arbitrary local file write via crafted session archive",
-      "summary": "### Summary\n\nPenelope versions prior to 0.19.3 extracted tar archives received from remote sessions without validating archive member paths. When using the affected Unix download path, a malicious or compromised remote session could return a crafted tar archive containing path traversal entries, such as `../`, causing files to be written outside the intended download directory on the Penelope oper",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-07-29T15:34:16Z",
-      "cve_ids": [
-        "CVE-2026-50558"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "96e62f3f23e987254c79ce5b8fd34bb76210706919a53143c86aa8b99187bf59",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66723",
-      "title": "CVE-2026-66723",
-      "summary": "MWDB Core versions >=2.2.0 and <2.19.0 contain a missing authorization vulnerability in the Remote Instances proxy API. The proxy API does not verify authentication for incoming requests, allowing an unauthenticated remote attacker to send arbitrary requests to a remote MWDB instance using the identity and permissions associated with the configured API key. This can result in unauthorized actions ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-07-29T15:16:29.877",
-      "cve_ids": [
-        "CVE-2026-66723"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b180a2faef9feee64e653c595d8ebd0032d4e4a06f48bb77d078a5ede1d2296b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65947",
-      "title": "CVE-2026-65947 — CVSS 7.3",
-      "summary": "Joomla Extension - balbooa.com - Various CSRF vectors in the admin interface in Gridbox < 2.20.2",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-07-29T15:16:29.500",
-      "cve_ids": [
-        "CVE-2026-65947"
-      ],
-      "cvss": 7.3,
       "related_links": []
     }
   ]
