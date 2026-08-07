@@ -1,10 +1,140 @@
 {
-  "updated": "2026-08-07T13:02:42.519927+00:00",
+  "updated": "2026-08-07T16:54:14.656777+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "e813741cbec985153257d262c91d77218d58c246b2ea628d5939b2bd11ba8fa8",
+      "url": "https://github.com/advisories/GHSA-gx4c-2hqx-cw2r",
+      "title": "GHSA: rclone: S3 backend does not strip X-Amz-Security-Token on a same-host HTTPS->HTTP redirect",
+      "summary": "## Vulnerability Details\n\n**File**: `backend/s3/s3.go`\n**Lines**: 1359-1380 (functions `s3CheckRedirect` / `s3RedirectCrossesHost`)\n\n### Root Cause\nCommit `e7b1eb774` (released in v1.74.3) added a `CheckRedirect` policy for\nthe S3 HTTP client whose purpose is to strip the `X-Amz-Security-Token`\nheader (the AWS STS session token) whenever a redirect chain \"crosses a\nhost\", so the token isn't forwar",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:43:11Z",
+      "cve_ids": [],
+      "cvss": 3.1,
+      "related_links": []
+    },
+    {
+      "id": "12eb437177c41b9d1815ec015a09a6a9b836b4f91ae078171b6e156ff55889a6",
+      "url": "https://github.com/advisories/GHSA-fqj9-69pf-6pjg",
+      "title": "GHSA: rclone `serve restic --private-repos` authorization bypass: `..` in the URL path lets an authenticated user read, overwrite and delete other users' repositories",
+      "summary": "## Summary\n\n`rclone serve restic --private-repos` exists to let one rclone instance host many users' restic backup repositories behind HTTP Basic auth while keeping each user confined to a path prefix of `/<username>/`. The documentation states the flag \"can be used to limit users to repositories starting with a path of `/<username>/`\", and the shipped test `TestResticPrivateRepositories` asserts ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:41:22Z",
+      "cve_ids": [
+        "CVE-2026-59733"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "96c46f741f60dbb40e545204e8dac280bcab5b58e976b6b571b760e2a4cd70b8",
+      "url": "https://github.com/advisories/GHSA-2m8m-jhrm-w6j2",
+      "title": "GHSA: rclone: PowerShell Smart-Quote Filename Injection Enables SFTP Server-Side Command Execution",
+      "summary": "## 1. Summary\n\nrclone interpolates remote SFTP paths into PowerShell hash commands. Its quoting helper escapes only ASCII apostrophe, although PowerShell accepts four Unicode smart quotes as single-quote delimiters. An attacker-controlled filename can therefore terminate the intended path literal and append PowerShell statements executed as the victim's SSH account.\n\n## 2. Affected Assets & Attack",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:37:56Z",
+      "cve_ids": [
+        "CVE-2026-71312"
+      ],
+      "cvss": 8.0,
+      "related_links": []
+    },
+    {
+      "id": "61b3230c2acdb713c6b9f1877187719517121977bb44c7b5949a80333231d3de",
+      "url": "https://github.com/advisories/GHSA-h4mf-4v27-hggj",
+      "title": "GHSA: rclone: WebDAV Credentials Survive a Same-Host HTTPS-to-HTTP Redirect",
+      "summary": "## 1. Summary\n\nWebDAV's default redirect handling can replay Basic authorization and configured Cookie headers over plaintext HTTP after a same-host HTTPS-to-HTTP redirect. This was reproduced through the real backend. Unlike the low-impact STS token in rclone's published S3 redirect advisory, Basic passwords and session cookies are complete reusable credentials, supporting a High rating when they",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:36:10Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "b61379ec368d7270f4e2c74e89702f0fc5a045bb801946447c8263418828bc8b",
+      "url": "https://github.com/advisories/GHSA-8c48-q9wj-3w37",
+      "title": "GHSA: rclone: FTP Command Arguments Permit CRLF Injection When Custom Encoding Preserves Newlines",
+      "summary": "## 1. Summary\n\nA valid but nondefault FTP filename encoding can restore raw CR/LF immediately before an attacker-controlled path is interpolated into the line-oriented FTP control channel. The dependency does not reject CR or LF in command arguments, so a filename can inject an independent authenticated command. A real test server observed the injected `DELE` command.\n\nThe default FTP encoding and",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:33:57Z",
+      "cve_ids": [
+        "CVE-2026-71311"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "719141af876d1c87ae024746235c904304e80bb65ae44ec9715ff6c568338fd2",
+      "url": "https://github.com/advisories/GHSA-8mxv-9xhp-86h4",
+      "title": "GHSA: rclone: S3 Redirect Sanitization Omits IBM IAM Bearer Tokens and SSE-C Keys",
+      "summary": "## 1. Summary\n\nThe S3 redirect callback strips `X-Amz-Security-Token` when a redirect changes scheme or host, but it does not strip IBM IAM bearer authorization or customer-provided encryption keys. Two independently validated paths remain:\n\n- a same-host HTTPS-to-HTTP redirect preserves `Authorization: Bearer ...` and exposes a reusable IBM IAM token to the plaintext network path;\n- a cross-origi",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:27:50Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "6f7ae49023b9575d141bf90901d7d767fd9024f170efdbaca1ab86bf5aa4792b",
+      "url": "https://github.com/advisories/GHSA-8v25-v8p6-qf7v",
+      "title": "GHSA:  rclone: Path traversal in serve s3 allows reading and overwriting root-level files",
+      "summary": "### Summary\n\nrclone serve s3 allows a client to read and write files at the root of the remote which would normally be inaccessible by using dot-dot path segments in the object key. It does not allow reading files outside of the root. A request such as GET /bucket/../root-secret.txt is handled as an object request for bucket \"bucket\", but rclone normalizes the backend path and reads root-secret.tx",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:27:42Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "ca554d76de0bf5341e08ccf0be25aff56c43b6b5499ff938e35d70653b0e8350",
+      "url": "https://github.com/advisories/GHSA-3x6r-wxxg-53vv",
+      "title": "GHSA: rclone: Infinite Scale TUS Creation Transport Error Causes a Nil-Response Panic",
+      "summary": "## 1. Summary\n\nA transport failure during the initial Infinite Scale TUS creation POST can return `(nil response, non-nil error)`. Rclone dereferences the nil response before processing the error and panics. The production `CreateUploader` path reproduced the crash against a closed endpoint.\n\nThe security case is deployment-dependent. A one-shot upload already fails when its endpoint resets, while",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:26:07Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "e737144ba4639877399f22fb6a36bc860d9ac4691438dca4a2950c77dad11284",
+      "url": "https://github.com/advisories/GHSA-xhf4-832v-7xcr",
+      "title": "GHSA: rclone: Unbounded HTTP CONNECT Response Headers Can Exhaust rclone Memory",
+      "summary": "## 1. Summary\n\nThe shared HTTP CONNECT helper parses a proxy response with `http.ReadResponse` over an unrestricted buffered reader. The production helper accepted a valid response containing a 2 MiB header in three consecutive runs. A malicious or compromised configured proxy, or an active on-path actor controlling a plaintext HTTP-proxy hop, can grow memory until the process fails.\n\nThe security",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T20:17:52Z",
+      "cve_ids": [
+        "CVE-2026-71310"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "336df87c175c6dd9a554af63d63db3f07dd6806c177bbbd412701f3b5a6d1f68",
+      "url": "https://github.com/advisories/GHSA-cf44-9pgv-m4xc",
+      "title": "GHSA: rclone: Unvalidated symlink target in local `--links` — arbitrary file write from an untrusted remote",
+      "summary": "### Summary\nWith `-l/--links`, rclone serializes symlinks as `<name>.rclonelink` text objects whose body is the link target. When rclone writes such an object to a local destination, it recreates the symlink with `os.Symlink(<object body>, <dest path>)` and performs NO validation of the target. If the source is attacker-controlled, the attacker sets the body to any absolute or `../` path, so rclon",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-05T20:15:01Z",
+      "cve_ids": [
+        "CVE-2026-54572"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
     {
       "id": "7bea7c793e57816bfe3871cb6e9bb11e0a90df2723999397f2800c8106a25d59",
       "url": "https://github.com/advisories/GHSA-945v-v9p3-v5xw",
@@ -549,146 +679,6 @@
         "CVE-2026-70588"
       ],
       "cvss": 5.0,
-      "related_links": []
-    },
-    {
-      "id": "8c3e3924b14047f0958a15562225f028687187ffaa4742782cf272a4a6e8ee9c",
-      "url": "https://github.com/advisories/GHSA-3cg5-48j3-v4gv",
-      "title": "GHSA: Open WebUI: A folder write-collaborator can permanently delete the owner's chats by deleting a shared subfolder",
-      "summary": "## Summary\nA user granted write access to a shared chat folder could permanently delete chats and messages belonging to the folder's owner. Deleting a folder cascades into the owner's chats and the entire subfolder subtree, and the deletion handler required only write access on subfolders instead of ownership. Root folders were restricted to the owner or an admin, subfolders were not.\n\n## Precondi",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T20:58:12Z",
-      "cve_ids": [
-        "CVE-2026-70494"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "5a3334ce425762b0014a8f49766323f75965c77c845caeecf69d4b777b7a9d98",
-      "url": "https://github.com/advisories/GHSA-2f54-p244-32q6",
-      "title": "GHSA: Open WebUI: Any authenticated user can stall a worker via a knowledge-search pattern that backtracks catastrophically",
-      "summary": "## Summary\nThe built-in knowledge search tools let a chat participant choose the pattern used to grep knowledge files. Patterns containing regex metacharacters were compiled with Python's backtracking `re` engine and run against every line of every reachable file, with no time limit anywhere on that path. A single crafted pattern and a single short line of matching text pin one CPU core for as lon",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T20:56:23Z",
-      "cve_ids": [
-        "CVE-2026-70493"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "1434540bdb6a12f4ff707fed7ad6807fe119c9784c57ea512bec3bee907b5008",
-      "url": "https://github.com/advisories/GHSA-pwxh-7358-jq2x",
-      "title": "GHSA: Open WebUI: Stored XSS via unescaped KaTeX render-error fallback in rendered messages",
-      "summary": "## Summary\nAny authenticated user can store a chat message whose math block makes KaTeX fail with a stack overflow instead of a parse error. When that happens the renderer falls back to inserting the original math source into the page as HTML rather than as text, so script in the message runs in the browser of whoever views it. Every surface that renders messages is affected, including shared chat",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-04T20:54:17Z",
-      "cve_ids": [
-        "CVE-2026-70492"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "6679e680de5a852ba3b9f62989231e634b388fdac1bdbf628ab233d1865d0ac5",
-      "url": "https://github.com/advisories/GHSA-3r7g-q6cg-q2vx",
-      "title": "GHSA: Open WebUI: Tool source code disclosed to read-only users via the tool list and get endpoints",
-      "summary": "## Summary\n\nA workspace tool shared with a read grant returned its full Python source to the recipient. Any authenticated non-admin who could use a shared tool could also read its source, including any user on the instance when a tool was shared publicly. Source is meant to be a writer-only tier: the list response schema deliberately omits it and source export sits behind its own permission. The r",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-04T20:51:41Z",
-      "cve_ids": [
-        "CVE-2026-70491"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "3e9922edbd6689f7ced41c2477d390b45e3d645be814eb9dc4416f25b3e95172",
-      "url": "https://github.com/advisories/GHSA-5gpj-vj23-vhhv",
-      "title": "GHSA: Open WebUI: Unapproved accounts can open terminal sessions via a WebSocket auth path missing the role check",
-      "summary": "## Summary\nThe terminal WebSocket route authenticates its own first-message JWT instead of going through the HTTP dependency chain, and never applies the role check that `get_verified_user` enforces on every HTTP terminal route. An account whose role is `pending`, meaning registered but not approved, or approved and later deactivated back to `pending`, can therefore open an interactive terminal se",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-04T20:45:00Z",
-      "cve_ids": [
-        "CVE-2026-70490"
-      ],
-      "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "7008beb408fa8ededc619ae31804b403c51cd4e68cbc12a384740474e4dbc159",
-      "url": "https://github.com/advisories/GHSA-73cq-mcgh-379c",
-      "title": "GHSA: Open WebUI: Instance-wide stall via automation recurrence rules that force multi-second parsing",
-      "summary": "## Summary\nIn every affected release, automation recurrence parsing anchors minutely and hourly rules at a fixed date of 2000-01-01 and then walks forward one interval at a time to find the next run. A single `FREQ=MINUTELY` rule therefore enumerates roughly a quarter-century of occurrences, synchronously, on the event loop that also serves the scheduler, HTTP and WebSocket traffic. Nothing bounds",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-04T20:42:34Z",
-      "cve_ids": [
-        "CVE-2026-70489"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "771dd778c4c901b9f6a5123a06df029fdb4aa3a8a2cb68a9c61b98136785bff4",
-      "url": "https://github.com/advisories/GHSA-h6x2-583h-x99r",
-      "title": "GHSA: Open WebUI: DNS Rebinding SSRF Bypass",
-      "summary": "## Summary\nOpen WebUI vetted user-supplied URLs by resolving the hostname once and rejecting private, loopback and link-local addresses, then let the HTTP client resolve that hostname again at connect time. An attacker who controls the authoritative DNS for a hostname they submit can answer with a public address during the check and an internal one at connect, so the fetch reaches an address the c",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T20:38:34Z",
-      "cve_ids": [
-        "CVE-2026-54020"
-      ],
-      "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "320389eac9f6531197a16151d9df8626d3e704cfd19d593739c5f86fc8ff684e",
-      "url": "https://github.com/advisories/GHSA-6xhv-rxhv-pwm4",
-      "title": "GHSA: Open WebUI: Cross-user file content disclosure via request-scoped direct model knowledge metadata",
-      "summary": "## Summary\nOpen WebUI lets a client define a model inline on a chat request instead of selecting a saved workspace model. The knowledge attached to such an inline model was used as-is, without checking that the caller can read what it points at. Any authenticated user who knows another user's file id could therefore have the builtin knowledge tools return that file's indexed content back to them.\n",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T20:35:53Z",
-      "cve_ids": [
-        "CVE-2026-70487"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "5a5bab0b43294b472a05a01306713a9d4df52003291355582e8a2dceb0115e8d",
-      "url": "https://github.com/advisories/GHSA-jxc9-xmc4-gr23",
-      "title": "GHSA: Open WebUI: Deletion of directories and file embeddings in other knowledge bases via sync cleanup",
-      "summary": "## Summary\nA user with write access to one knowledge base could delete directories, and drop file embeddings, belonging to knowledge bases they do not control. The sync cleanup endpoint verified write access on the knowledge base named in the URL and then acted on the directory and file ids supplied in the request body without checking that those objects belonged to that knowledge base.\n\n## Precon",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T20:35:47Z",
-      "cve_ids": [
-        "CVE-2026-70488"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "41f69b58931e9fa30a9a9780fd1e41f66800d29670869df2ab9028fe9a641925",
-      "url": "https://github.com/advisories/GHSA-3xpf-xq7r-v8c5",
-      "title": "GHSA: Open WebUI: Same-origin XSS to account takeover via terminal file-preview iframe hardcoding allow-same-origin",
-      "summary": "## Summary\nAny authenticated user with access to a terminal server could get script of their choosing to run in the Open WebUI origin itself. The HTML file preview rendered terminal-served files in an iframe whose sandbox always granted `allow-same-origin` alongside `allow-scripts`, and the file is served from a path on the application's own origin, so the sandbox provided no isolation at all. Scr",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T20:02:03Z",
-      "cve_ids": [
-        "CVE-2026-70486"
-      ],
-      "cvss": 8.2,
       "related_links": []
     }
   ]
