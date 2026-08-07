@@ -1,10 +1,416 @@
 {
-  "updated": "2026-08-06T14:09:07.339347+00:00",
+  "updated": "2026-08-07T00:52:15.379970+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "7bea7c793e57816bfe3871cb6e9bb11e0a90df2723999397f2800c8106a25d59",
+      "url": "https://github.com/advisories/GHSA-945v-v9p3-v5xw",
+      "title": "GHSA: rclone local `--metadata` applies attacker-controlled mode/uid - setuid binary planted from an untrusted remote",
+      "summary": "### Summary\nWhen writing an object with metadata, the local backend applies the source-supplied `mode`, `uid`, and `gid` verbatim: it parses `mode` as an octal integer and passes it straight into `os.Chmod(o.path, os.FileMode(umode))`, and passes `uid`/`gid` straight into `os.Chown`. The value is never masked to permission bits, so any value with Go's `ModeSetuid` (1<<23) or `ModeSetgid` (1<<22) b",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-05T20:03:14Z",
+      "cve_ids": [],
+      "cvss": 3.6,
+      "related_links": []
+    },
+    {
+      "id": "a2d42fef24c6678ae7d5b35cf874c6b68c35a60f4bbff9da156ccc1a3312063d",
+      "url": "https://github.com/advisories/GHSA-gwfq-86j8-7qhv",
+      "title": "GHSA: rclone: Verbose Stack Trace Disclosure in RC API Error Responses",
+      "summary": "### Summary\n\nWhen an RC API call triggers a panic (recovered by the job runner), the full Go stack trace is included in the JSON error response. This leaks internal file paths, Go module versions, goroutine state, and memory addresses to the API caller.\n\n### Details\n\nThe panic recovery in `fs/rc/jobs/job.go:110-115`:\n\n```go\nfunc (j *Job) run(ctx context.Context, fn rc.Func, in rc.Params) {\n    def",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T19:59:55Z",
+      "cve_ids": [],
+      "cvss": 2.7,
+      "related_links": []
+    },
+    {
+      "id": "167589835478151c7b5994b81cd083067440bdba54ee584e72b1c2d8f4d78674",
+      "url": "https://www.bleepingcomputer.com/news/security/hackers-run-khunt-post-exploitation-toolkit-from-oracle-database/",
+      "title": "Hackers run khunt post-exploitation toolkit from Oracle database",
+      "summary": "Hackers exploited a SQL injection vulnerability to install a post-exploitation toolkit directly inside an Oracle database that was used to breach a corporate network. [...]",
+      "source": "Bleeping Computer",
+      "category": "web_app",
+      "date": "2026-08-05T19:55:25+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "a705e7f06e33573b938f40f40c48b8d55ebb10e76aea4a6c62ece553fb5beef0",
+      "url": "https://github.com/advisories/GHSA-p2rr-rvmm-c5fp",
+      "title": "GHSA: Electron: Sandboxed iframes can launch external protocol handlers",
+      "summary": "### Impact\nRequests to open external protocol URLs from web content did not take iframe sandbox restrictions into account, so a sandboxed iframe could cause an OS-registered external application to be launched. The frame's sandbox state was also not made available to the app's permission handlers.\n\nApps are only affected if they render untrusted content in sandboxed iframes and grant the `openExte",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T17:56:50Z",
+      "cve_ids": [
+        "CVE-2026-70612"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "3b41db6b4d7ad3c8dc00685d8e8f0b5ec4a8b92f4203f2bfde378b11be4494c5",
+      "url": "https://github.com/advisories/GHSA-f2r8-jv7c-xqmp",
+      "title": "GHSA: Electron: DevTools embedder handler executes arbitrary files via shell open",
+      "summary": "### Impact\nThe DevTools \"reveal in file manager\" action could launch the target file rather than reveal it. An attacker with a separate means of running script inside the DevTools frontend (such as a malicious DevTools extension) could use this to execute native code outside the sandbox.\n\nApps are only affected if DevTools is opened for windows exposed to untrusted content or untrusted DevTools ex",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T17:49:14Z",
+      "cve_ids": [
+        "CVE-2026-70611"
+      ],
+      "cvss": 6.9,
+      "related_links": []
+    },
+    {
+      "id": "004b0a9f6fe7157e97cbc60bb82e518d12b68474615eecf54f48d0d3e762d783",
+      "url": "https://github.com/advisories/GHSA-ff2p-hmqr-hxm4",
+      "title": "GHSA: Electron: contextBridge object copy honors prototype setters",
+      "summary": "### Impact\nObjects copied across the `contextBridge` boundary from untrusted content could carry an attacker-influenced prototype, enabling prototype-pollution-style attacks against preload code despite context isolation being enabled.\n\nApps are only affected if their preload code accepts object arguments from untrusted content and reads properties from them without own-property checks. Apps that ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T17:41:20Z",
+      "cve_ids": [
+        "CVE-2026-70610"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "55a86f88049c5059fdb1b8ddfe7654d84b20feb4ba71fd3bf53d21d7bde79d9d",
+      "url": "https://github.com/advisories/GHSA-4f78-qhmw-8j8m",
+      "title": "GHSA: Electron: DevTools JavaScript Injection via Unsanitized Dock State Parameter",
+      "summary": "### Impact\nThe `mode` option of `webContents.openDevTools()` was not sanitized before use by the DevTools frontend. If an attacker can influence this value, script under their control may run in the DevTools context, which in unsandboxed configurations has access to Node.js.\n\nApps are only affected if untrusted input can reach the `mode` argument of `openDevTools()`, or if untrusted content can ca",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T17:32:47Z",
+      "cve_ids": [
+        "CVE-2026-70609"
+      ],
+      "cvss": 5.7,
+      "related_links": []
+    },
+    {
+      "id": "012910d5621d57c09f24b9e6fdead3914a01f0f35adbb3772063de958c5d2bdd",
+      "url": "https://github.com/advisories/GHSA-9f4c-93c8-jc8g",
+      "title": "GHSA: Electron: Sandboxed iframe can bypass the allow-popups restriction via the OpenURL navigation path",
+      "summary": "### Impact\nA sandboxed iframe without the `allow-popups` keyword could still open a new window (or trigger `setWindowOpenHandler`) with no user interaction, because new-window navigations taking the OpenURL path did not apply the iframe sandbox popup restriction.\n\nApps that embed untrusted content in sandboxed iframes and rely on the absence of `allow-popups` to prevent window creation are affecte",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T17:27:18Z",
+      "cve_ids": [
+        "CVE-2026-70608"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
+      "id": "8504fe931890cd7a61f4dbc24cb4cf107387eb5c3ef38e1f628e8e0d98d4aec9",
+      "url": "https://github.com/advisories/GHSA-v93f-fgjr-hjrj",
+      "title": "GHSA: Electron: window.open features string controls some window options considered privileged",
+      "summary": "### Impact\nSome window options supplied by web content in the `window.open()` features string were applied to the new `BrowserWindow` without an allowlist. Untrusted content could set window options it should not control, including options that cause the main process to access attacker-chosen file or network paths.\n\nApps are only affected if untrusted content can call `window.open()` and the app d",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T16:24:17Z",
+      "cve_ids": [
+        "CVE-2026-70607"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "0ddc890a9b5e2997ff39919f19578a8548830ba0479866f863539d130f74028f",
+      "url": "https://github.com/advisories/GHSA-r4w5-6pfg-jxp5",
+      "title": "GHSA: Electron: ProtocolResponse.url reuses the default session cache instead of the registering session",
+      "summary": "### Impact\nWhen a custom protocol handler returned a `ProtocolResponse` with a `url` and no `session`, Electron made the upstream request through `defaultSession` instead of the session that handled the protocol. A cached response could then be reused across otherwise isolated session partitions.\n\nApps that use `ProtocolResponse.url`, omit `ProtocolResponse.session`, and rely on separate sessions ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T16:07:59Z",
+      "cve_ids": [
+        "CVE-2026-70606"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "a1fe188b7278010ca94904ea9257f2c006132e04689d2383c387592961cca686",
+      "url": "https://github.com/advisories/GHSA-v64r-4m7r-3mvq",
+      "title": "GHSA: Electron: HTTP redirect followed into local file loader",
+      "summary": "### Impact\nWhen following HTTP redirects, `net.fetch()` and `net.request()` did not restrict which schemes a redirect could target. A remote server could redirect a request to a local resource, and if the app returns or forwards the response body, local file contents could be disclosed.\n\nApps are only affected if they make `net` requests to attacker-influenced URLs with redirects followed (the def",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-05T16:04:09Z",
+      "cve_ids": [
+        "CVE-2026-70605"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "ebaa5c3ea87fb032ea4ad9b744b7b279bfab9634c84c3c07ff3a250de6d2b033",
+      "url": "https://github.com/advisories/GHSA-v3j7-r9gq-3gjw",
+      "title": "GHSA: Electron: Custom protocol with supportFetchAPI but not corsEnabled allows cross-origin reads",
+      "summary": "### Impact\nA custom scheme registered with `supportFetchAPI: true` but without `corsEnabled: true` was not subject to CORS enforcement. A page loaded from a remote origin could therefore `fetch()` or `XMLHttpRequest` that scheme cross-origin and read the full response body, rather than the read being blocked.\n\nApps that serve sensitive data from such a scheme and load remote or untrusted content i",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-05T15:59:45Z",
+      "cve_ids": [
+        "CVE-2026-70604"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "c2527cfbc76436f236bec3effe40bac5d2facabcfd86b5b573394a10b8be1c83",
+      "url": "https://github.com/advisories/GHSA-m55f-7gqj-fr98",
+      "title": "GHSA: Electron: Extension tab APIs operate across session boundaries",
+      "summary": "### Impact\nExtension tab and scripting APIs were not scoped to the extension's own `session`. A malicious or compromised extension loaded into one session could navigate, script, and read from windows belonging to a different session.\n\nApps are only affected if they load Chrome extensions via `session.loadExtension` and rely on separate sessions to isolate that extension from other content. Apps t",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T15:57:11Z",
+      "cve_ids": [
+        "CVE-2026-70602"
+      ],
+      "cvss": 6.6,
+      "related_links": []
+    },
+    {
+      "id": "5ff7ff50678c37c522bccfa66edde613edebd6ab2d6c7c7f1853ce177df0695b",
+      "url": "https://github.com/advisories/GHSA-5c9j-mhmv-5xgx",
+      "title": "GHSA: Electron: shell.openPath path validation bypass via embedded null byte",
+      "summary": "### Impact\n`shell.openPath()` did not reject paths containing embedded null bytes. Apps that perform string-only validation of file paths (for example, checking the file extension) before passing them to `shell.openPath()` could be bypassed, allowing an attacker-controlled path to open a different file than the one that passed validation.\n\nApps are only affected if they pass paths derived from unt",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T15:57:03Z",
+      "cve_ids": [
+        "CVE-2026-70603"
+      ],
+      "cvss": 6.0,
+      "related_links": []
+    },
+    {
+      "id": "4dcce587c04dd0d3f53eb4b8bd75ba0ee9fcd635c33ab9ec36d69778b50b3a6f",
+      "url": "https://www.bleepingcomputer.com/news/security/cisa-warns-of-hackers-exploiting-langflow-n-central-apache-tomcat-flaws/",
+      "title": "CISA warns of hackers exploiting Langflow, N-central, Apache Tomcat flaws",
+      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency is giving federal agencies three days to mitigate vulnerabilities in IBM Langflow, N-central, and Apache Tomcat, all actively exploited. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-08-05T15:51:33+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "ded179adf229458101cfe74b161dafa99720335b98debd0e4cfcdbd5bac5ed23",
+      "url": "https://github.com/advisories/GHSA-h7rp-cf8h-j98x",
+      "title": "GHSA: Electron: Context isolation bypass via Function.prototype.bind hijack",
+      "summary": "### Impact\nApps that expose Promise-returning functions to web content via `contextBridge` may be vulnerable to a context isolation bypass. Untrusted web content could obtain access to the isolated preload world and, through it, every capability the preload script has. In renderers without a sandbox, or with `nodeIntegration` enabled, this may escalate to Node.js access.\n\nApps are affected if they",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T15:46:08Z",
+      "cve_ids": [
+        "CVE-2026-70601"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "d95684db957b6c3bb7353b127118a0f83a37fd4215effc5ed3fcbec3f72df281",
+      "url": "https://github.com/advisories/GHSA-x8rc-wpg4-grpf",
+      "title": "GHSA: Electron: Cross-origin iframe can position native autofill popup",
+      "summary": "### Impact\nThe native autofill popup could be positioned by a cross-origin iframe outside that iframe's bounds, over the embedding page's UI, enabling clickjacking or spoofing of trusted UI.\n\nApps are only affected if they embed untrusted content in iframes within windows that also display trusted UI. Apps that do not embed untrusted third-party content are not affected.\n\n### Workarounds\nDo not em",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T15:40:32Z",
+      "cve_ids": [
+        "CVE-2026-70600"
+      ],
+      "cvss": 3.1,
+      "related_links": []
+    },
+    {
+      "id": "a5a4528a50d26787334916cda436c343405fb43cc89f861fb55ab27e10778f0b",
+      "url": "https://github.com/advisories/GHSA-9pf5-hg6p-4pwp",
+      "title": "GHSA: Electron: Permission Check Handler Receives Main Frame Origin Instead of Requesting Iframe Origin",
+      "summary": "### Impact\nFor serial-port and media (camera / microphone) permission checks made from an iframe, the `requestingOrigin` passed to `session.setPermissionCheckHandler` was the top-level frame's origin rather than the requesting frame's. Origin-based handler logic could therefore grant a cross-origin iframe device access intended only for the top-level origin.\n\nApps are only affected if they use `se",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T15:36:09Z",
+      "cve_ids": [
+        "CVE-2026-70599"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "02e6530464f3480b5c3b19bef2586163e0f58b175205792e7d0c62916134d6b5",
+      "url": "https://github.com/advisories/GHSA-pfmc-3mgc-p6fp",
+      "title": "GHSA: Electron: Off-screen rendering trusts GPU-supplied geometry over shared-memory size",
+      "summary": "### Impact\nIn offscreen rendering mode, frame data received from the GPU process was not fully validated by the main process. A compromised GPU process could cause the main process to read out-of-bounds memory while producing `paint` event images, disclosing memory or crashing the app.\n\nApps are only affected if they use offscreen rendering (`webPreferences.offscreen`) and an attacker has separate",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T15:27:27Z",
+      "cve_ids": [
+        "CVE-2026-70598"
+      ],
+      "cvss": 3.9,
+      "related_links": []
+    },
+    {
+      "id": "9ab84e42bd04b2242e3120974b26b7b5383e48c3c3e55b1184dac28c868e7264",
+      "url": "https://github.com/advisories/GHSA-jm7p-cc5g-qwxx",
+      "title": "GHSA: Electron: Parent process code-sign check is spoofable",
+      "summary": "### Impact\nOn macOS, the check Electron uses to confirm it was launched by a same-signed parent process could be bypassed by a local process. Apps that enable the fuse-based hardening restricting `ELECTRON_RUN_AS_NODE` and `NODE_OPTIONS` to same-signed parents rely on this check; a local attacker could bypass it and run their own code inside the signed app, inheriting its TCC permissions and keych",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T15:21:22Z",
+      "cve_ids": [
+        "CVE-2026-70597"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "e13cce6c267e603adfffbfa08256af7c7a1b05bfd0885229cf5b6ad5df51d7b5",
+      "url": "https://github.com/advisories/GHSA-jx35-x7fj-vgpr",
+      "title": "GHSA: Ghost Content API filter bypass reveals private fields",
+      "summary": "### Impact\n\nThe validation applied to filters on the public API endpoints could be partially bypassed, making it possible to reveal private fields via a brute force attack. If SQLite was used as the database password hashes were fully accessible. If MySQL was used as the database the password hashes' case (uppercase / lowercase) would have been lost, which would likely have rendered a further brut",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-05T14:42:47Z",
+      "cve_ids": [
+        "CVE-2026-53949"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "4b5a1b39a00a32f068b3f2f1feab2b22b7fb2f9471afe5953b538c89432d7478",
+      "url": "https://github.com/advisories/GHSA-pr22-p9rp-2cqv",
+      "title": "GHSA: Ghost: Cross-Site Scripting in Feature Image Captions",
+      "summary": "### Impact\n\nAn input validation issue allowed any staff user to create a post with content that could be used to hijack another staff user's Ghost Admin session resulting in privilege escalation.\n\n### Vulnerable versions\n\nThis vulnerability is present in Ghost from v4.9.0 up to v6.54.0.\n\n### Patches\n\nv6.54.1 contains a fix for this issue.\n\n### How to update\n\nFor self-hosters using Docker, find [Do",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T14:40:15Z",
+      "cve_ids": [
+        "CVE-2026-70596"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "49ab1b31bcf2d4cc55080762aa19b6953a2311f43ff0ea12cd42557257d747a3",
+      "url": "https://github.com/advisories/GHSA-x5mm-wm4g-j5xv",
+      "title": "GHSA: Ghost: Server-Side Request Forgery Mitigation Issue",
+      "summary": "### Impact\n\nA validation issue allowed some functionality, such as Webmentions, to be abused by an unauthenticated user to make limited HTTP requests to hosts in the Ghost server's internal network. A successful attack would not result in any response data being returned.\n\n### Vulnerable versions\n\nThis vulnerability is present in Ghost from v6.26.0 up to v6.54.0.\n\n### Patches\n\nv6.54.1 contains a f",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-05T14:37:14Z",
+      "cve_ids": [
+        "CVE-2026-70595"
+      ],
+      "cvss": 4.0,
+      "related_links": []
+    },
+    {
+      "id": "551d16fef58f5ebc5e77cf2e0d2f795e61aa6afc7d4e2f197dcd91331c4c8c0c",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-526/",
+      "title": "ZDI-26-526: (0Day) PAX Technology Q80 Application Installer Signature Verification Bypass Remote Code Execution Vulnerability",
+      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of PAX Technology Q80. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.5.",
+      "source": "Zero Day Initiative",
+      "category": "emergency",
+      "date": "2026-08-05T05:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "5f370ac0085370982568162fa8853c968bf7a052f5dcfc1e7b9eebe8897a5131",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-525/",
+      "title": "ZDI-26-525: (0Day) PAX Technology Q80 AIP File Parsing Link Following Remote Code Execution Vulnerability",
+      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of PAX Technology Q80. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.5.",
+      "source": "Zero Day Initiative",
+      "category": "emergency",
+      "date": "2026-08-05T05:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "6e88043f8643dbf3a8ec4301dccfd599775876aa72a1cdc1f9ed1c530a9a62e0",
+      "url": "https://www.bleepingcomputer.com/news/security/tp-link-patches-omada-ztp-flaws-allowing-hackers-to-breach-networks/",
+      "title": "TP-Link patches Omada ZTP flaws allowing hackers to breach networks",
+      "summary": "TP-Link has patched 15 vulnerabilities in the zero-touch provisioning (ZTP) mechanism of its Omada network devices that could be chained with previously disclosed flaws to achieve remote code execution (RCE). [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-08-04T22:18:20+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "664bf1194609a4b59d60abc7dc8527c8e7b0e6a143c6846e587186a85bc28b7a",
+      "url": "https://github.com/advisories/GHSA-xm43-3m56-w3wf",
+      "title": "GHSA: Ghost: Paid gift memberships obtainable at minimal cost via the donations feature",
+      "summary": "### Impact\n\nA vulnerability in Ghost's public donation checkout flow allowed an unauthenticated attacker to obtain full paid gift memberships for a minimal payment. No customer or member data was exposed, and the issue could not be used to steal money from a site or its members.\n\n### Vulnerable versions\n\nThis vulnerability is present in Ghost from [v6.27.0](https://github.com/TryGhost/Ghost/releas",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-04T21:57:48Z",
+      "cve_ids": [
+        "CVE-2026-59817"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "ab2ee210b1e9dca5542401d150ebbfe32c4bc6999e95082a969e4ddd2e719c11",
+      "url": "https://github.com/advisories/GHSA-chgm-3698-jm42",
+      "title": "GHSA: Ghost: Member existence leak via magic link sign-in response",
+      "summary": "### Impact\n\nA discrepancy in responses from the members signin endpoints made it possible for an unauthenticated attacker to determine whether a given email address belongs to a registered member of a Ghost site.\n\n### Vulnerable versions\n\nThis vulnerability is present in Ghost from v5.18.0 up to v6.21.0.\n\n### Patches\n\nv6.21.1 contains a fix for this issue.\n\n### How to update\n\nFor self-hosters usin",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-04T21:56:13Z",
+      "cve_ids": [
+        "CVE-2026-53947"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "5051fc248c5fe6dbed764282f785bb71d172c2c59622f89df1e09182f83acd51",
+      "url": "https://github.com/advisories/GHSA-xpp7-93x6-v29m",
+      "title": "GHSA: XSS in Ghost's ActivityPub client",
+      "summary": "### Impact\n\nThe ActivityPub client in Ghost was vulnerable to JavaScript injection on posts shared by a maliciously customised ActivityPub server.\n\n### Vulnerable Versions\n\nThis vulnerability is present in the @tryghost/activitypub package up to v3.0.8. All prior versions are also affected. \n\n### Patches\n\n@tryghost/activitypub v3.1.0 contains a fix for this issue and is also automatically fetched ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-04T21:54:01Z",
+      "cve_ids": [
+        "CVE-2026-53950"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "d5e260fc89131ec532935e9386a733f3bde99facb05019bc9cbbcba5c1b4c3b6",
+      "url": "https://github.com/advisories/GHSA-7mpp-r37j-x5wh",
+      "title": "GHSA: Ghost: Session Fixation in Ghost Admin",
+      "summary": "### Impact\n\nGhost Admin did not invalidate existing sessions on login which could have allowed for session fixation attacks. Successful exploitation would have required another vulnerability on the same domain where Ghost Admin was hosted.\n\n### Vulnerable versions\n\nThis vulnerability is present in Ghost from v2.2.0 to v6.54.0.\n\n### Patches\n\nv6.54.1 contains a fix for this issue.\n\n### How to update",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-04T21:53:53Z",
+      "cve_ids": [
+        "CVE-2026-70594"
+      ],
+      "cvss": 6.7,
+      "related_links": []
+    },
     {
       "id": "7b6156a68b12eff75ef3be8741cb90e0ea04cfe9850497e035007016f8517c92",
       "url": "https://github.com/advisories/GHSA-cjc9-q5gf-327p",
@@ -283,418 +689,6 @@
         "CVE-2026-70486"
       ],
       "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "fc4d6578a62d46c1ef784c747a2bf579184b5bb7be4aefeffb0cdfe4ab9ea460",
-      "url": "https://github.com/advisories/GHSA-8x5v-cpv7-8jjp",
-      "title": "GHSA: Open WebUI: Any authenticated user can reach internal services and cloud metadata via NAT64-encoded URLs",
-      "summary": "## Summary\n\nOpen WebUI fetches user-supplied URLs on the server for RAG URL ingestion, URL-to-markdown conversion and web-search content retrieval, and decides whether a destination is allowed by asking whether its IP address is globally routable. That test operates on the literal IPv6 address and does not look at the IPv4 address embedded inside it. On a deployment whose network has a NAT64 gatew",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T19:59:36Z",
-      "cve_ids": [
-        "CVE-2026-70485"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "c1cda2974c4827cd39b62a5df098cb0eb970c22569b94bd8d311cb47557d9b53",
-      "url": "https://github.com/advisories/GHSA-g423-grf7-98rv",
-      "title": "GHSA: Open WebUI: Users denied the image-generation permission can still generate images via chat completions",
-      "summary": "## Summary\nAn authenticated user whose `features.image_generation` permission has been revoked can still make the server generate images by sending the feature flag in a chat-completion request. The chat pipeline took the client-supplied `features` object at face value and never re-checked the permission that the direct image routes enforce, so the denial applied to the UI affordance but not to th",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-04T19:56:57Z",
-      "cve_ids": [
-        "CVE-2026-70484"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "cb0c777d688e3cc6c2232fbc544d75c979b43684f054a96d14afc76db6d6f4d6",
-      "url": "https://github.com/advisories/GHSA-rffm-9q57-q649",
-      "title": "GHSA: Open WebUI: Client-side SSRF via unrestricted external resource loading in Vega/Vega-Lite chart rendering",
-      "summary": "## Summary\nOpen WebUI renders `vega` and `vega-lite` fenced code blocks in chat content by building a Vega view in the viewer's browser without a restricted resource loader. Any user who can place such a block where another user will see it can make that user's browser issue attacker-chosen outbound GET requests, and read back responses from same-origin or CORS-permissive targets into the rendered",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-04T19:54:57Z",
-      "cve_ids": [
-        "CVE-2026-70480"
-      ],
-      "cvss": 4.1,
-      "related_links": []
-    },
-    {
-      "id": "a955eb232b769f84711b1061a61fde4152fead7abc357693a0b8fdca147fe11a",
-      "url": "https://github.com/advisories/GHSA-3vf6-64vr-3g56",
-      "title": "GHSA: Open WebUI: Any authenticated user can cancel another user's chat generation via the chat delete endpoint",
-      "summary": "## Summary\n`DELETE /api/v1/chats/{id}` cancelled a chat's in-flight tasks before it checked whether the caller was allowed to delete that chat. Any authenticated user who knew another user's chat id could therefore abort that user's running model response, title generation or tag generation. The deletion itself was still refused, so the only missing control was on the cancellation side effect.\n\n##",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T19:54:49Z",
-      "cve_ids": [
-        "CVE-2026-70483"
-      ],
-      "cvss": 3.1,
-      "related_links": []
-    },
-    {
-      "id": "c17394e3bf232de7d84d9af1ad506c62728d7edb491ff36ddf6a1977e6f7e225",
-      "url": "https://github.com/advisories/GHSA-rq84-p6rr-vf89",
-      "title": "GHSA: Open WebUI: Account takeover via OAuth token exchange accepting tokens issued to any client",
-      "summary": "## Summary\n\nThe OAuth token exchange endpoint accepts a raw provider access token and validates it by calling the provider's userinfo endpoint. A userinfo endpoint reports only that a token is valid, never which OAuth client it was issued to, and the endpoint performed no audience or client check of its own. Anyone holding an access token minted for any client registered with the same provider cou",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T19:52:01Z",
-      "cve_ids": [
-        "CVE-2026-70482"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "936862f03575a5445b8af25beaa8be218564337abd967d2acd444b1879932a11",
-      "url": "https://github.com/advisories/GHSA-mj5r-jf49-m3w7",
-      "title": "GHSA: Open WebUI: Any member with write access to a standard channel can edit or delete other members' messages",
-      "summary": "## Summary\nOn standard channels, the message update and delete handlers accepted any caller holding write access on the channel, without checking that the caller wrote the message. Write access is the same grant a member needs in order to post, so every ordinary participant in a shared channel could rewrite or permanently delete any other participant's messages. The group and direct message branch",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T19:45:39Z",
-      "cve_ids": [
-        "CVE-2026-70481"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "4d00c2a4cec6e1026bbff6c751ef21ffef32f43be23b2fb3608db87d8b1a19e8",
-      "url": "https://github.com/advisories/GHSA-w2rx-84hp-gg95",
-      "title": "GHSA: Open WebUI: SSRF into internal services via unvalidated sub-resource requests in the Playwright web loader",
-      "summary": "## Summary\nWith the Playwright web loader enabled, Open WebUI opens user-submitted URLs in a real browser and validates the destination address before allowing the request. That check only ran for the top-level page request. Every other request the page issued was passed through unvalidated, so a page could use its own JavaScript to reach addresses the validation exists to block. Because the loade",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-04T19:40:48Z",
-      "cve_ids": [
-        "CVE-2026-70479"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "d8af39ae5c3344d55214925598872432ea1df21ffb386f7a0e655c0f6e444e8e",
-      "url": "https://github.com/advisories/GHSA-rwrp-9823-p2xq",
-      "title": "GHSA: Flowise: Incomplete Credential Redaction Exposes Secrets via API",
-      "summary": "## Summary\n\nThe `GET /api/v1/credentials/:id` endpoint decrypts stored credential data and returns it in the `plainDataObj` field of the API response. While a `redactCredentialWithPasswordType()` function masks fields defined with `type: 'password'` in their component schema, many credential types store highly sensitive data (database connection URLs with embedded passwords, Google service account",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-08-04T17:57:35Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "5ad052e522b8c1455cab3e74d813eb7326169d52461074ad3bb43411a5d83c62",
-      "url": "https://www.bleepingcomputer.com/news/security/varonis-agent-ibac-keeps-ai-agents-within-their-intended-boundaries/",
-      "title": "Varonis Agent IBAC keeps AI agents within their intended boundaries",
-      "summary": "AI agents need broad access to be useful, but traditional access controls cannot determine whether an action aligns with a user's intent. Varonis explains how Agent IBAC detects intent drift and enforces real-time guardrails to keep agents within their intended boundaries. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-08-04T14:00:10+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "7b9bbc221e6225c37ddad7fcd7371a83f396478fae6a7784d80be1299118dea4",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-34486",
-      "title": "CVE-2026-34486: Apache Tomcat Missing Encryption of Sensitive Data Vulnerability",
-      "summary": "Apache Tomcat contains a missing encryption of sensitive data vulnerability that allows the bypass of the EncryptInterceptor. Affected product: Tomcat by Apache. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s “Forensics Triage Requirements” (see U",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-08-04T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-34486"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b8ca8bc6b10ae5316972c2667d4e8705f1a852d470aae50f3cdf5fda0a25fb38",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-9198",
-      "title": "CVE-2026-9198: IBM Langflow Code Injection Vulnerability",
-      "summary": "Langflow contains a code injection vulnerability that allows unauthenticated attackers to achieve full remote code execution on default Langflow deployments. Affected product: Langflow by IBM. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s “Forens",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-08-04T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-9198"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "9844fc89b8aa0a4c2b76b4dae4fe65321310c30c45309bd16b83c5c769a8f974",
-      "url": "https://github.com/advisories/GHSA-v5mv-p594-2x33",
-      "title": "GHSA: Guzzle: Noncanonical host can bypass host-based checks",
-      "summary": "### Impact\n\nIn affected versions, Guzzle gives a transport the request URI as text and supplies the `Host` header separately. The cURL handlers set `CURLOPT_URL` to the URI exactly as written and push that `Host` into `CURLOPT_HTTPHEADER`; `StreamHandler` does the same through `fopen()`. libcurl then parses the authority itself, percent-decoding it and, on an IDN-capable build, applying IDNA mappi",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-03T21:07:26Z",
-      "cve_ids": [
-        "CVE-2026-69246"
-      ],
-      "cvss": 7.2,
-      "related_links": []
-    },
-    {
-      "id": "8df58d7d35f9c51d9b523fbfb026c28ac8ff8c585569b53ee7c43ecad660053a",
-      "url": "https://github.com/advisories/GHSA-f7vp-7xgx-4w4r",
-      "title": "GHSA: Guzzle: Noncanonical cookie domain keeps subdomain scope",
-      "summary": "### Impact\n\n`SetCookie::matchesDomain()` gives every subdomain of a cookie `Domain` that cookie unless it recognizes the `Domain` as an IP literal or a numeric host, and it decides that from the domain's own text, so two spellings a transport reads as an address keep subdomain scope. On `7.15`, hexadecimal and mixed-base forms such as `0x7f000001` and `0177.0.0.0x1` go unrecognized while libcurl 8",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-03T21:05:26Z",
-      "cve_ids": [
-        "CVE-2026-69245"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "ed959f8bf54a9e938eaee0277727eeada99a66e05624f1f6b6cafedb7b0c7e1f",
-      "url": "https://github.com/advisories/GHSA-v8fg-2rw7-q452",
-      "title": "GHSA: Sequelize: SQL Injection (Oracle DB)",
-      "summary": "### Summary\nSQL Injection is possible with strings only **if dialect is set to `oracle`**.\nThe vulnerability was confirmed on Sequelize v6.37.3.\n\n### Details\nThe `escape` function defined in `sql-string.js` does not escape quotes if the value starts with `TO_TIMESTAMP` or `TO_DATE`.\n\n```javascript\n  } else if (dialect === 'oracle' && typeof val === 'string') {\n    if (val.startsWith('TO_TIMESTAMP'",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-03T20:29:50Z",
-      "cve_ids": [
-        "CVE-2026-69240"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "4a08cd2cd90af206e41a19302e8b01fc284539f581770956562ac4f602d43980",
-      "url": "https://github.com/advisories/GHSA-8j4g-w8fx-2239",
-      "title": "GHSA: Hono: ReDoS in CORS middleware via Access-Control-Request-Headers",
-      "summary": "### Summary\n\nThe built-in CORS middleware (`hono/cors`) parses the attacker-controlled `Access-Control-Request-Headers` request header during a preflight (`OPTIONS`) request using a regular expression whose running time is quadratic in the input length. A single request carrying a long run of whitespace can consume seconds of CPU, and repeated requests can render the service unresponsive. This par",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-03T20:23:30Z",
-      "cve_ids": [
-        "CVE-2026-69207"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "0ac142c1bbdb0553972a6b46885bb06c292d231972615d5399065dc471f33e4c",
-      "url": "https://github.com/advisories/GHSA-p538-c434-8v24",
-      "title": "GHSA: GitPython: Arbitrary file truncation via git rev-list --output argument injection in unguarded Commit.count",
-      "summary": "## Summary\n`Commit.count()` forwards `**kwargs` into `rev_list` with **no** `check_unsafe_options` guard (the guard exists only in the sibling `iter_items`, commit.py:341). `git rev-list --output=<path>` opens and truncates the target file to 0 bytes before revision parsing, so `count(output='/victim')` destroys/blanks an arbitrary file.\n\n## Root Cause\n`commit.py:290-291` calls `self.repo.git.rev_",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-03T20:23:17Z",
-      "cve_ids": [],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "d51db8ab7fe227c1d64272f98edef13dde71faa1538203f11f73cbcfbf4ca30e",
-      "url": "https://github.com/advisories/GHSA-539m-9xh6-q6rr",
-      "title": "GHSA: GitPython: Incomplete unsafe_git_archive_options denylist omits --add-file / --add-virtual-file, enabling arbitrary file read via Repo.archive()",
-      "summary": "**Target:** gitpython-developers/GitPython\n**Tested:** HEAD `07e80555` (2026-07-25), latest release 3.1.55, `git version 2.50.1`\n\n## Summary\n\n`Repo.archive()` does call the option guard, so this is not a missing-guard report. The guard is present and working; the **denylist it consults is incomplete**.\n\n```python\n# git/repo/base.py:169\nunsafe_git_archive_options = [\n    # Allows arbitrary command ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-03T20:14:28Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "c553c47165a928b15b8e430f2614de46926d1f4119feea51a6c1342ab438025f",
-      "url": "https://github.com/advisories/GHSA-3f7w-8rr8-f37f",
-      "title": "GHSA: GitPython: Unguarded git option forwarding in IndexFile.checkout() and TagReference.create() enables arbitrary file overwrite and arbitrary file read",
-      "summary": "**Target:** gitpython-developers/GitPython\n**Tested:** HEAD `07e80555` (2026-07-25), latest release 3.1.55, `git version 2.50.1`\n**Reported instances:** 2 exploitable, from a sweep of 14 unguarded call sites\n\n## Summary\n\nGitPython blocks dangerous git options through `Git.check_unsafe_options()`, gated per method by an `allow_unsafe_options` parameter. That guard is applied **per call site**, so a",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-03T20:09:56Z",
-      "cve_ids": [],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "73c4cf51e7b9c25b6315b40f318fe49fbc85ef9f3f5c83bde1c58d575d38db39",
-      "url": "https://github.com/advisories/GHSA-m8rv-5g2x-5cg5",
-      "title": "GHSA: undici vulnerable to CRLF Injection via blob-like body 'type' property",
-      "summary": "### Impact\n\nWhen an application passes a duck-typed blob-like body to undici's HTTP/1.1 dispatcher (via `request()`, `stream()`, `pipeline()`, or `dispatch()`) with a `.type` derived from untrusted input, an attacker can inject CRLF sequences (`\\r\\n`) to append arbitrary HTTP headers and potentially smuggle a second request past the upstream.\n\nThe vulnerable branch in `lib/dispatcher/client-h1.js`",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-03T19:33:53Z",
-      "cve_ids": [
-        "CVE-2026-15157"
-      ],
-      "cvss": 4.2,
-      "related_links": []
-    },
-    {
-      "id": "d01f76b43a6b281c23ee390e62ca0bbb31070f1bdd66927a09eaa9bd41d0b050",
-      "url": "https://github.com/advisories/GHSA-jr45-8vmc-qm54",
-      "title": "GHSA: undici vulnerable to cross-user information disclosure via whitespace around equals in Cache-Control directives",
-      "summary": "## Impact\n\nUndici's cache interceptor mishandles optional whitespace (OWS) placed around the `=` of a qualified `no-cache` or `private` Cache-Control directive, such as `no-cache =\"authorization\"` (OWS before `=`) or `no-cache= \"authorization\"` (OWS after `=`). The parser either drops the directive entirely or stores a field name with literal quote characters, so the downstream cache decisions do ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-03T19:32:12Z",
-      "cve_ids": [
-        "CVE-2026-14643"
-      ],
-      "cvss": 5.9,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-14643"
-      ]
-    },
-    {
-      "id": "aaccedca861a9b52e8c7d5e6937761fd44cdf7feb4a928781ad1c57d3625027f",
-      "url": "https://github.com/advisories/GHSA-v3r7-h72x-cjcm",
-      "title": "GHSA: undici vulnerable to cookie attribute injection via unsanitized domain and unparsed setCookie fields",
-      "summary": "## Impact\n\nThe `setCookie` function has two attribute injection paths. `validateCookieDomain` does not reject semicolons (`validateCookiePath` already does at 0x3B), so a `domain` value like `example.com; SameSite=None` lands verbatim as `Domain=example.com; SameSite=None`. The `unparsed` array's loop only checks each entry contains `=` and does not sanitize values, so an entry like `X-Custom=val;",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-03T19:30:52Z",
-      "cve_ids": [
-        "CVE-2026-16729"
-      ],
-      "cvss": 4.8,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-16729"
-      ]
-    },
-    {
-      "id": "9f5d38d64e660930b8f4877a4a7dd8f77be7e2a9500023fe60c5ea72e06f4de8",
-      "url": "https://github.com/advisories/GHSA-8xcm-r25x-g524",
-      "title": "GHSA: undici vulnerable to downstream response desynchronization via retry interceptor",
-      "summary": "### Impact\n\nUndici's `interceptors.retry()` can deliver a response whose body length does not match the `Content-Length` header exposed to the application after a retry or resume of a partial response. Applications that use `interceptors.retry()` and forward upstream response headers and bodies downstream, for example proxy or gateway applications, may emit an invalid HTTP response with a stale `C",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-03T19:24:33Z",
-      "cve_ids": [
-        "CVE-2026-16728"
-      ],
-      "cvss": 4.8,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-16728"
-      ]
-    },
-    {
-      "id": "38052fd2e4082d17b9924dc9b55267134267977638375a664b24813dd2167945",
-      "url": "https://github.com/advisories/GHSA-4cwx-7wf7-3272",
-      "title": "GHSA: undici vulnerable to cross-user information disclosure and parse-time crash via degenerate private cache directives",
-      "summary": "### Summary\n\nTwo issues in undici's cache interceptor, both fixed by the same patch on `lib/util/cache.js`:\n\n1. **Shared-cache disclosure:** Responses with malformed qualified `Cache-Control: private` directives such as `private=\"\"` or `private=\",\"` can be incorrectly stored in the default shared cache, then served to a later caller with the same cache key.\n2. **Parse-time crash:** Mixed unqualifi",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-03T19:19:47Z",
-      "cve_ids": [
-        "CVE-2026-13697"
-      ],
-      "cvss": 7.4,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-13697"
-      ]
-    },
-    {
-      "id": "d22c1a3be3587bb4761afc609b8bede68b0f2b63e0c75e52a29760aaa0a00d64",
-      "url": "https://github.com/advisories/GHSA-7p8r-x3mc-p8w7",
-      "title": "GHSA: fast-uri vulnerable to host confusion via backslash authority introducer",
-      "summary": "### Impact\n\n`fast-uri` v4.1.1 and earlier require a literal `//` to recognize a URI authority, so a reference that uses `\\\\`, `/\\`, or `\\/` as the authority introducer (in place of `//`, after an optional scheme) is parsed with no authority: the sequence and everything after it fold into the path. Node's native WHATWG `URL` (used by `fetch()`, `undici`, and Node's `http`/`https` clients) instead t",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-03T19:16:43Z",
-      "cve_ids": [
-        "CVE-2026-18446"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "f0dc694fac542ef9983ea4222c7be6612d9ed6c0b08cae4b3af076bba50293c3",
-      "url": "https://github.com/advisories/GHSA-2m8v-j782-fhvr",
-      "title": "GHSA: Socket.IO: Zero-attachment Memory Exhaustion",
-      "summary": "### Impact\n\nA specially crafted Socket.IO packet can make the server wait for a large number of binary attachments and buffer them, which can be exploited to make the server run out of memory.\n\n### Patches\n\n| Version range    | Used by                                    | Fixed version |\n|------------------|--------------------------------------------|---------------|\n| `>=4.0.0 <4.2.7` | `socket.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-03T19:09:44Z",
-      "cve_ids": [
-        "CVE-2026-69185"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "641d1fdb19e62631cbee4afa4109b2ef33eb5115a49fc32efea20b838d337cbd",
-      "url": "https://github.com/advisories/GHSA-rgw5-rvv9-x895",
-      "title": "GHSA: brace-expansion: DoS via unbounded intermediate arrays, bypassing the CVE-2026-14257 mitigation",
-      "summary": "### Summary\n\nThe `maxLength` mitigation added in `5.0.8` for GHSA-mh99-v99m-4gvg / CVE-2026-14257 is incomplete. It bounds the accumulator where results are *combined*, but not the intermediate arrays that feed it. A ~25 KB input still crashes the Node process with an **uncatchable** out-of-memory error, so `try/catch` around `expand()` does not help.\n\nA second, related path in the same function l",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-03T16:35:32Z",
-      "cve_ids": [
-        "CVE-2026-69152"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "cd10662af20f5afea267cad01e2deef43a48c6b365235adf086cc275861ae64d",
-      "url": "https://github.com/advisories/GHSA-m65r-rprj-r5rg",
-      "title": "GHSA: Russh: Channel-scoped server callbacks can be reached without an open channel",
-      "summary": "There is a server-side channel state issue in `russh`.\n\nAfter a client is authenticated, `russh` can dispatch channel-scoped handler callbacks for recipient channel IDs that were never opened or confirmed. In the strongest reproduced case, the client does not send `SSH_MSG_CHANNEL_OPEN` at all. It authenticates normally, then sends `SSH_MSG_CHANNEL_REQUEST` packets with request type `exec` for a r",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-03T15:35:00Z",
-      "cve_ids": [
-        "CVE-2026-68930"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "0ee34e1dc7d7c1ce4a86c710a3e8ad580526befaa84ef0615bdf0fa68667bda7",
-      "url": "https://www.rapid7.com/blog/post/pt-metasploit-pro-5-1-released",
-      "title": "Metasploit Pro 5.1 Released",
-      "summary": "Today marks the release of Metasploit Pro 5.1 - building upon the foundation laid in 5.0, adding new evasion primitives for HTTP Meterpreter payloads, support for tracking service hierarchies, a deeper and more interactive Network Topology view, and continuing our commitment to a modern, consistent UI. This release is powered by Metasploit Framework 6.5.Malleable C2 ProfilesOne of the most request",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-08-03T14:48:13+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "484b7de72129a32f890892bc21eb1668af7c009cf601688063f790c2369bf2ed",
-      "url": "https://www.bleepingcomputer.com/news/security/inside-the-underground-business-of-btmob-rat/",
-      "title": "Inside the Underground Business of the Android BTMOB RAT malware",
-      "summary": "Flare researchers analyzed thousands of underground posts to examine how the BTMOB Android malware operation evolved into a fragmented ecosystem of resellers, source-code vendors, custom versions, and competing sales channels. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-08-03T14:45:55+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "71a183a5e337f66814eb0e2bd7a63f876a13b9f2330d79741c3662f2c4835f9a",
-      "url": "https://www.rapid7.com/blog/post/c-rapid7-exclusive-networks-expand-uk-ireland-partnership",
-      "title": "Rapid7 Expands UK and Ireland Channel Presence Through Strategic Partnership with Exclusive Networks",
-      "summary": "Ross Baker is Senior Director, Northern Europe at Rapid7.As organizations across the United Kingdom and Ireland embrace AI, cloud technologies, and digital transformation in the name of enhancing customer experiences and accelerating business growth, the cybersecurity landscape must continue to evolve just as quickly.In this environment, business leaders still expect security to enable innovation,",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-08-03T08:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
       "related_links": []
     }
   ]
