@@ -1,10 +1,148 @@
 {
-  "updated": "2026-08-11T13:04:29.380223+00:00",
+  "updated": "2026-08-11T16:56:43.651782+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "0ddc890a9b5e2997ff39919f19578a8548830ba0479866f863539d130f74028f",
+      "url": "https://github.com/advisories/GHSA-r4w5-6pfg-jxp5",
+      "title": "GHSA: Electron: ProtocolResponse.url reuses the default session cache instead of the registering session",
+      "summary": "### Impact\nWhen a custom protocol handler returned a `ProtocolResponse` with a `url` and no `session`, Electron made the upstream request through `defaultSession` instead of the session that handled the protocol. A cached response could then be reused across otherwise isolated session partitions.\n\nApps that use `ProtocolResponse.url`, omit `ProtocolResponse.session`, and rely on separate sessions ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T16:07:59Z",
+      "cve_ids": [
+        "CVE-2026-70606"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "a1fe188b7278010ca94904ea9257f2c006132e04689d2383c387592961cca686",
+      "url": "https://github.com/advisories/GHSA-v64r-4m7r-3mvq",
+      "title": "GHSA: Electron: HTTP redirect followed into local file loader",
+      "summary": "### Impact\nWhen following HTTP redirects, `net.fetch()` and `net.request()` did not restrict which schemes a redirect could target. A remote server could redirect a request to a local resource, and if the app returns or forwards the response body, local file contents could be disclosed.\n\nApps are only affected if they make `net` requests to attacker-influenced URLs with redirects followed (the def",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-05T16:04:09Z",
+      "cve_ids": [
+        "CVE-2026-70605"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "ebaa5c3ea87fb032ea4ad9b744b7b279bfab9634c84c3c07ff3a250de6d2b033",
+      "url": "https://github.com/advisories/GHSA-v3j7-r9gq-3gjw",
+      "title": "GHSA: Electron: Custom protocol with supportFetchAPI but not corsEnabled allows cross-origin reads",
+      "summary": "### Impact\nA custom scheme registered with `supportFetchAPI: true` but without `corsEnabled: true` was not subject to CORS enforcement. A page loaded from a remote origin could therefore `fetch()` or `XMLHttpRequest` that scheme cross-origin and read the full response body, rather than the read being blocked.\n\nApps that serve sensitive data from such a scheme and load remote or untrusted content i",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-05T15:59:45Z",
+      "cve_ids": [
+        "CVE-2026-70604"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "c2527cfbc76436f236bec3effe40bac5d2facabcfd86b5b573394a10b8be1c83",
+      "url": "https://github.com/advisories/GHSA-m55f-7gqj-fr98",
+      "title": "GHSA: Electron: Extension tab APIs operate across session boundaries",
+      "summary": "### Impact\nExtension tab and scripting APIs were not scoped to the extension's own `session`. A malicious or compromised extension loaded into one session could navigate, script, and read from windows belonging to a different session.\n\nApps are only affected if they load Chrome extensions via `session.loadExtension` and rely on separate sessions to isolate that extension from other content. Apps t",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T15:57:11Z",
+      "cve_ids": [
+        "CVE-2026-70602"
+      ],
+      "cvss": 6.6,
+      "related_links": []
+    },
+    {
+      "id": "5ff7ff50678c37c522bccfa66edde613edebd6ab2d6c7c7f1853ce177df0695b",
+      "url": "https://github.com/advisories/GHSA-5c9j-mhmv-5xgx",
+      "title": "GHSA: Electron: shell.openPath path validation bypass via embedded null byte",
+      "summary": "### Impact\n`shell.openPath()` did not reject paths containing embedded null bytes. Apps that perform string-only validation of file paths (for example, checking the file extension) before passing them to `shell.openPath()` could be bypassed, allowing an attacker-controlled path to open a different file than the one that passed validation.\n\nApps are only affected if they pass paths derived from unt",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T15:57:03Z",
+      "cve_ids": [
+        "CVE-2026-70603"
+      ],
+      "cvss": 6.0,
+      "related_links": []
+    },
+    {
+      "id": "4dcce587c04dd0d3f53eb4b8bd75ba0ee9fcd635c33ab9ec36d69778b50b3a6f",
+      "url": "https://www.bleepingcomputer.com/news/security/cisa-warns-of-hackers-exploiting-langflow-n-central-apache-tomcat-flaws/",
+      "title": "CISA warns of hackers exploiting Langflow, N-central, Apache Tomcat flaws",
+      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency is giving federal agencies three days to mitigate vulnerabilities in IBM Langflow, N-central, and Apache Tomcat, all actively exploited. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-08-05T15:51:33+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "ded179adf229458101cfe74b161dafa99720335b98debd0e4cfcdbd5bac5ed23",
+      "url": "https://github.com/advisories/GHSA-h7rp-cf8h-j98x",
+      "title": "GHSA: Electron: Context isolation bypass via Function.prototype.bind hijack",
+      "summary": "### Impact\nApps that expose Promise-returning functions to web content via `contextBridge` may be vulnerable to a context isolation bypass. Untrusted web content could obtain access to the isolated preload world and, through it, every capability the preload script has. In renderers without a sandbox, or with `nodeIntegration` enabled, this may escalate to Node.js access.\n\nApps are affected if they",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T15:46:08Z",
+      "cve_ids": [
+        "CVE-2026-70601"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "d95684db957b6c3bb7353b127118a0f83a37fd4215effc5ed3fcbec3f72df281",
+      "url": "https://github.com/advisories/GHSA-x8rc-wpg4-grpf",
+      "title": "GHSA: Electron: Cross-origin iframe can position native autofill popup",
+      "summary": "### Impact\nThe native autofill popup could be positioned by a cross-origin iframe outside that iframe's bounds, over the embedding page's UI, enabling clickjacking or spoofing of trusted UI.\n\nApps are only affected if they embed untrusted content in iframes within windows that also display trusted UI. Apps that do not embed untrusted third-party content are not affected.\n\n### Workarounds\nDo not em",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T15:40:32Z",
+      "cve_ids": [
+        "CVE-2026-70600"
+      ],
+      "cvss": 3.1,
+      "related_links": []
+    },
+    {
+      "id": "a5a4528a50d26787334916cda436c343405fb43cc89f861fb55ab27e10778f0b",
+      "url": "https://github.com/advisories/GHSA-9pf5-hg6p-4pwp",
+      "title": "GHSA: Electron: Permission Check Handler Receives Main Frame Origin Instead of Requesting Iframe Origin",
+      "summary": "### Impact\nFor serial-port and media (camera / microphone) permission checks made from an iframe, the `requestingOrigin` passed to `session.setPermissionCheckHandler` was the top-level frame's origin rather than the requesting frame's. Origin-based handler logic could therefore grant a cross-origin iframe device access intended only for the top-level origin.\n\nApps are only affected if they use `se",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T15:36:09Z",
+      "cve_ids": [
+        "CVE-2026-70599"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "02e6530464f3480b5c3b19bef2586163e0f58b175205792e7d0c62916134d6b5",
+      "url": "https://github.com/advisories/GHSA-pfmc-3mgc-p6fp",
+      "title": "GHSA: Electron: Off-screen rendering trusts GPU-supplied geometry over shared-memory size",
+      "summary": "### Impact\nIn offscreen rendering mode, frame data received from the GPU process was not fully validated by the main process. A compromised GPU process could cause the main process to read out-of-bounds memory while producing `paint` event images, disclosing memory or crashing the app.\n\nApps are only affected if they use offscreen rendering (`webPreferences.offscreen`) and an attacker has separate",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-05T15:27:27Z",
+      "cve_ids": [
+        "CVE-2026-70598"
+      ],
+      "cvss": 3.9,
+      "related_links": []
+    },
     {
       "id": "9ab84e42bd04b2242e3120974b26b7b5383e48c3c3e55b1184dac28c868e7264",
       "url": "https://github.com/advisories/GHSA-jm7p-cc5g-qwxx",
@@ -238,6 +376,90 @@
       "related_links": []
     },
     {
+      "id": "0204f7c148292f0ac6678d9a700287715be4cbc016850d6bc4e25bcc3ff265a3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-51401",
+      "title": "CVE-2026-51401 — CVSS 7.7",
+      "summary": "An issue in Vim Project v9.2.0389 and earlier allows a local attacker to execute arbitrary code via the vms_fixfilename() function within file vim/src/os_vms.c",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-04T21:16:36.567",
+      "cve_ids": [
+        "CVE-2026-51401"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "04f4ee3586fa42c1c3e3addfd57f526a5bd9b515c9e79ddfd3adb23c9ce2c67c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-51400",
+      "title": "CVE-2026-51400 — CVSS 8.4",
+      "summary": "An issue in Vim Project v9.2.0389 and earlier allows a local attacker to execute arbitrary code via the vms_fixfilename() function within file vim/src/os_vms.c",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-04T21:16:36.433",
+      "cve_ids": [
+        "CVE-2026-51400"
+      ],
+      "cvss": 8.4,
+      "related_links": []
+    },
+    {
+      "id": "d72331b6a2bce74abc53db6a1af9c6b4e4a05b01d3f9add61c218728b7ef6b0a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45538",
+      "title": "CVE-2026-45538 — CVSS 9.8",
+      "summary": "OpenSIPS is a Session Initiation Protocol (SIP) server implementation. In versions 4.0.0 and prior, processing a SIP message with a header name longer than 255 bytes causes a stack buffer overflow when sip_to_json() is called in the routing script. Function sip_to_json() (modules/sipmsgops/sipmsgops.c) copies SIP header names into a fixed 255-byte stack buffer without bounds checking, performing a",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-04T21:16:36.270",
+      "cve_ids": [
+        "CVE-2026-45538"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "6c49424254ffcef3447ba2713fb7121a92fe3ee5f999bef772bba0ab316e80f4",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18813",
+      "title": "CVE-2026-18813 — CVSS 7.2",
+      "summary": "A vulnerability has been found in H3C NX15 V100R017. This affects the function delete of the file /api/esps. The manipulation of the argument esps.apcm.version leads to command injection. The attack can be initiated remotely. The exploit has been disclosed to the public and may be used. The vendor was contacted early about this disclosure.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-04T21:16:36.053",
+      "cve_ids": [
+        "CVE-2026-18813"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
+      "id": "cef902652c4f8c7abcf2ed69e77d914dac511d27afb8269f8c9a97d6283c408e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18812",
+      "title": "CVE-2026-18812 — CVSS 7.2",
+      "summary": "A flaw has been found in H3C NX15 V100R017. The impacted element is the function esps.ipv6.wan of the file /api/esps. Executing a manipulation of the argument workMode can lead to command injection. It is possible to launch the attack remotely. The exploit has been published and may be used. The vendor was contacted early about this disclosure.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-04T21:16:35.890",
+      "cve_ids": [
+        "CVE-2026-18812"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
+      "id": "594c665aec4c3c8acf2ab6ee36029ab7986a46fcd99f1d1ed7af7f89c94f26f6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18811",
+      "title": "CVE-2026-18811 — CVSS 7.2",
+      "summary": "A vulnerability was detected in H3C NX15 V100R017. The affected element is the function Add of the file /api/esps. Performing a manipulation of the argument esps.filter.url results in command injection. It is possible to initiate the attack remotely. The exploit is now public and may be used. The vendor was contacted early about this disclosure.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-04T21:16:35.730",
+      "cve_ids": [
+        "CVE-2026-18811"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
       "id": "c41a3a71e00ede0700bd17de0d2be4ef89afa1426d386b5c06b237cf259fade8",
       "url": "https://github.com/advisories/GHSA-wvp2-4qqp-4h3r",
       "title": "GHSA: Ghost: Private IP filtering bypass to make server-side requests to internal services",
@@ -420,281 +642,59 @@
       "related_links": []
     },
     {
-      "id": "41f69b58931e9fa30a9a9780fd1e41f66800d29670869df2ab9028fe9a641925",
-      "url": "https://github.com/advisories/GHSA-3xpf-xq7r-v8c5",
-      "title": "GHSA: Open WebUI: Same-origin XSS to account takeover via terminal file-preview iframe hardcoding allow-same-origin",
-      "summary": "## Summary\nAny authenticated user with access to a terminal server could get script of their choosing to run in the Open WebUI origin itself. The HTML file preview rendered terminal-served files in an iframe whose sandbox always granted `allow-same-origin` alongside `allow-scripts`, and the file is served from a path on the application's own origin, so the sandbox provided no isolation at all. Scr",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T20:02:03Z",
-      "cve_ids": [
-        "CVE-2026-70486"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "fc4d6578a62d46c1ef784c747a2bf579184b5bb7be4aefeffb0cdfe4ab9ea460",
-      "url": "https://github.com/advisories/GHSA-8x5v-cpv7-8jjp",
-      "title": "GHSA: Open WebUI: Any authenticated user can reach internal services and cloud metadata via NAT64-encoded URLs",
-      "summary": "## Summary\n\nOpen WebUI fetches user-supplied URLs on the server for RAG URL ingestion, URL-to-markdown conversion and web-search content retrieval, and decides whether a destination is allowed by asking whether its IP address is globally routable. That test operates on the literal IPv6 address and does not look at the IPv4 address embedded inside it. On a deployment whose network has a NAT64 gatew",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T19:59:36Z",
-      "cve_ids": [
-        "CVE-2026-70485"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "c1cda2974c4827cd39b62a5df098cb0eb970c22569b94bd8d311cb47557d9b53",
-      "url": "https://github.com/advisories/GHSA-g423-grf7-98rv",
-      "title": "GHSA: Open WebUI: Users denied the image-generation permission can still generate images via chat completions",
-      "summary": "## Summary\nAn authenticated user whose `features.image_generation` permission has been revoked can still make the server generate images by sending the feature flag in a chat-completion request. The chat pipeline took the client-supplied `features` object at face value and never re-checked the permission that the direct image routes enforce, so the denial applied to the UI affordance but not to th",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-04T19:56:57Z",
-      "cve_ids": [
-        "CVE-2026-70484"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "cb0c777d688e3cc6c2232fbc544d75c979b43684f054a96d14afc76db6d6f4d6",
-      "url": "https://github.com/advisories/GHSA-rffm-9q57-q649",
-      "title": "GHSA: Open WebUI: Client-side SSRF via unrestricted external resource loading in Vega/Vega-Lite chart rendering",
-      "summary": "## Summary\nOpen WebUI renders `vega` and `vega-lite` fenced code blocks in chat content by building a Vega view in the viewer's browser without a restricted resource loader. Any user who can place such a block where another user will see it can make that user's browser issue attacker-chosen outbound GET requests, and read back responses from same-origin or CORS-permissive targets into the rendered",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-04T19:54:57Z",
-      "cve_ids": [
-        "CVE-2026-70480"
-      ],
-      "cvss": 4.1,
-      "related_links": []
-    },
-    {
-      "id": "a955eb232b769f84711b1061a61fde4152fead7abc357693a0b8fdca147fe11a",
-      "url": "https://github.com/advisories/GHSA-3vf6-64vr-3g56",
-      "title": "GHSA: Open WebUI: Any authenticated user can cancel another user's chat generation via the chat delete endpoint",
-      "summary": "## Summary\n`DELETE /api/v1/chats/{id}` cancelled a chat's in-flight tasks before it checked whether the caller was allowed to delete that chat. Any authenticated user who knew another user's chat id could therefore abort that user's running model response, title generation or tag generation. The deletion itself was still refused, so the only missing control was on the cancellation side effect.\n\n##",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T19:54:49Z",
-      "cve_ids": [
-        "CVE-2026-70483"
-      ],
-      "cvss": 3.1,
-      "related_links": []
-    },
-    {
-      "id": "c17394e3bf232de7d84d9af1ad506c62728d7edb491ff36ddf6a1977e6f7e225",
-      "url": "https://github.com/advisories/GHSA-rq84-p6rr-vf89",
-      "title": "GHSA: Open WebUI: Account takeover via OAuth token exchange accepting tokens issued to any client",
-      "summary": "## Summary\n\nThe OAuth token exchange endpoint accepts a raw provider access token and validates it by calling the provider's userinfo endpoint. A userinfo endpoint reports only that a token is valid, never which OAuth client it was issued to, and the endpoint performed no audience or client check of its own. Anyone holding an access token minted for any client registered with the same provider cou",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T19:52:01Z",
-      "cve_ids": [
-        "CVE-2026-70482"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "936862f03575a5445b8af25beaa8be218564337abd967d2acd444b1879932a11",
-      "url": "https://github.com/advisories/GHSA-mj5r-jf49-m3w7",
-      "title": "GHSA: Open WebUI: Any member with write access to a standard channel can edit or delete other members' messages",
-      "summary": "## Summary\nOn standard channels, the message update and delete handlers accepted any caller holding write access on the channel, without checking that the caller wrote the message. Write access is the same grant a member needs in order to post, so every ordinary participant in a shared channel could rewrite or permanently delete any other participant's messages. The group and direct message branch",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-04T19:45:39Z",
-      "cve_ids": [
-        "CVE-2026-70481"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "4d00c2a4cec6e1026bbff6c751ef21ffef32f43be23b2fb3608db87d8b1a19e8",
-      "url": "https://github.com/advisories/GHSA-w2rx-84hp-gg95",
-      "title": "GHSA: Open WebUI: SSRF into internal services via unvalidated sub-resource requests in the Playwright web loader",
-      "summary": "## Summary\nWith the Playwright web loader enabled, Open WebUI opens user-submitted URLs in a real browser and validates the destination address before allowing the request. That check only ran for the top-level page request. Every other request the page issued was passed through unvalidated, so a page could use its own JavaScript to reach addresses the validation exists to block. Because the loade",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-04T19:40:48Z",
-      "cve_ids": [
-        "CVE-2026-70479"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "18c6a9d9a235385670bf454995acb0c4a26d8caba1a0bbb660bce46286bc393d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-47617",
-      "title": "CVE-2026-47617 — CVSS 7.5",
-      "summary": "NVIDIA Dynamo for Linux contains a vulnerability in the multimodal media fetcher where an attacker may cause server-side request forgery via DNS rebinding. A successful exploit of this vulnerability might lead to information disclosure.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-08-04T18:16:51.250",
-      "cve_ids": [
-        "CVE-2026-47617"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "1d987d9823e90d8c74259412f933ad343e19d12973e572a0187b74c35adf9ccb",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-47616",
-      "title": "CVE-2026-47616 — CVSS 7.5",
-      "summary": "NVIDIA Dynamo for Linux contains a vulnerability in the multimodal media fetcher where an attacker may cause server-side request forgery. A successful exploit of this vulnerability might lead to information disclosure.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-08-04T18:16:51.120",
-      "cve_ids": [
-        "CVE-2026-47616"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "57cd25fedbfc6eadc244910ae9c649a5742092f19bc8e1244151e083f98412d1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-47615",
-      "title": "CVE-2026-47615 — CVSS 7.5",
-      "summary": "NVIDIA Dynamo for Linux contains a vulnerability where an attacker may cause server-side request forgery by supplying a crafted URL in a multimodal request. A successful exploit of this vulnerability might lead to information disclosure.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-08-04T18:16:50.997",
-      "cve_ids": [
-        "CVE-2026-47615"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "03d0a8c07d7a0050a105c923f41770323747459ed6cea2485feab731cadfa151",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-47614",
-      "title": "CVE-2026-47614 — CVSS 7.5",
-      "summary": "NVIDIA Dynamo for Linux contains a vulnerability where an attacker may cause server-side request forgery. A successful exploit of this vulnerability might lead to information disclosure.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-08-04T18:16:50.877",
-      "cve_ids": [
-        "CVE-2026-47614"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "1d35d60b97a34e363beda5b78caf3d3a3058c109bc4e66184d1274d4e6518500",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-47613",
-      "title": "CVE-2026-47613 — CVSS 7.5",
-      "summary": "NVIDIA Dynamo for Linux contains a vulnerability where an attacker may cause improper limitation of a pathname to a restricted directory by supplying a crafted local path in a multimodal request. A successful exploit of this vulnerability might lead to information disclosure.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-04T18:16:50.750",
-      "cve_ids": [
-        "CVE-2026-47613"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "ed548202d0a654f25fad2b53b62946920fe22265b1ba3d978733607b8443da98",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-47612",
-      "title": "CVE-2026-47612 — CVSS 7.5",
-      "summary": "NVIDIA Dynamo for Linux contains a vulnerability in the image loading component where an attacker may cause improper limitation of a pathname to a restricted directory. A successful exploit of this vulnerability might lead to information disclosure.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-04T18:16:50.630",
-      "cve_ids": [
-        "CVE-2026-47612"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "94753bf4a31b98d6fdfbea6d19c63d4ccb5fb4294d527bee7cef9e31555e4f8e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-24255",
-      "title": "CVE-2026-24255 — CVSS 7.5",
-      "summary": "NVIDIA Dynamo for Linux contains a vulnerability in the multimodal embedding cache, where an attacker could cause a hash collision by submitting images that share an identical pixel byte sequence but have different dimensions. A successful exploit of this vulnerability might lead to data tampering.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-04T18:16:50.070",
-      "cve_ids": [
-        "CVE-2026-24255"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "0f7d57a98d0aab2dc69fb56d94ad52540646dbd8206b8450d0162ce9962adcba",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-24254",
-      "title": "CVE-2026-24254 — CVSS 9.8",
-      "summary": "NVIDIA Dynamo for Linux contains a vulnerability in the multimodal serving topology, where an attacker could cause an out-of-bounds write. A successful exploit of this vulnerability might lead to code execution, escalation of privileges, data tampering, denial of service, and information disclosure.",
+      "id": "a18a67fec8e359f7184533ad4433435c3ba0209e30da7ef23475d5d6424a9f77",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-70553",
+      "title": "CVE-2026-70553 — CVSS 9.8",
+      "summary": "MaxSite CMS contains a remote code execution vulnerability that allows unauthenticated attackers to inject arbitrary PHP code into the application configuration file by submitting crafted POST requests to the install endpoint after installation is complete. Attackers can supply a malicious db_dbprefix value containing a single quote to break out of a PHP string literal in application/config/databa",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-08-04T18:16:49.937",
+      "date": "2026-08-04T20:16:56.023",
       "cve_ids": [
-        "CVE-2026-24254"
+        "CVE-2026-70553"
       ],
       "cvss": 9.8,
       "related_links": []
     },
     {
-      "id": "0b938089f89781541c2c40eb61fc5d5f71e45203ec81fee36dd906bad5b3eb9b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-24253",
-      "title": "CVE-2026-24253 — CVSS 8.2",
-      "summary": "NVIDIA Dynamo for Linux contains a vulnerability where an attacker could cause an out-of-bounds write. A successful exploit of this vulnerability might lead to denial of service and data tampering.",
+      "id": "91c5c3d3a7efc461d0530850a8145d4c3f513baa6d8dbdeaec34492adb6ed42f",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-70552",
+      "title": "CVE-2026-70552 — CVSS 9.8",
+      "summary": "MaxSite CMS 109.5 and earlier contains an authentication bypass vulnerability in the AJAX dispatcher that allows unauthenticated attackers to access admin-gated endpoints by supplying any X-Requested-With header and requesting a base64-encoded path resolving to any *-ajax.php file in the codebase. Attackers can exploit this dispatcher bypass to reach privileged plugin endpoints without credentials",
       "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-04T18:16:49.767",
+      "category": "emergency",
+      "date": "2026-08-04T20:16:55.883",
       "cve_ids": [
-        "CVE-2026-24253"
+        "CVE-2026-70552"
       ],
-      "cvss": 8.2,
+      "cvss": 9.8,
       "related_links": []
     },
     {
-      "id": "0a9360fb05633f9068ac00b374ee7601d4b35e78e54309d434ea9596530a2b1a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18830",
-      "title": "CVE-2026-18830 — CVSS 8.1",
-      "summary": "Insufficient input validation in Amazon Bedrock AgentCore harness might allow an authenticated remote user to execute configured tools bypassing model invocation and security controls via crafted content blocks in conversation messages. AWS has addressed this issue. No customer action is required.",
+      "id": "d1aaa2e669048d6a9d7c196f6a9cfaaca36fbad8cb6e2a18b8287649a4d6a257",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-70478",
+      "title": "CVE-2026-70478",
+      "summary": "Flowise is a drag & drop user interface to build a customized large language model flow. Prior to 3.1.3, the POST /api/v1/oauth2-credential/refresh/:credentialId endpoint is included in WHITELIST_URLS and requires no authentication. The endpoint decrypts the stored credential, sends a refresh request to the configured OAuth provider with the client secret and refresh token, and returns the refresh",
       "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-04T18:16:49.420",
-      "cve_ids": [
-        "CVE-2026-18830"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "1f8ecb0e0906f209df8694aa4b040cdd0752bcaa0bf9171b14fdd6b030a1b197",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18788",
-      "title": "CVE-2026-18788 — CVSS 7.3",
-      "summary": "A security flaw has been discovered in Trippo ResponsiveFilemanager up to 9.14.0. The impacted element is an unknown function of the file filemanager/dialog.php. The manipulation results in unrestricted upload. The attack may be performed from remote. The exploit has been released to the public and may be used for attacks. The vendor was contacted early about this disclosure but did not respond in",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-04T18:16:48.730",
-      "cve_ids": [
-        "CVE-2026-18788"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "d8af39ae5c3344d55214925598872432ea1df21ffb386f7a0e655c0f6e444e8e",
-      "url": "https://github.com/advisories/GHSA-rwrp-9823-p2xq",
-      "title": "GHSA: Flowise: Incomplete Credential Redaction Exposes Secrets via API",
-      "summary": "## Summary\n\nThe `GET /api/v1/credentials/:id` endpoint decrypts stored credential data and returns it in the `plainDataObj` field of the API response. While a `redactCredentialWithPasswordType()` function masks fields defined with `type: 'password'` in their component schema, many credential types store highly sensitive data (database connection URLs with embedded passwords, Google service account",
-      "source": "GitHub Advisory",
       "category": "cloud",
-      "date": "2026-08-04T17:57:35Z",
-      "cve_ids": [],
-      "cvss": 6.5,
+      "date": "2026-08-04T20:16:54.610",
+      "cve_ids": [
+        "CVE-2026-70478"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "840efc12eec20fcd90342eb15ebc11f3e0e5853c8fad61cfdd7c32d74999febe",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48154",
+      "title": "CVE-2026-48154 — CVSS 5.9",
+      "summary": "GoRest is a Golang starter kit built with the Gin framework for prototyping and developing RESTful APIs. In versions prior to 1.12.2 nMemorySecret2FA contains a race condition due to an unsynchronized package-level map used to store 2FA secrets. Multiple HTTP handlers in handler/login.go and handler/twoFA.go read from and write to this map concurrently, and because Go's runtime treats unsynchroniz",
+      "source": "NVD/NIST",
+      "category": "cloud",
+      "date": "2026-08-04T20:16:52.017",
+      "cve_ids": [
+        "CVE-2026-48154"
+      ],
+      "cvss": 5.9,
       "related_links": []
     }
   ]
