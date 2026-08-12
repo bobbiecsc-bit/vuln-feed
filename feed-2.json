@@ -1,10 +1,52 @@
 {
-  "updated": "2026-08-12T09:11:01.191225+00:00",
+  "updated": "2026-08-12T13:08:25.102165+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "4d83a7adf185a19769bac250b28b01fe2fa86af2b4242305b28d259bff306ef5",
+      "url": "https://github.com/advisories/GHSA-f23p-vx2j-j53r",
+      "title": "GHSA: Hono: `memo()` retains SSR output across requests, leading to cross-user data disclosure",
+      "summary": "### Summary\n\n`memo()` from `hono/jsx` retains the result of a server-side render and reuses it for later renders with comparator-equal props. Request-scoped values read inside the component take no part in that comparison, so a response can contain HTML rendered for another user's request.\n\n### Details\n\nComponents wrapped with `memo()` are compared by props alone. Values read implicitly during ren",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-07T18:42:01Z",
+      "cve_ids": [
+        "CVE-2026-71850"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "d892a46f18a24d817e4bf35fdf0ecc6ef9d0e9463d3558ad139e63e42f061e87",
+      "url": "https://github.com/advisories/GHSA-79qm-7rj5-m7r9",
+      "title": "GHSA: Hono: Proxy Helper does not remove response headers listed in the `Connection` header",
+      "summary": "### Summary\n\nThe Proxy Helper (`hono/proxy`) does not remove response headers named by the origin's `Connection` header. Headers that the origin marked as connection-scoped are therefore forwarded to clients.\n\n### Details\n\nPer RFC 9110 Section 7.6.1, an intermediary must remove the header fields listed in a message's `Connection` header field before forwarding the message, in addition to the well-",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-07T18:38:48Z",
+      "cve_ids": [
+        "CVE-2026-71849"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "4d121618f09e495ae69cde6e46fc0eeaa202c5b676f9ce0c255bcbeb98430509",
+      "url": "https://github.com/advisories/GHSA-54fx-42gc-7vw4",
+      "title": "GHSA: Hono: Algorithmic Complexity DoS in Language Middleware",
+      "summary": "### Summary\n\nThe `languageDetector` middleware is vulnerable to algorithmic complexity denial of service when processing a crafted language tag containing a large number of hyphen-separated subtags.\n\n### Details\n\nTo implement progressive language-tag truncation, `normalizeLanguage()` repeatedly calls `parts.slice(0, i).join('-')` for every possible prefix. The total amount of string processing gro",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-07T18:36:31Z",
+      "cve_ids": [
+        "CVE-2026-71848"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
     {
       "id": "6eae8822f26c912374f3a76a5279eb72733db72d90eabaf3a9d70d3d042dde11",
       "url": "https://github.com/advisories/GHSA-gm37-52c6-37mw",
@@ -640,48 +682,6 @@
       "date": "2026-08-06T18:03:45+00:00",
       "cve_ids": [],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "599dcb9319efbd6b95d5fbbdb139cf331e0af6c3c22a91bdf0e2cf5f9aa361b8",
-      "url": "https://github.com/advisories/GHSA-cxjq-mrr5-89rv",
-      "title": "GHSA: Traefik: Authentication Bypass via Path Traversal in ReplacePathRegex Middleware",
-      "summary": "## Summary\n\nThere is a critical authentication-bypass vulnerability in Traefik's `ReplacePathRegex` middleware. When it is configured with a regular expression that captures user-controlled path segments without a mandatory separator (for example `regex: \"^/api(.*)\"`, `replacement: \"/$1\"`), a crafted request can produce an un-normalized replacement path such as `/../admin`, which Traefik forwarded",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-06T16:51:10Z",
-      "cve_ids": [
-        "CVE-2026-65600"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "bb451a1c11aea8dc9aa13547d0db6087acdfe90c2d0cb718fccd41b6a4f5580b",
-      "url": "https://github.com/advisories/GHSA-3q9r-p662-5j8m",
-      "title": "GHSA: Traefik: ForwardAuth middleware leaks X-Forwarded-Port spoofing via untrusted X-Forwarded-Proto when trustForwardHeader=false",
-      "summary": "## Summary\n\nThere is a medium severity vulnerability in Traefik's ForwardAuth middleware. Even when configured with `trustForwardHeader: false`, Traefik derives the `X-Forwarded-Port` header sent to the authentication service from the original incoming request instead of the sanitized forwarded request. As a result, an unauthenticated remote attacker can inject an `X-Forwarded-Proto: https` header",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-06T16:38:29Z",
-      "cve_ids": [
-        "CVE-2026-54764"
-      ],
-      "cvss": 5.8,
-      "related_links": []
-    },
-    {
-      "id": "c7493ac16ae6284eaf0e4f508545b7ac44fb32b1f0a3480bc2b04dc11dd4ab88",
-      "url": "https://github.com/advisories/GHSA-fgjj-px3w-67xx",
-      "title": "GHSA: Traefik: Gateway API route identity collision allows cross-namespace backend hijacking",
-      "summary": "## Summary\n\nThere is a high severity vulnerability in Traefik's Kubernetes Gateway API provider. Router and service identities for `HTTPRoute`, `GRPCRoute`, `TCPRoute` and `TLSRoute` objects were built by hyphen-concatenating the route namespace, the route name, the Gateway identity, the entry point and the rule index, a construction that is not injective because Kubernetes names may themselves co",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-08-06T16:38:18Z",
-      "cve_ids": [
-        "CVE-2026-71327"
-      ],
-      "cvss": 8.2,
       "related_links": []
     }
   ]
