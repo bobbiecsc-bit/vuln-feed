@@ -1,698 +1,705 @@
 {
-  "updated": "2026-08-13T13:09:46.593892+00:00",
+  "updated": "2026-08-13T16:55:24.831859+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
     {
-      "id": "c17b43552740503564dcc9b155c6d7dcc0a78b68e2f1dd9be0066458fd9ded73",
-      "url": "https://github.com/advisories/GHSA-mj63-m3rc-8ppr",
-      "title": "GHSA: league/commonmark: Denial of service via deeply nested XML output",
-      "summary": "### Impact\n\n`XmlRenderer` pretty-prints XML by emitting depth-proportional indentation whitespace for **every** opening and closing tag. For a tree of depth n, the indentation alone sums to **O(n²)** bytes of output (and corresponding memory), reachable through `MarkdownToXmlConverter` — e.g. `str_repeat('> ', $depth) . \"x\\n\"`, a single line of nested blockquotes — or through a direct `XmlRenderer",
+      "id": "a82b61d4c02b3d6548d420144e89ae5390a42f2a35eee65880dee71dc77d01a4",
+      "url": "https://github.com/advisories/GHSA-9rj7-rf2p-w77r",
+      "title": "GHSA: GitPython: Unguarded git option forwarding in Repo.init enables arbitrary command execution via --template clone hooks",
+      "summary": "## Summary\n`Repo.init()` forwards `**kwargs` verbatim to `git init` with no unsafe-option guard and no `allow_unsafe_options` parameter. `git init --template=<dir>` copies `<dir>/hooks/*` into the new repo's `.git/hooks`, so an attacker-controlled `template` kwarg plants a hook that executes on the next git operation → arbitrary code execution. `--template` is already recognized as unsafe for clon",
       "source": "GitHub Advisory",
       "category": "web_app",
-      "date": "2026-08-06T20:42:54Z",
-      "cve_ids": [],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "0b8818b606dd54564b3636741960240ebbd34a998892edd294fa3831e1d90265",
-      "url": "https://github.com/advisories/GHSA-mh25-x5hq-wrqp",
-      "title": "GHSA: league/commonmark: Denial of service via colliding heading slugs",
-      "summary": "### Impact\n\n`UniqueSlugNormalizer::normalize()` makes each slug document-unique by searching for an unused numeric suffix, but **restarts that search from `1` on every collision**. The k-th heading that collapses to the same base slug performs k−1 array lookups, so K colliding slugs cost Σ(k−1) = **O(K²)**. An attacker can force every heading onto a single base slug trivially — many empty ATX head",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-06T20:41:45Z",
+      "date": "2026-08-07T15:36:43Z",
       "cve_ids": [],
       "cvss": 7.5,
       "related_links": []
     },
     {
-      "id": "370357a92fdc4071fb1ecce5f7812be203578d1cf06355d685b48b13cf5e550c",
-      "url": "https://github.com/advisories/GHSA-jfm3-95jq-q3rf",
-      "title": "GHSA: league/commonmark:  Denial of service via duplicate footnote definitions",
-      "summary": "### Impact\n\nThe Footnote extension records one backref per footnote *reference* and then appends the **entire** backref list for **every** footnote *definition* block in the document, without ever de-duplicating or removing repeated definitions of the same label (`GatherFootnotesListener`, populated by `NumberFootnotesListener`). A document that references a single label N times and also supplies ",
+      "id": "b713a2221c1a80e5240b56556d8c894f7399e29a0e907d561c441d3a94d93656",
+      "url": "https://github.com/advisories/GHSA-4gmw-gg2m-w46p",
+      "title": "GHSA: GitPython: Unguarded git read-tree option forwarding in IndexFile.from_tree/reset/merge_tree enables arbitrary file overwrite",
+      "summary": "## Summary\n`IndexFile.from_tree`, `IndexFile.reset` (→ from_tree) and `IndexFile.merge_tree` append caller-influenced treeish strings positionally to `git read-tree` with no unsafe-option guard, no `allow_unsafe_options` parameter, and no `--` separator. `git read-tree --index-output=<file>` writes the resulting index to an arbitrary path, and last-occurrence-wins lets an injected `--index-output`",
       "source": "GitHub Advisory",
       "category": "web_app",
-      "date": "2026-08-06T20:40:53Z",
+      "date": "2026-08-07T15:33:57Z",
       "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "c57cf0745fd177a769a2dbe3b19c48438cd03a3280b3a86f4fe6e4ca8cd05d2c",
-      "url": "https://github.com/advisories/GHSA-g2gp-3wwq-f4ph",
-      "title": "GHSA: league/commonmark: Denial of service via adjacent inline attribute blocks",
-      "summary": "### Impact\n\nWith the Attributes extension enabled, `AttributesListener::findTargetAndDirection()` resolves each attribute node's target by walking outward through its siblings. For a run of N adjacent inline attribute blocks placed at the start of a block (with nothing to their left), each node scans the **entire** sibling list to the far-right end before giving up and falling back to the parent. ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-06T20:39:52Z",
-      "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "da15a9e50fb979b324785c15ee0b1392d5240df2072d98d42d169776aba901ce",
-      "url": "https://github.com/advisories/GHSA-2q4p-g7hv-5rgv",
-      "title": "GHSA: league/commonmark: Quadratic-time denial of service when parsing crafted Markdown",
-      "summary": "### Impact\n\nAffected versions of `league/commonmark` can have quadratic time complexity when parsing specially crafted Markdown lines. In practical terms, doubling the length of an affected line can make the parser perform roughly four times as much work. The parser identifies locations using character positions, but regular-expression matches report byte positions. These positions differ when a U",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-06T20:37:20Z",
-      "cve_ids": [
-        "CVE-2026-71488"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "7850698bb5c04e648cdd8cebc49ce9d17329a06c64451340bf1a8bb3c5dd20fd",
-      "url": "https://github.com/advisories/GHSA-29pj-957v-52mc",
-      "title": "GHSA: league/commonmark: AttributesExtension href/src unsafe-link filter bypass via embedded control bytes",
-      "summary": "﻿## Summary\n\nThe `AttributesExtension`'s `href`/`src` unsafe-link filter (`AttributesHelper::filterAttributes()`) can be bypassed by embedding control bytes in a `javascript:` URL that browsers discard before parsing the scheme. Two variants:\n\n- **Tab/newline inside the scheme** — a literal ASCII TAB (0x09), CR (0x0D), or LF (0x0A), e.g. `java<TAB>script:alert(1)`. Per the WHATWG URL Standard's \"b",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-06T20:30:39Z",
-      "cve_ids": [
-        "CVE-2026-71478"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "a8c4930921be2e4aad4ab94c25c63945f5e220986ca512c2ccc91720c7a58ac9",
-      "url": "https://github.com/advisories/GHSA-5p4m-2wfm-xmqj",
-      "title": "GHSA: JS-YAML: Quadratic CPU consumption in !!omap resolution (3.x and 4.x) — CVE-2026-59870 fix not backported",
-      "summary": "# Quadratic CPU consumption in `!!omap` resolution (js-yaml 3.x and 4.x)\n\n## Summary\n\n`resolveYamlOmap()` enforces key uniqueness for `!!omap` sequences with a linear\nscan (`objectKeys.indexOf(...)`) inside the per-element loop, making resolution\n**O(n²)** in the number of entries. A modestly sized YAML document therefore\nconsumes disproportionate CPU inside `yaml.load()`, giving a denial of servi",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-06T20:27:32Z",
-      "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "6a68c948378774681276ebed9221b5ed9ac245f11644e020791b69545b046f04",
-      "url": "https://github.com/advisories/GHSA-w3cp-g2pf-65wh",
-      "title": "GHSA: Silverstripe: XSS in breadcrumbs in page list view",
-      "summary": "### Impact\nPage breadcrumbs in the CMS are vulnerable to XSS when viewed using the page list view\n\n### Reporter\nFase Rais Baradika",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-06T20:27:22Z",
-      "cve_ids": [
-        "CVE-2026-54717"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "a913bb6dcb20a483488b18f97e2eef03dca14cf0421e6e96a1c678e3f3a6cc6f",
-      "url": "https://github.com/advisories/GHSA-hqvf-45jj-mccq",
-      "title": "GHSA: AWS CLI: Disabled SSH host key verification in Amazon AWS CLI EMR helper commands",
-      "summary": "### Summary\nThe AWS Command Line Interface (AWS CLI) is a unified tool to manage AWS services from the command line. An issue exists where the EMR SSH helper commands (`aws emr ssh`, `aws emr socks`, `aws emr put`, `aws emr get`) passed `StrictHostKeyChecking=no` to the underlying SSH client, disabling host key verification.\n\n### Impact\nA network-positioned actor could perform a man-in-the-middle ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-06T20:15:30Z",
-      "cve_ids": [
-        "CVE-2026-18654"
-      ],
-      "cvss": 6.8,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-18654"
-      ]
-    },
-    {
-      "id": "fade6e128890576deccb4dde929fe057e1449c02c1e88ffc570c42abf430df01",
-      "url": "https://github.com/advisories/GHSA-grm4-wm43-9jh5",
-      "title": "GHSA: Contao: Possible path traversal in job download URIs",
-      "summary": "## Summary\n\nAn authenticated backend user who can access one job can request an attachment identifier containing `../` segments and make the job attachment download endpoint read a file from another job directory inside `var/job-attachments`.\n\nThe controller authorizes only the `jobUuid` route parameter. The later attachment lookup joins that authorized job UUID with the attacker-controlled `ident",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-06T19:49:59Z",
-      "cve_ids": [
-        "CVE-2026-55825"
-      ],
-      "cvss": 3.1,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-55825"
-      ]
-    },
-    {
-      "id": "acb15c76ecac7a692574bc4a755aaba79d83ffe81cc527d129429ca1de8660ed",
-      "url": "https://github.com/advisories/GHSA-3mr9-p497-58f6",
-      "title": "GHSA: Contao crawler leaks auth credentials to external hosts",
-      "summary": "### Summary\nContao's crawler tries to prevent confidential HTTP client options from being sent to external domains by creating a scoped client: full options for root page origins, cleaned options for everything else. The cleaner removes `Cookie` and `Authorization` headers, but it removes the non-Symfony option names `basic_auth` and `bearer_auth` instead of Symfony HttpClient's real `auth_basic` ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-06T19:43:02Z",
-      "cve_ids": [
-        "CVE-2026-55824"
-      ],
-      "cvss": 2.6,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-55824"
-      ]
-    },
-    {
-      "id": "8b4513f58110bd709daf53452771e8c7a5628172d00b3f433d360f01c95afaff",
-      "url": "https://github.com/advisories/GHSA-vx89-p3j7-8xqc",
-      "title": "GHSA: Statamic: Stored Cross-Site Scripting in Automagic Form Notification Email Template",
-      "summary": "### Impact\n\nThe default (\"automagic\") form notification email rendered user-submitted values without escaping, allowing an unauthenticated form submitter to inject HTML into the notification emails sent to the configured recipients\n\n### Patches\n\nThis has been fixed in 5.74.3 and 6.24.2.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-06T19:37:58Z",
-      "cve_ids": [
-        "CVE-2026-71435"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "457b05e59e4190316674b4032e3bb93ac268b556d2235b2e621534abdfcbeb64",
-      "url": "https://seclists.org/fulldisclosure/2026/Aug/33",
-      "title": "CVE-2026-15013 – miniOrange SAML SSO <= 5.4.3 Unauthenticated Authentication Bypass (PoC)",
-      "summary": "Posted by Öner Efe Güngör on Aug 06Hello Full Disclosure, I&apos;d like to share an independent lab Proof-of-Concept for CVE-2026-15013. ### CVE-2026-15013 – miniOrange SAML SSO &lt;= 5.4.3 Unauthenticated Authentication Bypass SAML Signature Algorithm Confusion vulnerability. An unauthenticated attacker can forge a valid SAMLResponse by forcing HMAC-SHA1 verification against the IdP&apos;s public",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-08-06T19:36:09+00:00",
-      "cve_ids": [
-        "CVE-2026-15013"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "dede530f714fad9f52dd65ff6d512b6d7a3c2256fb4eeec9a988d5fcec9cb1fa",
-      "url": "https://github.com/advisories/GHSA-qhr7-v3xp-vw9m",
-      "title": "GHSA: Statamic: Missing file upload validation on frontend forms allows uploading disallowed file types",
-      "summary": "### Impact\nPublic frontend forms did not enforce the file upload restrictions that the Control Panel enforces, so an unauthenticated visitor could upload file types an administrator had intended to disallow through a form's `assets` or `files` field. For `assets` fields, files could be stored on a public, web-accessible disk. Statamic's global upload allowlist still applied, so executable types su",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-06T19:35:00Z",
-      "cve_ids": [
-        "CVE-2026-71434"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "8fc0d54bdd3b44dec8715b8c8997a4e607ce7ab6e4e35ee8abdabd7868e99b5d",
-      "url": "https://seclists.org/fulldisclosure/2026/Aug/29",
-      "title": "[KIS-2026-13] vBulletin <= 6.2.1 (runMaths) Remote Code Execution Vulnerability",
-      "summary": "Posted by Egidio Romano on Aug 06----------------------------------------------------------------- vBulletin &lt;= 6.2.1 (runMaths) Remote Code Execution Vulnerability ----------------------------------------------------------------- [-] Software Link: https://www.vbulletin.com [-] Affected Versions: Version 5.7.5 and prior 5.x versions. Version 6.2.1 and prior 6.x versions. [-] Vulnerability Desc",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-08-06T19:34:35+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "37bf3f8d9da4f44d81c03dbc8988b9c71f9654c7b0bfc2e38f8ccec4e49f693b",
-      "url": "https://seclists.org/fulldisclosure/2026/Aug/25",
-      "title": "[SYSS-2026-047]: DICOM Toolkit (DCMTK) - Path traversal (CWE-22)",
-      "summary": "Posted by Matthias Deeg via Fulldisclosure on Aug 06Advisory ID: SYSS-2026-047 Product: DCMTK (DICOM ToolKit) Manufacturer: OFFIS e.V. / DCMTK Community Affected Version(s): 3.7.0 Tested Version(s): 3.7.0 Vulnerability Type: Path traversal (CWE-22) Risk Level: High Solution Status: Fixed Manufacturer Notification: 2026-07-02 Solution Date: 2026-07-03 Public Disclosure: 2026-07-31 CVE...",
-      "source": "Full Disclosure",
-      "category": "web_app",
-      "date": "2026-08-06T19:31:03+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "bb265c69dd90353c025374fe71a9fbdc3a1816d05da354d1495682bb81edfbfe",
-      "url": "https://github.com/advisories/GHSA-qh8c-7588-qfrv",
-      "title": "GHSA: Statamic: Missing authorization on navigation endpoint allows disclosure of restricted entries",
-      "summary": "### Impact\n\nAn authenticated Control Panel user could view content from entries they don't have permission to view, including entry content and custom field values, from any collection and including unpublished entries. No data could be modified.\n\n### Patches\n\nThis has been fixed in 5.74.1 and 6.24.0.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-06T19:30:39Z",
-      "cve_ids": [
-        "CVE-2026-64662"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "ec164546ffa21a1fb3e0a592a500cdecaf74a1b8e2b93fe4da36071bfaa38a11",
-      "url": "https://github.com/advisories/GHSA-j2vp-f2pv-5rj4",
-      "title": "GHSA: Statamic: Unsafe method invocation via Antlers template resolution allows data destruction",
-      "summary": "### Impact\n\nManipulating user-supplied input incorporated into Antlers templates could result in the loss of content and assets.\n\nExploitation requires a site to have templates that pass untrusted input into affected areas. It does not require authentication.\n\n### Patches\n\nThis has been fixed in 5.74.1 and 6.24.0.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-06T19:28:08Z",
-      "cve_ids": [
-        "CVE-2026-64663"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "a2b6d1c30ca71d9b6a829c1b5175d4ef7e4c0e38cef61b8d997a0447ce808bab",
-      "url": "https://github.com/advisories/GHSA-93qh-5269-9wcf",
-      "title": "GHSA: Statamic: Account takeover via OAuth email matching without email-verification check",
-      "summary": "### Impact\n\nWhen OAuth login is enabled with a provider that does not guarantee verified email addresses, an unauthenticated attacker could sign in as an existing user — potentially including a super admin — without their password. Exploitation requires OAuth to be explicitly enabled with such a provider.\n\n### Patches\n\nFixed in 5.74.1 and 6.24.0.\n\n### Workarounds\n\nOnly enable OAuth with providers ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-06T19:25:05Z",
-      "cve_ids": [
-        "CVE-2026-64665"
-      ],
       "cvss": 8.1,
       "related_links": []
     },
     {
-      "id": "7b57244c1dae0ce52ff2402f0aa59ed45c2ab9af6fae4a5de39a5e748662a250",
-      "url": "https://github.com/advisories/GHSA-225x-3jhx-wh4q",
-      "title": "GHSA: Statamic: Missing authorization on Control Panel endpoint allows disclosure of user existence",
-      "summary": "### Impact\nAn authenticated Control Panel user could use an endpoint intended for the user creation wizard to determine if a given email address belongs to an existing user, without having permission to view users.\n\nThe endpoint only exposed user existence, not any of its data.\n\n### Patches\nThis has been fixed in 5.74.1 and 6.24.0.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-06T19:22:34Z",
+      "id": "f33c86f23a090ea72e69dd2bbe487caface54d9610454695866de504f1b11e11",
+      "url": "https://www.rapid7.com/blog/post/ra-unauthenticated-rce-in-jetbrains-teamcity-cve-2026-63077",
+      "title": "Rapid7 Analysis: Unauthenticated Remote Code Execution in JetBrains TeamCity (CVE-2026-63077)",
+      "summary": "OverviewOn July 27, 2026, JetBrains published a security advisory for CVE-2026-63077, a critical unsafe deserialization vulnerability affecting JetBrains TeamCity. An attacker who can reach a TeamCity server over HTTP or HTTPS can exploit the agent polling protocol without credentials and execute operating system commands with the privileges of the TeamCity server process.JetBrains reported no kno",
+      "source": "Rapid7",
+      "category": "emergency",
+      "date": "2026-08-07T14:32:47+00:00",
       "cve_ids": [
-        "CVE-2026-64664"
+        "CVE-2026-63077"
       ],
-      "cvss": 4.3,
-      "related_links": []
+      "cvss": null,
+      "related_links": [
+        "https://www.rapid7.com/blog/post/etr-cve-2026-63077-critical-unauthenticated-remote-code-execution-in-jetbrains-teamcity",
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-63077"
+      ]
     },
     {
-      "id": "35c30d519fa99180788a7ed8f018cf6e7fcf3972b447d1490f03501f5d1f3dfc",
-      "url": "https://github.com/advisories/GHSA-47pj-3jcm-6whg",
-      "title": "GHSA: LangGraph: Namespace prefix matching crosses segment boundaries in Postgres and SQLite stores",
-      "summary": "## Summary\n\nThe Postgres and SQLite stores persist hierarchical namespaces as a dot-joined string (`(\"memories\", \"alice\")` becomes `memories.alice`) and scoped reads by matching that string with `LIKE '<path>%'`. Because `LIKE` has no notion of the `.` separator, a scoped `search` or `list_namespaces` also matched sibling namespaces whose flattened form shares leading characters.\n\nApplications com",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-06T19:03:12Z",
-      "cve_ids": [
-        "CVE-2026-71433"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "e04150fe0f1daa409e295f042d2dddc90f5d90ab586f07b9f8c1df338fa433b9",
-      "url": "https://www.bleepingcomputer.com/news/security/new-tontou-cpu-attack-bypasses-spectre-v2-fixes-leaks-linux-password-hashes/",
-      "title": "New TONTOU CPU attack bypasses Spectre v2 fixes, leaks Linux password hashes",
-      "summary": "Researchers found a way to bypass recent mitigations for Spectre v2 speculative execution side-channel attacks and developed an exploit to leak secrets from Linux machines. [...]",
-      "source": "Bleeping Computer",
-      "category": "cloud",
-      "date": "2026-08-06T18:03:45+00:00",
+      "id": "fbee15c675067269af12939c6e723644041acd987e36c066a1caf58baec72fa6",
+      "url": "https://msrc.microsoft.com/update-guide/releaseNote/2007-Jun",
+      "title": "MSRC: Mariner Release Notes",
+      "summary": "Microsoft security update: Mariner Release Notes. Alias: 2007-Jun.",
+      "source": "Microsoft MSRC",
+      "category": "infrastructure",
+      "date": "2026-08-07T00:19:25Z",
       "cve_ids": [],
       "cvss": null,
       "related_links": []
     },
     {
-      "id": "599dcb9319efbd6b95d5fbbdb139cf331e0af6c3c22a91bdf0e2cf5f9aa361b8",
-      "url": "https://github.com/advisories/GHSA-cxjq-mrr5-89rv",
-      "title": "GHSA: Traefik: Authentication Bypass via Path Traversal in ReplacePathRegex Middleware",
-      "summary": "## Summary\n\nThere is a critical authentication-bypass vulnerability in Traefik's `ReplacePathRegex` middleware. When it is configured with a regular expression that captures user-controlled path segments without a mandatory separator (for example `regex: \"^/api(.*)\"`, `replacement: \"/$1\"`), a crafted request can produce an un-normalized replacement path such as `/../admin`, which Traefik forwarded",
-      "source": "GitHub Advisory",
+      "id": "a1fe75da9ba46289374d9c535e04424742c9475ff057af989a60541209e7a076",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-8037",
+      "title": "CVE-2026-8037: Progress LoadMaster Command Injection Vulnerability",
+      "summary": "Progress LoadMaster contains a command injection vulnerability that allows an un-authenticated attacker to execute arbitrary commands on the LoadMaster appliance by exploiting unsanitized input in multiple command endpoints. Affected product: LoadMaster by Progress. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Sec",
+      "source": "CISA KEV",
       "category": "emergency",
-      "date": "2026-08-06T16:51:10Z",
+      "date": "2026-08-07T00:00:00+00:00",
       "cve_ids": [
-        "CVE-2026-65600"
+        "CVE-2026-8037"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "8a2167a7f7679424f0be64563eca0f18ec1a5a69485c19b28dbdb736c5e29932",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-41861",
+      "title": "CVE-2026-41861 — CVSS 4.2",
+      "summary": "Path Traversal in BOSH-Ecosystem / BOSH allows an IaaS-metadata attacker to make the agent write a root-owned file with partially attacker-controlled body to any path ending in .network, and create any missing parent directories with mode 0777 via network Alias on Ubuntu.\n\n\n\nAffected versions: BOSH agent < v2.847.0 (jammy <= v1.1202, or noble <= v1.364). Lower bound unspecified in advisory (\"All b",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-08-06T22:17:04.920",
+      "cve_ids": [
+        "CVE-2026-41861"
+      ],
+      "cvss": 4.2,
+      "related_links": []
+    },
+    {
+      "id": "bc6c974712af8b34910793f19740e67387c2710a330bea885887df585a0689cb",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-3418",
+      "title": "CVE-2026-3418 — CVSS 9.1",
+      "summary": "The System REST API accepts user-supplied file uploads without enforcing sufficient validation on the file type or destination, allowing files to be written to arbitrary server-accessible locations. Exploitation requires authenticated administrative access with publisher privileges.\n\nSuccessful exploitation permits an authenticated publisher to upload files to server-accessible locations. Dependin",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:17:03.997",
+      "cve_ids": [
+        "CVE-2026-3418"
       ],
       "cvss": 9.1,
       "related_links": []
     },
     {
-      "id": "bb451a1c11aea8dc9aa13547d0db6087acdfe90c2d0cb718fccd41b6a4f5580b",
-      "url": "https://github.com/advisories/GHSA-3q9r-p662-5j8m",
-      "title": "GHSA: Traefik: ForwardAuth middleware leaks X-Forwarded-Port spoofing via untrusted X-Forwarded-Proto when trustForwardHeader=false",
-      "summary": "## Summary\n\nThere is a medium severity vulnerability in Traefik's ForwardAuth middleware. Even when configured with `trustForwardHeader: false`, Traefik derives the `X-Forwarded-Port` header sent to the authentication service from the original incoming request instead of the sanitized forwarded request. As a result, an unauthenticated remote attacker can inject an `X-Forwarded-Proto: https` header",
-      "source": "GitHub Advisory",
+      "id": "2a86b92c2cf58db9eecbfbe2b7185c35e584211987c0ebef5e223cb077fddd5c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-3415",
+      "title": "CVE-2026-3415 — CVSS 8.7",
+      "summary": "The XML and schema validation functionalities within the SchemaValidator Mediator process XML input as part of validation flows. Under certain conditions, the XML parser allows the resolution of external entities when handling user-supplied XML content during validation operations. This behavior can occur when an attacker supplies crafted XML payloads to the relevant mediator flows with sufficient",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-08-06T16:38:29Z",
+      "date": "2026-08-06T22:17:03.770",
       "cve_ids": [
-        "CVE-2026-54764"
+        "CVE-2026-3415"
       ],
-      "cvss": 5.8,
+      "cvss": 8.7,
       "related_links": []
     },
     {
-      "id": "c7493ac16ae6284eaf0e4f508545b7ac44fb32b1f0a3480bc2b04dc11dd4ab88",
-      "url": "https://github.com/advisories/GHSA-fgjj-px3w-67xx",
-      "title": "GHSA: Traefik: Gateway API route identity collision allows cross-namespace backend hijacking",
-      "summary": "## Summary\n\nThere is a high severity vulnerability in Traefik's Kubernetes Gateway API provider. Router and service identities for `HTTPRoute`, `GRPCRoute`, `TCPRoute` and `TLSRoute` objects were built by hyphen-concatenating the route namespace, the route name, the Gateway identity, the entry point and the rule index, a construction that is not injective because Kubernetes names may themselves co",
-      "source": "GitHub Advisory",
+      "id": "8a179f33e6af7516a3fd7f6ca1157e60f67fc79790e3067c36a1580214dc998f",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-1289",
+      "title": "CVE-2026-1289 — CVSS 7.8",
+      "summary": "A maliciously crafted PDF file, when parsed through Autodesk Revit, can force a Use-After-Free vulnerability. A malicious actor can leverage this vulnerability to cause a crash, disclose sensitive data, or execute arbitrary code in the context of the current process.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:17:00.373",
+      "cve_ids": [
+        "CVE-2026-1289"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "bb4a75e07097239c455c62a447b60ec364a2dcee6bcce8ff45cdd8830775eeda",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19154",
+      "title": "CVE-2026-19154 — CVSS 8.3",
+      "summary": "Use after free in Skia in Google Chrome on Android prior to 151.0.7922.109 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: Critical)",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:57.660",
+      "cve_ids": [
+        "CVE-2026-19154"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "cc896de7d09456982f85482d2868d59c00356666463384df93a3b20324d1193e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19143",
+      "title": "CVE-2026-19143 — CVSS 8.6",
+      "summary": "Insufficient validation of untrusted input in WebAPKs in Google Chrome on Android prior to 151.0.7922.109 allowed a local attacker to potentially perform a sandbox escape via a malicious file. (Chromium security severity: High)",
+      "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-08-06T16:38:18Z",
+      "date": "2026-08-06T22:16:56.423",
       "cve_ids": [
-        "CVE-2026-71327"
+        "CVE-2026-19143"
       ],
-      "cvss": 8.2,
+      "cvss": 8.6,
       "related_links": []
     },
     {
-      "id": "687dd5b7a448eb91bd1e0b75eff52de650159ce9ac66205c956cb8fda664a04d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66662",
-      "title": "CVE-2026-66662 — CVSS 9.8",
-      "summary": "Unauthenticated Privilege Escalation in Frontend Admin by DynamiApps <= 3.29.10 versions.",
+      "id": "1761cfd983b6e44a9a5c7da7f4766315f86c9e8b9e6789e6495699ec07251b10",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19141",
+      "title": "CVE-2026-19141 — CVSS 8.3",
+      "summary": "Use after free in Resources in Google Chrome on Android prior to 151.0.7922.109 allowed a remote attacker who had compromised the renderer process to potentially perform a sandbox escape via a crafted HTML page. (Chromium security severity: High)",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-08-06T15:17:20.850",
+      "date": "2026-08-06T22:16:56.160",
       "cve_ids": [
-        "CVE-2026-66662"
+        "CVE-2026-19141"
       ],
-      "cvss": 9.8,
+      "cvss": 8.3,
       "related_links": []
     },
     {
-      "id": "8558bad1a7fd2b9c276ad8103bd551cf46ebd852fb4f19d895f0dc6bbaab7710",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66470",
-      "title": "CVE-2026-66470 — CVSS 7.1",
-      "summary": "Subscriber Broken Access Control in Frontend Admin by DynamiApps <= 3.29.10 versions.",
+      "id": "2de542acb2574d5008663d7fddb2046d128ed67bbbf89b1ff6f6b549c358855b",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19127",
+      "title": "CVE-2026-19127 — CVSS 6.5",
+      "summary": "An issue in the billing and license activation subsystem allows remote attackers to bypass payment authorization workflows. By exploiting insufficient cryptographic validation or lack of server-side state verification on promotional/lifetime-deal (LTD) redemption codes, an unauthenticated attacker can forge valid redemption tokens or replay existing single-use codes to activate permanent, tier-hig",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:55.557",
+      "cve_ids": [
+        "CVE-2026-19127"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "936e00632c94d8b0b6cca4944f466c7bd9e2c1d6aca66f62511c8cf152309109",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19111",
+      "title": "CVE-2026-19111 — CVSS 8.1",
+      "summary": "Insecure direct object reference in the mongodb_memory, elasticsearch_memory, and mem0_memory tools in Amazon Strands Agents Tools before 0.8.3 might allow remote authenticated users to access, modify, or delete memories belonging to other tenants by influencing the LLM to emit tool calls with a forged namespace parameter.\n\n\n\nTo remediate this issue, users should upgrade to version 0.8.3.",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-08-06T15:17:20.720",
+      "date": "2026-08-06T22:16:55.410",
       "cve_ids": [
-        "CVE-2026-66470"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "b7dfcea7ffd2897212b670008ef09168d636de1cde6e49ce0cc054e6f2362063",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66457",
-      "title": "CVE-2026-66457 — CVSS 7.1",
-      "summary": "Unauthenticated Cross Site Scripting (XSS) in Events Manager <= 7.4.1 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:20.590",
-      "cve_ids": [
-        "CVE-2026-66457"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "10cf2ad70d106c795a0091a1932272aa271753fbd117737d2c9f5d970ad6a0c0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66452",
-      "title": "CVE-2026-66452 — CVSS 6.5",
-      "summary": "Unauthenticated Broken Access Control in Legal Text Connector of the IT-Recht Kanzlei <= 1.0.13 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:20.460",
-      "cve_ids": [
-        "CVE-2026-66452"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "62ec3127d87b21421cc021efe94c478877892c59a3121482e02a6f0af8662a04",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66451",
-      "title": "CVE-2026-66451 — CVSS 6.5",
-      "summary": "Unauthenticated Broken Authentication in WP Event SOlution <= 4.1.9 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:20.340",
-      "cve_ids": [
-        "CVE-2026-66451"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "18ec48253b7bcf2c123284ae81704c83c8bb201acba003e02312f1e00ac40e22",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66447",
-      "title": "CVE-2026-66447 — CVSS 9.3",
-      "summary": "Unauthenticated SQL Injection in WordPress File Upload <= 5.1.7 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:20.207",
-      "cve_ids": [
-        "CVE-2026-66447"
-      ],
-      "cvss": 9.3,
-      "related_links": []
-    },
-    {
-      "id": "ebe75dd80a5aea51828d1162b0bf243732e15bded94f5b1fb1040f43ca436ead",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66440",
-      "title": "CVE-2026-66440 — CVSS 7.1",
-      "summary": "Unauthenticated Cross Site Scripting (XSS) in WPIDE – File Manager & Code Editor <= 3.5.7 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:20.057",
-      "cve_ids": [
-        "CVE-2026-66440"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "64ead1ebcec7f936a9b789d2777a1c312f5f9e78a7c9f0daeb97759133fa06ff",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66439",
-      "title": "CVE-2026-66439 — CVSS 7.1",
-      "summary": "Unauthenticated Cross Site Scripting (XSS) in Advanced AJAX Product Filters <= 3.2.0.3 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:19.937",
-      "cve_ids": [
-        "CVE-2026-66439"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "44d16202f5e31346575154981b8e53950d15a436b7ad35e9924315a3d36b1c40",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66425",
-      "title": "CVE-2026-66425 — CVSS 6.5",
-      "summary": "Unauthenticated Broken Authentication in Gutena Forms – Contact Form, Survey Form, Feedback Form, Booking Form, and Custom Form Builder <= 1.9.0 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:19.803",
-      "cve_ids": [
-        "CVE-2026-66425"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "e858bc578d2c9bcf21c105ff80087a4bdd3dbacbeb646fa6f3d526437941d91a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65581",
-      "title": "CVE-2026-65581 — CVSS 9.8",
-      "summary": "Unauthenticated PHP Object Injection in AI ANN <= 1.29.0 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:19.683",
-      "cve_ids": [
-        "CVE-2026-65581"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "1be3e6cbeb07ac7b5fcc5b0e7ec8c34ea3c65d09053b56ae0a861e8f1b157382",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65579",
-      "title": "CVE-2026-65579 — CVSS 9.8",
-      "summary": "Unauthenticated PHP Object Injection in Agricola <= 1.21.0 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:19.560",
-      "cve_ids": [
-        "CVE-2026-65579"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "b12b4049e5621b1aafe07661ed128f2c4508cd7ba1a99b2fa674e79e4fb8b9a1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65578",
-      "title": "CVE-2026-65578 — CVSS 9.8",
-      "summary": "Unauthenticated PHP Object Injection in Agora <= 1.9 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:19.437",
-      "cve_ids": [
-        "CVE-2026-65578"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "d289b799f489e47b862caebc5fa8967eb1b9ae0e2bea87931ecb19de05f8bc6c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65577",
-      "title": "CVE-2026-65577 — CVSS 9.8",
-      "summary": "Unauthenticated PHP Object Injection in Advice <= 1.18.0 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:19.313",
-      "cve_ids": [
-        "CVE-2026-65577"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "89620cb938e483e5ebe77fc345333549a784105de28487f3b20d7ca1a0c46c29",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65576",
-      "title": "CVE-2026-65576 — CVSS 9.8",
-      "summary": "Unauthenticated PHP Object Injection in Adrena <= 1.2.14 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:19.190",
-      "cve_ids": [
-        "CVE-2026-65576"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "016b8ca7f0fd072a81ebaa3fcb4407591084d08178e4762bfd569c430b2766ab",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65575",
-      "title": "CVE-2026-65575 — CVSS 9.8",
-      "summary": "Unauthenticated PHP Object Injection in Accalia <= 1.5.3 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:19.067",
-      "cve_ids": [
-        "CVE-2026-65575"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "18e86b4a0f115a47f7bf7be42f0482235ff457fd4d5e09512fe4bf78f601b5fe",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65574",
-      "title": "CVE-2026-65574 — CVSS 9.8",
-      "summary": "Unauthenticated PHP Object Injection in Abogado <= 1.18 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:18.940",
-      "cve_ids": [
-        "CVE-2026-65574"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "2e502347a9236caad2140fb6fc7018fcf9608e9c5d7bae250bbc3a2df7b3cb0b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65573",
-      "title": "CVE-2026-65573 — CVSS 9.8",
-      "summary": "Unauthenticated PHP Object Injection in Abelle <= 1.22 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:18.813",
-      "cve_ids": [
-        "CVE-2026-65573"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "a878d2af841cb0b5fc525f29bb0a1e4548efdc81a344ecf51f04125266e5d220",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65572",
-      "title": "CVE-2026-65572 — CVSS 9.8",
-      "summary": "Unauthenticated PHP Object Injection in A.Williams <= 1.3.1 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:18.683",
-      "cve_ids": [
-        "CVE-2026-65572"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "4ebfc530868d2c716325291076abb78cef595e43ecbb9aab71c309a56cf6da6b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65571",
-      "title": "CVE-2026-65571 — CVSS 9.8",
-      "summary": "Unauthenticated PHP Object Injection in 69 Clothing <= 1.2.11.1 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:18.560",
-      "cve_ids": [
-        "CVE-2026-65571"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "c9918f7384464ed01aeb62285acec7f3cc65cfbccbba62ba87fe06a0613b654b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65570",
-      "title": "CVE-2026-65570 — CVSS 8.1",
-      "summary": "Unauthenticated Bypass Vulnerability in Login with phone number <= 1.8.70 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:18.433",
-      "cve_ids": [
-        "CVE-2026-65570"
+        "CVE-2026-19111"
       ],
       "cvss": 8.1,
       "related_links": []
     },
     {
-      "id": "a04a68d27e62f78fc6137b358eb95c8a4ec6042ec27da80fd155c01a49fc01b6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65569",
-      "title": "CVE-2026-65569 — CVSS 8.5",
-      "summary": "Subscriber SQL Injection in WP Job Portal <= 2.5.6 versions.",
+      "id": "4cda5be40c7f6a4b8d56dd0b0e46e1ab159de0cd2a48a7bfec257755be904deb",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19071",
+      "title": "CVE-2026-19071 — CVSS 6.3",
+      "summary": "A flaw has been found in itsourcecode Hospital Management System 1.0. Affected is an unknown function of the file /viewappointment.php. This manipulation of the argument delid causes sql injection. It is possible to initiate the attack remotely. The exploit has been published and may be used.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:54.883",
+      "cve_ids": [
+        "CVE-2026-19071"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "bdbd4a6a22833e1fae5b872b162484e81c1d6992ef23a510f926d8a65edc6ea1",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19070",
+      "title": "CVE-2026-19070 — CVSS 6.3",
+      "summary": "A vulnerability was detected in itsourcecode Hospital Management System 1.0. This impacts an unknown function of the file /viewadmin.php. The manipulation of the argument delid results in sql injection. The attack may be performed from remote. The exploit is now public and may be used.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:54.693",
+      "cve_ids": [
+        "CVE-2026-19070"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "8ae6431b92aaa53a81411dd798894a60e328d76db832f6a099594b98047f55c6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19069",
+      "title": "CVE-2026-19069 — CVSS 6.3",
+      "summary": "A security vulnerability has been detected in itsourcecode Hospital Management System 1.0. This affects an unknown function of the file /treatmentrecord.php. The manipulation of the argument editid leads to sql injection. The attack is possible to be carried out remotely. The exploit has been disclosed publicly and may be used.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:54.523",
+      "cve_ids": [
+        "CVE-2026-19069"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "5685a5d10dc65487d6a39db2995e23628d222bd0ec2fd95a24a9125e339995db",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19068",
+      "title": "CVE-2026-19068 — CVSS 6.3",
+      "summary": "A weakness has been identified in itsourcecode Hospital Management System 1.0. The impacted element is an unknown function of the file /treatmentdetail.php. Executing a manipulation of the argument patientid can lead to sql injection. The attack can be executed remotely. The exploit has been made available to the public and could be used for attacks.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:54.333",
+      "cve_ids": [
+        "CVE-2026-19068"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "9b1cec89596bd9c65e793cb7aca221a6f1b453efd81595bdc6829524ea8af1d7",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19067",
+      "title": "CVE-2026-19067 — CVSS 6.3",
+      "summary": "A security flaw has been discovered in itsourcecode Hospital Management System 1.0. The affected element is an unknown function of the file /treatment.php. Performing a manipulation of the argument editid results in sql injection. Remote exploitation of the attack is possible. The exploit has been released to the public and may be used for attacks.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:54.110",
+      "cve_ids": [
+        "CVE-2026-19067"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "1835fea3ac46aa307ca2d6daa57ac44f36336418af0d85c9b84508cc654d9b23",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19066",
+      "title": "CVE-2026-19066 — CVSS 4.3",
+      "summary": "A vulnerability was identified in SourceCodester Online Examination & Learning Management System 1.0. Impacted is an unknown function of the file view_students.php. Such manipulation of the argument class_group leads to authorization bypass. The attack may be launched remotely.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:53.943",
+      "cve_ids": [
+        "CVE-2026-19066"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "ce24c76f50bfc49a9fc39cbbe5f9a6aa0f168df10aecbcbbcecef2227777794d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19065",
+      "title": "CVE-2026-19065 — CVSS 6.3",
+      "summary": "A vulnerability was determined in SourceCodester Online Examination & Learning Management System 1.0. This issue affects some unknown processing of the file upload_files.php. This manipulation causes unrestricted upload. The attack may be initiated remotely.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:53.773",
+      "cve_ids": [
+        "CVE-2026-19065"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "40cb2101292ef010baf0dd17b0cb3210ce2417d54f9bc04fd9cc334c837c42c9",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19064",
+      "title": "CVE-2026-19064 — CVSS 4.3",
+      "summary": "A vulnerability was found in SourceCodester Online Examination & Learning Management System 1.0. This vulnerability affects unknown code of the file /view.php. The manipulation of the argument ID results in authorization bypass. The attack can be launched remotely.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:53.603",
+      "cve_ids": [
+        "CVE-2026-19064"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "bb2384279640397652c8694204a5f3ece2d77ed9c3b971547c3f99557cbe69ae",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19062",
+      "title": "CVE-2026-19062 — CVSS 7.3",
+      "summary": "A vulnerability has been found in chiuwingyan house up to dea6bcceaebe2b364a5a209747f48ecc2b2dc670. This affects an unknown part of the file /paid/selectall.action. The manipulation of the argument zuname leads to sql injection. The attack can be initiated remotely. The exploit has been disclosed to the public and may be used. Continious delivery with rolling releases is used by this product. Ther",
       "source": "NVD/NIST",
       "category": "web_app",
-      "date": "2026-08-06T15:17:18.307",
+      "date": "2026-08-06T22:16:53.430",
       "cve_ids": [
-        "CVE-2026-65569"
+        "CVE-2026-19062"
       ],
-      "cvss": 8.5,
+      "cvss": 7.3,
       "related_links": []
     },
     {
-      "id": "c3e19abc8af28e39de5ef94a661e03084d97a0f0dcf8444ab3cbc2c17f8338c0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65565",
-      "title": "CVE-2026-65565 — CVSS 7.1",
-      "summary": "Unauthenticated Cross Site Scripting (XSS) in Survey Maker <= 5.2.3.3 versions.",
+      "id": "4ecc9b0c8192e202d7ae024115bad9f885aed1255567352e910239ce77cf3568",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19059",
+      "title": "CVE-2026-19059 — CVSS 3.3",
+      "summary": "A vulnerability was determined in FoundationAgents MetaGPT up to 0.8.2. This affects the function read of the file metagpt/tools/libs/editor.py. This manipulation causes path traversal. The attack needs to be launched locally. The exploit has been publicly disclosed and may be utilized. The vendor was contacted early about this disclosure but did not respond in any way.",
       "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:18.183",
+      "category": "web_app",
+      "date": "2026-08-06T22:16:52.903",
       "cve_ids": [
-        "CVE-2026-65565"
+        "CVE-2026-19059"
       ],
-      "cvss": 7.1,
+      "cvss": 3.3,
       "related_links": []
     },
     {
-      "id": "7891a77e18690e5793c20e8b56cfffa211af91b2d49cbc2de9b43fa1eb8c00e0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65560",
-      "title": "CVE-2026-65560 — CVSS 7.1",
-      "summary": "Unauthenticated Cross Site Scripting (XSS) in Houzez Property Feed <= 2.5.48 versions.",
+      "id": "32f8e04614b220c1cd1896d4ec09a6fd2953ade29e90922131d4e28b71a46b93",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19054",
+      "title": "CVE-2026-19054 — CVSS 5.3",
+      "summary": "A vulnerability was detected in Lspace-io lspace-server up to 79f02fe5aa8970b210a6a05cf097155f8d9ffd71. This issue affects the function fileExists/readFile/writeFile/deleteFile of the file src/core/repository.ts of the component Repositories File API. Performing a manipulation of the argument filePath results in path traversal. The attack is only possible with local access. Continious delivery wit",
       "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T15:17:18.060",
+      "category": "web_app",
+      "date": "2026-08-06T22:16:52.560",
       "cve_ids": [
-        "CVE-2026-65560"
+        "CVE-2026-19054"
       ],
-      "cvss": 7.1,
+      "cvss": 5.3,
       "related_links": []
     },
     {
-      "id": "b1e4c382a87e10f4e1effd563e1201c6f643291e3b86c1e0107c9eb3abe11218",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65559",
-      "title": "CVE-2026-65559 — CVSS 7.2",
-      "summary": "Shop manager Privilege Escalation in Order Delivery Date for WooCommerce <= 4.6.0 versions.",
+      "id": "76d7014ede9a39ea2ebc6b9b97ec305fee65d7d8a073b867cef12a9a1fac5a16",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18367",
+      "title": "CVE-2026-18367 — CVSS 9.3",
+      "summary": "A privilege escalation vulnerability allows local users to execute arbitrary code as root via Sophos Endpoint for macOS older than version 2026.1.1 and Sophos Home for macOS older than version 10.11.6.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-08-06T15:17:17.933",
+      "date": "2026-08-06T22:16:50.010",
       "cve_ids": [
-        "CVE-2026-65559"
+        "CVE-2026-18367"
       ],
-      "cvss": 7.2,
+      "cvss": 9.3,
       "related_links": []
     },
     {
-      "id": "fc1ca5187039429729bcdacf21ef754358fc682d483e070bd5e34dac7b28309d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-65556",
-      "title": "CVE-2026-65556 — CVSS 9.8",
-      "summary": "Unauthenticated PHP Object Injection in WPBruiser {no- Captcha anti-Spam} <= 3.1.43 versions.",
+      "id": "8f783ec1ef4a84f900f9b22e05844e921728910bc03e5b190ff24c96dbff4beb",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-17032",
+      "title": "CVE-2026-17032 — CVSS 9.8",
+      "summary": "Multiple Supsystic Pro plugins were distributed with malicious code through the vendor's compromised update server, allowing unauthenticated attackers to deploy a second-stage payload that exfiltrates credentials and other sensitive data and grants full control of affected sites.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-08-06T15:17:17.803",
+      "date": "2026-08-06T22:16:49.237",
       "cve_ids": [
-        "CVE-2026-65556"
+        "CVE-2026-17032"
       ],
       "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "977c3be1c1c7ee92f97a2bff829144b5d04fcb571d0a3d928144f812d6ec9eec",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-16620",
+      "title": "CVE-2026-16620 — CVSS 7.5",
+      "summary": "The WPC Name Your Price for WooCommerce WordPress plugin before 2.2.5 does not enforce its server-side price allowlist for products configured in \"Select\" price mode, allowing an unauthenticated visitor to add such a product to the cart at an arbitrary value below the merchant-defined allowed prices and commit a real order at that price (revenue loss / underpriced orders). This is a distinct, unfi",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:49.120",
+      "cve_ids": [
+        "CVE-2026-16620"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "39367a5d47c45fc419e1040da59960d539ace14d15787bc2d58d40fbb78a126c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-16619",
+      "title": "CVE-2026-16619 — CVSS 7.5",
+      "summary": "The miniOrange 2FA WordPress plugin before 6.2.8 does not correctly limit the number of second-factor verification attempts, tracking them against a client-supplied identifier that is reissued on every login, allowing an attacker who already knows a user's password to guess the one-time code without limit and take over the account.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-06T22:16:49.007",
+      "cve_ids": [
+        "CVE-2026-16619"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "afa298aae5f3ce8c8a67bd46ec794f2f9eca55ed3e143c10ee7cc94fd57bdca1",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-16067",
+      "title": "CVE-2026-16067 — CVSS 5.3",
+      "summary": "The Event Booking Manager for WooCommerce (Pro) WordPress plugin before 5.0.3 does not validate the ticket price on the server during its native (non-WooCommerce) checkout, trusting the per-ticket price supplied by the client instead of re-deriving the event's configured price. This allows unauthenticated users to book paid event tickets for free, obtaining completed bookings and valid tickets at ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:48.887",
+      "cve_ids": [
+        "CVE-2026-16067"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "62e6902cdb3fb9550f41d4dc566c77f9e97b307c2f84ae9d1b56abec5e593e98",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15734",
+      "title": "CVE-2026-15734 — CVSS 9.8",
+      "summary": "A Server-Side Template Injection (SSTI) vulnerability in WGDashboard version 4.3.2 and earlier, allows authenticated attackers to execute arbitrary code as root.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:48.513",
+      "cve_ids": [
+        "CVE-2026-15734"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "8d7b18329133d786e0f548febe81715aa3a964823a2e30745e4a81f7f2c4d316",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15733",
+      "title": "CVE-2026-15733 — CVSS 9.8",
+      "summary": "A Remote Code Execution (RCE) vulnerability exist in WGDashboard version 4.2.3 and earlier. Multiple OS command injection allows authenticated attackers to execute arbitrary commands as root.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:48.410",
+      "cve_ids": [
+        "CVE-2026-15733"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "8e25a4d199f2422241d4a37a0af3f2fcac30421992a10e0eeebdc1c54b2b8205",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15732",
+      "title": "CVE-2026-15732 — CVSS 9.8",
+      "summary": "A Server-Side Request Forgery (SSFR) vulnerability exist in WGDashboard version 4.2.3 and earlier. The webhook functionality allows authenticated attackers to make arbitrary HTTP requests and retrieve responses.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:48.300",
+      "cve_ids": [
+        "CVE-2026-15732"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "4fcaee80c956cecb5cd0213417fb341f9ba58deb316fe6cc898249bd7b83f3cd",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15256",
+      "title": "CVE-2026-15256 — CVSS 4.8",
+      "summary": "The Ninja Forms WordPress plugin before 3.14.10 does not prevent user-supplied query-string input, used to pre-populate a form field's default value, from being processed as a shortcode, allowing unauthenticated attackers to execute arbitrary shortcodes registered on the site when a form so configured is embedded on a public page.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:48.040",
+      "cve_ids": [
+        "CVE-2026-15256"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "4b02eea863b6e44229b80437b57fd50b4ef2d0c75e5aaeff1641427b1caf5ea3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15208",
+      "title": "CVE-2026-15208 — CVSS 5.3",
+      "summary": "The RegistrationMagic WordPress plugin before 6.0.9.5 does not compare the verified PayPal capture's amount, currency, payee, or prior use against the registration it is finalising: its server-side check only confirms the capture status is COMPLETED. An unauthenticated attacker can therefore finalise an expensive paid registration with any genuinely-completed low-value capture, and replay a single",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:47.800",
+      "cve_ids": [
+        "CVE-2026-15208"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "7e4a71b9ea6f6a7c53fd13c38f6987dc3d030c1cb7554b9a0a0c720db5fb8db5",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15152",
+      "title": "CVE-2026-15152 — CVSS 5.3",
+      "summary": "The WP Hotel Booking WordPress plugin before 2.3.2 does not verify that a payment notification corresponds to a payment made to the site's own merchant account, nor that the paid amount matches the booking total, allowing unauthenticated users to have their bookings marked as fully paid without any payment reaching the site owner.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:47.687",
+      "cve_ids": [
+        "CVE-2026-15152"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "ec23ed9f08576982580319398758251594be11feaf61cff6d552dc750e5eab74",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15149",
+      "title": "CVE-2026-15149 — CVSS 5.3",
+      "summary": "The WP Hotel Booking WordPress plugin before 2.3.3 does not ensure that room quantities and the resulting order total are non-negative when placing a booking, and relies on client-controlled cart data, allowing unauthenticated users to create confirmed reservations for free or at an arbitrarily reduced price.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:47.567",
+      "cve_ids": [
+        "CVE-2026-15149"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "0ef210cdf280138406bf7d2ad9d206ae3234fb0b3d21c248dc7d7aafc2f59223",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15147",
+      "title": "CVE-2026-15147 — CVSS 5.3",
+      "summary": "The Five Star Restaurant Reservations WordPress plugin before 2.7.23 does not verify the authenticity of incoming payment notifications, failing to validate the payment recipient, amount, and status or to bind the notification to the intended booking, allowing unauthenticated attackers to mark arbitrary pending reservations as paid and confirmed.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:47.450",
+      "cve_ids": [
+        "CVE-2026-15147"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "0c68f8d32b107e1663936e66944ae77cacfb26d712975e0836d73a1d4d8022b9",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-14936",
+      "title": "CVE-2026-14936 — CVSS 5.3",
+      "summary": "The Simple Membership WordPress plugin before 4.7.7 does not verify that a PayPal payment notification was sent to the site's own configured merchant account before activating a membership, allowing unauthenticated users to activate or extend a membership using a payment made to an arbitrary PayPal account they control.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:47.327",
+      "cve_ids": [
+        "CVE-2026-14936"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "ff5aed39f6df633d894f84c05dbc3cdf43c08a5311f1ba3863ab1a14b6b866d7",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-14842",
+      "title": "CVE-2026-14842 — CVSS 5.3",
+      "summary": "The Events Made Easy WordPress plugin before 3.1.2 does not bind the payment authorization token to the payment record being charged, allowing unauthenticated attackers to pay a low amount for a cheap booking and have a separate, higher-priced booking marked as fully paid.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:47.207",
+      "cve_ids": [
+        "CVE-2026-14842"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "6bcf1e293bd96515e134bd5fc09889140cd72ff6424d98d34845532d991024bd",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-14831",
+      "title": "CVE-2026-14831 — CVSS 5.3",
+      "summary": "The Easy Booking WordPress plugin before 3.5.0 does not re-enforce a bookable product's configured minimum booking duration on the server side when adding to cart and calculating the booking price, allowing unauthenticated users to place below-minimum bookings and complete underpriced orders.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:47.090",
+      "cve_ids": [
+        "CVE-2026-14831"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "8277287106c20ef8e6a39bf6f2c41f6e093f3811e78330c2a271ea5e28096262",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-14812",
+      "title": "CVE-2026-14812 — CVSS 10.0",
+      "summary": "The Premium SEO WordPress plugin is malicious: it ships an unauthenticated backdoor that creates a hidden administrator account and, in some builds, also enables remote code execution, server-side request forgery and arbitrary front-end script/content injection, giving an unauthenticated attacker full control of the affected site.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:46.967",
+      "cve_ids": [
+        "CVE-2026-14812"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "a4ad8153ea9cd842504f9b2ee16c18fd8ab55f097579a23fe43dc8eae1a3619d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13399",
+      "title": "CVE-2026-13399 — CVSS 7.5",
+      "summary": "The Payment Plugins for PayPal WooCommerce WordPress plugin before 2.0.20 does not have proper authorization checks on a REST endpoint, allowing unauthenticated users to bypass payments",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:45.717",
+      "cve_ids": [
+        "CVE-2026-13399"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "2ec535d992e8f4ef00d9981f629a60861399304c041a3a65e390259e255ccb17",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13342",
+      "title": "CVE-2026-13342 — CVSS 5.3",
+      "summary": "The Security Optimizer WordPress plugin from 1.5.8 to 1.6.4 does not correctly validate requests to its optional IP-based login restriction feature, allowing the restriction to be bypassed so that unauthenticated requests from non-allowlisted IP addresses can reach and use the login form, defeating the access control the administrator configured.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:45.583",
+      "cve_ids": [
+        "CVE-2026-13342"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "7995abac3c95d6e10f06186e8b0e9296beffd5d7b0145400464d0bfa4eaf1b8a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-12901",
+      "title": "CVE-2026-12901 — CVSS 5.9",
+      "summary": "The GetPaid WordPress plugin before 2.8.55 does not verify the authenticity of incoming Worldpay payment notifications, allowing unauthenticated attackers to forge a notification that marks a pending invoice as paid without any payment being made.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:45.457",
+      "cve_ids": [
+        "CVE-2026-12901"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "bb07f96dc04dd8e83346031b1bcd845350f9340896122e43bd05fc79622a9494",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-12584",
+      "title": "CVE-2026-12584 — CVSS 7.5",
+      "summary": "The Payment Gateway for Redsys & WooCommerce Lite WordPress plugin before 7.0.2 does not verify the authenticity of incoming payment-provider notifications for one of its payment methods before marking orders as paid, allowing unauthenticated attackers to forge a payment-confirmation callback and complete their own orders without paying.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:45.333",
+      "cve_ids": [
+        "CVE-2026-12584"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "7df80e6a17fd74d583fa840406d575d8cd327cd5b1eefbeb27d959fab515bc7c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-12501",
+      "title": "CVE-2026-12501 — CVSS 5.3",
+      "summary": "The WP Travel Engine WordPress plugin before 6.8.2 does not verify that an incoming PayPal payment notification was sent to the site's configured merchant account, nor that the paid amount matches the order total, before marking a booking as paid, allowing unauthenticated attackers to mark bookings as fully paid using a token payment made to an attacker-controlled account.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:45.220",
+      "cve_ids": [
+        "CVE-2026-12501"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "0c758f7b2263a2c0c95cdb986ea100d6db62f00255a3dd7dfa9fea00db6545c9",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-11976",
+      "title": "CVE-2026-11976 — CVSS 10.0",
+      "summary": "The official MonsterInsights Pro update distribution bucket (`monster-insights.s3.amazonaws.com`) was compromised. Both the current release (10.2.2) and the version MonsterInsights rolled back to (10.2.0) contain a malicious file, `class-system-check.php`. Three distinct variants were observed on 2026-06-11, all sharing the same AES-256-GCM key, confirming a single threat actor. The attacker retai",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:45.103",
+      "cve_ids": [
+        "CVE-2026-11976"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "da536fc033a174d386699f7a42acab3194e0a2270945dabafe182a2812f2c908",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-11803",
+      "title": "CVE-2026-11803 — CVSS 7.8",
+      "summary": "A maliciously crafted PDF file, when parsed through Autodesk Revit, can force an Out-of-Bounds Read vulnerability. A malicious actor can leverage this vulnerability to cause a crash, read sensitive data, or execute arbitrary code in the context of the current process.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:44.967",
+      "cve_ids": [
+        "CVE-2026-11803"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "30ce1ee6c9007a456d321b4d03ad01d13a4d137a38c916960741a2af78cafb18",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-11361",
+      "title": "CVE-2026-11361 — CVSS 5.9",
+      "summary": "The Formidable Forms WordPress plugin before 6.32.1 does not properly validate the status of a PayPal subscription payment before marking it complete, allowing unauthenticated users to bypass payment and trigger paid form actions — such as digital content access, license delivery, and membership activation — without being charged.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T22:16:44.690",
+      "cve_ids": [
+        "CVE-2026-11361"
+      ],
+      "cvss": 5.9,
       "related_links": []
     }
   ]
