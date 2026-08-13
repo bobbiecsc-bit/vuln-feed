@@ -1,10 +1,164 @@
 {
-  "updated": "2026-08-13T01:58:24.389038+00:00",
+  "updated": "2026-08-13T05:39:53.235866+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "e951ddc99523c17d569d816ca0d40dd48a4937f5aea0032e8f33643cc307486a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64597",
+      "title": "CVE-2026-64597 — CVSS 9.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nsmb: client: fix double-free in SMB2_close() replay\n\nA response-bearing attempt can return a replayable error and free its\nresponse buffer. If SMB2_close_init() fails before the next send, cleanup\nretains the previous buffer type and frees that response again.\n\nReset response bookkeeping before each attempt to prevent the stale f",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T08:16:35.340",
+      "cve_ids": [
+        "CVE-2026-64597"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "ee8f63a701ec242a95c386d73d0b4c9570d96cf34aa468897255b15758d31ffc",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64596",
+      "title": "CVE-2026-64596",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nlibfs: set SB_I_NOEXEC and SB_I_NODEV by default in init_pseudo()\n\nSince commit 1e7ab6f67824 (\"anon_inode: rework assertions\"),\npath_noexec() warns when an anonymous-inode file is mmap'd from a\nsuperblock that has not set SB_I_NOEXEC. dma-buf backs its files this\nway and never set the flag, so mmap of any exported buffer trips th",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T08:16:35.217",
+      "cve_ids": [
+        "CVE-2026-64596"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "1c23e25d5747a89b11c909b30be5ecf1fc755e23baafa174ad61348bbddcc23d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64595",
+      "title": "CVE-2026-64595",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nHID: hid-lenovo-go: cancel cfg_setup work in hid_go_cfg_remove()\n\nhid_go_cfg_probe() initialises drvdata.go_cfg_setup and schedules it\nto run 2 ms later:\n\n    INIT_DELAYED_WORK(&drvdata.go_cfg_setup, &cfg_setup);\n    schedule_delayed_work(&drvdata.go_cfg_setup, msecs_to_jiffies(2));\n\ncfg_setup() dereferences drvdata.hdev to issue",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-06T08:16:35.097",
+      "cve_ids": [
+        "CVE-2026-64595"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "abec3a7eb07f1cad17afdf0064e7e4e819e3099944e679ec7804a2580d4d84b0",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64594",
+      "title": "CVE-2026-64594",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nusb: gadget: f_fs: initialize reset_work at allocation time\n\nffs_fs_kill_sb() unconditionally calls cancel_work_sync() on\nffs->reset_work when a functionfs instance is unmounted:\n\n\tffs_data_reset(ffs);\n\tcancel_work_sync(&ffs->reset_work);\n\nHowever ffs->reset_work is only ever initialized via INIT_WORK() in\nffs_func_set_alt() and ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-06T08:16:34.933",
+      "cve_ids": [
+        "CVE-2026-64594"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "55fe581206b48a387b424fadb1ec94247d6a8438ed1faec85a4598f835d9168f",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64593",
+      "title": "CVE-2026-64593",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nbtrfs: do not trim a device which is not writeable\n\n[BUG]\nThere is a bug report that btrfs/242 can randomly fail with the\nfollowing NULL pointer dereference:\n\n  run fstests btrfs/242 at 2026-06-01 10:25:08\n  BTRFS: device fsid d4d7f234-487c-4787-88e4-47a8b68c9874 devid 1 transid 9 /dev/sdc (8:32) scanned by mount (122609)\n  BTRFS",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-06T08:16:34.730",
+      "cve_ids": [
+        "CVE-2026-64593"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "085068a6cfb98c1ecb983b5f9d70a4badda14e25a41d76bea7d5b6ebd27fcdf2",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64592",
+      "title": "CVE-2026-64592",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nriscv: mm: Unconditionally sfence.vma for spurious fault\n\nSvvptc does not guarantee that it's safe to just return here. Since we\nhave already cleared our bit, if, theoretically, the bounded timeframe\nfor the accessed page to become valid still hasn't happened after sret,\nwe could fault again and actually crash.\n\nHopefully, these ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-06T08:16:34.610",
+      "cve_ids": [
+        "CVE-2026-64592"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "f466d6e66054828f78982ad3d0677967ac07584dd84b5c9748a9bd8536138ece",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64591",
+      "title": "CVE-2026-64591",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\niommu/vt-d: Avoid WARNING in sva unbind path\n\nThe Intel IOMMU driver allows SVA on devices even if they do not support\nPCI/PRI. Commit 39c20c4e83b9 (\"iommu/vt-d: Only handle IOPF for SVA when\nPRI is supported\") modified the SVA bind path to allow this configuration\nby skipping IOPF enablement when PRI is missing. However, it fail",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-06T08:16:34.497",
+      "cve_ids": [
+        "CVE-2026-64591"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "005a172e73c0580dd56c189225fe15a0cf2fb98e9baded6008eadc052e30c0ae",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64590",
+      "title": "CVE-2026-64590",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndma-buf/udmabuf: skip redundant cpu sync to fix cacheline EEXIST warning\n\nWhen CONFIG_DMA_API_DEBUG_SG is enabled, importing a udmabuf into a DRM\ndriver (e.g. amdgpu for video playback in GNOME Videos / Showtime)\ntriggers a spurious warning:\n\n  DMA-API: amdgpu 0000:03:00.0: cacheline tracking EEXIST, \\\n      overlapping mappings ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-06T08:16:34.357",
+      "cve_ids": [
+        "CVE-2026-64590"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "14c247a2379a0763b5f11ce878f1ac94d2a3c4b8d2d39592fdb641c834844f15",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64589",
+      "title": "CVE-2026-64589",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ni2c: core: fix NULL-deref on adapter registration failure\n\nIf adapter registration ever fails the release callback would trigger a\nNULL-pointer dereference as the completion struct has not been\ninitialised.\n\nNote that before the offending commit this would instead have resulted\nin a minor memory leak of the adapter name.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-06T08:16:34.240",
+      "cve_ids": [
+        "CVE-2026-64589"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "cbf1558f6ddeb025371ad9bc8e1850aa4445248be012975b0cfc0d1e9742a7aa",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64588",
+      "title": "CVE-2026-64588 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nfuse-uring: fix data races on ring->ready\n\nOn weakly-ordered architectures, the store to fiq->ops can be\nreordered past the store to ring->ready, allowing a CPU that sees\nring->ready == true via fuse_uring_ready() to dispatch requests\nthrough a stale fiq->ops pointer. Upgrade the store to\nsmp_store_release() and the load in fuse_",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-06T08:16:34.123",
+      "cve_ids": [
+        "CVE-2026-64588"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "7f143d7a93d7aeb0fc909cf8706cb4cdbe2d9da907d5908511306791e240dcd3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64587",
+      "title": "CVE-2026-64587 — CVSS 7.0",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: ethernet: arc: emac: quiesce interrupts before requesting IRQ\n\nNormal RX/TX interrupts are enabled later, in arc_emac_open(), so probe\nshould not see interrupt delivery in the usual case. However, hardware may\nstill present stale or latched interrupt status left by firmware or the\nbootloader.\n\nIf probe later unwinds after de",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-06T08:16:33.970",
+      "cve_ids": [
+        "CVE-2026-64587"
+      ],
+      "cvss": 7.0,
+      "related_links": []
+    },
     {
       "id": "15b59145c5f54491d62b9df120791038ed919ee315f72506b6cbb32ebc8f42c9",
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-64586",
@@ -549,160 +703,6 @@
         "CVE-2026-14204"
       ],
       "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "7305373128b28248dfe3d90580dfcb67045394ca7eb03bf0a46f528608c5e8a9",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13703",
-      "title": "CVE-2026-13703 — CVSS 5.4",
-      "summary": "The SEO Redirection Plugin  WordPress plugin before 9.19 does not perform a capability check in one of its authenticated AJAX actions, allowing any logged-in user such as a subscriber to read the site's configured 301 redirect rules, including their source and destination URLs.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T07:16:27.320",
-      "cve_ids": [
-        "CVE-2026-13703"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "dfb680e98cd72c5d66472986fd11df73dbc0190a9368774a31c593d9c30ee8c6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13154",
-      "title": "CVE-2026-13154 — CVSS 7.5",
-      "summary": "The Gutenberg Essential Blocks  WordPress plugin before 6.4.0 does not verify that an attacker-supplied post type is publicly viewable before querying it in one of its public REST routes, allowing unauthenticated users to read published entries of custom post types that the site registered as non-public.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T07:16:27.207",
-      "cve_ids": [
-        "CVE-2026-13154"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "b0a562703f24d2914461e8ac38ebd1847bba440bb39804c4fa2ab87a182bb680",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13153",
-      "title": "CVE-2026-13153 — CVSS 7.5",
-      "summary": "The Gutenberg Essential Blocks  WordPress plugin before 6.4.0 does not restrict access to one of its public REST routes and over-fetches a non-public WooCommerce per-product sales metric into the response, allowing unauthenticated users to read the lifetime number of units sold for any published product.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T07:16:27.100",
-      "cve_ids": [
-        "CVE-2026-13153"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "7c735e25a3ea3e39e147382081e496f2df9dd98f492df653bb064d72fe279b11",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-12713",
-      "title": "CVE-2026-12713 — CVSS 9.1",
-      "summary": "The WPCargo Track & Trace WordPress plugin before 8.0.4 does not properly sanitise and escape a parameter before using it in a SQL statement, allowing unauthenticated users to perform SQL injection attacks. This affects a code path distinct from the one addressed by CVE-2024-44004.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T07:16:26.990",
-      "cve_ids": [
-        "CVE-2026-12713"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "4c7961638860cbe110dbd45f93781e29af2387de080feb3336fa193238b227c7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-11588",
-      "title": "CVE-2026-11588 — CVSS 6.1",
-      "summary": "The EONSR AEO Agent WordPress plugin through 3.7.9 does not perform any authorisation check on one of its REST API routes and disables HTML sanitisation before saving the post, allowing unauthenticated attackers to create administrator-attributed published posts containing arbitrary web scripts that execute in the browser of any visitor, including administrators (Stored XSS).",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T07:16:26.873",
-      "cve_ids": [
-        "CVE-2026-11588"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "c0f941d43fe63ccf2d87fcf86dc0fe60a941421c07c940f26c1d3cdb1a3b8641",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-15678",
-      "title": "CVE-2025-15678 — CVSS 6.1",
-      "summary": "The Nexter Blocks  WordPress plugin before 5.0.2 does not sanitize uploaded SVG files and allows SVG uploads for any user able to upload files (Author by default), allowing them to upload a file containing malicious JavaScript that executes when the file is accessed, leading to Stored Cross-Site Scripting.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-08-06T07:16:26.660",
-      "cve_ids": [
-        "CVE-2025-15678"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "d492338f56ccc1b91ad6b3e472185d7d9deed91082fdf40135ed444bec38f9bb",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19000",
-      "title": "CVE-2026-19000 — CVSS 7.3",
-      "summary": "A vulnerability was identified in JeecgBoot up to 3.9.2. The affected element is an unknown function of the file /airag/chat/send of the component Anonymous Chat Attachment Parser. The manipulation leads to server-side request forgery. The attack can be initiated remotely. The exploit is publicly available and might be used. A fix is planned for the upcoming release.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-08-06T06:16:32.993",
-      "cve_ids": [
-        "CVE-2026-19000"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "2a43451d5742140e69aa68df4ea42d5138534311f16432042b30120c7f408304",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15459",
-      "title": "CVE-2026-15459 — CVSS 8.1",
-      "summary": "The WPMU DEV Dashboard plugin for WordPress is vulnerable to Authentication Bypass in all versions up to, and including, 5.0.0. On sites not yet connected to the WPMU DEV Hub — the default state after installation — the site API key that keys the WDP-AUTH request signature is empty, making the signature verified by validate_hash() trivially forgeable; version 5.0.0 additionally removed the replay ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T06:16:30.950",
-      "cve_ids": [
-        "CVE-2026-15459"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "74aad0fcca6481654887bd0dcf5e1b8d8f319e7084c704a29adb0cda4d58b2ee",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18909",
-      "title": "CVE-2026-18909 — CVSS 4.7",
-      "summary": "A stack-based buffer overflow vulnerability exists in ELAN Microelectronics Corp. ELAN Smart-Pad on Windows (ETD.sys and ETDSMBus.sys). During Intel SMBus recovery, ETDSMBus.sys does not enforce an upper-bound check on the hardware-derived report count, allowing an out-of-range value to be forwarded to ETD.sys where it is used as a loop counter for a stack buffer copy without destination size vali",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T05:16:40.937",
-      "cve_ids": [
-        "CVE-2026-18909"
-      ],
-      "cvss": 4.7,
-      "related_links": []
-    },
-    {
-      "id": "6e78e3f7b29702a3f58d48fd25ec2ccdfb9362df0ad97c5ff88f44564e4f9b27",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18325",
-      "title": "CVE-2026-18325 — CVSS 7.2",
-      "summary": "The Forminator Forms – Contact Form, Payment Form & Custom Form Builder plugin for WordPress is vulnerable to Stored Cross-Site Scripting via Forged Upload Record via Select Field in all versions up to, and including, 1.56.1 due to insufficient input sanitization and output escaping. This makes it possible for unauthenticated attackers to inject arbitrary web scripts in pages that will execute whe",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T05:16:40.593",
-      "cve_ids": [
-        "CVE-2026-18325"
-      ],
-      "cvss": 7.2,
-      "related_links": []
-    },
-    {
-      "id": "11d65830131626c0c7a894b999d46e17b0d4b471f963ad5e6da0d05ff3ec6712",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-16636",
-      "title": "CVE-2026-16636 — CVSS 7.2",
-      "summary": "The FluentSMTP – WP SMTP Plugin with Amazon SES, SendGrid, MailGun, Postmark, Google and Any SMTP Provider plugin for WordPress is vulnerable to Stored Cross-Site Scripting via Recipient Display Name (to.name) in Email Logs in all versions up to, and including, 2.2.95 due to insufficient input sanitization and output escaping. This makes it possible for unauthenticated attackers to inject arbitrar",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-06T05:16:39.140",
-      "cve_ids": [
-        "CVE-2026-16636"
-      ],
-      "cvss": 7.2,
       "related_links": []
     }
   ]
