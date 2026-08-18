@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-17T20:26:22.297707+00:00",
+  "updated": "2026-08-18T01:12:08.649414+00:00",
   "total": 250,
   "articles": [
     {
@@ -14,6 +14,132 @@
         "CVE-2025-62593"
       ],
       "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "8d5b2814da0c1d7fee6578948acc172a6aee8f33824aad1e8ff0df0aa95e28e8",
+      "url": "https://github.com/advisories/GHSA-gqch-g4w5-7qcw",
+      "title": "GHSA: MLflow: CreateModelVersion source validation does not check READ permission on referenced run_id",
+      "summary": "### Summary\n\nThe `_validate_source_run` and `_validate_source_model` functions in `mlflow/server/handlers.py` verify that a model version source path is within the artifact directory of a specified run or logged model, but do not check whether the caller has READ permission on that run or model. An authenticated MLflow user can therefore reference another user's run_id in `CreateModelVersion`, cre",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-17T21:59:09Z",
+      "cve_ids": [
+        "CVE-2026-69148"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "a1711e55f8870b4537c0c75a90765a9a88e93e7caeb5cc86866c636496de1a80",
+      "url": "https://github.com/advisories/GHSA-3p64-6gvh-82v5",
+      "title": "GHSA: MLflow: LogInputs endpoint bypasses per-run UPDATE authorization in basic-auth",
+      "summary": "### Summary\n\nWhen MLflow is deployed with the built-in basic-auth plugin (`--app-name basic-auth`), any authenticated user can inject arbitrary dataset records into another user's run by calling `POST /api/2.0/mlflow/runs/log-inputs`. The `LogInputs` proto handler is absent from the `BEFORE_REQUEST_HANDLERS` map in `mlflow/server/auth/__init__.py`, so the before-request hook skips authorization en",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-17T21:59:01Z",
+      "cve_ids": [
+        "CVE-2026-69146"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "0f9aaeeb7bfbe1d7e2919edde0458ffe7afc670458b86dc07b008b97ce5eb6bd",
+      "url": "https://github.com/advisories/GHSA-7gwp-5pfp-969j",
+      "title": "GHSA: MLflow: Unauthenticated full-read SSRF in webhook delivery: _validate_webhook_url bypassed via unvalidated HTTP redirects (and DNS rebinding)",
+      "summary": "### Summary\nThe default MLflow Tracking Server (`mlflow server`, no authentication, default SQLite backend) exposes the model-registry webhooks API unauthenticated, including a synchronous `POST /api/2.0/mlflow/webhooks/{id}/test` endpoint that returns the upstream response status and body to the caller. The SSRF guard added in PR #20747 (`_validate_webhook_url`, shipped in 3.10.0) resolves the we",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-17T21:58:51Z",
+      "cve_ids": [
+        "CVE-2026-64849"
+      ],
+      "cvss": 9.3,
+      "related_links": []
+    },
+    {
+      "id": "f6b532b021eb5f4572edd4126d263be458500c992882c1778ca93c41949b982a",
+      "url": "https://github.com/advisories/GHSA-8g4w-4ffg-8vgx",
+      "title": "GHSA: 9Router: Authenticated Server-Side Request Forgery (SSRF) via OIDC Provider Test Endpoint",
+      "summary": "### Summary\n\nA Server-Side Request Forgery (SSRF) vulnerability exists in the 9Router dashboard via the `/api/auth/oidc/test` endpoint. The application accepts a user-controlled URL string through the `issuerUrl` parameter and performs an outbound HTTP request without validating if the destination IP belongs to a restricted internal network range.\n\nNotably, this endpoint can be accessed without ac",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-08-17T21:58:43Z",
+      "cve_ids": [
+        "CVE-2026-56677"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "2a88f9cdea3b41f6c1df0a0695fe2b5025785aaff02f374959101155b81619e4",
+      "url": "https://github.com/advisories/GHSA-p28p-j94q-pg32",
+      "title": "GHSA: http4k: `DigestAuthProvider.verify` did not bind to request URI",
+      "summary": "### Impact\n\nAn issue in `DigestAuthProvider.verify`:\n\nThe `uri` parameter in the client's `Authorization: Digest …` response was not checked against the actual request URL. A captured Digest authentication response could be replayed against any other URL served by the same realm, breaking the per-request-URL binding the Digest scheme assumes.\n\n**Who is affected:** any application using `http4k-sec",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-17T21:57:41Z",
+      "cve_ids": [
+        "CVE-2026-54148"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "974be992fc609dbb5bc5b1cf562355052a77285db6bebc47151c8674ab51cbe7",
+      "url": "https://github.com/advisories/GHSA-vxxm-wwqh-mh47",
+      "title": "GHSA: http4k: `DigestAuthProvider.verify` ignored configured algorithm and did not bind to request URI",
+      "summary": "### Impact\n\nAn issue in `DigestAuthProvider.verify`:\n\n **Algorithm silently forced to MD5.** The configured `algorithm` parameter was ignored — every verification used MD5 regardless of configuration. Deployments believing they were running SHA-256 Digest auth were silently inheriting MD5's collision weaknesses, including documented attack paths against Digest schemes that rely on the hash being c",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-17T21:56:58Z",
+      "cve_ids": [
+        "CVE-2026-54147"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "536352b2d5f9fae7e87d32d2529683f029cb3aae8bd01dda6beb9c00add6fcd7",
+      "url": "https://github.com/advisories/GHSA-8qf9-62x2-82pp",
+      "title": "GHSA: chrome-devtools-mcp: validatePath() does not canonicalize symlinks before enforcing roots",
+      "summary": "### Summary\n\nI originally reported this through Google Bug Hunters. The Google Bug Hunters team said this is in OSS VRP scope but not reward-eligible due to the project tier, and asked me to file an issue or PR directly with this repository. I am reporting it privately here first because it is an unfixed security issue.\n\n`McpContext.validatePath()` enforces workspace `roots` by checking whether `p",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-17T21:56:12Z",
+      "cve_ids": [
+        "CVE-2026-53766"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "ff66d03f34778cc5df8ff6cced4ac55215aaea59b07bc5720fec09f9d6b5a7df",
+      "url": "https://github.com/advisories/GHSA-gc95-3vw8-vg43",
+      "title": "GHSA: docx4j: Stack Overflow via Cyclic `w:basedOn` Style Chain leads to Denial of Service",
+      "summary": "### Summary\ndocx4j's `PropertyResolver` and several adjacent helpers recursively walk the OpenXML style inheritance chain (`w:basedOn`) without cycle detection. \n\nA WordprocessingML document containing a cyclic style chain (for example, Style A based on B and Style B based on A) causes unbounded recursion and a `java.lang.StackOverflowError` within the property-resolution code path.\n\nThese helpers",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-17T21:55:49Z",
+      "cve_ids": [
+        "CVE-2026-53752"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "ade7b245204745396e64704ecc538331dd6e7dd1d7492d5edb75b00cd0e4abf4",
+      "url": "https://github.com/advisories/GHSA-g4w2-6h2r-3m3w",
+      "title": "GHSA: http4k: Unbounded gzip decompression in `ServerFilters.GZip` / `RequestFilters.GunZip` allowed memory-exhaustion DoS",
+      "summary": "### Impact\n\n`ServerFilters.GZip` and `RequestFilters.GunZip` (and the underlying `Gzip` functions used to decompress request bodies) did not impose any cap on the decompressed size. A small malicious gzip-encoded request body (on the order of kilobytes) could decompress to gigabytes, exhausting the JVM heap and denying service to other clients.\n\n**Who is affected:** any http4k server that accepts ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-17T21:52:27Z",
+      "cve_ids": [
+        "CVE-2026-53659"
+      ],
+      "cvss": 7.5,
       "related_links": []
     },
     {
@@ -2065,6 +2191,146 @@
       ]
     },
     {
+      "id": "1e2cf24ac9b9a9045448b3bde4e6d9f9be78bdf93cdca703e7b8b71776d4c510",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72539",
+      "title": "CVE-2026-72539 — CVSS 6.5",
+      "summary": "An information disclosure vulnerability in Windmill Labs Windmill through 1.783.0 allows any authenticated workspace member to read legacy ownerless draft scripts that contain plaintext resource credentials. Drafts with a null owner email bypass ACL enforcement and are returned to any workspace member who queries the drafts endpoint. Sensitive credentials stored in these drafts are exposed across ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T12:17:39.220",
+      "cve_ids": [
+        "CVE-2026-72539"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "5f16db9c205da19fb49ab284ad153143f997f83df0efab07576c35ff90b82d70",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72538",
+      "title": "CVE-2026-72538 — CVSS 8.8",
+      "summary": "An argument injection vulnerability in PrefectHQ Prefect through 3.8.2 allows authenticated users to achieve remote code execution via the git_clone pull step branch field. The branch parameter is passed directly to git pull without sanitization, enabling injection of arbitrary git arguments. This represents a distinct code path from the incomplete fix applied for CVE-2026-5366 and allows command ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T12:17:39.100",
+      "cve_ids": [
+        "CVE-2026-72538"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "fb1e4de3c1e180392bf5777fc84904bb7fff942af7ebea3a046c16a867121481",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72537",
+      "title": "CVE-2026-72537 — CVSS 8.8",
+      "summary": "A privilege escalation vulnerability in Authentik Security authentik through 2026.5.6 allows an attacker with a source-scoped SCIM provisioning token to take over any user account including superusers by provisioning a SCIM user that matches an existing local user by username. The SCIM user ingest function adopts pre-existing local accounts by username without validating scope boundaries. An attac",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T12:17:38.977",
+      "cve_ids": [
+        "CVE-2026-72537"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "23891be905c027a471a2625ecae6a225bd35e3769da7089626f1b73ce3edb602",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72536",
+      "title": "CVE-2026-72536 — CVSS 8.6",
+      "summary": "A missing authentication vulnerability in Chaskiq through commit 46dfdd1 allows unauthenticated remote attackers to manipulate any tenant Stripe subscription via the stripeCreateIntent GraphQL mutation. The mutation lacks authentication and authorization checks, exposing Stripe payment intent creation to unauthenticated callers. An attacker can create payment intents and alter billing for any tena",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T12:17:38.857",
+      "cve_ids": [
+        "CVE-2026-72536"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "9a474e47ce5a13f822d18dd9b9151cd7e975078217e8839b7467b75fb26b0e53",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72535",
+      "title": "CVE-2026-72535 — CVSS 8.6",
+      "summary": "A missing authentication vulnerability in Chaskiq through commit 46dfdd1 allows unauthenticated remote attackers to mint Stripe Billing Portal sessions for any tenant via the stripeCustomerPortal GraphQL mutation. The mutation performs no authentication or authorization checks before creating a customer portal session linked to any tenant Stripe account. An attacker can access and manage subscript",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T12:17:38.733",
+      "cve_ids": [
+        "CVE-2026-72535"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "85fd13dea1d8976875bda4e11b1319aaef49ecbc8f869e9c2d540c872af037fe",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72534",
+      "title": "CVE-2026-72534 — CVSS 8.8",
+      "summary": "A privilege escalation vulnerability in Authentik Security authentik through 2026.5.6 allows an attacker with a source-scoped SCIM provisioning token to gain superuser privileges by provisioning a SCIM group that matches an existing administrator group by name. The SCIM group ingest function adopts any existing group by name and replaces its membership without validating the source scope against t",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T12:17:38.610",
+      "cve_ids": [
+        "CVE-2026-72534"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "31c6143186a06714b52e9c0b46b6eb96e1cedc2f7e9f2f15e69c429cd737aa75",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72533",
+      "title": "CVE-2026-72533 — CVSS 8.8",
+      "summary": "An authentication bypass vulnerability in Portainer CE through 2.44.0 allows authenticated low-privileged users to bypass Docker proxy authorization checks via non-canonical URL normalization, defeating all authorization middleware. The proxy endpoint fails to normalize request paths before applying access controls, allowing crafted requests to be interpreted differently by the proxy and the autho",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-11T12:17:38.487",
+      "cve_ids": [
+        "CVE-2026-72533"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "7f572576597c150aa2d0a37467598619c66d5eb8e7a93d63dfc60585d72b8d18",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-50237",
+      "title": "CVE-2026-50237 — CVSS 7.4",
+      "summary": "A Server-Side Request Forgery and supply chain flaw was found in the OpenShift Console Helm catalog proxy. A namespace tenant can plant a ProjectHelmChartRepository with an arbitrary URL that the console pod fetches server-side, bypassing tenant egress restrictions. Combined with catalog metadata poisoning and admin-mediated chart installation, this enables privilege escalation.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-08-11T12:17:38.347",
+      "cve_ids": [
+        "CVE-2026-50237"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "79a99fa43b4e39bb40b2ccfd040a4e5eb305741a57299f06ac943c74f9022eae",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-50236",
+      "title": "CVE-2026-50236 — CVSS 7.4",
+      "summary": "An authenticated SSRF flaw was found in the OpenShift Console Dev Console webhook helpers. User-supplied target URLs are fetched server-side without validation, with path neutralization enabling arbitrary endpoint targeting and full response reflection from the console pod's privileged network position.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-08-11T12:17:38.183",
+      "cve_ids": [
+        "CVE-2026-50236"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "6ea71428c34aa205b533b5451c915acebc97947c9fe80bb8ebfbf7a85d0a5b30",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13739",
+      "title": "CVE-2026-13739",
+      "summary": "A legacy endpoint in Command Center contained an unauthenticated server-side request forgery (SSRF) vulnerability related to the handling of arbitrary target URLs.  Software customers upgrade to resolved maintenance release.  Update Command Center.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T12:17:38.047",
+      "cve_ids": [
+        "CVE-2026-13739"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
       "id": "4bfb2490760d3848cf14bc584a69cc42df1438259a62dbeebb0d289a77d01e12",
       "url": "https://www.bleepingcomputer.com/news/security/cisa-microsoft-sharepoint-flaw-now-exploited-in-ransomware-attacks/",
       "title": "CISA: Microsoft SharePoint flaw now exploited in ransomware attacks",
@@ -2077,6 +2343,48 @@
       "related_links": []
     },
     {
+      "id": "2a6a4e69a95083ab0db60f3426ae8e9818350dedca3f63104d704d182ca41717",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-58231",
+      "title": "CVE-2026-58231 — CVSS 10.0",
+      "summary": "SAP Commerce Cloud allows an unauthenticated\nattacker to abuse a default authentication client and submit specially crafted\ninput to certain functions lacking sufficient validation. Successful\nexploitation could enable arbitrary code execution and compromise internal\ncomponents, resulting in high impact on confidentiality, integrity, and\navailability of the application.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T11:17:15.390",
+      "cve_ids": [
+        "CVE-2026-58231"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "93b1b7afe58a4ccd52ec18be500b93f927e8c018d60e393c47847d2445fbbedd",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73162",
+      "title": "CVE-2026-73162",
+      "summary": "Affected versions of MISP cti-transmute expose several state-changing account operations as GET requests:\n\n\n\n  *  \n/account/follow\n\n\n  *  \n/account/delete_notification\n\n\n  *  \n/account/mark_notification_read\n\n\n  *  \n/account/mark_all_read\n\n\n\n\n\nThese endpoints require authentication, but before the fix they could be invoked with simple GET requests. That makes them susceptible to cross-site request",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-08-11T10:17:13.180",
+      "cve_ids": [
+        "CVE-2026-73162"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "6a02458da9555325683de8115fc282a40f2d0a4a31f065dc75f3347313c1fec8",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-33922",
+      "title": "CVE-2026-33922 — CVSS 6.0",
+      "summary": "A path traversal vulnerability was discovered in the Offline archives functionality of the local web interface due to insufficient validation of an input parameter. A local user with administrative credentials for the web interface could submit an archive name containing traversal sequences and delete arbitrary files reachable by the Arc process, which runs with administrative privileges on the ho",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-08-11T10:17:12.257",
+      "cve_ids": [
+        "CVE-2026-33922"
+      ],
+      "cvss": 6.0,
+      "related_links": []
+    },
+    {
       "id": "78717ca6ff867f89f706717e53b72e94b0f2ecc4610ae8ab0a88ad2f4458d1c8",
       "url": "https://www.bleepingcomputer.com/news/security/us-warns-of-gunra-ransomware-attacks-against-government-critical-infrastructure/",
       "title": "US and South Korea warn of Gunra ransomware targeting govt agencies",
@@ -2086,6 +2394,342 @@
       "date": "2026-08-11T09:47:06+00:00",
       "cve_ids": [],
       "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "28535608cb4a3fc37b55649782d5b05d24bfef51c72d0bb649bc42936f57f8ba",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73160",
+      "title": "CVE-2026-73160",
+      "summary": "Affected versions of cti-transmute contain an SSRF vulnerability in the /fetch_misp_event and /misp_search_events endpoints.\n\n\nThe URL validation routine checked whether a supplied hostname was itself an IP literal and rejected private, loopback, link-local, or reserved IPs. However, ordinary domain names were accepted without resolving them first. An attacker could therefore use a hostname whose ",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-08-11T09:17:15.030",
+      "cve_ids": [
+        "CVE-2026-73160"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "687cf801b1c50acbecbcd3fed95f0684915adf6551a741e44ce7a06ba963dad9",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72694",
+      "title": "CVE-2026-72694 — CVSS 7.1",
+      "summary": "A flaw was found in MRTG. When the MRTG daemon is started as a root user and subsequently drops privileges, a local, low-privileged attacker can exploit a symbolic link (symlink) following vulnerability. By influencing or pre-placing a symlink in the process ID (PID) file path, the attacker can trick the root process into changing the ownership of an arbitrary existing file to the daemon user. Thi",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-11T09:17:14.493",
+      "cve_ids": [
+        "CVE-2026-72694"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "357fb1535112ee5d9b210eb4c48db37829a29703b3bb37399f36d88c279cc2ad",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72693",
+      "title": "CVE-2026-72693 — CVSS 7.8",
+      "summary": "`openvt -u` is intended to identify the owner of the current VT and then execute `login` as that user from a privileged context. In the documented `kbrequest`/init usage, the ownership test in `authenticate_user()` relies on `stat(\"/proc/<pid>/fd/0\")`. `stat()` on `/proc/<pid>/fd/0` follows the symlink to the underlying TTY device node. As a result, `buf.st_uid` reflects the owner of the TTY node ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-11T09:17:14.340",
+      "cve_ids": [
+        "CVE-2026-72693"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "4afb28297017a6c20131eb7c7dad707caee6c1f8d6f3f59e9e0297dd226e4379",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-71218",
+      "title": "CVE-2026-71218 — CVSS 5.3",
+      "summary": "A flaw was found in iperf3. A remote unauthenticated attacker can exploit a vulnerability in the `JSON_read()` function, which accepts a peer-controlled message length and allocates memory without an upper bound. This allows the attacker to trigger excessive memory consumption, leading to a Denial of Service (DoS) through memory exhaustion, severe slowdown, or termination of the iperf3 service.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T09:17:14.200",
+      "cve_ids": [
+        "CVE-2026-71218"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "c693f439dcd33a5ad33330b830f5a1e21ea9904c36be8d115fdd4b7883539eca",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-71217",
+      "title": "CVE-2026-71217 — CVSS 7.5",
+      "summary": "A flaw was found in iperf3. A remote attacker can exploit this vulnerability by sending crafted control-channel JSON with oversized numeric parameters, such as `parallel` and `len`, which are not properly validated by the server. This improper input validation can lead to excessive stream and thread creation, as well as large buffer allocations, causing resource exhaustion. Consequently, this can ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T09:17:14.057",
+      "cve_ids": [
+        "CVE-2026-71217"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "fe2e212da5d6ffa04119108ad1f2e5c2e19f62536dcd0b1c1a1044fede4b1053",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15567",
+      "title": "CVE-2026-15567 — CVSS 7.5",
+      "summary": "A flaw was found in Wildfly. A remote unauthenticated attacker can trigger OutOfMemoryError as CSIv2Util's GSS token decoder reads an attacker-controlled length field without bounds checking and attempts to allocate a byte array of that size.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T09:17:13.530",
+      "cve_ids": [
+        "CVE-2026-15567"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "027e43acef8527c60b43a8f73c00f5e9d4522a45940561b48030583d6aa9847c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15565",
+      "title": "CVE-2026-15565 — CVSS 7.5",
+      "summary": "A flaw was found in Undertow. A remote attacker can cause Out of Memory on websockets endpoint without authentication on any @ServerEndpoint class that has any @OnMessage method. This allows an attacker to cause Denial of Service attack without authentication and using only a standard WebSocket handshake.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-11T09:17:13.370",
+      "cve_ids": [
+        "CVE-2026-15565"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "a2b1d11bf7779623009a1c124a0d61da31ab3163e0cd9798af867df8bcc8a02b",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15563",
+      "title": "CVE-2026-15563 — CVSS 7.4",
+      "summary": "A flaw was found in EAP's IIOP. The listener's NameService would accept bind operations without authentication, allowing an attacker to hijack JNDI lookups and binding them to a malicious ORB, achieving MITM or DoS on further invocations.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-11T09:17:13.233",
+      "cve_ids": [
+        "CVE-2026-15563"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "655f9abc43b0f5408fb38c2e3df592d0da5e7c7cc911b48b06c2cbf471f6746c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15562",
+      "title": "CVE-2026-15562 — CVSS 7.5",
+      "summary": "A flaw was found in EAP's jboss-remoting. A remote unauthenticated attacker who can reach :8080 (or :9990, or :4447) and complete an Upgrade: jboss-remoting handshake can cause OOM errors that degrade requests server-wide, leading to denial of service.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T09:17:13.100",
+      "cve_ids": [
+        "CVE-2026-15562"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "68f98b66ebf9825936aa5e52b1843f4c78705d71f6b00151474ee1a4f4de234a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15561",
+      "title": "CVE-2026-15561 — CVSS 7.5",
+      "summary": "A flaw was found in EAP's undertow http/1.1 chunked-transfer decoder. missing limits on size and count would allow an attacker to use an unauthenticated connection to drive the JVM to an OutOfMemory error, stopping all deployments on the listener, and achieving Denial of Service.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T09:17:12.963",
+      "cve_ids": [
+        "CVE-2026-15561"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "4bd8ca18b45cb8f28bf077669f1d33f11d2fed9af873aa3f272e145166e21859",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15560",
+      "title": "CVE-2026-15560 — CVSS 8.1",
+      "summary": "when EAP runs with -secmgr, the openjdk-orb's JDKBridge honours attacker-supplied CDR codebase URLs during object unmarshalling on :3528, allowing an unauthenticated attacker to load and instantiate arbitrary classes from a remote URL in the server JVM before EJB security interceptors run.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T09:17:12.823",
+      "cve_ids": [
+        "CVE-2026-15560"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "eebbabff2d19d03660c41bad585c30d67c6fa7e0631d12ca70a81a668805be2c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15556",
+      "title": "CVE-2026-15556 — CVSS 8.1",
+      "summary": "A flaw was found in Picketlink's SP signature validation; a SAML response containing zero assertion elements matching the signature check can allow an attacker to forge a SAML response and auth as any principal with any roles on the protected application.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-11T09:17:12.687",
+      "cve_ids": [
+        "CVE-2026-15556"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "e62d53c9079080a2f6c230127eb98366b258d9c93f42e7f072abd6fc8f76d899",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15555",
+      "title": "CVE-2026-15555 — CVSS 8.8",
+      "summary": "A flaw was found in JBoss marshalling. The Infinispan session replication path deserializes replicated session data via the JBoss Marshalling River unmarshaller with no class filtering — enabling RCE via deserialization gadget chains on every cluster node.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T09:17:12.540",
+      "cve_ids": [
+        "CVE-2026-15555"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "c9681abeebbb6f2f45df89822662b35e5adf6992bb96b3e6850762e338ead88c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15554",
+      "title": "CVE-2026-15554 — CVSS 7.4",
+      "summary": "the Undertow AJP listener honours forged ssl_cert and is_ssl AJP attributes without requiring any shared-secret authentication. This enables an unauthenticated attacker with direct TCP access to port 8009 to bypass CLIENT-CERT authentication by injecting a forged X.509 certificate via the AJP protocol.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T09:17:12.400",
+      "cve_ids": [
+        "CVE-2026-15554"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "97fc57f21cdb440369015b231284d622044e2444b805ae0784679c8d831e45ca",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-10579",
+      "title": "CVE-2026-10579 — CVSS 9.8",
+      "summary": "A flaw was found in Picketlink Federation SAML; the unsolcited response handler would accept forged assertions with no verification or validation, permitting an unauthed attacker to authenticate as any principal in any role. This could lead to information disclosure, access to restricted operations, or other flaws.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T09:17:12.260",
+      "cve_ids": [
+        "CVE-2026-10579"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "a85821de44c643dc9133a7869de75d053ce5e57f7dfd6ca22f37b6876c93d877",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73155",
+      "title": "CVE-2026-73155",
+      "summary": "Affected versions of cti-transmute allow authenticated users to add or remove emoji reactions on comments without first checking whether those users are authorized to view the target comment.\n\n\nThe vulnerable react() handler passed an attacker-controlled comment_id directly to comments_repo.toggle_reaction() after only validating that the ID existed syntactically and that the requested emoji was p",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T08:17:21.183",
+      "cve_ids": [
+        "CVE-2026-73155"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "d0daf2ec7f226d88e98e34d1e5bbbbf593baa2ee528d1146973179f987206288",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19418",
+      "title": "CVE-2026-19418",
+      "summary": "The referrer enforcement introduced with TYPO3-CORE-SA-2020-006 (CVE-2020-11069) became ineffective in TYPO3 v13.0, where TYPO3 CMS started serving the backend and Install Tool applications from the site's main entry script instead of the dedicated typo3/ directory.\n\nWhether a request originated from the backend or Install Tool itself was determined by comparing the referrer against the directory ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T08:17:20.533",
+      "cve_ids": [
+        "CVE-2026-19418"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "7c1ddabfd11593e45398c25f3f295785b5882d4d3ca597f4b0eb6643f19b12de",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19518",
+      "title": "CVE-2026-19518 — CVSS 6.5",
+      "summary": "Improper Validation of Specified Quantity in Input vulnerability in Samsung Open Source rlottie allows Input Data Manipulation.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T07:17:29.883",
+      "cve_ids": [
+        "CVE-2026-19518"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "8eadd35348845de739f42a172ff4867786b4911386671f6168473ae7d0a9156c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19517",
+      "title": "CVE-2026-19517 — CVSS 6.5",
+      "summary": "Improper Validation of Specified Quantity in Input and Allocation of Resources Without Limits or Throttling vulnerability in Samsung Open Source rlottie allows Excessive Allocation.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T07:17:29.750",
+      "cve_ids": [
+        "CVE-2026-19517"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "1f218e532c79d2acc2c6ef85640fb8a9f08b061a1c0cef7c7d2e29cb27b7a728",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19391",
+      "title": "CVE-2026-19391 — CVSS 6.5",
+      "summary": "A flaw was found in insights-core where the password redaction layer fails to recognize credentials not keyed under the literal string 'password'. This allows SSSD LDAP bind passwords (ldap_default_authtok) and Pacemaker fence device credentials to be included in cleartext in archives uploaded to console.redhat.com.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-11T07:17:29.347",
+      "cve_ids": [
+        "CVE-2026-19391"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "91865a2d50cf0b973ddc66ba05e2aaf06ea885bb65f3c0fbb4883e4c1055d373",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-16053",
+      "title": "CVE-2026-16053 — CVSS 8.5",
+      "summary": "Zohocorp ManageEngine M365 Manager Plus and M365 Security Plus versions below 4820 are affected to Authenticated Path Traversal vulnerability in Exchange Online backup module.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-08-11T07:17:28.233",
+      "cve_ids": [
+        "CVE-2026-16053"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "d0802197d025fc03063346259b7ae6b10c3367a33cdd5d0a99a85a13d69171c4",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-4757",
+      "title": "CVE-2026-4757 — CVSS 7.2",
+      "summary": "A VAPIX API parameter had improper input validation which could allow code execution and potentially lead to a privilege escalation. This flaw can only be exploited after authenticating with an administrator-privileged service account.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-11T06:17:16.427",
+      "cve_ids": [
+        "CVE-2026-4757"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
+      "id": "a36e8874fd2991226b75c915bad9cbfcbc2f56446410159ad8553c742fcc1487",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19516",
+      "title": "CVE-2026-19516 — CVSS 9.1",
+      "summary": "A caller-supplied X-Grafana-URL request header controls the destination of mcp-grafana's outbound requests, and the grafana_api_request tool lets the caller also choose the HTTP method, path, and body. Because the destination is not restricted to the configured Grafana instance, a caller can direct requests at internal, loopback, and link-local network services (including metadata endpoints) and r",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T06:17:13.433",
+      "cve_ids": [
+        "CVE-2026-19516"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "04845e073039b3c57af6f1e7b061645e2810d25621a6cddc8c3721a2b0be852f",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13716",
+      "title": "CVE-2026-13716 — CVSS 9.1",
+      "summary": "Path traversal in server import and admin file upload in Crafty Controller. Allows a remote, authenticated attacker to upload files to arbitrary paths permitted to the Crafty Controller application and perform remote code execution.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-08-11T06:17:12.870",
+      "cve_ids": [
+        "CVE-2026-13716"
+      ],
+      "cvss": 9.1,
       "related_links": []
     },
     {
@@ -3364,650 +4008,6 @@
         "CVE-2026-18618"
       ],
       "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "4d2a9a1b0c503824277b688aed3081f3d849301b4cfa29310dda47ebd37f429b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18617",
-      "title": "CVE-2026-18617 — CVSS 8.8",
-      "summary": "A flaw was found in the Data Science Pipelines Operator (DSPO). A namespace editor can exploit a vulnerability in the spec.database.customExtraParams field, which allows for the injection of dangerous parameters into the MySQL Data Source Name (DSN) string. By manipulating these parameters, an attacker can enable LOCAL INFILE functionality and exfiltrate sensitive files, such as the service accoun",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T21:17:20.250",
-      "cve_ids": [
-        "CVE-2026-18617"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "9687112f537ee51e5d19b48a8f5490e192c377e942d56a9c317f838b758489fa",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18611",
-      "title": "CVE-2026-18611 — CVSS 7.5",
-      "summary": "A flaw was found in the Data Science Pipelines Operator. This vulnerability allows an unauthenticated attacker to derive sensitive credentials, such as MariaDB root/user passwords and MinIO access/secret keys, if they can access the MinIO Route or MariaDB Service. The flaw occurs because the operator uses a cryptographically weak pseudo-random number generator (PRNG) to generate these credentials,",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T21:17:20.120",
-      "cve_ids": [
-        "CVE-2026-18611"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "e5cb0abceadf883ad20c0a8a8fd50e02659ed9b5672cc37ed85f138c33bd7ffd",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18608",
-      "title": "CVE-2026-18608 — CVSS 8.7",
-      "summary": "A flaw was found in the Data Science Pipelines Operator (DSPO). The operator's ClusterRole, which defines its permissions, includes extensive privileges beyond what is necessary for its operation. These excessive permissions, such as the ability to execute commands within pods and manage cluster-wide roles, could be exploited. If the DSPO pod were compromised, an attacker could leverage these priv",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-08-10T21:17:19.990",
-      "cve_ids": [
-        "CVE-2026-18608"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "32da7bfadaf5c19502a2358214b0a8b96f98bf8551c49bc3491074d52fec3cd6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-16456",
-      "title": "CVE-2026-16456 — CVSS 6.5",
-      "summary": "A flaw was found in the `odh-model-controller`. An authenticated user with permissions to create custom resources can exploit a vulnerability in the `loadSecret` function. This function improperly reads the Secret namespace from user-controlled input without validation. This allows an attacker to read sensitive API keys and cloud credentials from other namespaces, leading to information disclosure",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T21:17:19.867",
-      "cve_ids": [
-        "CVE-2026-16456"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "9f5015e9b564f30a593354bb28ad95496007cb9d68675339e78a09437dc17a97",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15581",
-      "title": "CVE-2026-15581 — CVSS 8.0",
-      "summary": "A flaw was found in the TrustyAI Service (TAS) deployment. This vulnerability allows any pod on the cluster network to bypass authentication and directly access the TAS backend API. An attacker can exploit this to read, tamper with, or delete monitoring data and configurations, and inject arbitrary data into the service, potentially disrupting tenant operations.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-10T21:17:19.743",
-      "cve_ids": [
-        "CVE-2026-15581"
-      ],
-      "cvss": 8.0,
-      "related_links": []
-    },
-    {
-      "id": "b6cea8108af69cdfb431d247c281a516a312c929d70d4baac049b0e83aaea9a6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15467",
-      "title": "CVE-2026-15467 — CVSS 8.1",
-      "summary": "A flaw was found in the trustyai-service-operator's LMEvalJob controller. An authenticated user within the cluster can exploit this vulnerability by configuring a sidecar container to bypass existing security policies. This allows the user to enable and execute untrusted remote code, leading to arbitrary code execution within the cluster.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-10T21:17:19.617",
-      "cve_ids": [
-        "CVE-2026-15467"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "d67f6820d2949aa72c7a3fcf6f1e0a3d92e01cddded0a5a5b3f3477892282d02",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-14450",
-      "title": "CVE-2026-14450 — CVSS 9.9",
-      "summary": "A flaw was found in the MaaS API. This vulnerability allows any pod within the cluster to bypass the Kuadrant AuthPolicy gateway by forging HTTP headers, specifically `X-MaaS-Username` and `X-MaaS-Group`, which are trusted verbatim. This lack of first-party authentication enables an attacker to gain unauthorized access and escalate privileges. The concrete consequences include the ability to mint ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T21:17:19.487",
-      "cve_ids": [
-        "CVE-2026-14450"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "7e516e2ccf6c9bacb03a1fa47278f6fe77f364a08a0f1491dcfc2e3799278d74",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13717",
-      "title": "CVE-2026-13717 — CVSS 8.8",
-      "summary": "A flaw was found in the Red Hat OpenShift AI (RHOAI) MaaS Gateway. Improper configuration of the Gateway in a model-serving context allows a standard user with low privileges to intercept, read, log, and alter all MaaS model traffic. This includes sensitive information such as access keys, input prompts, and outputs, leading to significant information disclosure and data tampering.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T21:17:19.343",
-      "cve_ids": [
-        "CVE-2026-13717"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "67ca7c79eaa1068c74972a37fa212d810aa08103af7743c214984554efe55096",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-11810",
-      "title": "CVE-2026-11810 — CVSS 7.5",
-      "summary": "The UpdateHub firmware-update agent's probe handler (z_impl_updatehub_probe() in subsys/mgmt/updatehub/updatehub.c) parses the JSON metadata returned by the update server into a fixed two-level nested-array struct. After parsing it validates only the outer array length (objects_len != 2) and then dereferences objects[1].objects[0].objects.sha256sum via strlen() without checking that the inner obje",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-10T21:17:19.223",
-      "cve_ids": [
-        "CVE-2026-11810"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "99ff425e6da54a8b3e097ec2c109a50bdf971c1d935faffc041053f134b24bcd",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-15682",
-      "title": "CVE-2025-15682",
-      "summary": "TBEA TLogger V2.1.0.0B0.0.0.0 contains an unauthenticated resource exhaustion vulnerability in its web server. An unauthenticated remote attacker can send PUT requests to the /tmp/ endpoint, causing the web server to create persistent files containing attacker-controlled data under /opt/myapp/webserver/. The generated files are not removed because the web server attempts to move them into a non-ex",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T20:17:25.290",
-      "cve_ids": [
-        "CVE-2025-15682"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "2ddc7f08d8c57fdb58a491e4b0a77d0219af12d353370bb263c284de1bb0d40b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-15681",
-      "title": "CVE-2025-15681",
-      "summary": "TBEA TLogger V2.1.0.0B0.0.0.0 contains an authentication bypass in its web server. After a user has previously authenticated to the device, an unauthenticated attacker can directly access protected functionality through the /index.asp endpoint without providing valid credentials. This allows the attacker to access functionality intended for authenticated users and may expose or modify device confi",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T20:17:25.157",
-      "cve_ids": [
-        "CVE-2025-15681"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "dfcc3d3bb3c40087b612472f0e76c9846db3b2e2a0e062e089fdf33db3a9b0c8",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-13294",
-      "title": "CVE-2025-13294",
-      "summary": "An unauthenticated SQL injection vulnerability exists in the web server of TBEA TLogger V2.1.0.0B0.0.0.0. Multiple HTTP endpoints incorporate attacker-controlled parameters directly into SQLite queries without sufficient validation or parameterization. A remote unauthenticated attacker can exploit these endpoints to read, modify, or delete data stored in the device's CCU.db database.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T20:17:24.583",
-      "cve_ids": [
-        "CVE-2025-13294"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "433162f68d7e693920eb2de883b33c8d80e708feb7aaf9b9151a4d70af38062b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-13293",
-      "title": "CVE-2025-13293",
-      "summary": "A hard-coded or default root account credential in TBEA TLogger V2.1.0.0B0.0.0.0 allows an unauthenticated remote attacker to obtain root-level access to the device via the exposed SSH service. The root password can be recovered from the password hash stored in /etc/shadow and used to authenticate to the SSH service. Successful exploitation provides full administrative control of the affected devi",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T20:17:23.493",
-      "cve_ids": [
-        "CVE-2025-13293"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "1373348c8c7421dc960c6e40ea6f0fc9104860035960e12c784b098333711d5b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72872",
-      "title": "CVE-2026-72872 — CVSS 9.9",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, application.saveBitbucketProvider stores bitbucketOwner and bitbucketRepository without validation and cloneBitbucketRepository in packages/server/src/utils/providers/bitbucket.ts interpolates those values into git clone commands executed through execAsync or execAsyncRemote, allowing a member with service deployment ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T19:17:36.177",
-      "cve_ids": [
-        "CVE-2026-72872"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "4a32e54fcef557beadc6e7f3d6d3da9d07173452bb32401beac84809fb529b40",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72871",
-      "title": "CVE-2026-72871 — CVSS 7.5",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, the unauthenticated /api/providers/github/setup route in apps/dokploy/pages/api/providers/github/setup.ts trusts gh_init organizationId and userId values from the state parameter and calls createGithub in packages/server/src/services/github.ts, allowing an attacker to insert a GitHub App provider containing client_sec",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T19:17:36.033",
-      "cve_ids": [
-        "CVE-2026-72871"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "bcd518fe9a870db26d8cd6ef196cc181eabd9f781f8130cafb928d314cfa9f0a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72869",
-      "title": "CVE-2026-72869 — CVSS 9.9",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, the backup.restoreBackupWithLogs tRPC subscription passes the databaseName parameter to restore builders in packages/server/src/utils/restore/utils.ts, where PostgreSQL, MariaDB, MySQL, and MongoDB commands embed the value in nested shell text executed by Node.js exec. An authenticated user with backup:restore permiss",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T19:17:35.753",
-      "cve_ids": [
-        "CVE-2026-72869"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "18ad0c4fa33f319c3f5cd75664ae1b2daf2474e544620581a7f31279253fbc60",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72868",
-      "title": "CVE-2026-72868 — CVSS 9.9",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, apps/dokploy/server/api/routers/destination.ts interpolates the accessKey, secretAccessKey, region, endpoint, provider, and bucket fields from destination.testConnection into an rclone ls command executed through child_process.exec. The `withPermission(\"destination\", \"create\")` path permits a low-privileged organizati",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T19:17:35.600",
-      "cve_ids": [
-        "CVE-2026-72868"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "36850659b3131e771e0d175004fc70ce4c89eff6a60359dd1ed526b949e9c504",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72867",
-      "title": "CVE-2026-72867 — CVSS 9.9",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). From 0.29.3 until 0.29.13, the incomplete fix for CVE-2026-45628 leaves packages/server/src/db/schema/compose.ts branch fields without server-side validation, allowing a direct compose.update request to store a malicious customGitBranch, branch, gitlabBranch, bitbucketBranch, or giteaBranch. A low-privileged authenticated user can trig",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T19:17:35.443",
-      "cve_ids": [
-        "CVE-2026-72867"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "a1f3c0d48754e51969147445f6439e1c4c576a85930231cf3f2924dc315548cd",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72866",
-      "title": "CVE-2026-72866 — CVSS 8.8",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, the WebSocket handler in apps/dokploy/server/wss/terminal.ts validates a session but does not authorize access to the requested server. An authenticated user can connect to /terminal?serverId=local, select the special serverId=local branch, and obtain an interactive terminal on the Dokploy host without an organization",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-10T19:17:35.303",
-      "cve_ids": [
-        "CVE-2026-72866"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "91196f84eadce9df8285d00c7689b3311658027ae97fb2da104197416b7e021a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72865",
-      "title": "CVE-2026-72865 — CVSS 9.9",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, the compose.update operation stores an unvalidated composePath that packages/server/src/utils/builders/compose.ts and packages/server/src/services/compose.ts interpolate into docker compose -f, docker stack deploy -c, and touch shell commands executed through /bin/sh -c. An authenticated member with compose write and ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T19:17:35.160",
-      "cve_ids": [
-        "CVE-2026-72865"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "5002f18888ee2fb3cb189fe80cce86efa0d3ea95e2a696db41ca94d4dfb87190",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72864",
-      "title": "CVE-2026-72864 — CVSS 9.9",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, the local branch of /docker-container-terminal in apps/dokploy/server/wss/docker-container-terminal.ts authenticates with validateRequest but does not authorize the attacker-controlled containerId against the caller's role, organization, or service access before passing it to `docker exec`, allowing any authenticated ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T19:17:35.010",
-      "cve_ids": [
-        "CVE-2026-72864"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "7a44ccc63bfe2236d381e26d0e77e5b55dabb0ef95ec68963db02a42c9e316bc",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72863",
-      "title": "CVE-2026-72863 — CVSS 9.9",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, Dokploy's WebSocket handlers (in-app terminals and log streamers) authenticate the session but never authorize it. They establish who the user is via validateRequest() and then proceed without consulting the role/permission model that every tRPC procedure enforces. Any authenticated member, can therefore open an inter",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T19:17:34.870",
-      "cve_ids": [
-        "CVE-2026-72863"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "6f494c0b12bf2784de8e2cf40fdb1e27aabf0d2963297c60175b1ff3a9c01b8b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-71969",
-      "title": "CVE-2026-71969 — CVSS 6.7",
-      "summary": "OP-TEE OS through 4.10.0, fixed in commit 7b8b494, contains a buffer underwrite vulnerability in the RSA NOPAD encrypt and decrypt operations within the mbedTLS software backend and SE050 hardware driver that allows a malicious Trusted Application to corrupt secure-world heap memory by supplying an input length exceeding the RSA modulus size. When src_len exceeds rsa_len, the subtraction expressio",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-08-10T19:17:32.400",
-      "cve_ids": [
-        "CVE-2026-71969"
-      ],
-      "cvss": 6.7,
-      "related_links": []
-    },
-    {
-      "id": "90c6653ef446584e729112b95bf3bc69d269c004ffdc7834b2c4fb2ba61f02c8",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-71962",
-      "title": "CVE-2026-71962 — CVSS 7.5",
-      "summary": "Flowise versions 2.2.4 through 3.1.4 contain a missing authorization vulnerability in the POST /api/v1/openai-assistants-file/download endpoint that allows unauthenticated attackers to access private files by exploiting the endpoint's inclusion in the global authentication whitelist, which bypasses all session and API key verification. Attackers can supply valid chatflowId, chatId, and fileName id",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T19:17:31.400",
-      "cve_ids": [
-        "CVE-2026-71962"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "df52c807621afe927cee5db08bb366d63a7821a912eef63afa82ef35021567d0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-6791",
-      "title": "CVE-2026-6791",
-      "summary": "When expanding paths that begin with a tilde (~) followed by a username, the internal parse_tilde function extracts the username to determine the user's home directory.  The implementation allocates memory for this username directly on the stack using the strndupa macro. Because the size of this allocation was determined by the length of the user-supplied input without any bounds checks, passing a",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T19:17:30.877",
-      "cve_ids": [
-        "CVE-2026-6791"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "1b88cb5575e357660ca55eb3f9d2c007af65f7d206f2bba82c9be25881f8e9e1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-68872",
-      "title": "CVE-2026-68872 — CVSS 6.5",
-      "summary": "The AWS Systems Manager Parameter Store and Secrets Manager backends in Apache Airflow's Amazon provider resolved a team-scoped Connection or Variable id through the team-agnostic lookup when the team-scoped lookup missed. In a deployment running multi-team mode with either backend, a caller in one team could resolve a secret belonging to another team by supplying an id that spells out that team's",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-08-10T19:17:30.587",
-      "cve_ids": [
-        "CVE-2026-68872"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "76b58094928e72e7c80ec7ce464e21adcec6bcfbe6aa24df1e953f37b7409203",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-68871",
-      "title": "CVE-2026-68871 — CVSS 6.5",
-      "summary": "The Yandex Lockbox secrets backend in Apache Airflow's Yandex provider resolved a team-scoped Connection or Variable id through the team-agnostic lookup when the team-scoped lookup missed. In a deployment running multi-team mode with this backend, a caller in one team could resolve a secret belonging to another team by supplying an id that spells out that team's namespace, obtaining its credential",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-08-10T19:17:30.463",
-      "cve_ids": [
-        "CVE-2026-68871"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "83e7ae760c09169b8943d4feb2ecb1c9e0a72e1663ff673b0aecc9ece5cd7540",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-68870",
-      "title": "CVE-2026-68870 — CVSS 5.3",
-      "summary": "The Azure Key Vault secrets backend in Apache Airflow's Microsoft Azure provider resolved a team-scoped Connection or Variable id through the team-agnostic lookup when the team-scoped lookup missed. In a deployment running multi-team mode with this backend, a caller in one team could resolve a secret belonging to another team by supplying an id that spells out that team's namespace, obtaining its ",
-      "source": "NVD/NIST",
-      "category": "cloud",
-      "date": "2026-08-10T19:17:30.337",
-      "cve_ids": [
-        "CVE-2026-68870"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "ad0dcdf683c214e27279217da1570104c5a2f5db7fe864013438e5936f5bcb4b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59091",
-      "title": "CVE-2026-59091 — CVSS 7.3",
-      "summary": "A flaw was found in GIMP's file format plugins, including those for PSD and PAA files. A remote attacker could exploit these vulnerabilities by tricking a user into opening a specially crafted image file. This could lead to unexpected application behavior or other potential security impacts without requiring further user interaction.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-10T19:17:30.090",
-      "cve_ids": [
-        "CVE-2026-59091"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "8eec62fb836694c139ed99a7efc90fe11749f6b44b739c02c455d67d9a54b271",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72899",
-      "title": "CVE-2026-72899 — CVSS 10.0",
-      "summary": "Metabase allows an unauthenticated attacker to inject arbitrary SQL via a publicly shared card or dashboard that exposes a field-filter (dimension) parameter.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T18:18:53.490",
-      "cve_ids": [
-        "CVE-2026-72899"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "9cb02790a83b75f018dee27a27a2baee104478692ac9bae3ba069e3bda3885e1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72862",
-      "title": "CVE-2026-72862 — CVSS 9.9",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, the mariadb.ts, mongo.ts, mysql.ts, postgres.ts, redis.ts, and libsql.ts Dokploy database service deployment functions pass user-controlled dockerImage fields unquoted into docker pull ${dockerImage} shell commands on the remote-server code path. This vulnerability is fixed in 0.29.13.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T18:18:53.047",
-      "cve_ids": [
-        "CVE-2026-72862"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "266bf00d5d3de105da3007d97d2f71fdcb527e4449a67ea4e6a5778ffae2950f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72740",
-      "title": "CVE-2026-72740 — CVSS 9.9",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, packages/server/src/utils/providers/git.ts parses the user-controlled customGitUrl with sanitizeRepoPathSSH and interpolates its domain into the ssh-keyscan command from addHostToKnownHostsCommand without shell quoting, allowing an authenticated member with service deployment permission and an attached SSH key to exec",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T18:18:52.723",
-      "cve_ids": [
-        "CVE-2026-72740"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "76ae50b4b579b650a71cd5ac36c0192b858fab79a16fee397218d6126983282b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72738",
-      "title": "CVE-2026-72738 — CVSS 9.9",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, the backup.listBackupFiles tRPC endpoint in apps/dokploy/server/api/routers/backup.ts passes the search parameter through normalizeS3Path and interpolates it into an rclone lsjson command executed by child_process.exec(), allowing an authenticated user with backup:read permission to execute arbitrary commands on the D",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T18:18:52.430",
-      "cve_ids": [
-        "CVE-2026-72738"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "82f1dc561c75e94a19b74925861bb4dddaaf804ef363529fef6e2f4738b15193",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72737",
-      "title": "CVE-2026-72737 — CVSS 9.6",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). In 0.29.8 and earlier, backup.create, backup.update, and backup.restoreBackupWithLogs in apps/dokploy/server/api/routers/backup.ts accept a client-controlled destinationId and use the referenced destination without verifying that destination.organizationId equals ctx.session.activeOrganizationId. An authenticated member with backup per",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T18:18:52.280",
-      "cve_ids": [
-        "CVE-2026-72737"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "4a588311206e349b300292b44f92e36f9e2161c44cf5ca9275d05d1378aa5281",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72736",
-      "title": "CVE-2026-72736 — CVSS 9.9",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, Dokploy passes user-controlled values directly into shell commands via unquoted template literal interpolation in the registry credential testing and Docker Swarm cluster management endbpoints. Both endpoints have a safe local code path (using execFileAsync or the Docker API) but a vulnerable remote path (using execAs",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T18:18:52.123",
-      "cve_ids": [
-        "CVE-2026-72736"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "d7fb517e826a31d09b7bf4001b7fb891f19313dc0d0a5b507ab14ed98976a7f9",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72735",
-      "title": "CVE-2026-72735 — CVSS 9.9",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, writeTraefikConfigRemote in packages/server/src/utils/traefik/application.ts serializes user-controlled Traefik configuration with yaml.stringify and interpolates the resulting yamlStr into an echo command executed through execAsyncRemote. Single quotes in redirect regex and replacement fields, basic authentication us",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T18:18:51.977",
-      "cve_ids": [
-        "CVE-2026-72735"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "6bdc838997af6fb1da7dc4aff07610c9c06b0524abef502fed639561a3ccde24",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72734",
-      "title": "CVE-2026-72734 — CVSS 8.4",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). From 0.28.7 until 0.29.13, the server.remove tRPC mutation in apps/dokploy/server/api/routers/server.ts accepts a caller-controlled serverId and calls haveActiveServices, findServerById, removeDeploymentsByServerId, and deleteServer without verifying that currentServer.organizationId equals ctx.session.activeOrganizationId. An authenti",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-10T18:18:51.823",
-      "cve_ids": [
-        "CVE-2026-72734"
-      ],
-      "cvss": 8.4,
-      "related_links": []
-    },
-    {
-      "id": "d514c7dc6df37eae1cceba6f0a685c92d78c66fcc6ca21e6eac3df7b0200f9fb",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72733",
-      "title": "CVE-2026-72733 — CVSS 9.9",
-      "summary": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Prior to 0.29.13, the backup.restoreBackupWithLogs tRPC subscription builds database restore shell pipelines from the user-controlled databaseName and backupFile fields without safely separating them from shell syntax. packages/server/src/utils/restore/utils.ts interpolates databaseName into database-specific restore commands, while pa",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T18:18:51.673",
-      "cve_ids": [
-        "CVE-2026-72733"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "127eb9d6d3a6434bc9b42a19a6a44a6321bc9efaf73bcac2d2ac773a6dc763e1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72732",
-      "title": "CVE-2026-72732 — CVSS 4.3",
-      "summary": "Discourse is an open-source discussion platform. Prior to 2026.1.6, 2026.5.2, 2026.6.1, and 2026.7.0, the discourse_templates endpoint exposed hidden tag names because DiscourseTemplates::TemplatesSerializer in plugins/discourse-templates/app/serializers/discourse_templates/templates_serializer.rb did not filter tags through the request Guardian. The serializer did not respect tag group permission",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T18:18:51.530",
-      "cve_ids": [
-        "CVE-2026-72732"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "525f4cf18d18cbbdcfc8f67109a81798fb08c1a6afa536b51d7402f71ebbd700",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-70622",
-      "title": "CVE-2026-70622 — CVSS 6.5",
-      "summary": "tar-rs versions 0.4.11 through 0.4.46 contain a symlink escape vulnerability in the Builder::append_dir_all() function that allows attackers to read files outside the intended source root directory by planting symlinks in an attacker-controlled directory. When a privileged process archives an untrusted directory, the function follows symlinks without verifying that resolved targets remain within t",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T18:18:50.610",
-      "cve_ids": [
-        "CVE-2026-70622"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "1f9cbdd6e4bd59b98aef90acc29819ca853fb4230a2121043964d431dca3ac4e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48159",
-      "title": "CVE-2026-48159",
-      "summary": "use-reducer-async is a React useReducer with async actions. Between 2026-05-18 16:29:52 and 2026-05-19 15:26:07, the default branch contained malicious commits da72edbde5705efcec6c62e0a3dcb73687b78dc8 through df07d5711458d8b46e11dd7afaaa21e88cafabfb that executed remote attacker-controlled code on developer machines during `npm install`. The commits were removed by force-push, but local clones, fo",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T18:17:49.547",
-      "cve_ids": [
-        "CVE-2026-48159"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "2c6b219ee239a117fa1c23a99da3e94263224eb28ef1235551927e42286153b9",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-16626",
-      "title": "CVE-2026-16626",
-      "summary": "Improper restriction of XML external entity reference vulnerability (unauthenticated) in Jaspersoft JasperReports Server.\n\nThis issue affects JasperReports Server: from 9.0.0 before HF-9 and from 10.0.0 before HF-10.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T18:17:41.667",
-      "cve_ids": [
-        "CVE-2026-16626"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "929bfaba716b273e1c085f65bb3d8e7992b4b7bbeacc7e36ae1da93ec987212c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72731",
-      "title": "CVE-2026-72731 — CVSS 7.1",
-      "summary": "Discourse is an open-source discussion platform. From 2026.1.0-latest until 2026.1.7, 2026.6.2, 2026.7.1, and 2026.8.0-latest.1, anyone able to run a parameterized Data Explorer query, including non-staff members of a group a query is shared with, could craft parameter values that escaped the intended query and executed arbitrary SQL through plugins/discourse-data-explorer/lib/discourse_data_explo",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T17:17:37.663",
-      "cve_ids": [
-        "CVE-2026-72731"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "1ff698f6297e29e87797b261396e1254193a7d66a5a01df74c7265976ba2f6fa",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72730",
-      "title": "CVE-2026-72730 — CVSS 8.7",
-      "summary": "Discourse is an open-source discussion platform. Prior to 2026.1.6, 2026.5.2, 2026.6.1, and 2026.7.0, the Rich Text Editor rendered a chat-transcript username as HTML, allowing stored cross-site scripting. This issue is fixed in versions 2026.1.6, 2026.5.2, 2026.6.1, and 2026.7.0.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T17:17:37.507",
-      "cve_ids": [
-        "CVE-2026-72730"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "37e4af2ff21df586dee32c4aa100a43dc2cfcedd7350918a5cc9faa9735babb3",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72729",
-      "title": "CVE-2026-72729",
-      "summary": "Discourse is an open-source discussion platform. Prior to 2026.1.6, 2026.5.2, 2026.6.1, and 2026.7.0, the discourse-local-dates plugin rendered crafted local-date format data as HTML on sites with a modified or disabled default Content Security Policy. This issue is fixed in versions 2026.1.6, 2026.5.2, 2026.6.1, and 2026.7.0.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T17:17:37.337",
-      "cve_ids": [
-        "CVE-2026-72729"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "e2ef640305b9cbce5026bfde95925424a6dafa8b8aa4cd418a8f2ac2f7405a40",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72728",
-      "title": "CVE-2026-72728 — CVSS 6.3",
-      "summary": "Discourse is an open-source discussion platform. Prior to 2026.1.7, an authenticated user could submit specially formed URLs that bypassed the Onebox allowlist and embedded malicious content in a site. This issue is fixed in versions 2026.1.7, 2026.6.2, 2026.7.1, and 2026.8.0-latest.1.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-10T17:17:37.013",
-      "cve_ids": [
-        "CVE-2026-72728"
-      ],
-      "cvss": 6.3,
       "related_links": []
     }
   ]
