@@ -1,10 +1,244 @@
 {
-  "updated": "2026-08-18T20:23:04.054653+00:00",
+  "updated": "2026-08-19T01:14:02.351194+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "767838f9b494b17bef8d93a3ea692a7351185ad8f94244817a06d618d87eeaa1",
+      "url": "https://github.com/advisories/GHSA-rh9c-rqvg-f7pr",
+      "title": "GHSA: linuxfabrik-lib: Arbitrary root file read via live --test argument (lib.lftest) across sudoers-whitelisted plugins (LPE)",
+      "summary": "## Summary\nEvery Linuxfabrik check plugin that supports the shared `--test` argument (routed through `lib.lftest.test()`) will, when `--test` is supplied, treat the first CSV element as a filesystem path and read its full contents as the plugin's simulated STDOUT — running as root when the plugin is invoked through the shipped `nagios`/`icinga` sudoers allowlist. `--test` is a **live production ar",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T21:18:59Z",
+      "cve_ids": [
+        "CVE-2026-73974"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "b1b7d087342cfb0b8308a9724fc3cf327f82cb40bb8992c1fef13ae235c9a3d9",
+      "url": "https://github.com/advisories/GHSA-7gww-x7fh-jf9j",
+      "title": "GHSA: LibreNMS: SSRF-driven stored XSS via Oxidized API response fields in device showconfig page",
+      "summary": "### Summary\nThe Oxidized integration URL (`oxidized.url`) is admin-configurable. LibreNMS fetches device info and version history from that URL and renders JSON fields (`name`, `ip`, `model`, `author`, commit message) into HTML without `htmlspecialchars()`. An admin pointing the URL at an attacker-controlled server achieves persistent XSS affecting all users who view any device's showconfig tab.\n\n",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T21:17:23Z",
+      "cve_ids": [],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "4effb0735f6e856181080e6a18077609fe3128e0279c0558b43de47f176097e9",
+      "url": "https://github.com/advisories/GHSA-7cj5-v4pp-v632",
+      "title": "GHSA: LibreNMS: Stored XSS via graph_descr admin config settings echoed without escaping to all authenticated users",
+      "summary": "### Summary\nThe `graph_descr.<graphtype>` family of settings is echoed verbatim without `htmlspecialchars()` in `includes/html/pages/graphs.inc.php:194`. Any admin can store a malicious HTML payload that executes in every authenticated user's browser viewing that graph type.\n\n### CVSS\n`CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:L/I:L/A:N` — **4.8 Medium**\n\n### Details\n```php\n// graphs.inc.php:194\necho Lib",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T21:17:20Z",
+      "cve_ids": [],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "4416a64a52e248adaee5cc0c06368b53c79ee925874da436d92102144dd34813",
+      "url": "https://github.com/advisories/GHSA-pxmc-2ffp-8j67",
+      "title": "GHSA: Lemur: Any user can revoke arbitrary certificates at the CA by uploading a duplicate record and revoking it",
+      "summary": "## Summary\n\nRepo under test: https://github.com/Netflix/lemur\n\n`PUT /api/1/certificates/<id>/revoke` authorizes the caller against the *Lemur database row* (creator == current user, or `CertificatePermission` over the row's roles) rather than the underlying CA-side certificate identity. Separately, `POST /api/1/certificates/upload` lets any user passing `StrictRolePermission` create a new `Certifi",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:51:48Z",
+      "cve_ids": [
+        "CVE-2026-71417"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "edf8d5e677267237e0761fdcfdc41a5c559ef155c21ab932ab39ef18d93ebee8",
+      "url": "https://github.com/advisories/GHSA-4h97-p9wq-chqj",
+      "title": "GHSA: Lemur: Missing authorization check on POST /certificates/<id>/export for plugins with requires_key = False",
+      "summary": "## Summary\n \nThe `CertificateExport` handler in `lemur/certificates/views.py` nests its entire ownership / `CertificatePermission` check inside an `if plugin.requires_key:` branch. When the selected export plugin advertises `requires_key = False`, the authorization check is skipped entirely and any authenticated user can invoke `plugin.export(cert.body, cert.chain, cert.private_key, options)` agai",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:51:42Z",
+      "cve_ids": [
+        "CVE-2026-71322"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "e3492716accdf35e01d531e055acb2dbf02536de8b1337f3eb5378ed485e7083",
+      "url": "https://github.com/advisories/GHSA-g7p5-89mh-248h",
+      "title": "GHSA: Lemur: Sub-CA creation never checks `AuthorityPermission` on the parent authority",
+      "summary": "## Summary\n\nRepo under test: https://github.com/Netflix/lemur\n\nWhen `ADMIN_ONLY_AUTHORITY_CREATION=False` (an explicitly supported and documented configuration), `POST /api/1/authorities` with `type=subca` never verifies that the caller holds `AuthorityPermission` on the supplied `parent` authority. The `parent` field is resolved by `AssociatedAuthoritySchema` via a raw `fetch_objects(Authority, d",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:51:37Z",
+      "cve_ids": [
+        "CVE-2026-71317"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "6cb078e46272cfbb77519e5fa055e9de1b92d9af70cea266ac127d2f622f9cf3",
+      "url": "https://github.com/advisories/GHSA-cfh6-pv5c-38jv",
+      "title": "GHSA: Lemur: Unchecked `replaces[]` lets any user silence notifications and hijack auto-rotation for arbitrary certificates",
+      "summary": "## Summary\n\nRepo under test: https://github.com/Netflix/lemur\n\nThe certificate create and upload endpoints accept a `replaces[]` (alias `replacements`) array that is resolved to live `Certificate` ORM objects with no ownership or `CertificatePermission` check on the referenced certificates. The SQLAlchemy `Certificate.replaces` append listener then immediately sets `victim.notify = False` and popu",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:51:33Z",
+      "cve_ids": [
+        "CVE-2026-71308"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "7cb60ed60bbd24d3a2ceb79f65d285b3d425613e2d3a9ce8f53747fc8b548a6f",
+      "url": "https://github.com/advisories/GHSA-6c8m-q6g9-vrw3",
+      "title": "GHSA: Lemur: Authenticated low-privilege users can read plaintext destination credentials (SFTP password / private-key passphrase) via the destinations API",
+      "summary": "### Summary\nLemur's destination read endpoints -- `GET /api/1/destinations` and `GET /api/1/destinations/<id>` -- return the full set of stored plugin option values to any authenticated user, with no authorization check and no redaction of secret-bearing options. The sibling write endpoints (`POST`/`PUT`/`DELETE`) are gated with `@admin_permission.require(http_exception=403)`, but the two read han",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-08-18T20:51:26Z",
+      "cve_ids": [
+        "CVE-2026-71307"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "92c9ee1a4154af0fd619025d414d74a8bd9ff82c31cf9839703bb492e31cf686",
+      "url": "https://github.com/advisories/GHSA-v5rc-cpwc-cfpr",
+      "title": "GHSA: Lemur: Incomplete fix for GHSA-v2wp-frmc-5q3v -- ACME authority update endpoint allows non-admin to replace `acme_url` with internal IP, bypassing allowlist",
+      "summary": "### Summary\n\nThe fix for GHSA-v2wp-frmc-5q3v added `_validate_acme_url()` to reject `acme_url` values not in `ACME_DIRECTORY_HOST_ALLOWLIST`, but the validation is only called at **authority creation time** (POST). The authority **update** endpoint (`PUT /api/1/authorities/<id>`) accepts and stores arbitrary `options` -- including a modified `acme_url` -- without invoking the allowlist check. Any ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:51:21Z",
+      "cve_ids": [
+        "CVE-2026-71303"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "cb453fc45449d1e1e203d63d31123e4cdeb78b45d6b98133d18bd3ba4a635120",
+      "url": "https://github.com/advisories/GHSA-f3qq-49m6-rw8f",
+      "title": "GHSA: Lemur: SSRF protection in certificate revocation checking bypassable via HTTP redirects and DNS rebinding (incomplete fix for GHSA-54vg-pfh7-jq95)",
+      "summary": "## Summary\nThe SSRF mitigation added for GHSA-54vg-pfh7-jq95 (`_validate_revocation_url()` in `lemur\n/certificates/verify.py`) can be bypassed. An operator-role user who uploads a certificate with attacker-controlled CRL/OCSP extensions can still make Lemur reach internal destinations (RFC1918, loopback, link-local 169.254.169.254) during verification.\n\n## Affected version\nTested against `main` (t",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:51:12Z",
+      "cve_ids": [
+        "CVE-2026-70667"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "f73c48e44389210e45446b1b1fca7dcb61d320378c72d723681ea2ac349f7530",
+      "url": "https://github.com/advisories/GHSA-xpmj-wjcp-6pww",
+      "title": "GHSA: Lemur: Server-Side Request Forgery via the ACME client following server-controlled URLs",
+      "summary": "### Summary\nThe ACME client (used to issue certificates from Let's Encrypt / Google Public CA / private ACME CAs) connects to an `acme_url`, then issues requests to URLs that the **ACME server returns** in its directory/order/authorization/finalize responses - this is the classic ACME-client SSRF (RFC 8555 design). Lemur validates `acme_url` against an allowlist of public ACME directories, but **o",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:51:07Z",
+      "cve_ids": [
+        "CVE-2026-70666"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "574e361d259ca33e4f0a6081aff3ccec79e02031b76a73863dc34a9b50246661",
+      "url": "https://github.com/advisories/GHSA-7788-ghfq-c6mh",
+      "title": "GHSA: Froxlor: Credential and 2FA secret disclosure via Froxlor API endpoints",
+      "summary": "## Summary\n\nSeveral Froxlor API command classes return sensitive authentication material in JSON API responses. The affected endpoints retrieve full database rows using `SELECT *`, `SELECT alias.*`, or equivalent full-row queries, then return the results directly through `$this->response(...)` without removing credential-related fields.\n\nThe exposed fields include password hashes for customers, ad",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-18T20:48:35Z",
+      "cve_ids": [
+        "CVE-2026-62988"
+      ],
+      "cvss": 9.0,
+      "related_links": []
+    },
+    {
+      "id": "362f98db2f67ef5a7ad01d2ed74b59562269b35d6dfd9241230bbdf4d7e3e912",
+      "url": "https://github.com/advisories/GHSA-xpr4-8vp6-c87j",
+      "title": "GHSA: Froxlor has CSRF Vulnerability in AJAX Endpoint — Missing Cross-Site Request Forgery Protection",
+      "summary": "## Summary\n\nThe Froxlor AJAX endpoint (`lib/ajax.php`) is missing Cross-Site Request Forgery (CSRF) protection. While the main application (`lib/init.php`) enforces CSRF token validation on all state-changing HTTP requests (POST/PUT/PATCH/DELETE), the standalone `lib/ajax.php` endpoint bypasses this mechanism entirely, validating only the user's session. An attacker can craft a malicious webpage t",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-18T20:48:30Z",
+      "cve_ids": [
+        "CVE-2026-55593"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "e494e08b6a2dd6d92c29cac05b730eb4cc5a71d0fe4b9061e260de2d38c5cea2",
+      "url": "https://github.com/advisories/GHSA-5rw4-4665-cvwf",
+      "title": "GHSA: Froxlor DomainZones.add allows DNS zone-file RR injection via record/type fields",
+      "summary": "Froxlor's DomainZones.add API command accepts user-controlled DNS record and type values and later writes them into generated BIND zone files without rejecting line delimiters, tab characters, or zone-file comment delimiters.\n\nThe stronger variant is in record. An authenticated customer with DNS-zone permissions can submit a normal A record request where record is:\n\nwww\\t60\\tIN\\tA\\t6.6.6.6 ;\\n@\n\nw",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:48:04Z",
+      "cve_ids": [
+        "CVE-2026-54543"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "4f9589d74d00f0575010e10366174920c0bb9b31f3b3498f629db897517e0a84",
+      "url": "https://github.com/advisories/GHSA-w27m-rmmf-g5w4",
+      "title": "GHSA: Froxlor: Second-Order SQL Injection via `Admins.add` `ipaddress` Parameter Allows Full Database Exfiltration",
+      "summary": "### Summary\n\nA second-order SQL injection vulnerability in Froxlor's admin API allows an authenticated administrator to store a crafted SQL payload in the `panel_admins.ip` column via the `Admins.add` or `Admins.update` endpoint. The payload executes as a UNION-based SQL injection the next time `IpsAndPorts.listing` is called by the poisoned account, returning arbitrary data from the database — in",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:47:59Z",
+      "cve_ids": [
+        "CVE-2026-54348"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
+      "id": "e7a570569d731fa90010b95ba1cad891380ad5df04e3b19048474635b30297eb",
+      "url": "https://github.com/advisories/GHSA-43gm-9rr3-cx7g",
+      "title": "GHSA: Froxlor: Stored XSS in DNS TXT Record Content Allows Customer-to-Admin Account Takeover",
+      "summary": "### Summary\n\nA stored Cross-Site Scripting (XSS) vulnerability in Froxlor's DNS editor allows an authenticated user with DNS editor access (customer role) to inject arbitrary JavaScript into any administrator's browser session. When an administrator views the DNS configuration of an affected domain, the payload executes automatically — enabling complete admin account takeover, credential theft, an",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:47:53Z",
+      "cve_ids": [
+        "CVE-2026-54347"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "08ab6071846561eb570df2091bd36c0d5feedab32aa7ae1497d189f8e6202e99",
+      "url": "https://github.com/advisories/GHSA-m5pq-69xg-vcq3",
+      "title": "GHSA: devpi-server may leak database contents",
+      "summary": "### Impact\n\nIf the replication protocol is enabled by using the ``primary`` (or deprecated ``master``) role for a server instance, then the ``+changelog`` URL route can be used to read the complete database content including password hashes, and the ids and salts of tokens from ``devpi-tokens`` by using a trivially modified GET request.\n\nThe leaked hashes use the ``argon2`` algorithm, so they are ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:41:21Z",
+      "cve_ids": [
+        "CVE-2026-54723"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
     {
       "id": "2a7bcfd49d9bdecf7d4f0625b268f860501de74f46acf71683304ec939f33666",
       "url": "https://github.com/advisories/GHSA-wg9g-w2j2-8pgr",
@@ -423,234 +657,6 @@
       "date": "2026-08-18T06:17:35+00:00",
       "cve_ids": [],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "99758d7a3fb6f61697bb851ffec8e6a3c898274c2bbab72b9013a5d32b0dd172",
-      "url": "https://seclists.org/fulldisclosure/2026/Aug/55",
-      "title": "Security advisory: Pre-authentication RCE in Confluent Platform (ksqlDB) 7.9.1-ce (Confluent, Inc.)",
-      "summary": "Posted by disclosure via Fulldisclosure on Aug 170day Rubbish Research Team is publicly disclosing a vulnerability in Confluent Platform (ksqlDB) 7.9.1-ce (Confluent, Inc.). The research is published and a proof-of-concept is available. Pre-authentication RCE (CVSS 9.8, pre-authentication) Confluent Platform 7.9.1-ce exposes an unauthenticated remote code execution chain in its default configurati",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-08-18T06:17:34+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "10bc129ca941aa385d4476f80d3f9543ebb9c29ebbab0bbb58d5b2a3ba19a4ab",
-      "url": "https://seclists.org/fulldisclosure/2026/Aug/54",
-      "title": "Security advisory: Pre-authentication SYSTEM RCE in iMonnit Express 4.0.5.5 (Monnit / iMonnit)",
-      "summary": "Posted by disclosure via Fulldisclosure on Aug 170day Rubbish Research Team is publicly disclosing a vulnerability in iMonnit Express 4.0.5.5 (Monnit / iMonnit). The research is published and a proof-of-concept is available. Pre-authentication SYSTEM RCE (CVSS 9.8, pre-authentication) iMonnit Express 4.0.5.5 is an ASP.NET Core application running as a Windows service with LocalSystem privileges, w",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-08-18T06:17:32+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "bcf9da0aef81bb7613002fe14af5a6788ea48d64d084127c84436381585e073b",
-      "url": "https://seclists.org/fulldisclosure/2026/Aug/53",
-      "title": "Security advisory: Pre-authentication RCE in Ontotext GraphDB 11.4.3 Free edition (Ontotext / Graphwise)",
-      "summary": "Posted by disclosure via Fulldisclosure on Aug 170day Rubbish Research Team is publicly disclosing a vulnerability in Ontotext GraphDB 11.4.3 Free edition (Ontotext / Graphwise). The research is published and a proof-of-concept is available. Pre-authentication RCE (CVSS 9.8, pre-authentication) Ontotext GraphDB 11.4.3 Free edition defaults to security=false, which bypasses the entire Spring Securi",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-08-18T06:17:31+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b964dbaee397552ad3da7d903ac70ab8a0564c4ff20a9d51190f5bb3bd0fde69",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2025-62593",
-      "title": "CVE-2025-62593: Ray-Project Ray Code Injection Vulnerability",
-      "summary": "Ray-Project Ray contains a code injection vulnerability that could allow remote code execution. Developers using Ray as a development tool may be exposed to this vulnerability exploitable through Firefox and Safari. Affected product: Ray by Ray-Project. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-08-18T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2025-62593"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "88c7dc2369673bd3d3af7d05f40d821b693fa00af38c81f3f4b05eac687d9043",
-      "url": "https://www.exploit-db.com/exploits/52654",
-      "title": "[webapps] Nodemailer 9.0.0 - File Read/ SSRF",
-      "summary": "Nodemailer 9.0.0 - File Read/ SSRF",
-      "source": "Exploit-DB",
-      "category": "web_app",
-      "date": "2026-08-18T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "986ba1052cf1e7b5efbc6fe75a40c41c628df59e44395c9b62a3a105a88c7d1f",
-      "url": "https://www.exploit-db.com/exploits/52653",
-      "title": "[webapps] Linuxfabrik monitoring_plugins_6.0.0 - SSRF",
-      "summary": "Linuxfabrik monitoring_plugins_6.0.0 - SSRF",
-      "source": "Exploit-DB",
-      "category": "web_app",
-      "date": "2026-08-18T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "9f6db95c4fdaf31273b050b549ba017e61795e47f1beddbb09daae56d23f5c74",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-33824",
-      "title": "CVE-2026-33824: Microsoft Internet Key Exchange (IKE) Service Extensions Double Free Vulnerability",
-      "summary": "Microsoft Internet Key Exchange (IKE) Service Extensions contains a double free vulnerability that could enable remote code execution. Affected product: Internet Key Exchange (IKE) Service Extensions by Microsoft. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidan",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-08-18T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-33824"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "1d73b0247e43057aa954474442bd47c74dbf4aa31b75bba59635553fd191a8a6",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-65400",
-      "title": "CVE-2026-65400: Apple macOS Improper Authentication Vulnerability",
-      "summary": "Apple macOS contains an improper authentication vulnerability that could allow an attacker on the network to authenticate to Screen Sharing without valid credentials. Affected product: macOS by Apple. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-08-18T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-65400"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "8d5b2814da0c1d7fee6578948acc172a6aee8f33824aad1e8ff0df0aa95e28e8",
-      "url": "https://github.com/advisories/GHSA-gqch-g4w5-7qcw",
-      "title": "GHSA: MLflow: CreateModelVersion source validation does not check READ permission on referenced run_id",
-      "summary": "### Summary\n\nThe `_validate_source_run` and `_validate_source_model` functions in `mlflow/server/handlers.py` verify that a model version source path is within the artifact directory of a specified run or logged model, but do not check whether the caller has READ permission on that run or model. An authenticated MLflow user can therefore reference another user's run_id in `CreateModelVersion`, cre",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-17T21:59:09Z",
-      "cve_ids": [
-        "CVE-2026-69148"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "a1711e55f8870b4537c0c75a90765a9a88e93e7caeb5cc86866c636496de1a80",
-      "url": "https://github.com/advisories/GHSA-3p64-6gvh-82v5",
-      "title": "GHSA: MLflow: LogInputs endpoint bypasses per-run UPDATE authorization in basic-auth",
-      "summary": "### Summary\n\nWhen MLflow is deployed with the built-in basic-auth plugin (`--app-name basic-auth`), any authenticated user can inject arbitrary dataset records into another user's run by calling `POST /api/2.0/mlflow/runs/log-inputs`. The `LogInputs` proto handler is absent from the `BEFORE_REQUEST_HANDLERS` map in `mlflow/server/auth/__init__.py`, so the before-request hook skips authorization en",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-17T21:59:01Z",
-      "cve_ids": [
-        "CVE-2026-69146"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "0f9aaeeb7bfbe1d7e2919edde0458ffe7afc670458b86dc07b008b97ce5eb6bd",
-      "url": "https://github.com/advisories/GHSA-7gwp-5pfp-969j",
-      "title": "GHSA: MLflow: Unauthenticated full-read SSRF in webhook delivery: _validate_webhook_url bypassed via unvalidated HTTP redirects (and DNS rebinding)",
-      "summary": "### Summary\nThe default MLflow Tracking Server (`mlflow server`, no authentication, default SQLite backend) exposes the model-registry webhooks API unauthenticated, including a synchronous `POST /api/2.0/mlflow/webhooks/{id}/test` endpoint that returns the upstream response status and body to the caller. The SSRF guard added in PR #20747 (`_validate_webhook_url`, shipped in 3.10.0) resolves the we",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-17T21:58:51Z",
-      "cve_ids": [
-        "CVE-2026-64849"
-      ],
-      "cvss": 9.3,
-      "related_links": []
-    },
-    {
-      "id": "f6b532b021eb5f4572edd4126d263be458500c992882c1778ca93c41949b982a",
-      "url": "https://github.com/advisories/GHSA-8g4w-4ffg-8vgx",
-      "title": "GHSA: 9Router: Authenticated Server-Side Request Forgery (SSRF) via OIDC Provider Test Endpoint",
-      "summary": "### Summary\n\nA Server-Side Request Forgery (SSRF) vulnerability exists in the 9Router dashboard via the `/api/auth/oidc/test` endpoint. The application accepts a user-controlled URL string through the `issuerUrl` parameter and performs an outbound HTTP request without validating if the destination IP belongs to a restricted internal network range.\n\nNotably, this endpoint can be accessed without ac",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-08-17T21:58:43Z",
-      "cve_ids": [
-        "CVE-2026-56677"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "2a88f9cdea3b41f6c1df0a0695fe2b5025785aaff02f374959101155b81619e4",
-      "url": "https://github.com/advisories/GHSA-p28p-j94q-pg32",
-      "title": "GHSA: http4k: `DigestAuthProvider.verify` did not bind to request URI",
-      "summary": "### Impact\n\nAn issue in `DigestAuthProvider.verify`:\n\nThe `uri` parameter in the client's `Authorization: Digest …` response was not checked against the actual request URL. A captured Digest authentication response could be replayed against any other URL served by the same realm, breaking the per-request-URL binding the Digest scheme assumes.\n\n**Who is affected:** any application using `http4k-sec",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-17T21:57:41Z",
-      "cve_ids": [
-        "CVE-2026-54148"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "974be992fc609dbb5bc5b1cf562355052a77285db6bebc47151c8674ab51cbe7",
-      "url": "https://github.com/advisories/GHSA-vxxm-wwqh-mh47",
-      "title": "GHSA: http4k: `DigestAuthProvider.verify` ignored configured algorithm and did not bind to request URI",
-      "summary": "### Impact\n\nAn issue in `DigestAuthProvider.verify`:\n\n **Algorithm silently forced to MD5.** The configured `algorithm` parameter was ignored — every verification used MD5 regardless of configuration. Deployments believing they were running SHA-256 Digest auth were silently inheriting MD5's collision weaknesses, including documented attack paths against Digest schemes that rely on the hash being c",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-17T21:56:58Z",
-      "cve_ids": [
-        "CVE-2026-54147"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "536352b2d5f9fae7e87d32d2529683f029cb3aae8bd01dda6beb9c00add6fcd7",
-      "url": "https://github.com/advisories/GHSA-8qf9-62x2-82pp",
-      "title": "GHSA: chrome-devtools-mcp: validatePath() does not canonicalize symlinks before enforcing roots",
-      "summary": "### Summary\n\nI originally reported this through Google Bug Hunters. The Google Bug Hunters team said this is in OSS VRP scope but not reward-eligible due to the project tier, and asked me to file an issue or PR directly with this repository. I am reporting it privately here first because it is an unfixed security issue.\n\n`McpContext.validatePath()` enforces workspace `roots` by checking whether `p",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-17T21:56:12Z",
-      "cve_ids": [
-        "CVE-2026-53766"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "ff66d03f34778cc5df8ff6cced4ac55215aaea59b07bc5720fec09f9d6b5a7df",
-      "url": "https://github.com/advisories/GHSA-gc95-3vw8-vg43",
-      "title": "GHSA: docx4j: Stack Overflow via Cyclic `w:basedOn` Style Chain leads to Denial of Service",
-      "summary": "### Summary\ndocx4j's `PropertyResolver` and several adjacent helpers recursively walk the OpenXML style inheritance chain (`w:basedOn`) without cycle detection. \n\nA WordprocessingML document containing a cyclic style chain (for example, Style A based on B and Style B based on A) causes unbounded recursion and a `java.lang.StackOverflowError` within the property-resolution code path.\n\nThese helpers",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-17T21:55:49Z",
-      "cve_ids": [
-        "CVE-2026-53752"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "ade7b245204745396e64704ecc538331dd6e7dd1d7492d5edb75b00cd0e4abf4",
-      "url": "https://github.com/advisories/GHSA-g4w2-6h2r-3m3w",
-      "title": "GHSA: http4k: Unbounded gzip decompression in `ServerFilters.GZip` / `RequestFilters.GunZip` allowed memory-exhaustion DoS",
-      "summary": "### Impact\n\n`ServerFilters.GZip` and `RequestFilters.GunZip` (and the underlying `Gzip` functions used to decompress request bodies) did not impose any cap on the decompressed size. A small malicious gzip-encoded request body (on the order of kilobytes) could decompress to gigabytes, exhausting the JVM heap and denying service to other clients.\n\n**Who is affected:** any http4k server that accepts ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-17T21:52:27Z",
-      "cve_ids": [
-        "CVE-2026-53659"
-      ],
-      "cvss": 7.5,
       "related_links": []
     }
   ]
