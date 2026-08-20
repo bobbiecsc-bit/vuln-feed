@@ -1,10 +1,66 @@
 {
-  "updated": "2026-08-19T20:26:45.614010+00:00",
+  "updated": "2026-08-20T01:12:46.548392+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "2b497c30ae82e28d1304cca2d3ee48e6939a3d86e543da6abcde2ca3043bb091",
+      "url": "https://github.com/advisories/GHSA-8j49-mmcx-4mp5",
+      "title": "GHSA: MobSF Vulnerable to Arbitrary File Read via Path Traversal in ZIP Uploads",
+      "summary": "### Summary\nThe `find_icon_path_zip()` function in MobSF does not properly sanitize the `android:icon` attribute extracted from an Android manifest before resolving it as a filesystem path.\n\nAn attacker can supply a malicious `android:icon` value containing path traversal sequences, causing MobSF to read arbitrary files from the server filesystem and copy them into the downloads directory (`DWD_DI",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T18:01:26Z",
+      "cve_ids": [
+        "CVE-2026-68922"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "70e59fa381b85ed4574bebbdfc88b6795a1b352b6aceeefc43c7ac0dea564bf1",
+      "url": "https://github.com/advisories/GHSA-3p54-567p-2wpr",
+      "title": "GHSA: MobSF's CSRF checks not enforced after Django migration",
+      "summary": "### Summary\n\nDjango's `CsrfViewMiddleware` exists only in the deprecated `MIDDLEWARE_CLASSES` (ignored since Django 2.0). The active `MIDDLEWARE` tuple does not include it. All authenticated web POST endpoints (delete scan, upload, download APK, change password, manage users) accept requests without CSRF tokens.\n\n### Verified Impact\n\nThis was verified by **actually deleting a real scan** from the ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-18T18:01:13Z",
+      "cve_ids": [
+        "CVE-2026-68923"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "e1a42649d130b5d60eed47de586f94263817f82ce67e6204c16534807179aa81",
+      "url": "https://github.com/advisories/GHSA-95px-34x5-p37h",
+      "title": "GHSA: MobSF has SSRF port restriction bypass in assetlinks_check",
+      "summary": "## Summary\n\nMobSF's Android App Link assetlinks checker validates only the manifest `android:host` value with `valid_host()`, but then appends the separate `android:port` value into the URL used for the server-side request. This bypasses the current port restriction in `valid_host()` and lets a crafted APK cause MobSF to fetch `http://host:<attacker-port>/.well-known/assetlinks.json` or `https://h",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T18:01:03Z",
+      "cve_ids": [
+        "CVE-2026-68927"
+      ],
+      "cvss": 3.0,
+      "related_links": []
+    },
+    {
+      "id": "c4e2fef7df904806367129bc106c6aee8f5fca30836b282407c7966fa5c219b8",
+      "url": "https://github.com/advisories/GHSA-x768-8642-mmq9",
+      "title": "GHSA: MobSF Vulnerable to Zip Bomb Denial of Service via Per-File Size Limit Bypass in ZIP/APK Extraction",
+      "summary": "### Summary\n\nWhen extracting uploaded ZIP/APK files, MobSF checks if individual files exceed `ZIP_MAX_UNCOMPRESSED_FILE_SIZE` (400 MB) and logs \"Skipping\" — but the code lacks a `continue` statement, so extraction proceeds anyway. The log message is misleading; the file is still written to disk.\n\n### Verified Impact (Code Audit)\n\nThe vulnerable code path in `shared_func.py` lines 153–182:\n\n```pyth",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T18:00:47Z",
+      "cve_ids": [
+        "CVE-2026-68924"
+      ],
+      "cvss": 4.9,
+      "related_links": []
+    },
     {
       "id": "9a5c793579ea224044855333450776d33b0acef0412d4010010df8d5cc14be3f",
       "url": "https://github.com/advisories/GHSA-q4gh-4ffp-5cg8",
@@ -602,62 +658,6 @@
         "CVE-2026-47698"
       ],
       "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "feb0d849f5ae6f15836f171ba1e5d971dbc08eb37a929388b5386433fa3cce21",
-      "url": "https://github.com/advisories/GHSA-m283-3h24-438v",
-      "title": "GHSA: VM2 has Missing Error.cause Sanitization that Enables Sandbox Escape to RCE",
-      "summary": "**Affected:** vm2 <= 3.11.3\n**CVSS 3.1:** 9.9 HIGH (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H)\n**CWE:** CWE-693 (Protection Mechanism Failure)\n**Prerequisite:** Embedder exposes a host function that throws an Error with `.cause` referencing a powerful host object (e.g., `process`)\n\n## Summary\n\nI found that `handleException()` in `lib/setup-sandbox.js` recursively sanitizes sub-errors for `Suppr",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-17T17:32:34Z",
-      "cve_ids": [
-        "CVE-2026-47686"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "db6530ce473cde5463fa8b31dee9622ac5abd39d191945f4d8f4d2303bf24fc1",
-      "url": "https://github.com/advisories/GHSA-4h34-v6r8-mmjc",
-      "title": "GHSA: Glances: as_dict_secure() Value-Level Bypass Leaks Credentials in URL Values via /api/4/config",
-      "summary": "## Summary\n\nGlances provides `as_dict_secure()` explicitly designed for unauthenticated API access, with a docstring stating it returns \"a sanitised copy of the configuration dict\" where \"Sensitive keys in remaining sections are replaced by '********'\". However, the implementation only checks KEY names against a regex pattern and never inspects VALUE content. The documented `[ip]` config section s",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-17T17:20:48Z",
-      "cve_ids": [
-        "CVE-2026-68520"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "b2ede715f2b16bf946041cccd02ed42b497e4331b30a2d1a4d665d117c9d0f19",
-      "url": "https://github.com/advisories/GHSA-73wf-9vmv-5pv9",
-      "title": "GHSA: Glances: Incomplete fix of CVE-2026-32608: action-template sanitizer is bypassed by nested stat values (process 'cmdline') → OS command injection",
-      "summary": "## Summary\nCVE-2026-32608 (\"Command Injection via Process Names in Action Command Templates\") was fixed (commit `5680a5d`) by adding `_sanitize_mustache_dict`, which replaces the shell operators `&&`, `|`, `>>`, `>` with spaces in the values rendered into action command templates.\n\nThe sanitizer only processes **top-level string** values (`if isinstance(v, str)`). Attacker-controlled **nested** va",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-17T17:20:24Z",
-      "cve_ids": [
-        "CVE-2026-62982"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "0f52f2046f119af7c1335fb24b8ec1e5548de8941697fca4757b80651f8ac32b",
-      "url": "https://github.com/advisories/GHSA-fp27-88fp-2phg",
-      "title": "GHSA: Glances: REST API CORS Credentials Guard Uses Exact-Match Instead of Membership Test — Bypassed by Any Multi-Origin Allowlist Containing the Wildcard",
-      "summary": "### Summary\nGlances's REST API server includes a documented safety check intended to guarantee that `cors_credentials=True` can never be combined with an unrestricted CORS origin allowlist. The check compares the configured origin list to the wildcard using exact list equality (`cors_origins == [\"*\"]`) instead of a membership test. Any multi-entry origin configuration that merely includes `\"*\"` al",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-17T17:04:51Z",
-      "cve_ids": [
-        "CVE-2026-68517"
-      ],
-      "cvss": 6.5,
       "related_links": []
     }
   ]
