@@ -1,10 +1,80 @@
 {
-  "updated": "2026-08-21T16:33:40.041039+00:00",
+  "updated": "2026-08-21T20:24:56.966031+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "7cb60ed60bbd24d3a2ceb79f65d285b3d425613e2d3a9ce8f53747fc8b548a6f",
+      "url": "https://github.com/advisories/GHSA-6c8m-q6g9-vrw3",
+      "title": "GHSA: Lemur: Authenticated low-privilege users can read plaintext destination credentials (SFTP password / private-key passphrase) via the destinations API",
+      "summary": "### Summary\nLemur's destination read endpoints -- `GET /api/1/destinations` and `GET /api/1/destinations/<id>` -- return the full set of stored plugin option values to any authenticated user, with no authorization check and no redaction of secret-bearing options. The sibling write endpoints (`POST`/`PUT`/`DELETE`) are gated with `@admin_permission.require(http_exception=403)`, but the two read han",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-08-18T20:51:26Z",
+      "cve_ids": [
+        "CVE-2026-71307"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "92c9ee1a4154af0fd619025d414d74a8bd9ff82c31cf9839703bb492e31cf686",
+      "url": "https://github.com/advisories/GHSA-v5rc-cpwc-cfpr",
+      "title": "GHSA: Lemur: Incomplete fix for GHSA-v2wp-frmc-5q3v -- ACME authority update endpoint allows non-admin to replace `acme_url` with internal IP, bypassing allowlist",
+      "summary": "### Summary\n\nThe fix for GHSA-v2wp-frmc-5q3v added `_validate_acme_url()` to reject `acme_url` values not in `ACME_DIRECTORY_HOST_ALLOWLIST`, but the validation is only called at **authority creation time** (POST). The authority **update** endpoint (`PUT /api/1/authorities/<id>`) accepts and stores arbitrary `options` -- including a modified `acme_url` -- without invoking the allowlist check. Any ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:51:21Z",
+      "cve_ids": [
+        "CVE-2026-71303"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "cb453fc45449d1e1e203d63d31123e4cdeb78b45d6b98133d18bd3ba4a635120",
+      "url": "https://github.com/advisories/GHSA-f3qq-49m6-rw8f",
+      "title": "GHSA: Lemur: SSRF protection in certificate revocation checking bypassable via HTTP redirects and DNS rebinding (incomplete fix for GHSA-54vg-pfh7-jq95)",
+      "summary": "## Summary\nThe SSRF mitigation added for GHSA-54vg-pfh7-jq95 (`_validate_revocation_url()` in `lemur\n/certificates/verify.py`) can be bypassed. An operator-role user who uploads a certificate with attacker-controlled CRL/OCSP extensions can still make Lemur reach internal destinations (RFC1918, loopback, link-local 169.254.169.254) during verification.\n\n## Affected version\nTested against `main` (t",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:51:12Z",
+      "cve_ids": [
+        "CVE-2026-70667"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "f73c48e44389210e45446b1b1fca7dcb61d320378c72d723681ea2ac349f7530",
+      "url": "https://github.com/advisories/GHSA-xpmj-wjcp-6pww",
+      "title": "GHSA: Lemur: Server-Side Request Forgery via the ACME client following server-controlled URLs",
+      "summary": "### Summary\nThe ACME client (used to issue certificates from Let's Encrypt / Google Public CA / private ACME CAs) connects to an `acme_url`, then issues requests to URLs that the **ACME server returns** in its directory/order/authorization/finalize responses - this is the classic ACME-client SSRF (RFC 8555 design). Lemur validates `acme_url` against an allowlist of public ACME directories, but **o",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:51:07Z",
+      "cve_ids": [
+        "CVE-2026-70666"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "574e361d259ca33e4f0a6081aff3ccec79e02031b76a73863dc34a9b50246661",
+      "url": "https://github.com/advisories/GHSA-7788-ghfq-c6mh",
+      "title": "GHSA: Froxlor: Credential and 2FA secret disclosure via Froxlor API endpoints",
+      "summary": "## Summary\n\nSeveral Froxlor API command classes return sensitive authentication material in JSON API responses. The affected endpoints retrieve full database rows using `SELECT *`, `SELECT alias.*`, or equivalent full-row queries, then return the results directly through `$this->response(...)` without removing credential-related fields.\n\nThe exposed fields include password hashes for customers, ad",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-18T20:48:35Z",
+      "cve_ids": [
+        "CVE-2026-62988"
+      ],
+      "cvss": 9.0,
+      "related_links": []
+    },
     {
       "id": "362f98db2f67ef5a7ad01d2ed74b59562269b35d6dfd9241230bbdf4d7e3e912",
       "url": "https://github.com/advisories/GHSA-xpr4-8vp6-c87j",
@@ -585,78 +655,6 @@
       "cve_ids": [],
       "cvss": null,
       "related_links": []
-    },
-    {
-      "id": "9f6db95c4fdaf31273b050b549ba017e61795e47f1beddbb09daae56d23f5c74",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-33824",
-      "title": "CVE-2026-33824: Microsoft Internet Key Exchange (IKE) Service Extensions Double Free Vulnerability",
-      "summary": "Microsoft Internet Key Exchange (IKE) Service Extensions contains a double free vulnerability that could enable remote code execution. Affected product: Internet Key Exchange (IKE) Service Extensions by Microsoft. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidan",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-08-18T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-33824"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "1d73b0247e43057aa954474442bd47c74dbf4aa31b75bba59635553fd191a8a6",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-65400",
-      "title": "CVE-2026-65400: Apple macOS Improper Authentication Vulnerability",
-      "summary": "Apple macOS contains an improper authentication vulnerability that could allow an attacker on the network to authenticate to Screen Sharing without valid credentials. Affected product: macOS by Apple. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-08-18T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-65400"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "8d5b2814da0c1d7fee6578948acc172a6aee8f33824aad1e8ff0df0aa95e28e8",
-      "url": "https://github.com/advisories/GHSA-gqch-g4w5-7qcw",
-      "title": "GHSA: MLflow: CreateModelVersion source validation does not check READ permission on referenced run_id",
-      "summary": "### Summary\n\nThe `_validate_source_run` and `_validate_source_model` functions in `mlflow/server/handlers.py` verify that a model version source path is within the artifact directory of a specified run or logged model, but do not check whether the caller has READ permission on that run or model. An authenticated MLflow user can therefore reference another user's run_id in `CreateModelVersion`, cre",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-17T21:59:09Z",
-      "cve_ids": [
-        "CVE-2026-69148"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "a1711e55f8870b4537c0c75a90765a9a88e93e7caeb5cc86866c636496de1a80",
-      "url": "https://github.com/advisories/GHSA-3p64-6gvh-82v5",
-      "title": "GHSA: MLflow: LogInputs endpoint bypasses per-run UPDATE authorization in basic-auth",
-      "summary": "### Summary\n\nWhen MLflow is deployed with the built-in basic-auth plugin (`--app-name basic-auth`), any authenticated user can inject arbitrary dataset records into another user's run by calling `POST /api/2.0/mlflow/runs/log-inputs`. The `LogInputs` proto handler is absent from the `BEFORE_REQUEST_HANDLERS` map in `mlflow/server/auth/__init__.py`, so the before-request hook skips authorization en",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-17T21:59:01Z",
-      "cve_ids": [
-        "CVE-2026-69146"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "0f9aaeeb7bfbe1d7e2919edde0458ffe7afc670458b86dc07b008b97ce5eb6bd",
-      "url": "https://github.com/advisories/GHSA-7gwp-5pfp-969j",
-      "title": "GHSA: MLflow: Unauthenticated full-read SSRF in webhook delivery: _validate_webhook_url bypassed via unvalidated HTTP redirects (and DNS rebinding)",
-      "summary": "### Summary\nThe default MLflow Tracking Server (`mlflow server`, no authentication, default SQLite backend) exposes the model-registry webhooks API unauthenticated, including a synchronous `POST /api/2.0/mlflow/webhooks/{id}/test` endpoint that returns the upstream response status and body to the caller. The SSRF guard added in PR #20747 (`_validate_webhook_url`, shipped in 3.10.0) resolves the we",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-17T21:58:51Z",
-      "cve_ids": [
-        "CVE-2026-64849"
-      ],
-      "cvss": 9.3,
-      "related_links": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-64849"
-      ]
     }
   ]
 }
