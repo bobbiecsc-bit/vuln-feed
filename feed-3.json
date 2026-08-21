@@ -1,10 +1,52 @@
 {
-  "updated": "2026-08-20T20:27:41.168748+00:00",
+  "updated": "2026-08-21T01:16:44.376502+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "e494e08b6a2dd6d92c29cac05b730eb4cc5a71d0fe4b9061e260de2d38c5cea2",
+      "url": "https://github.com/advisories/GHSA-5rw4-4665-cvwf",
+      "title": "GHSA: Froxlor DomainZones.add allows DNS zone-file RR injection via record/type fields",
+      "summary": "Froxlor's DomainZones.add API command accepts user-controlled DNS record and type values and later writes them into generated BIND zone files without rejecting line delimiters, tab characters, or zone-file comment delimiters.\n\nThe stronger variant is in record. An authenticated customer with DNS-zone permissions can submit a normal A record request where record is:\n\nwww\\t60\\tIN\\tA\\t6.6.6.6 ;\\n@\n\nw",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:48:04Z",
+      "cve_ids": [
+        "CVE-2026-54543"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "4f9589d74d00f0575010e10366174920c0bb9b31f3b3498f629db897517e0a84",
+      "url": "https://github.com/advisories/GHSA-w27m-rmmf-g5w4",
+      "title": "GHSA: Froxlor: Second-Order SQL Injection via `Admins.add` `ipaddress` Parameter Allows Full Database Exfiltration",
+      "summary": "### Summary\n\nA second-order SQL injection vulnerability in Froxlor's admin API allows an authenticated administrator to store a crafted SQL payload in the `panel_admins.ip` column via the `Admins.add` or `Admins.update` endpoint. The payload executes as a UNION-based SQL injection the next time `IpsAndPorts.listing` is called by the poisoned account, returning arbitrary data from the database — in",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:47:59Z",
+      "cve_ids": [
+        "CVE-2026-54348"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
+      "id": "e7a570569d731fa90010b95ba1cad891380ad5df04e3b19048474635b30297eb",
+      "url": "https://github.com/advisories/GHSA-43gm-9rr3-cx7g",
+      "title": "GHSA: Froxlor: Stored XSS in DNS TXT Record Content Allows Customer-to-Admin Account Takeover",
+      "summary": "### Summary\n\nA stored Cross-Site Scripting (XSS) vulnerability in Froxlor's DNS editor allows an authenticated user with DNS editor access (customer role) to inject arbitrary JavaScript into any administrator's browser session. When an administrator views the DNS configuration of an affected domain, the payload executes automatically — enabling complete admin account takeover, credential theft, an",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-18T20:47:53Z",
+      "cve_ids": [
+        "CVE-2026-54347"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
     {
       "id": "08ab6071846561eb570df2091bd36c0d5feedab32aa7ae1497d189f8e6202e99",
       "url": "https://github.com/advisories/GHSA-m5pq-69xg-vcq3",
@@ -614,48 +656,6 @@
         "CVE-2026-56677"
       ],
       "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "2a88f9cdea3b41f6c1df0a0695fe2b5025785aaff02f374959101155b81619e4",
-      "url": "https://github.com/advisories/GHSA-p28p-j94q-pg32",
-      "title": "GHSA: http4k: `DigestAuthProvider.verify` did not bind to request URI",
-      "summary": "### Impact\n\nAn issue in `DigestAuthProvider.verify`:\n\nThe `uri` parameter in the client's `Authorization: Digest …` response was not checked against the actual request URL. A captured Digest authentication response could be replayed against any other URL served by the same realm, breaking the per-request-URL binding the Digest scheme assumes.\n\n**Who is affected:** any application using `http4k-sec",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-17T21:57:41Z",
-      "cve_ids": [
-        "CVE-2026-54148"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "974be992fc609dbb5bc5b1cf562355052a77285db6bebc47151c8674ab51cbe7",
-      "url": "https://github.com/advisories/GHSA-vxxm-wwqh-mh47",
-      "title": "GHSA: http4k: `DigestAuthProvider.verify` ignored configured algorithm and did not bind to request URI",
-      "summary": "### Impact\n\nAn issue in `DigestAuthProvider.verify`:\n\n **Algorithm silently forced to MD5.** The configured `algorithm` parameter was ignored — every verification used MD5 regardless of configuration. Deployments believing they were running SHA-256 Digest auth were silently inheriting MD5's collision weaknesses, including documented attack paths against Digest schemes that rely on the hash being c",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-17T21:56:58Z",
-      "cve_ids": [
-        "CVE-2026-54147"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "536352b2d5f9fae7e87d32d2529683f029cb3aae8bd01dda6beb9c00add6fcd7",
-      "url": "https://github.com/advisories/GHSA-8qf9-62x2-82pp",
-      "title": "GHSA: chrome-devtools-mcp: validatePath() does not canonicalize symlinks before enforcing roots",
-      "summary": "### Summary\n\nI originally reported this through Google Bug Hunters. The Google Bug Hunters team said this is in OSS VRP scope but not reward-eligible due to the project tier, and asked me to file an issue or PR directly with this repository. I am reporting it privately here first because it is an unfixed security issue.\n\n`McpContext.validatePath()` enforces workspace `roots` by checking whether `p",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-17T21:56:12Z",
-      "cve_ids": [
-        "CVE-2026-53766"
-      ],
-      "cvss": 6.1,
       "related_links": []
     }
   ]
