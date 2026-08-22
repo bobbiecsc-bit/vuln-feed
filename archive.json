@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-22T08:29:17.561313+00:00",
+  "updated": "2026-08-22T12:37:47.721557+00:00",
   "total": 250,
   "articles": [
     {
@@ -4576,6 +4576,146 @@
       "related_links": []
     },
     {
+      "id": "d5b4658a313451e0c03b5dddd4dec42085eccaefca9250fff7d7f35f3d15bf0a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74536",
+      "title": "CVE-2026-74536",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nBluetooth: ISO: fix leaking sk after socket release\n\niso_sock_kill() tests !sock_flag(sk, SOCK_ZAPPED) || sk->sk_socket ||\nsock_flag(sk, SOCK_DEAD) for early return, but this is always true since\nsock_orphan(sk) sets SOCK_DEAD, so the sk reference released by socket\nalways leaks, iso_sock_destruct is never called.\n\nThe socket ref",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-15T13:17:58.940",
+      "cve_ids": [
+        "CVE-2026-74536"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "916109c5b6766d59e25666a6df86aaf91cbc837e8b2b1a96c6aaff500d92be35",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74535",
+      "title": "CVE-2026-74535 — CVSS 8.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nBluetooth: ISO: avoid deadlocks in iso_sock_timeout\n\niso_sock_timeout() takes lock_sock, so sync disabling the timer while\nholding that lock may deadlock.\n\niso_sock_timeout() may also run concurrently with iso_conn_del(), which\nleads to UAF\n\n        [Task 1]                      [Task hdev->workqueue]\n        iso_sock_timeout    ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-15T13:17:58.837",
+      "cve_ids": [
+        "CVE-2026-74535"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "86f9b62e870ba584303483ae2e8dafde5c824e6643576a396cd96f67e9ada0ec",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74534",
+      "title": "CVE-2026-74534 — CVSS 8.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nBluetooth: ISO: fix refcounting of iso_conn\n\niso_conn_del() and iso_chan_del() have a race that results to double-put\nof iso_conn:\n\n    [Task hdev->workqueue]         [Task 2]\n    iso_conn_del                   iso_chan_del\n      iso_conn_hold_unless_zero      iso_conn_lock\n      iso_conn_lock                  conn->sk = NULL\n   ",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-15T13:17:58.700",
+      "cve_ids": [
+        "CVE-2026-74534"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "ce88ce5105c69bfc75c2c856eea1b1682801b21f22a81454322cae83b9c25ba3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74533",
+      "title": "CVE-2026-74533 — CVSS 8.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nBluetooth: ISO: fix race of kfree vs kref_get_unless_zero\n\nhci_conn::iso_data is accessed and modified without lock or RCU.\nThis leads to a race\n\n    [Task hdev->workqueue]                 \t[Task 2]\n    iso_recv                                    iso_conn_put(conn)\n      conn = LOAD hcon->iso_data                  iso_conn_free(c",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-15T13:17:58.603",
+      "cve_ids": [
+        "CVE-2026-74533"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "895af057dd503dbf6e66be9466583ef72bea891e8739ce2f6a28159d3311384d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74532",
+      "title": "CVE-2026-74532",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nBluetooth: btintel: Validate length before parsing diagnostics TLV\n\nbtintel_diagnostics() accesses tlv->val[0] without first validating\nthat the diagnostics VSE is long enough to contain that field, so\nmay cause reading data beyond the received frame.\n\nFix by validating the length before access.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-15T13:17:58.500",
+      "cve_ids": [
+        "CVE-2026-74532"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "04e73b33ae3787205235fc29c9b67483f5876949bd09e06e81754ead13343774",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74531",
+      "title": "CVE-2026-74531 — CVSS 8.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nBluetooth: hci_conn: hold conn reference in abort_conn_sync()\n\nThere is theoretical UAF if the conn is freed while the hci_sync task is\nrunning.\n\nHold refcount to avoid that.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-15T13:17:58.397",
+      "cve_ids": [
+        "CVE-2026-74531"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "e1972e66ac4c25d3b088a2e326f77220ba3040fd922e213dfab75a2934422787",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74530",
+      "title": "CVE-2026-74530 — CVSS 8.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nBluetooth: hci_sync: hold conn in hci_connect_big_sync() callback\n\nThere is theoretical UAF if the conn is freed while the hci_sync task is\nrunning.\n\nHold refcount to avoid that. Handle NULL hcon, return 0 + do nothing to\nmatch the previous behavior.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-15T13:17:58.297",
+      "cve_ids": [
+        "CVE-2026-74530"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "962effc648e48f515bcfad89fe2ca06d553893ad78b890fa12b513e6887e6b28",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74529",
+      "title": "CVE-2026-74529 — CVSS 7.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nBluetooth: hci_sync: hold conn in hci_connect_pa_sync() callback\n\nThere is theoretical UAF if the conn is freed while the hci_sync task is\nrunning.\n\nHold refcount to avoid that.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-15T13:17:58.190",
+      "cve_ids": [
+        "CVE-2026-74529"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "f04a22612f4177cc21b08a246f264abf67cca285d880516d8346eb963a621496",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74528",
+      "title": "CVE-2026-74528 — CVSS 8.0",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nBluetooth: hci_sync: hold conn in hci_past_sync() callback\n\nAvoids giving freed pointers to hci_conn_valid(), which kmalloc may have\nreused.\n\nHold refcount to avoid that.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-15T13:17:58.083",
+      "cve_ids": [
+        "CVE-2026-74528"
+      ],
+      "cvss": 8.0,
+      "related_links": []
+    },
+    {
+      "id": "64e258499cd5015602206310e430d269e3b9b7edc8cab75d282ea9d5555020d6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74527",
+      "title": "CVE-2026-74527 — CVSS 8.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nocteontx2-af: Block VFs from clobbering special CGX PKIND state\n\nPF and VF NIX LFs that share a CGX LMAC reuse the same hardware PKIND\nprogramming. When HiGig2 or EDSA parsing is enabled, a VF NIX LF alloc must\nnot reset the LMAC RX PKIND or default TX parse config over the PF setup.\n\nAdd cgx_get_pkind() and rvu_cgx_is_pkind_conf",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-15T13:17:57.983",
+      "cve_ids": [
+        "CVE-2026-74527"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
       "id": "ea6ab8c91fc39d39c5b017cdd80273a6706d14aa77ff64fd73b794232dd42e00",
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74526",
       "title": "CVE-2026-74526",
@@ -5201,146 +5341,6 @@
       "date": "2026-08-15T13:17:52.930",
       "cve_ids": [
         "CVE-2026-74481"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "eafed782985d7e319b4f746ed50b3c9c5372149f8a09cfa48d09fdd834cf2962",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74480",
-      "title": "CVE-2026-74480 — CVSS 9.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: bridge: stop fast-leave after deleting a port group\n\nbr_multicast_leave_group() iterates mp->ports with pp = &p->next in\nits fast-leave path. After br_multicast_del_pg() removes p,\ncontinuing the loop advances pp through the deleted entry.\n\nIf multicast-to-unicast was enabled, the bridge can hold multiple port\ngroups for the",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-15T13:17:52.820",
-      "cve_ids": [
-        "CVE-2026-74480"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "647bc79aed10f391b91584eb5babc7585a3b9d9acf85454558fb9a1c8ffeec98",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74479",
-      "title": "CVE-2026-74479 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: pktgen: fix proc entry use-after-free\n\npktgen_change_name() replaces pkt_dev->entry while holding t->if_lock.\npktgen_remove_device() removes the same entry before\n_rem_dev_from_if_list() takes that lock.\n\nThis allows the following interleaving:\n\n  CPU 0 (NETDEV_CHANGENAME)       CPU 1 (kpktgend)\n  if_lock(t)\n  proc_remove(pk",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-15T13:17:52.713",
-      "cve_ids": [
-        "CVE-2026-74479"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "8e147b029345e1e9f412d1909e5acd9ef1e32d9fa21de661b490b6c9ed5e213d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74478",
-      "title": "CVE-2026-74478 — CVSS 9.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\num: vector: fix use-after-free in vector_mmsg_rx()\n\nWhen vector_mmsg_rx() discards a packet whose overlay header fails\nverify_header(), it frees the skb and continues the loop:\n\n\tif (header_check < 0) {\n\t\tdev_kfree_skb_irq(skb);\n\t\tvp->estats.rx_encaps_errors++;\n\t\tcontinue;\n\t}\n\nThe normal and short-packet paths fall through to the",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-15T13:17:52.600",
-      "cve_ids": [
-        "CVE-2026-74478"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "49e598efb0c44fa293e2281d42b162bf79ab0696f5fe5f3c0c507f925619cb94",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74477",
-      "title": "CVE-2026-74477",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nuprobes: Fix NULL pointer dereference in hprobe_expire()\n\nForking a task that has a pending uretprobe can oops the kernel with a\nNULL pointer dereference in the clone() path:\n\n  BUG: kernel NULL pointer dereference, address: 0000000000000018\n  Oops: 0002 [#1] SMP NOPTI\n  RIP: 0010:hprobe_expire\n  CR2: 0000000000000018\n  Call Trac",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-15T13:17:52.497",
-      "cve_ids": [
-        "CVE-2026-74477"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "492849a3075522c264d277ecb668e29c425746ccd5fe5ca8fa489eb01ee72132",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74476",
-      "title": "CVE-2026-74476 — CVSS 9.1",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nveth: convert frag_list skbs before running XDP\n\nA frag_list skb can reach veth with data_len set but nr_frags zero.\nveth_convert_skb_to_xdp_buff() only converts skbs that are shared,\nlocked, have frags[], or do not have enough headroom. It later uses\nskb_is_nonlinear() to decide whether to set XDP_FLAGS_HAS_FRAGS and\nxdp_frags_s",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-15T13:17:52.397",
-      "cve_ids": [
-        "CVE-2026-74476"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "2133fa269ac2f05aa5b8c8e2b40d245f786823febad6ecc0bde41c16c90932a7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74475",
-      "title": "CVE-2026-74475 — CVSS 10.0",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nvxlan: use neigh_ha_snapshot() in route_shortcircuit()\n\nThe neighbour hardware address n->ha can be updated asynchronously by the\nneighbour subsystem, protected by n->ha_lock seqlock. Reading n->ha without\nholding the seqlock loop can lead to torn reads or reading a partially updated\nMAC address.\n\nUse neigh_ha_snapshot() in route",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-15T13:17:52.293",
-      "cve_ids": [
-        "CVE-2026-74475"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "3bd84097efeddaee1d3fef398682fb3e64e461be7674652b01ba9c08eb7f0694",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74474",
-      "title": "CVE-2026-74474 — CVSS 9.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nvxlan: use pskb_network_may_pull() for transmit path header pulls\n\nIn vxlan_xmit(), arp_reduce(), and vxlan_mdb_entry_skb_get(), pskb_may_pull() was\nbeing called to verify the availability of network layer headers (ARP, IPv6/ND,\nIP/IPv6 MDB keys).\n\nHowever, during transmit skb->data points to the MAC header, so skb_network_offset",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-15T13:17:52.177",
-      "cve_ids": [
-        "CVE-2026-74474"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "c728378e36e8137c04a49d6c2c23ecc88a42afdc2e9a3325a23216c8fc3bc644",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74473",
-      "title": "CVE-2026-74473 — CVSS 9.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nvxlan: use pskb_network_may_pull() in route_shortcircuit()\n\nroute_shortcircuit() currently calls pskb_may_pull(skb, sizeof(struct iphdr))\n(or ipv6hdr), which checks if bytes are available starting from skb->data.\n\nHowever, in vxlan_xmit(), skb->data points to the MAC header, so\nskb_network_offset(skb) is ETH_HLEN (14 bytes). Usin",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-15T13:17:52.060",
-      "cve_ids": [
-        "CVE-2026-74473"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "3c061ec200c1421e20b6c82d3bc3eea71a9ee0dfc839923d9f1134a23e923811",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74472",
-      "title": "CVE-2026-74472",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nublk: reset kernel-owned dev_info fields in ublk_ctrl_add_dev()\n\nublk_ctrl_add_dev() memcpy()s the userspace ublksrv_ctrl_dev_info into\nub->dev_info and then fixes up the fields the driver owns, but misses\n->state and ->ublksrv_pid.\n\nA device added with ->state = UBLK_S_DEV_LIVE passes the\n\"->state != UBLK_S_DEV_DEAD\" test that u",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-15T13:17:51.953",
-      "cve_ids": [
-        "CVE-2026-74472"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "827d90b79f0e6ac7ddeb4437b9478d1e3750edb6ac42f5405a61fbc5d56c4c3a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74471",
-      "title": "CVE-2026-74471 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ntracing: Check return value of __register_event() in trace_module_add_events()\n\ntrace_module_add_events() ignores the return value of __register_event()\nand unconditionally calls __add_event_to_tracers() for each event.\n\nIf __register_event() fails (for example, if event_init() fails), the\ntrace_event_call is not added to ftrace_",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-15T13:17:51.847",
-      "cve_ids": [
-        "CVE-2026-74471"
       ],
       "cvss": 7.8,
       "related_links": []
