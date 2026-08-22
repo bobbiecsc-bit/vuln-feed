@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-22T04:31:36.795726+00:00",
+  "updated": "2026-08-22T08:29:17.561313+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
@@ -604,73 +604,73 @@
       "related_links": []
     },
     {
-      "id": "a048565a13439fd91ca49eb2130232e9a653aae4bc78766cdf5324c386a9c7f3",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72070",
-      "title": "CVE-2026-72070",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nwifi: libertas_tf: fix use-after-free in lbtf_free_adapter()\n\nlbtf_free_adapter() calls timer_delete(&priv->command_timer), which does\nnot wait for a running command_timer_fn() callback. lbtf_free_adapter()\nruns on the teardown path right before ieee80211_free_hw() frees priv,\nboth in lbtf_remove_card() and in the probe error pat",
+      "id": "ea6ab8c91fc39d39c5b017cdd80273a6706d14aa77ff64fd73b794232dd42e00",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74526",
+      "title": "CVE-2026-74526",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nscsi: mpi3mr: Fix potential deadlock in mpi3mr_fault_uevent_emit\n\nmpi3mr_fault_uevent_emit() runs from the fault watchdog and reset paths\nwhere host I/O may already be blocked. GFP_KERNEL allocations here, both\nthe local kzalloc_obj() and the ones inside kobject_uevent_env() itself,\ncan trigger reclaim that waits on that blocked ",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-08-15T06:21:16.713",
+      "date": "2026-08-15T13:17:57.883",
       "cve_ids": [
-        "CVE-2026-72070"
+        "CVE-2026-74526"
       ],
       "cvss": null,
       "related_links": []
     },
     {
-      "id": "c973b69a6221ae74b738f116b034c582708bd8a038db10f301bd6ed509fa482c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72069",
-      "title": "CVE-2026-72069 — CVSS 9.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nlocking/rt: Fix the incorrect RCU protection in rt_spin_unlock()\n\nrt_spin_unlock() releases the RCU protection before unlocking the\nlock. That opens the door for the following UAF scenario:\n\n T1\t\t\t\t\tT2\n spin_lock(&p->lock);\t\trcu_read_lock();\n invalidate(p);\t\t\tp = rcu_dereference(ptr);\n rcu_assign_pointer(ptr, NULL);\tif (!p) retur",
+      "id": "ed0c6272196074ca60108d6e277ec24c3ffeec14633a66faf7a401d5e8c95fe2",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74525",
+      "title": "CVE-2026-74525",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: sxgbe: free TX rings on RX allocation failure\n\nWhen RX descriptor ring allocation fails, init_dma_desc_rings() only\nfrees the partially allocated RX rings and returns. The TX rings that\nwere allocated earlier in the same function are leaked.\n\nRearrange error labels to clean up TX rings upon RX failures.",
       "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-15T06:21:16.607",
+      "category": "infrastructure",
+      "date": "2026-08-15T13:17:57.763",
       "cve_ids": [
-        "CVE-2026-72069"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "3e1ca9fad51ffa15ddeb12e09f01b26518c915da97cc8806ee6cccb92b71eafa",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72068",
-      "title": "CVE-2026-72068",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nposix-cpu-timers: Use u64 multiplication in update_rlimit_cpu()\n\nupdate_rlimit_cpu() converts the RLIMIT_CPU value to nanoseconds with\n\n        u64 nsecs = rlim_new * NSEC_PER_SEC;\n\nOn 32-bit kernels both rlim_new (unsigned long) and NSEC_PER_SEC\n(1000000000L) are 32-bit, so the multiplication is performed in unsigned\nlong and tr",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-15T06:21:16.467",
-      "cve_ids": [
-        "CVE-2026-72068"
+        "CVE-2026-74525"
       ],
       "cvss": null,
       "related_links": []
     },
     {
-      "id": "1c28c32fd75cc0c18e096eb867faa5e88611fea41241c277b9c2a8b3b2adfaef",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72067",
-      "title": "CVE-2026-72067 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ncpu: hotplug: Preserve per instance callback errors\n\ncpuhp_invoke_callback() unwinds earlier callbacks for the same\nhotplug state when one instance fails. The rollback path currently\nreuses ret, so a successful rollback can hide the original error and\nmake the failed transition look successful.\n\nKeep the rollback result separate ",
+      "id": "1ddc67a162a126455fba1fd910685555a8b6a4d90f2b3aed886e5981a7d3b68d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74524",
+      "title": "CVE-2026-74524",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nriscv: mm: Fix out-of-bounds page-table walk during memory hot-remove\n\nremove_pud_mapping() and remove_p4d_mapping() obtain a child table base\nwith pud_offset(p4dp, 0) and p4d_offset(pgd, 0), then add the index for\naddr.\n\nRISC-V folds page-table levels at runtime. When a level is folded, its\noffset helper returns the parent entry",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-08-15T06:21:16.327",
+      "date": "2026-08-15T13:17:57.660",
       "cve_ids": [
-        "CVE-2026-72067"
+        "CVE-2026-74524"
       ],
-      "cvss": 7.8,
+      "cvss": null,
       "related_links": []
     },
     {
-      "id": "3210ea13c6f2cef5c70f2cba488c72fcdbede556f8d0dcace21d2895391d823f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-72066",
-      "title": "CVE-2026-72066 — CVSS 7.8",
-      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ncpu: hotplug: Bound hotplug states sysfs output\n\nstates_show() adds CPU hotplug state names into a single sysfs buffer\nusing sprintf(). With enough registered states, this can write past the\nend of the PAGE_SIZE buffer.\n\nUse sysfs_emit_at() so output is bounded.",
+      "id": "014dbf6565b52089e19e9a1a54cd5953efadb70ade3e2ffeb0f348583c3fd62a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74523",
+      "title": "CVE-2026-74523 — CVSS 7.5",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nqede: sync udp_tunnel ports outside qede_lock in the recovery path\n\nA TX timeout on a qede NIC that has VXLAN/GENEVE tunnel ports\nconfigured wedges the rtnetlink control plane of the whole machine:\n\n  NETDEV WATCHDOG: ens6f1 (qede): transmit queue 2 timed out 10226 ms\n  [qede_tx_timeout:586(ens6f1)]TX timeout on queue 2!\n  [qede_",
       "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-08-15T06:21:16.203",
+      "date": "2026-08-15T13:17:57.543",
       "cve_ids": [
-        "CVE-2026-72066"
+        "CVE-2026-74523"
       ],
-      "cvss": 7.8,
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "0055e553cc0c3479fa9f16e962d44cb65d362b803d59ba688cece9b709771aa0",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74522",
+      "title": "CVE-2026-74522 — CVSS 8.8",
+      "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nksmbd: fix use-after-free in __close_file_table_ids()\n\nA ksmbd_file can remain alive after logical close while another session\nholds a temporary reference obtained through ksmbd_lookup_fd_inode().\nksmbd_close_fd() currently marks the file closed and drops the idr-owned\nreference, but leaves the pointer published in the closing se",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-08-15T13:17:57.433",
+      "cve_ids": [
+        "CVE-2026-74522"
+      ],
+      "cvss": 8.8,
       "related_links": []
     }
   ]
