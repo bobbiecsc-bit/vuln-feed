@@ -1,10 +1,345 @@
 {
-  "updated": "2026-08-26T12:51:16.610277+00:00",
+  "updated": "2026-08-26T16:47:23.370745+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "afc6af76ce6219c36681a66e527308cb305d97fed69d8f5735252588bcb2c29a",
+      "url": "https://github.com/advisories/GHSA-xx4j-w367-7247",
+      "title": "GHSA: djust authentication bypass: a login_required / on_mount LiveView mount redirect does not close the WebSocket, allowing an unauthenticated client to dispatch event-handler calls",
+      "summary": "### Impact\n\ndjust's `LiveViewConsumer` mounts a `LiveView` over a WebSocket. When a view is gated (`login_required` / `permission_required`, or an `on_mount` hook that returns a redirect) and the connecting user is not authorized, the consumer sent the client a `{\"type\":\"navigate\",\"to\":...}` redirect frame and then `return`ed — **without closing the socket and without clearing `self.view_instance`",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T16:06:31Z",
+      "cve_ids": [
+        "CVE-2026-55571"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "641a9b74806d7246b81cd7050e98891881e690cbad1addfb8f5a7c1717c83b38",
+      "url": "https://github.com/advisories/GHSA-8vh3-g2qg-2h2c",
+      "title": "GHSA: nextcloud-mcp-server: Unauthenticated `POST /webhooks/nextcloud` allows arbitrary vector data deletion when `WEBHOOK_SECRET` is unset ( default )",
+      "summary": "## Summary\nThe `POST /webhooks/nextcloud` endpoint has no authentication by default: `WEBHOOK_SECRET` defaults to `None` and is never required by startup validation. When unset, the receiver accepts any unauthenticated POST. The `user_id` is taken directly from the attacker-supplied payload and passed to Qdrant, allowing an unauthenticated attacker to delete or corrupt vector embeddings for any us",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T16:04:15Z",
+      "cve_ids": [
+        "CVE-2026-55640"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "a5180600a681bc940a6ee25377f55ddf2d935c822f1543e342aab4d35a0333f3",
+      "url": "https://github.com/advisories/GHSA-8cp3-qxj6-px34",
+      "title": "GHSA: utcp-http has an OAuth2 `tokenUrl` Trust Boundary Bypass in OpenAPI Conversion",
+      "summary": "### Summary\n\nThe `utcp-http` library (<= 1.1.3) unconditionally trusts the `tokenUrl` field embedded in remote OpenAPI security schemes. When a victim registers an attacker-controlled OpenAPI spec and invokes any generated OAuth2-protected tool, the library POSTs the victim's `client_id` and `client_secret` to the attacker-supplied token endpoint without any URL validation. The same `ensure_secure",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-08-25T15:57:03Z",
+      "cve_ids": [],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "49669ccab3487dc4b27348f7f1af16bdde1d59e0a2a3f4f228f1cd36f53bda06",
+      "url": "https://github.com/advisories/GHSA-ppx3-28rw-8fpf",
+      "title": "GHSA: utcp-gql SSRF: CVE-2026-44661 fix not applied to the GraphQL and WebSocket plugins",
+      "summary": "### Summary\n\nThe fix for CVE-2026-44661 (commit `5b16e43`) added the `ensure_secure_url()` / `is_secure_url()` helpers and wired them into the three HTTP-family plugins, but it did not reach the GraphQL or WebSocket plugins. The GraphQL plugin (`utcp-gql`) still uses the `startswith` prefix check that the fix explicitly replaced, so `http://127.0.0.1.attacker.example` and `http://localhost.evil.co",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T15:52:30Z",
+      "cve_ids": [
+        "CVE-2026-12210"
+      ],
+      "cvss": 4.7,
+      "related_links": []
+    },
+    {
+      "id": "761515a368b3fe72f3c4b07725b5046dfff68d88bc7a07d5f286578ca5d687e8",
+      "url": "https://github.com/advisories/GHSA-9qhg-99ww-9mqc",
+      "title": "GHSA: utcp-http SSRF: HTTP tool invocation follows redirects without re-validating the target",
+      "summary": "## Summary\n\n`HttpCommunicationProtocol.call_tool` validates only the pre-redirect tool URL, then issues the request with redirects enabled and never re-checks where it lands. A tool whose endpoint is an attacker-controlled public URL can therefore `302`-redirect the UTCP client into an internal service including the cloud metadata endpoint and the response body is returned to the tool caller. This",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T15:48:51Z",
+      "cve_ids": [],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "c4e02aa619beb2d749e3af294f2796fbc91d7912f133fcfc398dc0693218c223",
+      "url": "https://github.com/advisories/GHSA-3x77-wg38-92r3",
+      "title": "GHSA: mcp-shell has a Secure Mode Allowlist Bypass via Default `/bin/bash` Executable",
+      "summary": "### Summary\n\n`mcp-shell` ships a default Docker configuration (`security.yaml`) that includes `/bin/bash` in the `allowed_executables` allowlist. The command validator (`security.go`) only checks whether the first token of the supplied command matches an allowed executable; it does not inspect or reject shell command-mode flags such as `-c`. As a result, any MCP tool caller can send `command=/bin/",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T15:41:30Z",
+      "cve_ids": [
+        "CVE-2026-55581"
+      ],
+      "cvss": 8.4,
+      "related_links": []
+    },
+    {
+      "id": "7eaa49318c9ba00cd619d7de6f2e564fb524c5569d366128d0941efd2cc10a65",
+      "url": "https://github.com/advisories/GHSA-74hp-mggr-hv58",
+      "title": "GHSA: mcp-shell has a Secure Mode Allowlist Bypass via Git Shell Alias",
+      "summary": "### Summary\n\n`mcp-shell`'s \"secure mode\" is designed to restrict command execution to an allowlist of executables defined in `security.yaml`. The default configuration includes `/usr/bin/git`. The security validator in `security.go` blocks common shell metacharacters (`|&;<>(){}[]$\\``) but omits `!`, which is the prefix Git uses to execute shell aliases (`alias.NAME=!CMD`). An attacker who can inv",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T15:39:05Z",
+      "cve_ids": [
+        "CVE-2026-55582"
+      ],
+      "cvss": 8.4,
+      "related_links": []
+    },
+    {
+      "id": "1a98069f0f707debe7db492302e7d636483d23c7c07f823d37c2278a9ec9e3d9",
+      "url": "https://github.com/advisories/GHSA-mw6r-2hvm-4rp2",
+      "title": "GHSA: qwed-mcp has Unsafe SymPy `parse_expr()` Remote Code Execution via Unsanitized Math Expression Input",
+      "summary": "### Summary\n\n`verify_math_expression()` in `qwed-mcp` v0.2.0 passes attacker-controlled strings directly to SymPy's `parse_expr()` without restricting `global_dict` or validating the expression's AST. Because `parse_expr()` internally calls `eval()` and Python automatically injects the current module's `__builtins__` when no explicit restriction is set, an attacker can embed arbitrary Python expre",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T15:26:43Z",
+      "cve_ids": [
+        "CVE-2026-55546"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "5b0ab611628957849f9af14151a63f3767aa4cc78fd05f17b3805aa297404c7f",
+      "url": "https://github.com/advisories/GHSA-6g6r-q6gw-w8fg",
+      "title": "GHSA: PraisonAI has a Browser Server WebSocket origin validation bypass via unanchored regex (patch bypass of CVE-2026-40289 / GHSA-8x8f-54wf-vv92)",
+      "summary": "### Summary\n\n`praisonai/browser/server.py` validates incoming WebSocket connections using a Chrome\nextension Origin check. The regex `chrome-extension://[a-z0-9]{32}` is applied with\n`re.match()`, which **only anchors at the start of the string, not the end**. Any Origin\nheader with more than 32 alphanumeric characters after `chrome-extension://` — including\nnon-alphanumeric trailing characters — ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T15:22:16Z",
+      "cve_ids": [
+        "CVE-2026-55536"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "5d46488bcd40f67b410baa78683365d365f96e17451990295970cf744b7a1e75",
+      "url": "https://github.com/advisories/GHSA-pvph-5j39-v8qc",
+      "title": "GHSA: PraisonAI: Origin-validation bypass (startswith prefix match) enables unauthenticated cross-site request forgery against the PraisonAI MCP HTTP server",
+      "summary": "### Summary\n\nThe PraisonAI MCP server exposes an HTTP-stream transport (praisonai mcp serve --transport http-stream) that binds to localhost and, by default, has no API key. Its only access control for browser-originated requests is an Origin allowlist, which the code implements as required by the MCP 2025-11-25 security guidance. The allowlist check uses a prefix match (request_origin.startswith(",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T15:18:20Z",
+      "cve_ids": [
+        "CVE-2026-55532"
+      ],
+      "cvss": 7.6,
+      "related_links": []
+    },
+    {
+      "id": "e397bd5445b90bce22e3fef383c72cf2c59e8a9ec5b78df58a13b9b7b15ae1f3",
+      "url": "https://github.com/advisories/GHSA-gfq8-hmph-9gjv",
+      "title": "GHSA: PraisonAI: Authentication fail-open in Recipe server allows unauthenticated access when API key or JWT auth is configured without a secret",
+      "summary": "### Summary\n\nThe PraisonAI Recipe HTTP server silently allows unauthenticated requests when `auth` is configured as `api-key` or `jwt` but the corresponding secret is missing.\n\nThis creates an authentication fail-open condition. An operator can start the Recipe server with authentication enabled, including on a non-localhost interface, but the server still accepts unauthenticated requests if no AP",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T15:15:54Z",
+      "cve_ids": [
+        "CVE-2026-55533"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "241fc6706887b9ac29c9a2b6c14cbf65ac169ebc6174161ae98c1659e2a30c4a",
+      "url": "https://github.com/advisories/GHSA-2jgc-f764-c5r2",
+      "title": "GHSA: PraisonAI: [Auth Bypass] PraisonAI async Jobs API (`/api/v1/runs`) has no authentication — unauthenticated job execution, result theft, cancel and delete",
+      "summary": "### Summary\nPraisonAI's async **Jobs API** (the FastAPI service in `praisonai/jobs/`) installs its router with no authentication middleware, no router-level dependency, and no per-route auth check. Any caller who can reach the jobs server can submit agent jobs (executed against the operator's configured LLM credentials), list every job in the shared store, read other jobs' results, cancel running ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T15:14:27Z",
+      "cve_ids": [
+        "CVE-2026-55539"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "c2a8eb49812f93b61767318a82fb3dd38cf4f17c3ef5a5a09ba0d80543991f04",
+      "url": "https://github.com/advisories/GHSA-gxmw-5f7x-6g22",
+      "title": "GHSA: praisonaiagents vulnerable to arbitrary file write via unsanitized `user_id` in `FileMemory.__init__()` — path traversal to any writable location",
+      "summary": "### Summary\n\n`praisonaiagents/memory/file_memory.py::FileMemory.__init__()` constructs all\nmemory file paths by directly joining the `user_id` parameter to a base path:\n\n```python\nself.user_path = self.base_path / user_id      # LINE 145 — no sanitization\n```\n\nNo validation or normalization is applied to `user_id` before the path join.\nAn attacker who can supply a `user_id` containing `../` sequen",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T15:09:54Z",
+      "cve_ids": [
+        "CVE-2026-55527"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "b1dabfbea19bbfc8e7cc4c930434629c333f5fe6019b6b04c40bfc707a3f926b",
+      "url": "https://github.com/advisories/GHSA-hmfx-4v44-9qw9",
+      "title": "GHSA: PraisonAI vulnerable to Server-Side Request Forgery via DNS rebinding bypass in webhook_url validation",
+      "summary": "### Summary\nThe `webhook_url` field in the Jobs API silently passes validation when DNS resolution fails (`socket.gaierror`), enabling DNS rebinding attacks. An attacker's domain can initially resolve to a public IP (passing validation) then switch to an internal IP before the server makes the HTTP request.\n\n### Details\nThe validator catches `socket.gaierror` and silently allows the URL:\n\n```pytho",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T15:02:04Z",
+      "cve_ids": [
+        "CVE-2026-55535"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "6d19e7c1861f54d51c0345be4ece890a0ce3e3ed30fd848fd50ac6d185f563d7",
+      "url": "https://github.com/advisories/GHSA-rg5q-pp8p-f7jm",
+      "title": "GHSA: PraisonAI: Webhook SSRF via DNS fail-open in `JobSubmitRequest.validate_webhook_url()` — bypass of CVE-2026-40114",
+      "summary": "### Summary\n\n`praisonai/jobs/models.py::JobSubmitRequest.validate_webhook_url()` validates webhook\nURLs by resolving the hostname and checking whether the IP is private. When DNS\nresolution fails (`socket.gaierror`), the validator **silently passes** the URL via\n`except socket.gaierror: pass`. Additionally, even when DNS succeeds at validation time,\nthe webhook is fired much later by `JobExecutor.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T14:59:44Z",
+      "cve_ids": [
+        "CVE-2026-55537"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "cf0a9c55cc2142b9d0512dd9f3a6a5753eb0c6c15a5902d641bb77a94d3e91fc",
+      "url": "https://github.com/advisories/GHSA-r7v3-x45f-g7hp",
+      "title": "GHSA: PraisonAI: [Auth Bypass] `praisonai serve agents --api-key` is silently ignored — agent-invocation routes (`POST /agents`, `POST /agents/{agent_name}`) run unauthenticated",
+      "summary": "### Summary\n`praisonai serve agents` exposes HTTP routes that invoke registered agents. The CLI advertises `--api-key` with help text \"API key for authentication\", parses it, and forwards it into `ServeHandler`. But `_create_agents_app()` **never reads `config[\"api_key\"]` again** and installs no auth dependency or middleware on its direct routes. The configured key is a no-op flag.\n \nAs a result, ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:56:59Z",
+      "cve_ids": [
+        "CVE-2026-55538"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "f0d72b7c066aad9d5f8ca6b85250316e4dbfa15bc4e242e469a307217fc9c764",
+      "url": "https://ubuntu.com/security/notices/USN-8675-1",
+      "title": "USN-8675-1: Perl vulnerabilities",
+      "summary": "It was discovered that Perl incorrectly handled short source addresses in the Socket module. An attacker could possibly use this issue to trigger an out-of-bounds heap read, resulting in information disclosure. (CVE-2026-12087) It was discovered that Perl incorrectly handled regular expressions containing a large number of fixed string alternatives. An attacker could possibly use this issue to cau",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-08-25T14:55:08+00:00",
+      "cve_ids": [
+        "CVE-2026-12087",
+        "CVE-2026-13221",
+        "CVE-2026-57432",
+        "CVE-2026-57433"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "4b25d430f9ba81d2e431fa0c13974ef70f0da4964852be01787770b15b3837a0",
+      "url": "https://github.com/advisories/GHSA-ch89-h4r2-c8f8",
+      "title": "GHSA: PraisonAI: [Path Traversal] agent tools escape the configured workspace via symlinks",
+      "summary": "### Summary\nPraisonAI's `praisonai.code` tool wrappers (exported as `CODE_TOOLS` for agents) expose a `workspace` setting that the module itself treats as a path-traversal **security boundary** — `read_file`, `write_file`, `apply_diff`, and `search_replace` explicitly call `is_path_within_directory()` and return `\"… is outside the workspace\"` on violations. That boundary is enforced **unsoundly an",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:54:56Z",
+      "cve_ids": [
+        "CVE-2026-55540"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "f88a7991a5e6de70a52c079026fbcb96c3a00ac1bc4ff7513466efff31e249d9",
+      "url": "https://github.com/advisories/GHSA-cfxv-8fw8-rwpv",
+      "title": "GHSA: praisonaiagents: ast_grep_rewrite rewrites arbitrary files without the @require_approval gate enforced on every sibling mutation tool",
+      "summary": "**Target:** PraisonAI (`MervinPraison/PraisonAI`)\n**Affected component:** `praisonaiagents/tools/ast_grep_tool.py` — `ast_grep_rewrite`\n**Affected versions:** master at `ce97667156a116c50b4a3d1aa21e09f048903fda`; reproduced against the current `praisonaiagents` PyPI release (`praisonaiagents` <= 1.6.52).\n\n## Summary\n\nTools in `praisonaiagents/tools/` that modify on-disk state or run code are unifo",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:46:13Z",
+      "cve_ids": [
+        "CVE-2026-55530"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "aa6d74358579e8b45350c23a123e994b923f15e434c22d63aca594927ef3b407",
+      "url": "https://github.com/advisories/GHSA-vg6p-v9vm-6fgj",
+      "title": "GHSA: praisonaiagents vulnerable to SSRF in web_crawl tool via redirect-following and DNS rebinding (validate-then-fetch gap)",
+      "summary": "The web_crawl tool performs its SSRF check only on the initial URL: it resolves the hostname once\nwith socket.gethostbyname and rejects private/loopback/link-local results. It then passes the URL to\na fetcher that uses httpx.Client(follow_redirects=True) - or urllib.request.urlopen when httpx is\nabsent, which also follows redirects - and re-resolves the hostname at connect time, with no further\nva",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T14:43:19Z",
+      "cve_ids": [
+        "CVE-2026-55524"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "54050213066a602017b0ace0e9db5bc9fcfd1ed7371eafb2ab1f39ee1ab6c1e8",
+      "url": "https://github.com/advisories/GHSA-7ww9-85pg-cv4x",
+      "title": "GHSA: PraisonAI serve agents --api-key is ignored, allowing unauthenticated remote agent execution",
+      "summary": "### Summary\n\n  PraisonAI's `praisonai serve agents` command exposes `--api-key` as the documented\n  authentication control for production/external deployments, but the configured key is not\n  enforced on the public agent invocation compatibility endpoints.\n\n  An operator can start the server with `--api-key` and bind it to `0.0.0.0`, but any network-\n  reachable caller can still invoke agents thro",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:42:25Z",
+      "cve_ids": [
+        "CVE-2026-55534"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "7990de5fa28f904698cd5bebc4c9400b6e1f451c9dadd1925217348a53595168",
+      "url": "https://github.com/advisories/GHSA-x44h-65qv-cw74",
+      "title": "GHSA: praisonaiagents has an SSRF protection bypass in `spider_tools._host_is_blocked()` via DNS-resolved hostnames (`127.0.0.1.nip.io`)",
+      "summary": "### Summary\n\n`praisonaiagents/tools/spider_tools.py` contains an SSRF protection bypass. The function\n`_host_is_blocked()` validates URLs against a list of blocked IP literals and hostname\naliases, but **never performs DNS resolution**. Any hostname that resolves to a private or\nloopback IP address — including public wildcard DNS services like `127.0.0.1.nip.io` —\nbypasses the protection entirely.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T14:37:26Z",
+      "cve_ids": [
+        "CVE-2026-55526"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "4f8f82eaffe283d6a335498333efb1362db5bb0c4ab0acef65d91fa7a955dde9",
+      "url": "https://github.com/advisories/GHSA-wv94-5qcp-6m36",
+      "title": "GHSA: PraisonAI MCP HTTP server has unauthenticated unbounded session accumulation (memory exhaustion; session TTL never enforced)",
+      "summary": "### Summary\n\nThe PraisonAI MCP HTTP-stream server creates a new in-memory session on every initialize request and never removes it. The cleanup routine that would expire sessions (_cleanup_sessions) is defined but never called anywhere in the codebase, and the configured session TTL is never enforced. There is no cap on the number of sessions. Because initialize requires no authentication and the ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:34:28Z",
+      "cve_ids": [
+        "CVE-2026-55531"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "288dac22d6baddd26588c9bdc33f9a0f7a799d9e3cdb9a965c203cd864837794",
+      "url": "https://github.com/advisories/GHSA-7g3p-92qq-8wvh",
+      "title": "GHSA: praisonaiagents: AgentServer declares auth_token but never enforces it on any route",
+      "summary": "**Researcher:** Kai Aizen — SnailSploit (@SnailSploit), Adversarial & Offensive Security Research\n**Target:** https://github.com/MervinPraison/PraisonAI\n\n---\n\n**Package:** `praisonaiagents` on PyPI\n**Affected version (empirically tested):** 1.6.48\n**Component:** `praisonaiagents.server.AgentServer` (the bundled HTTP / SSE server)\n\n---\n\n## TL;DR\n\n`AgentServer.ServerConfig` advertises an `auth_token",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:31:52Z",
+      "cve_ids": [
+        "CVE-2026-55528"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
     {
       "id": "18c1d2a60c105204e6b32833ae0571d7d88bb3b95c32e7e3cf51ad4701204bd3",
       "url": "https://github.com/advisories/GHSA-wj6g-v78p-6fx3",
@@ -356,340 +691,6 @@
         "CVE-2026-57252"
       ],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ca8cc25f173a74f7d653a956d0497700212ac7631a65da7728c4d947af41a489",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-595/",
-      "title": "ZDI-26-595: Foxit PDF Reader Annotation Use-After-Free Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Foxit PDF Reader. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-57254.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-08-24T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-57254"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "182d03fd036cf5f94f0100a9cbe5590a8e93f2cf9c8ab1d002f7956142ff4398",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-594/",
-      "title": "ZDI-26-594: NVIDIA Megatron Bridge load_model_config Code Injection Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of NVIDIA Megatron Bridge. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-24251.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-08-24T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-24251"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "33b3adca0dbcb2ea8ac8e4590b4e9b1686570e533a2b4d96bb97356b4d6ec72e",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-593/",
-      "title": "ZDI-26-593: NVIDIA TensorRT ONNX File Parsing Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of NVIDIA TensorRT. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-24268.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-08-24T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-24268"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "0917dbc5e4d03270799b7cf4feb011d6657bbc577f56ff55e4db2818141b025d",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-592/",
-      "title": "ZDI-26-592: NVIDIA TensorRT ONNX File Parsing Improper Validation of Array Index Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of NVIDIA TensorRT. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-24238.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-08-24T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-24238"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "e948b50e5c3b7f831e375d332fb46b86b4f30fd57f50b6e24785118ebb3d0792",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-591/",
-      "title": "ZDI-26-591: NVIDIA TensorRT ONNX File Parsing Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of NVIDIA TensorRT. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-24272.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-08-24T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-24272"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "8b9f5e20c97ba5cbc1c3115e038fb77e6f1de1ad68f96490c8f0593f2d92be98",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-590/",
-      "title": "ZDI-26-590: libwebsockets HTTP/2 HPACK Path Header Parsing Out-Of-Bounds Write Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of libwebsockets. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 9.8. The following CVEs are assigned: CVE-2026-19773.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-08-24T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-19773"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "5facf00a785941902d5559d9b07596aa4ba1eef02a05e5640fdc7262f6bb1167",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-589/",
-      "title": "ZDI-26-589: BlueZ A2DP Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of BlueZ. An attacker must first obtain the ability to pair a malicious Bluetooth device with the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.1. The following CVEs are assigned: CVE-2026-19774.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-08-24T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-19774"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d2d8a7f1b3883086c077adb9e6f7cac48b12f11a64c9c067f684ea67af857404",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-588/",
-      "title": "ZDI-26-588: Fabric.js loadFromJSON Server-Side Request Forgery Vulnerability",
-      "summary": "This vulnerability allows remote attackers to disclose sensitive information on affected installations of Fabric.js. Interaction with this library is required to exploit this vulnerability but attack vectors may vary depending on the implementation. The ZDI has assigned a CVSS rating of 4.0. The following CVEs are assigned: CVE-2026-19504.",
-      "source": "Zero Day Initiative",
-      "category": "web_app",
-      "date": "2026-08-24T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-19504"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "cf01a2004f8d9bb09dcd771f750d0ef0c898ef25d5acba70e770a9c881538cce",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-587/",
-      "title": "ZDI-26-587: Ashlar-Vellum Cobalt VS File Parsing Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ashlar-Vellum Cobalt. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-19781.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-08-24T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-19781"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c672b135a35a9e09efc422a6dc5a85fd191d323bb7dc2f0dc01086ebc93a647e",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-586/",
-      "title": "ZDI-26-586: OriginLab Origin Viewer OGM File Parsing Memory Corruption Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of OriginLab Origin Viewer. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-19886.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-08-24T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-19886"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "235f5b58b166837f7a43a68b6d6517fbf0141703e7ec7e56a1bddced07f96b3c",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-585/",
-      "title": "ZDI-26-585: OriginLab Origin Viewer OGWU File Parsing Out-Of-Bounds Write Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of OriginLab Origin Viewer. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-19885.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-08-24T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-19885"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "1d7fbf13da855c3e0b6570e84cdd4a6a4095f383e33b6ca1067c41000c87614e",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-21962",
-      "title": "CVE-2026-21962: Oracle HTTP Server and Oracle Weblogic Server Proxy Plug-in Improper Access Control Vulnerability",
-      "summary": "Oracle HTTP Server and Oracle Weblogic Server Proxy Plug-in contain an improper access control vulnerability that can result in unauthorized creation, deletion or modification access to critical data as well as unauthorized access to critical data or complete access to all Oracle HTTP Server and Oracle Weblogic Server Proxy Plug-in accessible data. Affected product: HTTP Server and Oracle Weblogic",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-08-24T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-21962"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "5d4a0ac7a73b4a4ae9c8e40ab8a2f6eb62b2070e99c46722faec6abbd2bf15ab",
-      "url": "https://github.com/advisories/GHSA-2cp2-2r3c-7p7r",
-      "title": "GHSA: Hydra: hydra.utils.instantiate with untrusted config can lead to code execution",
-      "summary": "## Summary\n\n`hydra.utils.instantiate()` resolves and calls Python objects from config. If an\napplication passes untrusted config to `instantiate()`, an attacker who controls\n`_target_` and its arguments can cause arbitrary code execution in the consuming\nprocess.\n\nHydra is not a network service. Exploitation requires a consuming application,\nlibrary, or user workflow to load attacker-controlled co",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-21T20:57:31Z",
-      "cve_ids": [
-        "CVE-2026-68508"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "d456895fed8e0924f75b58dc96842931ec69b942c90e8c46d71ba93d8320e38d",
-      "url": "https://github.com/advisories/GHSA-5h77-88j3-r659",
-      "title": "GHSA: YOURLS has stored XSS in referrer statistics chart via crafted Referer header",
-      "summary": "### Summary\n\nYOURLS stores the HTTP `Referer` header for short URL redirects and later renders aggregated referrer domains in the per-link statistics page. An unauthenticated attacker can send a crafted `Referer` header to any existing short URL. When an authenticated administrator or stats-page viewer opens that short URL's statistics page, the crafted referrer is embedded into Google Charts Java",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-21T20:57:23Z",
-      "cve_ids": [
-        "CVE-2026-63135"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "e575969abf685c5e27fb6a7c0b0b9e4f29153f9d9f19007f8ecb3fbc5daea538",
-      "url": "https://github.com/advisories/GHSA-x2rj-828p-hx9m",
-      "title": "GHSA: Xinference vulnerable to remote code execution via unsafe `eval()` in Llama3 tool-call parsing",
-      "summary": "### Summary\n\nXinference used Python's unsafe `eval()` function when parsing Llama3 tool-call output generated by a large language model. Because the model output can be influenced by attacker-controlled prompts sent to the chat completion API, a remote attacker can craft prompts that cause the model to return a Python expression. Xinference then evaluates that expression on the server while post-p",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-21T20:56:37Z",
-      "cve_ids": [
-        "CVE-2026-61539"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "20d2b37ec9b10370fff34096a25c16faf05a9fd8fb3f2980cd61bd2d5c202b29",
-      "url": "https://github.com/advisories/GHSA-mmfr-pmjx-hw9w",
-      "title": "GHSA: kin-openapi openai3filter: nil-pointer panic in ConvertErrors on malformed multipart/form-data body enables unauthenticated DoS",
-      "summary": "### Summary\n\nA nil-pointer dereference in `openapi3filter.ConvertErrors` lets any unauthenticated client crash a server with a single HTTP request. When an application validates a `multipart/form-data` request body and renders the resulting validation error through the library-provided `ValidationErrorEncoder` / `ConvertErrors` helpers, a malformed scalar form field (e.g. a non-numeric value for a",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-21T20:55:46Z",
-      "cve_ids": [
-        "CVE-2026-76905"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "7ae1f0140276e7513905b67e1fc0e6f3d1b8b806da0f2ce68c9eb95fc86d8e65",
-      "url": "https://github.com/advisories/GHSA-26w5-6g95-gj28",
-      "title": "GHSA: Atlantis Workspace Handling has Path Traversal that Allows Out-of-Bounds Directory Deletion/Creation",
-      "summary": "### Summary\nAtlantis versions `>= 0.19.8` and `< 0.45.0` did not consistently validate user-controlled `workspace` values before using them to construct local workspace paths.\n\nA crafted workspace value containing path traversal segments could cause Atlantis to resolve workspace paths outside the intended per-pull workspace directory. In vulnerable versions or code paths, Atlantis could create, us",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-21T20:55:33Z",
-      "cve_ids": [
-        "CVE-2026-64679"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "5e55af342d71c2848a4c1942dd6fec2e89248ccd9fea4e62028da419e7196e5d",
-      "url": "https://github.com/advisories/GHSA-cqmq-8755-7xvh",
-      "title": "GHSA: Keystone vulnerable to `graphql.maxTake` bypass with negative `take`",
-      "summary": "# Summary\nThe value of `graphql.maxTake` can be bypassed by providing a negative input.\nThis can be used to exceed the developer's intended `graphql.maxTake` value, allowing queries to return results in excess of the `graphql.maxTake` value set.\n\n# Impact\nThis affects any project relying on `graphql.maxTake` to bound the number of items returned per query.\n\n# Patches\nThis issue has been patched in",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-21T20:55:11Z",
-      "cve_ids": [
-        "CVE-2026-63421"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "1e9d979c0ef8c05640d5404e7b4d8f7cdfe26411a58465fc1f8281223d2292e0",
-      "url": "https://github.com/advisories/GHSA-jg4p-g6xj-4qmf",
-      "title": "GHSA: Defuddle vulnerable to XSS via unescaped attribute interpolation in site extractors",
-      "summary": "## Summary\n\nAn Improper Neutralization of Input During Web Page Generation issue in the site extractor component allows an attacker-controlled attribute value to be injected into output HTML without escaping. An attacker who crafts a malicious HTML page or controls content on a matching domain can execute arbitrary scripts when a victim processes the page, resulting in Cross-Site Scripting (XSS). ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-21T20:54:56Z",
-      "cve_ids": [
-        "CVE-2026-61824"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "32a7baf298dcd9f97db525a8a2214cae64e2e50640de22c0b8b3552c1ad5f334",
-      "url": "https://github.com/advisories/GHSA-mqjf-5f49-2fjh",
-      "title": "GHSA: GeoTools has unauthenticated SQL injection in the jsonArrayContains filter function against PostGIS layers",
-      "summary": "### Summary\n\nAn SQL Injection Vulnerability has been found when executing OGC Filters with PostGIS DataStore implementation:\n\n* `jsonArrayContains` function  \n    Requires PostGIS 12 or greater with a String or JSON field\n\nFor PostGIS 12 and greater `jsonArrayContains(<column>, <pointer>, <value>)` function writes `<value>` into generated SQL without escaping.\n\n### Patches\n\n* GeoTools 35.1\n* GeoTo",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-21T20:25:41Z",
-      "cve_ids": [
-        "CVE-2026-76904"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "2e55d3dce99175f7f60cb468cf479526533cb450f009db5729e5ae17456cc774",
-      "url": "https://ubuntu.com/security/notices/USN-8659-2",
-      "title": "USN-8659-2: Linux kernel (HWE) vulnerability",
-      "summary": "A security issue was discovered in the Linux kernel. An attacker could possibly use this to compromise the system. This update corrects flaws in the following subsystems: - Open vSwitch;",
-      "source": "Ubuntu Security",
-      "category": "infrastructure",
-      "date": "2026-08-21T19:49:55+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "827b356b8e41c68703622d00470739f5bdc265814ea2743383045a600abf00ca",
-      "url": "https://github.com/advisories/GHSA-w4mq-xh27-6xpx",
-      "title": "GHSA: Unleash: Global Mustache.escape override disables HTML escaping process-wide, enabling Slack/Teams link-injection via unrestricted username",
-      "summary": "## Vulnerability Details\n\n**File**: `src/lib/addons/feature-event-formatter-md.ts`\n**Line**: 355 (in v8.0.1; `format()` method)\n\n### Root Cause\n\n`FeatureEventFormatterMd.format()` does:\n\n```ts\nMustache.escape = (text) => text;\nconst text = Mustache.render(action, context);\n```\n\n`mustache` (pinned `^4.2.0`, confirmed installed `4.2.0`) keeps `escape` as a **module-level singleton** (`mustache.js`: ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-21T19:14:52Z",
-      "cve_ids": [
-        "CVE-2026-63466"
-      ],
-      "cvss": 4.1,
-      "related_links": []
-    },
-    {
-      "id": "e01c3464d432e3f22929e4344e02a0ac173b477ef9e9ee58b8f2972fb1bdf17d",
-      "url": "https://github.com/advisories/GHSA-5vf6-jrqr-78fj",
-      "title": "GHSA: Unleash: Addon webhook URL is dialed server-side with no internal-address filtering, enabling SSRF to internal services / cloud metadata and exfiltration of configured request headers",
-      "summary": "## Summary\n\nUnleash's addon/integration subsystem lets an operator configure a webhook (and the Slack, Microsoft Teams, Datadog, and New Relic integrations) with a target `url` parameter. Whenever a subscribed feature-flag event fires, the Unleash server itself issues an HTTP request to that configured URL. The URL is taken verbatim from the addon's `parameters.url` and passed straight to the HTTP",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-21T19:14:45Z",
-      "cve_ids": [
-        "CVE-2026-63004"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "f68c46ba63314538eeaa0e786e1939eff242c71f52daf4982477840db7339e59",
-      "url": "https://github.com/advisories/GHSA-r5pq-6chh-j3xp",
-      "title": "GHSA: Unleash: Unauthenticated single-request DoS via OpenAPI validation error formatter",
-      "summary": "## Summary\n\nAn unauthenticated `POST` to any OpenAPI-validated endpoint, including the anonymous `POST /edge/validate` and `POST /edge/issue-token`, crashes the entire Unleash server with one request body of deeply-nested JSON.\n\nWhen request-body validation fails, Unleash builds the error message by calling `JSON.stringify` on the raw offending value taken from the request body. A value nested a f",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-21T19:14:37Z",
-      "cve_ids": [
-        "CVE-2026-63462"
-      ],
-      "cvss": 7.5,
       "related_links": []
     }
   ]
