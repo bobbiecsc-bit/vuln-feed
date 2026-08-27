@@ -1,10 +1,212 @@
 {
-  "updated": "2026-08-27T07:50:24.402812+00:00",
+  "updated": "2026-08-27T18:53:15.062092+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "7990de5fa28f904698cd5bebc4c9400b6e1f451c9dadd1925217348a53595168",
+      "url": "https://github.com/advisories/GHSA-x44h-65qv-cw74",
+      "title": "GHSA: praisonaiagents has an SSRF protection bypass in `spider_tools._host_is_blocked()` via DNS-resolved hostnames (`127.0.0.1.nip.io`)",
+      "summary": "### Summary\n\n`praisonaiagents/tools/spider_tools.py` contains an SSRF protection bypass. The function\n`_host_is_blocked()` validates URLs against a list of blocked IP literals and hostname\naliases, but **never performs DNS resolution**. Any hostname that resolves to a private or\nloopback IP address — including public wildcard DNS services like `127.0.0.1.nip.io` —\nbypasses the protection entirely.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T14:37:26Z",
+      "cve_ids": [
+        "CVE-2026-55526"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "4f8f82eaffe283d6a335498333efb1362db5bb0c4ab0acef65d91fa7a955dde9",
+      "url": "https://github.com/advisories/GHSA-wv94-5qcp-6m36",
+      "title": "GHSA: PraisonAI MCP HTTP server has unauthenticated unbounded session accumulation (memory exhaustion; session TTL never enforced)",
+      "summary": "### Summary\n\nThe PraisonAI MCP HTTP-stream server creates a new in-memory session on every initialize request and never removes it. The cleanup routine that would expire sessions (_cleanup_sessions) is defined but never called anywhere in the codebase, and the configured session TTL is never enforced. There is no cap on the number of sessions. Because initialize requires no authentication and the ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:34:28Z",
+      "cve_ids": [
+        "CVE-2026-55531"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "288dac22d6baddd26588c9bdc33f9a0f7a799d9e3cdb9a965c203cd864837794",
+      "url": "https://github.com/advisories/GHSA-7g3p-92qq-8wvh",
+      "title": "GHSA: praisonaiagents: AgentServer declares auth_token but never enforces it on any route",
+      "summary": "**Researcher:** Kai Aizen — SnailSploit (@SnailSploit), Adversarial & Offensive Security Research\n**Target:** https://github.com/MervinPraison/PraisonAI\n\n---\n\n**Package:** `praisonaiagents` on PyPI\n**Affected version (empirically tested):** 1.6.48\n**Component:** `praisonaiagents.server.AgentServer` (the bundled HTTP / SSE server)\n\n---\n\n## TL;DR\n\n`AgentServer.ServerConfig` advertises an `auth_token",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:31:52Z",
+      "cve_ids": [
+        "CVE-2026-55528"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "18c1d2a60c105204e6b32833ae0571d7d88bb3b95c32e7e3cf51ad4701204bd3",
+      "url": "https://github.com/advisories/GHSA-wj6g-v78p-6fx3",
+      "title": "GHSA: PraisonAI has an origin validation bypass in MCP HTTP Stream transport that allows browser-mediated unauthenticated tool execution on local MCP server",
+      "summary": "### Summary\n\nPraisonAI's MCP HTTP Stream transport uses an unsafe prefix match when validating the `Origin` header. The default localhost allowlist includes origins such as `http://localhost`, and the validation accepts any origin that starts with an allowed value.\n\nAs a result, an attacker-controlled origin such as `http://localhost.evil.example` passes the localhost origin check.\n\nWhen the MCP H",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:26:26Z",
+      "cve_ids": [
+        "CVE-2026-55529"
+      ],
+      "cvss": 6.9,
+      "related_links": []
+    },
+    {
+      "id": "74812019df6098f8ca8af7d178c30794e9097d4b84aff83d8c72da878ca3f061",
+      "url": "https://github.com/advisories/GHSA-hxmv-c4g6-5fqc",
+      "title": "GHSA: PraisonAI workflow include bypasses tools.py autoload opt-in and executes included recipe code",
+      "summary": "## Summary\n\nPraisonAI's workflow include implementation implicitly imports and executes an included recipe's `tools.py` file even when the documented `tools.py` autoload opt-in is unset.\n\nThis bypasses the hardening added for the prior automatic `tools.py` RCE advisory family. A workflow that includes an untrusted local recipe can execute arbitrary Python module-level code before any model call or",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:15:27Z",
+      "cve_ids": [
+        "CVE-2026-55522"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "bc1f7cd49a5375dc0a936193a63fe3a69f6302cebba59ba6e36401a15693d1a5",
+      "url": "https://github.com/advisories/GHSA-5r34-2g38-6569",
+      "title": "GHSA: praisonaiagents web_crawl vulnerable to SSRF via redirect-following",
+      "summary": "### Summary\n`web_crawl` (an exported, model-callable tool) validates only the INITIAL URL's resolved IP against a private/loopback blocklist, then fetches with `httpx.Client(follow_redirects=True)` and never re-validates redirect targets. \n\nAn attacker who controls the agent's crawl target (a malicious task, or prompt injection inside any page the agent already crawls) supplies a public URL that H",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T14:05:38Z",
+      "cve_ids": [
+        "CVE-2026-55525"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "2f69a5761f47aee3250f0c3d8b7e6192b1305ca60b419a877a4225c589092846",
+      "url": "https://www.bleepingcomputer.com/news/security/hackers-breached-over-270-zimbra-servers-in-ongoing-attacks/",
+      "title": "Hackers breached over 270 Zimbra servers in ongoing attacks",
+      "summary": "Threat actors have already compromised over 270 Zimbra instances in remote code execution attacks targeting a high-severity Zimbra Collaboration Suite (ZCS) vulnerability. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-08-25T12:04:02+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "9ee8520601580a32ab0913722a2766050a5b85781db3fcd3fa000206666dddbc",
+      "url": "https://www.bleepingcomputer.com/news/security/police-arrests-dozens-of-suspects-in-global-cybercrime-crackdown/",
+      "title": "Police arrests dozens of suspects in global cybercrime crackdown",
+      "summary": "Law enforcement agencies from 22 countries helped identify 263 suspects and arrested 58 individuals linked to cybercrime networks coordinated by African crime groups. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-08-25T10:53:20+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "c2d54cf8a69eef774af5ef502c32562dead86473fc97f1b183b1c34d0998abe7",
+      "url": "https://www.exploit-db.com/exploits/52658",
+      "title": "[remote] CVE-2026-42167 - ProFTPD mod_sql post-authentication SQLi - RCE",
+      "summary": "CVE-2026-42167 - ProFTPD mod_sql post-authentication SQLi - RCE",
+      "source": "Exploit-DB",
+      "category": "emergency",
+      "date": "2026-08-25T00:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-42167"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "fbc5ea293d3975450e7502959f95a4795aa4d99b77467513972df5d0acd6bc0a",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-60004",
+      "title": "CVE-2026-60004: Gitea Code Injection Vulnerability",
+      "summary": "Gitea contains a code injection vulnerability that allows an attacker with repository write access to send a malicious patch to the diffpatch API endpoint to plant an executable Git hook and run shell commands as the Gitea service account. Affected product: Gitea by Gitea. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritiz",
+      "source": "CISA KEV",
+      "category": "emergency",
+      "date": "2026-08-25T00:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-60004"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "d9d141cc9ab88d90d809fbfbad7b8ab846c8055d279b86bef682c1f026179369",
+      "url": "https://github.com/advisories/GHSA-vx2m-jpxr-xv7w",
+      "title": "GHSA: Cloudreve has Broken Access Control - Revoked Share Access Still Allows Signed File URL Generation via Cached context_hint",
+      "summary": "## Summary\n \nCloudreve's file-listing responses hand the client a `context_hint` (UUID) that is meant to speed up follow-up operations. When that hint is replayed on the `file/url` (and `file/thumb`) routes, DBFS caches a `shareNavigatorState` containing the already-loaded share root and share row.\n \nOn a later request carrying the same hint, `shareNavigator.RestoreState` repopulates `shareRoot`, ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-24T22:01:03Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "7bfe97eb7dc88b94b30e6a8cb10debccc42c6c1c4505bd1b94aef2860c17d052",
+      "url": "https://www.bleepingcomputer.com/news/security/unpatched-calix-flaw-lets-hackers-bypass-nat-to-expose-internal-devices/",
+      "title": "Unpatched Calix flaw lets hackers bypass NAT to expose internal devices",
+      "summary": "An unpatched vulnerability in Calix GS7 XGS (GS5239XG) residential routers used by multiple U.S. broadband providers allows remote, unauthenticated attackers to create port-forwarding rules that can expose local network devices to the public internet. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-08-24T21:14:30+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "a5eb54d2a2c6b362873541119e216d2415b5dab75e109c9f4ef9beb916667804",
+      "url": "https://github.com/advisories/GHSA-jm48-m3rr-9hgg",
+      "title": "GHSA: 3X-UI Vulnerable to Authenticated Arbitrary File Write via Database Import and Xray Log Path Manipulation",
+      "summary": "# Summary\n\nAn authenticated administrator can abuse the database import functionality to achieve arbitrary file write on the host by modifying Xray configuration values stored in the database. This can be leveraged to obtain code execution and persistent access as the user running Xray (including root when Xray is running as root).\n\n# Details\n\nThe database import functionality trusts attacker-cont",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-24T21:05:14Z",
+      "cve_ids": [
+        "CVE-2026-55477"
+      ],
+      "cvss": 7.2,
+      "related_links": []
+    },
+    {
+      "id": "11322c85f6fe353a99a667d9862f1c65fed676e207f26330a612269fd9881e86",
+      "url": "https://github.com/advisories/GHSA-fwjf-m4qw-9f2x",
+      "title": "GHSA: django CMS: Page cache ignores plugin-declared Vary headers (disclosure & poisoning)",
+      "summary": "### Summary\nThe CMS page cache key ignores the request headers that plugins declare via `get_vary_cache_on()`. The header is added to the response `Vary` header, but the CMS's own cache key does not incorporate the header values, so the first visitor's variant is served to all subsequent visitors regardless of their header values.\n\n### Details\n`_page_cache_key` (in `cms/cache/page.py`) keys only o",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-24T20:09:51Z",
+      "cve_ids": [
+        "CVE-2026-54625"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "eb67e5326d6de0221aac15d13a88df9b7bc987d863c2648ade8d420f42e5b9f3",
+      "url": "https://github.com/advisories/GHSA-8jj7-4v57-frf5",
+      "title": "GHSA: django CMS: Plugin move endpoint allows cyclic reparenting (DoS)",
+      "summary": "### Summary\nThe `move_plugin` admin endpoint does not prevent a plugin from being   reparented under itself or one of its own descendants. Doing so creates a  cycle in the plugin tree, after which the recursive descendant/ancestor SQL  queries loop without terminating, stalling the request worker.\n\n### Details\n`move_plugin` (in `cms/admin/placeholderadmin.py`) accepts a  `plugin_parent` POST param",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-24T20:09:43Z",
+      "cve_ids": [
+        "CVE-2026-54623"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
     {
       "id": "c2911e62e777fa0877c104c20c559fda915f90ce1c00b279240b7110982960c8",
       "url": "https://github.com/advisories/GHSA-9284-fjc3-fmmj",
@@ -488,198 +690,6 @@
       "date": "2026-08-21T19:49:55+00:00",
       "cve_ids": [],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "827b356b8e41c68703622d00470739f5bdc265814ea2743383045a600abf00ca",
-      "url": "https://github.com/advisories/GHSA-w4mq-xh27-6xpx",
-      "title": "GHSA: Unleash: Global Mustache.escape override disables HTML escaping process-wide, enabling Slack/Teams link-injection via unrestricted username",
-      "summary": "## Vulnerability Details\n\n**File**: `src/lib/addons/feature-event-formatter-md.ts`\n**Line**: 355 (in v8.0.1; `format()` method)\n\n### Root Cause\n\n`FeatureEventFormatterMd.format()` does:\n\n```ts\nMustache.escape = (text) => text;\nconst text = Mustache.render(action, context);\n```\n\n`mustache` (pinned `^4.2.0`, confirmed installed `4.2.0`) keeps `escape` as a **module-level singleton** (`mustache.js`: ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-21T19:14:52Z",
-      "cve_ids": [
-        "CVE-2026-63466"
-      ],
-      "cvss": 4.1,
-      "related_links": []
-    },
-    {
-      "id": "e01c3464d432e3f22929e4344e02a0ac173b477ef9e9ee58b8f2972fb1bdf17d",
-      "url": "https://github.com/advisories/GHSA-5vf6-jrqr-78fj",
-      "title": "GHSA: Unleash: Addon webhook URL is dialed server-side with no internal-address filtering, enabling SSRF to internal services / cloud metadata and exfiltration of configured request headers",
-      "summary": "## Summary\n\nUnleash's addon/integration subsystem lets an operator configure a webhook (and the Slack, Microsoft Teams, Datadog, and New Relic integrations) with a target `url` parameter. Whenever a subscribed feature-flag event fires, the Unleash server itself issues an HTTP request to that configured URL. The URL is taken verbatim from the addon's `parameters.url` and passed straight to the HTTP",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-21T19:14:45Z",
-      "cve_ids": [
-        "CVE-2026-63004"
-      ],
-      "cvss": 5.5,
-      "related_links": []
-    },
-    {
-      "id": "f68c46ba63314538eeaa0e786e1939eff242c71f52daf4982477840db7339e59",
-      "url": "https://github.com/advisories/GHSA-r5pq-6chh-j3xp",
-      "title": "GHSA: Unleash: Unauthenticated single-request DoS via OpenAPI validation error formatter",
-      "summary": "## Summary\n\nAn unauthenticated `POST` to any OpenAPI-validated endpoint, including the anonymous `POST /edge/validate` and `POST /edge/issue-token`, crashes the entire Unleash server with one request body of deeply-nested JSON.\n\nWhen request-body validation fails, Unleash builds the error message by calling `JSON.stringify` on the raw offending value taken from the request body. A value nested a f",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-21T19:14:37Z",
-      "cve_ids": [
-        "CVE-2026-63462"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "7cc11dd0cff08b096d8f65b5c454b205cb3fa4966af833aac4a8561e5910e60a",
-      "url": "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-patch-actively-exploited-trueconf-server-flaws/",
-      "title": "CISA orders feds to patch actively exploited TrueConf Server flaws",
-      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) ordered U.S. federal agencies to prioritize patching two actively exploited vulnerabilities in the TrueConf Server self-hosted communications platform. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-08-21T12:25:33+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4afb6e3d2eca76f5c670cb558e369bbf561ebf7b200dd98c7284f9ebaec159d1",
-      "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-warns-of-max-severity-entra-id-flaw-exploited-in-attacks/",
-      "title": "Microsoft patches max severity code execution, privilege escalation flaws",
-      "summary": "Microsoft has patched multiple maximum-severity vulnerabilities in Entra ID, Azure Arc, and Exchange Online that allowed attackers to gain remote code execution and escalate privileges. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-08-21T11:04:10+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "e2ee2034cef4095c7f028249b959d66d87b20cfe6126ecd879c094331734ccdc",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-73570",
-      "title": "CVE-2026-73570: Zimbra Collaboration Suite (ZCS) OS Command Injection Vulnerability",
-      "summary": "Zimbra Collaboration Suite (ZCS) contains an OS command injection vulnerability which could allow an unauthenticated attacker to send specially crafted SMTP requests that may result in execution of arbitrary operating system commands as the Zimbra user. Affected product: Zimbra Collaboration Suite (ZCS) by Synacor. Required action: Apply mitigations in accordance with vendor instructions, ensuring",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-08-21T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-73570"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f6940bcee40a55e0b618c22653f8117f3e463b2a0291b7f811726c41afa47ba6",
-      "url": "https://ubuntu.com/security/notices/USN-8659-1",
-      "title": "USN-8659-1: Linux kernel vulnerability",
-      "summary": "A security issue was discovered in the Linux kernel. An attacker could possibly use this to compromise the system. This update corrects flaws in the following subsystems: - Open vSwitch;",
-      "source": "Ubuntu Security",
-      "category": "infrastructure",
-      "date": "2026-08-20T22:13:42+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d7e66bd6ccd5e050f6bd0288617213e046e407506a8ac62d2da39e1eca0af832",
-      "url": "https://github.com/advisories/GHSA-8r62-w5wh-fc5m",
-      "title": "GHSA: Mailpit: WebSocket origin check bypass via percent-encoded path (regression of CVE-2026-22689)",
-      "summary": "## Summary\n\nThe cross-site WebSocket hijacking fix was reimplemented as an origin check gated on a raw-URI prefix test, but Go's ServeMux routes on the percent-decoded path, so requesting /%61pi/events reaches the WebSocket handler while skipping the only origin control, and the upgrader itself accepts every origin. Confirmed at HEAD 408b30d. Affects 1.29.0 through 1.30.5.\n\n## The defect\n\nTwo halv",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-20T21:34:58Z",
-      "cve_ids": [
-        "CVE-2026-67448"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "a4bde3abede90209f341a6ab5551b134833dfe4fc7bd99fe3bb0beec5ee72b96",
-      "url": "https://github.com/advisories/GHSA-r553-m4fv-5v97",
-      "title": "GHSA: Mailpit: SMTP DATA line reader buffers over-limit input before size enforcement",
-      "summary": "## Summary\n\nMailpit's SMTP DATA reader enforces the configured `MaxMessageSize` only after `bufio.Reader.ReadBytes('\\n')` has already buffered a complete DATA line. A remote unauthenticated SMTP client can send one line larger than the configured message-size cap and force memory allocation before Mailpit returns the expected `552 5.3.4` rejection, leaving patched versions still exposed to a singl",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-20T21:34:52Z",
-      "cve_ids": [
-        "CVE-2026-67447"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "48f14e5db3d241ad1706dbb21a1ec7797ddc3fe85ac340d0fec9925d1c34a438",
-      "url": "https://github.com/advisories/GHSA-jm5p-837g-rv8g",
-      "title": "GHSA: Wagtail: Improper restriction handling on Page translation API endpoint",
-      "summary": "### Impact\nA CMS user with the \"submit translations\" permission, could use the Admin API's \"copy for translation\" endpoint to copy an existing page that they do not have edit access to, allowing them to view its contents.\n\n### Patches\nPatched versions have been released as Wagtail 7.0.9, 7.3.4, 7.4.3 and 8.0rc2.\n\n### Workarounds\nN/A\n\n### Acknowledgements\nMany thanks to tinyb0y for reporting this i",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-20T18:45:27Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "9a22a1c6a96c92f505ab1804112936fd942c6a770d66b8e2101493b0e53ccc2b",
-      "url": "https://github.com/advisories/GHSA-x5cx-w6p2-mxf2",
-      "title": "GHSA: Wagtail: Improper permission handling when copying snippets",
-      "summary": "### Impact\nA CMS user with \"add\" permission over a snippet model, but not \"change\" or \"view\" permission, could copy an existing snippet that they do not have access to, allowing them to view its contents.\n\n### Patches\nPatched versions have been released as Wagtail 7.0.9, 7.3.4, 7.4.3 and 8.0rc2.\n\n### Workarounds\nN/A\n\n### Acknowledgements\nMany thanks to tinyb0y for reporting this issue.\n\n### For mo",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-20T18:45:23Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "ebfa408e2ca301b8bde7cdc056d0e993b551b11fe4d0074ebb49d5c169d00065",
-      "url": "https://github.com/advisories/GHSA-c2xx-cjmh-9q8f",
-      "title": "GHSA: Wagtail: Improper restriction handling on descendant collections in Documents and Images API",
-      "summary": "### Impact\n\nThe Documents and Images [API V2](https://docs.wagtail.org/en/stable/advanced_topics/api/index.html) incorrectly listed items in descendants of private collections, which should inherit the view restrictions defined on their ancestors. A user with access to the API could see the filename and name of documents and images in these descendant collections.\n\n### Patches\n\nPatched versions ha",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-20T18:45:14Z",
-      "cve_ids": [],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "e7538275eec04a3af484eaa9d8f37c4af6d2db7ecbddc508f61325884d46ccb2",
-      "url": "https://github.com/advisories/GHSA-92hv-j533-69wc",
-      "title": "GHSA: Wagtail: Identification of documents by SHA1 hash",
-      "summary": "### Impact\nBy passing specific HTTP headers to the document serve URL endpoint, an attacker was able to determine whether a document with a given ID matched a specified SHA1 hash, regardless of any permission restrictions on the document or knowing its filename. This could allow an attacker to determine whether a document with a specific known hash is present in the Wagtail document library.\n\nThis",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-20T18:45:09Z",
-      "cve_ids": [],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "f901d9c9dbd147c52aab16ef3f37b5c8a9ef10dc7b8a5851a5a71a1e2bbfc116",
-      "url": "https://github.com/advisories/GHSA-hq84-x37p-j6q5",
-      "title": "GHSA: Winter: Reflected XSS through the search query parameter in the backend Table widget",
-      "summary": "### Impact\n\nAffected versions of Winter CMS render the `search` query parameter without HTML encoding inside a `<script type=\"text/template\">` block in the backend Table widget partial (`modules/backend/widgets/table/partials/_table.php`):\n\n```php\nvalue=\"<?= get('search') ?>\"\n```\n\n`<script>` is an HTML raw-text context, so the surrounding `value=\"…\"` attribute quoting is not a parser boundary. A l",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-20T18:45:04Z",
-      "cve_ids": [],
-      "cvss": 4.5,
-      "related_links": []
-    },
-    {
-      "id": "ce48df5d972b7d927a6debf1f71662d0d9bc4fd424f1d4316e48dccb322cefb8",
-      "url": "https://github.com/advisories/GHSA-p2ch-c2c3-4xm5",
-      "title": "GHSA: Winter: CSRF through AJAX handler names reachable as backend page actions",
-      "summary": "### Impact\n\nAffected versions of Winter CMS allow a backend AJAX handler to be invoked by a plain top-level `GET` navigation with no CSRF token. `Backend\\Classes\\Controller::actionExists()` accepted any public method on a controller as a page action, so handler-shaped names were never reserved from URL dispatch: an authenticated and authorized request to `/backend/system/eventlogs/index_onEmptyLog",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-20T18:44:59Z",
-      "cve_ids": [],
-      "cvss": 6.1,
       "related_links": []
     }
   ]
