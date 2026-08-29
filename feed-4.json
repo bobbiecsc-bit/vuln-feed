@@ -1,10 +1,275 @@
 {
-  "updated": "2026-08-28T19:55:21.477799+00:00",
+  "updated": "2026-08-29T02:44:06.926181+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "e397bd5445b90bce22e3fef383c72cf2c59e8a9ec5b78df58a13b9b7b15ae1f3",
+      "url": "https://github.com/advisories/GHSA-gfq8-hmph-9gjv",
+      "title": "GHSA: PraisonAI: Authentication fail-open in Recipe server allows unauthenticated access when API key or JWT auth is configured without a secret",
+      "summary": "### Summary\n\nThe PraisonAI Recipe HTTP server silently allows unauthenticated requests when `auth` is configured as `api-key` or `jwt` but the corresponding secret is missing.\n\nThis creates an authentication fail-open condition. An operator can start the Recipe server with authentication enabled, including on a non-localhost interface, but the server still accepts unauthenticated requests if no AP",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T15:15:54Z",
+      "cve_ids": [
+        "CVE-2026-55533"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "241fc6706887b9ac29c9a2b6c14cbf65ac169ebc6174161ae98c1659e2a30c4a",
+      "url": "https://github.com/advisories/GHSA-2jgc-f764-c5r2",
+      "title": "GHSA: PraisonAI: [Auth Bypass] PraisonAI async Jobs API (`/api/v1/runs`) has no authentication — unauthenticated job execution, result theft, cancel and delete",
+      "summary": "### Summary\nPraisonAI's async **Jobs API** (the FastAPI service in `praisonai/jobs/`) installs its router with no authentication middleware, no router-level dependency, and no per-route auth check. Any caller who can reach the jobs server can submit agent jobs (executed against the operator's configured LLM credentials), list every job in the shared store, read other jobs' results, cancel running ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T15:14:27Z",
+      "cve_ids": [
+        "CVE-2026-55539"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "c2a8eb49812f93b61767318a82fb3dd38cf4f17c3ef5a5a09ba0d80543991f04",
+      "url": "https://github.com/advisories/GHSA-gxmw-5f7x-6g22",
+      "title": "GHSA: praisonaiagents vulnerable to arbitrary file write via unsanitized `user_id` in `FileMemory.__init__()` — path traversal to any writable location",
+      "summary": "### Summary\n\n`praisonaiagents/memory/file_memory.py::FileMemory.__init__()` constructs all\nmemory file paths by directly joining the `user_id` parameter to a base path:\n\n```python\nself.user_path = self.base_path / user_id      # LINE 145 — no sanitization\n```\n\nNo validation or normalization is applied to `user_id` before the path join.\nAn attacker who can supply a `user_id` containing `../` sequen",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T15:09:54Z",
+      "cve_ids": [
+        "CVE-2026-55527"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "b1dabfbea19bbfc8e7cc4c930434629c333f5fe6019b6b04c40bfc707a3f926b",
+      "url": "https://github.com/advisories/GHSA-hmfx-4v44-9qw9",
+      "title": "GHSA: PraisonAI vulnerable to Server-Side Request Forgery via DNS rebinding bypass in webhook_url validation",
+      "summary": "### Summary\nThe `webhook_url` field in the Jobs API silently passes validation when DNS resolution fails (`socket.gaierror`), enabling DNS rebinding attacks. An attacker's domain can initially resolve to a public IP (passing validation) then switch to an internal IP before the server makes the HTTP request.\n\n### Details\nThe validator catches `socket.gaierror` and silently allows the URL:\n\n```pytho",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T15:02:04Z",
+      "cve_ids": [
+        "CVE-2026-55535"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "6d19e7c1861f54d51c0345be4ece890a0ce3e3ed30fd848fd50ac6d185f563d7",
+      "url": "https://github.com/advisories/GHSA-rg5q-pp8p-f7jm",
+      "title": "GHSA: PraisonAI: Webhook SSRF via DNS fail-open in `JobSubmitRequest.validate_webhook_url()` — bypass of CVE-2026-40114",
+      "summary": "### Summary\n\n`praisonai/jobs/models.py::JobSubmitRequest.validate_webhook_url()` validates webhook\nURLs by resolving the hostname and checking whether the IP is private. When DNS\nresolution fails (`socket.gaierror`), the validator **silently passes** the URL via\n`except socket.gaierror: pass`. Additionally, even when DNS succeeds at validation time,\nthe webhook is fired much later by `JobExecutor.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T14:59:44Z",
+      "cve_ids": [
+        "CVE-2026-55537"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "cf0a9c55cc2142b9d0512dd9f3a6a5753eb0c6c15a5902d641bb77a94d3e91fc",
+      "url": "https://github.com/advisories/GHSA-r7v3-x45f-g7hp",
+      "title": "GHSA: PraisonAI: [Auth Bypass] `praisonai serve agents --api-key` is silently ignored — agent-invocation routes (`POST /agents`, `POST /agents/{agent_name}`) run unauthenticated",
+      "summary": "### Summary\n`praisonai serve agents` exposes HTTP routes that invoke registered agents. The CLI advertises `--api-key` with help text \"API key for authentication\", parses it, and forwards it into `ServeHandler`. But `_create_agents_app()` **never reads `config[\"api_key\"]` again** and installs no auth dependency or middleware on its direct routes. The configured key is a no-op flag.\n \nAs a result, ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:56:59Z",
+      "cve_ids": [
+        "CVE-2026-55538"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "f0d72b7c066aad9d5f8ca6b85250316e4dbfa15bc4e242e469a307217fc9c764",
+      "url": "https://ubuntu.com/security/notices/USN-8675-1",
+      "title": "USN-8675-1: Perl vulnerabilities",
+      "summary": "It was discovered that Perl incorrectly handled short source addresses in the Socket module. An attacker could possibly use this issue to trigger an out-of-bounds heap read, resulting in information disclosure. (CVE-2026-12087) It was discovered that Perl incorrectly handled regular expressions containing a large number of fixed string alternatives. An attacker could possibly use this issue to cau",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-08-25T14:55:08+00:00",
+      "cve_ids": [
+        "CVE-2026-12087",
+        "CVE-2026-13221",
+        "CVE-2026-57432",
+        "CVE-2026-57433"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "4b25d430f9ba81d2e431fa0c13974ef70f0da4964852be01787770b15b3837a0",
+      "url": "https://github.com/advisories/GHSA-ch89-h4r2-c8f8",
+      "title": "GHSA: PraisonAI: [Path Traversal] agent tools escape the configured workspace via symlinks",
+      "summary": "### Summary\nPraisonAI's `praisonai.code` tool wrappers (exported as `CODE_TOOLS` for agents) expose a `workspace` setting that the module itself treats as a path-traversal **security boundary** — `read_file`, `write_file`, `apply_diff`, and `search_replace` explicitly call `is_path_within_directory()` and return `\"… is outside the workspace\"` on violations. That boundary is enforced **unsoundly an",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:54:56Z",
+      "cve_ids": [
+        "CVE-2026-55540"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "f88a7991a5e6de70a52c079026fbcb96c3a00ac1bc4ff7513466efff31e249d9",
+      "url": "https://github.com/advisories/GHSA-cfxv-8fw8-rwpv",
+      "title": "GHSA: praisonaiagents: ast_grep_rewrite rewrites arbitrary files without the @require_approval gate enforced on every sibling mutation tool",
+      "summary": "**Target:** PraisonAI (`MervinPraison/PraisonAI`)\n**Affected component:** `praisonaiagents/tools/ast_grep_tool.py` — `ast_grep_rewrite`\n**Affected versions:** master at `ce97667156a116c50b4a3d1aa21e09f048903fda`; reproduced against the current `praisonaiagents` PyPI release (`praisonaiagents` <= 1.6.52).\n\n## Summary\n\nTools in `praisonaiagents/tools/` that modify on-disk state or run code are unifo",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:46:13Z",
+      "cve_ids": [
+        "CVE-2026-55530"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "aa6d74358579e8b45350c23a123e994b923f15e434c22d63aca594927ef3b407",
+      "url": "https://github.com/advisories/GHSA-vg6p-v9vm-6fgj",
+      "title": "GHSA: praisonaiagents vulnerable to SSRF in web_crawl tool via redirect-following and DNS rebinding (validate-then-fetch gap)",
+      "summary": "The web_crawl tool performs its SSRF check only on the initial URL: it resolves the hostname once\nwith socket.gethostbyname and rejects private/loopback/link-local results. It then passes the URL to\na fetcher that uses httpx.Client(follow_redirects=True) - or urllib.request.urlopen when httpx is\nabsent, which also follows redirects - and re-resolves the hostname at connect time, with no further\nva",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T14:43:19Z",
+      "cve_ids": [
+        "CVE-2026-55524"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "54050213066a602017b0ace0e9db5bc9fcfd1ed7371eafb2ab1f39ee1ab6c1e8",
+      "url": "https://github.com/advisories/GHSA-7ww9-85pg-cv4x",
+      "title": "GHSA: PraisonAI serve agents --api-key is ignored, allowing unauthenticated remote agent execution",
+      "summary": "### Summary\n\n  PraisonAI's `praisonai serve agents` command exposes `--api-key` as the documented\n  authentication control for production/external deployments, but the configured key is not\n  enforced on the public agent invocation compatibility endpoints.\n\n  An operator can start the server with `--api-key` and bind it to `0.0.0.0`, but any network-\n  reachable caller can still invoke agents thro",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:42:25Z",
+      "cve_ids": [
+        "CVE-2026-55534"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "7990de5fa28f904698cd5bebc4c9400b6e1f451c9dadd1925217348a53595168",
+      "url": "https://github.com/advisories/GHSA-x44h-65qv-cw74",
+      "title": "GHSA: praisonaiagents has an SSRF protection bypass in `spider_tools._host_is_blocked()` via DNS-resolved hostnames (`127.0.0.1.nip.io`)",
+      "summary": "### Summary\n\n`praisonaiagents/tools/spider_tools.py` contains an SSRF protection bypass. The function\n`_host_is_blocked()` validates URLs against a list of blocked IP literals and hostname\naliases, but **never performs DNS resolution**. Any hostname that resolves to a private or\nloopback IP address — including public wildcard DNS services like `127.0.0.1.nip.io` —\nbypasses the protection entirely.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T14:37:26Z",
+      "cve_ids": [
+        "CVE-2026-55526"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "4f8f82eaffe283d6a335498333efb1362db5bb0c4ab0acef65d91fa7a955dde9",
+      "url": "https://github.com/advisories/GHSA-wv94-5qcp-6m36",
+      "title": "GHSA: PraisonAI MCP HTTP server has unauthenticated unbounded session accumulation (memory exhaustion; session TTL never enforced)",
+      "summary": "### Summary\n\nThe PraisonAI MCP HTTP-stream server creates a new in-memory session on every initialize request and never removes it. The cleanup routine that would expire sessions (_cleanup_sessions) is defined but never called anywhere in the codebase, and the configured session TTL is never enforced. There is no cap on the number of sessions. Because initialize requires no authentication and the ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:34:28Z",
+      "cve_ids": [
+        "CVE-2026-55531"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "288dac22d6baddd26588c9bdc33f9a0f7a799d9e3cdb9a965c203cd864837794",
+      "url": "https://github.com/advisories/GHSA-7g3p-92qq-8wvh",
+      "title": "GHSA: praisonaiagents: AgentServer declares auth_token but never enforces it on any route",
+      "summary": "**Researcher:** Kai Aizen — SnailSploit (@SnailSploit), Adversarial & Offensive Security Research\n**Target:** https://github.com/MervinPraison/PraisonAI\n\n---\n\n**Package:** `praisonaiagents` on PyPI\n**Affected version (empirically tested):** 1.6.48\n**Component:** `praisonaiagents.server.AgentServer` (the bundled HTTP / SSE server)\n\n---\n\n## TL;DR\n\n`AgentServer.ServerConfig` advertises an `auth_token",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:31:52Z",
+      "cve_ids": [
+        "CVE-2026-55528"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "18c1d2a60c105204e6b32833ae0571d7d88bb3b95c32e7e3cf51ad4701204bd3",
+      "url": "https://github.com/advisories/GHSA-wj6g-v78p-6fx3",
+      "title": "GHSA: PraisonAI has an origin validation bypass in MCP HTTP Stream transport that allows browser-mediated unauthenticated tool execution on local MCP server",
+      "summary": "### Summary\n\nPraisonAI's MCP HTTP Stream transport uses an unsafe prefix match when validating the `Origin` header. The default localhost allowlist includes origins such as `http://localhost`, and the validation accepts any origin that starts with an allowed value.\n\nAs a result, an attacker-controlled origin such as `http://localhost.evil.example` passes the localhost origin check.\n\nWhen the MCP H",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:26:26Z",
+      "cve_ids": [
+        "CVE-2026-55529"
+      ],
+      "cvss": 6.9,
+      "related_links": []
+    },
+    {
+      "id": "74812019df6098f8ca8af7d178c30794e9097d4b84aff83d8c72da878ca3f061",
+      "url": "https://github.com/advisories/GHSA-hxmv-c4g6-5fqc",
+      "title": "GHSA: PraisonAI workflow include bypasses tools.py autoload opt-in and executes included recipe code",
+      "summary": "## Summary\n\nPraisonAI's workflow include implementation implicitly imports and executes an included recipe's `tools.py` file even when the documented `tools.py` autoload opt-in is unset.\n\nThis bypasses the hardening added for the prior automatic `tools.py` RCE advisory family. A workflow that includes an untrusted local recipe can execute arbitrary Python module-level code before any model call or",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-25T14:15:27Z",
+      "cve_ids": [
+        "CVE-2026-55522"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "bc1f7cd49a5375dc0a936193a63fe3a69f6302cebba59ba6e36401a15693d1a5",
+      "url": "https://github.com/advisories/GHSA-5r34-2g38-6569",
+      "title": "GHSA: praisonaiagents web_crawl vulnerable to SSRF via redirect-following",
+      "summary": "### Summary\n`web_crawl` (an exported, model-callable tool) validates only the INITIAL URL's resolved IP against a private/loopback blocklist, then fetches with `httpx.Client(follow_redirects=True)` and never re-validates redirect targets. \n\nAn attacker who controls the agent's crawl target (a malicious task, or prompt injection inside any page the agent already crawls) supplies a public URL that H",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-08-25T14:05:38Z",
+      "cve_ids": [
+        "CVE-2026-55525"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "2f69a5761f47aee3250f0c3d8b7e6192b1305ca60b419a877a4225c589092846",
+      "url": "https://www.bleepingcomputer.com/news/security/hackers-breached-over-270-zimbra-servers-in-ongoing-attacks/",
+      "title": "Hackers breached over 270 Zimbra servers in ongoing attacks",
+      "summary": "Threat actors have already compromised over 270 Zimbra instances in remote code execution attacks targeting a high-severity Zimbra Collaboration Suite (ZCS) vulnerability. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-08-25T12:04:02+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "9ee8520601580a32ab0913722a2766050a5b85781db3fcd3fa000206666dddbc",
+      "url": "https://www.bleepingcomputer.com/news/security/police-arrests-dozens-of-suspects-in-global-cybercrime-crackdown/",
+      "title": "Police arrests dozens of suspects in global cybercrime crackdown",
+      "summary": "Law enforcement agencies from 22 countries helped identify 263 suspects and arrested 58 individuals linked to cybercrime networks coordinated by African crime groups. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-08-25T10:53:20+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
     {
       "id": "c2d54cf8a69eef774af5ef502c32562dead86473fc97f1b183b1c34d0998abe7",
       "url": "https://www.exploit-db.com/exploits/52658",
@@ -430,272 +695,6 @@
         "CVE-2026-19886"
       ],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "235f5b58b166837f7a43a68b6d6517fbf0141703e7ec7e56a1bddced07f96b3c",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-585/",
-      "title": "ZDI-26-585: OriginLab Origin Viewer OGWU File Parsing Out-Of-Bounds Write Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of OriginLab Origin Viewer. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-19885.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-08-24T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-19885"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "1d7fbf13da855c3e0b6570e84cdd4a6a4095f383e33b6ca1067c41000c87614e",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-21962",
-      "title": "CVE-2026-21962: Oracle HTTP Server and Oracle Weblogic Server Proxy Plug-in Improper Access Control Vulnerability",
-      "summary": "Oracle HTTP Server and Oracle Weblogic Server Proxy Plug-in contain an improper access control vulnerability that can result in unauthorized creation, deletion or modification access to critical data as well as unauthorized access to critical data or complete access to all Oracle HTTP Server and Oracle Weblogic Server Proxy Plug-in accessible data. Affected product: HTTP Server and Oracle Weblogic",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-08-24T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-21962"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "54575255dfbb4d7a690ab447beb16b66c0b3fabe41e706d3d6dfd0ca71f27c79",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-75027",
-      "title": "CVE-2026-75027 — CVSS 5.3",
-      "summary": "The Themify Builder plugin for WordPress is vulnerable to authorization bypass in all versions up to, and including, 7.8.0. This is due to the plugin not properly verifying that a user is authorized to perform an action. This makes it possible for unauthenticated attackers to modify the stored Themify Builder styling data (padding and margin properties) of arbitrary posts, including private and dr",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-22T04:18:15.057",
-      "cve_ids": [
-        "CVE-2026-75027"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "d5bab33a291147dcde39f9b0633a2d0d1e7097c511f2f0f61fe5c26367e15338",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19883",
-      "title": "CVE-2026-19883 — CVSS 8.8",
-      "summary": "The WPeMatico RSS Feed Fetcher plugin for WordPress is vulnerable to unauthorized modification of data that can lead to privilege escalation due to a missing capability check on the wpematico_import_settings function in all versions up to, and including, 2.8.24. This makes it possible for authenticated attackers, with subscriber-level access and above, to update arbitrary options on the WordPress ",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-22T03:16:20.833",
-      "cve_ids": [
-        "CVE-2026-19883"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "dae4558ffe830097a1510b2df6ba25c8a4d5f0322de852fffeba29760b61a0f6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-77781",
-      "title": "CVE-2026-77781 — CVSS 7.5",
-      "summary": "Tie::Hash::Regex versions before 2.0.0 for Perl will throw an exception on unparseable lookup keys.\n\nThe FETCH, EXISTS and DELETE methods throw an exception when on malformed regular expressions.\n\nEach method falls back to a regex match when the key is not already stored in the hash, compiling the caller's key with a bare qr// and no eval guard. A key that is not a valid regular expression pattern",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-22T00:16:46.710",
-      "cve_ids": [
-        "CVE-2026-77781"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "0c19101aa37bd212ce5382dfd80ae37c989af768bbcea4e3b0b53344a49cee77",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53525",
-      "title": "CVE-2026-53525 — CVSS 7.4",
-      "summary": "WeeChat (Wee Enhanced Environment for Chat) is a free chat client. In versions 0.3.1 through 4.9.0, the WeeChat relay authentication uses non-constant-time string comparison functions (weechat_strcasecmp and strcmp) to verify password hashes and plaintext passwords. An attacker can exploit timing differences to extract the server-computed hash character by character, then authenticate using the co",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-21T23:16:26.363",
-      "cve_ids": [
-        "CVE-2026-53525"
-      ],
-      "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "8bad589c40452418409224fa86e98616de06de9ef2e0aab808b9b35a1a117bc8",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53499",
-      "title": "CVE-2026-53499",
-      "summary": "FORT Validator is a Resource Public Key Infrastructure (RPKI) relying-party validator that produces validated route-origin data. FORT Validator versions through 1.6.7 contain an origin-validation error in their RRDP processing: a delegated CA under the same Trust Anchor Locator (TAL) can reference a victim CA’s public RRDP notification and snapshot URLs, causing FORT’s URL-based download cache to ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-21T23:16:26.070",
-      "cve_ids": [
-        "CVE-2026-53499"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "e683840c0584b79edefd3e80520ab86a45a415fdc339821f040411a3be749e5b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-49360",
-      "title": "CVE-2026-49360",
-      "summary": "Recce is a data-validation toolkit for enhanced dbt (data build tool) PR review. Prior to version 1.50.0, OSS server deployments that expose the server to an untrusted network without authentication are vulnerable to unauthenticated SQL execution through the query run API. When Recce is configured with a DuckDB-backed project, an attacker can use DuckDB filesystem primitives to read and write file",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-21T23:16:25.617",
-      "cve_ids": [
-        "CVE-2026-49360"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "67822b8dec51c481a96ea306d2577873c9fa0f763e6c6ac3ac7156c59130757f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48106",
-      "title": "CVE-2026-48106",
-      "summary": "Arc is an open, SQL-native time-series database for telemetry. Prior to version 26.06.1, Arc Enterprise's cluster replication receiver at `internal/cluster/replication/receiver.go` validates only the wire-format envelope (length, opcode) of inbound messages. The `MsgReplicateSync` payload itself is accepted without any application-layer authentication — no HMAC, no signature, no per-message nonce.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-21T23:16:25.360",
-      "cve_ids": [
-        "CVE-2026-48106"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "505045e0dad5a189b28eda20286980c5bbeda38031df8e687173bd8299c52a83",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48105",
-      "title": "CVE-2026-48105",
-      "summary": "Arc is an open, SQL-native time-series database for telemetry. Prior to version 26.06.1, Arc Enterprise's Raft FSM (`internal/cluster/raft/fsm.go:applyRegisterFile`) accepts attacker-chosen file paths in manifest-registration proposals without validating them against the configured storage backend. The only check is that the path is non-empty. There is no parent-traversal (`..`) rejection, no allo",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-21T23:16:25.220",
-      "cve_ids": [
-        "CVE-2026-48105"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "08de99892469541b3060f720c34f2567d939e20dc0b65d52a28da01be05f0056",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48050",
-      "title": "CVE-2026-48050",
-      "summary": "Arc is an open, SQL-native time-series database for telemetry. Versions prior to 26.06.1 register Go's `net/http/pprof` handlers at `/debug/pprof/*` via `app.Use(pprof.New())` in `internal/api/server.go`, and `/debug/pprof` is added to `PublicPrefixes` in `cmd/arc/main.go`. The auth middleware short-circuits before the token check on prefix match, so the endpoints are reachable without any authent",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-21T23:16:25.070",
-      "cve_ids": [
-        "CVE-2026-48050"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a0b437fac2c1d983d0dfa9a11d5c8ed30fe138b48c0e3826298bef664e8bbf21",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-47735",
-      "title": "CVE-2026-47735",
-      "summary": "Arc is an open, SQL-native time-series database for telemetry. Prior to version 26.06.1, Arc's user-SQL validator (`internal/api/query.go:ValidateSQLRequest`) blocked only `read_parquet(` and `arc_partition_agg(` via regex denylist. The broader DuckDB I/O function family — `read_csv_auto`, `read_csv`, `read_json`, `read_json_auto`, `read_text`, `read_blob`, `glob`, `parquet_metadata`, `parquet_sch",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-21T23:16:24.917",
-      "cve_ids": [
-        "CVE-2026-47735"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "7090d8ef3950b744c37355111681d9f7a8f084d0a0902dee9c5e2ada03c3c6b2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34949",
-      "title": "CVE-2026-34949 — CVSS 6.5",
-      "summary": "Combodo iTop is a web based IT service management tool.Prior to 3.2.3, an unauthenticated user could delete the .readonly file on iTop instances — a file created during the setup process that prevents users from performing write actions. This issue has been fixed in version 3.2.3.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-21T23:16:24.297",
-      "cve_ids": [
-        "CVE-2026-34949"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "b5aae11323bb746579766e5a3109a0fe0fdaf5dac8cdf98a63b1a7a3fd6108d2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-34948",
-      "title": "CVE-2026-34948 — CVSS 7.7",
-      "summary": "Combodo iTop is a web based IT service management tool. Prior to 3.2.3, only classes present in the SELECT clause are protected by the silos access check in OQL. This issue has been fixed in version 3.2.3.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-21T23:16:24.153",
-      "cve_ids": [
-        "CVE-2026-34948"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "a2c5a5e9c55e49d2b0771fa45c699c82541f0c688839f38ac782f07a9f399705",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53529",
-      "title": "CVE-2026-53529",
-      "summary": "LeafWiki is a self-hosted wiki. Prior to version 0.10.2, page titles returned by the search API could be rendered as raw HTML in the frontend. A user with editor or administrator permissions could create or modify a page title containing an HTML/JavaScript payload. When another user searched for a matching term, the payload could execute in the victim’s browser. The impact depends on deployment co",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-21T22:16:39.430",
-      "cve_ids": [
-        "CVE-2026-53529"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "31575f5bbedc0408c1c8844ebcc797acb8c6d174db07c698fd1f8f4672e56cb1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53528",
-      "title": "CVE-2026-53528 — CVSS 8.8",
-      "summary": "LeafWiki is a self-hosted wiki. Versions 0.3.0 through 0.10.0 have a path traversal vulnerability in LeafWiki’s asset rename functionality. An authenticated user with editor permissions could move files that are accessible to the LeafWiki server process into a page’s asset directory. This could allow sensitive local files, such as the application database, to become downloadable as page assets. Us",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-08-21T22:16:39.290",
-      "cve_ids": [
-        "CVE-2026-53528"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "0f5528e957c526209f0accba8be5916418f67413ad375fe0465cb927973c508e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53527",
-      "title": "CVE-2026-53527 — CVSS 8.8",
-      "summary": "LeafWiki is a self-hosted wiki. Versions 0.1.0 through 0.10.0 have a privilege escalation vulnerability in the user update API. An authenticated user could update their own account role and escalate privileges from a regular user, such as `viewer`, to `admin`. Exploitation requires a valid authenticated LeafWiki user account. Instances without public registration and with only trusted users are at",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-08-21T22:16:39.147",
-      "cve_ids": [
-        "CVE-2026-53527"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "1dadbf44d212af5b9e15895052732ed42f0dfd0757298b6743856a80d0e2acb5",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53509",
-      "title": "CVE-2026-53509 — CVSS 5.7",
-      "summary": "CKAN MCP Server is a tool for querying CKAN open data portals. A known vulnerability CVE-2026-33060 indicated tools including ckan_package_search and sparql_query that accept a base_url parameter had the risk of making HTTP requests to arbitrary endpoints without restriction. A fix was applied to filter out ip addresses. However, a method to bypass exists prior to version 0.4.106. CKAN MCP Server ",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-08-21T22:16:38.993",
-      "cve_ids": [
-        "CVE-2026-53509"
-      ],
-      "cvss": 5.7,
-      "related_links": []
-    },
-    {
-      "id": "c2c5d27fc7a30fd1e8d3eef5d516990336995f737b91f9ca4c100c747e3613a6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-53497",
-      "title": "CVE-2026-53497 — CVSS 5.3",
-      "summary": "CrossWatch (CW) is a synchronization engine. Prior to version 0.9.21, GET /api/app-auth/status is accessible without authentication and returns the other_sessions array, which exposes metadata of all active sessions — including originating IP addresses, User-Agent strings, internal session IDs, and creation/expiry timestamps. Any unauthenticated network attacker can enumerate this data without cre",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-08-21T22:16:38.850",
-      "cve_ids": [
-        "CVE-2026-53497"
-      ],
-      "cvss": 5.3,
       "related_links": []
     }
   ]
