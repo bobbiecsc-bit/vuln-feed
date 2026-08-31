@@ -1,10 +1,92 @@
 {
-  "updated": "2026-08-31T15:52:58.756767+00:00",
+  "updated": "2026-08-31T21:19:17.415571+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "fab5a94b3397ad7a2ed7970f1b94b89a599c04a455c010711e15d3942a70b850",
+      "url": "https://github.com/advisories/GHSA-86m2-fcxq-5q7c",
+      "title": "GHSA: 9router: Unauthenticated `/v1` proxy access via `Host`-header spoofing → open AI relay + SSRF",
+      "summary": "## Summary\n\n9router's request guard decides a request is \"local\" (and therefore exempt from API-key auth on the `/v1` LLM proxy) by reading the **client-controlled `Host` header**. Because 9router binds `0.0.0.0` by default (and the CLI misleadingly prints \"localhost\"), a remote, unauthenticated attacker who can reach the port can send `Host: localhost` to be treated as local and obtain `/v1` prox",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-28T18:33:20Z",
+      "cve_ids": [
+        "CVE-2026-55641"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "2150fd283e086829a9bb8d24a60a9b5c748381ba5a187349bf268ee3806f7970",
+      "url": "https://github.com/advisories/GHSA-8gmq-j984-vp4r",
+      "title": "GHSA: 9router: Unauthenticated LLM proxy access via /codex rewrite authorization bypass",
+      "summary": "## Summary\n\n9router exposes an OpenAI/Anthropic-compatible LLM proxy. Remote access to this proxy is intended to be protected by an API-key check in the Next.js middleware.\n\nHowever, 9router also defines a rewrite that maps `/codex/*` to the backend LLM endpoint `/api/v1/responses`. The middleware authorization decision is made on the incoming request path before the rewrite is applied. Because `/",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-28T18:32:01Z",
+      "cve_ids": [
+        "CVE-2026-55638"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "c9549939266f529fec303a7c6940bb245a9b0402eaac7618f98fa9068be33017",
+      "url": "https://github.com/advisories/GHSA-786w-p5pm-cvgh",
+      "title": "GHSA: phpSysInfo has an IP allowlist (PSI_ALLOWED) bypass via spoofed X-Forwarded-For / Client-IP headers",
+      "summary": "## Summary\nphpSysInfo's `PSI_ALLOWED` IP allowlist can be trivially bypassed by any unauthenticated remote attacker. The access-control check in `read_config.php` derives the client IP from the attacker-controlled `X-Forwarded-For` and `Client-IP` HTTP headers **before** falling back to `REMOTE_ADDR`. An attacker can send `X-Forwarded-For: <an allowed IP>` to impersonate a trusted address and gain",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-28T18:30:55Z",
+      "cve_ids": [
+        "CVE-2026-55584"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "9469b9647cb6ff1840c81f4b2aad1d541d44486931ef6498d78fe6be3f6d83ff",
+      "url": "https://github.com/advisories/GHSA-298f-872v-2rcx",
+      "title": "GHSA: ORAS CLI: Cyclic Referrer Graph Can Cause Unbounded Recursion and Resource Consumption",
+      "summary": "### Summary\n\nA malicious OCI registry can return a **cyclic referrer graph** (e.g. `A -> A` or `A -> B -> A`). The ORAS CLI's recursive referrer traversal does not track visited descriptors, so a cycle causes unbounded recursion and memory growth — a client-side denial of service.\n\nThis affects `oras discover` (recursive referrer traversal) and the recursive referrer counting used by `oras backup`",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-08-28T18:19:15Z",
+      "cve_ids": [
+        "CVE-2026-55588"
+      ],
+      "cvss": 2.0,
+      "related_links": []
+    },
+    {
+      "id": "6f01060b6e115f8e20a407caac489c4c499d98abd37925c4c3e9ae2110c2b278",
+      "url": "https://www.bleepingcomputer.com/news/security/givewp-wordpress-donation-plugin-flaw-lets-hackers-execute-server-commands/",
+      "title": "GiveWP WordPress donation plugin flaw lets hackers execute server commands",
+      "summary": "A maximum-severity vulnerability in the GiveWP plugin for WordPress allows an unauthenticated attacker to execute arbitrary commands on the hosting server. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-08-28T18:18:55+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "13ae66cab75f96e00eae50ed2cf34663d9bad6ea0245e6c10ffe0fbe8191b5f3",
+      "url": "https://github.com/advisories/GHSA-2gh4-jmwq-rr8w",
+      "title": "GHSA: piccolo-admin has a privilege escalation issue - admin to superuser via session-token disclosure in GET /api/tables/sessions/.",
+      "summary": "## Summary\n\n`piccolo_admin` uses a helper called `superuser_validators` to gate access to the user and session tables for non-superusers. The helper rejects `PUT`, `PATCH`, `DELETE`, and `POST`, but **does not reject `GET`**.\n\nThe `sessions` table stores live session tokens **in plaintext**, and the token column is not marked `secret=True`, so it is included in every `GET` response. Any non-superu",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-08-28T18:14:13Z",
+      "cve_ids": [
+        "CVE-2026-55485"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
     {
       "id": "083a301fad02a7abe9d4470ccab659ea47d7c8c6a1d6109ffb31eafc74f575b2",
       "url": "https://github.com/advisories/GHSA-q79r-r9xg-r863",
@@ -605,88 +687,6 @@
       "cve_ids": [
         "CVE-2026-0013"
       ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a5014a37e1198e3cdad2d44e5c73fdd98a90b7c84849c009852d9913bbc1778f",
-      "url": "https://seclists.org/fulldisclosure/2026/Aug/111",
-      "title": "[NotCVE-2026-0010] Barrier 2.4.0 for Windows Unauthenticated IPC Command Execution Allows Local Privilege Escalation to SYSTEM",
-      "summary": "Posted by advisories on Aug 26---------------------------------------------------------------------------- NotCVE Advisory — NotCVE-2026-0010 ---------------------------------------------------------------------------- [-] Summary: Barrier 2.4.0 for Windows contains a local privilege escalation vulnerability in the IPC command interface exposed by the barrierd.exe service on 127.0.0.1:24801. The I",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-08-26T16:46:34+00:00",
-      "cve_ids": [
-        "CVE-2026-0010"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "e843107ad904ac34ad8ebbc8687ba2b564327e1e2aa3fdaa82f9e3d9a07e12d3",
-      "url": "https://seclists.org/fulldisclosure/2026/Aug/110",
-      "title": "[NotCVE-2026-0009] NitroShare Desktop 0.3.4 Path Traversal Allows LAN-Adjacent Arbitrary File Write",
-      "summary": "Posted by advisories on Aug 26---------------------------------------------------------------------------- NotCVE Advisory — NotCVE-2026-0009 ---------------------------------------------------------------------------- [-] Summary: NitroShare Desktop 0.3.4 contains a path traversal vulnerability in its LAN file transfer receive path. The transfer service is reachable from the local network on TCP ",
-      "source": "Full Disclosure",
-      "category": "web_app",
-      "date": "2026-08-26T16:46:33+00:00",
-      "cve_ids": [
-        "CVE-2026-0009"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "57b08a9e50d97ca570c01a4ffb991e763a71b39aa571ea72ad7d8a1805d57bf1",
-      "url": "https://github.com/advisories/GHSA-2wxc-x7rj-hg8f",
-      "title": "GHSA: asyncssh has SCP Path Traversal to Arbitrary File Write",
-      "summary": "| | |\n|---|---|\n| Product | asyncssh (all versions through 2.23.0) |\n| Related | CVE-2019-6111 (same class in OpenSSH) |\n| Fix | AsyncSSH 2.23.1 |\n\nA malicious SSH server can write arbitrary files on the asyncssh SCP client's filesystem by sending filenames containing `../` traversal sequences. The SCP receive path does not currently sanitize server-provided filenames. By chaining directory traver",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-26T15:34:22Z",
-      "cve_ids": [
-        "CVE-2026-54591"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "1e83db6694aabf43ffd7c8cab811b2c5fba1d60c533453d0c6f7311c4b687094",
-      "url": "https://github.com/advisories/GHSA-qr67-gv47-xwwh",
-      "title": "GHSA: asyncssh has an incomplete fix for CVE-2026-45309 — AuthorizedKeysFile %u still escapes the intended directory via a leading ~ (and weakly via ${ENV}) username substitution",
-      "summary": "**Incomplete fix for CVE-2026-45309 (GHSA-g794-3fmp-753h).** The\n  2.23.0 guard that sanitises the SSH username before `%u` substitution\n  in `AuthorizedKeysFile` blocks `/`, `\\` and `..`, but does not block a\n  leading `~` (or `${ENV}`), both of which are re-introduced by later\n  expansion and reach the file open — defeating the guard.\n\n  **Affected:** asyncssh 2.23.0 and current `develop` (commi",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-26T15:32:00Z",
-      "cve_ids": [
-        "CVE-2026-54590"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "463f0cfbae76583c88f63b2d29dc7ff876aaf7ef5d2f2cbc2626e0600c62b83e",
-      "url": "https://github.com/advisories/GHSA-p46m-g734-vpc4",
-      "title": "GHSA: cakephp/debug_kit: MailPreview contains unsafe reflection",
-      "summary": "### Impact\n\nThe `MailPreview` feature of debugkit is vulnerable to arbitrary constructor execution. For an application to be vulnerable the following conditions must be true:\n\n1. `debug` mode must be enabled.\n2. The hostname must match a 'local' domain or be in an allowlist.\n\n### Patches\n5.2.4 and 4.10.3 contain patches for this issue.\n\n### Workarounds\nEnsure that debugkit is only part of your dev",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-26T15:31:01Z",
-      "cve_ids": [
-        "CVE-2026-54614"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "b45aec354f6a7fe028a995445389380a988da741d20b774e1fb0fd2e2febc081",
-      "url": "https://seclists.org/fulldisclosure/2026/Aug/109",
-      "title": "Escargot v4.3.0-214-gfaee4437 Unauthenticated Remote Debugger Allows Arbitrary JavaScript Evaluation and Local File Disclosure",
-      "summary": "Posted by Ron E on Aug 26An unauthenticated remote debugger vulnerability exists in Escargot v4.3.0-214-gfaee4437 when the application is compiled with ESCARGOT_DEBUGGER support and the debug server is enabled using --start-debug-server. The debugger accepts client connections without authentication or authorization and provides access to privileged debugger functionality. An attacker capable of r",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-08-26T15:30:17+00:00",
-      "cve_ids": [],
       "cvss": null,
       "related_links": []
     }
