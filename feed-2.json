@@ -1,10 +1,106 @@
 {
-  "updated": "2026-09-03T08:35:33.104165+00:00",
+  "updated": "2026-09-03T15:54:01.434040+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "898ab320cc45e5c5647e0d5ff6d3372dad789fb7f4550fdaf7d6108633407e2a",
+      "url": "https://github.com/advisories/GHSA-c59q-g84q-2gj5",
+      "title": "GHSA: pnpm: Virtual store linker path traversal via unvalidated depPath name in lockfileToDepGraph",
+      "summary": "## Summary\n\nThe virtual store linker constructs package installation directories using `path.join(modules, pkgName)` where `pkgName` is extracted from lockfile `packages` keys via `dp.parse(depPath).name` without validation. A crafted `pnpm-lock.yaml` with traversal sequences in depPath keys (e.g., `../../../tmp/pwned@1.0.0`) causes package content to be written to arbitrary filesystem paths durin",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:37:13Z",
+      "cve_ids": [
+        "CVE-2026-82392"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "edfb57ab2967d5048d5a07a75cfcb6cb956213921b5948b37ffcf439e3293b55",
+      "url": "https://github.com/advisories/GHSA-vq4v-j7r6-jq4m",
+      "title": "GHSA: pnpm: A tarball dependency's manifest `name` escapes node_modules → arbitrary file write/overwrite on install",
+      "summary": "## Summary\nWhen resolving a package, pnpm uses the resolved **manifest `name`** as a raw path segment for the isolated-linker import target. A tarball dependency whose `package.json` `name` is a scoped path traversal (`@x/../../…/<abs path>`) is therefore extracted **outside `node_modules`**, to an attacker-chosen absolute path, and can **overwrite existing files** there. Attacker controls the des",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:36:59Z",
+      "cve_ids": [
+        "CVE-2026-82393"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "73098b36bc224fba833dc783e68a69b380662763321c4eb010a7060a0027d22f",
+      "url": "https://github.com/advisories/GHSA-f794-5jv7-7672",
+      "title": "GHSA: NLTK: Downloader.download follows hardlinks and overwrites outside-root files",
+      "summary": "### Summary\n\nNLTK's downloader now blocks symlink escapes during ZIP extraction, but it still treats pre-existing hardlinks inside the install tree as ordinary in-root files. A normal package install can therefore overwrite an outside-root inode through that hardlink.\n\n### Details\n\n- **Vulnerability type:** Filesystem containment bypass\n- **Affected component:** `nltk.downloader.Downloader.downloa",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:35:41Z",
+      "cve_ids": [
+        "CVE-2026-81727"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "96ba5b5e69f942cca0bc988e0cdb88c63bbfeda70280b47d8c14b37a069a44fc",
+      "url": "https://github.com/advisories/GHSA-8mgp-746c-j5xp",
+      "title": "GHSA: NLTK: Model-artifact APIs bypass pathsec and touch files outside allowed roots",
+      "summary": "### Summary\n\nSeveral model-artifact APIs still treat caller-controlled model paths as ordinary filenames even when NLTK path security is enforced. The same outside-root paths are rejected by guarded helpers, but these public read and write flows still use raw file APIs.\n\n### Details\n\n- **Vulnerability type:** File sandbox bypass\n- **Affected component:** `TransitionParser.train`, `TransitionParser",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-02T14:35:04Z",
+      "cve_ids": [
+        "CVE-2026-81726"
+      ],
+      "cvss": 7.0,
+      "related_links": []
+    },
+    {
+      "id": "df226be97dafd899eb0996c03d5a918f2f3a154cf675742058315ebe51c06bcf",
+      "url": "https://github.com/advisories/GHSA-vp2x-qp44-57v7",
+      "title": "GHSA: NLTK: Quadratic CPU Exhaustion in `XMLCorpusView._read_xml_fragment()`",
+      "summary": "## Summary\n\n`XMLCorpusView._read_xml_fragment()` reads a corpus file in 1 KiB blocks, appending\neach block to a growing `fragment` string, then calls `_VALID_XML_RE.match(fragment)`\non the full accumulated buffer every iteration. Because each iteration rescans the\nentire accumulated fragment, the total amount of work grows quadratically with input\nsize.\n\nCommit `c9c332284` (CWE-1333) made each `ma",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:34:11Z",
+      "cve_ids": [
+        "CVE-2026-81723"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "28360cddf6c1e6a6b9963211fbb65d898afb5d1d5d3164ef5f926cb9bbdac5a0",
+      "url": "https://github.com/advisories/GHSA-cw6x-m8jw-qmrh",
+      "title": "GHSA: NLTK: Uncontrolled recursion in nltk.featstruct.FeatStructReader causes unhandled RecursionError (DoS) via deeply nested feature-structure input",
+      "summary": "### Summary\n\n`nltk.featstruct.FeatStructReader` (used by `FeatStruct(str)` and by `FeatureGrammar.fromstring()`) parses feature-structure strings such as `[a=1]` with a recursive-descent parser that has no nesting-depth limit. A small, trivially-crafted input (~700 bytes) with deeply nested brackets drives the parser past Python's recursion limit and raises an **unhandled `RecursionError`** instea",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:33:22Z",
+      "cve_ids": [
+        "CVE-2026-81724"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "92bc70230ebcc19d51905bc1f5629e9aa3e67d1d6c603236faa9a73a186b43d0",
+      "url": "https://github.com/advisories/GHSA-cvhv-g4rq-3hmw",
+      "title": "GHSA: ImageMagick: Memory Leak when providing invalid options to the cli",
+      "summary": "A memory leak is possible when invalid options are passed to the cli (`magick`)",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:27:49Z",
+      "cve_ids": [],
+      "cvss": 3.3,
+      "related_links": []
+    },
     {
       "id": "029b12aa061de6b2a69b4497da33eec38f4283c6098bc8f5f22f9b90bef79c60",
       "url": "https://github.com/advisories/GHSA-qxc2-j82w-r537",
@@ -569,96 +665,6 @@
       "source": "Exploit-DB",
       "category": "emergency",
       "date": "2026-09-01T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "5d36003a0cd85a2cd51f87b836be7b83fc8dd8b5195a85e31943a32a51ac401e",
-      "url": "https://www.exploit-db.com/exploits/52668",
-      "title": "[webapps] miniOrange 5.4.3 - Unauthenticated Auth Bypass",
-      "summary": "miniOrange 5.4.3 - Unauthenticated Auth Bypass",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-09-01T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d8b5c731b6f686dcce7ccb6d771e9ee7ab50cb2b8d1956204f6ffd99ac373616",
-      "url": "https://www.exploit-db.com/exploits/52667",
-      "title": "[webapps] EasyAppointments 1.5.1 - Blind SQL Injection",
-      "summary": "EasyAppointments 1.5.1 - Blind SQL Injection",
-      "source": "Exploit-DB",
-      "category": "web_app",
-      "date": "2026-09-01T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3f983fa999d1da2ac44aef80dc2ac36b012ecfa0f210592f975602b61d466ea7",
-      "url": "https://github.com/advisories/GHSA-gr94-w7qr-f4j3",
-      "title": "GHSA: Socket.IO: Engine.IO WebTransport SID DoS",
-      "summary": "### Impact\n\nEngine.IO servers with **WebTransport enabled** are vulnerable to a remotely triggerable denial of service.\n\nA malicious unauthenticated client can send a crafted WebTransport upgrade request containing a specially chosen session ID, such as `__proto__`. Because the session ID lookup did not properly verify that the key was an own property of the clients object, the lookup could resolv",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-31T21:28:12Z",
-      "cve_ids": [
-        "CVE-2026-59724"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "24451a64d5712e56bf099b2c78826143f4ec207f49086c46f4cf39fd8ddd8c1b",
-      "url": "https://github.com/advisories/GHSA-fm3f-ch8h-qw8q",
-      "title": "GHSA: @hono/oauth-providers: OAuth state check fails open on omitted state, enabling login CSRF and forced account linking",
-      "summary": "### Summary\n\nThe built-in social login providers accept an OAuth callback even when the `state` value is absent on both sides, so the anti-CSRF check passes for a callback that never came from a genuine login attempt. This defeats the `state`-based CSRF protection under default usage.\n\n### Details\n\nThe `state` check treated two absent values as a match, so a callback that omits `state` — and for w",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-08-31T20:30:50Z",
-      "cve_ids": [
-        "CVE-2026-81888"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "96d87f17c19f7fcddfc24add279f6884c89fd09b30c3aef9a4cf59f9e7059409",
-      "url": "https://github.com/advisories/GHSA-8x3q-jpjh-qh5c",
-      "title": "GHSA: elFinder: SSRF protection bypass via DNS rebinding in the `fsock_get_contents()` fallback",
-      "summary": "[poc.zip](https://github.com/user-attachments/files/30352020/poc.zip)\n## Summary\n\nelFinder 2.1.69 is vulnerable to a Server-Side Request Forgery (SSRF) protection bypass when PHP cURL is unavailable and URL uploads use the `fsock_get_contents()` fallback.\n\nAn attacker who can submit a URL for server-side upload can use an attacker-controlled DNS hostname that initially resolves to an allowed publi",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-08-31T20:28:06Z",
-      "cve_ids": [
-        "CVE-2026-81889"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "da65f49ad04e53bab8fb210ab56fa06d9140f804bd19cf1e3dcab344466f1bed",
-      "url": "https://www.bleepingcomputer.com/news/security/chinese-fire-ant-hackers-turn-cisco-routers-into-spying-platforms/",
-      "title": "Chinese Fire Ant hackers turn Cisco routers into spying platforms",
-      "summary": "The researchers discovered Fire Ant's new tactic after finding an active GRE (Generic Routing Encapsulation) tunnel interface on a Cisco IOS XR router that could not be explained by a running configuration or commit history. [...]",
-      "source": "Bleeping Computer",
-      "category": "infrastructure",
-      "date": "2026-08-31T14:52:03+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ece82d05f49cf6460d3db09ba65dc5166868221fa19f6098e76a78de32a295f7",
-      "url": "https://www.bleepingcomputer.com/news/security/file-servers-are-here-to-stay-heres-how-to-manage-them-securely/",
-      "title": "File servers are here to stay. Here’s how to manage them securely",
-      "summary": "File servers remain a critical part of many IT environments, but managing access securely can become complex as permissions accumulate. tenfold Software outlines five best practices for simplifying file server administration and maintaining least-privilege access. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-08-31T14:00:10+00:00",
       "cve_ids": [],
       "cvss": null,
       "related_links": []
