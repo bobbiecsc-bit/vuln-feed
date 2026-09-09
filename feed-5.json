@@ -1,10 +1,646 @@
 {
-  "updated": "2026-09-09T03:24:39.177842+00:00",
+  "updated": "2026-09-09T08:42:04.180704+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "01bdbedcf47a50252c101c1d8efd94e977286538dca0470370cfc6f422680de6",
+      "url": "https://github.com/advisories/GHSA-4mjr-xmp4-gh2g",
+      "title": "GHSA: qs: Denial of Service via Attacker Controlled isBuffer",
+      "summary": "### Summary\n\n`qs.stringify()` calls `utils.isBuffer()` on every value it serializes, and `utils.isBuffer()` invokes `obj.constructor.isBuffer(obj)` without checking that it is callable. A value whose own `constructor.isBuffer` is a non-function makes `qs` call a non-callable and throw `TypeError`. Such a value is produced **by `qs.parse` itself** from an untrusted query string when `plainObjects: ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-02T14:45:13Z",
+      "cve_ids": [
+        "CVE-2026-82417"
+      ],
+      "cvss": 5.3,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-82417"
+      ]
+    },
+    {
+      "id": "15396b8b537f50f28480742183d4824166727a132ea062d693499d47110c0cf9",
+      "url": "https://github.com/advisories/GHSA-g2fm-8hr4-j82h",
+      "title": "GHSA: EasyAdmin custom-action dispatcher bypasses access_control on other routes",
+      "summary": "## Summary\n\nEasyAdmin serves all backend requests through a single dashboard route and, for custom actions (`Action::linkToRoute()` / `MenuItem::linkToRoute()`), swaps the executed controller based on the `routeName` query parameter on the `kernel.controller` event.\n\nThat swap happens **after** Symfony's security firewall has already evaluated `access_control` against the original dashboard URL, a",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-02T14:39:11Z",
+      "cve_ids": [
+        "CVE-2026-81892"
+      ],
+      "cvss": 8.1,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-81892"
+      ]
+    },
+    {
+      "id": "92d31e008eab59514a457f5d361f4bde72f49e2fe92c1214edea0d52f130081d",
+      "url": "https://github.com/advisories/GHSA-mpf4-983q-p7j4",
+      "title": "GHSA:  Tornado: Urlencoded body parsing omits max_num_fields, so one request can stall the event loop",
+      "summary": "## Summary\n\nTornado parses `application/x-www-form-urlencoded` bodies with `urllib.parse.parse_qs` and does not pass `max_num_fields`. A body made almost entirely of separators produces tens of millions of fields, and the parse happens on the event loop before the handler runs, so a single request stalls the whole server.\n\n## Where it is\n\n`tornado/escape.py`, at HEAD `e530031405e2154654dedc4c84d56",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:38:43Z",
+      "cve_ids": [
+        "CVE-2026-82397"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "da6a0958b90ee89f6446a91f68093667d9977b93f1ddba3cc17cadd20f13bcdd",
+      "url": "https://github.com/advisories/GHSA-gxmj-r5rf-ggwq",
+      "title": "GHSA: elFinder: ZIP extraction bypasses uploadDeny MIME filter allowing PHP file upload (RCE)",
+      "summary": "### Summary\n\nelFinder provides `uploadDeny` and `uploadAllow` options in its connector configuration to restrict which MIME types may be uploaded. When `uploadDeny` includes `text/x-php`, direct upload of `.php`, `.phtml`, and `.phar` files is correctly blocked. However, the `extract` command (ZIP decompression) internally calls `checkExtractItems()`, which invokes `mimetypeInternalDetect()` direc",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-02T14:37:54Z",
+      "cve_ids": [
+        "CVE-2026-81891"
+      ],
+      "cvss": 8.1,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-81891"
+      ]
+    },
+    {
+      "id": "a00f473585a16bf161593bd4a5e9203c3e6cf9dd4fd8019716df3d894d592f23",
+      "url": "https://github.com/advisories/GHSA-9hjf-w35w-6vx2",
+      "title": "GHSA: elFinder: CSRF in netmount allows forced FTP mounts and server-side FTP connections",
+      "summary": "### Summary\nThe PHP connector's CSRF gate protects many mutating commands, but it does not protect the `netmount` connector command. In the shipped minimal connector setup, FTP network mounting is enabled by default, so a cross-site request can force an elFinder instance to mount an attacker-chosen FTP endpoint in the victim's session and cause the server to initiate an outbound FTP connection wit",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-02T14:37:36Z",
+      "cve_ids": [
+        "CVE-2026-81890"
+      ],
+      "cvss": 5.4,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-81890"
+      ]
+    },
+    {
+      "id": "898ab320cc45e5c5647e0d5ff6d3372dad789fb7f4550fdaf7d6108633407e2a",
+      "url": "https://github.com/advisories/GHSA-c59q-g84q-2gj5",
+      "title": "GHSA: pnpm: Virtual store linker path traversal via unvalidated depPath name in lockfileToDepGraph",
+      "summary": "## Summary\n\nThe virtual store linker constructs package installation directories using `path.join(modules, pkgName)` where `pkgName` is extracted from lockfile `packages` keys via `dp.parse(depPath).name` without validation. A crafted `pnpm-lock.yaml` with traversal sequences in depPath keys (e.g., `../../../tmp/pwned@1.0.0`) causes package content to be written to arbitrary filesystem paths durin",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:37:13Z",
+      "cve_ids": [
+        "CVE-2026-82392"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "edfb57ab2967d5048d5a07a75cfcb6cb956213921b5948b37ffcf439e3293b55",
+      "url": "https://github.com/advisories/GHSA-vq4v-j7r6-jq4m",
+      "title": "GHSA: pnpm: A tarball dependency's manifest `name` escapes node_modules → arbitrary file write/overwrite on install",
+      "summary": "## Summary\nWhen resolving a package, pnpm uses the resolved **manifest `name`** as a raw path segment for the isolated-linker import target. A tarball dependency whose `package.json` `name` is a scoped path traversal (`@x/../../…/<abs path>`) is therefore extracted **outside `node_modules`**, to an attacker-chosen absolute path, and can **overwrite existing files** there. Attacker controls the des",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:36:59Z",
+      "cve_ids": [
+        "CVE-2026-82393"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "73098b36bc224fba833dc783e68a69b380662763321c4eb010a7060a0027d22f",
+      "url": "https://github.com/advisories/GHSA-f794-5jv7-7672",
+      "title": "GHSA: NLTK: Downloader.download follows hardlinks and overwrites outside-root files",
+      "summary": "### Summary\n\nNLTK's downloader now blocks symlink escapes during ZIP extraction, but it still treats pre-existing hardlinks inside the install tree as ordinary in-root files. A normal package install can therefore overwrite an outside-root inode through that hardlink.\n\n### Details\n\n- **Vulnerability type:** Filesystem containment bypass\n- **Affected component:** `nltk.downloader.Downloader.downloa",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:35:41Z",
+      "cve_ids": [
+        "CVE-2026-81727"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "96ba5b5e69f942cca0bc988e0cdb88c63bbfeda70280b47d8c14b37a069a44fc",
+      "url": "https://github.com/advisories/GHSA-8mgp-746c-j5xp",
+      "title": "GHSA: NLTK: Model-artifact APIs bypass pathsec and touch files outside allowed roots",
+      "summary": "### Summary\n\nSeveral model-artifact APIs still treat caller-controlled model paths as ordinary filenames even when NLTK path security is enforced. The same outside-root paths are rejected by guarded helpers, but these public read and write flows still use raw file APIs.\n\n### Details\n\n- **Vulnerability type:** File sandbox bypass\n- **Affected component:** `TransitionParser.train`, `TransitionParser",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-02T14:35:04Z",
+      "cve_ids": [
+        "CVE-2026-81726"
+      ],
+      "cvss": 7.0,
+      "related_links": []
+    },
+    {
+      "id": "df226be97dafd899eb0996c03d5a918f2f3a154cf675742058315ebe51c06bcf",
+      "url": "https://github.com/advisories/GHSA-vp2x-qp44-57v7",
+      "title": "GHSA: NLTK: Quadratic CPU Exhaustion in `XMLCorpusView._read_xml_fragment()`",
+      "summary": "## Summary\n\n`XMLCorpusView._read_xml_fragment()` reads a corpus file in 1 KiB blocks, appending\neach block to a growing `fragment` string, then calls `_VALID_XML_RE.match(fragment)`\non the full accumulated buffer every iteration. Because each iteration rescans the\nentire accumulated fragment, the total amount of work grows quadratically with input\nsize.\n\nCommit `c9c332284` (CWE-1333) made each `ma",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:34:11Z",
+      "cve_ids": [
+        "CVE-2026-81723"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "28360cddf6c1e6a6b9963211fbb65d898afb5d1d5d3164ef5f926cb9bbdac5a0",
+      "url": "https://github.com/advisories/GHSA-cw6x-m8jw-qmrh",
+      "title": "GHSA: NLTK: Uncontrolled recursion in nltk.featstruct.FeatStructReader causes unhandled RecursionError (DoS) via deeply nested feature-structure input",
+      "summary": "### Summary\n\n`nltk.featstruct.FeatStructReader` (used by `FeatStruct(str)` and by `FeatureGrammar.fromstring()`) parses feature-structure strings such as `[a=1]` with a recursive-descent parser that has no nesting-depth limit. A small, trivially-crafted input (~700 bytes) with deeply nested brackets drives the parser past Python's recursion limit and raises an **unhandled `RecursionError`** instea",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:33:22Z",
+      "cve_ids": [
+        "CVE-2026-81724"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "92bc70230ebcc19d51905bc1f5629e9aa3e67d1d6c603236faa9a73a186b43d0",
+      "url": "https://github.com/advisories/GHSA-cvhv-g4rq-3hmw",
+      "title": "GHSA: ImageMagick: Memory Leak when providing invalid options to the cli",
+      "summary": "A memory leak is possible when invalid options are passed to the cli (`magick`)",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:27:49Z",
+      "cve_ids": [],
+      "cvss": 3.3,
+      "related_links": []
+    },
+    {
+      "id": "029b12aa061de6b2a69b4497da33eec38f4283c6098bc8f5f22f9b90bef79c60",
+      "url": "https://github.com/advisories/GHSA-qxc2-j82w-r537",
+      "title": "GHSA: Faker: helpers.fake exploitable into arbritary code execution",
+      "summary": "### Summary\n\n`faker.helpers.fake` can be tricked into arbritary code execution.\n\n### Details\n\nfakeEval.resolveProperty resolves properties on functions itself instead of resolving the nested function first.\nThis can be addressed by recursively calling resolveProperty instead of accessing the property after one iteration.\n\n### PoC\n\nGo to https://fakerjs.dev/\nOpen Browser console and run\n\n````ts\nawa",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:20:14Z",
+      "cve_ids": [
+        "CVE-2026-73231"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "bdab174eb5a936b573f0f884811e9dcd18f1308b4b85f85a4f3ea5e7d16abae0",
+      "url": "https://github.com/advisories/GHSA-275h-v5h9-vr82",
+      "title": "GHSA: Siyuan: Authenticated path traversal in /snippets/ static handler (serveSnippets) leaks conf/conf.json secrets and siyuan.db",
+      "summary": "Reporter: Cavan Loughran, Celvex Group Inc.\n\nSummary\n-------\nThe /snippets/*filepath route handler serveSnippets in kernel/server/serve.go performs a bare filepath.Join(util.SnippetsPath, filePath) on the single-decoded c.Request.URL.Path and serves the result with c.File(), with NO IsSubPath containment and NO IsSensitivePath denylist - unlike the sibling /export/ (serveExport) and /appearance/ (",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-02T14:17:44Z",
+      "cve_ids": [
+        "CVE-2026-59832"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "765a01ffe4f532e508d5cf48c5de17b0132171a46c0737d8deee06d87771b68b",
+      "url": "https://github.com/advisories/GHSA-h89q-4j2h-7h88",
+      "title": "GHSA: SiYuan: SQL Query in Block Search Exposes Hidden Published Document Content",
+      "summary": "## Summary\n\nSiyuan's block search endpoint concatenates attacker-controlled `paths[]` values into SQL predicates used by non-SQL search modes. Through Siyuan's publish service, an unauthenticated visitor is forwarded to the kernel with a reader-role token and can reach `POST /api/search/fullTextSearchBlock`.\n\nAn attacker can inject a `UNION SELECT` through `paths[]` and return rows from hidden doc",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-02T14:16:08Z",
+      "cve_ids": [
+        "CVE-2026-59834"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "fcd7dc4eae3094531f40946279bfa293687783c7c662651340bfc9e0a9bf84b2",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81269",
+      "title": "CVE-2026-81269 — CVSS 5.3",
+      "summary": "Missing Authorization vulnerability in Drupal Data field allows Forceful Browsing. This issue affects Data field versions: from 0.0.0 to 2.0.13.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T13:18:12.917",
+      "cve_ids": [
+        "CVE-2026-81269"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "c7d2ca84c1af258e316c3ddc63bdf5f810c8fd2382b0e596998cc6dfe92196b6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81205",
+      "title": "CVE-2026-81205 — CVSS 5.3",
+      "summary": "Improper Neutralization of Special Elements used in an LDAP Query ('LDAP Injection') vulnerability in Drupal LDAP / Active Directory Integration allows LDAP Injection. This issue affects LDAP / Active Directory Integration versions: from 0.0.0 to 2.2.1.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-09-02T13:18:12.803",
+      "cve_ids": [
+        "CVE-2026-81205"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "29c7a650a4317fa873b9aa6d30abd28d0bb8c55edd3fcce940b36953790d1e2d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81201",
+      "title": "CVE-2026-81201 — CVSS 6.1",
+      "summary": "Improper Neutralization of Input During Web Page Generation (\"Cross-site Scripting\") vulnerability in Drupal Monster Menus allows Stored XSS. This issue affects Monster Menus versions: from 0.0.0 to 9.5.3.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-09-02T13:18:12.700",
+      "cve_ids": [
+        "CVE-2026-81201"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "c292cab2eee60bb1a582d06f930f99e1d2d32fbf409e9071751ab6fe576d9845",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81167",
+      "title": "CVE-2026-81167 — CVSS 4.8",
+      "summary": "Improper Neutralization of Input During Web Page Generation (\"Cross-site Scripting\") vulnerability in Drupal Address Suggestion allows Cross-Site Scripting (XSS). This issue affects Address Suggestion versions: from 0.0.0 to 1.0.25.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-09-02T13:18:12.467",
+      "cve_ids": [
+        "CVE-2026-81167"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "f419405586794a0ce8d4db3e92c3f06c7392410bf68d0c347422932a03cb5b7e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81166",
+      "title": "CVE-2026-81166 — CVSS 5.3",
+      "summary": "Missing Authorization vulnerability in Drupal Digital Signage Framework allows Forceful Browsing. This issue affects Digital Signage Framework versions: from 0.0.0 to 2.6.1.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T13:18:12.357",
+      "cve_ids": [
+        "CVE-2026-81166"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "9a32efa80832d82a5118223a194c8d348bce172aa83f01a40629aecae5353a14",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81165",
+      "title": "CVE-2026-81165 — CVSS 5.3",
+      "summary": "Incorrect Authorization vulnerability in Drupal Blazy allows Forceful Browsing. This issue affects Blazy versions: from 0.0.0 to 3.0.18.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T13:18:12.247",
+      "cve_ids": [
+        "CVE-2026-81165"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "f0bb977e60c7909f2e857a1f50e11c3d38e495e1de8bba22c8ce5526fa920db3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81164",
+      "title": "CVE-2026-81164 — CVSS 5.4",
+      "summary": "Missing Authorization vulnerability in Drupal Entity PDF allows Forceful Browsing. This issue affects Entity PDF versions: from 0.0.0 to 2.1.5.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T13:18:12.137",
+      "cve_ids": [
+        "CVE-2026-81164"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "2b6474c85b996af6595421c4c3fd7d3a8543a07c2da36b7cb06bf7a17ed78d24",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81162",
+      "title": "CVE-2026-81162 — CVSS 5.3",
+      "summary": "Insertion of Sensitive Information Into Sent Data vulnerability in Drupal DXPR Builder: The Best Editing (AI) Experience for Drupal allows Forceful Browsing. This issue affects DXPR Builder: The Best Editing (AI) Experience for Drupal versions: from 0.0.0 to 2.8.1.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T13:18:12.023",
+      "cve_ids": [
+        "CVE-2026-81162"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "1cd60a937ad69dd8229309490e8878c3da256b75f8cc4d68f22b5ba3dc48939a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81160",
+      "title": "CVE-2026-81160 — CVSS 6.1",
+      "summary": "Improper Neutralization of Input During Web Page Generation (\"Cross-site Scripting\") vulnerability in Drupal Slick Carousel allows Stored XSS. This issue affects Slick Carousel versions: from 0.0.0 to 2.1.0.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-09-02T13:18:11.760",
+      "cve_ids": [
+        "CVE-2026-81160"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "de300fe96e1bfd5ee15315a100f491866ff4495e09b9ceb2b3bd97a201afd39e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81159",
+      "title": "CVE-2026-81159 — CVSS 3.7",
+      "summary": "Observable Timing Discrepancy vulnerability in Drupal Commerce CyberSource allows Brute Force. This issue affects Commerce CyberSource versions: from 0.0.0 to 1.10.0.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T13:18:11.653",
+      "cve_ids": [
+        "CVE-2026-81159"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "49e244578cd697d2cd4cbd8c30bb716f61f9da196547dcaccc655a01b9fc2dec",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81158",
+      "title": "CVE-2026-81158 — CVSS 5.3",
+      "summary": "Incorrect Authorization vulnerability in Drupal Entity API allows Forceful Browsing. This issue affects Entity API versions: from 0.0.0 to 1.8.0.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T13:18:11.540",
+      "cve_ids": [
+        "CVE-2026-81158"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "60b0cc490ab3074b910296f526227a4064374bc64989fca839c9154de699a7be",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76782",
+      "title": "CVE-2026-76782 — CVSS 7.3",
+      "summary": "Vulnerability in Drupal Screenshot. This issue affects Screenshot versions: *.*.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-09-02T13:18:11.277",
+      "cve_ids": [
+        "CVE-2026-76782"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "675f93cb83a21bd674e5d8a63494328ff588d8fa39d686d00ecd05caee931eb1",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76759",
+      "title": "CVE-2026-76759 — CVSS 7.3",
+      "summary": "Vulnerability in Drupal Screenshot. This issue affects Screenshot versions: *.*.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-09-02T13:18:11.177",
+      "cve_ids": [
+        "CVE-2026-76759"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "2791e49a116c2c6b2ffa53989545979fef81e7d6b03d8f66136643f33b8a2584",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73478",
+      "title": "CVE-2026-73478 — CVSS 5.3",
+      "summary": "Incorrect Authorization vulnerability in Drupal Diff allows Forceful Browsing. This issue affects Diff versions: from 0.0.0 to 2.0.1, from 2.1.0 to 2.1.1.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T13:18:08.637",
+      "cve_ids": [
+        "CVE-2026-73478"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "663e489edb1f5e4986f5440fc4ec8294787e954c0921209a079bfc9dc4580c5e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73477",
+      "title": "CVE-2026-73477 — CVSS 5.3",
+      "summary": "Incorrect Authorization vulnerability in Drupal Quick Tabs allows Forceful Browsing. This issue affects Quick Tabs versions: from 0.0.0 to 4.3.1.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T13:18:08.530",
+      "cve_ids": [
+        "CVE-2026-73477"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "da7daf99b3b883e0fc81e8b880534ddceaa67f2d963f95077a6b0cdd1e46df74",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73475",
+      "title": "CVE-2026-73475 — CVSS 9.1",
+      "summary": "Incorrect Authorization vulnerability in Drupal Commerce PayPal allows Forceful Browsing. This issue affects Commerce PayPal versions: from 0.0.0 to 1.12.0, from 2.0.0 to 2.1.3.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T13:18:08.300",
+      "cve_ids": [
+        "CVE-2026-73475"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "28bf47b0e4a1c2d92f59968475cb4461aac5306fb9e6bf58773196e056cf89c1",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73474",
+      "title": "CVE-2026-73474 — CVSS 5.3",
+      "summary": "Server-Side Request Forgery (SSRF) vulnerability in Drupal Entity Share Websub allows Server Side Request Forgery. This issue affects Entity Share Websub versions: from 0.0.0 to 1.1.2.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-09-02T13:18:08.187",
+      "cve_ids": [
+        "CVE-2026-73474"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "ba7ef108f515d8dc806c770d17620940329a828445eadccaa54a15d2c417b667",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18986",
+      "title": "CVE-2026-18986 — CVSS 4.8",
+      "summary": "Improper Neutralization of Input During Web Page Generation (\"Cross-site Scripting\") vulnerability in Drupal Entity Browser allows Stored XSS. This issue affects Entity Browser versions: from 0.0.0 to 2.16.0.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-09-02T13:17:07.540",
+      "cve_ids": [
+        "CVE-2026-18986"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "c2ae03825074c154c91310d5eb60b4764284036c766f37c193659e1e45c85bab",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84808",
+      "title": "CVE-2026-84808 — CVSS 4.3",
+      "summary": "Kimai versions before 2.65.0 contain an authorization bypass vulnerability in the REST API timesheet collection endpoint that fails to enforce activity-team access controls. Users with view_other_timesheet permission can list timesheets using activities restricted to teams they do not belong to, bypassing intended data isolation.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T12:17:17.870",
+      "cve_ids": [
+        "CVE-2026-84808"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "d4ed2d34c9a752be2acc15175e401b7b8190c9d4e42336c0d40fc7c930d5120d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84803",
+      "title": "CVE-2026-84803 — CVSS 9.0",
+      "summary": "SiYuan before v3.8.2 contains a stored cross-site scripting vulnerability in asset serving due to an incomplete extension blocklist that misses script-capable file types. Attackers can upload files with extensions like .xht, .ehtml, .xsl, .xbl, or .rdf that resolve to executable media types and execute JavaScript to steal API tokens and compromise workspaces.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T12:17:17.183",
+      "cve_ids": [
+        "CVE-2026-84803"
+      ],
+      "cvss": 9.0,
+      "related_links": []
+    },
+    {
+      "id": "19bdd2b14be7365ae3ec19cdbb455afff440b414aabbc3375b83a8b17fe59d78",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84802",
+      "title": "CVE-2026-84802 — CVSS 4.3",
+      "summary": "Craft CMS versions from 5.7.0 before 5.10.12 contain an information disclosure vulnerability in AssetsController::actionMoveInfo that fails to enforce volume permissions. Authenticated control panel users can submit POST requests to the assets/move-info endpoint with arbitrary folderIds to retrieve asset count and total storage size for volumes they cannot access.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T12:17:17.050",
+      "cve_ids": [
+        "CVE-2026-84802"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "5ed41257b4744d02bd355dc908712d4b33711ad16ff8ab8d1aac901f80acbd9f",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84801",
+      "title": "CVE-2026-84801 — CVSS 8.8",
+      "summary": "Craft CMS versions before 5.10.11 fail to validate admin status in the actionGetPasswordResetUrl endpoint, allowing non-admin users with administrateUsers permission to mint password reset URLs for administrator accounts. Attackers can generate a valid reset URL for any admin user and set a new password via actionSetPassword, which validates only the verification code without checking the caller's",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-09-02T12:17:16.910",
+      "cve_ids": [
+        "CVE-2026-84801"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "e0bb37490c9207d739534ddc52fa1333a0436e8796983c3b635958a9e2e147e3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84800",
+      "title": "CVE-2026-84800 — CVSS 7.1",
+      "summary": "Craft CMS versions >= 5.0.0-RC1 and < 5.10.11 contain a missing authorization vulnerability in AssetsController::actionReplaceFile. When a request supplies sourceAssetId and targetFilename but omits assetId, the target asset is resolved by folder and filename after the permission checks execute, so the replacePeerFiles permission is never enforced. An authenticated low-privilege author with only t",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T12:17:16.773",
+      "cve_ids": [
+        "CVE-2026-84800"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "da8f246a7a90366b5288323a4a6d680c8561805490f5272aaf4ab58bd8bd27c7",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84799",
+      "title": "CVE-2026-84799 — CVSS 4.3",
+      "summary": "Craft CMS before 5.11.0 fails to enforce user-group scope filters on native GraphQL user relations including author, authors, uploader, draftCreator, and revisionCreator fields. Attackers with a scoped GraphQL token can query these relations to read usernames, email addresses, and full names of any content author or uploader including administrators.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T12:17:16.637",
+      "cve_ids": [
+        "CVE-2026-84799"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "5e1ab990acd23c01380a5cf994be9bb9e011392ac53324564c36ac95db08ca22",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84798",
+      "title": "CVE-2026-84798 — CVSS 7.1",
+      "summary": "Craft CMS versions >= 5.0.0-RC1 and < 5.10.11 fail to perform an independent authorization check in ElementsController::actionDeleteForSite(). The method loads an element with checkForProvisionalDraft enabled and runs the deletion authorization check against the user's own provisional draft (which only verifies draft ownership), then propagates the deletion to the canonical element without re-chec",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-09-02T12:17:16.500",
+      "cve_ids": [
+        "CVE-2026-84798"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "d94830644a4a05df3cbaab3cf4ba415bacdec0872c6534960edb2ccf1d284d82",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84796",
+      "title": "CVE-2026-84796 — CVSS 8.8",
+      "summary": "Craft CMS versions before 5.10.11 contain a site scope bypass vulnerability in GraphQL entry mutation resolvers that fail to validate siteId through ArgumentManager::prepareArguments(). Attackers with tokens scoped to one site can read, modify, or delete entries across unauthorized sites by passing siteId directly in mutation arguments.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-09-02T12:17:16.227",
+      "cve_ids": [
+        "CVE-2026-84796"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "7f0ad679050869d935e86baf03323eeceb63132cb9a64fa39efdbee3f9d1685a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84795",
+      "title": "CVE-2026-84795 — CVSS 9.8",
+      "summary": "Craft CMS before 5.10.11 fails to validate the admin flag during user registration, allowing it to persist from deactivated admin accounts. Attackers can register with a deactivated admin's email address to inherit administrator privileges when public registration and disabled email verification are configured.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T12:17:16.093",
+      "cve_ids": [
+        "CVE-2026-84795"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "b282372d24ec8cfda596e204efc0dd1cbf5f251cad073d09f6a4770a42d8a4eb",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84794",
+      "title": "CVE-2026-84794 — CVSS 7.1",
+      "summary": "Craft CMS versions before 5.10.11 lack authorization checks in the assets/move-asset endpoint when force=1 is supplied. Authenticated users without peer asset permissions can move their own assets into other users' folders and force deletion of conflicting files, allowing unauthorized asset deletion and replacement.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-02T12:17:15.957",
+      "cve_ids": [
+        "CVE-2026-84794"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "a1b524bfa7caa45cb7a9b024d967a681e27b341cc0380ecd01333b0165bb389a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84793",
+      "title": "CVE-2026-84793 — CVSS 4.8",
+      "summary": "Craft CMS versions from 5.0.0-RC1 before 5.10.11 contain a stored cross-site scripting vulnerability in the site name field that fails to sanitize input. Administrators can inject arbitrary JavaScript payloads in the site name that execute when other users view the control panel settings pages.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-09-02T12:17:15.820",
+      "cve_ids": [
+        "CVE-2026-84793"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "35ea5ca9e05d4535abf77893fa949c9314ff72cecdc3ec652e85694f88e436f0",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84781",
+      "title": "CVE-2026-84781 — CVSS 6.5",
+      "summary": "Contributor Cross Site Scripting (XSS) in Gallery PhotoBlocks <= 1.3.4 versions.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-09-02T12:17:15.540",
+      "cve_ids": [
+        "CVE-2026-84781"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
     {
       "id": "89c67a8033a500f93419d3c4d44fd4937400cc140abc99e79a019fa01e057c84",
       "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84780",
@@ -73,632 +709,6 @@
         "CVE-2026-84770"
       ],
       "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "62ad328858df2c188ca850fc689bd70bacc2a1c1f9f5619e03b2c5f0fd5546ae",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84764",
-      "title": "CVE-2026-84764 — CVSS 8.8",
-      "summary": "Unauthenticated Cross Site Request Forgery (CSRF) in Simply Schedule Appointments <= 1.6.12.23 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T12:17:14.800",
-      "cve_ids": [
-        "CVE-2026-84764"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "b214b8571a4aa7bae8c132c10a226c1e1e78ec7459c631832c88420730da6c4f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84760",
-      "title": "CVE-2026-84760 — CVSS 5.3",
-      "summary": "Unauthenticated Broken Access Control in Ultimate Gift Cards For WooCommerce <= 3.2.9 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T12:17:14.660",
-      "cve_ids": [
-        "CVE-2026-84760"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "46f09f7bddb93f1ea038de08bd86ac8ccbf6cf4711af094581530a2ad7ab5883",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-84759",
-      "title": "CVE-2026-84759 — CVSS 7.1",
-      "summary": "Unauthenticated Cross Site Request Forgery (CSRF) in Activity Log <= 2.13.1 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T12:17:14.530",
-      "cve_ids": [
-        "CVE-2026-84759"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "e38c42cdfc0818fccda0a7a09403c039c04edcd16f929dd41e46247911c6489b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-83562",
-      "title": "CVE-2026-83562 — CVSS 6.5",
-      "summary": "Contributor Cross Site Scripting (XSS) in WCFM Marketplace <= 3.8.2 versions.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-02T12:17:13.780",
-      "cve_ids": [
-        "CVE-2026-83562"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "25e176f8a89c6f48ba364a2bbb48f966e35cb8198e19fca6196aa603c3b70bfd",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-82223",
-      "title": "CVE-2026-82223 — CVSS 6.5",
-      "summary": "Unauthenticated Broken Access Control in WP Event SOlution <= 4.1.22 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T12:17:13.657",
-      "cve_ids": [
-        "CVE-2026-82223"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "83a9709b152f6dff3c825cab78ab515e45df54a478b7cbe17658716658149c40",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81775",
-      "title": "CVE-2026-81775 — CVSS 7.1",
-      "summary": "Unauthenticated Cross Site Scripting (XSS) in Estatik <= 4.3.4 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T12:17:13.530",
-      "cve_ids": [
-        "CVE-2026-81775"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "d6ffc03106155658a96bd902043114410c40f099c667b79a3f7d4eec7c8ae69b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81774",
-      "title": "CVE-2026-81774 — CVSS 7.5",
-      "summary": "Unauthenticated Sensitive Data Exposure in WooCommerce Product Attachment <= 2.3.3 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T12:17:13.413",
-      "cve_ids": [
-        "CVE-2026-81774"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "40f7a58ee3b92935a06203bebf4761512c8c4c03097b67721d305279e50ce12d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81772",
-      "title": "CVE-2026-81772 — CVSS 8.8",
-      "summary": "Unauthenticated PHP Object Injection in Ninja Forms - Layout & Styles <= 3.0.31 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T12:17:13.287",
-      "cve_ids": [
-        "CVE-2026-81772"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "41632daa21752e367d95aea14f9403840df591334da23fa59594ceaf10796e8c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81771",
-      "title": "CVE-2026-81771 — CVSS 7.1",
-      "summary": "Unauthenticated Cross Site Scripting (XSS) in TrustedSite <= 1.2.5 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T12:17:13.163",
-      "cve_ids": [
-        "CVE-2026-81771"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "ededd01c0ca7287b2459c1884f329f462ef5239b500e7e99eb61e987f8bec8e0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81770",
-      "title": "CVE-2026-81770 — CVSS 7.1",
-      "summary": "Unauthenticated Cross Site Scripting (XSS) in Interactive Geo Maps <= 1.6.30 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T12:17:13.040",
-      "cve_ids": [
-        "CVE-2026-81770"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "8f8d56743a2a305e53c3687d29164d86f7dfbc5f2fcfd92b7d2be4add4de4edc",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81769",
-      "title": "CVE-2026-81769 — CVSS 8.8",
-      "summary": "Incorrect Privilege Assignment vulnerability in LiquidThemes Booking Hub allows Privilege Escalation.\n\nThis issue affects Booking Hub: from n/a through 1.3.1.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-09-02T12:17:12.913",
-      "cve_ids": [
-        "CVE-2026-81769"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "3ca284f42fae7df726c2afa2b5151b520cf0130401829afb528a38c8043f7117",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81294",
-      "title": "CVE-2026-81294 — CVSS 9.8",
-      "summary": "Unauthenticated Privilege Escalation in Authorizer <= 3.15.1 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T12:17:12.783",
-      "cve_ids": [
-        "CVE-2026-81294"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "ee5875f994f1122ccccf2b65e24c8199da0190babc4110fb4223d4e799aafda9",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81289",
-      "title": "CVE-2026-81289 — CVSS 7.1",
-      "summary": "Unauthenticated Cross Site Scripting (XSS) in MP3 Audio Player for Music, Radio & Podcast by Sonaar <= 5.13.1 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T12:17:12.657",
-      "cve_ids": [
-        "CVE-2026-81289"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "243d39e2aa0435a11e2c4207efde27d59295313e2cc2d874811739a8a955e87a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81288",
-      "title": "CVE-2026-81288 — CVSS 7.1",
-      "summary": "Unauthenticated Cross Site Scripting (XSS) in Upsell Order Bump Offer for WooCommerce <= 3.1.5 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T12:17:12.530",
-      "cve_ids": [
-        "CVE-2026-81288"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "132c51bb792d7de95c60a1041bacc86c895c071ad89a16ce9efdf424a700719d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81286",
-      "title": "CVE-2026-81286 — CVSS 9.3",
-      "summary": "Unauthenticated SQL Injection in WCFM Marketplace <= 3.8.1 versions.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T12:17:12.400",
-      "cve_ids": [
-        "CVE-2026-81286"
-      ],
-      "cvss": 9.3,
-      "related_links": []
-    },
-    {
-      "id": "ff46b8719968e3d78548a1439ad1604979563e024e562ca66e7f8bbc01e12e8f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81283",
-      "title": "CVE-2026-81283 — CVSS 8.8",
-      "summary": "Subscriber PHP Object Injection in WP User Frontend <= 4.3.10 versions.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-09-02T12:17:12.267",
-      "cve_ids": [
-        "CVE-2026-81283"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "3cc0ae9261ffffcfbd1562aab7bd3b2e9ef9faf9a28006561654a0c4c3b08b39",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-66652",
-      "title": "CVE-2026-66652 — CVSS 5.4",
-      "summary": "Cross-Site Request Forgery (CSRF) vulnerability in ThemeGoods Grand Tour allows Cross Site Request Forgery.\n\nThis issue affects Grand Tour: from n/a through 5.5.1.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-02T12:17:12.127",
-      "cve_ids": [
-        "CVE-2026-66652"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "f4ff16f481888a59ae1b7b39cfec7aec410b75a22aff00d4175d7f210e03464d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-32773",
-      "title": "CVE-2026-32773 — CVSS 6.1",
-      "summary": "There is a lack of XSS escaping in the Spark History Server prior to 3.5.8 which allows a malicious Spark job to generate arbitrary unescaped frontend code which could lead to a minimal privilege escalation in browser. Users are encouraged to upgrade to Spark 3.5.8 or later.\n\nThis CVE is marked as \"low\" since the path to exploit requires both relatively high permissions (ability to launch a Spark ",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-02T11:17:20.173",
-      "cve_ids": [
-        "CVE-2026-32773"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "974a75678f76df3bc021626b5e0e3da6de6e5d0adbff2ec25b46a3d9c4cd2f72",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19219",
-      "title": "CVE-2026-19219 — CVSS 8.1",
-      "summary": "In Progress® Telerik® UI for AJAX prior to v2026.3.812, insufficient integrity protection of dialog request parameters used by the RadEditor file browser may allow an attacker who has obtained certain application encryption key material to alter the folders the file browser reads from, writes to, and uploads into, potentially resulting in remote code execution.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T11:17:19.270",
-      "cve_ids": [
-        "CVE-2026-19219"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "b4fc31cbeba6e526896a38007398ba4cbae1cc9a1df5ee72486070ffcf9a50ca",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-18672",
-      "title": "CVE-2026-18672 — CVSS 7.5",
-      "summary": "In Progress® Telerik® UI for AJAX prior to v2026.3.812, insufficient validation of client-supplied state in RadImageEditor may allow an attacker to influence which file is returned by the control's image cache, potentially exposing file contents outside the intended image directories.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-09-02T11:17:18.970",
-      "cve_ids": [
-        "CVE-2026-18672"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "ba268880cad132319b727004e0a9e3c1262e6c686af49e1d682d44009d2677c3",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-75528",
-      "title": "CVE-2026-75528 — CVSS 7.2",
-      "summary": "The Broken Link Checker plugin for WordPress is vulnerable to Stored Cross-Site Scripting via Comment Author URL / Link Log in all versions up to, and including, 2.4.13 due to insufficient input sanitization and output escaping. This makes it possible for unauthenticated attackers to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page. Exploitation req",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T08:16:45.193",
-      "cve_ids": [
-        "CVE-2026-75528"
-      ],
-      "cvss": 7.2,
-      "related_links": []
-    },
-    {
-      "id": "efab94b5a887274d247c48441cd12ce2f876e433e275c851175d452c7c6a503f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-14828",
-      "title": "CVE-2026-14828 — CVSS 8.8",
-      "summary": "Zohocorp ManageEngine Password Manager Pro versions before 13235, PAM360 versions before 8561, and Access Manager Plus versions before 4405 are vulnerable to an authenticated SQL Injection vulnerability.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-02T08:16:42.833",
-      "cve_ids": [
-        "CVE-2026-14828"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "1b5b11bfcf03a3acb64597198ea5b269ffd6b16bfd48575977ae7c30cb73e387",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-7963",
-      "title": "CVE-2025-7963 — CVSS 6.4",
-      "summary": "The Easy Waveform Player plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the shortcode_easywaveformplayer() function in all versions up to, and including, 1.2.2 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with Contributor-level access and above, to inject arbitrary web scripts in pages that will execute whene",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-02T08:16:41.730",
-      "cve_ids": [
-        "CVE-2025-7963"
-      ],
-      "cvss": 6.4,
-      "related_links": []
-    },
-    {
-      "id": "db2015e89f3432f1b2201b2688cbffb22ae1283cebf7e06b127273c721c13392",
-      "url": "https://www.bleepingcomputer.com/news/security/sality-botnet-infrastructure-dismantled-in-joint-global-takedown/",
-      "title": "Sality botnet infrastructure dismantled in joint global takedown",
-      "summary": "International law enforcement agencies and private partners have seized Sality malware infrastructure in a joint action aiming to disrupt and take down the peer-to-peer (P2P) botnet. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-02T08:00:43+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d6017c05297a9c543a9eb9fd3c44d361db4b580e4d76bfe5ed009cee240b8994",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-82883",
-      "title": "CVE-2026-82883 — CVSS 7.1",
-      "summary": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') vulnerability in Marcus Login With Ajax allows Reflected XSS.\n\nThis issue affects Login With Ajax: from n/a through 4.5.1.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-02T07:16:37.883",
-      "cve_ids": [
-        "CVE-2026-82883"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "6e97794e132bc3bfee6ca920bd9ccb047c20b260722d734f29822db484000506",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-3850",
-      "title": "CVE-2026-3850 — CVSS 6.4",
-      "summary": "The Divi theme for WordPress is vulnerable to Stored Cross-Site Scripting via the `redirect_url` parameter of the `et_pb_contact_form` shortcode in all versions up to, and including, 4.27.6. This is due to the `redirect_url` attribute being sanitized with `esc_attr()` instead of `esc_url()` before being rendered into the `data-redirect_url` HTML data attribute. Additionally, `redirect_url` is abse",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-02T07:16:36.830",
-      "cve_ids": [
-        "CVE-2026-3850"
-      ],
-      "cvss": 6.4,
-      "related_links": []
-    },
-    {
-      "id": "dac4f90cb8aa9351a93d9fcf4ea8391248fade93785a628f242f21e3aaf9fce3",
-      "url": "https://www.bleepingcomputer.com/news/security/sonicwall-warns-of-actively-exploited-sma1000-zero-day-flaws/",
-      "title": "SonicWall warns of actively exploited SMA1000 zero-day flaws",
-      "summary": "SonicWall warned customers that threat actors are chaining two new SMA1000 zero-day vulnerabilities in remote code execution attacks. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-02T06:39:29+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "6ad9055d2f6ab65479597530cd0ef56397d6928bb667c254f1462af5144a4c6b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-82183",
-      "title": "CVE-2026-82183 — CVSS 8.1",
-      "summary": "The OAuth Single Sign On  WordPress plugin before 7.0.1 does not verify the identity assertion returned by its Steam single sign-on flow, allowing unauthenticated attackers to log in as an arbitrary non-administrator user, and to create new accounts.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:19.987",
-      "cve_ids": [
-        "CVE-2026-82183"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "eea1898f3f31f4ecd879fa781a84d9e15012c4190e21ec8cbcd0c691c8febc1b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-82182",
-      "title": "CVE-2026-82182 — CVSS 4.1",
-      "summary": "The WPvivid — Backup, Migration & Staging WordPress plugin before 0.9.133 does not sanitise a user supplied list of identifiers before using it in a SQL query, allowing administrators to perform SQL injection attacks.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-02T06:17:19.890",
-      "cve_ids": [
-        "CVE-2026-82182"
-      ],
-      "cvss": 4.1,
-      "related_links": []
-    },
-    {
-      "id": "025a62638e83df6892757fd6a441bacfbb3727a06872cc05cdc35e04557b2238",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81807",
-      "title": "CVE-2026-81807 — CVSS 8.8",
-      "summary": "The Simple Ajax Chat  WordPress plugin before 20260827 does not escape chat message content before rendering it, allowing unauthenticated users to inject arbitrary HTML attributes into the page and run scripts in the browser of anyone viewing the chat, including administrators.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:19.773",
-      "cve_ids": [
-        "CVE-2026-81807"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "379970bfea3818d062b7140b7e079b70012d76eca995dfefc31bac2a76387128",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81737",
-      "title": "CVE-2026-81737 — CVSS 8.8",
-      "summary": "The FAQ Builder AYS WordPress plugin before 1.8.5 does not sanitize or escape content submitted by unauthenticated visitors before storing it and outputting it in an admin area page, and the escaping it does apply is undone by a subsequent decoding step, leading to Stored XSS which will execute in the context of a logged in administrator.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:19.667",
-      "cve_ids": [
-        "CVE-2026-81737"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "809445d01d8cca2ad804c502427bbc901392a405b9632abeb0fb5431ddf1c877",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81583",
-      "title": "CVE-2026-81583 — CVSS 5.4",
-      "summary": "The  My Login WordPress plugin before 7.2.0 does not enforce the network's registration setting when processing site signups on multisite installations, allowing users with a subscriber account, and unauthenticated users on some networks, to create new sites and be granted administrator over them.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:19.570",
-      "cve_ids": [
-        "CVE-2026-81583"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "9ca78f7e2e2c3c23875f32fe36c2501e6a039254a113169623401923f0446de2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81432",
-      "title": "CVE-2026-81432 — CVSS 4.3",
-      "summary": "The JetStyleManager for Gutenberg WordPress plugin before 1.3.9 does not have CSRF protection on some of its AJAX actions, allowing attackers to make a logged-in user with the edit_posts capability (Contributor and above) delete or modify custom widget skins via a crafted request, provided they can trick the user into performing an action such as clicking a link.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-02T06:17:19.473",
-      "cve_ids": [
-        "CVE-2026-81432"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "ce84cf3fcc4676b90ac266afdc763582270d61d141a49aa50267052582f6c67b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81426",
-      "title": "CVE-2026-81426 — CVSS 4.3",
-      "summary": "The WC Vendors  WordPress plugin before 2.7.2.1 does not have CSRF protection on some of its front-end order shipment status actions, which could allow attackers to make a logged-in vendor change the shipment status of their own orders via a crafted request.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-02T06:17:19.180",
-      "cve_ids": [
-        "CVE-2026-81426"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "9aa487362950acf1cac7a5d106f9adbbaf9d48d4f2ea2ab3b30baeca37da1b77",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81199",
-      "title": "CVE-2026-81199 — CVSS 5.3",
-      "summary": "The MasterStudy LMS WordPress Plugin  WordPress plugin before 3.7.46 does not perform an authorization check before returning a student's learning statistics, allowing unauthenticated attackers to disclose the course counts, points, certificates, quiz and assignment totals of any registered user.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:19.077",
-      "cve_ids": [
-        "CVE-2026-81199"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "174b8244a9a9b8329f7df1d3fc2aa3f6c0efa8e9e0b556d12e57f93eff30074e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81197",
-      "title": "CVE-2026-81197 — CVSS 5.3",
-      "summary": "The MasterStudy LMS WordPress Plugin  WordPress plugin before 3.7.46 does not restrict access to a REST route that lists an author's courses, nor does it filter that listing by publication status, allowing unauthenticated users to read the titles and IDs of unpublished (draft, pending and private) courses.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:18.873",
-      "cve_ids": [
-        "CVE-2026-81197"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "af76a75c019c52811c59608fd9c064c7646c22f9082f6aa8fa394cd2cd897f67",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-81195",
-      "title": "CVE-2026-81195 — CVSS 5.3",
-      "summary": "The MasterStudy LMS WordPress Plugin  WordPress plugin before 3.7.46 does not perform an authorization check before returning per-student course enrollment and progress data, allowing unauthenticated attackers to disclose the enrolled courses and learning progress of any registered user.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:18.680",
-      "cve_ids": [
-        "CVE-2026-81195"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "c94a341b81f70fb18a7fc681eda350c027b94743a91b6e46862ea7d937379edc",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-80467",
-      "title": "CVE-2026-80467 — CVSS 8.1",
-      "summary": "The Advanced Custom Fields: Extended WordPress plugin before 0.9.2.7 does not restrict the role submitted through its front-end user forms to the roles the form actually offers, and its safeguard against privileged roles is incomplete, allowing unauthenticated visitors to register an account with elevated capabilities and then escalate it to administrator.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:18.487",
-      "cve_ids": [
-        "CVE-2026-80467"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "6d50c5b3645101f8c17ffc1c55b0c05dd7c41fd93a847354b0c682732c23141f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-79621",
-      "title": "CVE-2026-79621 — CVSS 4.3",
-      "summary": "The CatalogX  WordPress plugin before 6.1.3 does not sanitise or escape content that an unauthenticated user can store before including it in the product enquiry notification email sent to the site administrator, allowing unauthenticated attackers to inject arbitrary content into that email, which is delivered when an unrelated visitor later submits a product enquiry.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:18.390",
-      "cve_ids": [
-        "CVE-2026-79621"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "ef3adc6bf216b71cc56ee2243d809d0a6b863e199441ee53f4b9c9591fcb628e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-78657",
-      "title": "CVE-2026-78657 — CVSS 9.8",
-      "summary": "The SigmaForms Pro – AI Generated Forms plugin for WordPress is vulnerable to arbitrary file deletion due to insufficient file path validation in the delete_submission_files function in all versions up to, and including, 1.4.11. This makes it possible for unauthenticated attackers to delete arbitrary files on the server, which can easily lead to remote code execution when the right file is deleted",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:18.260",
-      "cve_ids": [
-        "CVE-2026-78657"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "6f2224ef5084295a5fe68fb7fa3692d0fe4701814ff5cc0364486bbf1d2b351c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-78151",
-      "title": "CVE-2026-78151 — CVSS 5.3",
-      "summary": "The FormLayer WordPress plugin before 1.0.9 does not perform any authorization check before returning a form's full stored configuration in the response to its public submission handler, allowing unauthenticated users to disclose notification recipient addresses, confirmation redirect targets and integration settings, including those of unpublished forms.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:18.160",
-      "cve_ids": [
-        "CVE-2026-78151"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "ef0d1622d4c6796d08b751a30b422b245b42d9d533785474e62e5711d0e4c064",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-77792",
-      "title": "CVE-2026-77792 — CVSS 7.5",
-      "summary": "The RegistrationMagic  WordPress plugin before 6.0.9.9 does not escape a registration form field value before outputting it in an HTML attribute on an administrative page, allowing unauthenticated users to perform Stored Cross-Site Scripting attacks against high privilege users such as admin.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:18.063",
-      "cve_ids": [
-        "CVE-2026-77792"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "c8568555b7dbb270ca6f5618ee7406b9ea3560dbce96cbe0691aa015f8880486",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-77783",
-      "title": "CVE-2026-77783 — CVSS 3.7",
-      "summary": "The Rank Math SEO  WordPress plugin before 1.0.277 does not verify that the post whose schema it renders on the front end is publicly viewable, allowing unauthenticated visitors to disclose the schema and associated content of draft, pending, private, scheduled and password-protected posts.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:17.567",
-      "cve_ids": [
-        "CVE-2026-77783"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "8cf0a822208062696b5a3ba70da0be3b2993a2ed6f962391ea4a84c61bb2aabd",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-77782",
-      "title": "CVE-2026-77782 — CVSS 5.3",
-      "summary": "The Rank Math SEO  WordPress plugin before 1.0.277.1 does not check whether a post is password protected before using its content to build publicly generated SEO metadata, allowing unauthenticated users to read the content of password-protected posts.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:17.463",
-      "cve_ids": [
-        "CVE-2026-77782"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "98d83de2e5e518957b6fd60924743c46d06c37ff914a7e49d23ebacabf0e6ef6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-74927",
-      "title": "CVE-2026-74927 — CVSS 5.3",
-      "summary": "The MultiVendorX  WordPress plugin before 5.0.15 does not have proper authorisation controls on one of its REST API listing routes, allowing unauthenticated users to retrieve vendor contact and payout details, pending payout amounts, and administrative notes attached to store applications.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-02T06:17:17.253",
-      "cve_ids": [
-        "CVE-2026-74927"
-      ],
-      "cvss": 5.3,
       "related_links": []
     }
   ]
