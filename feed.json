@@ -1,10 +1,234 @@
 {
-  "updated": "2026-09-10T22:17:40.299266+00:00",
+  "updated": "2026-09-11T03:19:48.601622+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "9a8dc70317c6555314cccac518c099edeec7c71fa2957156a8fbb1104ac8f3fd",
+      "url": "https://github.com/advisories/GHSA-wvm9-9g5j-623f",
+      "title": "GHSA: Open WebUI: Users denied by the OAuth role policy can still sign in via token exchange",
+      "summary": "## Summary\nOpen WebUI's OAuth token exchange endpoint issues a session for a provider access token without running the OAuth role management that the normal OAuth login callback runs. A user whose provider roles the login callback would refuse, or would demote, could still obtain a working session at their existing role through this endpoint.\n\n## Preconditions\n- `ENABLE_OAUTH_TOKEN_EXCHANGE=True`.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-10T23:04:57Z",
+      "cve_ids": [
+        "CVE-2026-88006"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "39bcbafb6170bf35c5ee0e52ce3fb277ee1dc7b9483cb707ed8b367bedadaf93",
+      "url": "https://github.com/advisories/GHSA-66hp-wgxq-6f5q",
+      "title": "GHSA: rclone archive/zip: Zip Slip via unsanitized zip entry names lets a malicious archive escape its own namespace",
+      "summary": "### Summary\n`backend/archive` mounts a zip file as a browsable, syncable rclone `Fs` (e.g. `rclone lsf :zip:downloaded.zip` or `rclone copy :zip:downloaded.zip dest:`). Go's `archive/zip` package does not sanitize `file.Name` - it is taken verbatim from the untrusted zip's central directory. `readZip()` in `backend/archive/zip/zip.go` applies `path.Clean` to the entry name, but this alone cannot f",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-10T23:03:16Z",
+      "cve_ids": [
+        "CVE-2026-88014"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "ce2166c04e2f3fea1b13206230df21d61fee05ba95f524676dc138048d16cf71",
+      "url": "https://github.com/advisories/GHSA-486v-q2wf-fp2r",
+      "title": "GHSA: rclone: http backend forwards custom/auth headers to a different host on redirect",
+      "summary": "## Vulnerability Details\n\n**File**: `backend/http/http.go`\n**Lines**: 285 (client construction — no `CheckRedirect`), 505-510 (`addHeaders`, writes configured secret headers onto every request), 533-534 / 700-701 / 782-785 (`f.httpClient.Do(req)` used by List/stat/download)\n\n### Root Cause\nThe `http` backend lets a user attach arbitrary secret headers to every request via `--http-headers`/`headers",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-09-10T23:02:53Z",
+      "cve_ids": [
+        "CVE-2026-88013"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "cbcc8656241743ffa00ba0f0f6ed3c2bfb3918529d4372e5f971370178b12a12",
+      "url": "https://github.com/advisories/GHSA-f8g7-2xjc-7mfh",
+      "title": "GHSA: rclone: Directory metadata (chmod/chown/chtimes) applied through a planted symlink in rclone local --links escapes the destination",
+      "summary": "## Summary\nWith `-l/--links`, rclone's local backend recreates a source `.rclonelink` object as a real symlink at the destination **verbatim** (preserved by design for faithful backups). Directory-metadata application, however, does **not** go through the `os.Root` sandbox and does **not** use NOFOLLOW syscalls. A local `Directory` always has `translatedLink=false`, so when the destination path al",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-10T22:51:34Z",
+      "cve_ids": [
+        "CVE-2026-88016"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "f74a9d652d31403e7ad2872238ba064ec9973189b5179026c328f404ab5aefd5",
+      "url": "https://github.com/advisories/GHSA-p6m2-r3w9-mpxw",
+      "title": "GHSA: rclone local: crafted Range request against a translated symlink panics (DoS)",
+      "summary": "### Summary\nWhen `backend/local` is used with `--links`/`-l` (or the `links=true` config option), each symlink is exposed as an rclone object whose content is the target path string, suffixed `.rclonelink`. `Object.Open()` decodes an incoming `fs.RangeOption` via `Decode(o.Size())`, then for a translated-symlink object passes the decoded `offset` straight into `openTranslatedLink`, which indexes t",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-10T22:49:27Z",
+      "cve_ids": [
+        "CVE-2026-88015"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "877a036f34ae55f9f0ca4ab33def4e841c5656843c99e9368763338c6a210882",
+      "url": "https://github.com/advisories/GHSA-xwwr-4h3p-r22c",
+      "title": "GHSA: rclone serve s3: --auth-proxy without --auth-key authenticates nobody - full SigV4 signature bypass",
+      "summary": "### Summary\n`rclone serve s3`'s handler chain, when `--auth-proxy` is configured, is (outermost first): `authPairMiddleware` -> `proxyAuthMiddleware` -> gofakes3's own SigV4-verifying handler.\n\n`authPairMiddleware` parses the accessKeyID straight out of the incoming request's own `Authorization` header (entirely client-controlled) and registers `{accessKey: ws.s3Secret}` into gofakes3's shared cre",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-10T22:49:07Z",
+      "cve_ids": [
+        "CVE-2026-88018"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "4980da939ff5c6ab21f72c28cd4721af0c0bbc77170e1803ee98a073cc8f428d",
+      "url": "https://github.com/advisories/GHSA-p569-5gjg-9cmj",
+      "title": "GHSA: rclone: RC per-server auth-proxy bypass",
+      "summary": "## Summary\n\n`serve/start` accepts protocol options in a per-server `proxyOpt` object. The FTP and S3 RC adapters parse that object and pass it to their server constructors, but the constructors decide whether proxy authentication is enabled by checking the process-global `proxy.Opt.AuthProxy` instead of the supplied `proxyOpt.AuthProxy`.\n\nWhen the process-global option is empty—the normal case whe",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-10T22:47:10Z",
+      "cve_ids": [
+        "CVE-2026-88044"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "c0c4ee6cb4bdb981d83598694c132b18002345cf79e14b9f9cdd47c5ea3a27f8",
+      "url": "https://github.com/advisories/GHSA-c476-6w5q-jw77",
+      "title": "GHSA: rclone: FTP cross-session auth-proxy backend confusion",
+      "summary": "## Summary\n\nThe FTP auth-proxy driver stores one obscured password per username in a server-wide map. It does not bind the credential or returned VFS to the authenticated FTP session. If two accepted credentials use the same username but resolve to different proxy backends, the later login overwrites the map entry. Subsequent operations on the first, still-authenticated session are re-authorized w",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-10T22:46:33Z",
+      "cve_ids": [
+        "CVE-2026-88017"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "a63e7769c26d2c0fcd43689297962916d25354d4203417ba7be32b50e612ea80",
+      "url": "https://github.com/advisories/GHSA-38xv-hf3p-h7mq",
+      "title": "GHSA: rclone: source object names can escape the configured root on upload",
+      "summary": "### Summary\n\nMultiple backends, when given a specially crafted object to copy, can escape the backend confinement.\n\n| Backend | Keep/Close | Per-backend severity |\n|---|---|---|\n| sftp | Medium | Real filesystem escape, fires under default encoding. |\n| smb | Low-Medium | Escapes to a different SMB share the credential can reach. |\n| ftp | Low | Real, leading-`..` overshoot PoC is partly neutraliz",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-10T22:45:36Z",
+      "cve_ids": [
+        "CVE-2026-88046"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "ada6fd344b8b91d65d86cbfe3e6b8a7cfa15e1f78e8ac2d02120791db648b73e",
+      "url": "https://github.com/advisories/GHSA-2p48-j3qc-rx9f",
+      "title": "GHSA: rclone: S3 multipart declared-length memory exhaustion",
+      "summary": "## Summary\n\nIn streamed multipart mode, `serve s3` passes the request's declared part length to `multipart.NewRW().Reserve(contentLength)` before reading any part data. `Reserve` immediately obtains enough 1 MiB pool pages for the entire declared length. The request handler therefore allocates attacker-selected memory based only on `Content-Length` or `X-Amz-Decoded-Content-Length`; the client doe",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-10T22:45:14Z",
+      "cve_ids": [
+        "CVE-2026-88045"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "9cffda66a892ce854cb842dd203c0806d3e32096d4da29a26c1c7844ab4d89af",
+      "url": "https://github.com/advisories/GHSA-3g9q-v48f-hh9w",
+      "title": "GHSA: Open WebUI: Unauthenticated requests can stall the server via uncached OIDC fetches in back-channel logout",
+      "summary": "## Summary\n\nThe OIDC back-channel logout endpoint is unauthenticated by design, because the identity provider calls it without a browser session. Before checking whether the submitted logout token was genuine, the handler fetched the provider's discovery document and its signing keys over the network, and repeated both fetches on every request because nothing was cached. The signing-key fetch also",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-10T22:44:42Z",
+      "cve_ids": [
+        "CVE-2026-87011"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "7fbe68707dca86f5b5531b12d262cba8073b4147404c9df25336dfd0a0a59063",
+      "url": "https://github.com/advisories/GHSA-v39v-59xw-j98g",
+      "title": "GHSA: Open WebUI: Any authenticated user can suppress calendar alerts instance-wide via a non-numeric alert value",
+      "summary": "# Any authenticated user can suppress calendar alerts instance-wide via a non-numeric alert value\n\n## Summary\n\nCalendar events carry a free-form `meta` object that is stored exactly as submitted, with no validation of the values inside it. The scheduler reads the per-event alert offset out of that object in a single pass that covers every user's upcoming events, and compares it numerically without",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-10T22:42:48Z",
+      "cve_ids": [
+        "CVE-2026-87012"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "62b5cea81c0ed20337dc8d9979722ecc4602c9d95f0fd1b607b8cb64c2b1ca15",
+      "url": "https://github.com/advisories/GHSA-8r35-5x5r-hv74",
+      "title": "GHSA: Open WebUI: Any authenticated user can start a non-terminating request via a folder parent cycle",
+      "summary": "## Summary\nAny authenticated user can move one of their own folders under itself, leaving a loop in their folder tree. The re-parent endpoint performed no check that the new parent was not the folder itself or one of its own subfolders, and the folder tree walks did not track which folders they had already visited. A single request against a folder in a loop therefore never finishes.\n\n## Precondit",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-10T22:42:25Z",
+      "cve_ids": [
+        "CVE-2026-87013"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "5261a0c6f086df4164c72f97d4b1269fa340ed5d8af837e1ad98fcd69275cc42",
+      "url": "https://github.com/advisories/GHSA-wjwr-xfp9-r66p",
+      "title": "GHSA: Open WebUI: Admin demoted through SSO role sync keeps read and write access to all users' notes",
+      "summary": "## Summary\n\nA user who is demoted from admin by an identity provider keeps admin-level read and write access to every user's notes, over any Socket.IO connection that was already open when the demotion happened. Open WebUI caches the user's role on the socket at connection time, and the two SSO role-sync paths, the reverse-proxy trusted role header and OAuth role mapping, changed the role in the d",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-10T22:41:34Z",
+      "cve_ids": [
+        "CVE-2026-87014"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "3149062b9fb8b68a98b9e052afd358a6af2fd0f56da665e8c2da17f949601f67",
+      "url": "https://github.com/advisories/GHSA-4qpv-39hg-f7fx",
+      "title": "GHSA: @jhb.software/payload-alt-text-plugin: Alt Text Endpoint Authorization Bypass via Payload Local API `overrideAccess` Omission",
+      "summary": "## Alt Text Endpoint Authorization Bypass via Payload Local API `overrideAccess` Omission\n\n### Summary\n\n`@jhb.software/payload-alt-text-plugin` v0.7.0 exposes custom Payload CMS endpoints (`POST /api/alt-text-plugin/generate` and `/bulk`) that call the Payload Local API (`findByID` and `update`) without setting `overrideAccess: false`. Because Payload's internal logic evaluates `shouldOverrideAcce",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-10T22:39:14Z",
+      "cve_ids": [
+        "CVE-2026-59965"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "ec5a33f67caac16525364cb017eca244f5b2d368d564b48a5d761d0d4c021c20",
+      "url": "https://github.com/advisories/GHSA-4x45-gxvp-6283",
+      "title": "GHSA: @argos-ci/core: CI Branch Name OS Command Injection",
+      "summary": "## CI Branch Name OS Command Injection in @argos-ci/core\n\n### Summary\n\n`@argos-ci/core@6.2.0` passes attacker-controlled CI branch/ref strings directly into an `execSync()` template literal in `packages/core/src/ci-environment/git.ts:89`. When a CI project has `hasRemoteContentAccess: false`, the Argos upload flow calls `getMergeBaseCommitSha()`, which invokes `gitFetch()` with the unsanitized bra",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-10T22:34:17Z",
+      "cve_ids": [
+        "CVE-2026-59960"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
     {
       "id": "f53cb3d205646b57e4a4e32792cd295f6778a36a92907b68e803e151b4067817",
       "url": "https://github.com/advisories/GHSA-m3wp-48jr-vr4g",
@@ -469,228 +693,6 @@
         "CVE-2026-81990"
       ],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "678df4265a72d7aa963da3c528bd1c2ca5e84932d89fd1481ff9bf18749c9b7d",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-661/",
-      "title": "ZDI-26-661: Adobe Acrobat Reader DC Annotation Use-After-Free Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Adobe Acrobat Reader DC. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-81985.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-09-10T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-81985"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "55cdbc154d159d4fbc4fae55a9c563faff5a307a05de4f89d9dcdb2a98092515",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-658/",
-      "title": "ZDI-26-658: Adobe Acrobat Pro DC JPEG Parsing Integer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Adobe Acrobat Pro DC. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-81987.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-09-10T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-81987"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "efb9b8d1df401d5441bb1267edf4d75f1e78b28d8119b169bc994009ae5258e6",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-657/",
-      "title": "ZDI-26-657: ASUS Control Center Express Agent Missing Authentication Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of ASUS Control Center Express Agent. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 9.8. The following CVEs are assigned: CVE-2026-19397.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-09-10T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-19397"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "53eda79adee52926f93296b750a719eb1870ca31b13c60835345cbe854c02f4c",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-656/",
-      "title": "ZDI-26-656: PAPPL Job Processing Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of PAPPL. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 9.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-09-10T05:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d7108357d84e0c31417072308aa98a9d51bcd65ee58a4bfab695c786ff576a48",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-651/",
-      "title": "ZDI-26-651: (Pwn2Own) OpenAI Codex External Control of System or Configuration Setting Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of OpenAI Codex. User interaction is required to exploit this vulnerability in that the target must open a malicious folder. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-19593.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-09-10T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-19593"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a7a52a3db4d214b7d50a07146f6cfddb37208757183b405dac5de30a31e8d01d",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-650/",
-      "title": "ZDI-26-650: (Pwn2Own) OpenAI Codex External Control of Configuration Setting Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of OpenAI Codex. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-19592.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-09-10T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-19592"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "aeab9feaf9aa854c08901152da4549c60d0377e5773b89a89b317f77d075d388",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-649/",
-      "title": "ZDI-26-649: (Pwn2Own) OpenAI Codex Improper Neutralization of Control Sequences Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of OpenAI Codex. User interaction is required to exploit this vulnerability in that the target must open a malicious folder. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-19591.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-09-10T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-19591"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "443723c2ffef600e57e35b86794d4bf835db7155395ec65950401da3574cb60c",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-648/",
-      "title": "ZDI-26-648: (Pwn2Own) OpenAI Codex External Control of System or Configuration Setting Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of OpenAI Codex. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-19590.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-09-10T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-19590"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "6efa56490aa20538ae3e3a0e2a4b5d38c0033a7ca0ce40eb1c3bbe8a4b3236a0",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-86060",
-      "title": "CVE-2026-86060: MikroTik RouterOS Improper Neutralization of Argument Delimiters in a Command Vulnerability",
-      "summary": "MikroTik RouterOS contains an improper neutralization of argument delimiters in a command vulnerability which allows an attacked to change the trusted RouterOS policy mask, leading to privilege escalation. Affected product: RouterOS by MikroTik. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based o",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-09-10T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-86060"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "22cf387a5ae0d50ac94c8ff2a4c96db8a50ea3abb2eed1ef975b39f3cc9897ec",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-67277",
-      "title": "CVE-2026-67277: MikroTik RouterOS Missing Authentication for Critical Function Vulnerability",
-      "summary": "MikroTik RouterOS contains a missing authenticaion for critical function vulnerability which allows kernel memory disclosure and denial of service in the btest service. Affected product: RouterOS by MikroTik. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance an",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-09-10T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-67277"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "332091d2fa29d33c03207dd0332e055053f3e5c0bad481baf1b07daee8051d6d",
-      "url": "https://github.com/advisories/GHSA-3cgp-3cqx-j8w2",
-      "title": "GHSA: Open WebUI: Any authenticated user can hang the server via message deletion in a cyclic chat tree",
-      "summary": "## Summary\nChat histories are stored as an unvalidated JSON object. After a message is deleted, the code that picks the chat's new current message walked down the `childrenIds` links without recording where it had already been. Any account with the default `user` role could store a chat whose messages list each other as children, then delete a message from it, and the walk would run forever. That ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-09T23:54:22Z",
-      "cve_ids": [
-        "CVE-2026-88000"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "0c0b89376bc49c86c56ea3a646c4830aa3d7a0a389880f96318c84ec82bff5ef",
-      "url": "https://github.com/advisories/GHSA-5x7x-4c3c-qf5w",
-      "title": "GHSA: Open WebUI: Server-side fetches reach blocked and internal hosts via unvalidated HTTP redirect targets",
-      "summary": "## Summary\n\nOpen WebUI protects server-side web fetches with two controls: the operator's list of excluded hosts, and a check that refuses private and internal addresses. Neither control was applied to the destination of an HTTP redirect. On a deployment where redirect following is enabled, any authenticated user who can cause the server to fetch a URL could submit a page that redirects, and the s",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-09T23:54:08Z",
-      "cve_ids": [
-        "CVE-2026-88001"
-      ],
-      "cvss": 5.0,
-      "related_links": []
-    },
-    {
-      "id": "5a6aef6e629ff2287214b31dee949263962c118b45aa025a8413aa74049392b5",
-      "url": "https://github.com/advisories/GHSA-jqhh-cjmq-vmv6",
-      "title": "GHSA: Open WebUI: Any authenticated user can hang the server via a cyclic chat message history",
-      "summary": "## Summary\nChat histories are stored as an unvalidated JSON object. The walk that reconstructs a chat's message chain detected repeats using each message's own `id` field while moving through the history by map key, so a message that simply omitted `id` was never recorded as visited. A history whose messages referenced each other in a parent cycle therefore made the walk run forever. Any account w",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-09T23:53:59Z",
-      "cve_ids": [
-        "CVE-2026-88002"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "113e564b70fc808530f7bb820727846a2af422f012ae9eb7122d2bc60296ecc5",
-      "url": "https://github.com/advisories/GHSA-cp3j-m783-3ph5",
-      "title": "GHSA: Identrail Cross-tenant IDOR: Client-supplied GitHub App installation_id is bound to the caller's workspace without ownership verification",
-      "summary": "## Summary\n\nidentrail's GitHub App connection-completion endpoint binds a fully client-supplied `installation_id` to the caller's workspace without verifying that the installation belongs to, or was installed by, the workspace that initiated the connect flow. identrail then mints a GitHub App installation access token for the supplied `installation_id` using the app's own JWT, so an authenticated ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-09T23:52:14Z",
-      "cve_ids": [
-        "CVE-2026-59185"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "9989cb6b4f708b459b8e8447af2e5f63e61de7904d36cd92414c7850d7e3034f",
-      "url": "https://github.com/advisories/GHSA-g72f-jw3w-mgh7",
-      "title": "GHSA: @openhop/server: Path Traversal in Flow ID File Operations",
-      "summary": "## Path Traversal in Flow ID File Operations\n\n### Summary\n\n`@openhop/server` passes unsanitized HTTP route parameters directly to `path.join()` when constructing filesystem paths for flow YAML files. An unauthenticated attacker who can reach the server can read arbitrary `.yaml` files accessible to the OpenHop process outside the configured flow directory, and can delete arbitrary `.yaml` files at",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-09T23:51:59Z",
-      "cve_ids": [
-        "CVE-2026-59179"
-      ],
-      "cvss": 8.3,
-      "related_links": []
-    },
-    {
-      "id": "fef421628693774665cfe171309ab1c4401617a3c452941b8c7ee3adb7266fe2",
-      "url": "https://github.com/advisories/GHSA-vv4j-m4vr-f3g6",
-      "title": "GHSA: ESPHome Device Builder Dashboard: Unauthenticated dashboard access via the HA add-on ingress site bound to all interfaces",
-      "summary": "## Summary\n\nOn the Home Assistant add-on, the dashboard serves a trusted ingress site that skips authentication because the supervisor authenticates the request upstream. That site was binding `0.0.0.0`. The add-on runs in host network mode for mDNS, so binding all interfaces also bound the host's LAN interface, and any device on the local network could reach `http://<ha-ip>:<ingress_port>/` and g",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-09T23:51:25Z",
-      "cve_ids": [
-        "CVE-2026-59177"
-      ],
-      "cvss": 8.8,
       "related_links": []
     }
   ]
