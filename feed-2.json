@@ -1,10 +1,66 @@
 {
-  "updated": "2026-09-16T22:40:14.700909+00:00",
+  "updated": "2026-09-17T03:43:47.820339+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "07ed18c3a7838dff2fe83dde80276b244326f647c6afe02af32cb73354f9debb",
+      "url": "https://github.com/advisories/GHSA-9xww-74xv-gjfp",
+      "title": "GHSA: Http4s: DigestAuth allows replay of captured requests",
+      "summary": "The `DigestAuth` replay defence stores `lastNc + 1` rather than the nonce-count (`nc`) value it just accepted. When a legitimate client sends non-contiguous `nc` values (parallel or retried requests, as browsers do), the server's counter lags behind the highest `nc` seen, and a captured `Authorization` header can be replayed multiple times.\n\n## Impact\n\nA passive observer can turn one captured Dige",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-15T19:54:32Z",
+      "cve_ids": [
+        "CVE-2026-69206"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "4c061b32e56f5edb5a0eaed542fd30ac12cc2ff75a171d28f890deb0836fdb5e",
+      "url": "https://github.com/advisories/GHSA-9998-894r-fwvr",
+      "title": "GHSA: Http4s Ember Transfer-Encoding value parsing (TE.CL / TE.0 request smuggling)",
+      "summary": "## Summary\n\nEmber's HTTP/1.1 header parser matches the `Transfer-Encoding` header value\nwith a case-sensitive substring test (`hValue.contains(\"chunked\")`). RFC\n9112 §7 requires transfer-coding names to be compared case-insensitively. A\nrequest carrying `Transfer-Encoding: Chunked` (capital C) is therefore not\nrecognised as chunked, and Ember falls back to framing by `Content-Length`\n(or zero if a",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-15T19:54:25Z",
+      "cve_ids": [
+        "CVE-2026-69205"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "873d51e6fcff6a07a5f1855046b8b82fdd16f2bbfa6eedeea6b8c5f271653a48",
+      "url": "https://github.com/advisories/GHSA-9vwc-pc8p-253q",
+      "title": "GHSA: Http4s Ember HTTP/2 does not enforce SETTINGS_MAX_CONCURRENT_STREAMS",
+      "summary": "An ember server with HTTP/2 enabled (`.withHttp2`) does not enforce `SETTINGS_MAX_CONCURRENT_STREAMS` on streams opened by the peer.  A single unauthenticated connection can open an unbounded number of concurrent streams, each of which allocates per-stream server state that is never released, exhausting the heap.\n\n## Impact\n\nUnauthenticated remote denial of service (memory exhaustion) against any ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-15T19:53:14Z",
+      "cve_ids": [
+        "CVE-2026-69203"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "933bc9bda8f30866b15c1f599f23ce3504703a719cb4b728a72f84af64ede1fd",
+      "url": "https://github.com/advisories/GHSA-6m4x-pp6q-5jmm",
+      "title": "GHSA: Http4s Ember HTTP/2: unbounded inbound body buffering",
+      "summary": "Ember's HTTP/2 stack replenishes the inbound flow-control window based on bytes\nreceived off the wire, not bytes consumed by the application.  Received DATA is buffered in an unbounded per-stream channel.  Flow control therefore\nprovides no backpressure: a peer can stream a large or unbounded body faster than the application drains it and the connection retains every payload in heap.\n\nThis is the ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-15T19:52:58Z",
+      "cve_ids": [
+        "CVE-2026-69202"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
     {
       "id": "ab23cf5994ff97c68ef1e0e73f1170937f51cc7275be1995f1daba122da90672",
       "url": "https://ubuntu.com/security/notices/USN-8768-1",
@@ -1273,62 +1329,6 @@
         "CVE-2026-61534"
       ],
       "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "bbe59fb611e8b532f7f422e303860c216cafa6f74ff7f6c9fb3319faa5acbb21",
-      "url": "https://github.com/advisories/GHSA-rqx4-3f6q-3x2v",
-      "title": "GHSA: @Mockoon/commons-server: Unauthenticated admin API + wildcard CORS allows mock-state hijack and secret theft",
-      "summary": "## Summary\n\nMockoon's admin API ([`commons-server/src/libs/server/admin-api.ts`](https://github.com/mockoon/mockoon/blob/4375a8f/packages/commons-server/src/libs/server/admin-api.ts)) is mounted on the same Express listener as the user-defined mock routes, **enabled by default** in every shipped runtime (commons-server, CLI, serverless), serves **`Access-Control-Allow-Origin: *` on every endpoint ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-11T22:04:42Z",
-      "cve_ids": [
-        "CVE-2026-59148"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "4de7826cf73be3147858a0fcddab8ec2b2e257f669606251768d6326ac218935",
-      "url": "https://github.com/advisories/GHSA-8wqc-v2q8-vff2",
-      "title": "GHSA: @Mockoon/commons-server: Path traversal in templated `filePath` lets a request escape the served directory (prefix-only base check)",
-      "summary": "## Summary\n\nA `FILE` response whose `filePath` embeds request data (e.g. `\"/srv/public/{{queryParam 'name'}}\"`, the documented way to let the client pick a file) is confined by `getSafeFilePath` with `resolvedPath.startsWith(staticBaseDir)`. That prefix test has no path-separator boundary, so a `../`-escaped path whose absolute form string-prefixes the base directory passes. An unauthenticated cli",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-11T22:04:32Z",
-      "cve_ids": [
-        "CVE-2026-59149"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "de97694a8ea1e97c033bb223f67eabc9b6856daf34a4a12c722ab54d5b037d68",
-      "url": "https://github.com/advisories/GHSA-65h7-9wrw-629c",
-      "title": "GHSA: FrontMCP and mcp-from-openapi have bypass of OpenAPI external $ref SSRF fix",
-      "summary": "## Summary\n\nThe published fix for GHSA-v6ph-xcq9-qxxj / CVE-2026-39885 added a direct hostname denylist for OpenAPI external `$ref` dereferencing, but the latest patched dependency `mcp-from-openapi` 2.3.0 still makes backend-origin requests to loopback when the target is reached through hostname resolution, redirects, or IPv4-mapped IPv6 syntax.\n\nFrontMCP latest release v1.2.1 and current main st",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-11T22:02:04Z",
-      "cve_ids": [
-        "CVE-2026-59973"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "bf2a024adf057d508a2c9f074e5f39d548d28db3b1d0cb364c99474d5c6002ea",
-      "url": "https://github.com/advisories/GHSA-h8m9-jgf8-vwvp",
-      "title": "GHSA: Prowler: SAML Domain Claiming Enables Cross-Tenant Account Takeover",
-      "summary": "## SAML Tenant Binding Enables Cross-Tenant Account Takeover\n\n### Summary\n\nProwler's SAML authentication flow trusted the email domain asserted in a SAMLResponse when deciding which tenant should receive the final token. A malicious tenant with its own SAML configuration and a self-controlled IdP could complete a valid SAML flow for its own configured domain, while asserting an email address from ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-11T21:38:24Z",
-      "cve_ids": [
-        "CVE-2026-59151"
-      ],
-      "cvss": 9.6,
       "related_links": []
     }
   ]
