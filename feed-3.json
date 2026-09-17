@@ -1,10 +1,596 @@
 {
-  "updated": "2026-09-17T16:22:41.875077+00:00",
+  "updated": "2026-09-17T22:41:34.848749+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "32b7187142f3f1694bfb9e3c15a3baa28b2c29fa4481fc9834b924a408ab9172",
+      "url": "https://github.com/advisories/GHSA-gq9p-f254-h286",
+      "title": "GHSA: Http4s: Ember HTTP/2 buffers a frame's declared payload before checking SETTINGS_MAX_FRAME_SIZE",
+      "summary": "### Summary\nAn unauthenticated peer can make Ember's HTTP/2 read loop hold 16 MiB of a single frame in memory on a connection where Ember advertised a 16 KiB limit. The declared length is readable from the frame's first 9 bytes, but it is not compared against SETTINGS_MAX_FRAME_SIZE until the whole payload has been read into a contiguous buffer. That is 1024x amplification per connection, bounded ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-15T20:01:22Z",
+      "cve_ids": [
+        "CVE-2026-88975"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "350eea93da0fd55bb097c34029dbf20d19329ccc3085dfd6c89d00024b76d04c",
+      "url": "https://github.com/advisories/GHSA-crq5-92j2-j7wv",
+      "title": "GHSA: Http4s: ResourceService and Webjar Service path escape via percent-encoded separators",
+      "summary": "The static content handlers `ResourceService` and `WebjarService` URL decode each path segment and then reject only segments that are exactly `\"\"`, `\".\"`, or `\"..\"`.  A percent-encoded separator (`%2F`) lets an attacker smuggle a `../` segment past that filter and escape the configured base, reading resources that should not be public.\n\nOn Windows, a similar attack exists with (`%5C`).\n\n## Impact\n",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-15T20:01:12Z",
+      "cve_ids": [
+        "CVE-2026-69201"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "bbe957d3796529e39a495baeb3e3df287498cb38a89fc88b33b14f26ede697a3",
+      "url": "https://github.com/advisories/GHSA-cp4q-fqw9-4hf6",
+      "title": "GHSA: Http4s Ember HTTP/2: unbounded continuation frame accumulation",
+      "summary": "When Ember receives an HTTP/2 `HEADERS` or `PUSH_PROMISE` frame without the `END_HEADERS` flag, it buffers the header block fragment and waits for subsequent `CONTINUATION` frames.  These accumulate unbounded until the connection closes. \n\n### Impact\n\nA remote, unauthenticated peer can exhaust the heap on any Ember endpoint that has HTTP/2 enabled:\n\n- **ember-server with `.withHttp2`**: any HTTP/2",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-15T20:01:08Z",
+      "cve_ids": [
+        "CVE-2026-69218"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "73ec90c02d1c9b1ed7635b57a6c543b76b90cae4c61df8f2d0630d0e065e6d15",
+      "url": "https://github.com/advisories/GHSA-jrpm-956j-96jg",
+      "title": "GHSA: Http4s: Ember chunk parser lenience (TE.TE request smuggling)",
+      "summary": "## Summary\n\nEmber's chunk decoder parses the size token leniently: it strips leading and trailing whitespace and accepts a leading `+` or `-` sign.  RFC9112 §7.1 defines `chunk-size = 1*HEXDIG`.  An intermediary that parses the chunk boundary differently (or rejects it) will disagree with Ember on request framing, enabling HTTP request smuggling (TE.TE).\n\n## Impact\n\n### Server\n\nRequest smuggling (",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-15T20:01:00Z",
+      "cve_ids": [
+        "CVE-2026-69216"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "eea9540bd9bec31b3048476769485e3e3b4e42bb908939fd0e73e74551350f46",
+      "url": "https://github.com/advisories/GHSA-grh8-3p95-f9rr",
+      "title": "GHSA: Http4s: CookieJar middleware matches by substring, leaking cookies cross-origin",
+      "summary": "The `CookieJar` client middleware decides whether to attach a cookie to an outgoing request using an unanchored substring test on the host and path, instead of the domain match specified by RFC6265 5.1.3.  A cookie stored for `example.com` is therefore sent to any host whose name merely contains `example.com` (e.g. `evilexample.com`), leaking potentially sensitive cookies to an attacker-chosen hos",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-15T20:00:54Z",
+      "cve_ids": [
+        "CVE-2026-69215"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "2c913e63df39f20be5ffcb6280e53e99896f200d19a66fcddbb819511b6e9f85",
+      "url": "https://github.com/advisories/GHSA-wv64-j4fq-5f9x",
+      "title": "GHSA: Http4s: CookieJar middleware accepts arbitrary Set-Cookie domain",
+      "summary": "When processing a `Set-Cookie` from a response, the `CookieJar` client middleware trusts the server-supplied `Domain` attribute verbatim, with no check that it domain-matches the host that sent the cookie (RFC6265 §5.3 step 6) and no public suffix check.  A malicious or compromised server can therefore plant a cookie for any domain in the cookie jar, which is subsequently set on the client's next ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-15T20:00:43Z",
+      "cve_ids": [
+        "CVE-2026-69214"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "9a12cc93dc54431011b69a5e3b876393c4f2e7fc609aeab190c35667b9dcfa0e",
+      "url": "https://github.com/advisories/GHSA-8f3q-3jmv-7prw",
+      "title": "GHSA: Http4s Ember HTTP/2 has an unbounded outbound frame queue",
+      "summary": "Ember's HTTP/2 connection serializes all outgoing frames through a single unbounded queue drained by one writer fiber (`writeLoop`).  When the write side stalls, any frames the connection keeps producing accumulate in that queue without limit.  The peer can drive this cheaply because the connection emits a control frame in response to inbound frames it does not flow-control: one `PING` ACK per `PI",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-15T20:00:36Z",
+      "cve_ids": [
+        "CVE-2026-69213"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "35243c1d306729f52a15dbb34dad239c619dc1b8cc0ba56e46a5fefe37f29391",
+      "url": "https://github.com/advisories/GHSA-fm4g-76c9-7w69",
+      "title": "GHSA: Http4s: DigestAuth nonce map grows unbounded",
+      "summary": "The `DigestAuth` server middleware's stale-nonce cleanup uses an inverted comparison: it removes *fresh* nonces and stops at the first *stale* one.  Because a new nonce is created for every unauthenticated challenge, an attacker can drive the nonce map to grow without bound until the JVM runs out of heap.\n\n## Impact\n\nUnauthenticated remote denial of service (gradual heap exhaustion / OOM) against\n",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-15T19:54:37Z",
+      "cve_ids": [
+        "CVE-2026-69208"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "07ed18c3a7838dff2fe83dde80276b244326f647c6afe02af32cb73354f9debb",
+      "url": "https://github.com/advisories/GHSA-9xww-74xv-gjfp",
+      "title": "GHSA: Http4s: DigestAuth allows replay of captured requests",
+      "summary": "The `DigestAuth` replay defence stores `lastNc + 1` rather than the nonce-count (`nc`) value it just accepted. When a legitimate client sends non-contiguous `nc` values (parallel or retried requests, as browsers do), the server's counter lags behind the highest `nc` seen, and a captured `Authorization` header can be replayed multiple times.\n\n## Impact\n\nA passive observer can turn one captured Dige",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-15T19:54:32Z",
+      "cve_ids": [
+        "CVE-2026-69206"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "4c061b32e56f5edb5a0eaed542fd30ac12cc2ff75a171d28f890deb0836fdb5e",
+      "url": "https://github.com/advisories/GHSA-9998-894r-fwvr",
+      "title": "GHSA: Http4s Ember Transfer-Encoding value parsing (TE.CL / TE.0 request smuggling)",
+      "summary": "## Summary\n\nEmber's HTTP/1.1 header parser matches the `Transfer-Encoding` header value\nwith a case-sensitive substring test (`hValue.contains(\"chunked\")`). RFC\n9112 §7 requires transfer-coding names to be compared case-insensitively. A\nrequest carrying `Transfer-Encoding: Chunked` (capital C) is therefore not\nrecognised as chunked, and Ember falls back to framing by `Content-Length`\n(or zero if a",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-15T19:54:25Z",
+      "cve_ids": [
+        "CVE-2026-69205"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "873d51e6fcff6a07a5f1855046b8b82fdd16f2bbfa6eedeea6b8c5f271653a48",
+      "url": "https://github.com/advisories/GHSA-9vwc-pc8p-253q",
+      "title": "GHSA: Http4s Ember HTTP/2 does not enforce SETTINGS_MAX_CONCURRENT_STREAMS",
+      "summary": "An ember server with HTTP/2 enabled (`.withHttp2`) does not enforce `SETTINGS_MAX_CONCURRENT_STREAMS` on streams opened by the peer.  A single unauthenticated connection can open an unbounded number of concurrent streams, each of which allocates per-stream server state that is never released, exhausting the heap.\n\n## Impact\n\nUnauthenticated remote denial of service (memory exhaustion) against any ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-15T19:53:14Z",
+      "cve_ids": [
+        "CVE-2026-69203"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "933bc9bda8f30866b15c1f599f23ce3504703a719cb4b728a72f84af64ede1fd",
+      "url": "https://github.com/advisories/GHSA-6m4x-pp6q-5jmm",
+      "title": "GHSA: Http4s Ember HTTP/2: unbounded inbound body buffering",
+      "summary": "Ember's HTTP/2 stack replenishes the inbound flow-control window based on bytes\nreceived off the wire, not bytes consumed by the application.  Received DATA is buffered in an unbounded per-stream channel.  Flow control therefore\nprovides no backpressure: a peer can stream a large or unbounded body faster than the application drains it and the connection retains every payload in heap.\n\nThis is the ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-15T19:52:58Z",
+      "cve_ids": [
+        "CVE-2026-69202"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "ab23cf5994ff97c68ef1e0e73f1170937f51cc7275be1995f1daba122da90672",
+      "url": "https://ubuntu.com/security/notices/USN-8768-1",
+      "title": "USN-8768-1: Shibboleth vulnerability",
+      "summary": "Florian Stuhlmann discovered that Shibboleth incorrectly escaped input when using the ODBC storage plugin. A remote attacker could possibly use this issue to perform SQL injection attacks and obtain sensitive information.",
+      "source": "Ubuntu Security",
+      "category": "web_app",
+      "date": "2026-09-15T15:43:58+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "beff2a4f92d5a21ef021d2d0ff6459619361f141cd8c5ee4c1f2cee6c556290b",
+      "url": "https://www.bleepingcomputer.com/news/security/hackers-target-wordpress-sites-via-third-party-woocommerce-plugin/",
+      "title": "Hackers target WordPress sites via third-party WooCommerce plugin",
+      "summary": "Hackers are actively exploiting a critical vulnerability in the WooCommerce Wholesale Lead Capture premium plugin for WordPress to upload a PHP backdoor. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-09-15T14:45:10+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "83f2f645a164d50a64e82eb34b14970f73fc229c458fad818d29f5ec3c49131e",
+      "url": "https://ubuntu.com/security/notices/USN-8765-1",
+      "title": "USN-8765-1: python-sql vulnerability",
+      "summary": "Cédric Krier discovered that python-sql incorrectly escaped values passed to unary operators. An attacker could possibly use this issue to perform SQL injection attacks.",
+      "source": "Ubuntu Security",
+      "category": "web_app",
+      "date": "2026-09-15T14:39:05+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "ff7f881cf08da872ecbd67d414aee088e2fdf8372dc2d15130b462cc82d5b526",
+      "url": "https://www.bleepingcomputer.com/news/security/what-zero-day-response-should-be-in-the-post-mythos-era/",
+      "title": "What Zero-Day Response Should Be in the Post-Mythos Era",
+      "summary": "AI is shrinking the time between vulnerability disclosure and exploitation, leaving defenders less time to wait for patches or public exploits. Picus Security explains how exploitability validation, security control testing, and autonomous pentesting can help teams close exposure gaps before attackers arrive. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-09-15T13:45:54+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "0d4ce8b8f152068f33bf4f7fda0960d3d24f55c6c0866c25f02f1f75b62ea7bd",
+      "url": "https://www.bleepingcomputer.com/news/security/cisa-critical-vmware-vcenter-rce-flaw-now-exploited-by-ransomware-gangs/",
+      "title": "CISA: Critical VMware RCE flaw now exploited by ransomware gangs",
+      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) warned security teams that ransomware gangs have now joined ongoing attacks exploiting a critical VMware vCenter vulnerability patched in July. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-09-15T12:16:32+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "a1e66d2397ff96a298821f285c0581d9ff702059cbd46d52ee28c400e329730f",
+      "url": "https://ubuntu.com/security/notices/USN-8730-2",
+      "title": "USN-8730-2: Linux kernel (Azure) vulnerability",
+      "summary": "A security issue was discovered in the Linux kernel. An attacker could possibly use this to compromise the system. This update corrects flaws in the following subsystems: - IPv6 networking; - Netfilter;",
+      "source": "Ubuntu Security",
+      "category": "infrastructure",
+      "date": "2026-09-15T09:41:33+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "96c09c631f163e167a7198b2a4e3c69d2a39bbab8b2960b15ee71b042024844c",
+      "url": "https://www.bleepingcomputer.com/news/security/new-cisco-secure-email-zero-day-exploited-to-execute-commands-as-root/",
+      "title": "Cisco patches Secure Email Gateway zero-day exploited in attacks",
+      "summary": "Cisco warned customers to patch a critical Secure Email Gateway zero-day security flaw that threat actors have been exploiting in attacks. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-09-15T07:31:09+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "0b6e55d52491bead82f2516d7c733183807309ff5aef2e5d293a307820869449",
+      "url": "https://github.com/advisories/GHSA-v859-c572-qh5p",
+      "title": "GHSA: ZITADEL: Improper Role Revocation on Granted Projects during Multiple Role Deletions",
+      "summary": "### Summary\n\nA bug in how ZITADEL updates permissions when multiple project roles are deleted at the same time can cause some user permissions to be missed. This issue specifically affects **User Grants on Granted Projects** (projects shared between different organizations), **potentially** allowing users to keep access rights that were supposed to be completely removed.\n\n### Impact\n\nWhen an organ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-14T21:31:37Z",
+      "cve_ids": [
+        "CVE-2026-76081"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "d2fc6668b484cc56f7ef311ec5a8f9c3f0810130cea1eb14ffd7a63505f57b8d",
+      "url": "https://github.com/advisories/GHSA-vrh8-c9cm-wh8v",
+      "title": "GHSA: ZITADEL: Unauthorized Token Privilege Escalation in OAuth2 Token Exchange",
+      "summary": "### Summary\n\nA vulnerability in ZITADEL’s OAuth2 Token Exchange endpoint allows an authenticated user or client to exchange a low-privilege access token for a token with elevated permissions at a completely different application. This bypasses the intended authorization and separation policies configured within ZITADEL.\n\n### Impact\n\nZITADEL enables administrators to restrict token issuance based o",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-14T21:28:23Z",
+      "cve_ids": [
+        "CVE-2026-56668"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "89e52df0d44d6072f98cf7912c2f54ea2539c928cf32bd5070291ca896068d32",
+      "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-emergency-windows-updates-to-fix-rds-failures/",
+      "title": "Microsoft releases emergency Windows updates to fix RDS failures",
+      "summary": "Microsoft has released emergency out-of-band Windows updates to fix Remote Desktop Services failures caused by this month's security updates, along with Hyper-V and USB audio problems on some Windows versions. [...]",
+      "source": "Bleeping Computer",
+      "category": "infrastructure",
+      "date": "2026-09-14T20:52:18+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "4e40475117cb7b3ed80e8de7eb704ab74dc8049d3f112a4fa7528c5ee9a5e820",
+      "url": "https://github.com/advisories/GHSA-rrxg-g2pf-6hh4",
+      "title": "GHSA: ESPHome Device Builder: Renamed auth env vars silently disable dashboard authentication on upgrade",
+      "summary": "## Summary\n\nThe dashboard reads its authentication credentials from `$ESPHOME_USERNAME` and `$ESPHOME_PASSWORD`. Earlier versions, and the legacy `esphome` dashboard, read the bare `$USERNAME` and `$PASSWORD` instead. When the env vars were renamed the bare names were dropped with no fallback, so an operator who had protected their dashboard with `USERNAME` / `PASSWORD` (as the older getting start",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-14T18:08:57Z",
+      "cve_ids": [
+        "CVE-2026-59178"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "993ecc483d689b802593e78b0c343401b4be2594bb041f4bf115c841efe9db5d",
+      "url": "https://github.com/advisories/GHSA-2xmm-m4wv-3fjh",
+      "title": "GHSA: October CMS: Incomplete Scheme Validation in Image Resizer",
+      "summary": "The image resizer classified external sources by testing whether the source string began with the substring `http`, and the string-source branch in `ResizeImageItem::fromObject()` accepted any value containing `://` as a URL. As a result, non-http(s) PHP stream wrappers such as `phar://`, `file://` and `ftp://` could be stored in the resizer cache and later passed to the underlying image library. ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-14T17:15:44Z",
+      "cve_ids": [],
+      "cvss": 3.9,
+      "related_links": []
+    },
+    {
+      "id": "5f2d90e1db34c7bfee9e94a7b19d83f4de4dcb8059b2f855c1997650ca3736c3",
+      "url": "https://github.com/advisories/GHSA-2ff2-mx52-q8wp",
+      "title": "GHSA: October CMS: PHP Object Injection via Backend Widget Session Storage",
+      "summary": "The backend `SessionMaker` trait stored widget session state as `base64(serialize(...))` and consumed it with `unserialize()` without an `allowed_classes` restriction. Any code path that could write to a `widget.*` session key with attacker-controlled bytes could trigger PHP object injection the next time the widget read its session state, allowing instantiation of arbitrary classes and reachable ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-14T17:08:06Z",
+      "cve_ids": [
+        "CVE-2026-49400"
+      ],
+      "cvss": 3.3,
+      "related_links": []
+    },
+    {
+      "id": "5aa4d6dc4864a889324abe516641ea6a3fb843e6264b7cacc8b17e8df7d7c6cf",
+      "url": "https://www.bleepingcomputer.com/news/security/hackers-target-exposed-vite-dev-servers-to-steal-aws-azure-secrets/",
+      "title": "Hackers target exposed Vite dev servers to steal AWS, Azure secrets",
+      "summary": "A mass-scanning campaign targeting internet-exposed Vite development servers is attempting to steal cloud credentials and configurations from AWS and Azure deployments. [...]",
+      "source": "Bleeping Computer",
+      "category": "cloud",
+      "date": "2026-09-14T16:15:58+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "4191f8a74dd44696aa5884741584e96dc248ad7152a27c7a24be69a5dea1e666",
+      "url": "https://github.com/advisories/GHSA-xv9m-fm3w-8w5x",
+      "title": "GHSA: October CMS: Safe Mode Sandbox Bypass via Session Store and Forwarded Builder Calls",
+      "summary": "A vulnerability was identified in the Twig sandbox security policy that allowed a chained bypass when `cms.safe_mode` is enabled. The Laravel session store was exposed to Twig with unrestricted method access, and raw SQL methods reachable through Eloquent's `__call` forwarding were not blocked across the full builder chain. When combined, a backend user with CMS markup editing access could read ar",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-14T16:02:35Z",
+      "cve_ids": [
+        "CVE-2026-46696"
+      ],
+      "cvss": 3.3,
+      "related_links": []
+    },
+    {
+      "id": "d7c3153b99b3b01038c2167ab6abb64f452ac18c3638fe312b3080fbf8a71040",
+      "url": "https://www.rapid7.com/blog/post/dr-forrester-mdr-landscape-notable-vendor-preemptive",
+      "title": "Rapid7 Named Among Notable Vendors in Forrester MDR Landscape: Why the Future is Exposure-informed, Preemptive MDR",
+      "summary": "The managed detection and response (MDR) market has reached a turning point. We’ve gone beyond the baseline of 24/7 monitoring focusing on the speed of detection and moved to a world with a convergence of exposure management and response to deliver measurable, outcome-based defenses of a larger, AI-driven attack surface.For anyone evaluating MDR right now, the Managed Detection and Response Servic",
+      "source": "Rapid7",
+      "category": "emergency",
+      "date": "2026-09-14T14:51:07+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "a90a1a05fc75cf2dc10543306319ecf9f18d7e6133ea8f708ccd36514548d38b",
+      "url": "https://ubuntu.com/security/notices/USN-8563-5",
+      "title": "USN-8563-5: nginx vulnerability",
+      "summary": "USN-8563-1 fixed vulnerabilities in nginx. The fix for CVE-2026-42533 was backed out in USN-8563-2 because it could cause a regression. This update includes a better fix for CVE-2026-42533. We apologize for the inconvenience. Original advisory details: It was discovered that nginx incorrectly handled certain map directives using regex matching and capture variables. A remote attacker could use thi",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-09-14T11:35:12+00:00",
+      "cve_ids": [
+        "CVE-2026-42533",
+        "CVE-2026-56434",
+        "CVE-2026-60005"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "d736f387a99b1e2c6c863d4946a0e2f3b5b6db1bf36b0a6e93311fc7bf35056b",
+      "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-september-updates-cause-rds-failures-on-windows-server/",
+      "title": "Microsoft: September updates cause RDS failures on Windows Server",
+      "summary": "Microsoft has confirmed reports that the September 2026 security updates cause Remote Desktop Services (RDS) failures on Windows Server systems. [...]",
+      "source": "Bleeping Computer",
+      "category": "infrastructure",
+      "date": "2026-09-14T09:50:25+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "32e73db497e648d61fff7c4eef9a7990e4ee118d6b561a2986d812cbadda3701",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-702/",
+      "title": "ZDI-26-702: Linux Kernel usbnet Driver Race Condition Privilege Escalation Vulnerability",
+      "summary": "This vulnerability allows physically present attackers to escalate privileges on affected installations of Linux Kernel. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.1. The following CVEs are assigned: CVE-2025-22050.",
+      "source": "Zero Day Initiative",
+      "category": "infrastructure",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [
+        "CVE-2025-22050"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "e3cc40f5d74adec8400b0fef87cca4bd532e668be036dbda95ca5a35e332b71e",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-700/",
+      "title": "ZDI-26-700: Linux Kernel QFQ Plus Scheduler Use-After-Free Local Privilege Escalation Vulnerability",
+      "summary": "This vulnerability allows local attackers to escalate privileges on affected installations of Linux Kernel. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-22999.",
+      "source": "Zero Day Initiative",
+      "category": "infrastructure",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-22999"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "21ff23a63961c1c2d990600779cf8551e4ae724409b160eacd0ae2090c27e4f7",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-699/",
+      "title": "ZDI-26-699: Linux Kernel NTFS3 Out-of-Bounds Read Information Disclosure Vulnerability",
+      "summary": "This vulnerability allows local attackers to disclose sensitive information on affected installations of Linux Kernel. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 5.2.",
+      "source": "Zero Day Initiative",
+      "category": "infrastructure",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "7b655df6f07905cb9c26f91fafa570aad58fced62afc9591b2e5cdeb2e3e893f",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-698/",
+      "title": "ZDI-26-698: Linux Kernel NTFS3 Out-Of-Bounds Read Information Disclosure Vulnerability",
+      "summary": "This vulnerability allows local attackers to disclose sensitive information on affected installations of Linux Kernel. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 5.2.",
+      "source": "Zero Day Initiative",
+      "category": "infrastructure",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "5a174b9323ab74969fc73e8ee6d612e397836c6ee00d6e3b414d3962aece10cc",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-697/",
+      "title": "ZDI-26-697: Linux Kernel NTFS3 Out-Of-Bounds Read Information Disclosure Vulnerability",
+      "summary": "This vulnerability allows local attackers to disclose sensitive information on affected installations of Linux Kernel. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.3.",
+      "source": "Zero Day Initiative",
+      "category": "infrastructure",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "8b7367be44dc1fc462cc129f6b6c116ab05968b5d928a911bbf40ac389223338",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-696/",
+      "title": "ZDI-26-696: Linux Kernel NTFS3 Journal Heap-based Buffer Overflow Code Execution Vulnerability",
+      "summary": "This vulnerability allows local attackers to execute arbitrary code on affected installations of Linux Kernel. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.8. The following CVEs are assigned: CVE-2026-72196.",
+      "source": "Zero Day Initiative",
+      "category": "infrastructure",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-72196"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "3813b30f87e0cfc255375d9d70dc0e7b85ec20051cba1d1aa6cb22ff9d4358bc",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-695/",
+      "title": "ZDI-26-695: Linux Kernel NFSv4 Server Race Condition Remote Code Execution Vulnerability",
+      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Linux Kernel. Authentication is required to exploit this vulnerability. Furthermore, only systems with nfsd enabled are vulnerable. The ZDI has assigned a CVSS rating of 8.5. The following CVEs are assigned: CVE-2026-89688.",
+      "source": "Zero Day Initiative",
+      "category": "emergency",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-89688"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "d9f387248c3b516f75abf629b886ec09354ab1f04e0650a2aa7f8bf3ce1a3d70",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-694/",
+      "title": "ZDI-26-694: Linux Kernel Net Scheduler Clsact Qdisc Use-After-Free Local Privilege Escalation Vulnerability",
+      "summary": "This vulnerability allows local attackers to escalate privileges on affected installations of Linux Kernel. An attacker must first obtain the ability to execute high-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.2. The following CVEs are assigned: CVE-2026-23413.",
+      "source": "Zero Day Initiative",
+      "category": "infrastructure",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-23413"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "c0aa78b5c15217252f294c528d59071640051551e4dd43aea7b32151b5c990d7",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-693/",
+      "title": "ZDI-26-693: Linux Kernel ksmbd Share Configuration Race Condition Remote Code Execution Vulnerability",
+      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Linux Kernel. Authentication is required to exploit this vulnerability. Furthermore, only systems with ksmbd enabled are vulnerable. The ZDI has assigned a CVSS rating of 8.5.",
+      "source": "Zero Day Initiative",
+      "category": "emergency",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "5fa5c40c20a6af4429be7c6df9d7632cacb90ae16803fba9f1d7dc78cdbcedc4",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-692/",
+      "title": "ZDI-26-692: Linux Kernel eMPIA USB Device Driver Race Condition Code Execution Vulnerability",
+      "summary": "This vulnerability allows physically present attackers to execute arbitrary code on affected installations of Linux Kernel. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.1. The following CVEs are assigned: CVE-2026-31583.",
+      "source": "Zero Day Initiative",
+      "category": "infrastructure",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-31583"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "b8a340658965c443e2642323ea147eb981fcef162f2df1546661a62ccda2e18b",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-690/",
+      "title": "ZDI-26-690: Linux Kernel MCTP Routing Uninitialized Memory Information Disclosure Vulnerability",
+      "summary": "This vulnerability allows local attackers to disclose sensitive information on affected installations of Linux Kernel. An attacker must first obtain the ability to execute high-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 6.0. The following CVEs are assigned: CVE-2026-45930.",
+      "source": "Zero Day Initiative",
+      "category": "infrastructure",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-45930"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "f9c92bed28924d51bd3e852f47ec2a8070d4e048fb88c72e97657aea6ca07dad",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-688/",
+      "title": "ZDI-26-688: Linux Kernel OpenvSwitch Race Condition Local Privilege Escalation Vulnerability",
+      "summary": "This vulnerability allows local attackers to escalate privileges on affected installations of Linux Kernel. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-74465.",
+      "source": "Zero Day Initiative",
+      "category": "infrastructure",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-74465"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "66a0f7eb5e1ba8d8b4721338b8954c2bb0dada53f21a26946d2a897fa76ffc90",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-687/",
+      "title": "ZDI-26-687: Linux Kernel Open vSwitch Flow Delete Use-After-Free Information Disclosure Vulnerability",
+      "summary": "This vulnerability allows local attackers to disclose sensitive information on affected installations of the Linux Kernel. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 6.4. The following CVEs are assigned: CVE-2026-80994.",
+      "source": "Zero Day Initiative",
+      "category": "infrastructure",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-80994"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "0a54700a01a0d2a74de440f5c5389ea370b5205497eb2069a2a3846aaefcbf04",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-686/",
+      "title": "ZDI-26-686: Linux Kernel nftables Race Condition Local Privilege Escalation Vulnerability",
+      "summary": "This vulnerability allows local attackers to escalate privileges on affected installations of Linux Kernel. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-74565.",
+      "source": "Zero Day Initiative",
+      "category": "infrastructure",
+      "date": "2026-09-14T05:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-74565"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
     {
       "id": "32642cbb504e34065b6759a5edbae9b9ee93f7b1102abaa72598daa9422f4e9c",
       "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-685/",
@@ -737,657 +1323,6 @@
         "http://www.zerodayinitiative.com/advisories/ZDI-26-684/",
         "http://www.zerodayinitiative.com/advisories/ZDI-26-681/",
         "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-53362"
-      ]
-    },
-    {
-      "id": "207084d9e97a37b16591ea6f677879fabae4917fa1bc9ceb36ac46c08b0375f6",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-689/",
-      "title": "ZDI-26-689: Linux Kernel SCTP Subsystem Race Condition Information Disclosure Vulnerability",
-      "summary": "This vulnerability allows local attackers to disclose sensitive information on affected installations of Linux Kernel. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 6.4. The following CVEs are assigned: CVE-2026-46227.",
-      "source": "Zero Day Initiative",
-      "category": "infrastructure",
-      "date": "2026-09-14T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-46227"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "aca30006ff8072e2c39604b3a9a44121a4011572c0fbe5bf5c95885dff5c1136",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-684/",
-      "title": "ZDI-26-684: Linux Kernel KSMBD Query Directory Request Race Condition Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Linux Kernel KSMBD. Authentication is not required to exploit this vulnerability. Furthermore, only systems with KSMBD enabled are vulnerable. The ZDI has assigned a CVSS rating of 9.0. The following CVEs are assigned: CVE-2026-64397.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-09-14T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-64397"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "bc464b52f6162081d8eba2321f253b10d4cae01c52922118458950809ffb5966",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-681/",
-      "title": "ZDI-26-681: Linux Kernel FUSE Subsystem Race Condition Local Privilege Escalation Vulnerability",
-      "summary": "This vulnerability allows local attackers to escalate privileges on affected installations of Linux Kernel. An attacker must first obtain the ability to execute low-privileged code on the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-64265.",
-      "source": "Zero Day Initiative",
-      "category": "infrastructure",
-      "date": "2026-09-14T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-64265"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d8e3753e17746a65828fad4824693d7449bd0b6d4460e0ca0cb555b06add96ce",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-76461",
-      "title": "CVE-2026-76461: Cisco Secure Email Gateway SQL Injection Vulnerability",
-      "summary": "Cisco AsyncOS software for Cisco Secure Email Gateway (SEG) contains a SQL injection vulnerability that could allow an unauthenticated, remote attacker to execute arbitrary commands with root privileges on the underlying operating system. Affected product: Secure Email Gateway by Cisco. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 2",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-09-14T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-76461"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://www.rapid7.com/blog/post/etr-cve-2026-76461-critical-cisco-secure-email-gateway-vulnerability-exploited-in-the-wild"
-      ]
-    },
-    {
-      "id": "b2a972265875efe106ea2f412ef95fbfc900611d2d7987d1ad8c8ee9aa36ba2e",
-      "url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-tencent-app-flaw-to-deploy-grayrabbit-malware/",
-      "title": "Hackers exploit Tencent app flaw to deploy GrayRabbit malware",
-      "summary": "Threat actors linked to a China-aligned espionage group are exploiting a critical vulnerability (CVE-2026-51990) in Tencent's Sogou Input Method for Windows to deploy the GrayRabbit backdoor. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-13T14:26:32+00:00",
-      "cve_ids": [
-        "CVE-2026-51990"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "59b3d76728f85f892241f551191eeb317ef181ce43b83a79941b5570e2e8415d",
-      "url": "https://www.bleepingcomputer.com/news/security/dutch-ncsc-critical-check-point-vpn-flaws-exploitation-is-imminent/",
-      "title": "Dutch NCSC: Critical Check Point VPN flaws exploitation is imminent",
-      "summary": "The Dutch Nationaal Cyber Security Centrum (NCSC) is warning of imminent exploitation of two critical flaws in Check Point VPN tracked as CVE-2026-85102 and CVE-2026-85103. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-12T14:14:32+00:00",
-      "cve_ids": [
-        "CVE-2026-85102",
-        "CVE-2026-85103"
-      ],
-      "cvss": 9.8,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-85102",
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-85103"
-      ]
-    },
-    {
-      "id": "f519747bb66ac20002b1b9de5130a0fe9850c03195b25eceea619c3fc99df23b",
-      "url": "https://github.com/advisories/GHSA-992q-9gwp-7r79",
-      "title": "GHSA:  ZITADEL: Auto-linking by email: IdP-side email verification is not checked",
-      "summary": "### Summary\n\nA flaw in the external identity provider handler allows unauthorized account linking to occur under specific administrative configurations. When auto-linking by email is enabled, ZITADEL checks that the local user's email is verified, but does not explicitly cross-check whether the incoming external identity provider (IdP) also verified that email address upstream.\n\n### Impact\n\nWhen a",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-11T22:13:21Z",
-      "cve_ids": [
-        "CVE-2026-56666"
-      ],
-      "cvss": 4.8,
-      "related_links": []
-    },
-    {
-      "id": "572fb6227659ee946678083387067cbb104a8d5a9a0f2e9abaf27a0cb5e7063a",
-      "url": "https://github.com/advisories/GHSA-325j-mg25-8q58",
-      "title": "GHSA: yayson: Prototype pollution in Store/LegacyStore deserialization",
-      "summary": "# Summary\n`Store`/`LegacyStore` key internal lookup tables by the `type`, `id`, and relationship names from a JSON:API document. Because these were plain objects, a document with `type: \"__proto__\"` writes onto `Object.prototype`, polluting every object in the process.\n\n# Severity\nSuggested CVSS v3.1 `AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H` (8.1). The guaranteed impact is process-wide DoS / logic cor",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-11T22:11:38Z",
-      "cve_ids": [
-        "CVE-2026-61534"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "bbe59fb611e8b532f7f422e303860c216cafa6f74ff7f6c9fb3319faa5acbb21",
-      "url": "https://github.com/advisories/GHSA-rqx4-3f6q-3x2v",
-      "title": "GHSA: @Mockoon/commons-server: Unauthenticated admin API + wildcard CORS allows mock-state hijack and secret theft",
-      "summary": "## Summary\n\nMockoon's admin API ([`commons-server/src/libs/server/admin-api.ts`](https://github.com/mockoon/mockoon/blob/4375a8f/packages/commons-server/src/libs/server/admin-api.ts)) is mounted on the same Express listener as the user-defined mock routes, **enabled by default** in every shipped runtime (commons-server, CLI, serverless), serves **`Access-Control-Allow-Origin: *` on every endpoint ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-11T22:04:42Z",
-      "cve_ids": [
-        "CVE-2026-59148"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "4de7826cf73be3147858a0fcddab8ec2b2e257f669606251768d6326ac218935",
-      "url": "https://github.com/advisories/GHSA-8wqc-v2q8-vff2",
-      "title": "GHSA: @Mockoon/commons-server: Path traversal in templated `filePath` lets a request escape the served directory (prefix-only base check)",
-      "summary": "## Summary\n\nA `FILE` response whose `filePath` embeds request data (e.g. `\"/srv/public/{{queryParam 'name'}}\"`, the documented way to let the client pick a file) is confined by `getSafeFilePath` with `resolvedPath.startsWith(staticBaseDir)`. That prefix test has no path-separator boundary, so a `../`-escaped path whose absolute form string-prefixes the base directory passes. An unauthenticated cli",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-11T22:04:32Z",
-      "cve_ids": [
-        "CVE-2026-59149"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "de97694a8ea1e97c033bb223f67eabc9b6856daf34a4a12c722ab54d5b037d68",
-      "url": "https://github.com/advisories/GHSA-65h7-9wrw-629c",
-      "title": "GHSA: FrontMCP and mcp-from-openapi have bypass of OpenAPI external $ref SSRF fix",
-      "summary": "## Summary\n\nThe published fix for GHSA-v6ph-xcq9-qxxj / CVE-2026-39885 added a direct hostname denylist for OpenAPI external `$ref` dereferencing, but the latest patched dependency `mcp-from-openapi` 2.3.0 still makes backend-origin requests to loopback when the target is reached through hostname resolution, redirects, or IPv4-mapped IPv6 syntax.\n\nFrontMCP latest release v1.2.1 and current main st",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-11T22:02:04Z",
-      "cve_ids": [
-        "CVE-2026-59973"
-      ],
-      "cvss": 8.5,
-      "related_links": []
-    },
-    {
-      "id": "bf2a024adf057d508a2c9f074e5f39d548d28db3b1d0cb364c99474d5c6002ea",
-      "url": "https://github.com/advisories/GHSA-h8m9-jgf8-vwvp",
-      "title": "GHSA: Prowler: SAML Domain Claiming Enables Cross-Tenant Account Takeover",
-      "summary": "## SAML Tenant Binding Enables Cross-Tenant Account Takeover\n\n### Summary\n\nProwler's SAML authentication flow trusted the email domain asserted in a SAMLResponse when deciding which tenant should receive the final token. A malicious tenant with its own SAML configuration and a self-controlled IdP could complete a valid SAML flow for its own configured domain, while asserting an email address from ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-11T21:38:24Z",
-      "cve_ids": [
-        "CVE-2026-59151"
-      ],
-      "cvss": 9.6,
-      "related_links": []
-    },
-    {
-      "id": "664c9aa8c27609960240d91e59890fdf1cb1df67a960add372d73013e09ec942",
-      "url": "https://github.com/advisories/GHSA-v77h-2w3m-94hx",
-      "title": "GHSA: ZITADEL: Missing Token Expiration (`exp`) Validation in JWT IdP Provider",
-      "summary": "### Summary\n\nA token lifecycle validation vulnerability was discovered in ZITADEL's external JWT Identity Provider (IdP) implementation\nSpecifically, within the validation pipeline, if an incoming JWT omits the `exp` claim entirely, the expiration block is silently skipped rather than rejected. The token is treated as valid forever.\n\nPer the OIDC Core 1.0 specification, identity token validation p",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-11T21:32:14Z",
-      "cve_ids": [
-        "CVE-2026-56665"
-      ],
-      "cvss": 4.2,
-      "related_links": []
-    },
-    {
-      "id": "510ee278425be3d2f91c9f876b11072c1954d459a43e3112a498fcbe8f71ebd5",
-      "url": "https://github.com/advisories/GHSA-2cg9-97gq-9mqp",
-      "title": "GHSA: Shopper: Missing authorization on product removal actions in CollectionProducts component",
-      "summary": "## Title\n\nMissing authorization on product removal actions in CollectionProducts component\n\n## Description\n\nA lack of authorization control was discovered on both the per-record delete action and the bulk delete action inside `packages/admin/src/Livewire/Components/Collection/CollectionProducts.php`. Neither the `Action::make('delete')` at line 73 nor the `DeleteBulkAction::make()` at line 91 carr",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-11T21:31:26Z",
-      "cve_ids": [
-        "CVE-2026-56825"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "bc2dfe153d9055119fa7ff591f3c6124f44dd1a1a0fbd8b452468f60536a98d4",
-      "url": "https://github.com/advisories/GHSA-99h5-jhh7-v3r3",
-      "title": "GHSA: Shopper: Media sub-form store() still lacks authorization (Incomplete fix for GHSA-h4mp-g9c6-xwph)",
-      "summary": "## Title\n\nMissing authorization on Media sub-form store action allows unpermissioned product media update\n\n## Description\n\nA lack of authorization control on the `store()` method was found in `packages/admin/src/Livewire/Components/Products/Form/Media.php`. The security fix released for GHSA-h4mp-g9c6-xwph added `#[Locked]` to the `$product` property in this file but did not add an `authorize()` c",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-11T21:30:14Z",
-      "cve_ids": [
-        "CVE-2026-56830"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "e4a2d655f7969ce24646e033fa79c0b5c1b2890b412f21024d3cac9e1dcd4b22",
-      "url": "https://github.com/advisories/GHSA-g3f9-g5vj-p62f",
-      "title": "GHSA: Shopper: Unauthorized inventory stock manipulation via unlocked variant property in VariantStock component",
-      "summary": "## Title\n\nUnauthorized inventory stock manipulation via unlocked variant property in VariantStock component\n\n## Description\n\nA lack of authorization control was discovered in the `stockAction()` method in `packages/admin/src/Livewire/Components/Products/VariantStock.php`. The component exposes a `public $variant` property without the `#[Locked]` attribute, so the variant ID is client-mutable via t",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-11T21:29:20Z",
-      "cve_ids": [
-        "CVE-2026-56829"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "1d3fe7d48d8c54f6066bb3ced24d9c76948abb77c242b86dd4f649bc4e32cb53",
-      "url": "https://github.com/advisories/GHSA-j328-xmgp-j4q3",
-      "title": "GHSA: Shopper: privilege escalation via improper Livewire admin component authorization",
-      "summary": "## Summary\n\nThree Livewire admin components in `shopper/framework` (latest master at commit `fcd0c59`, released as v2.8.0) gate state-mutating actions on the read-only `view_users` permission. This is the same class as the issue Shopper fixed in v2.8.0 / PR #511 / [GHSA-f946-9qp6-vgch](https://github.com/shopperlabs/shopper/security/advisories/GHSA-f946-9qp6-vgch) — the PR moved most write actions",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-11T21:28:54Z",
-      "cve_ids": [
-        "CVE-2026-56828"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "d43bf32d4d322067ab20c5afd6d043c404a3c8e5357abb30366891c56955a8a9",
-      "url": "https://github.com/advisories/GHSA-f7h9-qv4x-9x57",
-      "title": "GHSA: Shopping privilege escalation through missing authorization in Settings components",
-      "summary": "## Summary\n\nFour Livewire components in the Settings area expose destructive Filament actions (`delete` / `edit`) that perform **no server-side authorization**. Any authenticated user who can reach the Settings pages — i.e. holding only the coarse `access_setting` permission, **without** being an admin and **without** any `delete_*`/`edit_*` permission — can delete tax zones, tax rates, shipping z",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-11T21:28:20Z",
-      "cve_ids": [
-        "CVE-2026-56826"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "7d157e5bddae582a9b025e4d9a3c2850fcf33e747299f55e60666deabf28b4f0",
-      "url": "https://github.com/advisories/GHSA-5vf4-452p-jjhf",
-      "title": "GHSA: Shopper: Negative discount values accepted and propagated through order calculation pipeline",
-      "summary": "## Summary\n\nThe Shopper Framework discount management functionality accepts negative discount values without server-side validation.\n\nIt was confirmed that negative fixed-amount discounts can be created through the administrative interface, persisted to the database, and subsequently processed by the cart/order calculation pipeline.\n\nThe application appears to assume that discount values are alway",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-11T21:28:00Z",
-      "cve_ids": [
-        "CVE-2026-56831"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "6c4ba6525fd932fd1cc3655c078ac8252eff9da37e756c64b594f369888074ce",
-      "url": "https://github.com/advisories/GHSA-243p-f3cv-c5wh",
-      "title": "GHSA: Shopper: Authorization bypass in Filament bulk actions allows browse-only staff to mass-delete attributes/tags and mass-toggle visibility of brands/categories/suppliers",
-      "summary": "## Summary\n\nFive Filament `groupedBulkActions` blocks across the Shopper admin Livewire pages omit the `->authorize(...)` permission gate, while their per-record sibling actions (and other Shopper Index pages such as `Pages/Settings/Currencies.php`, `Pages/Reviews/Index.php`, `Pages/Collection/Index.php`, and `Pages/Discount/Index.php`) correctly chain `->authorize(...)`. Each affected page's `mou",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-11T20:47:17Z",
-      "cve_ids": [
-        "CVE-2026-56827"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "c142db3171ffa89032dce050ef6d12ea03fde5b84d3a2a9144c4a7f87beb2d18",
-      "url": "https://github.com/advisories/GHSA-rqfv-2mw9-78g2",
-      "title": "GHSA: MySQL MCP Server: Missing Origin/Host Validation in SSE Transport Enables Unauthenticated SQL Execution (DNS Rebinding / Direct Exposure)",
-      "summary": "## Summary\n\nIn SSE/HTTP transport mode, `mysql_mcp_server` constructs `SseServerTransport` without passing `security_settings`. As a result, the MCP Python SDK's DNS-rebinding protection (Origin/Host header validation) is disabled; the Starlette application has no CORS or TrustedHost middleware; and the service binds to `0.0.0.0` by default with no authentication on any route.\n\n**Trigger condition",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-11T20:35:42Z",
-      "cve_ids": [
-        "CVE-2026-59971"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "ed5e0e272a953e8d7cd56e1dd845237ab3735bd8de1fd71dbef722cf2e08e1aa",
-      "url": "https://www.bleepingcomputer.com/news/security/hackers-abused-claude-to-extract-secrets-from-18m-android-apps/",
-      "title": "Hackers abused Claude to extract secrets from 1.8M Android apps",
-      "summary": "Anthropic says multiple threat groups, including the financially motivated and state-sponsored espionage groups linked to Russia and China, tried to abuse its Claude AI model for malicious purposes. [...]",
-      "source": "Bleeping Computer",
-      "category": "cloud",
-      "date": "2026-09-11T20:19:09+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a9e03aba59c7b79438f7f02ce720f44c96dd8eb3501707fa047d137488836592",
-      "url": "https://www.bleepingcomputer.com/news/security/artifactory-flaws-chained-in-attacks-deploying-backdoor-malware/",
-      "title": "Artifactory flaws chained in attacks deploying backdoor malware",
-      "summary": "Threat actors are exploiting critical and high-severity vulnerabilities in JFrog Artifactory to bypass authentication, gain administrative privileges, and deploy a Rust backdoor on vulnerable self-hosted servers. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-11T16:29:44+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a635186c2e057f80741e97b40a875f825d2051080d93dcf50d398b8e5af8907b",
-      "url": "https://www.rapid7.com/blog/post/pt-metasploit-wrap-up-goes-to-sixteen",
-      "title": "Metasploit Wrap Up: This One Goes to Sixteen!",
-      "summary": "This One Goes to Sixteen!Another banger from Metasploit with sixteen new modules, including ten exploit modules, with five on the CISA KEV list. Cisco, Papercut, Sonicwall, Jetbrains, and Langflow all have exploit modules, and not to be outdone, we even have a Metasploit scanner to watch the watchers!New module content (16)Elasticsearch ingest-attachment Apache Tika XFA XXE Local File ReadAuthors:",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-09-11T13:35:11+00:00",
-      "cve_ids": [
-        "CVE-2025-54988",
-        "CVE-2025-66516",
-        "CVE-2026-19295",
-        "CVE-2026-20079",
-        "CVE-2026-20929",
-        "CVE-2026-23744",
-        "CVE-2026-48558",
-        "CVE-2026-63077",
-        "CVE-2026-75604",
-        "CVE-2026-81578",
-        "CVE-2026-82078",
-        "CVE-2026-83548",
-        "CVE-2026-83549",
-        "CVE-2023-27350"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://www.rapid7.com/blog/post/etr-critical-sonicwall-sma1000-vulnerabilities-cve-2026-83548-cve-2026-83549-exploited-in-the-wild",
-        "https://www.rapid7.com/blog/post/etr-papercut-ng-mf-critical-zero-day-exploited-in-the-wild",
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-20079",
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-83548",
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-83549",
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-82078",
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-81578"
-      ]
-    },
-    {
-      "id": "5430accdd3de240ee9467abf49c7e1cd244f8f7301362f0e6e6e4709a36ee7fb",
-      "url": "https://www.rapid7.com/blog/post/tr-fraud-ecosystem-fragmenting-marketplaces",
-      "title": "The Fraud Ecosystem: A Transition From Known Marketplaces to a Fragmented Environment",
-      "summary": "IntroductionThe surge in emerging threat actors directly correlates with the rapid escalation of victim counts and stolen financial resources. Simultaneously, this growth has spurred the proliferation of specialized supply storefronts across social media platforms, dark web channels, and various smaller niche marketplaces. Security teams today face evolving challenges, requiring them to continuous",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-09-11T13:33:33+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3b1ca1686e68856d0cc3b87f8fbb7e5c42353548c31efcb2219720e03ae317b0",
-      "url": "https://www.bleepingcomputer.com/news/security/gitlab-urges-users-to-patch-max-severity-path-traversal-flaw/",
-      "title": "GitLab urges users to patch max severity path traversal flaw",
-      "summary": "GitLab urged users on Thursday to patch their servers immediately against a maximum-severity path traversal vulnerability tracked as CVE-2026-85706. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-11T11:15:22+00:00",
-      "cve_ids": [
-        "CVE-2026-85706",
-        "CVE-2026-87719"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-85706",
-        "https://www.rapid7.com/blog/post/etr-cve-2026-85706-critical-gitlab-path-traversal-exploited-in-the-wild"
-      ]
-    },
-    {
-      "id": "ed4023d64aa09eea7e926e79cb0888990cd1bb69bfbd3edbeb14827d5f0b08d1",
-      "url": "https://www.exploit-db.com/exploits/52682",
-      "title": "[remote] CVE-2026-80428 Unauthenticated PHP Object Injection via Shibboleth - ILIAS < 9.22, 10.0 < 10.10, 11.0 < 11.3 - RCE",
-      "summary": "CVE-2026-80428 Unauthenticated PHP Object Injection via Shibboleth - ILIAS < 9.22, 10.0 < 10.10, 11.0 < 11.3 - RCE",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-09-11T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-80428"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "9397f9c09cc1fd8c05481ea29e08fd267d4f902724c832471c76e46ad45d0960",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-84869",
-      "title": "CVE-2026-84869: ConnectWise ScreenConnect Improper Privilege Management and Missing Authorization Vulnerability",
-      "summary": "ConnectWise ScreenConnect contains both an improper privilege management and missing authorization vulnerability that may allow an attacker to file transfer and execution through an active remote sessions without authorization or host confirmation. Affected product: ScreenConnect by ConnectWise. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CIS",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-09-11T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-84869"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "dfcf4f8b4add45ba45fbda8e1a7b07fb905943a0d1d1f856bd93ff40877c78ed",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-42016",
-      "title": "CVE-2026-42016: JFrog Artifactory Incorrect Authorization Vulnerability",
-      "summary": "JFrog Artifactory contains an incorrect authorization vulnerability that allows leads to privilege escalation attack due to a validation check of the token signature/issuer and not the token’s scope. Affected product: Artifactory by JFrog. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-09-11T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-42016"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3d5500ac044a01092b77ad7a4e280f77eb7481ff9841a8e9d41750e638b781e1",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-42018",
-      "title": "CVE-2026-42018: JFrog Artifactory Improper Authentication Vulnerability",
-      "summary": "JFrog Artifactory contains an improper authentication vulnerability that could return an internal anonymous-user token to an unauthenticated caller when anonymous access is disabled, potentially exposing sensitive resources. Affected product: Artifactory by JFrog. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Secur",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-09-11T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-42018"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "9a8dc70317c6555314cccac518c099edeec7c71fa2957156a8fbb1104ac8f3fd",
-      "url": "https://github.com/advisories/GHSA-wvm9-9g5j-623f",
-      "title": "GHSA: Open WebUI: Users denied by the OAuth role policy can still sign in via token exchange",
-      "summary": "## Summary\nOpen WebUI's OAuth token exchange endpoint issues a session for a provider access token without running the OAuth role management that the normal OAuth login callback runs. A user whose provider roles the login callback would refuse, or would demote, could still obtain a working session at their existing role through this endpoint.\n\n## Preconditions\n- `ENABLE_OAUTH_TOKEN_EXCHANGE=True`.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-10T23:04:57Z",
-      "cve_ids": [
-        "CVE-2026-88006"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "39bcbafb6170bf35c5ee0e52ce3fb277ee1dc7b9483cb707ed8b367bedadaf93",
-      "url": "https://github.com/advisories/GHSA-66hp-wgxq-6f5q",
-      "title": "GHSA: rclone archive/zip: Zip Slip via unsanitized zip entry names lets a malicious archive escape its own namespace",
-      "summary": "### Summary\n`backend/archive` mounts a zip file as a browsable, syncable rclone `Fs` (e.g. `rclone lsf :zip:downloaded.zip` or `rclone copy :zip:downloaded.zip dest:`). Go's `archive/zip` package does not sanitize `file.Name` - it is taken verbatim from the untrusted zip's central directory. `readZip()` in `backend/archive/zip/zip.go` applies `path.Clean` to the entry name, but this alone cannot f",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-10T23:03:16Z",
-      "cve_ids": [
-        "CVE-2026-88014"
-      ],
-      "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "ce2166c04e2f3fea1b13206230df21d61fee05ba95f524676dc138048d16cf71",
-      "url": "https://github.com/advisories/GHSA-486v-q2wf-fp2r",
-      "title": "GHSA: rclone: http backend forwards custom/auth headers to a different host on redirect",
-      "summary": "## Vulnerability Details\n\n**File**: `backend/http/http.go`\n**Lines**: 285 (client construction — no `CheckRedirect`), 505-510 (`addHeaders`, writes configured secret headers onto every request), 533-534 / 700-701 / 782-785 (`f.httpClient.Do(req)` used by List/stat/download)\n\n### Root Cause\nThe `http` backend lets a user attach arbitrary secret headers to every request via `--http-headers`/`headers",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-09-10T23:02:53Z",
-      "cve_ids": [
-        "CVE-2026-88013"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "cbcc8656241743ffa00ba0f0f6ed3c2bfb3918529d4372e5f971370178b12a12",
-      "url": "https://github.com/advisories/GHSA-f8g7-2xjc-7mfh",
-      "title": "GHSA: rclone: Directory metadata (chmod/chown/chtimes) applied through a planted symlink in rclone local --links escapes the destination",
-      "summary": "## Summary\nWith `-l/--links`, rclone's local backend recreates a source `.rclonelink` object as a real symlink at the destination **verbatim** (preserved by design for faithful backups). Directory-metadata application, however, does **not** go through the `os.Root` sandbox and does **not** use NOFOLLOW syscalls. A local `Directory` always has `translatedLink=false`, so when the destination path al",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-10T22:51:34Z",
-      "cve_ids": [
-        "CVE-2026-88016"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "f74a9d652d31403e7ad2872238ba064ec9973189b5179026c328f404ab5aefd5",
-      "url": "https://github.com/advisories/GHSA-p6m2-r3w9-mpxw",
-      "title": "GHSA: rclone local: crafted Range request against a translated symlink panics (DoS)",
-      "summary": "### Summary\nWhen `backend/local` is used with `--links`/`-l` (or the `links=true` config option), each symlink is exposed as an rclone object whose content is the target path string, suffixed `.rclonelink`. `Object.Open()` decodes an incoming `fs.RangeOption` via `Decode(o.Size())`, then for a translated-symlink object passes the decoded `offset` straight into `openTranslatedLink`, which indexes t",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-10T22:49:27Z",
-      "cve_ids": [
-        "CVE-2026-88015"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "877a036f34ae55f9f0ca4ab33def4e841c5656843c99e9368763338c6a210882",
-      "url": "https://github.com/advisories/GHSA-xwwr-4h3p-r22c",
-      "title": "GHSA: rclone serve s3: --auth-proxy without --auth-key authenticates nobody - full SigV4 signature bypass",
-      "summary": "### Summary\n`rclone serve s3`'s handler chain, when `--auth-proxy` is configured, is (outermost first): `authPairMiddleware` -> `proxyAuthMiddleware` -> gofakes3's own SigV4-verifying handler.\n\n`authPairMiddleware` parses the accessKeyID straight out of the incoming request's own `Authorization` header (entirely client-controlled) and registers `{accessKey: ws.s3Secret}` into gofakes3's shared cre",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-10T22:49:07Z",
-      "cve_ids": [
-        "CVE-2026-88018"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "4980da939ff5c6ab21f72c28cd4721af0c0bbc77170e1803ee98a073cc8f428d",
-      "url": "https://github.com/advisories/GHSA-p569-5gjg-9cmj",
-      "title": "GHSA: rclone: RC per-server auth-proxy bypass",
-      "summary": "## Summary\n\n`serve/start` accepts protocol options in a per-server `proxyOpt` object. The FTP and S3 RC adapters parse that object and pass it to their server constructors, but the constructors decide whether proxy authentication is enabled by checking the process-global `proxy.Opt.AuthProxy` instead of the supplied `proxyOpt.AuthProxy`.\n\nWhen the process-global option is empty—the normal case whe",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-10T22:47:10Z",
-      "cve_ids": [
-        "CVE-2026-88044"
-      ],
-      "cvss": 9.1,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-88044"
-      ]
-    },
-    {
-      "id": "c0c4ee6cb4bdb981d83598694c132b18002345cf79e14b9f9cdd47c5ea3a27f8",
-      "url": "https://github.com/advisories/GHSA-c476-6w5q-jw77",
-      "title": "GHSA: rclone: FTP cross-session auth-proxy backend confusion",
-      "summary": "## Summary\n\nThe FTP auth-proxy driver stores one obscured password per username in a server-wide map. It does not bind the credential or returned VFS to the authenticated FTP session. If two accepted credentials use the same username but resolve to different proxy backends, the later login overwrites the map entry. Subsequent operations on the first, still-authenticated session are re-authorized w",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-10T22:46:33Z",
-      "cve_ids": [
-        "CVE-2026-88017"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "a63e7769c26d2c0fcd43689297962916d25354d4203417ba7be32b50e612ea80",
-      "url": "https://github.com/advisories/GHSA-38xv-hf3p-h7mq",
-      "title": "GHSA: rclone: source object names can escape the configured root on upload",
-      "summary": "### Summary\n\nMultiple backends, when given a specially crafted object to copy, can escape the backend confinement.\n\n| Backend | Keep/Close | Per-backend severity |\n|---|---|---|\n| sftp | Medium | Real filesystem escape, fires under default encoding. |\n| smb | Low-Medium | Escapes to a different SMB share the credential can reach. |\n| ftp | Low | Real, leading-`..` overshoot PoC is partly neutraliz",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-10T22:45:36Z",
-      "cve_ids": [
-        "CVE-2026-88046"
-      ],
-      "cvss": 5.3,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-88046"
-      ]
-    },
-    {
-      "id": "ada6fd344b8b91d65d86cbfe3e6b8a7cfa15e1f78e8ac2d02120791db648b73e",
-      "url": "https://github.com/advisories/GHSA-2p48-j3qc-rx9f",
-      "title": "GHSA: rclone: S3 multipart declared-length memory exhaustion",
-      "summary": "## Summary\n\nIn streamed multipart mode, `serve s3` passes the request's declared part length to `multipart.NewRW().Reserve(contentLength)` before reading any part data. `Reserve` immediately obtains enough 1 MiB pool pages for the entire declared length. The request handler therefore allocates attacker-selected memory based only on `Content-Length` or `X-Amz-Decoded-Content-Length`; the client doe",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-09-10T22:45:14Z",
-      "cve_ids": [
-        "CVE-2026-88045"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-88045"
-      ]
-    },
-    {
-      "id": "9cffda66a892ce854cb842dd203c0806d3e32096d4da29a26c1c7844ab4d89af",
-      "url": "https://github.com/advisories/GHSA-3g9q-v48f-hh9w",
-      "title": "GHSA: Open WebUI: Unauthenticated requests can stall the server via uncached OIDC fetches in back-channel logout",
-      "summary": "## Summary\n\nThe OIDC back-channel logout endpoint is unauthenticated by design, because the identity provider calls it without a browser session. Before checking whether the submitted logout token was genuine, the handler fetched the provider's discovery document and its signing keys over the network, and repeated both fetches on every request because nothing was cached. The signing-key fetch also",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-10T22:44:42Z",
-      "cve_ids": [
-        "CVE-2026-87011"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-87011"
-      ]
-    },
-    {
-      "id": "7fbe68707dca86f5b5531b12d262cba8073b4147404c9df25336dfd0a0a59063",
-      "url": "https://github.com/advisories/GHSA-v39v-59xw-j98g",
-      "title": "GHSA: Open WebUI: Any authenticated user can suppress calendar alerts instance-wide via a non-numeric alert value",
-      "summary": "# Any authenticated user can suppress calendar alerts instance-wide via a non-numeric alert value\n\n## Summary\n\nCalendar events carry a free-form `meta` object that is stored exactly as submitted, with no validation of the values inside it. The scheduler reads the per-event alert offset out of that object in a single pass that covers every user's upcoming events, and compares it numerically without",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-10T22:42:48Z",
-      "cve_ids": [
-        "CVE-2026-87012"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "62b5cea81c0ed20337dc8d9979722ecc4602c9d95f0fd1b607b8cb64c2b1ca15",
-      "url": "https://github.com/advisories/GHSA-8r35-5x5r-hv74",
-      "title": "GHSA: Open WebUI: Any authenticated user can start a non-terminating request via a folder parent cycle",
-      "summary": "## Summary\nAny authenticated user can move one of their own folders under itself, leaving a loop in their folder tree. The re-parent endpoint performed no check that the new parent was not the folder itself or one of its own subfolders, and the folder tree walks did not track which folders they had already visited. A single request against a folder in a loop therefore never finishes.\n\n## Precondit",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-10T22:42:25Z",
-      "cve_ids": [
-        "CVE-2026-87013"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "5261a0c6f086df4164c72f97d4b1269fa340ed5d8af837e1ad98fcd69275cc42",
-      "url": "https://github.com/advisories/GHSA-wjwr-xfp9-r66p",
-      "title": "GHSA: Open WebUI: Admin demoted through SSO role sync keeps read and write access to all users' notes",
-      "summary": "## Summary\n\nA user who is demoted from admin by an identity provider keeps admin-level read and write access to every user's notes, over any Socket.IO connection that was already open when the demotion happened. Open WebUI caches the user's role on the socket at connection time, and the two SSO role-sync paths, the reverse-proxy trusted role header and OAuth role mapping, changed the role in the d",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-09-10T22:41:34Z",
-      "cve_ids": [
-        "CVE-2026-87014"
-      ],
-      "cvss": 6.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-87014"
       ]
     }
   ]
