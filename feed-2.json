@@ -1,10 +1,66 @@
 {
-  "updated": "2026-09-21T09:39:43.419061+00:00",
+  "updated": "2026-09-21T17:56:23.580409+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "793623725a7d4dd593f36836b9a0e3c717895748e8ca315416724e42bbdfed82",
+      "url": "https://github.com/advisories/GHSA-q2j8-x8hf-63ch",
+      "title": "GHSA: Grav: Single invalid UTF-8 byte disables every rule in Security::detectXss(), bypassing the page-content XSS safety gate",
+      "summary": "## Vulnerability Details\n\n**Component**: getgrav/grav core\n**File**: `system/src/Grav/Common/Security.php`\n**Function**: `detectXss()` (all six entries in the `$patterns` array use the PCRE `u` modifier), invoked from `Grav\\Common\\Data\\Validation::checkSafety()` (the save-time XSS gate for any non-`security.xss_whitelist` account's blueprint field, including the page `content` field) and `detectXs",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-17T20:44:39Z",
+      "cve_ids": [
+        "CVE-2026-75834"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "bf45157ce84a262067abf305739cb44ebb484d294f19f772a49415b5144f74a8",
+      "url": "https://github.com/advisories/GHSA-f8wv-xp27-6gq7",
+      "title": "GHSA: Grav: Blueprint dynamic-data bare-function branch is denylist-gated and omits error_log, giving arbitrary file write",
+      "summary": "## Affected versions and vulnerable location\n\n- Confirmed on grav core at `78ebfc1` (tag 2.0.13).\n- Sinks:\n  - `system/src/Grav/Common/Data/Blueprint.php:455-458` `call_user_func_array($o, $params)` (bare-function dynamic-data provider).\n  - Twin: `system/src/Grav/Framework/Flex/FlexDirectory.php:936-938` `call_user_func_array($function, $params)`.\n- Validation gate: `Blueprint::isSafeDynamicCall(",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-17T20:44:16Z",
+      "cve_ids": [
+        "CVE-2026-75827"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "3eeaaaa4619f12e427fc5fb240a374019c729a989901ef885f64db92ff310442",
+      "url": "https://github.com/advisories/GHSA-vfmf-q6x9-cw96",
+      "title": "GHSA: Grav: detectXss() misses an event-handler attribute after an unpaired quote in an unquoted attribute value, giving stored XSS",
+      "summary": "## Affected versions and vulnerable location\n\n- Confirmed on grav core at `78ebfc1` (tag 2.0.13).\n- Detector: `system/src/Grav/Common/Security.php:290`, the `on_events` regex, run via `patternMatches()` (`:315-330`).\n- The `on_events` pattern at HEAD:\n  `#<(?:\"[^\"]*\"|'[^']*'|[^>\"'])*?(?:[\\s\\x00-\\x20\"'/]|\"[^\"]*\"|'[^']*')on\\s*[a-z]+\\s*=#iu`\n- Sole save-time guard for non-super content: `Validation::",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-17T20:43:43Z",
+      "cve_ids": [
+        "CVE-2026-75828"
+      ],
+      "cvss": 8.7,
+      "related_links": []
+    },
+    {
+      "id": "30110a15ea413f76ebba80a35bb53ae884db1f2b95a69400b860317fce461d7e",
+      "url": "https://github.com/advisories/GHSA-4v9q-p283-qc2m",
+      "title": "GHSA: Grav: Unauthenticated Path Traversal via Missing Directory-Boundary Check in `plugin-asset-map.php` Static Asset Server (`index.php`)",
+      "summary": "**Verified against:** `getgrav/grav` devel branch, `GRAV_VERSION = \"2.0.15\"`, file `index.php\n\n## Title\nUnauthenticated Path Traversal via Missing Directory-Boundary Check in `plugin-asset-map.php` Static Asset Server (`index.php`)\n\n## Product / Affected Versions\n- Product: `getgrav/grav`\n- File: `index.php` (top-level front controller, runs before Grav itself boots)\n- Confirmed present in: devel ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-17T20:43:16Z",
+      "cve_ids": [
+        "CVE-2026-74907"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
     {
       "id": "af4afd59e66fac9432ccc7a74a11483e0167fa2f9794da8740aa5f5d8cc849cd",
       "url": "https://github.com/advisories/GHSA-jq29-c7v8-rg55",
@@ -649,60 +705,6 @@
         "CVE-2026-63472"
       ],
       "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "cc975c31400d6966a53ec12d13198f243570d5e7978f5472d6c878549ad5ff2c",
-      "url": "https://github.com/advisories/GHSA-xf65-r35x-wmmv",
-      "title": "GHSA: Vendure: Shop API list queries can return non-public entities when filterOperator is OR",
-      "summary": "The Shop API `products`, `collections` and `facets` queries inject a mandatory filter to restrict results to publicly-visible entities (`Product.enabled = true`, `Collection.isPrivate = false`, `Facet.isPrivate = false`). This injected guard was combined with the caller-supplied filter using the caller-controlled `filterOperator`. When a caller sets `filterOperator: OR`, the guard is OR-combined i",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-17T14:50:02Z",
-      "cve_ids": [
-        "CVE-2026-63461"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "a17eecb0c06fd40affdf3669adcfe17eb66b4faf866f42f829498775bec34b89",
-      "url": "https://github.com/advisories/GHSA-jgm3-qmp2-c4p7",
-      "title": "GHSA: Vendure: Unauthenticated ReDoS via `regex` filter on SQLite backends",
-      "summary": "### Summary\n\n> [!IMPORTANT] \n> Only instances running on the SQLite driver (better-sqlite3) are affected; SQLite is usually used in development/testing backend, so production deployments on PostgreSQL or MySQL/MariaDB are unaffected.\n\nThe `StringOperators.regex` filter exposed on the public Shop GraphQL API is evaluated inside the Node.js event loop via a synchronous SQLite user-defined function (",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-17T14:49:56Z",
-      "cve_ids": [
-        "CVE-2026-63460"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "cfa1c7555b19de39795385130e96c48d49c042172cecc203dd51a686b0d294f9",
-      "url": "https://github.com/advisories/GHSA-xhq9-whgq-49j5",
-      "title": "GHSA: Vendure has stored XSS in the Admin Dashboard via unsafe HTML-stripping (innerHTML) of entity descriptions",
-      "summary": "# Stored XSS in the Admin Dashboard via unsafe HTML-stripping (`innerHTML`) of entity descriptions\n\n**Package:** @vendure/dashboard (vendure-ecommerce/vendure, latest master) · \n\n## Summary\nThe dashboard's `RichTextDescriptionCell` \"strips HTML\" from an entity's `description` by assigning it to a live element's `innerHTML` and reading back `textContent`. This pattern still **executes** active mark",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-17T14:49:34Z",
-      "cve_ids": [
-        "CVE-2026-63459"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "9566941e027ade361ec331519f5330804ad02bf8a6c2c480f0d25e126412bdd5",
-      "url": "https://ubuntu.com/security/notices/USN-8778-1",
-      "title": "USN-8778-1: GStreamer Good Plugins vulnerability",
-      "summary": "It was discovered that GStreamer Good Plugins did not limit the size of reassembly buffers when processing fragmented RTP packets. A remote attacker could possibly use this issue to cause GStreamer Good Plugins to use excessive resources, leading to a denial of service.",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-09-17T11:47:58+00:00",
-      "cve_ids": [],
-      "cvss": null,
       "related_links": []
     }
   ]
