@@ -1,10 +1,470 @@
 {
-  "updated": "2026-09-24T16:36:39.240528+00:00",
+  "updated": "2026-09-24T23:02:14.129967+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "047d00b98c22cd2952b98cd93fa6aa2b56fed98cc981e907f9911532290506e4",
+      "url": "https://github.com/advisories/GHSA-xpjq-3w4w-w5wr",
+      "title": "GHSA: lightrag-hku: Stored Cross-Site Scripting (XSS) in the LightRAG WebUI chat/answer renderer via ingested content",
+      "summary": "### Summary\nThe LightRAG WebUI renders assistant/answer chat content as **raw HTML** — `react-markdown` is\nconfigured with `rehypePlugins={[rehypeRaw]}` and `skipHtml={false}` and **no** HTML sanitizer\n(`rehype-sanitize`), element allow-list, or custom `urlTransform`. Because answer content is derived\nfrom user-ingested documents, an attacker who can add a single document can store an HTML/JavaScr",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:40:27Z",
+      "cve_ids": [
+        "CVE-2026-86062"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "2b97d89ea8103b54ed2cc63247d18245e3576201653f43caf6145986a7e55495",
+      "url": "https://github.com/advisories/GHSA-vv3m-f8x4-7377",
+      "title": "GHSA: lightrag-hku: SSRF via IPv6-transition address bypass (NAT64, IPv4-compatible, 6to4) of the native-markdown image-download guard",
+      "summary": "## Summary\n\nLightRAG's native markdown parser downloads external images referenced by an uploaded markdown or textpack document. The only SSRF guard, `_validated_addresses()` in `lightrag/parser/markdown/parser.py`, resolves the image host and rejects it when the resolved IP is not `is_global`. That check is evaluated on the raw resolved address and never decodes IPv6 transition wrappers that embe",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:40:25Z",
+      "cve_ids": [
+        "CVE-2026-85740"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "6ff06a96d80ea29a4c3f27907c9eee09c4c6f22abe222f4323915eec009bdc05",
+      "url": "https://github.com/advisories/GHSA-frch-4w6v-q5xx",
+      "title": "GHSA: lightrag-hku: No Rate Limiting on /login Endpoint Allows Brute-Force Attacks",
+      "summary": "### Summary\nThe POST /login endpoint has no rate limiting, account lockout, or delay on failed attempts. An attacker can submit unlimited password guesses at full network speed.\n\n### Details\n\n```python\n# lightrag/api/lightrag_server.py:2161\n@app.post(\"/login\")\nasync def login(form_data: OAuth2PasswordRequestForm = Depends()):\n    if not auth_handler.verify_password(username, form_data.password):\n ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-22T20:40:22Z",
+      "cve_ids": [
+        "CVE-2026-85734"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "87dcfc3cfc0f8f5ff0f11ac6b9a95132466162ab639900b38ccaf7056c417d52",
+      "url": "https://github.com/advisories/GHSA-c759-cx9p-mrwq",
+      "title": "GHSA: lightrag-hku: Plaintext Passwords Compared Without Constant-Time Function",
+      "summary": "### Summary\nWhen plaintext passwords are stored in AUTH_ACCOUNTS, the comparison uses Python's == operator which is not constant-time. An attacker with low-latency access can exploit timing differences to recover the password character by character.\n\n### Details\n\n```python\n# lightrag/api/passwords.py:13-26\ndef verify_password(plain_password: str, stored_password: str) -> bool:\n    if stored_passwo",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:40:19Z",
+      "cve_ids": [
+        "CVE-2026-85725"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "70ff5f331e3aff058aa8d1a052ec0581f63849bfbe02cfd0fb3f7d61d2ea84c9",
+      "url": "https://github.com/advisories/GHSA-hrmj-7rvj-4hg8",
+      "title": "GHSA: lightrag-hku: Sensitive Information Exposure Through Raw Exception Messages in API Error Responses",
+      "summary": "### Summary\n\nThe LightRAG API server passes raw Python exception messages directly into HTTP\nerror responses across 30+ error handlers in every router. When combined with\nthe default unauthenticated configuration (see companion report on CWE-306), any\nnetwork-reachable client can trigger exceptions whose raw text discloses\ninternal infrastructure — server filesystem paths, database host/port/user,",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-22T20:37:36Z",
+      "cve_ids": [
+        "CVE-2026-85709"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "2fb0cd10f49f6dda04690fe3a941321a87b3d55cb37ef15e27d252c4ae0eb38a",
+      "url": "https://github.com/advisories/GHSA-q4c5-2j6f-r476",
+      "title": "GHSA: Nautobot: Authorization bypass in approval workflow REST API allows self-approval and unauthorized activation of scheduled jobs",
+      "summary": "### Impact\nThis is an authorization bypass that escalates into unauthorized server-side job execution.\n\n1. Primary impact - self-approval: The approver checks (approver-group membership, `change` permission on the object under review, one-response-per-user) are enforced only in the `approve`/`deny` actions on `ApprovalWorkflowStage`. The generic `ApprovalWorkflowStageResponse` create endpoint enfo",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-22T20:37:33Z",
+      "cve_ids": [
+        "CVE-2026-83805"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "01779cfb2a80f615de9b70fb79c49a96fd50f1af7bd39a52bca1b7d3e64a7e90",
+      "url": "https://github.com/advisories/GHSA-56v6-2fhr-wxgq",
+      "title": "GHSA: Nautobot: Stored cross-site scripting (XSS) in object create/edit form help text",
+      "summary": "### Impact\n_What kind of vulnerability is it? Who is impacted?_\n\nIt has two related instances that share the same root cause: a user-controlled model field is assigned verbatim to a form field's `help_text`, which is rendered with Django's `|safe` filter (`render_field.html`), bypassing auto-escaping.\n\nIn both cases the script executes in the browser of any user who opens an affected create or edi",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:37:30Z",
+      "cve_ids": [
+        "CVE-2026-83801"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "8221e3c7b99ba5d16af4d6a0cf3e9a0481d24c7a9db10b05ae4c922d7d53127a",
+      "url": "https://github.com/advisories/GHSA-hxp9-w8x3-p566",
+      "title": "GHSA: Autobahn Python permessage-deflate bypasses maxMessagePayloadSize after inflation",
+      "summary": "### Summary\nAutobahn Python enforces `maxMessagePayloadSize` against the compressed WebSocket frame length before permessage-deflate inflation, then delivers the inflated message to application callbacks without a second size check. A client frame that is only 22 compressed bytes can inflate to 4096 bytes and reach `onMessage` even when the application configured a 128-byte message limit, defeatin",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-22T20:37:28Z",
+      "cve_ids": [
+        "CVE-2026-77528"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "a96542715832e1bdbbf43b6694a76fd8b906062d28d5c0c50028db4da55e602c",
+      "url": "https://github.com/advisories/GHSA-jpvm-9frm-hjcq",
+      "title": "GHSA: Nuclei: Environment Variable Disclosure via Response-Derived Data in DAST/Fuzz Mode",
+      "summary": "A vulnerability in Nuclei's DAST/fuzz expression evaluation path allows a malicious target server to trigger disclosure of scanner-host environment variables when the `-env-vars` / `-ev` option is explicitly enabled.\n\nThis is an incomplete fix for [CVE-2026-41645](https://github.com/projectdiscovery/nuclei/security/advisories/GHSA-jm34-66cf-qpvr) / GHSA-jm34-66cf-qpvr. The original fix hardened `e",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:37:24Z",
+      "cve_ids": [
+        "CVE-2026-76805"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "163a1927e2f02aed728b917646e8049ae2f9dcefc57463d495ac074c1d576b03",
+      "url": "https://github.com/advisories/GHSA-qgw5-7j4f-fg97",
+      "title": "GHSA: Nuclei: Local File Read via Workflow File-Protocol Gate Bypass",
+      "summary": "A vulnerability in Nuclei's workflow template loader allows `file:` protocol templates to execute without the `-file` flag, bypassing a security gate that is meant to prevent local file reads on the scanner host.\n\n**Affected Component**\n\nThe issue is in the workflow template loading path. The main template loader enforces the `-file` gate for file-protocol templates, but the workflow loader did no",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-22T20:37:21Z",
+      "cve_ids": [
+        "CVE-2026-76804"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "75fd3d773daad0827749487084beb0abee5bef734c429139d49b05a224d802d0",
+      "url": "https://github.com/advisories/GHSA-xhmx-w2j4-rw3q",
+      "title": "GHSA: Nuclei: Local File Read via MySQL Client Sandbox Bypass",
+      "summary": "A vulnerability in Nuclei's JavaScript MySQL client library allows arbitrary local file reads that bypass the `-allow-local-file-access` (`-lfa`) sandbox restriction.\n\n**Affected Component**\n\nThe issue is in the `nuclei/mysql` JavaScript library used by `javascript:` protocol templates. The MySQL client connection logic did not enforce the local file access sandbox when handling the `allowAllFiles",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-22T20:37:19Z",
+      "cve_ids": [
+        "CVE-2026-76803"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "7ac8dda37c164f3d37c1c7fdd0b9db88bde81829c197ac6a6eb82fb5e2ffafeb",
+      "url": "https://github.com/advisories/GHSA-jpf4-98qj-qr67",
+      "title": "GHSA: Nuclei: Arbitrary Command Execution via DAST Code Signature Bypass",
+      "summary": "A vulnerability in Nuclei's DAST template loading path allows unsigned `code:` protocol templates to execute, bypassing the cryptographic signature requirement that is meant to prevent arbitrary command execution from untrusted templates.\n\n**Affected Component**\n\nThe issue is in the template loader's DAST loading branch. When `-dast` is enabled and a template contains a `fuzzing:` block, the loade",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:37:16Z",
+      "cve_ids": [
+        "CVE-2026-76802"
+      ],
+      "cvss": 4.7,
+      "related_links": []
+    },
+    {
+      "id": "7ad138982cf714372c8add0f1b3dfcdd8f7616962f80356b92313a8c2868de58",
+      "url": "https://github.com/advisories/GHSA-vxg7-f2jj-jmqm",
+      "title": "GHSA: Nuclei: Arbitrary Code Execution via Goja JavaScript Engine Vulnerability",
+      "summary": "A vulnerability in the Goja JavaScript engine used by Nuclei's `javascript:` protocol allows arbitrary native code execution on the scanner host when running untrusted JavaScript templates.\n\n**Affected Component**\n\nThe issue is in the Goja JavaScript runtime embedded in Nuclei's JavaScript protocol (`pkg/js/`). An out-of-bounds heap write in the engine can be exploited to achieve native code execu",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:37:13Z",
+      "cve_ids": [
+        "CVE-2026-76819"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "c59001dc9ce28e51e1edc67afc0e7fdd3498d7d068b705f7de89fcef975588e5",
+      "url": "https://github.com/advisories/GHSA-9xhm-w3wj-xhqh",
+      "title": "GHSA: Tinyauth: Unauthenticated login attempts can trigger global login lockdown denial of service",
+      "summary": "### Summary\n\nTinyauth's login rate-limit bookkeeping can enter a global lockdown mode when its in-memory login-attempt map reaches 256 distinct identifiers. Because unauthenticated `POST /api/user/login` requests for unknown usernames are recorded in this same map, a remote unauthenticated attacker can submit 257 unique bogus usernames and cause valid credentials for unrelated users to be treated ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-22T20:37:11Z",
+      "cve_ids": [
+        "CVE-2026-77561"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "518824023887c9f1ff9e6fd14df6fcc7785a04e098dde966b189ab9b60d1cc02",
+      "url": "https://github.com/advisories/GHSA-328g-jx67-v94g",
+      "title": "GHSA: Tinyauth: forward-auth per-app ACL is matched case-sensitively against the (case-insensitive) hostname, letting an authenticated user reach apps they are not on the allowlist for",
+      "summary": "# tinyauth: forward-auth per-app ACL is matched case-sensitively against the (case-insensitive) hostname, letting an authenticated user reach apps they are not on the allowlist for\n\n\n\n## GitHub Advisory Details (form fields — paste-ready)\n\n**Affected products**\n| Field | Value |\n|-------|-------|\n| Ecosystem | `Other (self-hosted)` / Go |\n| Package name | `github.com/steveiliop56/tinyauth` (forwar",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:37:08Z",
+      "cve_ids": [
+        "CVE-2026-77560"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "bbb2f47d210455fbf37acc744f094d3f6b9715946f7dd2247f349ebb74c01e65",
+      "url": "https://github.com/advisories/GHSA-5jpj-293f-rhvj",
+      "title": "GHSA: KubeEdge: Command Injection in NodeUpgradeJob - RCE on edge nodes via v1alpha2 API",
+      "summary": "## Impact\n\nThe KubeEdge NodeUpgradeJob handler constructed the `keadm upgrade edge` command by concatenating the user-controlled `spec.version` and `spec.image` fields into a shell command.\n\nAn authenticated user with permission to create or update `NodeUpgradeJob` resources through the v1alpha2 API could include shell metacharacters in either field. When the upgrade job was processed, the injecte",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-22T20:37:04Z",
+      "cve_ids": [
+        "CVE-2026-62371"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "bc14aef737fd697648683052b05076d36ce29a71d1b41d43d6c5869237f5e522",
+      "url": "https://github.com/advisories/GHSA-gfw4-49f9-cp25",
+      "title": "GHSA: KubeEdge: Unbounded allocation in viaduct packer enables authenticated remote DoS against CloudHub",
+      "summary": "## Summary\n\nKubeEdge CloudHub uses the viaduct packer to decode messages received from connected peers. The packer reads a 32-bit payload length from the message header and previously allocated a buffer of that size without enforcing an upper bound.\n\nAn authenticated peer that can establish a viaduct connection to CloudHub can send a crafted message header containing an excessively large payload l",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:37:01Z",
+      "cve_ids": [
+        "CVE-2026-62370"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "1333a606f585ff859ea342311f300c93fb5980a91ac100914b6e1684679e7365",
+      "url": "https://github.com/advisories/GHSA-9vm9-pqxx-x83v",
+      "title": "GHSA: KubeEdge: keadm DecompressTarGz path traversal enables arbitrary file write on Windows during edge node join",
+      "summary": "## Description\n\nKubeEdge `keadm` contains a path traversal vulnerability in the `DecompressTarGz` archive extraction function.\n\nArchive entry names were joined directly with the extraction destination without sufficient validation. A crafted tar.gz archive containing parent-directory components, Windows-style backslashes, absolute paths, or drive-prefixed paths could cause files to be written outs",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:36:59Z",
+      "cve_ids": [
+        "CVE-2026-62369"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "fa2f504b8c96018be98fefbbfde2ab2c511e2d3e4bc95d08bd6a1c1c3fe8abdb",
+      "url": "https://github.com/advisories/GHSA-m3c6-2p7h-cfr3",
+      "title": "GHSA: KubeEdge: ConfigUpdateJob updateFields enables remote shell injection and code execution on edge nodes",
+      "summary": "## Description\n\nKubeEdge ConfigUpdateJob processing was vulnerable to command injection on edge nodes.\n\nThe `updateFields` values from a ConfigUpdateJob were concatenated into a command string and executed through a system shell. An authenticated user with sufficient permissions to create or update ConfigUpdateJob resources could include shell metacharacters in the supplied configuration fields an",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-22T20:36:44Z",
+      "cve_ids": [
+        "CVE-2026-62182"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "6fb5392eb8a082d68fee290f9a5fe598ae30e8ca3224777d8f2d45618ff7048f",
+      "url": "https://github.com/advisories/GHSA-5ffh-6f9q-5hhr",
+      "title": "GHSA: Unleash: A project member can reorder activation strategies belonging to any other project / environment (cross-project integrity write), bypassing project RBAC and the audit log",
+      "summary": "## Summary\n\nUnleash scopes write permissions per project and per environment: a user with the `UPDATE_FEATURE_STRATEGY` permission on project `A` is supposed to be able to mutate activation strategies only within project `A`. The endpoint `POST /api/admin/projects/:projectId/features/:featureName/environments/:environment/strategies/set-sort-order` violates this. The RBAC middleware authorizes the",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:36:39Z",
+      "cve_ids": [
+        "CVE-2026-77425"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "2f15ccabe4e48313e0058145f37a5f689094525605f0d512eb7e6c9dc421995b",
+      "url": "https://github.com/advisories/GHSA-93xw-j965-9mx3",
+      "title": "GHSA: MCP Atlassian: Arbitrary file read/exfiltration via upload_attachment missing validate_safe_path()",
+      "summary": "## Summary\n\nThe `upload_attachment` method in `confluence/attachments.py` reads and uploads arbitrary local files to Confluence without calling `validate_safe_path()`. Both download methods (`download_attachment` at line 223, `download_content_attachments` at line 272) correctly call `validate_safe_path()` before writing files, but the upload path at lines 35-79 skips this check entirely.\n\nAn AI a",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:36:37Z",
+      "cve_ids": [
+        "CVE-2026-77258"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "6b155576ab3da360c897254e529a526a5a7ceade2ac29faabc0df3b2eacabda6",
+      "url": "https://github.com/advisories/GHSA-g5xv-mhgm-v5f6",
+      "title": "GHSA: MCP Atlassian: OAuth fallback token storage writes plaintext access and refresh tokens with group-readable permissions",
+      "summary": "### Summary\n\nWhen OAuth tokens are saved, MCP Atlassian always writes a plaintext fallback copy under `~/.mcp-atlassian/oauth-<client_id>.json`. The fallback file is created with the process default umask rather than restrictive permissions. In this environment the file was created as mode `0664`, exposing access and refresh tokens to same-group local users and any process that can read the home d",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:36:34Z",
+      "cve_ids": [
+        "CVE-2026-77250"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "b1da5b52a2346106118dfecff9789640ca8f6e89c039647f4f4e0bc262d079de",
+      "url": "https://github.com/advisories/GHSA-v9m3-wfh8-5646",
+      "title": "GHSA: MCP Atlassian:  Incomplete fix for GHSA-7r34-79r5-rcc9: redirect-based SSRF via unhooked requests session in Jira user-permission lookup",
+      "summary": "Summary\n\nThe fix for the SSRF vulnerability tracked as GHSA-7r34-79r5-rcc9 / CVE-2026-27826 is incomplete. That fix added two defenses: validate_url_for_ssrf() on the per-request X-Atlassian-Jira-Url / X-Atlassian-Confluence-Url headers (blocking a directly-internal base URL), and a redirect-validation hook (_make_ssrf_safe_hook) attached to the fetcher's HTTP session so that an attacker-controlle",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:36:31Z",
+      "cve_ids": [
+        "CVE-2026-77249"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "96262aa70a3d49f4aa0c9c8b2f063d45b8c7d36e036dd21eee9c071de32d7f08",
+      "url": "https://github.com/advisories/GHSA-wrhw-j3f9-8vc6",
+      "title": "GHSA: [mcp-atlassian] Authentication bypass in HTTP transport: AtlassianOpaqueTokenVerifier accepts any non-empty token",
+      "summary": "**Description**\n\nmcp-atlassian deploys in two common patterns:\n\n  Pattern A (single-user, server-side credentials): operator sets\n    JIRA_USERNAME + JIRA_API_TOKEN (or CONFLUENCE_USERNAME + CONFLUENCE_API_TOKEN)\n    in environment variables. Server uses these to call Jira/Confluence.\n    This is the documented quickstart pattern.\n\n  Pattern B (multi-user, OAuth or per-request PAT): operator sets ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-22T20:36:26Z",
+      "cve_ids": [
+        "CVE-2026-77244"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "8dfe377612e007eb3b0cbdd76b4f6822fccd5fa00e858e88a761b5f08ed6f4cf",
+      "url": "https://github.com/advisories/GHSA-g2r2-3j32-j27x",
+      "title": "GHSA: MCP Atlassian: Reflected XSS in OAuth Setup Callback Handler",
+      "summary": "## Summary\n\nThe OAuth 2.0 setup wizard's local callback HTTP server reflects the `error` query parameter directly into an HTML response without any sanitization or encoding. An attacker can craft a malicious callback URL containing JavaScript in the `error` parameter that executes in the victim's browser when the setup wizard is running. The server binds to all network interfaces (`0.0.0.0`), maki",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:35:25Z",
+      "cve_ids": [
+        "CVE-2026-77272"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "976f39de7e910d328e50ec94290bd5330462e2cba9b64de60c8b586d5a78fd29",
+      "url": "https://github.com/advisories/GHSA-p6hp-93wp-fh6p",
+      "title": "GHSA: MCP Atlassian: Path Traversal / Arbitrary File Read in confluence_upload_attachment MCP tool (incomplete fix of GHSA-xjgw-4wvw-rgm4)",
+      "summary": "## Summary\n\n`mcp-atlassian` exposes an MCP tool `confluence_upload_attachment` whose `file_path` argument is passed directly to `open(file_path, \"rb\")` without any path validation. An attacker able to invoke the tool can read arbitrary files readable by the server process and exfiltrate them into a multipart upload directed at an attacker-controlled Confluence host. In the default `streamable-http",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:35:21Z",
+      "cve_ids": [
+        "CVE-2026-77262"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "4308d78d434bfda8b7e9238f5e2d6e562c5e9aeb680b96ad2cc159511098e606",
+      "url": "https://github.com/advisories/GHSA-4596-2p6p-28cv",
+      "title": "GHSA: MCP Atlassian: Insecure File Permissions on OAuth Token Storage",
+      "summary": "## Summary\n\nThe OAuth token fallback file storage in `OAuthConfig._save_tokens_to_file()` creates token files containing access tokens, refresh tokens, and cloud IDs with default filesystem permissions (typically `0644` on Linux, world-readable). Any local user on a shared system can read these files to obtain full Atlassian API credentials, enabling unauthorized access to the victim's Jira and Co",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:35:19Z",
+      "cve_ids": [
+        "CVE-2026-77268"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "a0e8df72061f901f4ade56452a722845d3c7bcf70773211dbd322fe439f99d1f",
+      "url": "https://github.com/advisories/GHSA-6cr4-ccf3-x7h4",
+      "title": "GHSA: MCP Atlassian: Arbitrary file read via confluence_upload_attachment allows exfiltration of server credentials",
+      "summary": "### Summary\n\nMissing path validation in `confluence_upload_attachment` allows any authenticated MCP client to read arbitrary files from the server filesystem and exfiltrate their contents to Confluence. On Linux deployments, `/proc/self/environ` yields all runtime secrets in a single call.\n\n---\n### Details\n\n`AttachmentsMixin.upload_attachment()` in `src/mcp_atlassian/confluence/attachments.py` ope",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-09-22T20:35:16Z",
+      "cve_ids": [
+        "CVE-2026-77259"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "5cee706d59c3548dce0922d762bbc1a6019bec763da0836522ee49132555ecff",
+      "url": "https://github.com/advisories/GHSA-6529-c226-h328",
+      "title": "GHSA: MCP Atlassian: SSRF redirect protection missing for basic-auth and OAuth authentication branches",
+      "summary": "### Summary\n\n`_make_ssrf_safe_hook()` blocks HTTP redirects to private/internal IPs by validating the `Location` header before the client follows a `3xx` response. The problem is that this hook is only attached in one of three authentication branches — the header-PAT path. Basic auth and OAuth branches skip it entirely, so if the connected Atlassian server returns a redirect to something like `htt",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:35:13Z",
+      "cve_ids": [
+        "CVE-2026-77261"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "bf0c3334b481579c3831e326520f92ae0a274a290f0cf6f24a4d6418adec6e81",
+      "url": "https://github.com/advisories/GHSA-f26r-j276-ggg4",
+      "title": "GHSA: MCP Atlassian: Arbitrary File Read via Upload Attachment Tools",
+      "summary": "## Summary\n\nThe upload attachment tools in both Confluence and Jira accept arbitrary file paths without path traversal validation. The upload_attachment methods read any file accessible to the server process and upload it to a Confluence page or Jira issue. Despite the existence of a validate_safe_path utility function (used correctly in download operations), the upload paths do not use it. This a",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:35:11Z",
+      "cve_ids": [
+        "CVE-2026-77270"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "5204aaedc51d4d0b7247a3a64c138b3d51160b3de9bc58dedc31767d424fe121",
+      "url": "https://www.bleepingcomputer.com/news/security/shinyhunters-claims-fbi-hack-data-theft-in-peoplesoft-zero-day-breach/",
+      "title": "ShinyHunters claims FBI hack, data theft in PeopleSoft zero-day breach",
+      "summary": "The ShinyHunters extortion gang claims it breached FBI systems using a new Oracle PeopleSoft zero-day vulnerability, gaining access to internal services and stealing sensitive data on employees and job applicants. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-09-22T19:13:29+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "c67fbe89095de0e3cdd62a58cd94fda3e209d74bd8cf7d67851b85cdef04c18a",
+      "url": "https://seclists.org/fulldisclosure/2026/Sep/49",
+      "title": "Code Security Review tool",
+      "summary": "Posted by E. Kellinis on Sep 22Karma Pro is an open source code review tool that can assist code reviewers with a multitude of useful tools. Karma Pro is a macOS source-code security scanner (AST base and Heuristics) that statically analyses projects in multiple languages. It&apos;s backed by an ML classifier trained on real patches to catch subtle issues. Beyond scanning, it offers interactive ca",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-09-22T18:34:04+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "1233cb2dd65a998c9197d25a17ba24f8061ec75367f4c40ec7f5235f2091e5ca",
+      "url": "https://seclists.org/fulldisclosure/2026/Sep/66",
+      "title": "HP Advance / Output Central: unauthenticated SYSTEM RCE and two additional vulnerabilities (CVE-2026-89082/89083/89084)",
+      "summary": "Posted by Joe via Fulldisclosure on Sep 22HP Advance / HP Output Central Unauthenticated SYSTEM RCE, authorization bypass, and arbitrary file write/delete CVE-2026-89082, CVE-2026-89083, CVE-2026-89084 ================================================================ SUMMARY ================================================================ Vendor: HP Inc. Product family named by HP: HP Advance Produ",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-09-22T18:32:59+00:00",
+      "cve_ids": [
+        "CVE-2026-89082",
+        "CVE-2026-89083",
+        "CVE-2026-89084"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
     {
       "id": "44abe536e92c1efd6423b20f5db5ae2240a656314c31d30aff2023621d488f3c",
       "url": "https://seclists.org/fulldisclosure/2026/Sep/48",
@@ -1674,575 +2134,6 @@
       "date": "2026-09-22T09:55:11+00:00",
       "cve_ids": [],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f9fc742676f00af5a73d7e3a3f0d3683c171dee6d1838675370afee6a8de8fc6",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-719/",
-      "title": "ZDI-26-719: Cisco ThousandEyes Virtual Appliance DHCP Client Command Injection Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Cisco ThousandEyes Virtual Appliance. Authentication is required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.2. The following CVEs are assigned: CVE-2026-20350.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-09-22T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-20350"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "7dfea8c8aa7f62f1f212a257b91de4a069a608d69db809f4701dba0fe640e9b8",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-93952",
-      "title": "CVE-2026-93952: Arista VeloCloud Orchestrator Improper Input Validation Vulnerability",
-      "summary": "Arista VeloCloud Orchestrator (VCO) on-prem contains an improper input validation vulnerability that may allow a remote attacker to access privileged internal functionality and impact the VCO host. Successful exploitation may compromise the confidentiality, integrity, and availability of the orchestrator and data managed by the orchestrator. Affected product: VeloCloud Orchestrator by Arista. Requ",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-09-22T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-93952"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "78c28bb63b3ec8bb83a1ce432a116e1cbb9af45c605a27aedc0a5c89d4f62199",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-94127",
-      "title": "CVE-2026-94127: F5 BIG-IP APM Heap-based Buffer Overflow Vulnerability",
-      "summary": "F5 BIG-IP APM contains a heap-based buffer overflow vulnerability when access policy and an OAuth profile are configured on a virtual server. This vulnerability could allow an unauthenticated attacker to perform remote code execution. Affected product: BIG-IP APM by F5. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-09-22T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-94127"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://www.rapid7.com/blog/post/etr-cve-2026-94127-critical-unauthenticated-rce-in-f5-big-ip-apm"
-      ]
-    },
-    {
-      "id": "26c4591fdeef4cf2f18e078cbe9dd8624b54a10aca63a78e9128966aa88c5617",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-93616",
-      "title": "CVE-2026-93616: Check Point Multiple Products Path Traversal Vulnerability",
-      "summary": "Check Point Security Management Server, Multi-Domain Security Management Server, Log Server, Multi-Domain Log Server, and SmartEvent contain a path traversal vulnerability that allows an unauthenticated attacker to upload and execute arbitrary scripts. Affected product: Multiple Products by Check Point. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance ",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-09-22T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-93616"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ce316097d2ace2be9b1923171c63d5561463461093adf9e8156c861f61356915",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-85102",
-      "title": "CVE-2026-85102: Check Point Multiple Products Improper Certificate Validation Vulnerability",
-      "summary": "Check Point Security Gateway and Check Point Spark Firewall using Site to Site VPN or Remote Access VPN contain an improper certificate validation vulnerability which could allow an unauthenticated remote attacker to execute arbitrary code on the Gateway. Affected product: Multiple Products by Check Point. Required action: Apply mitigations in accordance with vendor instructions, ensuring complian",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-09-22T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-85102"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://www.bleepingcomputer.com/news/security/check-point-warns-of-hackers-exploiting-security-gateway-vpn-rce-flaw/"
-      ]
-    },
-    {
-      "id": "acd9190e17602da802cddba39980a011753f2e34aa5d20c8ae5190403f04bb0e",
-      "url": "https://github.com/advisories/GHSA-pxcx-fv34-x9p5",
-      "title": "GHSA:  nginx ignition has Unauthenticated Admin Account Creation via Onboarding Race Condition",
-      "summary": "## Summary\n\n`POST /api/users/onboarding/finish` is registered as **anonymous (unauthenticated)** and creates a user with **full ReadWrite admin permissions**. Because the handler uses a check-then-act (TOCTOU) pattern between the \"onboarding already completed?\" check and the user-creation write, with no atomic guard, a remote unauthenticated attacker who can reach an instance in its pre-onboarding",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-21T21:54:42Z",
-      "cve_ids": [
-        "CVE-2026-61628"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "deb3ffd1217582c6675f13c05d3770d2a2c61ce7dac9c56eadeb7f8a0d9d00b9",
-      "url": "https://github.com/advisories/GHSA-jr34-h97m-9hpx",
-      "title": "GHSA: nginx ignition has  ParseAcceptLanguage `_` separator bypass that enables ~75x CPU amplification via Accept-Language header in i18nMiddleware",
-      "summary": "### Summary\n\nThe gin i18n middleware in nginx-ignition's API server runs in front of every HTTP request and calls `golang.org/x/text/language.ParseAcceptLanguage` on the raw `Accept-Language` header without imposing any size or shape filter. The underlying parser has quadratic-time behaviour on long lists of malformed language tags. The CVE-2022-32149 guard that golang.org/x/text added in v0.3.8 c",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-21T21:49:03Z",
-      "cve_ids": [
-        "CVE-2026-61629"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "68ba9f005238d628b3d7efb21f3754acf560c311f43e742dc7f9b9da4caf6555",
-      "url": "https://github.com/advisories/GHSA-hf33-q6cf-c66f",
-      "title": "GHSA: nginx ignition has TOTP Reuse During Validity Window",
-      "summary": "### Summary\nAny user that has enabled the OTP 2FA can have their TOTP reused during the standard 30 second validity window.\n\n### Details\nThe https://github.com/pquerna/otp package [doesn't include](https://github.com/pquerna/otp/issues/61) checking for already used TOTPs within its the validity window. This requires each application that uses the package to implement their own method of tracking a",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-21T21:47:40Z",
-      "cve_ids": [
-        "CVE-2026-61630"
-      ],
-      "cvss": 4.2,
-      "related_links": []
-    },
-    {
-      "id": "b0e2aa771844faedff13c3c04ba6c37616908d3551ed02f1206f8fed90abbd46",
-      "url": "https://github.com/advisories/GHSA-jhjp-4c2q-xmx4",
-      "title": "GHSA: k8saudit shipped rules do not detect privileged/sensitive settings on init or ephemeral containers",
-      "summary": "The `k8saudit` plugin's per-container fields (`ka.req.pod.containers.*`) and the shipped `k8s_audit_rules.yaml` evaluated only `requestObject.spec.containers`. Security-relevant settings on a pod's `initContainers` or `ephemeralContainers` were not inspected, so the shipped `Create Privileged Pod` rule did not fire for a privileged container placed in either list.\n\n### Impact\n\nAn actor able to cre",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-21T21:43:52Z",
-      "cve_ids": [],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "7a6663942eb5f27773742dd51591c4a243bdd3c2385e1f866c434b3ed3d53a64",
-      "url": "https://www.bleepingcomputer.com/news/security/bigcommerce-alerts-merchants-of-data-breach-linked-to-ribon-apps/",
-      "title": "BigCommerce alerts merchants of data breach linked to Ribon apps",
-      "summary": "Ecommerce platform BigCommerce has alerted multiple merchants to data breaches after attackers compromised credentials for third-party Ribon applications and used them to inject malicious scripts into online stores. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-21T21:18:49+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "522af8b6ffea78c37b78b4edf4f9d68325f1aece2b251d7f059e1f5d14d9e689",
-      "url": "https://www.bleepingcomputer.com/news/security/cisa-alerts-of-active-exploitation-of-three-linux-kernel-flaws/",
-      "title": "CISA alerts of active exploitation of three Linux kernel flaws",
-      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) is warning that hackers are exploiting three Linux kernel vulnerabilities, one of them rated critical. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-21T20:12:17+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "7c13e8164b6aa5d1e74e663226c085419f3d458a99e81825a829171f6a3f0be2",
-      "url": "https://www.bleepingcomputer.com/news/security/wordpress-click2shell-flaw-lets-hackers-execute-php-on-the-server/",
-      "title": "WordPress Click2Shell flaw lets hackers execute PHP on the server",
-      "summary": "Technical details and a proof-of-concept exploit have been published for a new WordPress cross-site request forgery (CSRF) vulnerability dubbed 'Click2Shell' that affects the platform's Core component. [...]",
-      "source": "Bleeping Computer",
-      "category": "web_app",
-      "date": "2026-09-21T18:23:11+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "49fea6905937b3a3ce7c98f5aa414f4273eab166f225e4059623296785ab541c",
-      "url": "https://ubuntu.com/security/notices/USN-8794-1",
-      "title": "USN-8794-1: GLib vulnerabilities",
-      "summary": "It was discovered that GLib's GDBus authentication mechanism failed to enforce length limitations on data lines read from a client. An unauthenticated attacker could exploit this to cause a denial of service via resource exhaustion. (CVE-2026-15588) It was discovered that the xdgmime library in GLib had a heap-based buffer overflow. An attacker-controlled MIME magic file could cause an out-of-boun",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-09-21T16:25:01+00:00",
-      "cve_ids": [
-        "CVE-2026-15588",
-        "CVE-2026-16118",
-        "CVE-2026-58010",
-        "CVE-2026-58011",
-        "CVE-2026-58012",
-        "CVE-2026-58013",
-        "CVE-2026-58014",
-        "CVE-2026-58015",
-        "CVE-2026-58016"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "0d7ad52e311e9ca08fbf4c01fa37695cd508a39b34afd4a34a3055d36ee23c1d",
-      "url": "https://github.com/advisories/GHSA-phg3-3g28-wq9v",
-      "title": "GHSA: Hatchet - Unauthenticated OAuth state CSRF / login-CSRF via empty-state collision in ValidateOAuthState",
-      "summary": "### Summary\n\nHatchet version v0.86.26 and below is vulnerable to OAuth state CSRF (login CSRF / account fixation). \n\nThe vulnerable code clears the session `oauth_state_<integration>` value to the empty string `\"\"` after a successful OAuth callback rather than removing the key, and the subsequent state-equality check then accepts an empty `?state=` parameter on any later callback request — allowin",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-21T15:47:01Z",
-      "cve_ids": [
-        "CVE-2026-61687"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "f6e64a463d25dfd07978c89dbf4e8942ca1ca4b7d39bd5c36146ff2ecd2a0949",
-      "url": "https://ubuntu.com/security/notices/USN-8790-1",
-      "title": "USN-8790-1: Expat vulnerabilities",
-      "summary": "It was discovered that Expat could be made to allocate large amounts of memory when parsing a small crafted document. An attacker could possibly use this issue to cause Expat to consume resources, leading to a denial of service. This issue was only addressed in Ubuntu 24.04 LTS. (CVE-2025-59375) It was discovered that Expat incorrectly handled empty external parameter entity content. An attacker c",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-09-21T13:50:42+00:00",
-      "cve_ids": [
-        "CVE-2025-59375",
-        "CVE-2026-32776",
-        "CVE-2026-32777",
-        "CVE-2026-32778",
-        "CVE-2026-41080",
-        "CVE-2026-45186",
-        "CVE-2026-50219",
-        "CVE-2026-56403",
-        "CVE-2026-56404",
-        "CVE-2026-56405",
-        "CVE-2026-56408",
-        "CVE-2026-56412"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "cc0b423d312e851427531d0cc1c5c027c2e283c1709be196472fdbc43d6670cc",
-      "url": "https://ubuntu.com/security/notices/USN-8793-1",
-      "title": "USN-8793-1: Linux kernel (Azure CVM) vulnerabilities",
-      "summary": "Several security issues were discovered in the Linux kernel. An attacker could possibly use these to compromise the system. This update corrects flaws in the following subsystems: - Bluetooth drivers; - GPU drivers; - Hardware monitoring drivers; - SPI subsystem; - NTFS3 file system; - io_uring subsystem; - Ethernet bridge; - Multipath TCP; (CVE-2025-71289, CVE-2026-23469, CVE-2026-31420, CVE-2026",
-      "source": "Ubuntu Security",
-      "category": "infrastructure",
-      "date": "2026-09-21T13:05:01+00:00",
-      "cve_ids": [
-        "CVE-2025-71289",
-        "CVE-2026-23469",
-        "CVE-2026-31420",
-        "CVE-2026-31486",
-        "CVE-2026-31560",
-        "CVE-2026-46158",
-        "CVE-2026-46170",
-        "CVE-2026-46275",
-        "CVE-2026-46315",
-        "CVE-2026-52912",
-        "CVE-2026-52915",
-        "CVE-2026-52916",
-        "CVE-2026-52918",
-        "CVE-2026-52919",
-        "CVE-2026-52921",
-        "CVE-2026-52922",
-        "CVE-2026-52926",
-        "CVE-2026-52941",
-        "CVE-2026-53357",
-        "CVE-2026-64015",
-        "CVE-2026-64018",
-        "CVE-2026-64025",
-        "CVE-2026-64029",
-        "CVE-2026-64032",
-        "CVE-2026-64033",
-        "CVE-2026-64034",
-        "CVE-2026-64039",
-        "CVE-2026-64046",
-        "CVE-2026-64047",
-        "CVE-2026-64048",
-        "CVE-2026-64051",
-        "CVE-2026-64055",
-        "CVE-2026-64056",
-        "CVE-2026-64064",
-        "CVE-2026-64073",
-        "CVE-2026-64083",
-        "CVE-2026-64084",
-        "CVE-2026-64085",
-        "CVE-2026-64086",
-        "CVE-2026-64087",
-        "CVE-2026-64088",
-        "CVE-2026-64089",
-        "CVE-2026-64092",
-        "CVE-2026-64096",
-        "CVE-2026-64097",
-        "CVE-2026-64098",
-        "CVE-2026-64102",
-        "CVE-2026-64103",
-        "CVE-2026-64106",
-        "CVE-2026-64108",
-        "CVE-2026-64109",
-        "CVE-2026-64111",
-        "CVE-2026-64113",
-        "CVE-2026-64114",
-        "CVE-2026-64115",
-        "CVE-2026-64116",
-        "CVE-2026-64118",
-        "CVE-2026-64121",
-        "CVE-2026-64125",
-        "CVE-2026-64126",
-        "CVE-2026-64127",
-        "CVE-2026-64128",
-        "CVE-2026-64133",
-        "CVE-2026-64134",
-        "CVE-2026-64135",
-        "CVE-2026-64136",
-        "CVE-2026-64137",
-        "CVE-2026-64138",
-        "CVE-2026-64144",
-        "CVE-2026-64147",
-        "CVE-2026-64148",
-        "CVE-2026-64153",
-        "CVE-2026-64155",
-        "CVE-2026-64163",
-        "CVE-2026-64165",
-        "CVE-2026-64166",
-        "CVE-2026-64168",
-        "CVE-2026-64170",
-        "CVE-2026-64173",
-        "CVE-2026-64174",
-        "CVE-2026-64177",
-        "CVE-2026-64178",
-        "CVE-2026-64179",
-        "CVE-2026-64180",
-        "CVE-2026-64182",
-        "CVE-2026-64183",
-        "CVE-2026-64184",
-        "CVE-2026-64185",
-        "CVE-2026-64214",
-        "CVE-2026-64217",
-        "CVE-2026-64218",
-        "CVE-2026-64219",
-        "CVE-2026-64220",
-        "CVE-2026-64221",
-        "CVE-2026-64225",
-        "CVE-2026-64231",
-        "CVE-2026-64518",
-        "CVE-2026-31506"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://ubuntu.com/security/notices/USN-8729-3",
-        "https://ubuntu.com/security/notices/USN-8761-3",
-        "http://www.zerodayinitiative.com/advisories/ZDI-26-701/",
-        "https://ubuntu.com/security/notices/USN-8802-1",
-        "https://ubuntu.com/security/notices/USN-8729-4",
-        "https://ubuntu.com/security/notices/USN-8793-2"
-      ]
-    },
-    {
-      "id": "765c4c8044c3e571e8bee966420680f9daf10ec5997bb8b6e5d58e887b2ac0f1",
-      "url": "https://ubuntu.com/security/notices/USN-8730-4",
-      "title": "USN-8730-4: Linux kernel vulnerability",
-      "summary": "A security issue was discovered in the Linux kernel. An attacker could possibly use this to compromise the system. This update corrects flaws in the following subsystems: - IPv6 networking; - Netfilter;",
-      "source": "Ubuntu Security",
-      "category": "infrastructure",
-      "date": "2026-09-21T13:04:26+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "320d53d6fdc9bc7c344edddc5631bc41a0e3d78a347fc4490f9645c933a689bf",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-7273",
-      "title": "CVE-2026-7273: Zyxel GS1900 Series Switches Stack-Based Buffer Overflow Vulnerability",
-      "summary": "Zyxel GS1900 series switches contain a stack-based buffer overflow vulnerability in the CGI program which could allow a LAN-based, unauthenticated attacker to exploit the flaw and potentially execute OS commands via a crafted HTTP request. Affected product: GS1900 Series Switches by Zyxel. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BO",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-09-21T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-7273"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "20c9213dc91fb1b17fe2e4fbabd9e7a9e2f70e5ec2d24ddda9009d42f331d5e9",
-      "url": "https://www.bleepingcomputer.com/news/security/malicious-npm-packages-evade-install-script-defenses-at-runtime/",
-      "title": "Malicious npm packages evade install-script defenses at runtime",
-      "summary": "An ongoing npm malware campaign involving the 'indexed-btree' package shows how threat actors bypass supply chain defenses by hiding malicious code in a package's normal runtime behavior rather than in installation scripts. [...]",
-      "source": "Bleeping Computer",
-      "category": "web_app",
-      "date": "2026-09-20T14:11:21+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f02d07cbc73e8647ed1efc7b7fe3abf7c8b626f63cf8e50bcff3e5c7a77b7999",
-      "url": "https://www.bleepingcomputer.com/news/security/north-korean-waterplum-hackers-infected-30-000-devices-worldwide/",
-      "title": "North Korean WaterPlum hackers infected 30,000 devices worldwide",
-      "summary": "A joint law enforcement advisory warns that the North Korean hacking group WaterPlum compromised at least 30,000 devices worldwide from December 2025 through July 2026 and transferred more than $10.7 million in stolen cryptocurrency to North Korea. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-19T14:05:15+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "6f6f2593a9d7c91ae724f27da592b04e79f989a47f84a612ecf922fde063008a",
-      "url": "https://github.com/advisories/GHSA-jgh3-fggc-mcpm",
-      "title": "GHSA: Obot: Server-Side Request Forgery via remote MCP server URL",
-      "summary": "## Summary\n\nIn affected versions, the URL of a remote MCP server is attacker-controlled at registration and is fetched server-side with no validation of the destination. There is no guard against loopback, link-local, RFC1918 private ranges, or the cloud metadata endpoint (`169.254.169.254`), so a use with the Power User, Power User Plus, or Admin role can coerce Obot into making requests to inter",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-18T17:59:46Z",
-      "cve_ids": [],
-      "cvss": 7.6,
-      "related_links": []
-    },
-    {
-      "id": "0a8e8151926103afc128e1680618f83017b10e0c6bf53d414a3d0e07633e3a2b",
-      "url": "https://github.com/advisories/GHSA-pr6h-vr44-xq8j",
-      "title": "GHSA: Obot: MCP Registry API readable without authentication",
-      "summary": "## Summary\n\nIn affected versions, enabling registry authentication (`OBOT_SERVER_ENABLE_REGISTRY_AUTH=true`) does not actually protect the MCP Registry endpoints under `/v0.1/*` — they remain readable by unauthenticated callers.\n\n## Am I affected?\n\nYou are affected if you run Obot `<= v0.22.1` with `OBOT_SERVER_ENABLE_REGISTRY_AUTH=true`. An unauthenticated `GET /v0.1/servers` returns `200 OK` wit",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-18T17:59:40Z",
-      "cve_ids": [],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "d6b69ceebca2cbec1e2fabaaa11f52cb2500a17c166cfd031a3731367f354343",
-      "url": "https://github.com/advisories/GHSA-xwmw-prc4-v3cr",
-      "title": "GHSA: Obot: OAuth Dynamic Client Registration Enables API Token Theft via Audience Confusion",
-      "summary": "## Summary\n\nIn affected versions, an unauthenticated attacker could register an OAuth client with an arbitrary external redirect URI, and the authorization flow would auto-complete without a consent screen. If a logged-in victim visited a crafted authorization URL, an authorization code was delivered to the attacker's redirect URI and exchanged for an access token. That token was minted with the v",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-18T17:59:35Z",
-      "cve_ids": [],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "aa3b68476f4b958be0a6eb62416b47d70990426f9d2df3b3c3a667a98a80654a",
-      "url": "https://github.com/advisories/GHSA-5gmm-hjfj-8ff7",
-      "title": "GHSA: Paymenter has a credit-refund double-spend race condition in service downgrade (doUpgrade)",
-      "summary": "### Summary\n\nThe service downgrade implementation in `app/Livewire/Services/Upgrade.php::doUpgrade()` executes a proration calculation and a subsequent user credit refund without any transactional safety or database locks. The only concurrency check relies on an unisolated database query checking for existing pending upgrades. Because there is no active database transaction or pessimistic row-leve",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-18T17:58:55Z",
-      "cve_ids": [
-        "CVE-2026-71537"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "b1ad7e57069a7627d83734fd5c63d85ceef6a65fbe38b63f53e1aba930320a4e",
-      "url": "https://github.com/advisories/GHSA-9jjc-fw8x-fmwx",
-      "title": "GHSA: io.moquette:moquette-broker has a Missing Authorization issue",
-      "summary": "## Summary\n\nMoquette MQTT Broker fails to enforce ACL write permission checks when publishing Will (Last Will and Testament) messages on behalf of disconnected clients. All normal PUBLISH paths (`receivedPublishQos0`, `receivedPublishQos1`, `receivedPublishQos2`) correctly invoke `authorizator.canWrite()` before publishing, but the Will message publishing path (`fireWill()` → `publishWill()` → `pu",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-18T17:58:39Z",
-      "cve_ids": [
-        "CVE-2026-85058"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "62db34269c4c2b142d0460c0bdc4f179412f7f1e4fb36893fdcc148d94245f3d",
-      "url": "https://github.com/advisories/GHSA-xcw4-53cc-hv32",
-      "title": "GHSA: Mnemosyne has JWT signature verification bypass sync server that allows authentication bypass",
-      "summary": "### Summary\n\nThe Mnemosyne sync server's authentication check decoded JWT bearer tokens but never verified their HMAC-SHA256 signatures. Any well-formed token was accepted, allowing an unauthenticated attacker to impersonate any user and read or modify their sync data.\n\n**Severity: Critical**\n\nCVSS 3.1: AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N = 9.1\n\nAssumes the sync server endpoint is network-reachabl",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-18T17:54:26Z",
-      "cve_ids": [
-        "CVE-2026-59163"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "f054e47f8cdd0b30533139af0367c30125ad96d1b22629f4f91eadc4307e8607",
-      "url": "https://github.com/advisories/GHSA-3753-m2x2-q623",
-      "title": "GHSA: File Viewer: DOM XSS via unsafe hyperlink schemes in the legacy DOC renderer",
-      "summary": "### Summary\n\nBefore 2.3.1, the legacy `.doc` renderer emitted document hyperlink targets after HTML escaping but without a URL-scheme allowlist. A crafted `.doc` could therefore render a live `javascript:`, `vbscript:`, `data:`, or similarly unsafe link. Script could execute in the embedding origin if a viewer clicked it.\n\n### Impact\n\nApplications rendering untrusted legacy `.doc` files with `@fil",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-18T17:19:42Z",
-      "cve_ids": [
-        "CVE-2026-91127"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "95bf843225a5cd65859d982b8cb28aab2751bce25dcfda021566f6c4db8019db",
-      "url": "https://github.com/advisories/GHSA-7q85-xj36-vmfc",
-      "title": "GHSA: adm-zip: Uncontrolled memory allocation via the declared uncompressed size (DoS)",
-      "summary": "### Summary\nadm-zip allocates an entry's output buffer from the declared uncompressed size (central-directory `size` field) before validating it against the actual data. A tiny crafted ZIP that declares a huge uncompressed size forces a multi-gigabyte allocation from a few bytes.\n\n### Impact\nOn adm-zip 0.5.17 (latest), Node 24, a 105-byte ZIP with one stored entry declaring size = 1,774,399,200 ma",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-18T17:18:01Z",
-      "cve_ids": [
-        "CVE-2026-77301"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "c3560f25b5ac84145e0164860162af3197b9acc3d908ceefceaafef945448312",
-      "url": "https://github.com/advisories/GHSA-3rm2-h79c-8qw6",
-      "title": "GHSA: md-editor-v3: XSS via fenced-code language rendering bypass",
-      "summary": "### Summary\n`MdPreview` interpolates a fenced-code language into HTML attributes without escaping it. A crafted info string therefore executes JavaScript even when the shipped `XSSPlugin` is enabled.\n\n### Details\n`useMarkdownIt()` (`packages/MdEditor/layouts/Content/composition/useMarkdownIt.ts:206`) registers a `highlight` callback whose final return inserts `language` into both `class=\"language-",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-18T17:17:36Z",
-      "cve_ids": [
-        "CVE-2026-84992"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "41a5d544a8ab16d75cddb3097a1ce67aac40d730e5732db3e4fe922a024882fb",
-      "url": "https://github.com/advisories/GHSA-w72w-9qmj-c9qm",
-      "title": "GHSA: AnyCable: Telemetry Subsystem Contains Hardcoded Authentication Token and Transmits CLI Arguments Including Secrets",
-      "summary": "### Summary\nThe telemetry subsystem embeds a hardcoded auth token (`\"secret\"`) in the public source and transmits raw CLI arguments—including `--secret`, `--jwt_secret`, and `--http_rpc_secret` values—to a third-party telemetry endpoint.\n\n### Details\nIn `telemetry/config.go` line 12, `var authToken = \"secret\"` is committed in the public repository and used to authenticate to `https://telemetry.any",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-18T17:17:29Z",
-      "cve_ids": [
-        "CVE-2026-63406"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "fe8a587d3d40165cc386be9c74337ba20bd9c1f70d4fed0d8688e1c75779288d",
-      "url": "https://github.com/advisories/GHSA-5p54-whvp-x327",
-      "title": "GHSA: AnyCable: Pusher REST API Does Not Verify Request Body MD5 Enabling Signed-Request Replay with Arbitrary Body",
-      "summary": "### Summary\nThe Pusher-compatible REST API includes `body_md5` in the HMAC signature string but never computes or verifies the MD5 of the received HTTP body, allowing anyone who observes a signed request to replay it with an entirely different body.\n\n### Details\nIn `pusher/http.go`, the `Handler` function extracts `body_md5` from the URL query string (line 169) and includes it verbatim in `stringT",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-18T17:16:25Z",
-      "cve_ids": [
-        "CVE-2026-63405"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "ce7f1b7188285d05becfec4db4c5b570750fda7e3dd6ecf6944f8fcbba1a80ff",
-      "url": "https://github.com/advisories/GHSA-qg2g-g9w3-m5h8",
-      "title": "GHSA: ToolHive: containerized MCP servers can reach host services via host.docker.internal, enabling lateral movement",
-      "summary": "## Summary\n\nA containerized MCP server running with the default `network` permission profile (`insecure_allow_all: true`) can reach host-local services via `host.docker.internal`. This includes the ToolHive API itself, other ToolHive-managed MCP server proxies, and any other service listening on the host's localhost. Combined with the unauthenticated ToolHive API and MCP proxy endpoints, this enab",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-18T17:16:02Z",
-      "cve_ids": [
-        "CVE-2026-58197"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "e0e27296f72cbb49b94c19e40b32fb5e1661d9c92314ec86cef82900072fa32e",
-      "url": "https://github.com/advisories/GHSA-c8w2-fgvx-vhv4",
-      "title": "GHSA: kcp front-proxy does not strip inbound X-Remote-* identity headers, allowing any authenticated client to inject groups/warrants and impersonate system:masters in any workspace",
-      "summary": "# Summary\n\nThe kcp front-proxy fails to strip client-supplied identity headers before forwarding requests to shards. Any authenticated tenant can inject their own `X-Remote-Group` and `X-Remote-Extra-*` headers, which the shard trusts as a verified identity assertion — allowing a low-privilege user to escalate to cluster administrator (`system:masters`) and read, write, or delete resources in any ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-18T17:15:49Z",
-      "cve_ids": [
-        "CVE-2026-61682"
-      ],
-      "cvss": 9.9,
       "related_links": []
     }
   ]
