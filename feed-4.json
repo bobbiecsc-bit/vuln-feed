@@ -1,10 +1,106 @@
 {
-  "updated": "2026-09-24T09:01:51.869488+00:00",
+  "updated": "2026-09-24T16:36:39.240528+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "030a2b731f24d26bfc7f5b35086d44be954e3e30a8e22c5d7aa20ba12ca14425",
+      "url": "https://github.com/advisories/GHSA-qg67-7m6v-qg25",
+      "title": "GHSA: zot: Bearer authentication maps DELETE to push scope, allowing unauthorized deletion",
+      "summary": "### Summary\n\nA bearer token with only `pull` and `push` scopes can successfully delete manifests and blobs from a zot registry. The bearer authentication handler maps all non-GET/HEAD HTTP methods, including DELETE, to the `\"push\"` action, and the `DistSpecAuthzHandler` middleware is bypassed entirely for bearer-authenticated requests. This allows any client holding a push-only bearer token to del",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-18T17:15:19Z",
+      "cve_ids": [
+        "CVE-2026-61833"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "51e092250f2c9db59bae184d92c0105874b7e67d99dc6cb11ceccc9ba18ea1ec",
+      "url": "https://github.com/advisories/GHSA-f94q-w3w8-cj67",
+      "title": "GHSA: Capsule: hostnameRegexHandler.OnUpdate validates stale (old) Tenant regex, allowing invalid AllowedHostnames regex to bypass webhook validation",
+      "summary": "### Summary\n\nA parameter order bug in `internal/webhook/tenant/validation/hostname_regex.go` causes the `hostnameRegexHandler.OnUpdate` webhook to validate the **old** Tenant object's `AllowedHostnames.Regex` instead of the **new** one being submitted. This allows an invalid (malformed) regex to bypass admission validation and be persisted to etcd, causing a Denial of Service for all Ingress opera",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-18T17:14:43Z",
+      "cve_ids": [
+        "CVE-2026-61795"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "e937409cb4010ba7637668cf57e3622424f554747282a631a720e876a7772e49",
+      "url": "https://github.com/advisories/GHSA-gjw4-3v3v-rqxg",
+      "title": "GHSA: Capsule: Tenant owner bypasses Capsule's forbidden namespace/service/node label and annotation enforcement",
+      "summary": "## Summary\n\nCapsule lets a cluster administrator forbid specific metadata keys that tenant owners must not place on their own resources: `Tenant.spec.namespaceOptions.forbiddenLabels` / `forbiddenAnnotations` (namespaces), `Tenant.spec.serviceOptions.forbiddenLabels` / `forbiddenAnnotations` (Services), and the cluster-wide forbidden worker-node labels/annotations. These lists are an isolation con",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-18T17:14:31Z",
+      "cve_ids": [
+        "CVE-2026-61672"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "a44217f665749fcd84d496fa5a486443b970ffb33bc3f81eb6e03f9232de2a1a",
+      "url": "https://github.com/advisories/GHSA-gxjc-74v5-3vx3",
+      "title": "GHSA: Capsule: Malformed ForbiddenAnnotations.Regex can bypass Tenant validation and trigger namespace admission panic",
+      "summary": "### Summary\nA validation bug in `internal/webhook/tenant/validation/forbidden_annotations_regex.go` allows an invalid `ForbiddenAnnotations.Regex` value to bypass Tenant admission on update. The webhook compiles `ForbiddenLabels.Regex` for both labels and annotations, so a malformed annotations regex can be persisted. Once stored, namespace admission later evaluates the bad regex through `pkg/api/",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-18T17:14:26Z",
+      "cve_ids": [
+        "CVE-2026-61794"
+      ],
+      "cvss": 4.9,
+      "related_links": []
+    },
+    {
+      "id": "f5462b0aa37c69ecfa52e9c818522c09ae8f4a049b63fb59f2a7d2fe2577a7e1",
+      "url": "https://github.com/advisories/GHSA-39wr-7q6h-cf68",
+      "title": "GHSA: LMDeploy has an SSRF bypass",
+      "summary": "### Summary\nThe URL checking logic in lmdeploy has a logical flaw that could be bypassed by attackers, leading to SSRF attacks.\n\n### Details\nThe current lmdeploy project uses `_is_safe_url` to validate the input URL. The main logic is to perform security checks on the host portion of the URL extracted by urlparse to prevent SSRF attacks.\n<img width=\"943\" height=\"836\" alt=\"QQ20260416-203956-16-1\" s",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-18T17:14:06Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "d523d711e42cf6db9ecf054a81c22140268e4dfa3214e2ce014485e3d75b7043",
+      "url": "https://github.com/advisories/GHSA-3hmm-rh5q-gwwr",
+      "title": "GHSA: LMDeploy vulnerable to arbitrary code execution via eval() of untrusted quant_dtype in model config loading",
+      "summary": "### Summary\n\nlmdeploy <= latest contains a code injection vulnerability in `lmdeploy/pytorch/config.py` line 620 that allows an attacker to execute arbitrary Python code by publishing a malicious HuggingFace model with a crafted `quantization_config.quant_dtype` value. When a user loads the model with lmdeploy, the `quant_dtype` is passed to `eval(f'torch.{quant_dtype}')` without any validation.\n\n",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-18T17:04:01Z",
+      "cve_ids": [
+        "CVE-2026-33625"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "9f2243d05a616f7a610f3e8b05328f69f14076a078fad32a805d3a6752d3872b",
+      "url": "https://github.com/advisories/GHSA-2vh9-42vm-xmv2",
+      "title": "GHSA: LMDeploy has Remote Code Execution by Pickle Deserialization via handle_zmq_recv in lmdeploy/lmdeploy/pytorch/disagg/conn/engine_conn.py",
+      "summary": "## Summary\n\nLMDeploy's PyTorch DistServe/PD-disaggregation control plane used\n`recv_pyobj()` to deserialize messages received through a ZeroMQ PULL\nsocket. PyZMQ implements `recv_pyobj()` using Python pickle\ndeserialization, which can execute arbitrary code while reconstructing\nan object.\n\nThe peer address used by the receiver was supplied through the\n`POST /distserve/p2p_connect` HTTP endpoint. A",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-18T17:03:56Z",
+      "cve_ids": [
+        "CVE-2025-66455"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
     {
       "id": "1310e5e218243b9dbe4adb4903e323a6961497df3e2005a26c0972dfe076c5d3",
       "url": "https://github.com/advisories/GHSA-jr78-w6w5-m8f8",
@@ -2613,104 +2709,6 @@
         "CVE-2026-81176"
       ],
       "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "c0029a9a8312adc4932124ef67a90d6506ace09ca63b660906686328aa4e28f4",
-      "url": "https://github.com/advisories/GHSA-47ch-6w46-6xm7",
-      "title": "GHSA: Grav: media_directory() Twig function allows filesystem path traversal and file content disclosure from sandboxed page content",
-      "summary": "## Summary\n\nThe `media_directory()` Twig function is allow-listed for use in sandboxed, editor-authored page content (`system/config/security.yaml`). Its implementation, `GravExtension::mediaDirFunc()`, only treats the input as unsafe when it looks like a Grav stream (`user://`, `theme://`, etc). If the input is instead a plain filesystem path, absolute or relative, the stream check is skipped ent",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-17T20:27:47Z",
-      "cve_ids": [
-        "CVE-2026-72697"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "a41faa58bd61301592052d20ac97b627870b87633fd27e4ab26de2a0fc0b0bb8",
-      "url": "https://github.com/advisories/GHSA-3jhr-mxmx-38cx",
-      "title": "GHSA: Grav: UserInterface offsetget/offsetexists allow-listed in Twig sandbox let editor-authored content leak hashed_password and 2FA secrets via offsetGet()",
-      "summary": "## Summary\n\n`system/config/security.yaml`'s Twig sandbox policy allow-lists `offsetget` and\n`offsetexists` for `Grav\\Common\\User\\Interfaces\\UserInterface`. The concrete\n`Grav\\Common\\User\\DataUser\\User` class does not filter which fields `offsetGet()`\nreturns, so any sandboxed template with access to a `User` object can read\n`hashed_password`, `secret` (2FA seed), and `twofa_secret` directly, bypas",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-09-17T20:27:30Z",
-      "cve_ids": [
-        "CVE-2026-76839"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "a2e101e0c8e3cbab20c82fc48c9062692496b342ee1abfb6eb0fb04f71dc1f0b",
-      "url": "https://github.com/advisories/GHSA-xjw5-q542-3vmr",
-      "title": "GHSA: Grav: config_denied_paths default list omits `system`, exposing real secrets (e.g. system.cache.redis.password) via the Twig sandbox when config_access is enabled",
-      "summary": "## Summary\n\n`system/config/security.yaml`'s default `twig_sandbox.config_denied_paths` list\n(`plugins`, `streams`, `security`, `backups`, `scheduler`) omits the `system` prefix.\nWhen an operator enables the documented, non-default `twig_content.config_access: true`\nsetting (intended to safely expose low-sensitivity values like `site.title` to\neditor-authored Twig content), any real secret stored u",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-09-17T20:27:05Z",
-      "cve_ids": [
-        "CVE-2026-76846"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "98a34622b5e47c13944d4fc9c88789ecc6c0160808d475369925a10379efcc39",
-      "url": "https://github.com/advisories/GHSA-p597-crqc-m349",
-      "title": "GHSA: Grav: The system, site, and theme Twig variables bypass the content sandbox entirely and are never covered by config_denied_paths",
-      "summary": "## Summary\n\n`Grav\\Common\\Twig\\Twig::init()` unconditionally puts the raw `system`, `site`, and `theme` config arrays into `$this->twig_vars`. `Twig::processPage()` builds the variables for the sandboxed, editor-authored page-content render by copying that same base array (`$sandbox_vars = $twig_vars;`) and replacing only the `config` key with a filtered `SandboxConfig` facade. The `system`, `site`",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-17T20:25:42Z",
-      "cve_ids": [
-        "CVE-2026-72698"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "3048cba9bf8cfd00d41be28d8410b5d8861c23cf2a1a676e978f6f87b2941002",
-      "url": "https://github.com/advisories/GHSA-38p6-h87p-r4cg",
-      "title": "GHSA: Grav: Non constant time nonce comparison in Utils::verifyNonce() used for CSRF protection",
-      "summary": "## Summary\n\n`Grav\\Common\\Utils::verifyNonce()`, the core function Grav and its plugins use to validate CSRF nonces, compares the submitted nonce to the expected value with PHP's `===` operator instead of `hash_equals()`. `===` on strings short circuits at the first differing byte, so the comparison time leaks how many leading bytes of a guess are correct. This is CWE-208, Observable Timing Discrep",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-17T20:25:05Z",
-      "cve_ids": [
-        "CVE-2026-72701"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "c3805da4e6aebe5a73a9959f8ba64c4b0c38cf67c09582185a2c7885e98ad60e",
-      "url": "https://github.com/advisories/GHSA-g4c3-4g96-6g4m",
-      "title": "GHSA: Chamilo LMS CStudio upload flow allows unauthenticated remote code execution",
-      "summary": "### Impact\nAbility to run arbitrary code on the server without authentication.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-17T20:23:39Z",
-      "cve_ids": [
-        "CVE-2026-45140"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "c850fa27954382659ae566143ceac8d45386a9d4f342ff2dde78156800f9f621",
-      "url": "https://github.com/advisories/GHSA-4rf6-qx84-q9fv",
-      "title": "GHSA: Fulgur: Non-painting replaced elements amplify to thousands of blank PDF pages (denial of service)",
-      "summary": "`fulgur` converts untrusted HTML/CSS into PDF, commonly on a server that\nprocesses input supplied by many tenants. In versions prior to 0.26.0, a\nchildless box that resolves to a pathologically tall height was amplified into\nthousands of blank PDF pages, even when it produces no visible output.\n\nThe childless-collapse defense that would normally collapse such a box was gated\nby a tag-only \"replace",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-17T18:49:15Z",
-      "cve_ids": [
-        "CVE-2026-68537"
-      ],
-      "cvss": 7.5,
       "related_links": []
     }
   ]
