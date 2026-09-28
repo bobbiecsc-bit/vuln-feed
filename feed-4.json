@@ -1,10 +1,108 @@
 {
-  "updated": "2026-09-28T04:00:58.664260+00:00",
+  "updated": "2026-09-28T16:29:38.879597+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "2f15ccabe4e48313e0058145f37a5f689094525605f0d512eb7e6c9dc421995b",
+      "url": "https://github.com/advisories/GHSA-93xw-j965-9mx3",
+      "title": "GHSA: MCP Atlassian: Arbitrary file read/exfiltration via upload_attachment missing validate_safe_path()",
+      "summary": "## Summary\n\nThe `upload_attachment` method in `confluence/attachments.py` reads and uploads arbitrary local files to Confluence without calling `validate_safe_path()`. Both download methods (`download_attachment` at line 223, `download_content_attachments` at line 272) correctly call `validate_safe_path()` before writing files, but the upload path at lines 35-79 skips this check entirely.\n\nAn AI a",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:36:37Z",
+      "cve_ids": [
+        "CVE-2026-77258"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "6b155576ab3da360c897254e529a526a5a7ceade2ac29faabc0df3b2eacabda6",
+      "url": "https://github.com/advisories/GHSA-g5xv-mhgm-v5f6",
+      "title": "GHSA: MCP Atlassian: OAuth fallback token storage writes plaintext access and refresh tokens with group-readable permissions",
+      "summary": "### Summary\n\nWhen OAuth tokens are saved, MCP Atlassian always writes a plaintext fallback copy under `~/.mcp-atlassian/oauth-<client_id>.json`. The fallback file is created with the process default umask rather than restrictive permissions. In this environment the file was created as mode `0664`, exposing access and refresh tokens to same-group local users and any process that can read the home d",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:36:34Z",
+      "cve_ids": [
+        "CVE-2026-77250"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "b1da5b52a2346106118dfecff9789640ca8f6e89c039647f4f4e0bc262d079de",
+      "url": "https://github.com/advisories/GHSA-v9m3-wfh8-5646",
+      "title": "GHSA: MCP Atlassian:  Incomplete fix for GHSA-7r34-79r5-rcc9: redirect-based SSRF via unhooked requests session in Jira user-permission lookup",
+      "summary": "Summary\n\nThe fix for the SSRF vulnerability tracked as GHSA-7r34-79r5-rcc9 / CVE-2026-27826 is incomplete. That fix added two defenses: validate_url_for_ssrf() on the per-request X-Atlassian-Jira-Url / X-Atlassian-Confluence-Url headers (blocking a directly-internal base URL), and a redirect-validation hook (_make_ssrf_safe_hook) attached to the fetcher's HTTP session so that an attacker-controlle",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:36:31Z",
+      "cve_ids": [
+        "CVE-2026-77249"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "96262aa70a3d49f4aa0c9c8b2f063d45b8c7d36e036dd21eee9c071de32d7f08",
+      "url": "https://github.com/advisories/GHSA-wrhw-j3f9-8vc6",
+      "title": "GHSA: [mcp-atlassian] Authentication bypass in HTTP transport: AtlassianOpaqueTokenVerifier accepts any non-empty token",
+      "summary": "**Description**\n\nmcp-atlassian deploys in two common patterns:\n\n  Pattern A (single-user, server-side credentials): operator sets\n    JIRA_USERNAME + JIRA_API_TOKEN (or CONFLUENCE_USERNAME + CONFLUENCE_API_TOKEN)\n    in environment variables. Server uses these to call Jira/Confluence.\n    This is the documented quickstart pattern.\n\n  Pattern B (multi-user, OAuth or per-request PAT): operator sets ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-22T20:36:26Z",
+      "cve_ids": [
+        "CVE-2026-77244"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "8dfe377612e007eb3b0cbdd76b4f6822fccd5fa00e858e88a761b5f08ed6f4cf",
+      "url": "https://github.com/advisories/GHSA-g2r2-3j32-j27x",
+      "title": "GHSA: MCP Atlassian: Reflected XSS in OAuth Setup Callback Handler",
+      "summary": "## Summary\n\nThe OAuth 2.0 setup wizard's local callback HTTP server reflects the `error` query parameter directly into an HTML response without any sanitization or encoding. An attacker can craft a malicious callback URL containing JavaScript in the `error` parameter that executes in the victim's browser when the setup wizard is running. The server binds to all network interfaces (`0.0.0.0`), maki",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:35:25Z",
+      "cve_ids": [
+        "CVE-2026-77272"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "976f39de7e910d328e50ec94290bd5330462e2cba9b64de60c8b586d5a78fd29",
+      "url": "https://github.com/advisories/GHSA-p6hp-93wp-fh6p",
+      "title": "GHSA: MCP Atlassian: Path Traversal / Arbitrary File Read in confluence_upload_attachment MCP tool (incomplete fix of GHSA-xjgw-4wvw-rgm4)",
+      "summary": "## Summary\n\n`mcp-atlassian` exposes an MCP tool `confluence_upload_attachment` whose `file_path` argument is passed directly to `open(file_path, \"rb\")` without any path validation. An attacker able to invoke the tool can read arbitrary files readable by the server process and exfiltrate them into a multipart upload directed at an attacker-controlled Confluence host. In the default `streamable-http",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:35:21Z",
+      "cve_ids": [
+        "CVE-2026-77262"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "4308d78d434bfda8b7e9238f5e2d6e562c5e9aeb680b96ad2cc159511098e606",
+      "url": "https://github.com/advisories/GHSA-4596-2p6p-28cv",
+      "title": "GHSA: MCP Atlassian: Insecure File Permissions on OAuth Token Storage",
+      "summary": "## Summary\n\nThe OAuth token fallback file storage in `OAuthConfig._save_tokens_to_file()` creates token files containing access tokens, refresh tokens, and cloud IDs with default filesystem permissions (typically `0644` on Linux, world-readable). Any local user on a shared system can read these files to obtain full Atlassian API credentials, enabling unauthorized access to the victim's Jira and Co",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-22T20:35:19Z",
+      "cve_ids": [
+        "CVE-2026-77268"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
     {
       "id": "a0e8df72061f901f4ade56452a722845d3c7bcf70773211dbd322fe439f99d1f",
       "url": "https://github.com/advisories/GHSA-6cr4-ccf3-x7h4",
@@ -161,7 +259,9 @@
         "CVE-2026-61612"
       ],
       "cvss": 5.7,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-61612"
+      ]
     },
     {
       "id": "0b5273a542ef345ca585016ef7ff38c3b34d013aeb93909e2d5217184636afb4",
@@ -169,13 +269,15 @@
       "title": "GHSA: Sync-in Server has Username/Login Enumeration via Timing Side-Channel on POST /api/auth/login (incomplete fix of the prior timing-attack advisory)",
       "summary": "## Summary\n\nvalidateUser() in backend/src/authentication/providers/mysql/auth-provider-mysql.service.ts returns immediately when the supplied login/email does not match any account, without ever calling comparePassword():\n\n    async validateUser(loginOrEmail: string, password: string, ip?: string, scope?: AUTH_SCOPE): Promise<UserModel> {\n      let user: UserModel\n      try {\n        user = await ",
       "source": "GitHub Advisory",
-      "category": "web_app",
+      "category": "emergency",
       "date": "2026-09-22T14:49:23Z",
       "cve_ids": [
         "CVE-2026-58272"
       ],
       "cvss": 5.3,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-58272"
+      ]
     },
     {
       "id": "5e39758cd1e39064eb6c806a95c88b3504c0d53ced1f9acf69be7008d64e1aa5",
@@ -183,13 +285,15 @@
       "title": "GHSA: Sync-in Server has a ReDoS via Unsanitized Regex in Sync Diff `pathFilters`",
       "summary": "**Affected component:** Sync-in Server v2.3.0, `POST /api/app/sync/operation/diff/:id`, vulnerable implementation of `pathFilters` in `backend/src/applications/sync/dtos/sync-operations.dto.ts`.\n\n## Summary\n\nIn the vulnerable version, the sync diff endpoint accepted a user-controlled regex pattern through `pathFilters` and compiled it into a `RegExp` without complexity validation. The resulting re",
       "source": "GitHub Advisory",
-      "category": "web_app",
+      "category": "emergency",
       "date": "2026-09-22T14:47:56Z",
       "cve_ids": [
         "CVE-2026-58270"
       ],
       "cvss": 6.5,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-58270"
+      ]
     },
     {
       "id": "d5f375236baaabedaeeb8fa77c96eeeecef8004e529bd27a9fb5b9da4832967d",
@@ -197,13 +301,15 @@
       "title": "GHSA: Sync-in Server has a complete 2FA Bypass via `POST /api/auth/token`",
       "summary": "**Affected component:** Sync-in Server v2.3.0, `POST /api/auth/token` (`auth.controller.ts:50-55`).\n\n**Required attacker capability:** Valid username and password for a 2FA-enabled account.\n\n## Summary\n\n`POST /api/auth/token` authenticates with username and password only, then calls `getTokens()`, which returns unrestricted Bearer access and refresh JWTs without checking whether the account has TO",
       "source": "GitHub Advisory",
-      "category": "web_app",
+      "category": "emergency",
       "date": "2026-09-22T14:46:30Z",
       "cve_ids": [
         "CVE-2026-58269"
       ],
       "cvss": 8.1,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-58269"
+      ]
     },
     {
       "id": "50d62c2d3a4599cd22b0f650d5555575fd6be9e3dc5a4ddf22e6feba2088084c",
@@ -217,7 +323,9 @@
         "CVE-2026-58271"
       ],
       "cvss": 6.8,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-58271"
+      ]
     },
     {
       "id": "e4fa908cc7a7d37acc1fc12cda1f7e14bbc8422e1d94cc67e51ea3aaedff5582",
@@ -1907,245 +2015,143 @@
       "related_links": []
     },
     {
-      "id": "522af8b6ffea78c37b78b4edf4f9d68325f1aece2b251d7f059e1f5d14d9e689",
-      "url": "https://www.bleepingcomputer.com/news/security/cisa-alerts-of-active-exploitation-of-three-linux-kernel-flaws/",
-      "title": "CISA alerts of active exploitation of three Linux kernel flaws",
-      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) is warning that hackers are exploiting three Linux kernel vulnerabilities, one of them rated critical. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-21T20:12:17+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "7c13e8164b6aa5d1e74e663226c085419f3d458a99e81825a829171f6a3f0be2",
-      "url": "https://www.bleepingcomputer.com/news/security/wordpress-click2shell-flaw-lets-hackers-execute-php-on-the-server/",
-      "title": "WordPress Click2Shell flaw lets hackers execute PHP on the server",
-      "summary": "Technical details and a proof-of-concept exploit have been published for a new WordPress cross-site request forgery (CSRF) vulnerability dubbed 'Click2Shell' that affects the platform's Core component. [...]",
-      "source": "Bleeping Computer",
-      "category": "web_app",
-      "date": "2026-09-21T18:23:11+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "49fea6905937b3a3ce7c98f5aa414f4273eab166f225e4059623296785ab541c",
-      "url": "https://ubuntu.com/security/notices/USN-8794-1",
-      "title": "USN-8794-1: GLib vulnerabilities",
-      "summary": "It was discovered that GLib's GDBus authentication mechanism failed to enforce length limitations on data lines read from a client. An unauthenticated attacker could exploit this to cause a denial of service via resource exhaustion. (CVE-2026-15588) It was discovered that the xdgmime library in GLib had a heap-based buffer overflow. An attacker-controlled MIME magic file could cause an out-of-boun",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-09-21T16:25:01+00:00",
-      "cve_ids": [
-        "CVE-2026-15588",
-        "CVE-2026-16118",
-        "CVE-2026-58010",
-        "CVE-2026-58011",
-        "CVE-2026-58012",
-        "CVE-2026-58013",
-        "CVE-2026-58014",
-        "CVE-2026-58015",
-        "CVE-2026-58016"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "0985c0a85b500f5537abb27bcdd6831ad5a15d50c41883c28ee13df38a5e2a3b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36472",
-      "title": "CVE-2026-36472 — CVSS 5.2",
-      "summary": "CuteNews v.2.1.2 is vulnerable to Cross Site Scripting (XSS). Improper neutralization of the __referer value 2.0.1 allows a remote attacker to execute arbitrary JavaScript in the context of an authenticated user's session via a javascript: URI rendered as an unsanitized clickable link on the msg_info page.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-21T16:17:08.210",
-      "cve_ids": [
-        "CVE-2026-36472"
-      ],
-      "cvss": 5.2,
-      "related_links": []
-    },
-    {
-      "id": "33cf0f1c3f46ba24ea3da4d4bf8382ff747e36d785d8e2a9d324233218b23d78",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36471",
-      "title": "CVE-2026-36471 — CVSS 5.8",
-      "summary": "Deserialization of Untrusted Data of the __post_data parameter in cn_parse_url() in CuteNews v.2.1.2 allows a remote attacker to inject arbitrary values into internal request variables (including __referer) via a crafted base64-encoded serialized PHP payload submitted as a POST parameter.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-21T16:17:08.090",
-      "cve_ids": [
-        "CVE-2026-36471"
-      ],
-      "cvss": 5.8,
-      "related_links": []
-    },
-    {
-      "id": "0a462fffd3bcc83a6b147aa9981eae05d52cdd0cede2bea39ec89c13cb4dc82a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36470",
-      "title": "CVE-2026-36470 — CVSS 5.8",
-      "summary": "CuteNews v.2.1.2 is vulnerable to Cross Site Scripting (XSS) in index.php. The value of the \"Referer\" header is copied into the response HTML unmodified/unescaped during POST messages to index.php.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-21T16:17:07.970",
-      "cve_ids": [
-        "CVE-2026-36470"
-      ],
-      "cvss": 5.8,
-      "related_links": []
-    },
-    {
-      "id": "271de183c5611010c14651330e5405a3c92fad698adafdc76565f0f4939392a6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36469",
-      "title": "CVE-2026-36469 — CVSS 9.1",
-      "summary": "CuteNews v.2.1.2 is vulnerable to Server-Side Request Forgery (SSRF) in core/modules/media.php -- upload_from_inet (Media Manager's \"Upload by URL\" functionality).",
+      "id": "75dbf924531641c5d2d8f2b7009eec123ec55559de73027953025ef2718c4f6e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73553",
+      "title": "CVE-2026-73553 — CVSS 7.5",
+      "summary": "Envoy is an open source edge and service proxy designed for cloud-native applications. Prior to 1.36.10, 1.37.6, 1.38.4, and 1.39.1, When ignore_path_parameters_in_path_matching is enabled, Envoy's router strips the semicolon suffix before matching but the RBAC url_path matcher evaluates the raw path. A downstream request such as /admin;x can therefore miss a DENY rule for /admin while the router ",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-09-21T16:17:07.843",
+      "date": "2026-09-21T21:17:09.637",
       "cve_ids": [
-        "CVE-2026-36469"
+        "CVE-2026-73553"
       ],
-      "cvss": 9.1,
+      "cvss": 7.5,
       "related_links": []
     },
     {
-      "id": "a857316f17fc84812305d2a127592c56cb4b3605540cb4d056c98dc5713b5428",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36468",
-      "title": "CVE-2026-36468 — CVSS 6.1",
-      "summary": "Cross-site Scripting (XSS) in index.php in CuteNews v.2.1.2 allows remote unauthenticated attackers to supply an arbitrarily named URL parameter key, with part of its name containing any URL-encoded common XSS payload (such as \"><script>alert(1)</script>).",
+      "id": "1aa962283093046c1a3fce2d022ca5f0b25b79c9b4e924b65fa044db62f7192c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73551",
+      "title": "CVE-2026-73551 — CVSS 5.3",
+      "summary": "Envoy is an open source edge and service proxy designed for cloud-native applications. Prior to 1.36.10, 1.37.6, 1.38.4, and 1.39.1, Envoy's URL normalization does not recognize dot and dotdot path segments when they carry semicolon parameters. A request such as /user/..;foo=bar/admin is therefore not canonicalized to /admin even when path normalization is enabled. If an upstream interprets the se",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-09-21T16:17:07.710",
+      "date": "2026-09-21T21:17:09.473",
       "cve_ids": [
-        "CVE-2026-36468"
+        "CVE-2026-73551"
       ],
-      "cvss": 6.1,
+      "cvss": 5.3,
       "related_links": []
     },
     {
-      "id": "dc39b11b34e226dbf472016b7bdab052c467e874a5a091c08d7c78d9c888b270",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-36467",
-      "title": "CVE-2026-36467 — CVSS 7.2",
-      "summary": "Unrestricted Upload of File with Dangerous Type in core/modules/media.php in CuteNews v.2.1.2 allows remote authenticated users with access to the Media Manager panel to execute arbitrary code in the context of the web application, leading to remote server access by triggering a reverse shell.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-09-21T16:17:07.470",
-      "cve_ids": [
-        "CVE-2026-36467"
-      ],
-      "cvss": 7.2,
-      "related_links": []
-    },
-    {
-      "id": "0d7ad52e311e9ca08fbf4c01fa37695cd508a39b34afd4a34a3055d36ee23c1d",
-      "url": "https://github.com/advisories/GHSA-phg3-3g28-wq9v",
-      "title": "GHSA: Hatchet - Unauthenticated OAuth state CSRF / login-CSRF via empty-state collision in ValidateOAuthState",
-      "summary": "### Summary\n\nHatchet version v0.86.26 and below is vulnerable to OAuth state CSRF (login CSRF / account fixation). \n\nThe vulnerable code clears the session `oauth_state_<integration>` value to the empty string `\"\"` after a successful OAuth callback rather than removing the key, and the subsequent state-equality check then accepts an empty `?state=` parameter on any later callback request — allowin",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-21T15:47:01Z",
-      "cve_ids": [
-        "CVE-2026-61687"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "c7b35033af526bd383ce38cf492d80ad489fe7d2564b51f1d611f7b71e74b6e3",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-94301",
-      "title": "CVE-2026-94301 — CVSS 9.8",
-      "summary": "The fix for CVE-2026-47065/ZDRES-232 (\"resolveProxyClass Not Overridden - acceptMatchers Filter Bypass via java.lang.reflect.Proxy\"), released on 2026-06-02 and announced as \"Fully addressed\" in MINA 2.2.8, 2.1.13 and 2.0.29, was committed to the\n 2.2.X branch only. The 2.0.X and 2.1.X maintenance branches never received the resolveProxyClass() override, so the 2.0.29 and 2.1.13 artifacts listed a",
+      "id": "efe923fc50b2b35ad7d70c781620852de80c2f1abc0705c11f753c398ed46232",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73511",
+      "title": "CVE-2026-73511 — CVSS 5.3",
+      "summary": "Envoy is an open source edge and service proxy designed for cloud-native applications. Prior to 1.36.10, 1.37.6, 1.38.4, and 1.39.1, Envoy normally matches the raw request path, while servlet backends such as Apache Tomcat strip semicolon matrix parameters from each path segment before resolving the resource. Envoy's ignore_path_parameters_in_path_matching option instead truncates at the first sem",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-09-21T15:17:38.903",
+      "date": "2026-09-21T21:17:09.207",
       "cve_ids": [
-        "CVE-2026-94301"
+        "CVE-2026-73511"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "1cdba0b188a4e7bc65d4554a123d5bb81495e0638e28103b999563750febebc2",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-67827",
+      "title": "CVE-2026-67827 — CVSS 9.8",
+      "summary": "Incorrect Access Control in the HTTP API module in ZLMediaKit commit 9fd5152 allows remote attackers to achieve Remote Code Execution (RCE) via unauthenticated access to the setServerConfig API endpoint, which permits overwriting the ffmpeg.snap configuration parameter with arbitrary shell commands. These commands are subsequently executed through the getSnap API endpoint with the privileges of th",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-21T21:17:08.827",
+      "cve_ids": [
+        "CVE-2026-67827"
       ],
       "cvss": 9.8,
       "related_links": []
     },
     {
-      "id": "47b7271859e86ab259d407a9c6de39fb641f2d61dbad24eb1d1169da47b54b86",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-94184",
-      "title": "CVE-2026-94184 — CVSS 8.1",
-      "summary": "A stack-based buffer overflow flaw was found in fetchmail when built with NTLM support. A malicious or compromised mail server advertising NTLM authentication can send a crafted Type 2 challenge that causes fetchmail to write past a fixed stack buffer while building the NTLM authenticate response. This may lead to remote code execution depending on stack-frame layout, or to authentication failure ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-21T15:17:38.547",
-      "cve_ids": [
-        "CVE-2026-94184"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "a1f7dff2e0f75d8aafae5f3613748cef15cd7ceda077e752bbe1e37f656bfc3a",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-93339",
-      "title": "CVE-2026-93339 — CVSS 5.4",
-      "summary": "Metaphor Creations Ditty (ditty-news-ticker) before 3.1.70 contains a stored cross-site scripting vulnerability that allows authenticated users with Author-level privileges or higher to inject arbitrary HTML elements by supplying malicious wrapper attribute values in layout tags. The ditty_layout_render_tag_wrapper() function inserts caller-supplied wrapper attribute values directly as HTML elemen",
+      "id": "e2122c35f0e00c8ef84a8b7b3a271623a304d7048f391877ffe604a5b4d9c14c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-61647",
+      "title": "CVE-2026-61647",
+      "summary": "NotebookLM MCP is an MCP server and HTTP service for interacting with Google NotebookLM and exporting generated content to local vault directories. Versions 1.6.0 through 2.0.2 contain a path traversal vulnerability in the `POST /batch-to-vault` endpoint, also exposed through the `batch_to_vault` MCP tool beginning in version 1.7.0, because attacker-controlled `vault_dir` and `slug_prefix` values ",
       "source": "NVD/NIST",
       "category": "web_app",
-      "date": "2026-09-21T15:17:35.617",
+      "date": "2026-09-21T21:17:07.107",
       "cve_ids": [
-        "CVE-2026-93339"
+        "CVE-2026-61647"
       ],
-      "cvss": 5.4,
+      "cvss": null,
       "related_links": []
     },
     {
-      "id": "98bd3c3b82650f84a1a18794cc79c2f774e289abdcd60ee10390954975150e53",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-86473",
-      "title": "CVE-2026-86473 — CVSS 9.1",
-      "summary": "Apache Airflow: the Core API logout endpoint revokes only a session token presented as the _token cookie. When a client logs out presenting its credential as an Authorization bearer header instead, the endpoint returns its normal logout response but revokes nothing, so the token remains valid until it expires. An attacker who already holds a copy of that token keeps the victim's access after the v",
+      "id": "4722202942b60de838e16d57693dbae7fa5e0067f5c4e4eb6f0332bd0a432e79",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-59816",
+      "title": "CVE-2026-59816 — CVSS 4.3",
+      "summary": "Joplin is an open source note-taking and to-do application that organises notes and lists into notebooks. Prior to 3.7.7, the GET /api/transcribe/:id and POST /api/transcribe/:id handlers in packages/server/src/routes/api/transcribe.ts on Joplin Server instances with TRANSCRIBE_ENABLED=true pass the decoded id directly into transcription backend URLs. An authenticated user can place URL-encoded sl",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-09-21T15:17:32.997",
+      "date": "2026-09-21T21:17:06.490",
       "cve_ids": [
-        "CVE-2026-86473"
+        "CVE-2026-59816"
       ],
-      "cvss": 9.1,
+      "cvss": 4.3,
       "related_links": []
     },
     {
-      "id": "0dafaad15a7b373010c00fdfc00d9a62a2709e469acd7dcac403e655be08716b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-82355",
-      "title": "CVE-2026-82355 — CVSS 4.2",
-      "summary": "When a request to the Airflow core API carries both a session cookie and an explicit `Authorization: Bearer` token, Airflow resolves the caller from the cookie and ignores the bearer token, inverting the intended precedence of bearer over cookie. The request then executes -- and is recorded in the audit log -- as the cookie's principal rather than the identity the client explicitly presented.\n\nOnl",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-21T15:17:32.430",
-      "cve_ids": [
-        "CVE-2026-82355"
-      ],
-      "cvss": 4.2,
-      "related_links": []
-    },
-    {
-      "id": "abd11096b402d9f9729a56e9f9cd13ea21d37dfeea2d2d4f57ec1f4277f55dde",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-80110",
-      "title": "CVE-2026-80110 — CVSS 8.1",
-      "summary": "A flaw was found in pki-core. The v2 REST ACL filter selects a tie-breaking permission for colliding literal and wildcard ACL keys using lexicographic string comparison rather than specificity, causing a wildcard-mapped permission to override a more specific literal-mapped permission when both match. In the CA's profile-management REST API this allows a request to POST /v2/profiles/raw -- intended",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-09-21T15:17:32.060",
-      "cve_ids": [
-        "CVE-2026-80110"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "72f270c75c8f6d8146a5432e6e994dade7d94d7289b4d489b74a63d9fb58125b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-75939",
-      "title": "CVE-2026-75939 — CVSS 7.4",
-      "summary": "A flaw was found in openshift/oc-mirror. The tool incorrectly verifies PGP (Pretty Good Privacy) release image signatures by checking for signature errors before the entire signed body is processed, leading to a bypass of the signature verification. A remote attacker, by intercepting or manipulating network traffic to the signature endpoint, could exploit this to craft a PGP message with a valid R",
+      "id": "5d99de1a6e873e2b819bc34118ad811e11bc440b5501903b5d2a3790da60da66",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55179",
+      "title": "CVE-2026-55179 — CVSS 6.5",
+      "summary": "Joplin is an open source note-taking and to-do application that organises notes and lists into notebooks. Prior to 3.7.2, Joplin Server's GET /items/:id/content route in packages/server/src/routes/index/items.ts loads item content from an attacker-supplied internal server ID without checking whether the signed-in user owns or can access that item. Any authenticated user who obtains or guesses anot",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-09-21T15:17:31.520",
+      "date": "2026-09-21T21:17:05.463",
       "cve_ids": [
-        "CVE-2026-75939"
+        "CVE-2026-55179"
       ],
-      "cvss": 7.4,
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "91b4b563d8d6e2aa11f6e05badb665b653ef3e7aac8d2287db2a91e58a5bf6e0",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-55105",
+      "title": "CVE-2026-55105 — CVSS 7.7",
+      "summary": "Joplin is an open source note-taking and to-do application that organises notes and lists into notebooks. Prior to 3.6.15 and 3.7.2, packages/renderer/MdToHtml/rules/fountain.ts passes HTML generated by the vendored fountain.js renderer into note output without sanitizing it. A malicious Fountain code block can therefore execute script when Fountain rendering is enabled in desktop or mobile client",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-21T21:17:05.320",
+      "cve_ids": [
+        "CVE-2026-55105"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "93c670e8d2d44ccc45e8b611fd8b9b8a2ea449c02ce1f9902b9f90f7bbbc892d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-49453",
+      "title": "CVE-2026-49453 — CVSS 7.0",
+      "summary": "Joplin is an open source note-taking and to-do application that organises notes and lists into notebooks. Prior to 3.6.15 and 3.7.2, Joplin accepts synchronized resource metadata whose id or file_extension contains parent-directory or path-separator characters. BaseItem.unserialize() stores the unvalidated fields, resourceFilename() concatenates them into a destination path, and ResourceFetcher wr",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-21T21:17:03.900",
+      "cve_ids": [
+        "CVE-2026-49453"
+      ],
+      "cvss": 7.0,
+      "related_links": []
+    },
+    {
+      "id": "5f92cd2cc5e194fc9eb5091b2138d0afa8cd53c00b8e3d194bde8a72e1bdb6fb",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-49450",
+      "title": "CVE-2026-49450 — CVSS 7.1",
+      "summary": "Joplin is an open source note-taking and to-do application that organises notes and lists into notebooks. Prior to 3.7.2, Joplin Desktop for Windows omits publisherName from packages/app-desktop/package.json, so the generated app-update.yml causes NsisUpdater.verifySignature() to skip comparison of a downloaded update's Authenticode signer with Joplin's signer. An attacker who controls the update ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-09-21T21:17:03.747",
+      "cve_ids": [
+        "CVE-2026-49450"
+      ],
+      "cvss": 7.1,
       "related_links": []
     }
   ]
