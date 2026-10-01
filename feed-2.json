@@ -1,10 +1,294 @@
 {
-  "updated": "2026-09-30T20:35:26.106396+00:00",
+  "updated": "2026-10-01T04:29:55.139152+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "69f97bf64cc31274587fa55bf34ce1061d7837d155647aaed414b73764155f94",
+      "url": "https://github.com/advisories/GHSA-8wjv-2p76-3863",
+      "title": "GHSA: PyJWT: Uncaught RecursionError in jwt.decode() on deeply nested token header",
+      "summary": "## Package\n\npyjwt (PyPI)\n\n## Affected versions\n\ntested & verified on: 2.13.0. Every version whose `PyJWS._load()` translates only `ValueError` is affected\n\n## Description\n\n`PyJWS._looad()` (`jwt/api_jws.py:337`) splits the compact token, base64url decodes the header segment and hands it to `json.loads()` before `_verify_signature()` runs. The parse is wrapped in `except ValueError as e: raise Deco",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-29T23:43:06Z",
+      "cve_ids": [
+        "CVE-2026-102265"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "c4a1c30a7ee6136667764d9ee7bf6a6662bb1019088107374e3e5495a7c12c11",
+      "url": "https://github.com/advisories/GHSA-hxm8-2xgr-2p9m",
+      "title": "GHSA: PyJWT: Non-canonical signature segments enable raw-token revocation bypass",
+      "summary": "## Summary\n\nPyJWT 2.13.0 accepts compact JWS signature segments containing characters that\nare not in the Base64URL alphabet. Appending `!!!!` to a valid signature does\nnot change the decoded signature bytes or authenticated claims, but it changes\nthe serialized token and its SHA-256 hash. An application that indexes logout\nor revocation state by the raw token therefore rejects the logged-out toke",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-29T23:17:55Z",
+      "cve_ids": [
+        "CVE-2026-102269"
+      ],
+      "cvss": 4.8,
+      "related_links": []
+    },
+    {
+      "id": "18ec558de7c5810ee1b34e4a68cc65c11ddf46f7ea4d57bce19a12cc684bea8d",
+      "url": "https://github.com/advisories/GHSA-ffc3-869f-jxw9",
+      "title": "GHSA: PyJWT: Asymmetric-PEM detection bypass: whitespace/line-ending-mutated public keys skip the HS/asymmetric confusion guard",
+      "summary": "**Prerequisites** (both conditions must hold; both are deployment properties, not attacker-controlled at request time):\n\n- The `jwt.decode` allow-list mixes an HMAC algorithm with an asymmetric one, e.g. `algorithms=[\"ES256\", \"HS256\"]` (the RFC 8725 footgun the guard exists to backstop).\n- The verification key is passed as raw PEM text/bytes on the non-`PyJWK` path, in a byte-form that `cryptograp",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-29T23:17:33Z",
+      "cve_ids": [
+        "CVE-2026-102268"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "c227f41f5ed5da8b336efbdfc88d64a20fd937e0b6d8ce0da3249303d372865d",
+      "url": "https://github.com/advisories/GHSA-w2cx-738m-mc7w",
+      "title": "GHSA: PyJWT accepts public JWK containers as HMAC secrets",
+      "summary": "### Summary\n\nPyJWT 2.13.0 contains an incomplete defense against algorithm confusion when\nan application mixes symmetric and asymmetric algorithms in one verification\npath. A public RSA, EC, or OKP JWK can be accepted as an HMAC secret when it\nis wrapped in a JWKS object, nested in an array, or represented in another\ncontainer form that does not expose a top-level `kty` member.\n\n### Impact\n\nAn att",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-09-29T23:16:55Z",
+      "cve_ids": [
+        "CVE-2026-102273"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "b507999fd9e51c56ac6dcf75a0e449d1e43c02d51751b08854d4cec23ff0fca2",
+      "url": "https://github.com/advisories/GHSA-9v7f-9g4p-ffgj",
+      "title": "GHSA: PyJWT: PyJWKClient follows redirects when fetching JWKS",
+      "summary": "### Summary\n\nPyJWT 2.13.0 `PyJWKClient` followed HTTP redirects while fetching a JWKS,\nwithout validating the redirect destination. A configured trusted endpoint\ncould therefore redirect the client to a different host.\n\n### Impact\n\nWhen an application uses `PyJWKClient` with caller-supplied request headers and\nan attacker can influence the configured endpoint's response, the redirected\nrequest cou",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-29T23:15:00Z",
+      "cve_ids": [
+        "CVE-2026-102267"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "722faf13eea9a7431f32a9337662d70651d78c635bcfa0c8d987391fa3660d28",
+      "url": "https://github.com/advisories/GHSA-p4g4-x82p-q773",
+      "title": "GHSA: PyJWT: Public keys in DER form are accepted as HMAC secrets, bypassing the CVE-2022-29217 guard",
+      "summary": "### Summary\n\n`HMACAlgorithm.prepare_key` blocks asymmetric keys from being used as HMAC secrets by searching for text markers only. It looks for `-----BEGIN` and for an `ssh-` prefix. The same key in DER form is binary ASN.1 and has neither marker, so it passes the check and is used as an HMAC secret.\n\nAn application that verifies tokens with an RSA or EC public key, and also allows HS256 with tha",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-09-29T23:14:33Z",
+      "cve_ids": [
+        "CVE-2026-102271"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "fa4f6aebd65aaa0ae68e3227f5816a5631abcc97750283c05f241200e1bdd7e0",
+      "url": "https://github.com/advisories/GHSA-r6x4-923q-g947",
+      "title": "GHSA: PyJWT BOM Bypass",
+      "summary": "## Affected Package\n\n- **Package**: PyJWT (`pyjwt` on PyPI)\n- **Repository**: https://www.google.com/url?q=https://github.com/jpadilla/pyjwt&source=gmail&ust=1781794518474000&sa=E\n- **Affected version**: 2.13.0\n- **Vulnerability class**: Algorithm confusion / patch bypass\n\n---\n\n## Root Cause\n\nPyJWT 2.13.0 introduced a guard in `HMACAlgorithm.prepare_key()` (file `jwt/algorithms.py`, approximately ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-29T23:14:00Z",
+      "cve_ids": [
+        "CVE-2026-102272"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "860f792017444b7b1f773576ab7d686b74bd8ec782c34e7a64d4bcfaf94f853d",
+      "url": "https://github.com/advisories/GHSA-2gx3-rcp4-g85q",
+      "title": "GHSA: PyJWT: PyJWKClient still amplifies unauthenticated JWKS fetches on unknown kid values (incomplete fix of CVE-2026-48524)",
+      "summary": "Summary\nCVE-2026-48524 (GHSA-fhv5-28vv-h8m8, \"PyJWKClient unbounded JWKS endpoint requests via attacker-controlled kid values (DoS)\") was fixed in 2.13.0 by stopping fetch_data() from clearing the cache on a fetch error. That closed one amplification path but did not add the mitigation the advisory's title implies: there is still no rate-limit, negative-cache, or minimum-refresh-interval for unkno",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-29T23:11:51Z",
+      "cve_ids": [
+        "CVE-2026-101917"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "e339bea79f00a6d09bc9e570535a02a2aa9e68d892339069622bb10a9dd33e36",
+      "url": "https://github.com/advisories/GHSA-p634-w6r4-rjp2",
+      "title": "GHSA: adm-zip: Duplicate ZIP entry names: getEntry() and extractAllTo() resolve to different content",
+      "summary": "### Summary\n\nA ZIP file can contain two entries with the identical name. adm-zip keeps both in its internal entry list, but its name-lookup table only retains the last one written. `getEntry(name)` and `extractAllTo()` walk these two different internal structures, so they can each resolve a duplicate name to a *different* entry. An application that validates a named entry's contents via `getEntry(",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-29T23:11:01Z",
+      "cve_ids": [],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "2a1bbbd344f955d319fe4e330d010fd7aaed137cbf8a2086a128837fe051f887",
+      "url": "https://github.com/advisories/GHSA-c6fg-446q-cg94",
+      "title": "GHSA: adm-zip: getDataAsync() bypasses the maxOutputLength size guard enforced by the synchronous getData() path",
+      "summary": "### Summary\nadm-zip enforces a `maxOutputLength` guard against decompression bombs on its synchronous `getData()` path, but the equivalent asynchronous `getDataAsync()` path does not enforce it — it accumulates and returns the entire decompressed output regardless of the entry's declared size. An application that checks an entry's declared size before deciding to process it, then reads the entry v",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-29T23:10:32Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "4ba47f7e83ef78db7b7b5700596a647d34059a729b61e56da3e73f784f7c6409",
+      "url": "https://github.com/advisories/GHSA-8238-w5pm-2374",
+      "title": "GHSA: adm-zip: Unhandled error event in async DEFLATE decompression crashes Node.js process (DoS)",
+      "summary": "## Summary\n\nDenial of Service in `adm-zip`'s async decompression API allows an unauthenticated attacker to crash the entire Node.js host process by supplying a single malformed ZIP file.\n\n## Details\n\n**Affected package**: adm-zip\n**Affected versions**: at least 0.6.0 (current latest); likely all versions containing the current `inflateAsync` implementation in `methods/inflater.js`\n**Patched versio",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-29T23:10:09Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "6864d78e90077215931076006dfaefbbd3519c534cf54a6ef5f1e852755bae72",
+      "url": "https://github.com/advisories/GHSA-m6mh-2hw2-555x",
+      "title": "GHSA: Ammonia: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "summary": "The following SVG will produce a link with a `javascript` scheme. If the user clicks this link, they will run it.\n\n```svg\n<svg xmlns=\"http://www.w3.org/2000/svg\">\n  <a>\n    <set attributeName=\"href\" to=\"javascript:alert('SET_XSS')\"></set>\n    <text y=\"30\">Click set</text>\n  </a>\n</svg>\n```\n\n### Impact\n\nAllows stored XSS in applications that allow the `animate` and `set` tags.\n\n### Patches\n\nFixed i",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-29T23:09:16Z",
+      "cve_ids": [
+        "CVE-2026-102342"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "e27da3a174d29304e5415d5a42e0ff55feaf4a228ed983061f065051f12e00b6",
+      "url": "https://github.com/advisories/GHSA-rcw4-f5rp-g42v",
+      "title": "GHSA: adm-zip: Decompression-bomb protection (fix for CVE-2026-39244) can be bypassed by declaring uncompressed size as 0",
+      "summary": "**Affected package:** adm-zip (npm)\n**Affected version:** 0.6.0\n\n## Summary\n\nThe fix shipped for CVE-2026-39244 (`methods/inflater.js`) caps zlib's decompression output via `maxOutputLength: expectedLength`, where `expectedLength` is read directly from the ZIP entry's attacker-controlled \"uncompressed size\" header field (`CENLEN`/`LOCLEN`). This cap is only applied when `expectedLength > 0`:\n\n```j",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-29T18:25:20Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "f5de93a2c17d78f91e3411053e3e4ef073f85253f02a1b4c5dc6e2649bddc8b1",
+      "url": "https://github.com/advisories/GHSA-j5f4-cc29-5x44",
+      "title": "GHSA: adm-zip extraction preserves SUID/SGID bits from untrusted ZIPs -> local privilege escalation",
+      "summary": "## Summary\n\nadm-zip applies the Unix permission bits stored in a zip entry directly to the extracted file via `fs.chmodSync()` when `keepOriginalPermission=true` is passed to `extractAllTo()`/`extractEntryTo()` — and it never filters the setuid/setgid/sticky bits out of those bits. A zip crafted by an attacker can therefore produce an extracted binary with mode `04755`. When extraction runs as roo",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-29T18:24:57Z",
+      "cve_ids": [
+        "CVE-2026-102282"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "ed5d83035970bbdadf611980b8717e4ce92e1d41ad218e7b25ca9a20cd13b064",
+      "url": "https://github.com/advisories/GHSA-jh5r-qr3c-85q8",
+      "title": "GHSA: Laravel: XSS in Debug Page Information",
+      "summary": "### Impact\nWhen `APP_DEBUG=true`, attacker-controlled input is passed to a Tippy.js tooltip configured with `allowHTML: true`, enabling DOM-based XSS during mouse hover.\n\n### Patches\n[#61381](https://github.com/laravel/framework/pull/61381)",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-29T18:24:25Z",
+      "cve_ids": [
+        "CVE-2026-102279"
+      ],
+      "cvss": 3.1,
+      "related_links": []
+    },
+    {
+      "id": "8b919f7a50f4a87fa23472e11dd212f727f63d123b6c796298643b907dad7103",
+      "url": "https://github.com/advisories/GHSA-8vvx-rff5-p5rq",
+      "title": "GHSA: Nodemailer: Nested structured recipient arrays bypass the parser depth limit and cause stack exhaustion DoS",
+      "summary": "## Submission metadata\n\n| Field | Value |\n|---|---|\n| Ecosystem | npm |\n| Package | `nodemailer` |\n| Repository | https://github.com/nodemailer/nodemailer |\n| Tested commit | `40d52215aac65b811d7e131bc916f68605efd9d2` |\n| Current tested version | `10.0.1` |\n| Confirmed vulnerable versions | `2.7.2`, `3.0.0`, `7.0.11`, `9.1.1`, `10.0.1` |\n| Proposed affected range | `>= 2.7.2, <= 10.0.1` |\n| Patche",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-29T18:23:50Z",
+      "cve_ids": [],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "091b9a3155ad6826bd07c917ec24205c22159859a390a78d60c28052b290dff7",
+      "url": "https://github.com/advisories/GHSA-w6j9-cwv2-h6wq",
+      "title": "GHSA: PyJWT: Malformed RSA JWK aborts parsing of an entire JWK Set",
+      "summary": "## Summary\n\nA malformed RSA JWK inside a JWK Set aborts parsing of the entire set instead of being skipped, because `RSAAlgorithm.from_jwk` can raise a plain `ValueError` that isn't caught by `PyJWKSet`'s per-key error-skipping logic.\n\n## Affected component / version\n\n- Package: `PyJWT` (PyPI, ecosystem `pip`)\n- Files: `jwt/api_jwk.py` (`PyJWK.__init__`, `PyJWKSet.__init__`), `jwt/algorithms.py` (",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-29T18:23:01Z",
+      "cve_ids": [
+        "CVE-2026-102274"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "d23092345a4b483be8725d7f93c388f8c2f76c17983b7ce65de18089aa630ef0",
+      "url": "https://github.com/advisories/GHSA-pmjh-fq2x-6v4x",
+      "title": "GHSA: undici vulnerable to Denial of Service via orphaned RetryHandler response body",
+      "summary": "### Impact\n\nundici's `RetryHandler` can leave a response body pending indefinitely. When a retried request receives a non-retryable response after a truncated one, the original `response.body` held by the application is never settled, so reads such as `response.body.text()` hang and `bodyTimeout` does not fire. A malicious server can repeat this to accumulate pending promises and streams, leading ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-29T18:22:34Z",
+      "cve_ids": [
+        "CVE-2026-18149"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "f735bc485af05d7fd7edbfb134a3fd0e8356fa2f701b5da58fd9b5dcf4f29623",
+      "url": "https://github.com/advisories/GHSA-r53p-7pc4-xj5r",
+      "title": "GHSA: undici vulnerable to downstream response splitting via retry interceptor",
+      "summary": "### Impact\n\nUndici's `interceptors.retry()` can resume a request after a partial response and append the resumed bytes to an already partially delivered body, while the application still receives the original response's status and headers. When that response carried a `Content-Length`, the application can receive a longer body. Applications that forward Undici's status, headers, and body downstrea",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-29T18:22:07Z",
+      "cve_ids": [
+        "CVE-2026-18540"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "e36660cd87423d9229fcb507b213782d69e6dbe0f49d5c5a5bd0b49f07ea37f0",
+      "url": "https://github.com/advisories/GHSA-rfgv-xxqx-mfg5",
+      "title": "GHSA: undici vulnerable to Denial of Service via unrequested WebSocket subprotocol",
+      "summary": "### Impact\n\nThe undici WebSocket client throws an uncaught `TypeError` during the opening handshake when a server's `101` response includes a `Sec-WebSocket-Protocol` header that the client never requested. The throw occurs in a `queueMicrotask` callback with no surrounding `try`/`catch`, so it propagates as an uncaught exception and terminates the Node.js process. This is a remote, unauthenticate",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-29T18:21:33Z",
+      "cve_ids": [
+        "CVE-2026-19534"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "59c436d4a52e938309779a6aedb79cc6a485e8a6e1d1cec0281b0c9c7dd0cc9c",
+      "url": "https://github.com/advisories/GHSA-3xpg-4rpp-hhhm",
+      "title": "GHSA: undici vulnerable to Denial of Service via unbounded decompression of compressed responses",
+      "summary": "### Impact\n\nThe `interceptors.decompress()` interceptor decompresses HTTP response bodies according to the untrusted `Content-Encoding` header. The number of decompression layers is capped at 5, but the total decompressed output size is not bounded and there is no option to limit it. A malicious or faulty upstream can return a small compressed payload (a compression bomb) that expands to hundreds ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-29T18:20:37Z",
+      "cve_ids": [
+        "CVE-2026-84890"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
     {
       "id": "5b89bedba7bb62fde491529562d3d04b433ff52e12593e5b60607b97f0fb29e1",
       "url": "https://github.com/advisories/GHSA-2jfj-6hjv-fm6j",
@@ -1849,317 +2133,6 @@
         "CVE-2026-87859"
       ],
       "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "e314bbac2b41f75a9d16ef6854d0bc5f1a4b8aace6b728f2caf5464568aad307",
-      "url": "https://github.com/advisories/GHSA-qw65-cvwx-89v3",
-      "title": "GHSA: fast-uri vulnerable to authority injection via an unvalidated port in serialize",
-      "summary": "### Impact\n\n`fast-uri` serializes the `port` component of a URI without validating it. When recomposing the authority, `fast-uri` escapes the userinfo and host components but concatenates the port verbatim, so a `port` value that is not a sequence of digits can inject authority delimiters. For example, serializing a component whose `port` is `@127.0.0.1:8124` produces `http://trusted.example:@127.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-28T21:24:39Z",
-      "cve_ids": [
-        "CVE-2026-84292"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "420622fd233a8b5f5a48137c093bbaa6bcd1301c1db8e5a6aea6de0a9837adc9",
-      "url": "https://github.com/advisories/GHSA-58mr-gqgx-xq4g",
-      "title": "GHSA: fast-uri vulnerable to host confusion via an unclosed bracket in the URI authority",
-      "summary": "### Impact\n\n`fast-uri` accepts a host that contains an unbalanced or misplaced authority bracket (`[` or `]`) without reporting an error. A host that starts with `[` but does not end with `]`, such as `[@127.0.0.1`, is neither validated as an IP literal nor canonicalized as a domain name, so `parse()` returns it as the host with `error` undefined, while Node's `URL` (and `http.get`, `axios`, `got`",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-28T21:23:35Z",
-      "cve_ids": [
-        "CVE-2026-84394"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "13ab971e92b7e5513b13e3d8649263e0fe7e7057fed438970615511cdd6391f1",
-      "url": "https://github.com/advisories/GHSA-gx83-3vf8-gh7j",
-      "title": "GHSA: jackson-databind: Comparable missing from DefaultBaseTypeLimitingValidator's unsafe base types (incomplete PolymorphicTypeValidator denylist)",
-      "summary": "### Summary\n`DefaultBaseTypeLimitingValidator` — the `PolymorphicTypeValidator` used automatically whenever `@JsonTypeInfo` is applied without an explicitly configured custom validator — denies polymorphic resolution only for nine specific \"unsafe base types\" (`Object`, `Serializable`, `Closeable`, `AutoCloseable`, `Cloneable`, `Runnable`, `java.util.logging.Handler`, `javax.naming.Referenceable`,",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-28T20:44:25Z",
-      "cve_ids": [
-        "CVE-2026-83557"
-      ],
-      "cvss": 5.6,
-      "related_links": []
-    },
-    {
-      "id": "1ff557d6e322e16cc471e03f97d5c55f944d176611f3912c4e4517204935d814",
-      "url": "https://github.com/advisories/GHSA-q4xh-88c3-wmh7",
-      "title": "GHSA: jackson-databind: Duration XMLGregorianCalendar Unbounded Number Parse DoS",
-      "summary": "### Summary\n`jackson-databind` 3.2.1 deserializes a JSON **string** bound to a `javax.xml.datatype.Duration` or `javax.xml.datatype.XMLGregorianCalendar` field by passing the raw string verbatim to `DatatypeFactory.newDuration(value)` / `newXMLGregorianCalendar(value)`. Per the XML-Schema lexical grammar these factory methods accept numeric components of arbitrary length, which the JDK materialize",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-28T20:19:46Z",
-      "cve_ids": [
-        "CVE-2026-68497"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "1c352da62f193fd82f2b2c556c760c016bb6c10eb4012f602ab7aadafd6ba379",
-      "url": "https://github.com/advisories/GHSA-wjgm-6hv5-3cvf",
-      "title": "GHSA: jackson-databind: Path Deserialization Missing Scheme Allowlist for FileSystemProvider Resolution",
-      "summary": "### Summary\n\nA `java.nio.file.Path` field bound from untrusted JSON reaches `JDKFromStringDeserializer.NioPathHelper.deserialize`. The attacker string flows through `new URI(value)` → `Path.of(uri)`, then on `FileSystemNotFoundException` into a `ServiceLoader<FileSystemProvider>` enumeration that calls `provider.getPath(uri)` on the first scheme-matching provider. No scheme is rejected, so untrust",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-28T20:19:19Z",
-      "cve_ids": [
-        "CVE-2026-19032"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "4a9cd00b574cd7763f0716cfb4c8f225408669828fd424cf8e912ccebab8eba8",
-      "url": "https://github.com/advisories/GHSA-vvgp-rfg2-7rr6",
-      "title": "GHSA: jackson-databind: Incomplete fix for CVE-2026-54514: eager DNS resolution (SSRF) still present in InetAddress deserialization",
-      "summary": "### Summary\nCVE-2026-54514 (GHSA-hgj6-7826-r7m5) fixed an eager-DNS-resolution / SSRF issue in jackson-databind's deserialization of `java.net.InetSocketAddress` by switching to `InetSocketAddress.createUnresolved(...)` (PR #5951, commit 1f5a1037, released in 2.18.8 / 2.21.4 / 3.1.4). That fix did not cover the sibling `java.net.InetAddress` branch in the very same `FromStringDeserializer.Std._des",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-28T20:17:41Z",
-      "cve_ids": [
-        "CVE-2026-77310"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "d865d9fe534dad8bc9500a4d513cf69b9d6e44b9415ebc5f7bbe25a9d4b838a5",
-      "url": "https://github.com/advisories/GHSA-88h9-xgvx-hvf2",
-      "title": "GHSA: @grpc/grpc-js: The exact path match matcher incorrectly only applies a prefix match for case-insensitive matches",
-      "summary": "### Impact\nWhen using RBAC to apply authentication rules, the exact path (method name) matcher applies a prefix match instead of an exact match for case-insensitive matches. As a result, if a service has a method with a name that is a prefix of the name of a different method, and they have different access rules, and case-insensitive matching is used, this bug can cause improper authentication.\n\n#",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-28T19:43:51Z",
-      "cve_ids": [
-        "CVE-2026-101914"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "178f19609d472e572bbf5c3882d469062a1aa93b5391c050830468344328c9ee",
-      "url": "https://www.bleepingcomputer.com/news/security/jadepuffer-agentic-ai-attacks-target-azure-destroy-cloud-resources/",
-      "title": "JadePuffer agentic AI attacks target Azure, destroy cloud resources",
-      "summary": "The JadePuffer ransomware operator is targeting Azure tenants with agent-driven attacks that conduct reconnaissance, steal credentials, and destroy core components. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-28T15:49:27+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3ac833fb839c0b3442160cf4b27517891135ea7b8315c5432db823b85aa2d82a",
-      "url": "https://blog.qualys.com/category/vulnerabilities-threat-research",
-      "title": "The Developer is the New Perimeter: How Supply Chain Attacks Are Becoming Cloud Breaches",
-      "summary": "A routine package install can open the door to a cloud breach. Learn how attackers exploit developer credentials. Discover practical steps to contain exposure and protect your cloud environment.",
-      "source": "Qualys Blog",
-      "category": "web_app",
-      "date": "2026-09-28T15:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "1f3c297f9117819102c9eb3ac74432803e691aa026318122034d1fc5230823b9",
-      "url": "https://github.com/advisories/GHSA-2mhw-wcx5-v3xj",
-      "title": "GHSA: scim-patch: Mutation of Inherited Built-in Method Objects",
-      "summary": "## Summary\n\nIncomplete Prototype Pollution Fix Allows Mutation of Inherited Built-in Method Objects\n\n`scim-patch` blocks direct dangerous path segments such as `__proto__`, `constructor`, and `prototype`, but still traverses inherited properties when applying SCIM patch paths.\n\nAn attacker who controls a SCIM PATCH operation can use paths such as `toString.polluted` to mutate shared built-in funct",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-28T14:01:15Z",
-      "cve_ids": [
-        "CVE-2026-61834"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "d2cefd7a4ee020c497dac09a9d5c18b5e7ad979aabec584d1c1b9d443cfa5ea5",
-      "url": "https://github.com/advisories/GHSA-456v-xq2p-r4cj",
-      "title": "GHSA: code-ollama: `grep_search` Command Injection via Unescaped `$()` Shell Substitution (CWE-78)",
-      "summary": "## `grep_search` Command Injection via Unescaped `$()` Shell Substitution (CWE-78)\n\n### Summary\n\nThe `grep_search` tool in `code-ollama` constructs a shell command string by interpolating attacker-controlled `pattern` and `path` arguments, then executes it via `child_process.exec()`. The sanitization only escapes backslashes and double-quote characters, leaving `$()` command substitution and backt",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-28T13:59:43Z",
-      "cve_ids": [],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "24b3f7b4bb880de4f83c82742983b9b6794324627f52d17f761a7b5d8bdd38e6",
-      "url": "https://ubuntu.com/security/notices/USN-8830-1",
-      "title": "USN-8830-1: phpseclib vulnerabilities",
-      "summary": "It was discovered that phpseclib did not perform constant-time padding validation when using AES in CBC mode. A remote attacker could possibly use this issue to obtain sensitive information. (CVE-2026-32935) It was discovered that phpseclib did not use a constant-time comparison when validating SSH packet authentication codes. A remote attacker could possibly use this issue to obtain sensitive inf",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-09-28T13:56:03+00:00",
-      "cve_ids": [
-        "CVE-2026-32935",
-        "CVE-2026-40194",
-        "CVE-2026-44167"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "057b0b248f408f59a904f4fcca60cb5e95e39e56c94c4630fbba831eb0ac3461",
-      "url": "https://ubuntu.com/security/notices/USN-8827-1",
-      "title": "USN-8827-1: Erlang vulnerabilities",
-      "summary": "It was discovered that the Erlang Port Mapper Daemon did not properly handle slow connections. A remote attacker could possibly use this issue to cause a denial of service. (CVE-2026-42792) It was discovered that Erlang incorrectly handled certain external term format data, leading to heap corruption. An attacker could possibly use this issue to cause Erlang to crash, resulting in a denial of serv",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-09-28T13:21:58+00:00",
-      "cve_ids": [
-        "CVE-2026-23941",
-        "CVE-2026-42792",
-        "CVE-2026-54890",
-        "CVE-2026-55737",
-        "CVE-2026-55951",
-        "CVE-2026-55953",
-        "CVE-2026-58227",
-        "CVE-2026-59250",
-        "CVE-2026-59251",
-        "CVE-2026-59696",
-        "CVE-2026-66357",
-        "CVE-2026-66835",
-        "CVE-2026-69664",
-        "CVE-2026-70399",
-        "CVE-2026-70405",
-        "CVE-2026-70409",
-        "CVE-2026-71380",
-        "CVE-2026-73270",
-        "CVE-2026-73276",
-        "CVE-2026-73812",
-        "CVE-2026-74835",
-        "CVE-2026-75538"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "2e6e934ea7b88452608d2a3c804da2e2456fff1349b4ed05f36fb2f5798fb124",
-      "url": "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-patch-exploited-citrix-flaws-by-wednesday/",
-      "title": "CISA orders feds to patch exploited Citrix flaws by Wednesday",
-      "summary": "The Cybersecurity and Infrastructure Security Agency (CISA) has ordered U.S. government agencies over the weekend to secure their systems against attacks exploiting two critical Citrix NetScaler vulnerabilities. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-28T06:24:19+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "0954e8dba9d8d6736374c0af35bd892c64f63ad9a15d657813314bda6b46b760",
-      "url": "https://www.bleepingcomputer.com/news/security/citrix-admins-warned-to-shut-down-netscalers-over-2-exploited-zero-days/",
-      "title": "Citrix confirms two NetScaler RCE zero-days exploited in attacks",
-      "summary": "Citrix has confirmed that two critical NetScaler remote code execution vulnerabilities, tracked as CVE-2026-88771 and CVE-2026-88772, are being exploited in attacks and that it has released security updates to fix the flaws. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-27T16:02:37+00:00",
-      "cve_ids": [
-        "CVE-2026-88771",
-        "CVE-2026-88772",
-        "CVE-2026-887719",
-        "CVE-2026-887729",
-        "CVE-2026-887739",
-        "CVE-2026-887747",
-        "CVE-2026-887758",
-        "CVE-2026-887768",
-        "CVE-2026-887778",
-        "CVE-2026-887788"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-88772",
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-88771",
-        "https://www.rapid7.com/blog/post/etr-zero-day-exploitation-of-citrix-netscaler-adc-and-gateway-cve-2026-88771-and-cve-2026-88772",
-        "https://www.bleepingcomputer.com/news/security/hackers-exploit-citrix-netscaler-zero-day-to-deploy-web-shells/"
-      ]
-    },
-    {
-      "id": "52d5f59a9cd28226ca668b818667402412a28d083cd047c4a4cb054bddac6e93",
-      "url": "https://seclists.org/fulldisclosure/2026/Sep/83",
-      "title": "harness Gitspace hardcoded password for every user account",
-      "summary": "Posted by Khashayar Fereidani on Sep 26# harness Gitspace hardcoded password for every user account **Author:** Khashayar Fereidani **Disclosure Date:** 2026-09-24 **Advisory:** https://fereidani.com/harness-gitspace-hardcoded-password-for-every-user-account **Contact:** https://fereidani.com/contact ## Description Gitspaces are Harness&apos;s hosted development environments: a container with the ",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-09-27T04:14:57+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "6d24fd862f0549ae585f223a31cc4b8a6cdd84a151a0e60e936d9b5b045d5bd5",
-      "url": "https://seclists.org/fulldisclosure/2026/Sep/82",
-      "title": "harness(gitness) registry webhook sort_order blind SQL injection",
-      "summary": "Posted by Khashayar Fereidani on Sep 26# harness registry webhook sort_order blind SQL injection **Author:** Khashayar Fereidani **Disclosure Date:** 2026-09-24 **Advisory:** https://fereidani.com/harness-registry-webhook-sortorder-blind-sql-injection **Contact:** https://fereidani.com/contact ## Description Harness open source (Gitness) is a self-hosted platform for source control, pipelines and ",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-09-27T04:14:55+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a5addb1fd651f0eaec9f47640b964a286afeb52e66e99e655539cb2f9428ac73",
-      "url": "https://seclists.org/fulldisclosure/2026/Sep/80",
-      "title": "openEQUELLA authenticated RCE chain(s)",
-      "summary": "Posted by evan via Fulldisclosure on Sep 26SUMMARY: an authenticated deserialization vuln in openEQUELLA allows an attacker to inject a SignedObject payload, unwrap the SignedObject, create an LDAP callback and serve a JNR response to get the server to execute arbitrary code. alongside this sink is a SSTI vuln as well. https://blog.evan.lat/posts/openeq/ openequella is an &quot;open source digital",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-09-27T04:13:01+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "5141083fd7ec75dc525f95f6a5f3bf5fb00ebfecc17eac91c721b6a717404395",
-      "url": "https://seclists.org/fulldisclosure/2026/Sep/78",
-      "title": "[0day-rubbish] Netsis NetOpenX REST 2.0.6.9 Unauthenticated SQL injection to xp_cmdshell SYSTEM command execution (9.8)",
-      "summary": "Posted by disclosure via Fulldisclosure on Sep 260day Rubbish Research Team is publicly disclosing a vulnerability in Logo Netsis NetOpenX REST 2.0.6.9 (also distributed as Netsis Nox REST), the REST API gateway of the Netsis enterprise ERP suite. Type: unauthenticated SQL injection in the OAuth 2.0 token endpoint leading to operating-system command execution via SQL Server xp_cmdshell (CWE-89, CW",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-09-27T04:12:46+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c6f019f78e30abe190e46ae5df03f5e07ce8636ae848a956fa0565b46a319546",
-      "url": "https://seclists.org/fulldisclosure/2026/Sep/77",
-      "title": "[0day-rubbish] MultiTech Conduit AEP 6.3.6 Authenticated import_config filename command injection to root RCE (7.2)",
-      "summary": "Posted by disclosure via Fulldisclosure on Sep 260day Rubbish Research Team is publicly disclosing a vulnerability in MultiTech Conduit AEP (models mtcdt / mtcdtip / mtcdtiphp), IoT gateways running mLinux on ARM 32-bit. Type: authenticated OS command injection (CWE-78) through the uploaded filename of the admin-only upload_config command. The management API is served by lighttpd on TCP 8080 and p",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-09-27T04:12:44+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "39c58e67514cea147ddb79f5e611eb3e85781f08bb4ed1ae2392d6e7badfbeee",
-      "url": "https://seclists.org/fulldisclosure/2026/Sep/76",
-      "title": "[0day-rubbish] Lightstreamer Server 7.4.8 Unauthenticated JMX jvmtiAgentLoad native code execution (8.1)",
-      "summary": "Posted by disclosure via Fulldisclosure on Sep 260day Rubbish Research Team is publicly disclosing a vulnerability in Lightstreamer Server 7.4.8 build 3506 (with JMS Extender 2.1.0). Type: unauthenticated JMX inspection console allowing an anonymous caller to invoke any MBean operation, reaching jvmtiAgentLoad on com.sun.management:type=DiagnosticCommand to load and run a native agent library insi",
-      "source": "Full Disclosure",
-      "category": "emergency",
-      "date": "2026-09-27T04:12:43+00:00",
-      "cve_ids": [],
-      "cvss": null,
       "related_links": []
     }
   ]

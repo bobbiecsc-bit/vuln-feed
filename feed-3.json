@@ -1,10 +1,321 @@
 {
-  "updated": "2026-09-30T20:35:26.106396+00:00",
+  "updated": "2026-10-01T04:29:55.139152+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "e314bbac2b41f75a9d16ef6854d0bc5f1a4b8aace6b728f2caf5464568aad307",
+      "url": "https://github.com/advisories/GHSA-qw65-cvwx-89v3",
+      "title": "GHSA: fast-uri vulnerable to authority injection via an unvalidated port in serialize",
+      "summary": "### Impact\n\n`fast-uri` serializes the `port` component of a URI without validating it. When recomposing the authority, `fast-uri` escapes the userinfo and host components but concatenates the port verbatim, so a `port` value that is not a sequence of digits can inject authority delimiters. For example, serializing a component whose `port` is `@127.0.0.1:8124` produces `http://trusted.example:@127.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-28T21:24:39Z",
+      "cve_ids": [
+        "CVE-2026-84292"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "420622fd233a8b5f5a48137c093bbaa6bcd1301c1db8e5a6aea6de0a9837adc9",
+      "url": "https://github.com/advisories/GHSA-58mr-gqgx-xq4g",
+      "title": "GHSA: fast-uri vulnerable to host confusion via an unclosed bracket in the URI authority",
+      "summary": "### Impact\n\n`fast-uri` accepts a host that contains an unbalanced or misplaced authority bracket (`[` or `]`) without reporting an error. A host that starts with `[` but does not end with `]`, such as `[@127.0.0.1`, is neither validated as an IP literal nor canonicalized as a domain name, so `parse()` returns it as the host with `error` undefined, while Node's `URL` (and `http.get`, `axios`, `got`",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-28T21:23:35Z",
+      "cve_ids": [
+        "CVE-2026-84394"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "13ab971e92b7e5513b13e3d8649263e0fe7e7057fed438970615511cdd6391f1",
+      "url": "https://github.com/advisories/GHSA-gx83-3vf8-gh7j",
+      "title": "GHSA: jackson-databind: Comparable missing from DefaultBaseTypeLimitingValidator's unsafe base types (incomplete PolymorphicTypeValidator denylist)",
+      "summary": "### Summary\n`DefaultBaseTypeLimitingValidator` — the `PolymorphicTypeValidator` used automatically whenever `@JsonTypeInfo` is applied without an explicitly configured custom validator — denies polymorphic resolution only for nine specific \"unsafe base types\" (`Object`, `Serializable`, `Closeable`, `AutoCloseable`, `Cloneable`, `Runnable`, `java.util.logging.Handler`, `javax.naming.Referenceable`,",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-28T20:44:25Z",
+      "cve_ids": [
+        "CVE-2026-83557"
+      ],
+      "cvss": 5.6,
+      "related_links": []
+    },
+    {
+      "id": "1ff557d6e322e16cc471e03f97d5c55f944d176611f3912c4e4517204935d814",
+      "url": "https://github.com/advisories/GHSA-q4xh-88c3-wmh7",
+      "title": "GHSA: jackson-databind: Duration XMLGregorianCalendar Unbounded Number Parse DoS",
+      "summary": "### Summary\n`jackson-databind` 3.2.1 deserializes a JSON **string** bound to a `javax.xml.datatype.Duration` or `javax.xml.datatype.XMLGregorianCalendar` field by passing the raw string verbatim to `DatatypeFactory.newDuration(value)` / `newXMLGregorianCalendar(value)`. Per the XML-Schema lexical grammar these factory methods accept numeric components of arbitrary length, which the JDK materialize",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-28T20:19:46Z",
+      "cve_ids": [
+        "CVE-2026-68497"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "1c352da62f193fd82f2b2c556c760c016bb6c10eb4012f602ab7aadafd6ba379",
+      "url": "https://github.com/advisories/GHSA-wjgm-6hv5-3cvf",
+      "title": "GHSA: jackson-databind: Path Deserialization Missing Scheme Allowlist for FileSystemProvider Resolution",
+      "summary": "### Summary\n\nA `java.nio.file.Path` field bound from untrusted JSON reaches `JDKFromStringDeserializer.NioPathHelper.deserialize`. The attacker string flows through `new URI(value)` → `Path.of(uri)`, then on `FileSystemNotFoundException` into a `ServiceLoader<FileSystemProvider>` enumeration that calls `provider.getPath(uri)` on the first scheme-matching provider. No scheme is rejected, so untrust",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-28T20:19:19Z",
+      "cve_ids": [
+        "CVE-2026-19032"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "4a9cd00b574cd7763f0716cfb4c8f225408669828fd424cf8e912ccebab8eba8",
+      "url": "https://github.com/advisories/GHSA-vvgp-rfg2-7rr6",
+      "title": "GHSA: jackson-databind: Incomplete fix for CVE-2026-54514: eager DNS resolution (SSRF) still present in InetAddress deserialization",
+      "summary": "### Summary\nCVE-2026-54514 (GHSA-hgj6-7826-r7m5) fixed an eager-DNS-resolution / SSRF issue in jackson-databind's deserialization of `java.net.InetSocketAddress` by switching to `InetSocketAddress.createUnresolved(...)` (PR #5951, commit 1f5a1037, released in 2.18.8 / 2.21.4 / 3.1.4). That fix did not cover the sibling `java.net.InetAddress` branch in the very same `FromStringDeserializer.Std._des",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-28T20:17:41Z",
+      "cve_ids": [
+        "CVE-2026-77310"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "d865d9fe534dad8bc9500a4d513cf69b9d6e44b9415ebc5f7bbe25a9d4b838a5",
+      "url": "https://github.com/advisories/GHSA-88h9-xgvx-hvf2",
+      "title": "GHSA: @grpc/grpc-js: The exact path match matcher incorrectly only applies a prefix match for case-insensitive matches",
+      "summary": "### Impact\nWhen using RBAC to apply authentication rules, the exact path (method name) matcher applies a prefix match instead of an exact match for case-insensitive matches. As a result, if a service has a method with a name that is a prefix of the name of a different method, and they have different access rules, and case-insensitive matching is used, this bug can cause improper authentication.\n\n#",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-28T19:43:51Z",
+      "cve_ids": [
+        "CVE-2026-101914"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "178f19609d472e572bbf5c3882d469062a1aa93b5391c050830468344328c9ee",
+      "url": "https://www.bleepingcomputer.com/news/security/jadepuffer-agentic-ai-attacks-target-azure-destroy-cloud-resources/",
+      "title": "JadePuffer agentic AI attacks target Azure, destroy cloud resources",
+      "summary": "The JadePuffer ransomware operator is targeting Azure tenants with agent-driven attacks that conduct reconnaissance, steal credentials, and destroy core components. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-09-28T15:49:27+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "3ac833fb839c0b3442160cf4b27517891135ea7b8315c5432db823b85aa2d82a",
+      "url": "https://blog.qualys.com/category/vulnerabilities-threat-research",
+      "title": "The Developer is the New Perimeter: How Supply Chain Attacks Are Becoming Cloud Breaches",
+      "summary": "A routine package install can open the door to a cloud breach. Learn how attackers exploit developer credentials. Discover practical steps to contain exposure and protect your cloud environment.",
+      "source": "Qualys Blog",
+      "category": "web_app",
+      "date": "2026-09-28T15:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "1f3c297f9117819102c9eb3ac74432803e691aa026318122034d1fc5230823b9",
+      "url": "https://github.com/advisories/GHSA-2mhw-wcx5-v3xj",
+      "title": "GHSA: scim-patch: Mutation of Inherited Built-in Method Objects",
+      "summary": "## Summary\n\nIncomplete Prototype Pollution Fix Allows Mutation of Inherited Built-in Method Objects\n\n`scim-patch` blocks direct dangerous path segments such as `__proto__`, `constructor`, and `prototype`, but still traverses inherited properties when applying SCIM patch paths.\n\nAn attacker who controls a SCIM PATCH operation can use paths such as `toString.polluted` to mutate shared built-in funct",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-28T14:01:15Z",
+      "cve_ids": [
+        "CVE-2026-61834"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "d2cefd7a4ee020c497dac09a9d5c18b5e7ad979aabec584d1c1b9d443cfa5ea5",
+      "url": "https://github.com/advisories/GHSA-456v-xq2p-r4cj",
+      "title": "GHSA: code-ollama: `grep_search` Command Injection via Unescaped `$()` Shell Substitution (CWE-78)",
+      "summary": "## `grep_search` Command Injection via Unescaped `$()` Shell Substitution (CWE-78)\n\n### Summary\n\nThe `grep_search` tool in `code-ollama` constructs a shell command string by interpolating attacker-controlled `pattern` and `path` arguments, then executes it via `child_process.exec()`. The sanitization only escapes backslashes and double-quote characters, leaving `$()` command substitution and backt",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-28T13:59:43Z",
+      "cve_ids": [],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "24b3f7b4bb880de4f83c82742983b9b6794324627f52d17f761a7b5d8bdd38e6",
+      "url": "https://ubuntu.com/security/notices/USN-8830-1",
+      "title": "USN-8830-1: phpseclib vulnerabilities",
+      "summary": "It was discovered that phpseclib did not perform constant-time padding validation when using AES in CBC mode. A remote attacker could possibly use this issue to obtain sensitive information. (CVE-2026-32935) It was discovered that phpseclib did not use a constant-time comparison when validating SSH packet authentication codes. A remote attacker could possibly use this issue to obtain sensitive inf",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-09-28T13:56:03+00:00",
+      "cve_ids": [
+        "CVE-2026-32935",
+        "CVE-2026-40194",
+        "CVE-2026-44167"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "057b0b248f408f59a904f4fcca60cb5e95e39e56c94c4630fbba831eb0ac3461",
+      "url": "https://ubuntu.com/security/notices/USN-8827-1",
+      "title": "USN-8827-1: Erlang vulnerabilities",
+      "summary": "It was discovered that the Erlang Port Mapper Daemon did not properly handle slow connections. A remote attacker could possibly use this issue to cause a denial of service. (CVE-2026-42792) It was discovered that Erlang incorrectly handled certain external term format data, leading to heap corruption. An attacker could possibly use this issue to cause Erlang to crash, resulting in a denial of serv",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-09-28T13:21:58+00:00",
+      "cve_ids": [
+        "CVE-2026-23941",
+        "CVE-2026-42792",
+        "CVE-2026-54890",
+        "CVE-2026-55737",
+        "CVE-2026-55951",
+        "CVE-2026-55953",
+        "CVE-2026-58227",
+        "CVE-2026-59250",
+        "CVE-2026-59251",
+        "CVE-2026-59696",
+        "CVE-2026-66357",
+        "CVE-2026-66835",
+        "CVE-2026-69664",
+        "CVE-2026-70399",
+        "CVE-2026-70405",
+        "CVE-2026-70409",
+        "CVE-2026-71380",
+        "CVE-2026-73270",
+        "CVE-2026-73276",
+        "CVE-2026-73812",
+        "CVE-2026-74835",
+        "CVE-2026-75538"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "2e6e934ea7b88452608d2a3c804da2e2456fff1349b4ed05f36fb2f5798fb124",
+      "url": "https://www.bleepingcomputer.com/news/security/cisa-orders-feds-to-patch-exploited-citrix-flaws-by-wednesday/",
+      "title": "CISA orders feds to patch exploited Citrix flaws by Wednesday",
+      "summary": "The Cybersecurity and Infrastructure Security Agency (CISA) has ordered U.S. government agencies over the weekend to secure their systems against attacks exploiting two critical Citrix NetScaler vulnerabilities. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-09-28T06:24:19+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "0954e8dba9d8d6736374c0af35bd892c64f63ad9a15d657813314bda6b46b760",
+      "url": "https://www.bleepingcomputer.com/news/security/citrix-admins-warned-to-shut-down-netscalers-over-2-exploited-zero-days/",
+      "title": "Citrix confirms two NetScaler RCE zero-days exploited in attacks",
+      "summary": "Citrix has confirmed that two critical NetScaler remote code execution vulnerabilities, tracked as CVE-2026-88771 and CVE-2026-88772, are being exploited in attacks and that it has released security updates to fix the flaws. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-09-27T16:02:37+00:00",
+      "cve_ids": [
+        "CVE-2026-88771",
+        "CVE-2026-88772",
+        "CVE-2026-887719",
+        "CVE-2026-887729",
+        "CVE-2026-887739",
+        "CVE-2026-887747",
+        "CVE-2026-887758",
+        "CVE-2026-887768",
+        "CVE-2026-887778",
+        "CVE-2026-887788"
+      ],
+      "cvss": null,
+      "related_links": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-88772",
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-88771",
+        "https://www.rapid7.com/blog/post/etr-zero-day-exploitation-of-citrix-netscaler-adc-and-gateway-cve-2026-88771-and-cve-2026-88772",
+        "https://www.bleepingcomputer.com/news/security/hackers-exploit-citrix-netscaler-zero-day-to-deploy-web-shells/"
+      ]
+    },
+    {
+      "id": "52d5f59a9cd28226ca668b818667402412a28d083cd047c4a4cb054bddac6e93",
+      "url": "https://seclists.org/fulldisclosure/2026/Sep/83",
+      "title": "harness Gitspace hardcoded password for every user account",
+      "summary": "Posted by Khashayar Fereidani on Sep 26# harness Gitspace hardcoded password for every user account **Author:** Khashayar Fereidani **Disclosure Date:** 2026-09-24 **Advisory:** https://fereidani.com/harness-gitspace-hardcoded-password-for-every-user-account **Contact:** https://fereidani.com/contact ## Description Gitspaces are Harness&apos;s hosted development environments: a container with the ",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-09-27T04:14:57+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "6d24fd862f0549ae585f223a31cc4b8a6cdd84a151a0e60e936d9b5b045d5bd5",
+      "url": "https://seclists.org/fulldisclosure/2026/Sep/82",
+      "title": "harness(gitness) registry webhook sort_order blind SQL injection",
+      "summary": "Posted by Khashayar Fereidani on Sep 26# harness registry webhook sort_order blind SQL injection **Author:** Khashayar Fereidani **Disclosure Date:** 2026-09-24 **Advisory:** https://fereidani.com/harness-registry-webhook-sortorder-blind-sql-injection **Contact:** https://fereidani.com/contact ## Description Harness open source (Gitness) is a self-hosted platform for source control, pipelines and ",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-09-27T04:14:55+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "a5addb1fd651f0eaec9f47640b964a286afeb52e66e99e655539cb2f9428ac73",
+      "url": "https://seclists.org/fulldisclosure/2026/Sep/80",
+      "title": "openEQUELLA authenticated RCE chain(s)",
+      "summary": "Posted by evan via Fulldisclosure on Sep 26SUMMARY: an authenticated deserialization vuln in openEQUELLA allows an attacker to inject a SignedObject payload, unwrap the SignedObject, create an LDAP callback and serve a JNR response to get the server to execute arbitrary code. alongside this sink is a SSTI vuln as well. https://blog.evan.lat/posts/openeq/ openequella is an &quot;open source digital",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-09-27T04:13:01+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "5141083fd7ec75dc525f95f6a5f3bf5fb00ebfecc17eac91c721b6a717404395",
+      "url": "https://seclists.org/fulldisclosure/2026/Sep/78",
+      "title": "[0day-rubbish] Netsis NetOpenX REST 2.0.6.9 Unauthenticated SQL injection to xp_cmdshell SYSTEM command execution (9.8)",
+      "summary": "Posted by disclosure via Fulldisclosure on Sep 260day Rubbish Research Team is publicly disclosing a vulnerability in Logo Netsis NetOpenX REST 2.0.6.9 (also distributed as Netsis Nox REST), the REST API gateway of the Netsis enterprise ERP suite. Type: unauthenticated SQL injection in the OAuth 2.0 token endpoint leading to operating-system command execution via SQL Server xp_cmdshell (CWE-89, CW",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-09-27T04:12:46+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "c6f019f78e30abe190e46ae5df03f5e07ce8636ae848a956fa0565b46a319546",
+      "url": "https://seclists.org/fulldisclosure/2026/Sep/77",
+      "title": "[0day-rubbish] MultiTech Conduit AEP 6.3.6 Authenticated import_config filename command injection to root RCE (7.2)",
+      "summary": "Posted by disclosure via Fulldisclosure on Sep 260day Rubbish Research Team is publicly disclosing a vulnerability in MultiTech Conduit AEP (models mtcdt / mtcdtip / mtcdtiphp), IoT gateways running mLinux on ARM 32-bit. Type: authenticated OS command injection (CWE-78) through the uploaded filename of the admin-only upload_config command. The management API is served by lighttpd on TCP 8080 and p",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-09-27T04:12:44+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "39c58e67514cea147ddb79f5e611eb3e85781f08bb4ed1ae2392d6e7badfbeee",
+      "url": "https://seclists.org/fulldisclosure/2026/Sep/76",
+      "title": "[0day-rubbish] Lightstreamer Server 7.4.8 Unauthenticated JMX jvmtiAgentLoad native code execution (8.1)",
+      "summary": "Posted by disclosure via Fulldisclosure on Sep 260day Rubbish Research Team is publicly disclosing a vulnerability in Lightstreamer Server 7.4.8 build 3506 (with JMS Extender 2.1.0). Type: unauthenticated JMX inspection console allowing an anonymous caller to invoke any MBean operation, reaching jvmtiAgentLoad on com.sun.management:type=DiagnosticCommand to load and run a native agent library insi",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-09-27T04:12:43+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
     {
       "id": "77ddfbcd4e34cd1f512579673599510b68b231c815351878e6f21d48da2b3f10",
       "url": "https://www.bleepingcomputer.com/news/security/shinyhunters-uses-waf-bypass-trick-in-oracle-peoplesoft-attacks/",
@@ -1422,296 +1733,6 @@
         "CVE-2026-61782"
       ],
       "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "5fcc970ffad605ac85e2b7c95b2f03dc8c17f7537ee8085f80cc9b08beb90ef7",
-      "url": "https://github.com/advisories/GHSA-4hq8-gpf5-8p68",
-      "title": "GHSA: Podman: Malformed Image can trick podman run into leaking host environment variables into the container",
-      "summary": "## Summary\n\nAn container image that contains a environment variable with just a key and no value can trick podman into passing that variable from the host into the container. This is made worse by the fact that using an asterisk (*) will cause podman to pass all host variables into the container. So essentially a malicious image can exfiltrate all podman environment variables that are set in the s",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T19:40:20Z",
-      "cve_ids": [
-        "CVE-2026-57231"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "aa5d50e3088114387ece6548007ab6c346cbd552d388121d633cd1e0d5498ee1",
-      "url": "https://github.com/advisories/GHSA-w7c2-w76w-5hmj",
-      "title": "GHSA: Cilium: Namespaced HTTPRoutes can redirect traffic to other namespaces",
-      "summary": "### Impact\n\nIn Cilium clusters using [Gateway API](https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/), users with permissions to create or update namespaced HTTPRoutes can mirror HTTP traffic to any Service in any namespace, bypassing the ReferenceGrant authorization mechanism.\n\nGateway API functionality is disabled by default.\n\n### Patches\n\nThis issue affects:\n\n* Ciliu",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T19:38:39Z",
-      "cve_ids": [
-        "CVE-2026-56742"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "a7e5a1fde0c6273112816ffe771bf480a13cd34fa1144889d51b3467062649ab",
-      "url": "https://github.com/advisories/GHSA-mwwr-p57h-56pf",
-      "title": "GHSA: @bytebase/dbhub's read-only mode does not prevent database writes",
-      "summary": "### Summary\n \nSetting `readonly = true` on the `execute_sql` tool does not make the connection read-only. The connectors are written to set PostgreSQL `default_transaction_read_only=on` (and open SQLite in `readOnly` mode), but that code is gated on a config value that is never populated, so it never runs. The only thing left enforcing read-only is a classifier that inspects the first keyword of e",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T19:37:59Z",
-      "cve_ids": [
-        "CVE-2026-61788"
-      ],
-      "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "2bcfb1ebdcb93215ac89ea0e99620d90cecdd7a8b786820cad877fca5e8c5cd6",
-      "url": "https://github.com/advisories/GHSA-cjx3-73hr-rpw7",
-      "title": "GHSA: http4s-scala-xml has an XML External Entity (XXE) processing issue",
-      "summary": "http4s-scala-xml provides `EntityDecoder[F, scala.xml.Elem]` instances that parse XML message bodies. These decoders used a `javax.xml.parsers.SAXParserFactory` obtained from `SAXParserFactory.newInstance` without any security configuration.  With the JDK's default settings, the parser resolves DOCTYPE declarations, external general and parameter entities, and external DTDs.\n\nAn application that u",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-24T19:35:16Z",
-      "cve_ids": [
-        "CVE-2026-61741"
-      ],
-      "cvss": 9.3,
-      "related_links": []
-    },
-    {
-      "id": "33ca77451a8053b1ca94a097ce6f1cf5c7a809c2a1d723936e89d3b874f31ce0",
-      "url": "https://github.com/advisories/GHSA-j8r4-32c5-33rc",
-      "title": "GHSA: xhtml-purifier has HTML attribute-injection (sanitizer bypass) that leads to XSS",
-      "summary": "xhtml-purifier does not HTML-entity-encode attribute values when serializing its sanitized output. In attributeString() (XHTMLPurifier.js, around line 148) the attribute value is concatenated directly into a double-quoted attribute without encoding. As a result, an attacker-controlled value in any allowed attribute (class, style, title, alt, src, href) can include a double-quote character to break",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T19:33:23Z",
-      "cve_ids": [
-        "CVE-2026-61784"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "9a436497f8967eca78e0722aad6dc59b8a59e439dc6265f18062de837b8b70fc",
-      "url": "https://github.com/advisories/GHSA-8gpw-xvpf-hvx5",
-      "title": "GHSA: phpMyFAQ's two-factor authentication login bypasses the password factor",
-      "summary": "### Summary\nThe public two-factor verification endpoint `POST /check` logs a user in based **solely** on a valid\n6-digit TOTP token and a chosen `user-id`. It does **not** require — and is not bound to — a prior\nsuccessful password authentication. For any account that has 2FA enabled, an unauthenticated attacker\ncan authenticate **without knowing the password**, reducing the account to a single fa",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-24T19:29:27Z",
-      "cve_ids": [
-        "CVE-2026-56737"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "eb8c4a1d5722d525f78cad1984316cb5fafcbf6677c6e7f2466b9e1bd04c6811",
-      "url": "https://github.com/advisories/GHSA-pgwp-vc7q-cvj3",
-      "title": "GHSA: phpMyFAQ has Stored XSS in Admin FAQ Editor via HTML Entity Bypass in Frontend FAQ Submission",
-      "summary": "### Summary\nA stored cross-site scripting (XSS) vulnerability in phpMyFAQ allows any unauthenticated user (or low-privileged registered user) to inject arbitrary JavaScript that executes in an administrator's browser when they review or edit a user-submitted FAQ entry. This leads to admin account takeover via session theft. The vulnerability exists because `html_entity_decode()` converts HTML enti",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-24T19:28:43Z",
-      "cve_ids": [
-        "CVE-2026-56736"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "6f07c46a0845325ce85617515c51af197845e7568ab80563055ee1b75839cf25",
-      "url": "https://github.com/advisories/GHSA-g28h-2cmm-rj9x",
-      "title": "GHSA: langchain-nvidia-ai-endpoints has local file disclosure through VLM image inputs",
-      "summary": "## Summary\n\n`langchain-nvidia-ai-endpoints` versions before 1.4.2 accepted local filesystem paths as image inputs for Vision Language Model (VLM) requests. If an application passed attacker-controlled image input to `ChatNVIDIA` or VLM reranking APIs, an attacker could cause files readable by the application process to be read and included in the outbound request to the configured NVIDIA/NIM model",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T19:25:36Z",
-      "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "b36b01380aab856078f5c7f2a76921956bdd378eb7f2bf93b379354254840462",
-      "url": "https://github.com/advisories/GHSA-fx6f-382r-j72c",
-      "title": "GHSA: CyberChef: Prototype pollution in Series Chart operation",
-      "summary": "On 5 June 2026 CyberChef received a security vulnerability report from @hyuunnn detailing a vulnerability in the Series Chart operation, where malicious input could result in prototype pollution of the data structures outputted from the operation.\nOther operations following Series Chart could have their behaviour manipulated by the attacker-controlled prototype, for example, injecting malicious co",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T19:24:30Z",
-      "cve_ids": [
-        "CVE-2026-57439"
-      ],
-      "cvss": 5.0,
-      "related_links": []
-    },
-    {
-      "id": "ba3dae02cf2d84de63c11515f7bf92982f9ec85c2ed9d93f32055e3cd4590113",
-      "url": "https://ubuntu.com/security/notices/USN-8821-1",
-      "title": "USN-8821-1: OpenStack Swift vulnerability",
-      "summary": "It was discovered that OpenStack Swift incorrectly handled truncated aws-chunked PUT request bodies in its s3api middleware. An authenticated attacker could possibly use this issue to cause OpenStack Swift to use excessive resources, leading to a denial of service.",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-09-24T19:18:41+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "e29402ecfe524201ddebbf8d86d331eff51696c32a1939f2a72bb270c33d2070",
-      "url": "https://github.com/advisories/GHSA-g5f9-3xfg-p9mf",
-      "title": "GHSA: Decepticon: Role-boundary forgery via ChatML special-token literals in web crawl output composed into LLM context",
-      "summary": "## Summary\n\nDecepticon wraps web crawl results — the output of agent reconnaissance against target services — into LLM messages without neutralizing ChatML special-token literals. Under the BYOK (Bring Your Own Key) deployment model, users configure their own LLM credentials to any OpenAI-compatible endpoint. Most open-source and self-deployed model providers (vLLM, SGLang, Ollama, LM Studio, text",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-24T19:17:49Z",
-      "cve_ids": [
-        "CVE-2026-61732"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "472d7c698e32b32252e896a39934caa9ea9a672d0f07c27367dd809a57730865",
-      "url": "https://github.com/advisories/GHSA-6v3r-4p5c-mrp5",
-      "title": "GHSA: Language Servers for AWS vulnerable to arbitrary file write",
-      "summary": "## Summary\nLanguage Servers for AWS (the aws/language-servers project) provides the Language Server Protocol implementations that power AWS developer tooling, including the Amazon Q Developer agentic chat experience, across IDEs such as VS Code, JetBrains, Visual Studio, and Eclipse.\n\nMissing symlink validation in Language Servers for AWS may allow an arbitrary file write outside of the workspace ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T19:15:39Z",
-      "cve_ids": [
-        "CVE-2026-12958"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "46e13f1efc0b7072707337cfa6f10120092db041e3e960fc750580b88338fe1b",
-      "url": "https://github.com/advisories/GHSA-396x-xmvh-p563",
-      "title": "GHSA: Snipe-IT: Stored XSS via Inline XML Rendering in the Uploaded Files API",
-      "summary": "Snipe-IT's uploaded-files API accepts XML documents and later serves them inline without applying the safe-inline allowlist used by the equivalent web controller. An authenticated user who can attach files to a supported object can upload an XSLT stylesheet and an XML document that references it through xml-stylesheet. When another authorized user opens the XML file through the API with ?inline=tr",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T18:19:38Z",
-      "cve_ids": [
-        "CVE-2026-63498"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "320379352254ee0ee34ecc51a43cb734123a5ffc3abad6ab2c8608d228d9dcc2",
-      "url": "https://github.com/advisories/GHSA-9993-rfwp-rhwf",
-      "title": "GHSA: ZITADEL: MFA bypass via session reuse in Login V2",
-      "summary": "### Summary\n\nA vulnerability in ZITADEL’s Login V2 UI allowed a password-verified browser session to be reused for a new authentication request without re-checking a user’s enrolled second factor (TOTP, OTP, or U2F). An attacker who already knows valid credentials can fully authenticate to an application without completing MFA.\n\n### Impact\n\nZITADEL Login V2 issues a session as soon as the user’s p",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T18:19:35Z",
-      "cve_ids": [
-        "CVE-2026-85056"
-      ],
-      "cvss": 8.2,
-      "related_links": []
-    },
-    {
-      "id": "2d924caad0d990277adfa3a3beeefe2c770b7756ae3c201fbb7a2be8a9992004",
-      "url": "https://github.com/advisories/GHSA-fgmf-7rf8-m6vf",
-      "title": "GHSA: ZITADEL: Actions V1 sandbox escape: host file read via require()",
-      "summary": "### Summary\n\nA vulnerability in ZITADEL Actions V1 allows an organization Action author to read files from the ZITADEL host filesystem through the JavaScript `require()` module loader. On common self-hosted deployments this can be chained to steal bootstrap credentials (including the Login Client PAT) and escalate from a single-tenant organization owner to instance administrator.\n\n### Impact\n\nZITA",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T18:19:32Z",
-      "cve_ids": [
-        "CVE-2026-85057"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "887cd6cc8ccbeef51ee7e504ae63d4d2a078a0540c85e740b1af9e11865ebf87",
-      "url": "https://github.com/advisories/GHSA-p9h3-gvpq-5539",
-      "title": "GHSA: Snipe-IT: Stored XSS via Custom Field name in asset-list column headers",
-      "summary": "### Impact\nA user with the \"customfields.create\" permission can store HTML/JS in a Custom Field name, which is later rendered as an asset-list column title WITHOUT escaping at app/Presenters/AssetPresenter.php line 364 ('title' => $field->name) and injected into the table header by the bundled bootstrap-table plugin. It executes for anyone who opens an asset list (e.g. /hardware), including superu",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T18:19:30Z",
-      "cve_ids": [
-        "CVE-2026-62368"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "b3e2275cdb352cf5f75ce4f629de0cae8073df01cd009ec8a03c691acd74fdb0",
-      "url": "https://github.com/advisories/GHSA-xcw9-qmmf-vqxj",
-      "title": "GHSA: Dozzle label filters do not restrict container event and statistics streams",
-      "summary": "## Summary\n\nDozzle supports per-user label filters in `users.yml` that are documented as an access-control boundary: \"Filters are used to restrict the containers that a user can see\" and \"the `guest` user can only see containers with the label `com.example.app` … useful for restricting access to specific containers\" (docs/guide/authentication.md). This is the mechanism operators use to give differ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T18:15:10Z",
-      "cve_ids": [
-        "CVE-2026-62286"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "246ea2a457793f4af74a47f996263a804bea9a4770642d838ed98ecf29ada29c",
-      "url": "https://github.com/advisories/GHSA-fx76-2j3w-2mx6",
-      "title": "GHSA: podman quadlet install --replace does not fully replace the old file",
-      "summary": "### Impact\n\nWhen running `podman quadlet install --replace` to replace a Quadlet file, if the original Quadlet is larger than the new Quadlet, the file would not be truncated and content from the original would be preserved. There is no risk of information leakage as the user already had access to the Quadlet in order to replace it, and in most cases, this would only lead to invalid Quadlet files ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T16:28:26Z",
-      "cve_ids": [
-        "CVE-2026-19730"
-      ],
-      "cvss": 4.2,
-      "related_links": []
-    },
-    {
-      "id": "aad64bd2ff535bd302a6359aceb6969ab95ccd35a57cc43ecb6f33c82aa1d4f4",
-      "url": "https://github.com/advisories/GHSA-vf2x-4v53-pm7v",
-      "title": "GHSA: Streamlink: HTTPSession follows HTTP redirects into file:// URLs, reading local files",
-      "summary": "## Summary\n\n`HTTPSession` mounts a `FileAdapter` for the `file://` scheme and inherits redirect handling\nunchanged from `requests.Session`. `requests` does not check for scheme downgrades or\ncross-protocol transitions when it follows a redirect, so any http(s) request Streamlink makes can\nbe redirected by the remote server into `file:///...` and the local file is returned as the\nresponse body.\n\n`G",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T14:58:04Z",
-      "cve_ids": [
-        "CVE-2026-92164"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "21d0c4b800fe0f8506104f1d6707a9096c0fcd89f90ef476a075c5d23a19fe1b",
-      "url": "https://github.com/advisories/GHSA-6rf4-v2fh-m6p4",
-      "title": "GHSA: SunEditor: Critical XSS vulnerability - sanitizer bypass",
-      "summary": "## Summary\n\nSUNEDITOR `v2.47.10` appears to allow JavaScript execution through crafted namespaced HTML elements.\n\nThe sanitization logic does not fully remove executable event-handler attributes from certain custom/namespaced tags. As a result, an attacker may be able to inject HTML content that executes JavaScript when the rendered element is interacted with.\n\nThis behavior was observed after the",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-24T14:57:55Z",
-      "cve_ids": [
-        "CVE-2026-59167"
-      ],
-      "cvss": 10.0,
-      "related_links": []
-    },
-    {
-      "id": "95aa946d802380386d6c5b4abbc2d9c51e2231ecbd9448dbc8d7258b21677b24",
-      "url": "https://github.com/advisories/GHSA-4f5f-j737-pm58",
-      "title": "GHSA: REDAXO: Unwhitelisted ORDER BY Column in rex_list Allows Authenticated Column Enumeration",
-      "summary": "### Summary\nThe `rex_list` component reads the SQL sort column directly from the `sort` GET parameter without validating it against the set of columns declared sortable via `setColumnSortable()`. Although the value is wrapped in backticks via `escapeIdentifier()` (preventing classical SQL injection), this still allows any authenticated backend user to ORDER BY any column in the query's FROM tables",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-24T14:57:07Z",
-      "cve_ids": [
-        "CVE-2026-62998"
-      ],
-      "cvss": 4.3,
       "related_links": []
     }
   ]
