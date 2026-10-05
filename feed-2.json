@@ -1,10 +1,38 @@
 {
-  "updated": "2026-10-05T04:24:01.590831+00:00",
+  "updated": "2026-10-05T16:50:48.656782+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "50da9b1e55aa0574d5f87ae6724d607769d92104b85eda200fd4fadbc1fa2d43",
+      "url": "https://github.com/advisories/GHSA-6rh5-qq4q-97xh",
+      "title": "GHSA: vm2: NodeVM builtin denylist bypass via fs/promises despite -fs, allowing host filesystem writes",
+      "summary": "## Summary\n\nNodeVM's builtin wildcard policy can allow sandboxed code to access `fs/promises` even when the embedder denies `fs`.\n\nWith the following configuration:\n\n```js\nrequire: {\n  builtin: ['*', '-fs', '-child_process']\n}\n```\n\n`require('fs')` and `require('child_process')` are blocked, but `require('fs/promises')` and `require('node:fs/promises')` are still available. This allows sandboxed co",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-01T15:36:48Z",
+      "cve_ids": [
+        "CVE-2026-92958"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "88ce6291a13bee33831aa5cc5b78972b61f6c50d34ed9337542de6908843bdef",
+      "url": "https://github.com/advisories/GHSA-8686-vhfx-7r3j",
+      "title": "GHSA: vm2: NodeVM node:-prefixed negative builtin deny bypass exposes child_process",
+      "summary": "## Summary\n\nNodeVM normalizes `node:`-prefixed builtin specifiers during `require()` resolution, but it does not normalize user-provided negative builtin entries in wildcard policy.\n\nAs a result, this configuration:\n\n```js\nnew NodeVM({\n  require: {\n    builtin: ['*', '-node:child_process']\n  }\n});\n```\n\ndoes not deny the canonical `child_process` builtin. Sandboxed code can require both `child_proc",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-01T15:36:01Z",
+      "cve_ids": [
+        "CVE-2026-92957"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
     {
       "id": "6f50b60f246d859eea58df6e82b85b2fdeec7ae1bd14340af086b806f9039094",
       "url": "https://github.com/advisories/GHSA-633r-hq9m-c4ff",
@@ -658,32 +686,6 @@
         "CVE-2026-102825"
       ],
       "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "c385473b1a5e804fed9afb783286bc8ecae2be29d59c7dc1e926dcf1d2bf4403",
-      "url": "https://github.com/advisories/GHSA-3cv6-jpf6-8222",
-      "title": "GHSA: LiteLLM: Authenticated SSRF and provider-credential exfiltration via unvalidated request-body routing parameters",
-      "summary": "### Impact\n\nAny authenticated LiteLLM proxy user could redirect an outbound provider call to a destination they control and cause the proxy to send its own configured provider credentials to that destination. The proxy's request-body validation was a denylist that did not cover every sensitive parameter and did not inspect parameters nested inside other request fields, so a caller could supply a r",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-30T21:11:25Z",
-      "cve_ids": [
-        "CVE-2026-84377"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "3776ad1cae04a940ba5533984bb3535b0bb6b144bc72d85f9fbb8cd3112aff8e",
-      "url": "https://www.bleepingcomputer.com/news/security/divd-says-zammad-zero-days-enabled-ai-driven-network-breach/",
-      "title": "DIVD says Zammad zero-days enabled AI-driven network breach",
-      "summary": "The Dutch Institute for Vulnerability Disclosure (DIVD) says that the breach of its network was possible by exploiting a chain of two zero-day vulnerabilities in the open-source Zammad ticketing system. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-30T19:49:15+00:00",
-      "cve_ids": [],
-      "cvss": null,
       "related_links": []
     }
   ]
