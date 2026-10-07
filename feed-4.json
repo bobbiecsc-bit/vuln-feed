@@ -1,10 +1,583 @@
 {
-  "updated": "2026-10-07T04:38:36.880935+00:00",
+  "updated": "2026-10-07T21:01:58.640951+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "82096ac5d77e89c3fd5cdabc2d64c8a62a376cd1c6e88d09c6867fdc76c7703f",
+      "url": "https://github.com/advisories/GHSA-jxxv-8r27-vm4p",
+      "title": "GHSA: vm2 CLI provides no sandbox isolation - host-realm require() is reachable from sandboxed scripts",
+      "summary": "### Summary\nThe `vm2` command-line tool installed by `npm install -g vm2` and documented in the README's \"CLI\" section runs the supplied script under `NodeVM` with `require:{external:true}` and no `root` / `context` / `builtin` configured. With these defaults the resolver loads every relative or absolute `require()` target through the **host** `require()` function, executing the attacker's module ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-01T15:40:45Z",
+      "cve_ids": [
+        "CVE-2026-92950"
+      ],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "716e76e10f637f1aa9c87fdf0bf695f8de046c16cad3108841be17094874bda2",
+      "url": "https://github.com/advisories/GHSA-h85j-hv3c-qfgq",
+      "title": "GHSA: vm2 exposes host HTTPS credentials and TLS traffic through globalAgent",
+      "summary": "Summary\n\nvm2 3.11.6 exposes the host process's real `https.globalAgent` when a `NodeVM` is explicitly allowed to require `https`. The module is wrapped as read-only, but calls to methods on the shared agent still mutate the host object. Sandbox code can register a `free` listener and receive host request options and the host TLS socket whenever an unrelated host HTTPS request releases a pooled con",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-01T15:38:26Z",
+      "cve_ids": [
+        "CVE-2026-92940"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "be9107a6e5462f272899358574928eb761351350578a5b1d0324ba06bffc1a86",
+      "url": "https://github.com/advisories/GHSA-c48m-32m9-vx93",
+      "title": "GHSA: vm2 Custom Module Resolver Can Bypass the External Package Allowlist by Loading a Colliding Host Package",
+      "summary": "### Summary\n\nvm2 is a sandbox library for isolating and executing untrusted JavaScript code inside a Node.js process. It can restrict access to built-in modules and external packages.\n\nWhen `NodeVM` enables an `external` allowlist together with a custom `resolve` callback, vm2 checks the requested package name with a non-exact match. For example, if the allowlist only permits `left-pad`, an attack",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-01T15:37:19Z",
+      "cve_ids": [
+        "CVE-2026-92951"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "50da9b1e55aa0574d5f87ae6724d607769d92104b85eda200fd4fadbc1fa2d43",
+      "url": "https://github.com/advisories/GHSA-6rh5-qq4q-97xh",
+      "title": "GHSA: vm2: NodeVM builtin denylist bypass via fs/promises despite -fs, allowing host filesystem writes",
+      "summary": "## Summary\n\nNodeVM's builtin wildcard policy can allow sandboxed code to access `fs/promises` even when the embedder denies `fs`.\n\nWith the following configuration:\n\n```js\nrequire: {\n  builtin: ['*', '-fs', '-child_process']\n}\n```\n\n`require('fs')` and `require('child_process')` are blocked, but `require('fs/promises')` and `require('node:fs/promises')` are still available. This allows sandboxed co",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-01T15:36:48Z",
+      "cve_ids": [
+        "CVE-2026-92958"
+      ],
+      "cvss": 8.5,
+      "related_links": []
+    },
+    {
+      "id": "88ce6291a13bee33831aa5cc5b78972b61f6c50d34ed9337542de6908843bdef",
+      "url": "https://github.com/advisories/GHSA-8686-vhfx-7r3j",
+      "title": "GHSA: vm2: NodeVM node:-prefixed negative builtin deny bypass exposes child_process",
+      "summary": "## Summary\n\nNodeVM normalizes `node:`-prefixed builtin specifiers during `require()` resolution, but it does not normalize user-provided negative builtin entries in wildcard policy.\n\nAs a result, this configuration:\n\n```js\nnew NodeVM({\n  require: {\n    builtin: ['*', '-node:child_process']\n  }\n});\n```\n\ndoes not deny the canonical `child_process` builtin. Sandboxed code can require both `child_proc",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-01T15:36:01Z",
+      "cve_ids": [
+        "CVE-2026-92957"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "6f50b60f246d859eea58df6e82b85b2fdeec7ae1bd14340af086b806f9039094",
+      "url": "https://github.com/advisories/GHSA-633r-hq9m-c4ff",
+      "title": "GHSA: vm2: vm.freeze()/vm.readonly() bypass via accessor descriptor",
+      "summary": "### Summary\nUntrusted JavaScript running inside `new VM().run()` / `new NodeVM().run()` can bypass `vm.freeze()` / `vm.readonly()` and mutate a host object the embedder explicitly marked read-only - the documented contract is \"prevent sandboxed scripts from adding, changing, or deleting properties\". If the frozen host object has an accessor (get/set) own-property, the sandbox can read the host set",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-01T15:35:25Z",
+      "cve_ids": [
+        "CVE-2026-92949"
+      ],
+      "cvss": 4.0,
+      "related_links": []
+    },
+    {
+      "id": "f9cca108bc62f45db4418c740c681fa014b49c7f7122e0b0bea89bff9e045ca0",
+      "url": "https://github.com/advisories/GHSA-8hr7-r645-pc6w",
+      "title": "GHSA: vm2: NodeVM nesting guard accepts array-shaped require and permits host RCE",
+      "summary": "## Summary\n\nThe `NodeVM` constructor computes `hasRealRequireConfig` using `typeof requireOpts === 'object' && requireOpts !== null`, so `require: []` bypasses the guard intended to reject `nesting` without an explicit require configuration. `makeResolverFromLegacyOptions()` then destructures the array to undefined option fields and returns a resolver containing only `NESTING_OVERRIDE.vm2`. Any at",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-01T15:34:58Z",
+      "cve_ids": [
+        "CVE-2026-92935"
+      ],
+      "cvss": 9.0,
+      "related_links": []
+    },
+    {
+      "id": "89d32c78fbc32dace6d8784734d44fa6bc12789a1dc5a8e960af0b82bb50e2fb",
+      "url": "https://github.com/advisories/GHSA-647f-g98j-qq25",
+      "title": "GHSA: vm2: GHSA-m283-3h24-438v fix bypass leads to host RCE via call/apply indirection",
+      "summary": "## Summary\n\nUntrusted JavaScript run by vm2 can escape the sandbox and execute arbitrary commands in the host Node.js process when an embedder-exposed host Promise rejects. This is an incomplete fix for GHSA-m283-3h24-438v: the advisory's capability-bearing rejection rebuild runs only through this direct Promise-handler path, so call/apply indirection bypasses the protection it introduced. The bri",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-01T15:32:10Z",
+      "cve_ids": [
+        "CVE-2026-92937"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "b5dec281304da07c36bcc8dc3bfb934e59d754ff6177f2719611e505f78b09fd",
+      "url": "https://github.com/advisories/GHSA-6w8r-xxw2-g3hx",
+      "title": "GHSA: vm2 allows a sandboxed plugin to execute native code through `node:sqlite`",
+      "summary": "### Summary\n\nvm2 3.11.6 exposes Node.js's host `node:sqlite` module to `NodeVM` code when that builtin is allowed explicitly or through `builtin: ['*']`. The module is wrapped as read-only, but callable methods retain host-process authority. A sandboxed plugin can construct an in-memory database with extension loading enabled and call `DatabaseSync.loadExtension()` on a native library bundled in t",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-01T15:29:04Z",
+      "cve_ids": [
+        "CVE-2026-92938"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "9d896aa59eee720a54d00730a32af09e58e1a056a3c5b340ef00d9352d5521b0",
+      "url": "https://github.com/advisories/GHSA-46pr-c5wc-xffx",
+      "title": "GHSA: vm2 crypto builtin loads attacker native code through setEngine",
+      "summary": "Summary\n\nvm2 3.11.6 exposes the host `crypto` module to a `NodeVM` when that single builtin is allowed. The module is presented through a read-only bridge, but its functions still execute with host-process authority. `crypto.setEngine()` accepts a filesystem path and asks OpenSSL to dynamically load the referenced native library.\n\nAn attacker whose untrusted plugin package contains a native librar",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-01T15:28:36Z",
+      "cve_ids": [
+        "CVE-2026-92939"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "a1bad15d5c41125a3b599a7d2dd51dc4c7755691c068563381395b5440abaa4c",
+      "url": "https://github.com/advisories/GHSA-27g9-p43v-cw3v",
+      "title": "GHSA: vm2 sandbox escape on Node.js 26 through a stale PromiseThenLookupChain protector",
+      "summary": "## Reporter\n\n- Name or handle: `[YMsora]`\n- Report date: 2026-08-14\n\n## Summary\n\nThe latest published vm2 release, **3.11.5**, and the current `main` branch are vulnerable to a sandbox escape when used on Node.js 26. An ordinary fulfilled Promise created by an async function can retain an attacker-controlled `constructor[Symbol.species]` across `Promise.prototype.finally()`.\n\nvm2 installs wrappers",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-01T15:28:07Z",
+      "cve_ids": [
+        "CVE-2026-92944"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "75bd221a64d1761bd860ce337835a349cfae4484a775bcdfa4f6b05c03625f47",
+      "url": "https://github.com/advisories/GHSA-98xx-8mx4-x7cm",
+      "title": "GHSA: vm2 NodeVM can replace the host process TLS trust store",
+      "summary": "Summary\n\nvm2 3.11.6 exposes the host `tls` module to a `NodeVM` when that builtin is explicitly allowed. Although the module object is wrapped as read-only, its functions still execute against process-wide host state. On Node.js versions that provide `tls.setDefaultCACertificates()`, sandbox code can replace the certificate authorities trusted by subsequent host-realm TLS clients.\n\nThe exploit nee",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-01T15:27:28Z",
+      "cve_ids": [
+        "CVE-2026-92941"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "5e2ab982eafc761b15bb2040319da94b14f8940fb6732ab23d85440569068ef8",
+      "url": "https://github.com/advisories/GHSA-7q3f-wx44-378m",
+      "title": "GHSA: vm2: External module allowlist uses a raw prefix test, so a prefix-sharing sibling package is treated as allowlisted",
+      "summary": "## Summary\n\n`isPathAllowedForModule` decides whether a resolved path belongs to an allowlisted external module using a raw string prefix test. `node_modules/foo2` starts with `node_modules/foo`, so a package whose name merely shares a prefix with an allowlisted one is treated as being inside it, and a relative require from the allowlisted package reaches it even with transitive loading disabled.\n\n",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-01T15:26:45Z",
+      "cve_ids": [
+        "CVE-2026-92945"
+      ],
+      "cvss": 4.2,
+      "related_links": []
+    },
+    {
+      "id": "ac258065697973cde4d6f3ae99f0ab21c5fc63e25236f4e681613e6f2f2a1f2b",
+      "url": "https://github.com/advisories/GHSA-3jqq-pw4j-pqcj",
+      "title": "GHSA: JupyterLab: Cross-site scripting (XSS) in JupyterLab via crafted language package (jupyterlab.json)",
+      "summary": "## Description\n\nA language pack ships a `Plural-Forms` header saying how the language counts, for example `nplurals=2; plural=(n != 1);`. JupyterLab turns that string into a function with `new Function`, so the header gets executed. The check that meant to keep it safe was a regular expression. The regex was anchored at the start but not at the end, so it accepted any string that began with a vali",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-01T15:22:17Z",
+      "cve_ids": [
+        "CVE-2026-102830"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "8d1b13ab582310780e6b91ab7ae8b5321210fa3c5c210876644032289eb2db2d",
+      "url": "https://github.com/advisories/GHSA-3325-v43h-43rv",
+      "title": "GHSA: JupyterLab: Argument injection in JupyterLab extension uninstall exposes server-readable files and internal URLs",
+      "summary": "JupyterLab's PyPI extension manager runs `python -m pip uninstall` with the extension name taken from the request body. `ExtensionHandler.post` validates the name for `cmd=install` but not for `cmd=uninstall`, so a name that begins with `-` reaches the command line and pip reads it as an option rather than as a package.\n\n```python\ncmdline = [\n    sys.executable,\n    \"-m\",\n    \"pip\",\n    \"uninstall",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-01T15:21:17Z",
+      "cve_ids": [
+        "CVE-2026-102904"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "5ee5f79222ae623843352d457c257a027983db3a3b9b453fa07f745c1f5c99da",
+      "url": "https://github.com/advisories/GHSA-6966-vjj6-99xv",
+      "title": "GHSA: JupyterLab: Cross-site scripting (XSS) in JupyterLab via notebook cells pasted from the system clipboard",
+      "summary": "## Description\n\nJupyterLab 4.5.0 enabled copying and pasing cells through the system clipboard. The paste path parses clipboard text as cell JSON and inserts the cells without clearing `metadata.trusted`, so a payload can declare its own output as trusted. JupyterLab does not sanitize a trusted output and evaluates the `<script>` elements it contains, so pasting the cell runs attacker's JavaScript",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-01T15:20:41Z",
+      "cve_ids": [
+        "CVE-2026-102831"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "7180a1c61f66269528c50c28e3ca2255af5d8e9562759eeaf0776e9c06f2949b",
+      "url": "https://github.com/advisories/GHSA-7hhh-6rmp-j9qf",
+      "title": "GHSA: jackson-core: UTF8DataInputJsonParser._reportInvalidToken() missing maxErrorTokenLength limit -> unbounded StringBuilder growth (DoS)",
+      "summary": "## Status\n\n**FULLY REPRODUCED.** A malformed token fed through `createParser(DataInput)` produced a\n20,000,109-character exception message from a 20-million-character attacker payload, while the\nidentical payload fed through `createParser(InputStream)` produced a correctly bounded\n367-character message.\n\n## Affected Component / Version\n\n- **Package:** `com.fasterxml.jackson.core:jackson-core`\n- **",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-01T15:20:27Z",
+      "cve_ids": [
+        "CVE-2026-89425"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "c1ddf7efe9b177bda6e0efe89e3c5c3bff8bf5dc3b063ce5a638d64738a97f5f",
+      "url": "https://github.com/advisories/GHSA-p6pp-m3f8-5c89",
+      "title": "GHSA:  jackson-core: ReDoS: quadratic backtracking in NumberInput.PATTERN_FLOAT via looksLikeValidNumber()",
+      "summary": "## Status\n\n**FULLY REPRODUCED** with a clean, textbook empirical signature: measured runtime grew almost\nexactly 4x for every doubling of input size across five consecutive doublings (5,000 → 160,000\ncharacters), confirming O(n²) behavior. A single 160,000-character string (smaller than a typical\nHTTP request body) took **74.4 seconds** for one call to `NumberInput.looksLikeValidNumber()`.\n\n## Aff",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-01T15:19:21Z",
+      "cve_ids": [
+        "CVE-2026-89407"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "dcfca501c96034d30514c83a01e4f90c6e873efc440d333582d96696e7192edc",
+      "url": "https://github.com/advisories/GHSA-j22f-vq7h-c4qm",
+      "title": "GHSA: devalue: `stringify`/`uneval` serialize shared memory",
+      "summary": "### Impact\n\n`stringify` and `uneval` serialize a typed array by emitting its backing `ArrayBuffer`, not just the view. In the case of a Node `Buffer` object, the backing buffer is a process-wide shared pool, meaning unrelated memory can be serialized into a response that is then sent to the client. For a Node `Buffer` the backing store is Node's **process-wide shared pool**, so serializing a small",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-01T15:18:06Z",
+      "cve_ids": [
+        "CVE-2026-92708"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "b025dae4b14bbd0fb373ffdb38301ee86c7e86afcbfe916b37d3f957ac8f95b2",
+      "url": "https://github.com/advisories/GHSA-p58f-9548-mpm2",
+      "title": "GHSA: virtualenv bash and fish activation scripts execute commands embedded in paths",
+      "summary": "### Impact\n\nThe generated `activate` (bash/zsh) and `activate.fish` scripts interpolate a `shlex.quote`-ed value into a position that quotes it a second time. The extra quotes terminate the quoted run early and leave part of the value parsed as shell code, so a path containing shell metacharacters runs commands when a user sources the activation script.\n\n`activate` is affected through the virtual ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-01T15:09:17Z",
+      "cve_ids": [
+        "CVE-2026-102925"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "cead808fca0e66d14e7f621dcc194f77cefd8be835de40265727fe512fdce968",
+      "url": "https://github.com/advisories/GHSA-hgfg-j9pg-43xw",
+      "title": "GHSA: SiYuan discloses an administrator's open documents and search terms to anonymous readers",
+      "summary": "### Summary\n\n`/api/system/getConf` serves `Conf.UILayout` to publish readers after passing it through `FilterConfByPublishIgnore`, whose only function is to filter that layout. The layout is written exclusively by `setUILayout`, which is administrator-gated, so what readers receive is the administrator's own live workspace state, re-saved on every tab open, close and focus change.\n\nThe filter that",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-01T14:39:32Z",
+      "cve_ids": [
+        "CVE-2026-72788"
+      ],
+      "cvss": 5.8,
+      "related_links": []
+    },
+    {
+      "id": "ddcd5c9c3219de7096f5fbf6746f970aafefbc61c8af1fbe996a3b186fd5c2cc",
+      "url": "https://github.com/advisories/GHSA-33jq-p8c2-q3q4",
+      "title": "GHSA: SiYuan: Unauthenticated SQL injection in searchDocs via unescaped keyword (publish mode): cross-notebook read/write with statement stacking",
+      "summary": "### Summary\n\nThe `/api/filetree/searchDocs` endpoint concatenates the caller-supplied search keyword directly into a SQL statement with no escaping and no parameter binding. The endpoint is gated by `CheckAuth` only reachable by the publish RoleReader token, and by the anonymous account when `Publish.Auth.Enable` is `false`. The resulting statement runs on a read-write SQLite handle through a driv",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-01T14:38:48Z",
+      "cve_ids": [
+        "CVE-2026-69085"
+      ],
+      "cvss": 10.0,
+      "related_links": []
+    },
+    {
+      "id": "624e1a7a0804909562249230599e32ff049b0a25c8b7d6db49fcda9c7c3d405c",
+      "url": "https://www.bleepingcomputer.com/news/security/police-dismantle-killsec-ransomware-gang-allegedly-led-by-16-year-old/",
+      "title": "Police dismantle KillSec ransomware gang allegedly led by 16-year-old",
+      "summary": "An international law enforcement operation dubbed \"Operation KillSwitch\" seized the KillSec ransomware gang's data leak site and servers, led to three arrests, and identified a 16-year-old as the group's alleged administrator. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-10-01T14:25:14+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "17e0ada6714d7443ad12c49dcbc50bb7a60188428e47a3786ea3d4a3ad847488",
+      "url": "https://www.rapid7.com/blog/post/ai-changing-security-operations-center-roles-soc",
+      "title": "How AI Is Changing the Roles Required in the Security Operations Center",
+      "summary": "As AI takes on more of the enrichment, correlation, and initial assessment inside the SOC, roles, skills, and KPIs still require deliberate redesign. Security leaders need to decide where automation is dependable, where human judgment should remain decisive, and how teams should be measured when alert handling is no longer the center of the operating modelThe Gartner® report, The Roles Required fo",
+      "source": "Rapid7",
+      "category": "emergency",
+      "date": "2026-10-01T13:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "5173d536a5b872c25fc033a7ac5f551fefdc00c29f1eeb44fbaa5cc69eb7e08b",
+      "url": "https://ubuntu.com/security/notices/USN-8862-1",
+      "title": "USN-8862-1: libXpm vulnerability",
+      "summary": "It was discovered that libXpm did not correctly handle XPM images with zero-dimension values. A local attacker could possibly use this issue to cause libXpm to use excessive resources, leading to a denial of service.",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-10-01T12:51:01+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "c3312923717ca48639e5002eef08eb91e4ece4d03a1e9d869f588f945752f174",
+      "url": "https://ubuntu.com/security/notices/USN-8861-1",
+      "title": "USN-8861-1: OpenSSL vulnerabilities",
+      "summary": "It was discovered that OpenSSL had an inefficient algorithm in its QUIC stream reassembly implementation. A remote attacker could possibly use this issue to cause OpenSSL to use excessive CPU resources, leading to a denial of service. (CVE-2026-42772) It was discovered that OpenSSL did not properly limit memory allocated for QUIC packet buffers. A remote attacker could possibly use this issue to c",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-10-01T12:02:00+00:00",
+      "cve_ids": [
+        "CVE-2026-42772",
+        "CVE-2026-54873"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "4f07180fa12189cbe89e78eaf861a6f8f00f899e0a242964024dbfb70b8b4090",
+      "url": "https://www.bleepingcomputer.com/news/security/hackers-breach-pentagon-human-resources-management-system-steal-data-of-nearly-3-million-people/",
+      "title": "Hackers stole Pentagon personnel records of over 3 million people",
+      "summary": "The Pentagon's Defense Manpower Data Center (DMDC) is notifying millions of military service members that hackers stole their data after breaching the Pentagon's human resources management system in October 2025. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-10-01T09:44:28+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "23288cb1fba55dec2278df1214578e4eb0b695defd261cec39e8f76ecaade67b",
+      "url": "https://seclists.org/fulldisclosure/2026/Sep/95",
+      "title": "[NotCVE-2026-0019] game-music-emu through 0.6.5 VGM Command Interpreter Missing Operand Length Check Allows Heap Out-of-Bounds Read",
+      "summary": "Posted by advisories on Sep 30---------------------------------------------------------------------------- NotCVE Advisory — NotCVE-2026-0019 ---------------------------------------------------------------------------- [-] Summary: An out-of-bounds read in the VGM command interpreter of game-music-emu (libgme), the open-source video game music emulation library, allows an attacker who supplies a c",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-10-01T06:16:41+00:00",
+      "cve_ids": [
+        "CVE-2026-0019"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "70eda4d50f825e1f587812c5e08e2cf7c01d873e44a115848316ba9b8062e54c",
+      "url": "https://seclists.org/fulldisclosure/2026/Sep/94",
+      "title": "[NotCVE-2026-0018] game-music-emu (libgme) through 0.6.5 Unbounded GYM Command Loop Allows Heap Out-of-Bounds Read",
+      "summary": "Posted by advisories on Sep 30---------------------------------------------------------------------------- NotCVE Advisory — NotCVE-2026-0018 ---------------------------------------------------------------------------- [-] Summary: An out-of-bounds read in the GYM playback path of game-music-emu (libgme), the open-source video game music emulation library, allows an attacker who supplies a crafted",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-10-01T06:16:40+00:00",
+      "cve_ids": [
+        "CVE-2026-0018"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "26ab7f8efa06b14cd7afa61fbee1f9114e67df9842a7ddcab2845ba25a740360",
+      "url": "https://seclists.org/fulldisclosure/2026/Sep/93",
+      "title": "[NotCVE-2026-0017] game-music-emu (libgme) 0.6.5 and Earlier AY Loader NULL Pointer Dereference Allows Denial of Service",
+      "summary": "Posted by advisories on Sep 30---------------------------------------------------------------------------- NotCVE Advisory — NotCVE-2026-0017 ---------------------------------------------------------------------------- [-] Summary: A NULL pointer dereference in the AY file loader of game-music-emu (libgme), the open-source video game music emulation library, allows an attacker who supplies a craft",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-10-01T06:16:39+00:00",
+      "cve_ids": [
+        "CVE-2026-0017"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "4ab036ac124f37593285d5a3876fe74f0aff9031d530eff2e74b85e058aad051",
+      "url": "https://seclists.org/fulldisclosure/2026/Sep/92",
+      "title": "[NotCVE-2026-0016] game-music-emu VGM Command Interpreter Unvalidated 0xE0 PCM Seek Offset Allows Out-of-Bounds Read and Denial of Service",
+      "summary": "Posted by advisories on Sep 30---------------------------------------------------------------------------- NotCVE Advisory — NotCVE-2026-0016 ---------------------------------------------------------------------------- [-] Summary: An out-of-bounds read in the VGM command interpreter of game-music-emu (libgme), the open-source video game music emulation library, allows an attacker who supplies a c",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-10-01T06:16:37+00:00",
+      "cve_ids": [
+        "CVE-2026-0016"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "fac841f33642330c7ecec7dd32976956e21c13989482475c5f70142d032d69c9",
+      "url": "https://www.exploit-db.com/exploits/52688",
+      "title": "[remote] Ecava_ntegraXor IGX_16.0.701.10 - RCE",
+      "summary": "Ecava_ntegraXor IGX_16.0.701.10 - RCE",
+      "source": "Exploit-DB",
+      "category": "emergency",
+      "date": "2026-10-01T00:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "71932e4b32d5755df0dbe795df2af70f06aea64d974ed87f4983c7a0e7a0bfbb",
+      "url": "https://www.exploit-db.com/exploits/52686",
+      "title": "[webapps] SuiteCRM 8.10.1 - Authenticated SSRF",
+      "summary": "SuiteCRM 8.10.1 - Authenticated SSRF",
+      "source": "Exploit-DB",
+      "category": "web_app",
+      "date": "2026-10-01T00:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "89c589eafd8b6274ab9c2a584be34a5501607ffdbc67d37b2c12ca12ce7499d0",
+      "url": "https://www.exploit-db.com/exploits/52685",
+      "title": "[webapps] InvoicePlane 1.7.1 - RCE",
+      "summary": "InvoicePlane 1.7.1 - RCE",
+      "source": "Exploit-DB",
+      "category": "emergency",
+      "date": "2026-10-01T00:00:00+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "9ba609d9afe5d95bd9396078f865a9764e915973fc373fa37858969563c4ebbb",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-104286",
+      "title": "CVE-2026-104286: Fortinet FortiMail Path Traversal Vulnerability",
+      "summary": "Fortinet FortiMail contains a path traversal and an improper neutralization of NULL byte or NULL character vulnerability that may allow an unauthenticated attacker to write arbitrary files on the underlying system via crafted HTTP or HTTPS requests. Affected product: FortiMail by Fortinet. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BO",
+      "source": "CISA KEV",
+      "category": "emergency",
+      "date": "2026-10-01T00:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-104286"
+      ],
+      "cvss": null,
+      "related_links": [
+        "https://www.bleepingcomputer.com/news/security/fortinet-warns-of-critical-fortimail-flaw-exploited-in-zero-day-attacks/"
+      ]
+    },
+    {
+      "id": "939003b23d4c4da1d6cb408328a34ba70d4a090a286bfa92ea29893d36d3a863",
+      "url": "https://github.com/advisories/GHSA-4mh8-r7rc-xpvc",
+      "title": "GHSA: fastify vulnerable to Denial of Service via unhandled exception on HTTP/2 trailer responses",
+      "summary": "### Impact\n\n`fastify` crashes with an uncaught `ERR_HTTP2_INVALID_CONNECTION_HEADERS` exception when a route that registers a response trailer via `reply.trailer()` is served over HTTP/2. Fastify unconditionally adds the `Transfer-Encoding: chunked` header when a trailer is set, which is forbidden on HTTP/2, so Node.js throws while serializing the response headers. The exception is not caught and ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-30T23:53:44Z",
+      "cve_ids": [
+        "CVE-2026-92081"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "a617a909afd8d6a0f6fad97edc85196fd8c00e720a6126391ce4b5f329929e1f",
+      "url": "https://github.com/advisories/GHSA-gvp8-978c-rx2q",
+      "title": "GHSA: PyJWT.decode() reintroduces options-dict mutation, enabling silent claim-verification bypass on dict reuse",
+      "summary": "### Summary\n\n`PyJWT.decode()`/`decode_complete()` mutates a caller-supplied `options` dict in place whenever `verify_signature` is falsy, adding `verify_exp`/`verify_nbf`/`verify_iat`/`verify_aud`/`verify_iss`/`verify_sub`/`verify_jti` keys directly onto that object. If application code reuses the same `options` dict across calls (a config object, a module-level constant, a wrapper's `self.options",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-30T23:53:17Z",
+      "cve_ids": [
+        "CVE-2026-103001"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "08fb2bfe8f0c34aeaf949d394ffaaa182fad3dda57fefd07659ee81a7390d335",
+      "url": "https://github.com/advisories/GHSA-3hv7-mjh2-fv65",
+      "title": "GHSA: Tornado: Unbounded query-string argument count allows event-loop-stalling DoS",
+      "summary": "## Summary\n\n`HTTPServerRequest.__init__` in `tornado/httputil.py` parses the URL query string via\n`parse_qs_bytes()` with no field-count limit — while the sibling POST-body parsing path\n(`parse_body_arguments`) received a `max_num_fields=1000` cap added earlier in this exact\nsame release (v6.5.8, commit `8d6363ed`), explicitly to bound parsing cost for the identical\nunderlying primitive. This leav",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-30T23:49:25Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "ca1c0128745e1791a41d7b9cd1b8011e0da8b0f1a10f61e9123939797c2604b6",
+      "url": "https://github.com/advisories/GHSA-chx6-46f5-w4vp",
+      "title": "GHSA: tornado: CurlAsyncHTTPClient enforces no response-size limit — decompression bomb drives unbounded memory accumulation to OOM",
+      "summary": "An unbounded memory accumulation (decompression bomb) in `tornado.curl_httpclient.CurlAsyncHTTPClient` — the client-side sibling gap of CVE-2026-49855 — verified end-to-end on the 2026-08-15 master snapshot (`6.6.dev1`) and present unchanged in the latest release tag `v6.5.8` and on master (checked 2026-08-17). When a Tornado application configures the curl client (the documented deployment for pr",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-09-30T23:49:13Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "67c649e5f6d60315e9ac5e7eb60b9f6b5eba47c4fdafb32c7237a4418fbd211b",
+      "url": "https://github.com/advisories/GHSA-hxh3-vqpv-xpqv",
+      "title": "GHSA: hono/jsx renders plain strings unescaped in boundary components, leading to XSS",
+      "summary": "### Summary\n\n`hono/jsx` does not HTML-escape a plain string placed directly as a child or `fallback` of `Suspense` or `ErrorBoundary`, as the only child of a `Context.Provider`, or as the root value of `renderToString()` / `renderToReadableStream()` from `hono/jsx/dom/server`. Such a string is emitted as markup instead of text.\n\n### Details\n\nThese paths stringify their input and treat the result a",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-30T23:46:16Z",
+      "cve_ids": [
+        "CVE-2026-93981"
+      ],
+      "cvss": 4.7,
+      "related_links": []
+    },
+    {
+      "id": "7b0658076df1a36f7f4ce62bc2a107ec83aa45dfc45ac97b8aaca366c7af4541",
+      "url": "https://github.com/advisories/GHSA-667r-xxjv-c9mm",
+      "title": "GHSA: fastify vulnerable to request body replacement via an async validation result collision",
+      "summary": "### Impact\n\nFastify runs a route's validator and, for a result shaped like `{ value, error }`, unwraps it: an `error` becomes a validation failure and `value` replaces the request part. This convention is intended for synchronous custom compilers (for example Joi). A JSON Schema `$async` validator, however, resolves with the validated data itself, so Fastify applied the same unwrapping to it. If a",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-09-30T23:45:45Z",
+      "cve_ids": [
+        "CVE-2026-84504"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "ee0e0d036bc92fa2f58035b70b09f9d26ce0149a9fe8c201132f8e45c468bf29",
+      "url": "https://github.com/advisories/GHSA-p68q-wchp-6fh7",
+      "title": "GHSA: fastify vulnerable to authentication bypass via malformed URLs reaching encapsulated not-found handlers",
+      "summary": "### Impact\n\nFastify routes a malformed URL under one plugin prefix to the custom not-found handler of a different sibling plugin, invoking the handler registered last and skipping the `preHandler` declared in its `setNotFoundHandler()`. When the request method has no route in the main router, a malformed request target reaches Fastify's internal not-found router before URL decoding and is dispatch",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-09-30T23:45:34Z",
+      "cve_ids": [
+        "CVE-2026-76169"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
     {
       "id": "f43130d6fddb6d3e0a08e176fafcb4ae22db2f8201e44bf1d11899904b3a497f",
       "url": "https://github.com/advisories/GHSA-hwr6-493r-vm6h",
@@ -113,587 +686,6 @@
         "CVE-2026-102822"
       ],
       "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "8f2a58014d99f2e35f12b6f364972a3640af9ce2762c59bb173c11bace12ef9a",
-      "url": "https://github.com/advisories/GHSA-47hw-gvq5-r2gm",
-      "title": "GHSA: russh: Client-side channel-scoped Handler callbacks fire for channel IDs the client never opened",
-      "summary": "### Summary\nCVE-2026-68930 was fixed by adding `Session::is_established_channel()` in `russh/src/server/encrypted.rs`, which gates every channel-scoped SERVER-side message (CHANNEL_REQUEST, CHANNEL_DATA, CHANNEL_EOF, CHANNEL_CLOSE, CHANNEL_WINDOW_ADJUST, CHANNEL_EXTENDED_DATA) on `enc.channels.get(&channel).is_some_and(|c| c.confirmed)` before invoking any `Handler` callback. The identical validat",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-30T23:27:17Z",
-      "cve_ids": [
-        "CVE-2026-102823"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "30fb45767888750ce3e6c90330d078414be6fd664e5257e6960674caa461787c",
-      "url": "https://github.com/advisories/GHSA-w3jg-pjxf-73p4",
-      "title": "GHSA: Russh: Missing X25519 zero-point validation in hybrid ML-KEM key exchange",
-      "summary": "## Vulnerability\n\nThe hybrid ML-KEM 768 + X25519 key exchange implementation in `russh/src/kex/hybrid_mlkem.rs` does not validate that the remote peer's X25519 public key is not the zero point (all-zero 32-byte value). This allows a remote peer to force the X25519 contribution to the combined shared secret to zero, reducing the hybrid KEX to a single-algorithm exchange.\n\nAffected code at HEAD (v0.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-30T23:26:48Z",
-      "cve_ids": [
-        "CVE-2026-102824"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "e598ac9c421b8b743271d316d741d93b19d415c5dc194bb64b58e88e84f8a6a2",
-      "url": "https://github.com/advisories/GHSA-g6xm-f9xp-qq35",
-      "title": "GHSA: Russh: Configured server auth-attempt cap is not enforced in the USERAUTH_REQUEST runtime path",
-      "summary": "### Details\n\n#### Affected versions and vulnerable location\n\n- Confirmed present on default branch `main` at HEAD `0089c89c94753bebbec12b956c07a1cd38740379`.\n- Crate version at HEAD: `0.62.4`.\n- Vulnerable locations on current default branch:\n  - `russh/src/server/mod.rs:91` (`pub max_auth_attempts: usize`)\n  - `russh/src/server/mod.rs:121` (default `max_auth_attempts: 10`)\n  - `russh/src/server/e",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-30T23:26:17Z",
-      "cve_ids": [
-        "CVE-2026-102825"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "c385473b1a5e804fed9afb783286bc8ecae2be29d59c7dc1e926dcf1d2bf4403",
-      "url": "https://github.com/advisories/GHSA-3cv6-jpf6-8222",
-      "title": "GHSA: LiteLLM: Authenticated SSRF and provider-credential exfiltration via unvalidated request-body routing parameters",
-      "summary": "### Impact\n\nAny authenticated LiteLLM proxy user could redirect an outbound provider call to a destination they control and cause the proxy to send its own configured provider credentials to that destination. The proxy's request-body validation was a denylist that did not cover every sensitive parameter and did not inspect parameters nested inside other request fields, so a caller could supply a r",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-30T21:11:25Z",
-      "cve_ids": [
-        "CVE-2026-84377"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "3776ad1cae04a940ba5533984bb3535b0bb6b144bc72d85f9fbb8cd3112aff8e",
-      "url": "https://www.bleepingcomputer.com/news/security/divd-says-zammad-zero-days-enabled-ai-driven-network-breach/",
-      "title": "DIVD says Zammad zero-days enabled AI-driven network breach",
-      "summary": "The Dutch Institute for Vulnerability Disclosure (DIVD) says that the breach of its network was possible by exploiting a chain of two zero-day vulnerabilities in the open-source Zammad ticketing system. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-30T19:49:15+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "37d3b9649beab632464bc51df021992b39cb31540fd12d4a0eadf5ef6c3bd3e8",
-      "url": "https://www.bleepingcomputer.com/news/security/cisa-warns-of-critical-pre-auth-rce-flaw-in-mikrotik-routeros/",
-      "title": "CISA warns of critical pre-auth RCE flaw in MikroTik RouterOS",
-      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) is warning of a new critical vulnerability in MikroTik RouterOS that could lead to remote code execution or cause a denial-of-service condition. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-30T15:49:29+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b2bc0dfcf0c2d89409fdf2319c3f42c631df769d6232cf6a7629e3f48d30160f",
-      "url": "https://github.com/advisories/GHSA-42vr-xj54-vc7v",
-      "title": "GHSA: PyJWT: Unauthenticated RecursionError DoS in pre-verification payload parse (PyJWKClient.get_signing_key_from_jwt / verify_signature=False)",
-      "summary": "## Summary\n\n`PyJWKClient.get_signing_key_from_jwt(token)` — the first step of the JWKS\nverification flow documented in `docs/usage.rst` — must decode a token's\npayload before its signature can be checked, via\n`jwt.api_jwt.decode_complete(token, options={\"verify_signature\": False})`.\nThat call parses the payload with `json.loads` in `PyJWT._decode_payload`\n(`jwt/api_jwt.py:297-300`), whose `except`",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-09-30T15:41:05Z",
-      "cve_ids": [
-        "CVE-2026-101918"
-      ],
-      "cvss": 5.3,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-101918"
-      ]
-    },
-    {
-      "id": "41e755166a0025f340896c8cf450ef292e192df99460e150579b84b6c3a83547",
-      "url": "https://github.com/advisories/GHSA-cxp5-3px4-pw24",
-      "title": "GHSA: jackson-databind quadratic forward-reference completion ",
-      "summary": "### Summary\n\nWhen an `@JsonIdentityInfo` collection or map first creates N unresolved\nobject-ID references and later resolves the same IDs in reverse order,\njackson-databind scans the remaining pending-reference accumulator for each\nresolution. A shallow JSON document whose size grows linearly can therefore\ncause quadratic CPU work during deserialization.\n\n### Details\n\nThe affected path is forward",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-30T15:37:24Z",
-      "cve_ids": [
-        "CVE-2026-91777"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "c67257e666bada596c1815912b02db8b78c785b7758a972d354a039911053c82",
-      "url": "https://github.com/advisories/GHSA-wv8q-qhhj-9h54",
-      "title": "GHSA: jackson-databind retains every unknown raw type ID ",
-      "summary": "### Summary\n\nWith `@JsonTypeInfo(use = Id.NAME, defaultImpl = ...)`, every distinct unknown\nraw type ID selects the same fallback deserializer but is retained as a\nseparate key in `TypeDeserializerBase._deserializers`. An attacker who can\nrepeatedly supply new unknown type IDs can grow this process-lifetime cache\nwithout a configured bound.\n\n### Details\n\nThe affected path is `TypeDeserializerBase.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-30T15:36:55Z",
-      "cve_ids": [
-        "CVE-2026-91776"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "52cd972c21ac054ea14e9399626ac7a82f891a8211b407c812d1db883142a8a5",
-      "url": "https://github.com/advisories/GHSA-97jj-33gv-5xf9",
-      "title": "GHSA: league/commonmark: DisallowedRawHtml bypassed when a disallowed tag name ends the raw-HTML literal",
-      "summary": "﻿## Summary\n\nThe `DisallowedRawHtml` extension does not escape a disallowed tag when the tag name is the last thing in the raw HTML. A Markdown line containing just `<script` is emitted unchanged, and the next block can supply its attributes. With the shipped GFM defaults this allows stored XSS by anyone who can post Markdown.\n\n## Details\n\n`DisallowedRawHtmlRenderer` escapes tags with this regex:\n",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-30T15:36:33Z",
-      "cve_ids": [],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "80d40d4b7ac2f331daeef6439677176a4db659881440b2fdcb68f73636888405",
-      "url": "https://github.com/advisories/GHSA-3q6v-r5mr-hxv8",
-      "title": "GHSA: league/commonmark: Quadratic-time denial of service in the GitHub Flavored Markdown Table extension block-start scan",
-      "summary": "## Summary\n\n`league/commonmark`'s GitHub Flavored Markdown Table extension registers `TableStartParser` as a block-start parser. While a paragraph is the active block, the core block parser calls `TableStartParser::tryStart()` on every non-blank line. Its first action fetches the entire growing paragraph buffer via `getParagraphContent()` and runs `strpos($paragraph, '|')` across all of it. For a ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-30T15:36:13Z",
-      "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "cbd4d65e8436021dfa82ca523537952b1671f1ad3836f450a64b4a2c92cae2fd",
-      "url": "https://github.com/advisories/GHSA-m9gg-hp2v-232j",
-      "title": "GHSA: @grpc/grpc-js: In certain configurations, getAuthContext can return unauthorized certificates as though they were authorized",
-      "summary": "### Impact\nWhen server credentials are created with the `requireClientCertificate` option set to `false`, `getAuthContext` does not distinguish between authorized and unauthorized certificates in its return value. This can create improper authentication vulnerabilities for `@grpc/grpc-js` users who use the result of `getAuthContext` for authentication.\n\nIn particular, `@grpc/grpc-js-xds` can both ",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-09-30T15:35:53Z",
-      "cve_ids": [
-        "CVE-2026-101916"
-      ],
-      "cvss": 7.4,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-101916"
-      ]
-    },
-    {
-      "id": "8c6c7ae952c50a7be90acd41897280118972455b748f4afc599e697b611dd9df",
-      "url": "https://github.com/advisories/GHSA-f596-whhp-79r4",
-      "title": "GHSA: @grpc/grpc-js: The server transmits some error messages thrown by method handlers to the client in status messages",
-      "summary": "### Impact\nIf an application method handler crashes, the error message is included in the status message sent to the client. This can leak to the client any sensitive data that may be included in the error message. This impacts anyone using `@grpc/grpc-js` to run servers.\n\n### Patches\nThis vulnerability is fixed in 1.13.6 and 1.14.5.\n\n### Workarounds\nThis can be avoided by using a top-level error ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-30T15:35:41Z",
-      "cve_ids": [
-        "CVE-2026-101915"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "8f1d5c9abb6358583e2b64103e48262fc471693f9f3052b5b7609436a6d32d0e",
-      "url": "https://www.bleepingcomputer.com/news/security/cisco-warns-of-new-sd-wan-authentication-bypass-zero-day-exploited-in-attacks/",
-      "title": "Cisco warns of new SD-WAN zero-day exploited in attacks",
-      "summary": "Cisco released security updates to address a critical zero-day in the Catalyst SD-WAN Manager (tracked as CVE-2026-76504) that attackers are actively exploiting to escalate to admin privileges. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-30T14:46:40+00:00",
-      "cve_ids": [
-        "CVE-2026-76504",
-        "CVE-2026-20127",
-        "CVE-2026-20182"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://www.rapid7.com/blog/post/etr-critical-cisco-catalyst-sd-wan-manager-api-authentication-bypass-exploited-in-the-wild-cve-2026-76504",
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-76504"
-      ]
-    },
-    {
-      "id": "63ea4217ab2ea0c1a4e08ec7a3fd23dceee8fccb02fe875c25b5e5d23e786bb6",
-      "url": "https://github.com/advisories/GHSA-96h4-vgxj-gvm2",
-      "title": "GHSA: Nest: Unbounded memory growth in the NestJS TCP microservice transport",
-      "summary": "## Summary\n\nA peer that can open a TCP connection to a NestJS microservice using the built-in TCP\ntransport can make the server process allocate memory without limit, on either side of the\nconnection, until the process is killed by the OS or by its container memory limit. No\nauthentication, no credentials, and no valid message are required.\n\nApplications are affected only if they start a microserv",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-30T14:44:21Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "ff7b939a622a39f71abaebfb79ab8f7cda48531725fa66f334b9fabbe9d53901",
-      "url": "https://github.com/advisories/GHSA-9c5c-9qcx-q35q",
-      "title": "GHSA: @nestjs/platform-fastify: Path-scoped middleware bypass via absolute-form request targets",
-      "summary": "| Field | Value |\n| --- | --- |\n| Ecosystem | npm |\n| Package | `@nestjs/platform-fastify` |\n| Affected versions | `>= 12.0.0, < 12.0.2` and `< 11.2.4` |\n| Patched versions | `12.0.2` and `11.2.4` (upgrade to `12.0.3` / `11.2.5`) |\n\n### Summary\n\nOn the Fastify adapter, an HTTP request that uses an **absolute-form request target** (`GET http://host/path HTTP/1.1`\ninstead of `GET /path HTTP/1.1`) re",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-30T14:41:39Z",
-      "cve_ids": [],
-      "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "a842e76de6216bcfc83cebc89b5af689a854777322ae4997405f3528a5e328a8",
-      "url": "https://github.com/advisories/GHSA-prgh-xp8r-p3m5",
-      "title": "GHSA: Nodemailer addressparser: O(n^2) on comment-joined addresses enables a remote DoS (reachable via mailparser)",
-      "summary": "### Summary\n\n`nodemailer/lib/addressparser` parses one shape of address in O(n^2) time. A single ~640 KB address value blocks the Node.js event loop for roughly 7 seconds. And it is reachable without auth: mailparser feeds inbound email headers straight into this parser, so one crafted email is enough to stall a service that parses mail.\n\n### Details\n\nThe parser builds a single address by accumula",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-30T14:41:01Z",
-      "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "598ed1f73d6c09f501c6e5ce9053dc4e9826e98d0c55b7a5bbd6b817afe80938",
-      "url": "https://github.com/advisories/GHSA-jwrc-g2q2-pq5p",
-      "title": "GHSA: PyJWT: ReDoS vulnerability when calling the `is_pem_format` function.",
-      "summary": "### Summary\nThere is a Re-DoS vulnerability in the `is_pem_format` function which results in a intesive CPU usage if an attacker is been able to provide a custom certificate.\n\n\n### Details\nThe problem is that the lazy quantifier `.+?` will always first try to match as little as possible until it finds a `---- END`. Normally this means the complexity of this should be O(N). However, by providing an",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-09-30T14:40:25Z",
-      "cve_ids": [
-        "CVE-2026-102270"
-      ],
-      "cvss": 4.4,
-      "related_links": []
-    },
-    {
-      "id": "2806a530bfae9f3a46d89bb59513b41efc10ff36e2a5234ec237215f50b64533",
-      "url": "https://www.rapid7.com/blog/post/it-higher-education-under-siege-fragmented-security",
-      "title": "Higher education is under siege, and fragmented security is making it harder to respond",
-      "summary": "Higher education faces a difficult security equation. Universities hold large volumes of sensitive student, financial, health, and research data while supporting open networks, distributed users, legacy infrastructure, and increasingly complex cloud environments. Attackers have taken notice, and the pressure on security teams continues to grow.In Q2 2025, universities faced an average of 4,388 cyb",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-09-30T14:16:37+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "763e00f00d7852f6d3a1610103e3e4027926b40ed9a4c4ea6a5bc01a91d5ce1e",
-      "url": "https://ubuntu.com/security/notices/USN-8854-1",
-      "title": "USN-8854-1: OpenStack Keystone vulnerabilities",
-      "summary": "Grzegorz Grasza discovered that OpenStack Keystone did not consistently enforce restrictions for delegated authentication tokens. An authenticated attacker could possibly use this issue to create credentials or delegations that outlasted the delegated token. (CVE-2026-80182) It was discovered that OpenStack Keystone incorrectly handled role assignment queries under certain circumstances. An authen",
-      "source": "Ubuntu Security",
-      "category": "emergency",
-      "date": "2026-09-30T13:07:45+00:00",
-      "cve_ids": [
-        "CVE-2026-80182",
-        "CVE-2026-80183",
-        "CVE-2026-80184"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f6b9a76c77e29e51162c604a68cc5c9748c43e33605135fed7eb967c04d37d22",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-103114",
-      "title": "CVE-2026-103114 — CVSS 6.3",
-      "summary": "A vulnerability was identified in OS4ED openSIS-Classic up to 9.3. The impacted element is the function DBQuery_assignment of the file modules/grades/Assignments.php of the component Assignment Management Endpoint. The manipulation of the argument Tables leads to sql injection. It is possible to initiate the attack remotely. The exploit is publicly available and might be used. The project was info",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-30T12:17:12.457",
-      "cve_ids": [
-        "CVE-2026-103114"
-      ],
-      "cvss": 6.3,
-      "related_links": []
-    },
-    {
-      "id": "74b783ea54d225ac4f8af496f5aef8efb7c83e420982eae9ede8147d0e77bc26",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76992",
-      "title": "CVE-2026-76992 — CVSS 7.5",
-      "summary": "The CODESYS Gateway Client allocates memory based on a size field in a gateway response without enforcing an appropriate upper limit. An unauthenticated remote attacker controlling a malicious gateway can exploit this behavior to trigger excessive memory consumption, resulting in a denial-of-service condition thus leading to a total loss of availablity.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-30T11:16:47.283",
-      "cve_ids": [
-        "CVE-2026-76992"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "f8e2a8caef9c31d8a75761444a997cf376ad8c6c223025c871ca85e1170e9455",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13720",
-      "title": "CVE-2026-13720 — CVSS 5.4",
-      "summary": "An Editor can set file-provisioning metadata (the grafana.app/managedBy, grafana.app/managerId and grafana.app/sourcePath annotations) when creating a dashboard through the dashboard API, because these fields were stored without an authorization check. The dashboard then appears file-provisioned, and administrators can no longer update or delete it through Grafana. The impact is limited to the sam",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-30T11:16:43.893",
-      "cve_ids": [
-        "CVE-2026-13720"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "94c277f9ed6914c29ece88932476b92d606f554d617aa5d09a5710c6e3f7fa95",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-13719",
-      "title": "CVE-2026-13719 — CVSS 4.3",
-      "summary": "An authenticated user can list alert rules stored in folders they are not allowed to read through the alert rules API list endpoint. When the set of folders the user may read was empty, the folder restriction was dropped and every alert rule in the organization was returned. From Grafana 13.1.0, any user can trigger this with a folder filter. The exposed data is rule configuration; data source cre",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-30T11:16:43.757",
-      "cve_ids": [
-        "CVE-2026-13719"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "d93e91ae38ff4cc35b24442c3de6e83b6ef0181f4e68908051791508c28ba163",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-103113",
-      "title": "CVE-2026-103113 — CVSS 4.7",
-      "summary": "A vulnerability was determined in OS4ED openSIS-Classic up to 9.3. The affected element is the function save action of the file modules/students/Student.php of the component General Information Tab. Executing a manipulation of the argument students can lead to sql injection. The attack may be performed from remote. The exploit has been publicly disclosed and may be utilized. The project was inform",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-30T11:16:43.330",
-      "cve_ids": [
-        "CVE-2026-103113"
-      ],
-      "cvss": 4.7,
-      "related_links": []
-    },
-    {
-      "id": "52ffe63dd45a7f657cae3bc86a60d143ee93741dc096045a6e4349596d5e91e9",
-      "url": "https://www.bleepingcomputer.com/news/security/bitget-hacked-via-zero-day-in-third-party-security-products/",
-      "title": "Bitget hacked via zero-day in third-party security products",
-      "summary": "Cryptocurrency exchange Bitget revealed today that attackers who stole $387.5 million last week breached its systems after exploiting a zero-day flaw in third-party security products. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-09-30T11:11:46+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "81b42522b4e9473f1051d4d83906f6dfd66bdd31cada37e1adc0a677a1a94211",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-94053",
-      "title": "CVE-2026-94053 — CVSS 9.1",
-      "summary": "Authentication bypass via LDAP injection in component sshd-ldap in Apache MINA SSHD versions 1.2.0 to 2.19.0 and 3.0.0-M1 to 3.0.0-M5.\n\n\n\n\nApache MINA SSHD is a Java library for client-side and server-side SSH. \nThe optional sshd-ldap component provides support for integrating \npassword and publickey authentication on the server side with an LDAP \nserver.\n\n\n\n\nsshd-ldap is an optional component. SS",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-30T10:17:18.283",
-      "cve_ids": [
-        "CVE-2026-94053"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "612a7cf51b1b089a8ec86200fb845a2d9243e93183f33ab8425fce34ad4174f7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-94052",
-      "title": "CVE-2026-94052 — CVSS 9.1",
-      "summary": "A missing check in LdapPasswordAuthenticator in component sshd-ldap in Apache MINA SSHD versions 1.2.0 to 2.19.0 or 3.0.0-M1 to 3.0.0-M5 bypassed authentication checks.\n\n\n\n\nApache MINA SSHD is a Java library for client-side and server-side SSH. The optional sshd-ldap component provides support for integrating password and publickey authentication on the server side with an LDAP server.\n\n\n\n\nsshd-ld",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-30T10:17:18.147",
-      "cve_ids": [
-        "CVE-2026-94052"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "282a5859b80c4d825af924f13b920dccd1fe7fc3efe222ebf6e48317c22bb8d0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-94002",
-      "title": "CVE-2026-94002 — CVSS 7.5",
-      "summary": "Possible memory exhaustion in SFTP clients (DefaultSftpClient) in component sshd-sftp in Apache MINA SSHD versions 0.9.0 to 2.19.0 and 3.0.0-M1 to 3.0.0-M5.\n\n\n\n\nApache \nMINA SSHD is a Java library for client-side and server-side SSH. The sshd-sftp component provides support for SFTP.\n\n\n\n\nThe SFTP client implementation, when receiving a reply, did not check that this reply corresponded to a request",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-09-30T10:17:17.877",
-      "cve_ids": [
-        "CVE-2026-94002"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "623a6bbe8e344f28d24be40e939b337a0ffef568e5b5a8d42b93aad302a9c2b7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-93996",
-      "title": "CVE-2026-93996 — CVSS 6.5",
-      "summary": "Uncontrolled resource consumption in component ssd-scp in Apache MINA SSHD versions up to 2.19.0 or 3.0.0-M1 to 3.0.0-M5. Apache MINA SSHD is a Java library for client-side and server-side SSH.\n\n\n\n\nComponent sshd-scp of Apache MINA SSHD provides a Java implementation of SCP. The SCP command protocol is line-oriented with LF-terminated lines. The protocol handler in sshd-scp did not impose any limi",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-30T10:17:17.740",
-      "cve_ids": [
-        "CVE-2026-93996"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "bec7f0c1f7030f1a67fb7950522395c8c7d4125db58ad736c7d348eeec45cca8",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-93994",
-      "title": "CVE-2026-93994 — CVSS 8.1",
-      "summary": "Apache MINA SSHD is a Java library for client-side and server-side SSH. SSH servers can be configured to require multi-authentication schemes, for instance two different public keys, not just one. In OpenSSH, this would be done by setting in sshd_config AuthenticationMethods \"publickey,publickey\". Apache MINA SSHD provides an equivalent configuration mechanism.\n\n\n\n\nIn Apache MINA SSHD versions up ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-30T10:17:17.460",
-      "cve_ids": [
-        "CVE-2026-93994"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "a8890ce8dd1c3490613f76efa4e79746022d70f729c5d489906b2853bd6658e9",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-79625",
-      "title": "CVE-2026-79625 — CVSS 8.1",
-      "summary": "Affected products do not properly synchronize access to their monitoring functionality. When multiple clients send concurrent requests, this may lead to incorrect reads or writes, or to corruption of internal memory structures. An authenticated remote attacker with monitoring access can exploit this issue to cause incorrect data processing or a denial-of-service condition.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-09-30T10:17:17.273",
-      "cve_ids": [
-        "CVE-2026-79625"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "e5d269557b57680f42a0f2bee1ca430f442b3d1f79e9b517032b07f2d9e18f21",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-77185",
-      "title": "CVE-2026-77185 — CVSS 9.1",
-      "summary": "Authentication bypass in sshd-core in Apache MINA SSHD versions 2.0.0 to 2.19.0 and 3.0.0-M1 to 3.0.0-M5 for a certain (presumed rare) way to implement an SSH server.\n\n\n\n\nApache MINA SSHD is a Java library for client- and server-side SSH. In the server part of the library, a mechanism to perform \"asynchronous authentication\" exists. A server implemented with Apache MINA SSHD must contain explicit ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-30T10:17:17.123",
-      "cve_ids": [
-        "CVE-2026-77185"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "3921d4c2edfc3ff2879f07a4b5f9ada324f5cc5c7b4284f39bdf65e1a7a7e480",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-10764",
-      "title": "CVE-2026-10764 — CVSS 8.7",
-      "summary": "Information disclosure in BVMS 4.5 up to 12.3 including allows man-in-the-middle attackers to gain unauthorized access to sensitive data.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-09-30T10:17:16.960",
-      "cve_ids": [
-        "CVE-2026-10764"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "29490846c8a108f7a01bb4c0abcbabe5afd5a8152b9f53f659f50be74f159b2d",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-97347",
-      "title": "CVE-2026-97347 — CVSS 7.2",
-      "summary": "The Post Views Stats Counter plugin for WordPress is vulnerable to Stored Cross-Site Scripting via User-Agent Header in all versions up to, and including, 1.1.7 due to insufficient input sanitization and output escaping. This makes it possible for unauthenticated attackers to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page. The plugin's only input ",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-30T09:17:16.773",
-      "cve_ids": [
-        "CVE-2026-97347"
-      ],
-      "cvss": 7.2,
-      "related_links": []
-    },
-    {
-      "id": "628bc1ee7ef7dfc1a3c9128bfacd7ee3404bfe143bb1ba1cad7125fe6d5b4346",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-93908",
-      "title": "CVE-2026-93908 — CVSS 6.4",
-      "summary": "The Real Estate Manager – Property Listing and Agent Management plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'before_price_text' parameter in all versions up to, and including, 7.3 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with subscriber-level access and above, to inject arbitrary web scripts in pag",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-30T09:17:16.630",
-      "cve_ids": [
-        "CVE-2026-93908"
-      ],
-      "cvss": 6.4,
-      "related_links": []
-    },
-    {
-      "id": "8fc12e6eecdfff8a751e0df1877c3dec77aac0283500ca74d191ff93c8c97ad8",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-92712",
-      "title": "CVE-2026-92712 — CVSS 6.4",
-      "summary": "The ReactPress – Create React App for WordPress plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'permalink' parameter in all versions up to, and including, 3.4.0 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with subscriber-level access and above, to inject arbitrary web scripts in pages that will execute w",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-30T09:17:16.477",
-      "cve_ids": [
-        "CVE-2026-92712"
-      ],
-      "cvss": 6.4,
-      "related_links": []
-    },
-    {
-      "id": "4bb2cc5fe083180b9b8f82baf3a82d5b9f68c234b7c751c1b0260d2723f295bb",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-75098",
-      "title": "CVE-2026-75098 — CVSS 7.5",
-      "summary": "The Product Designer App plugin for WordPress is vulnerable to Directory Traversal in all versions up to, and including, 1.1.3 via the 'svg' parameter parameter. This makes it possible for unauthenticated attackers to read the contents of arbitrary files on the server, which can contain sensitive information. The endpoint's only authentication gate relies on a nonce and token that are both publicl",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-30T09:17:16.320",
-      "cve_ids": [
-        "CVE-2026-75098"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "8527bcc1ed4bb14cdb5d5a144e4318bc5cbe816e03e4f318c44e087547a4cf2c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102588",
-      "title": "CVE-2026-102588 — CVSS 6.5",
-      "summary": "A flaw was found in Moodle. The XML grade import feature lacks proper Cross-Site Request Forgery (CSRF) token validation. By tricking an authenticated user with grade management permissions into visiting a malicious webpage, an attacker can trigger unauthorized requests on the victim's behalf. This flaw allows a remote attacker to set or overwrite student grades without authorization.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-30T09:17:16.163",
-      "cve_ids": [
-        "CVE-2026-102588"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "5f2a7e8582623fdfcfef10e15394f35b1f113cedb18c851495addabcb0cc6772",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102587",
-      "title": "CVE-2026-102587 — CVSS 2.7",
-      "summary": "A flaw was found in Moodle. User list filters do not properly enforce visibility restrictions on user profile fields. An authorized user with manager privileges can filter user lists using profile attributes they are not permitted to view directly, resulting in unauthorized information disclosure by inferring hidden user data.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-30T09:17:16.023",
-      "cve_ids": [
-        "CVE-2026-102587"
-      ],
-      "cvss": 2.7,
-      "related_links": []
-    },
-    {
-      "id": "d0f027863f90beaab4b1725e837362c2e962916a387690d2eae169f8a744072b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102586",
-      "title": "CVE-2026-102586 — CVSS 4.3",
-      "summary": "A flaw was found in Moodle. Insufficient sanitization of username input on the password reset page allows a remote attacker to conduct a cross-site scripting (XSS) attack. By convincing an unauthenticated user to access a specially crafted password reset link, an attacker could execute arbitrary script in the victim's browser.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-09-30T09:17:15.897",
-      "cve_ids": [
-        "CVE-2026-102586"
-      ],
-      "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "3cafc29874b23f3a54354fd845a4d779be2e08c5599187d9d1c058a7ad80c79f",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102581",
-      "title": "CVE-2026-102581 — CVSS 4.6",
-      "summary": "A flaw was found in Moodle. Insufficient output escaping in templates used to display forum posts enables a stored cross-site scripting (XSS) vulnerability. An attacker can inject malicious content into a forum post, which then executes arbitrary script code in the browser of another user viewing the affected post.",
-      "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-09-30T09:17:15.213",
-      "cve_ids": [
-        "CVE-2026-102581"
-      ],
-      "cvss": 4.6,
       "related_links": []
     }
   ]
