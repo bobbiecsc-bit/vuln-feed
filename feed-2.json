@@ -1,10 +1,82 @@
 {
-  "updated": "2026-10-09T04:52:19.159546+00:00",
+  "updated": "2026-10-09T15:00:31.686840+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "cc0a53313355ebf484072e49e8177b981437ec239ee683afdcf6aa77301d058e",
+      "url": "https://github.com/advisories/GHSA-rp9v-7xv3-r6g3",
+      "title": "GHSA: Coraza: Resource exhaustion via deferred file handle accumulation in multipart body processor",
+      "summary": "## Summary\n\n`defer temp.Close()` sits inside a `for` loop in the multipart processor. Go defers run at function return, not loop end, so every file part in the request holds an open fd until `ProcessRequest()` exits. Send enough parts and you hit `EMFILE`. With CRS loaded, that flips `MULTIPART_STRICT_ERROR` to 1 and rule `200001` starts returning 400s, including on legitimate requests hitting the",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-08T17:52:00Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "48184a646f0173ee5f398af8d7d74ce83d54e7afcee83f957edd46bd6b27d174",
+      "url": "https://github.com/advisories/GHSA-w253-m66g-rx24",
+      "title": "GHSA: Coraza: URL-encoded form Content-Type parameters bypass Coraza body inspection",
+      "summary": "### Summary\n\nCoraza fails to inspect URL-encoded form bodies when their valid `Content-Type` contains a media-type parameter, for example:\n\n```http\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\n```\n\nAn unauthenticated attacker can use this header to hide the complete form body from custom Coraza rules that inspect `ARGS_POST` or `REQUEST_BODY`, while the bundled Go HTTP middleware",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-08T17:51:53Z",
+      "cve_ids": [],
+      "cvss": 5.8,
+      "related_links": []
+    },
+    {
+      "id": "e4acd88ae9e7fdf9f59137ae0e39cc261c9fd158a0b906a55263fac0f73847d8",
+      "url": "https://github.com/advisories/GHSA-3c6w-j9xm-8h2h",
+      "title": "GHSA: Coraza: Unbounded recursion in JSON response body processor causes CPU exhaustion",
+      "summary": "### Summary\n\nThe JSON response body processor parses response bodies with no recursion\nlimit. `ProcessResponse` calls `readJSON(ss, ignoreJSONRecursionLimit)`, and\nthat constant is `-1`. The guard in `readItems` only fires on `== 0`, so\ncounting down from `-1` (-2, -3, ...) never reaches it. The guard is effectively\ndead on the response path. The request path is fine: `ProcessRequest` passes the\nc",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:51:42Z",
+      "cve_ids": [],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "f11b920d7c7481838a1787339bb8650f45dee6d4bb76842aeb406c0c3b09e74a",
+      "url": "https://github.com/advisories/GHSA-3wr7-993q-jrff",
+      "title": "GHSA: Coraza: Multipart filename* (RFC 5987) charset restriction lets a decoy filename bypass FILES-based rules",
+      "summary": "## Summary\n\nCoraza extracts a multipart file upload's filename using Go's standard-library `mime.ParseMediaType`, which only decodes the RFC 5987/6266 extended `filename*` `Content-Disposition` parameter when its declared charset is exactly `us-ascii` or `utf-8`. Any other charset — including `iso-8859-1`, which RFC 5987 explicitly permits — is silently dropped by the stdlib, with no error and no ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:51:36Z",
+      "cve_ids": [],
+      "cvss": 4.0,
+      "related_links": []
+    },
+    {
+      "id": "71e50ef905bea2f9861a2a9353e5317a1e081d7046496352e66a22ef6014d151",
+      "url": "https://github.com/advisories/GHSA-g4qm-m288-5cp9",
+      "title": "GHSA: Coraza has Cookie Parser Confusion",
+      "summary": "## Summary\nCoraza's cookie parser (`internal/cookies.ParseCookies`) does not strip ASCII control characters (CTLs) from the edges of a cookie name/value before they're matched against `REQUEST_COOKIES` / `REQUEST_COOKIES_NAMES`. When a CTL sits directly next to the `=` separator, Coraza absorbs it into the adjacent name or value, while several backend cookie parsers trim it away — so the WAF and t",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:51:30Z",
+      "cve_ids": [],
+      "cvss": 4.0,
+      "related_links": []
+    },
+    {
+      "id": "4c42438c451f7414a83e8622ba21353f2055cff43b484cdf4a9558ea416ae726",
+      "url": "https://github.com/advisories/GHSA-x26q-wvhg-fh4m",
+      "title": "GHSA: Coraza: ProcessURI silently drops QUERY_STRING and ARGS_GET on URI parse failure — defense-in-depth bypass for non-net/http integrations",
+      "summary": "## Root Cause\n\nFile: `internal/corazawaf/transaction.go`, lines 834–866.\n\n```go\nparsedURL, err := url.ParseRequestURI(uri)\nquery := \"\"\nif err != nil {\n    tx.variables.urlencodedError.Set(err.Error())\n    path = uri\n    tx.variables.requestURI.Set(uri)\n    /*\n        tx.Variables.VARIABLE_URI_PARSE_ERROR.Set(\"1\")\n        posRawQuery := strings.Index(uri, \"?\")\n        if posRawQuery != -1 {\n       ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:46:00Z",
+      "cve_ids": [],
+      "cvss": 4.0,
+      "related_links": []
+    },
     {
       "id": "43dc38bff77d3d4ecca7c47b168057f688c8126f2cf92a9817b63e4d792330f6",
       "url": "https://github.com/advisories/GHSA-pc5q-qfxp-ggqv",
@@ -607,90 +679,6 @@
         "CVE-2026-105648"
       ],
       "cvss": 4.0,
-      "related_links": []
-    },
-    {
-      "id": "78d06b9fe4277bd78ca6051f77031b2ee252a0d763a4738854f16f55fdb918d6",
-      "url": "https://github.com/advisories/GHSA-8575-cr6v-7jh4",
-      "title": "GHSA: Ghost: Stored XSS via SVG Uploads Bypassing Sanitization",
-      "summary": "### Impact\n\nSVG media thumbnails, and SVG images uploaded with a non-SVG file extension, were stored without sanitization. This allowed any staff user, including Contributors, to host scripts on the site's domain, possibly resulting in compromise of other staff users' admin sessions.\n\n### Vulnerable versions\n\nThis vulnerability is present in Ghost from v4.22.0 up to v6.64.0.\n\n### Patches\n\nv6.65.0 ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:35:22Z",
-      "cve_ids": [
-        "CVE-2026-105649"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "1f412d0513f855e71781d46c87ce10c96492d2dab4cfd71425cc5db322d3fa0e",
-      "url": "https://github.com/advisories/GHSA-3w37-wq28-93x7",
-      "title": "GHSA: Next.js: Pending `use cache` fill can leak Draft Mode content into regular responses and persisted pages",
-      "summary": "Pending `use cache` fills are shared across requests for the same key without distinguishing Draft Mode requests from regular requests. When two such requests overlap, the second request receives the first request's fill:\n\n- A regular request that overlaps an editor's Draft Mode request receives unpublished content, without any authentication.\n- A Draft Mode request that overlaps a regular request",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:32:13Z",
-      "cve_ids": [
-        "CVE-2026-94544"
-      ],
-      "cvss": 4.2,
-      "related_links": []
-    },
-    {
-      "id": "b3273821723c5cf1ccaa9a8264967d35fcfa5de1ef16b9ab777fec86c11a1021",
-      "url": "https://github.com/advisories/GHSA-4jqv-mc3x-m676",
-      "title": "GHSA: Next.js has cache poisoning of SSG and ISR pages in self-hosted applications",
-      "summary": "Self-hosted Next.js applications that use the Pages Router with statically generated (SSG) or incrementally regenerated (ISR) pages can have a page's cache entry replaced with content from a different route, causing the affected page to serve wrong content to every visitor until the entry is revalidated. Applications deployed on Vercel are not affected.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:32:06Z",
-      "cve_ids": [
-        "CVE-2026-94543"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "b373c6d1ffd4ebf2f3715b4706e1e5930a50fd08b341aab5f0dea6d2f4b964c0",
-      "url": "https://github.com/advisories/GHSA-39w2-rjm5-chcv",
-      "title": "GHSA: Next.js has information disclosure in development server's Model Context Protocol endpoint",
-      "summary": "The Next.js development server (`next dev`) exposes a Model Context Protocol endpoint that does not verify which website a request originates from, allowing a malicious website visited by the developer to read sensitive development data — including the project's location on disk, source code snippets from error reports, the route inventory, and development logs. Only applications run with `next de",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:31:51Z",
-      "cve_ids": [
-        "CVE-2026-94486"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "57bbb7c415137f9d8fbed0ef4e63c18b83a2625add8905c0bb0f46faa4f3ccdc",
-      "url": "https://github.com/advisories/GHSA-f87g-xv8r-7p7x",
-      "title": "GHSA: Next.js has information disclosure in App Router metadata image routes via dynamicParams bypass",
-      "summary": "In Next.js App Router applications built with webpack, metadata image routes such as opengraph-image and twitter-image ignore the `dynamicParams` route segment option. An attacker can request metadata image URLs for dynamic segments that were deliberately excluded from `generateStaticParams()`.",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-10-07T20:31:33Z",
-      "cve_ids": [
-        "CVE-2026-94485"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "a188a666459b0ac835c47c0922693107beaec8b98314a5f4007a55905148093e",
-      "url": "https://github.com/advisories/GHSA-mcj8-r9mp-w47p",
-      "title": "GHSA: Next.js has cache poisoning in SSG/ISR rendering that leads to cross-user content substitution and persistent denial of service",
-      "summary": "Next.js applications that use a root-level catch-all page together with statically generated or Incremental Static Regeneration routes can have their shared response cache poisoned by a single unauthenticated crafted request.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:31:13Z",
-      "cve_ids": [
-        "CVE-2026-94484"
-      ],
-      "cvss": 4.8,
       "related_links": []
     }
   ]
