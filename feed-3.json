@@ -1,10 +1,124 @@
 {
-  "updated": "2026-10-13T11:27:25.636800+00:00",
+  "updated": "2026-10-13T18:56:45.215821+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "e4acd88ae9e7fdf9f59137ae0e39cc261c9fd158a0b906a55263fac0f73847d8",
+      "url": "https://github.com/advisories/GHSA-3c6w-j9xm-8h2h",
+      "title": "GHSA: Coraza: Unbounded recursion in JSON response body processor causes CPU exhaustion",
+      "summary": "### Summary\n\nThe JSON response body processor parses response bodies with no recursion\nlimit. `ProcessResponse` calls `readJSON(ss, ignoreJSONRecursionLimit)`, and\nthat constant is `-1`. The guard in `readItems` only fires on `== 0`, so\ncounting down from `-1` (-2, -3, ...) never reaches it. The guard is effectively\ndead on the response path. The request path is fine: `ProcessRequest` passes the\nc",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:51:42Z",
+      "cve_ids": [],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "f11b920d7c7481838a1787339bb8650f45dee6d4bb76842aeb406c0c3b09e74a",
+      "url": "https://github.com/advisories/GHSA-3wr7-993q-jrff",
+      "title": "GHSA: Coraza: Multipart filename* (RFC 5987) charset restriction lets a decoy filename bypass FILES-based rules",
+      "summary": "## Summary\n\nCoraza extracts a multipart file upload's filename using Go's standard-library `mime.ParseMediaType`, which only decodes the RFC 5987/6266 extended `filename*` `Content-Disposition` parameter when its declared charset is exactly `us-ascii` or `utf-8`. Any other charset — including `iso-8859-1`, which RFC 5987 explicitly permits — is silently dropped by the stdlib, with no error and no ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:51:36Z",
+      "cve_ids": [],
+      "cvss": 4.0,
+      "related_links": []
+    },
+    {
+      "id": "71e50ef905bea2f9861a2a9353e5317a1e081d7046496352e66a22ef6014d151",
+      "url": "https://github.com/advisories/GHSA-g4qm-m288-5cp9",
+      "title": "GHSA: Coraza has Cookie Parser Confusion",
+      "summary": "## Summary\nCoraza's cookie parser (`internal/cookies.ParseCookies`) does not strip ASCII control characters (CTLs) from the edges of a cookie name/value before they're matched against `REQUEST_COOKIES` / `REQUEST_COOKIES_NAMES`. When a CTL sits directly next to the `=` separator, Coraza absorbs it into the adjacent name or value, while several backend cookie parsers trim it away — so the WAF and t",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:51:30Z",
+      "cve_ids": [],
+      "cvss": 4.0,
+      "related_links": []
+    },
+    {
+      "id": "4c42438c451f7414a83e8622ba21353f2055cff43b484cdf4a9558ea416ae726",
+      "url": "https://github.com/advisories/GHSA-x26q-wvhg-fh4m",
+      "title": "GHSA: Coraza: ProcessURI silently drops QUERY_STRING and ARGS_GET on URI parse failure — defense-in-depth bypass for non-net/http integrations",
+      "summary": "## Root Cause\n\nFile: `internal/corazawaf/transaction.go`, lines 834–866.\n\n```go\nparsedURL, err := url.ParseRequestURI(uri)\nquery := \"\"\nif err != nil {\n    tx.variables.urlencodedError.Set(err.Error())\n    path = uri\n    tx.variables.requestURI.Set(uri)\n    /*\n        tx.Variables.VARIABLE_URI_PARSE_ERROR.Set(\"1\")\n        posRawQuery := strings.Index(uri, \"?\")\n        if posRawQuery != -1 {\n       ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:46:00Z",
+      "cve_ids": [],
+      "cvss": 4.0,
+      "related_links": []
+    },
+    {
+      "id": "43dc38bff77d3d4ecca7c47b168057f688c8126f2cf92a9817b63e4d792330f6",
+      "url": "https://github.com/advisories/GHSA-pc5q-qfxp-ggqv",
+      "title": "GHSA: Coraza: jsDecode Off-by-One in Octal Escape Handling Enables WAF Bypass",
+      "summary": "### Summary\nThe `t:jsDecode` transformation in Coraza WAF contains an off-by-one error when parsing octal escape sequences. A backslash character was incorrectly included in the octal number buffer, causing `strconv.ParseInt` to fail for every octal escape sequence and return a null byte instead of the decoded value that would normally be returned. This will cause all JS-escaped payloads to be cor",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:45:53Z",
+      "cve_ids": [
+        "CVE-2026-104774"
+      ],
+      "cvss": 5.8,
+      "related_links": []
+    },
+    {
+      "id": "894887061e5a01b39325e1c2ab8c66dee8e26b0ce1ff49cf58b0b78ff427dfe6",
+      "url": "https://github.com/advisories/GHSA-6gcq-wc29-5xf2",
+      "title": "GHSA: Coraza JSON body processor: argument-limit truncation reopens an unbounded-depth gjson.Valid stack overflow (process crash)",
+      "summary": "### Summary\n\nThe JSON body processor (`internal/bodyprocessors/json.go`) can be made to\ncrash the whole process with an unrecoverable `fatal error: stack overflow`,\nusing a request body that is well under the recommended `SecRequestBodyLimit`\nand the default `SecArgumentsLimit`.\n\n### Root cause\n\n`readJSON` (json.go:113-143) runs a bounded, best-effort flattening walk\n(`readItems`) and *afterwards*",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-10-08T17:45:46Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "05629ec15e3a058d380045cd3a40db36e8d1ab860b9aab1fc303656dd6123c6e",
+      "url": "https://github.com/advisories/GHSA-5gj4-9gm7-2fx2",
+      "title": "GHSA: Coraza body processor has a JSON key collision that allows unauthenticated attackers to bypass OWASP CRS inspection",
+      "summary": "### Summary\n\nCoraza's JSON body processor converts nested JSON properties into dot-separated `ARGS_POST` names without escaping dots contained in literal property names. Two distinct JSON properties can therefore collapse into the same Coraza variable\n\nAn unauthenticated attacker can place a malicious value in a nested property and then overwrite only Coraza's representation with a harmless dotted",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-08T17:45:31Z",
+      "cve_ids": [],
+      "cvss": 5.8,
+      "related_links": []
+    },
+    {
+      "id": "f55a06cca9b9bb65f6c7989ff5b5f4d716ff72792908b7d046056da5dfd59145",
+      "url": "https://github.com/advisories/GHSA-v36g-jcw9-x7cw",
+      "title": "GHSA: Pydantic AI: Excessive resource use when local web fetching converts nested HTML",
+      "summary": "### Summary\n\nApplications using Pydantic AI's local web-fetch tool can experience excessive CPU and memory use when it converts attacker-controlled HTML. An agent must fetch the affected page; provider-native web fetching is not affected.\n\n### Details\n\nNested block elements cause HTML-to-Markdown conversion to reprocess accumulated text at each level and can greatly expand the intermediate output.",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-08T17:40:50Z",
+      "cve_ids": [
+        "CVE-2026-107287"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "7a823796e7f3666c6337b9d0a539f875706ede2758e78a90fec57064a6542e7c",
+      "url": "https://github.com/advisories/GHSA-r223-96jv-q533",
+      "title": "GHSA: JHipster: SQL Injection in the Parameter of JHipster-Generated Reactive (WebFlux + R2DBC) Applicationssort",
+      "summary": "# SQL Injection in the `sort` Parameter of JHipster-Generated Reactive (WebFlux + R2DBC) Applications\n\n- **Product**: jhipster/generator-jhipster (npm package `generator-jhipster`)\n- **Affected versions**: v7.0.0 through v9.2.0 \n- **Component**: generated reactive-application code, template `EntityManager_reactive.java.ejs`\n- **Report date**: 2026-08-29\n\n---\n\n## 1. Summary\n\nEvery reactive (Spring ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:40:37Z",
+      "cve_ids": [
+        "CVE-2026-107375"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
     {
       "id": "80ccd568a0950e8052799ae5062b3dfb4aaee99e920841d94a2a9875d1d7192d",
       "url": "https://github.com/advisories/GHSA-9ffp-22j7-56r2",
@@ -575,148 +689,6 @@
       "cvss": 4.2,
       "related_links": [
         "https://nvd.nist.gov/vuln/detail/CVE-2026-94544"
-      ]
-    },
-    {
-      "id": "b3273821723c5cf1ccaa9a8264967d35fcfa5de1ef16b9ab777fec86c11a1021",
-      "url": "https://github.com/advisories/GHSA-4jqv-mc3x-m676",
-      "title": "GHSA: Next.js has cache poisoning of SSG and ISR pages in self-hosted applications",
-      "summary": "Self-hosted Next.js applications that use the Pages Router with statically generated (SSG) or incrementally regenerated (ISR) pages can have a page's cache entry replaced with content from a different route, causing the affected page to serve wrong content to every visitor until the entry is revalidated. Applications deployed on Vercel are not affected.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:32:06Z",
-      "cve_ids": [
-        "CVE-2026-94543"
-      ],
-      "cvss": 5.3,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-94543"
-      ]
-    },
-    {
-      "id": "b373c6d1ffd4ebf2f3715b4706e1e5930a50fd08b341aab5f0dea6d2f4b964c0",
-      "url": "https://github.com/advisories/GHSA-39w2-rjm5-chcv",
-      "title": "GHSA: Next.js has information disclosure in development server's Model Context Protocol endpoint",
-      "summary": "The Next.js development server (`next dev`) exposes a Model Context Protocol endpoint that does not verify which website a request originates from, allowing a malicious website visited by the developer to read sensitive development data — including the project's location on disk, source code snippets from error reports, the route inventory, and development logs. Only applications run with `next de",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:31:51Z",
-      "cve_ids": [
-        "CVE-2026-94486"
-      ],
-      "cvss": 5.4,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-94486"
-      ]
-    },
-    {
-      "id": "57bbb7c415137f9d8fbed0ef4e63c18b83a2625add8905c0bb0f46faa4f3ccdc",
-      "url": "https://github.com/advisories/GHSA-f87g-xv8r-7p7x",
-      "title": "GHSA: Next.js has information disclosure in App Router metadata image routes via dynamicParams bypass",
-      "summary": "In Next.js App Router applications built with webpack, metadata image routes such as opengraph-image and twitter-image ignore the `dynamicParams` route segment option. An attacker can request metadata image URLs for dynamic segments that were deliberately excluded from `generateStaticParams()`.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:31:33Z",
-      "cve_ids": [
-        "CVE-2026-94485"
-      ],
-      "cvss": 5.3,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-94485"
-      ]
-    },
-    {
-      "id": "a188a666459b0ac835c47c0922693107beaec8b98314a5f4007a55905148093e",
-      "url": "https://github.com/advisories/GHSA-mcj8-r9mp-w47p",
-      "title": "GHSA: Next.js has cache poisoning in SSG/ISR rendering that leads to cross-user content substitution and persistent denial of service",
-      "summary": "Next.js applications that use a root-level catch-all page together with statically generated or Incremental Static Regeneration routes can have their shared response cache poisoned by a single unauthenticated crafted request.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:31:13Z",
-      "cve_ids": [
-        "CVE-2026-94484"
-      ],
-      "cvss": 4.8,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-94484"
-      ]
-    },
-    {
-      "id": "997846b89c0cd160d09e2ee02e3fd240ada62e7103937dfeaab7933d260cdc18",
-      "url": "https://github.com/advisories/GHSA-cjq9-62q9-8jv4",
-      "title": "GHSA: Next.js has Server-Side Request Forgery in Image Optimization",
-      "summary": "## Impact\n\nAn attacker-controlled, allow-listed remote URL can lead to server-side request forgery (e.g. to private IPs) during Image Optimization. \n\n## Workaround\n\nAudit allow-listed remote URLs in `images.remotePatterns` (see https://nextjs.org/docs/app/getting-started/images#remote-images) for hosts that may not be trusted with their DNS entries. If no `images.remotePatterns` are configured, yo",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:30:55Z",
-      "cve_ids": [
-        "CVE-2026-94483"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "d31e9b3e45d1288919999063cf92ba947efff357ff1d7f28d1dacf95f2cd08ff",
-      "url": "https://github.com/advisories/GHSA-97rh-rhh2-7vjv",
-      "title": "GHSA: Payload: Remote Code Execution through first-register",
-      "summary": "### Impact\nA crafted request to the public first-register operation can be used to perform a RCE exploit.\n\n**You are affected if:**\n\n- You use local auth strategy and your application remains without an initial user created\n\n## Patches\n\nIn the patched version data submission to create first user is properly sanitized.\n\nUsers should upgrade Payload packages to `>= 3.90.0` or `>= 4.0.0-canary.34`.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:29:58Z",
-      "cve_ids": [
-        "CVE-2026-105858"
-      ],
-      "cvss": 8.1,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-105858"
-      ]
-    },
-    {
-      "id": "d7c3986172d3e1e498bf94d35ccc78da6bb3fa3ac54f9f5c0aef3155dfd8e9b6",
-      "url": "https://github.com/advisories/GHSA-2pwp-2369-8fg3",
-      "title": "GHSA: Payload: Bypassed sanitization of user uploaded SVGs",
-      "summary": "## Impact\n\nA malicious SVG file upload could bypass sanitization, be stored, and execute attacker-controlled JavaScript (XSS) after a user downloads it and opens it.\n\n**You are affected if:**\n\n- You have a collection configured to upload and allow SVG files which can then be downloaded by users.\n\n## Patches\n\nThe fix validates SVG content on every upload path and hardens SVG/XML delivery so stored ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:29:36Z",
-      "cve_ids": [
-        "CVE-2026-105862"
-      ],
-      "cvss": 8.7,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-105862"
-      ]
-    },
-    {
-      "id": "3e963704a4c13aca8500cc3698cf54b25d27b5282cad660f4c69414f4608ddcc",
-      "url": "https://github.com/advisories/GHSA-p223-2wr2-j562",
-      "title": "GHSA: Payload: Incomplete validation during the upload file lifecycle",
-      "summary": "## Impact\nUnder certain conditions, an authenticated user with permission to modify uploads could cause unintended files to be removed during file cleanup. This may result in data loss or service disruption.\n\nYou are affected if:\n- You use Payload upload collections with local file storage.\n- Untrusted authenticated users can update or delete uploads.\n\nDeployments that restrict upload management t",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:29:09Z",
-      "cve_ids": [
-        "CVE-2026-105865"
-      ],
-      "cvss": 8.1,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-105865"
-      ]
-    },
-    {
-      "id": "7fec8fc3169a4fd4d8134f0519a435fe7520e91166e66bb9306093c6dfbb76dc",
-      "url": "https://github.com/advisories/GHSA-r488-j9vj-wx3q",
-      "title": "GHSA: Payload Form Builder has an RCE issue",
-      "summary": "## Impact\n\nA vulnerability in `@payloadcms/plugin-form-builder` in versions < 3.90.0 allow submissions which could be crafted to execute remote code on the server.\n\n**You are affected if:**\n\n- You are using `@payloadcms/plugin-form-builder`\n\n## Patches\n\nUsers should upgrade Payload packages to `>= 3.90.0` or `>= 4.0.0-canary.34`.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:28:33Z",
-      "cve_ids": [
-        "CVE-2026-105857"
-      ],
-      "cvss": 10.0,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-105857"
       ]
     }
   ]
