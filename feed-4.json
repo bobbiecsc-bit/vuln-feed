@@ -1,10 +1,84 @@
 {
-  "updated": "2026-10-14T09:19:08.647463+00:00",
+  "updated": "2026-10-14T16:39:58.748855+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "bc3f80914dd31a2071404a96b42711debdfccfa1455d5bd4af2c02f3de7fa4d4",
+      "url": "https://github.com/advisories/GHSA-8r5x-fm3f-whwj",
+      "title": "GHSA: Handlebars: JavaScript Injection via AST Type Confusion in compile (bypass of CVE-2026-33937)",
+      "summary": "## Summary\n\n`Handlebars.compile()` and `Handlebars.precompile()` accept a pre-parsed AST as well as a template string. Handlebars 4.7.9 added validation for such ASTs. It only checks values on `PathExpression`, `NumberLiteral` and `BooleanLiteral` nodes, and the compiler still writes several other AST values into the generated JavaScript unchecked.\n\nIf an application passes an untrusted object to ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-08T17:52:32Z",
+      "cve_ids": [
+        "CVE-2026-106446"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "cc0a53313355ebf484072e49e8177b981437ec239ee683afdcf6aa77301d058e",
+      "url": "https://github.com/advisories/GHSA-rp9v-7xv3-r6g3",
+      "title": "GHSA: Coraza: Resource exhaustion via deferred file handle accumulation in multipart body processor",
+      "summary": "## Summary\n\n`defer temp.Close()` sits inside a `for` loop in the multipart processor. Go defers run at function return, not loop end, so every file part in the request holds an open fd until `ProcessRequest()` exits. Send enough parts and you hit `EMFILE`. With CRS loaded, that flips `MULTIPART_STRICT_ERROR` to 1 and rule `200001` starts returning 400s, including on legitimate requests hitting the",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-08T17:52:00Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "48184a646f0173ee5f398af8d7d74ce83d54e7afcee83f957edd46bd6b27d174",
+      "url": "https://github.com/advisories/GHSA-w253-m66g-rx24",
+      "title": "GHSA: Coraza: URL-encoded form Content-Type parameters bypass Coraza body inspection",
+      "summary": "### Summary\n\nCoraza fails to inspect URL-encoded form bodies when their valid `Content-Type` contains a media-type parameter, for example:\n\n```http\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\n```\n\nAn unauthenticated attacker can use this header to hide the complete form body from custom Coraza rules that inspect `ARGS_POST` or `REQUEST_BODY`, while the bundled Go HTTP middleware",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-08T17:51:53Z",
+      "cve_ids": [],
+      "cvss": 5.8,
+      "related_links": []
+    },
+    {
+      "id": "e4acd88ae9e7fdf9f59137ae0e39cc261c9fd158a0b906a55263fac0f73847d8",
+      "url": "https://github.com/advisories/GHSA-3c6w-j9xm-8h2h",
+      "title": "GHSA: Coraza: Unbounded recursion in JSON response body processor causes CPU exhaustion",
+      "summary": "### Summary\n\nThe JSON response body processor parses response bodies with no recursion\nlimit. `ProcessResponse` calls `readJSON(ss, ignoreJSONRecursionLimit)`, and\nthat constant is `-1`. The guard in `readItems` only fires on `== 0`, so\ncounting down from `-1` (-2, -3, ...) never reaches it. The guard is effectively\ndead on the response path. The request path is fine: `ProcessRequest` passes the\nc",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:51:42Z",
+      "cve_ids": [],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "f11b920d7c7481838a1787339bb8650f45dee6d4bb76842aeb406c0c3b09e74a",
+      "url": "https://github.com/advisories/GHSA-3wr7-993q-jrff",
+      "title": "GHSA: Coraza: Multipart filename* (RFC 5987) charset restriction lets a decoy filename bypass FILES-based rules",
+      "summary": "## Summary\n\nCoraza extracts a multipart file upload's filename using Go's standard-library `mime.ParseMediaType`, which only decodes the RFC 5987/6266 extended `filename*` `Content-Disposition` parameter when its declared charset is exactly `us-ascii` or `utf-8`. Any other charset — including `iso-8859-1`, which RFC 5987 explicitly permits — is silently dropped by the stdlib, with no error and no ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:51:36Z",
+      "cve_ids": [],
+      "cvss": 4.0,
+      "related_links": []
+    },
+    {
+      "id": "71e50ef905bea2f9861a2a9353e5317a1e081d7046496352e66a22ef6014d151",
+      "url": "https://github.com/advisories/GHSA-g4qm-m288-5cp9",
+      "title": "GHSA: Coraza has Cookie Parser Confusion",
+      "summary": "## Summary\nCoraza's cookie parser (`internal/cookies.ParseCookies`) does not strip ASCII control characters (CTLs) from the edges of a cookie name/value before they're matched against `REQUEST_COOKIES` / `REQUEST_COOKIES_NAMES`. When a CTL sits directly next to the `=` separator, Coraza absorbs it into the adjacent name or value, while several backend cookie parsers trim it away — so the WAF and t",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:51:30Z",
+      "cve_ids": [],
+      "cvss": 4.0,
+      "related_links": []
+    },
     {
       "id": "4c42438c451f7414a83e8622ba21353f2055cff43b484cdf4a9558ea416ae726",
       "url": "https://github.com/advisories/GHSA-x26q-wvhg-fh4m",
@@ -356,6 +430,104 @@
       "related_links": []
     },
     {
+      "id": "c7d2c8da0730b24891eded1dcea6a352de80879cb6b896d41e7c2237b95a69b6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76275",
+      "title": "CVE-2026-76275 — CVSS 4.3",
+      "summary": "In Splunk Enterprise versions below 10.4.3, 10.2.7, 10.0.10, and 9.4.15, a user who does not hold the \"admin\" or \"power\" Splunk roles could access search query text and job metadata for jobs that belong to other users, including job identifiers, dispatch parameters, result counts, and execution metadata, through an Application Programming Interface (API) implemented as a Representational State Tra",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-07T21:17:18.617",
+      "cve_ids": [
+        "CVE-2026-76275"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "ba0d9425c995b9eb85dd4a9ee60baaaba9bde8de7bdb524e9e5eca3e5dfd4906",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76270",
+      "title": "CVE-2026-76270 — CVSS 6.5",
+      "summary": "In Splunk Enterprise versions below 10.4.3, a user that holds a role with the list_spl2_modules capability could use SQL injection in SPL2 module filtering to access all relevant data available through the affected Representational State Transfer (REST) API, including private SPL2 module definitions belonging to other users. The vulnerability is possible because Splunk Enterprise and Splunk Cloud ",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-10-07T21:17:17.907",
+      "cve_ids": [
+        "CVE-2026-76270"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "d5dfa4019cb5671ee9d2136b872cae4cfb23acc5b80c854d7c592b614999eac9",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76268",
+      "title": "CVE-2026-76268 — CVSS 9.8",
+      "summary": "In Splunk Enterprise versions below 10.4.3 and 10.2.7, an unauthenticated user with network access to the Patroni Representational State Transfer (REST) Application Programming Interface (API) on a search head cluster member could execute attacker-controlled operating-system commands. The vulnerability is possible because this interface does not require authentication for critical configuration op",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-07T21:17:17.607",
+      "cve_ids": [
+        "CVE-2026-76268"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "362bf6dbca0880d8a2954574003df7771b9b51c8fa9acc276ef12dcfc9db1755",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76266",
+      "title": "CVE-2026-76266 — CVSS 7.7",
+      "summary": "In Splunk Enterprise versions below 10.4.3, 10.2.7, 10.0.10, and 9.4.15 on Linux, a local user who can run commands as the user account running Splunk Enterprise could cause an affected Linux package upgrade to run attacker-controlled operating-system commands with root privileges. The vulnerability is possible because the Linux package maintainer script trusts existing Splunk Enterprise installat",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-10-07T21:17:17.310",
+      "cve_ids": [
+        "CVE-2026-76266"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "d0920b2781a9a6386e608ab177c359131a0a4fe9c145889e5755d7af5a73d0c6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76265",
+      "title": "CVE-2026-76265 — CVSS 6.5",
+      "summary": "In Splunk Enterprise versions below 10.4.3, 10.2.7, 10.0.10, and 9.4.15, and Splunk Secure Gateway versions below 3.10.11, 3.9.25, and 3.8.72, a user who does not hold the \"admin\" or \"power\" Splunk roles could access privileged Splunk Secure Gateway functionality. With this access, the user could cause Splunk Secure Gateway to sign attacker-controlled payloads. The vulnerability is possible becaus",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-07T21:17:17.150",
+      "cve_ids": [
+        "CVE-2026-76265"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "f8b2e0bd1090bd694cbfb4ffa118631b3d1a1cd1258b714abf1d2411fd914754",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-107352",
+      "title": "CVE-2026-107352 — CVSS 7.7",
+      "summary": "Missing authorization checks in Amazon Athena engine version 3 request handling could have allowed an authenticated user to read limited query metadata (AWS account identifiers and SQL statement text) from other AWS accounts. Query results, credentials, and Amazon S3 data were not affected. AWS remediated the issue on September 1, 2026, and has confirmed no customer metadata was accessed. No custo",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-10-07T21:17:15.373",
+      "cve_ids": [
+        "CVE-2026-107352"
+      ],
+      "cvss": 7.7,
+      "related_links": []
+    },
+    {
+      "id": "7c5a05abc64579d113564478bf289598fcac2ccc9971a7a3067989b357f5c314",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-107227",
+      "title": "CVE-2026-107227 — CVSS 7.5",
+      "summary": "The AsyncHttpClient (AHC) library allows Java applications to easily execute HTTP requests and asynchronously process HTTP responses. From 2.2.0 until 3.0.14, WebSocket permessage-deflate decompression is unbounded when compression is enabled. The inbound pipeline aggregates compressed frames before WebSocketClientCompressionHandler inflates them, so webSocketMaxFrameSize and webSocketMaxBufferSiz",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-10-07T21:17:14.283",
+      "cve_ids": [
+        "CVE-2026-107227"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
       "id": "068b4945d58ddf1e7ac0dc3c1bb9e3f9845c4eb309f761ab8f47cc9fb731ea38",
       "url": "https://github.com/advisories/GHSA-fj8f-m44g-c479",
       "title": "GHSA: PraisonAI: Prompt Injection Defense Bypassed for HIGH-Level Threats",
@@ -512,196 +684,6 @@
       ],
       "cvss": 4.3,
       "related_links": []
-    },
-    {
-      "id": "658703ab870686643838bf85e255626e206141d280db8a98758a93ad8c037705",
-      "url": "https://github.com/advisories/GHSA-cgc7-9qp3-86m3",
-      "title": "GHSA: Docling: Unbounded table rowspan/colspan in HTML, JATS, ODS and BoxNote backends causes CPU/memory exhaustion",
-      "summary": "### Summary\n\nThe HTML, JATS, ODS (OpenDocument spreadsheet) and BoxNote backends accept table `rowspan` / `colspan` values without an upper bound. A few bytes of input, such as `<td rowspan=\"100000000\">`, make docling run loops proportional to the declared span and allocate a table grid of the declared size. The result is CPU and memory exhaustion.\n\n### Details\n\n- `docling/backend/html_backend.py`",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:41:02Z",
-      "cve_ids": [
-        "CVE-2026-105749"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "48963e919f5ea656b4ba1117043e0d2eeebe9ccb9bf516a5ad7d8feab9e7cf62",
-      "url": "https://github.com/advisories/GHSA-9jxx-vjrv-h2rq",
-      "title": "GHSA: Docling imports plugin entry points before the allow_external_plugins check",
-      "summary": "### Summary\n\n`allow_external_plugins=False` (the default, and the CLI default) is meant to restrict docling to its own model plugins. However, docling's plugin factories call pluggy's `load_setuptools_entrypoints()`, which imports every module registered under docling's plugin entry-point group. Only afterwards does docling filter out modules outside the `docling.` namespace. Import-time code in a",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:40:56Z",
-      "cve_ids": [
-        "CVE-2026-105745"
-      ],
-      "cvss": 6.7,
-      "related_links": []
-    },
-    {
-      "id": "111974688f720af38798408859e03a94ec9352b536a123d39ee7262a4e19b882",
-      "url": "https://github.com/advisories/GHSA-w794-rj3p-xv45",
-      "title": "GHSA: Langflow: OS command injection (RCE) via arbitrary command in MCP stdio server configuration",
-      "summary": "### Summary\n\nBefore **Langflow 1.10.3**, the MCP stdio transport launched whatever `command` / `args` a user put in an MCP server configuration, with no allowlist and (before 1.10.3) wrapped in `bash -c \"exec {command} ...\"`. Any user able to reach the MCP server settings (\"Settings → MCP Servers → Add MCP Server\", `POST/PATCH /api/v2/mcp/servers/{server_name}`) or to build a flow with the MCP Too",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:36:35Z",
-      "cve_ids": [
-        "CVE-2026-105697"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "f7cbab1a435bfe72d8f261675a3462b3b5974368517de4bbfc7c60ae77bda744",
-      "url": "https://github.com/advisories/GHSA-gh98-4phw-6fmw",
-      "title": "GHSA: Langflow : Cross-user flow access and vertex execution via deprecated /api/v1/build/{flow_id}/vertices endpoints",
-      "summary": "### Summary\n\nBefore **Langflow 1.10.1**, two deprecated but still-routed endpoints in the chat API did not check that the authenticated caller owns the flow referenced in the URL path:\n\n- `POST /api/v1/build/{flow_id}/vertices` (`retrieve_vertices_order`)\n- `POST /api/v1/build/{flow_id}/vertices/{vertex_id}` (`build_vertex`)\n\nAny authenticated user who knows (or obtains) another user's `flow_id` c",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:36:25Z",
-      "cve_ids": [
-        "CVE-2026-105698"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "2fdcf1a1c04f45b8be79d4b702f1eaa26064737a5b731e6792840ad090df751b",
-      "url": "https://github.com/advisories/GHSA-343h-94h5-c4wr",
-      "title": "GHSA: yawkat LZ4 Java: LZ4BlockInputStream with stopOnEmptyBlock=false recurses once per empty block, causing StackOverflowError",
-      "summary": "### Summary\n\nWhen `LZ4BlockInputStream` is configured with `stopOnEmptyBlock = false` (the mode for reading concatenated block streams), it handles each empty block by calling `refill()` recursively. A long run of empty blocks exhausts the thread stack and throws `StackOverflowError` out of `read()` or `skip()`.\n\n### Details\n\nIn `net.jpountz.lz4.LZ4BlockInputStream.refill()`:\n\n```java\nif (original",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:35:46Z",
-      "cve_ids": [
-        "CVE-2026-106449"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "b8762a10d6836ea03bac82547b5c43e6fe4484f1970a8a98e3d71af7368b6cea",
-      "url": "https://github.com/advisories/GHSA-gm45-99xc-r7wv",
-      "title": "GHSA: yawkat LZ4 Java: LZ4FrameInputStream reallocates block buffers for every frame, allowing CPU and GC amplification from small inputs",
-      "summary": "### Summary\n\n`LZ4FrameInputStream` allocates two new buffers of the frame's maximum block size, up to 4 MiB each, every time it reads a frame header. Because concatenated frames are read by default, an input made of many minimal empty frames forces about 8 MiB of zeroed heap allocation for every 11 input bytes.\n\n### Details\n\nIn `net.jpountz.lz4.LZ4FrameInputStream.readHeader()`:\n\n```java\nmaxBlockS",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:35:40Z",
-      "cve_ids": [
-        "CVE-2026-106450"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "8d775c6fa3a81d40efd7a8e8a1fd96bca21e338b654b5834c206c82169afe82d",
-      "url": "https://github.com/advisories/GHSA-322m-ff4g-9vx9",
-      "title": "GHSA: Ghost: Server-Side Request Forgery in Bookmark Fetching",
-      "summary": "### Impact\n\nA validation issue allowed some functionality, such as Webmentions, to be abused by an unauthenticated user to make limited HTTP requests to hosts in the Ghost server's internal network. A successful attack would not result in any response data being returned.\n\n### Vulnerable versions\n\nThis vulnerability is present in Ghost from v6.54.1 up to v6.64.0.\n\n### Patches\n\nv6.65.0 contains a f",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:35:32Z",
-      "cve_ids": [
-        "CVE-2026-105647"
-      ],
-      "cvss": 4.0,
-      "related_links": []
-    },
-    {
-      "id": "f6a51ad3f811df29cef4e58f3531b8319ac2f18ebaa8bc988251d5ad30d2b05b",
-      "url": "https://github.com/advisories/GHSA-r7f2-6fj8-6fg2",
-      "title": "GHSA: Ghost: Private IP Filtering Bypass via IPv6 Transition Addresses",
-      "summary": "### Impact\n\nA validation issue allowed some functionality, such as Webmentions, to be abused by an unauthenticated user to make limited HTTP requests to hosts in the Ghost server's internal network on some network configurations. A successful attack would not result in any response data being returned.\n\n### Vulnerable versions\n\nThis vulnerability is present in Ghost from v6.0.9 up to v6.64.0.\n\n###",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:35:27Z",
-      "cve_ids": [
-        "CVE-2026-105648"
-      ],
-      "cvss": 4.0,
-      "related_links": []
-    },
-    {
-      "id": "78d06b9fe4277bd78ca6051f77031b2ee252a0d763a4738854f16f55fdb918d6",
-      "url": "https://github.com/advisories/GHSA-8575-cr6v-7jh4",
-      "title": "GHSA: Ghost: Stored XSS via SVG Uploads Bypassing Sanitization",
-      "summary": "### Impact\n\nSVG media thumbnails, and SVG images uploaded with a non-SVG file extension, were stored without sanitization. This allowed any staff user, including Contributors, to host scripts on the site's domain, possibly resulting in compromise of other staff users' admin sessions.\n\n### Vulnerable versions\n\nThis vulnerability is present in Ghost from v4.22.0 up to v6.64.0.\n\n### Patches\n\nv6.65.0 ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:35:22Z",
-      "cve_ids": [
-        "CVE-2026-105649"
-      ],
-      "cvss": 7.3,
-      "related_links": []
-    },
-    {
-      "id": "1f412d0513f855e71781d46c87ce10c96492d2dab4cfd71425cc5db322d3fa0e",
-      "url": "https://github.com/advisories/GHSA-3w37-wq28-93x7",
-      "title": "GHSA: Next.js: Pending `use cache` fill can leak Draft Mode content into regular responses and persisted pages",
-      "summary": "Pending `use cache` fills are shared across requests for the same key without distinguishing Draft Mode requests from regular requests. When two such requests overlap, the second request receives the first request's fill:\n\n- A regular request that overlaps an editor's Draft Mode request receives unpublished content, without any authentication.\n- A Draft Mode request that overlaps a regular request",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:32:13Z",
-      "cve_ids": [
-        "CVE-2026-94544"
-      ],
-      "cvss": 4.2,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-94544"
-      ]
-    },
-    {
-      "id": "b3273821723c5cf1ccaa9a8264967d35fcfa5de1ef16b9ab777fec86c11a1021",
-      "url": "https://github.com/advisories/GHSA-4jqv-mc3x-m676",
-      "title": "GHSA: Next.js has cache poisoning of SSG and ISR pages in self-hosted applications",
-      "summary": "Self-hosted Next.js applications that use the Pages Router with statically generated (SSG) or incrementally regenerated (ISR) pages can have a page's cache entry replaced with content from a different route, causing the affected page to serve wrong content to every visitor until the entry is revalidated. Applications deployed on Vercel are not affected.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:32:06Z",
-      "cve_ids": [
-        "CVE-2026-94543"
-      ],
-      "cvss": 5.3,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-94543"
-      ]
-    },
-    {
-      "id": "b373c6d1ffd4ebf2f3715b4706e1e5930a50fd08b341aab5f0dea6d2f4b964c0",
-      "url": "https://github.com/advisories/GHSA-39w2-rjm5-chcv",
-      "title": "GHSA: Next.js has information disclosure in development server's Model Context Protocol endpoint",
-      "summary": "The Next.js development server (`next dev`) exposes a Model Context Protocol endpoint that does not verify which website a request originates from, allowing a malicious website visited by the developer to read sensitive development data — including the project's location on disk, source code snippets from error reports, the route inventory, and development logs. Only applications run with `next de",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:31:51Z",
-      "cve_ids": [
-        "CVE-2026-94486"
-      ],
-      "cvss": 5.4,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-94486"
-      ]
-    },
-    {
-      "id": "57bbb7c415137f9d8fbed0ef4e63c18b83a2625add8905c0bb0f46faa4f3ccdc",
-      "url": "https://github.com/advisories/GHSA-f87g-xv8r-7p7x",
-      "title": "GHSA: Next.js has information disclosure in App Router metadata image routes via dynamicParams bypass",
-      "summary": "In Next.js App Router applications built with webpack, metadata image routes such as opengraph-image and twitter-image ignore the `dynamicParams` route segment option. An attacker can request metadata image URLs for dynamic segments that were deliberately excluded from `generateStaticParams()`.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:31:33Z",
-      "cve_ids": [
-        "CVE-2026-94485"
-      ],
-      "cvss": 5.3,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-94485"
-      ]
     }
   ]
 }
