@@ -1,10 +1,150 @@
 {
-  "updated": "2026-10-14T16:39:58.748855+00:00",
+  "updated": "2026-10-14T22:59:26.591445+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "75afa177ec40e061226e38b3050e656438b4e5af493122fb32fdd01975fcc66b",
+      "url": "https://github.com/advisories/GHSA-m9xh-6747-9r6f",
+      "title": "GHSA: svg-sanitizer: Mixed-case xlink:HrEf skips the `<use>` nesting-DoS check in Resolver::processReferences",
+      "summary": "## Summary\n\n`Resolver::processReferences()` collects `<use>` elements with the XPath predicate `use[@href or @xlink:href]`, which is case sensitive. A `<use>` element written as `xlink:HrEf` is therefore never added to the reference graph, so the nesting-DoS nullification never marks it for removal. `Sanitizer::cleanHrefAttributes()` then runs later in the same pass and rewrites `xlink:HrEf` back ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T19:41:10Z",
+      "cve_ids": [
+        "CVE-2026-107381"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "1f8862af26cb19cd1f8d17ef49a05bdd824fae68f432aefb7764d23a6a98970a",
+      "url": "https://github.com/advisories/GHSA-v383-3rw5-q8rf",
+      "title": "GHSA: enshrined/svg-sanitize: Denial of Service via DTD Attribute Declaration Crash",
+      "summary": "## Summary\n\nA crafted SVG file (1009 bytes) crashes the PHP process when sanitized by `enshrined/svg-sanitize` (any version through 0.22.x). The sanitizer's `cleanAttributesOnWhitelist()` method calls `DOMElement::removeAttribute()` twice on the same attribute name — first removing the explicit attribute, then attempting to remove the DTD `#FIXED` default — triggering a PHP ext/dom type confusion ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T19:41:05Z",
+      "cve_ids": [
+        "CVE-2026-107379"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "3ce72d229e50b9b46d11d5e9cc8b4cfee4593b7e66e483f94dea58e03f3b87af",
+      "url": "https://github.com/advisories/GHSA-8j4c-6x6g-rq3j",
+      "title": "GHSA: music-metadata: uncatchable process crash parsing a crafted `.dsf` (residual of GHSA-v6c2-xwv6-8xf7)",
+      "summary": "## Summary\n`DsfParser.parseChunks` skips an unrecognised chunk's payload with an **un-awaited** call:\n```js\nthis.tokenizer.ignore(Number(chunkHeader.size) - ChunkHeader.len);   // lib/dsf/DsfParser.js:51 — no await\n```\n`ChunkHeader.len` is 12. A crafted `.dsf` chunk with `id != 'fmt '` and `size` in `0..11` makes the\nargument negative; strtok3 (≥ 10.3.5) throws `RangeError` on a negative `ignore`.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T19:40:45Z",
+      "cve_ids": [
+        "CVE-2026-107392"
+      ],
+      "cvss": 6.2,
+      "related_links": []
+    },
+    {
+      "id": "9b130a6fba39be72ce368191c34af235a3d654b878c83f0aabcb0a1b48d63cde",
+      "url": "https://github.com/advisories/GHSA-4r3p-w3mc-5v34",
+      "title": "GHSA: PraisonAI: Prompt-injection defense blocks only when 3+ detector families fire simultaneously; realistic single-vector injections pass through unblocked",
+      "summary": "## Summary\n\nPraisonAI's opt-in prompt-injection defense (`enable_injection_defense()`) only blocks at `ThreatLevel.CRITICAL`, which requires three or more distinct detector families to match simultaneously. A realistic single- or double-vector prompt injection (e.g. \"Ignore all previous instructions…\") is classified `HIGH` and passes through unmodified. The documented `HIGH` \"sanitize\" behavior is",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-08T19:39:53Z",
+      "cve_ids": [
+        "CVE-2026-60086"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "d2e6288a43bb7f667604e9a9d3136577ac529cb436475fc8dca325905561bfbd",
+      "url": "https://github.com/advisories/GHSA-79fv-7hq9-w7xg",
+      "title": "GHSA: PraisonAI: API deploy code generator embeds unescaped YAML fields into Python source",
+      "summary": "# API deploy code generator embeds unescaped YAML fields into Python source\n\n## Summary\n\nPraisonAI's API deployment generator copies `deploy.api.host` from `agents.yaml` directly into generated Python source without safe literal encoding. A malicious PraisonAI project can set that host value to a Python expression splice; when an operator runs the API deploy flow, the generated server source compi",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-08T19:36:29Z",
+      "cve_ids": [
+        "CVE-2026-61433"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "1e9b92d58fc8455d4c327a4da0fe91b74fb734dfc50df3fb4c8fc73b3fd3548e",
+      "url": "https://github.com/advisories/GHSA-2gpf-2492-q9jh",
+      "title": "GHSA: PraisonAI: Call API localhost-only authentication bypass via spoofed Host header",
+      "summary": "# Call API localhost-only authentication bypass via spoofed Host header\n\n## Summary\n\nPraisonAI's patched `PRAISONAI_CALL_AUTH=disabled` safeguard for the n8n/call agent invocation API can be bypassed with a spoofed `Host: 127.0.0.1` header, allowing an unauthenticated network caller to list and invoke registered agents when the service is reachable and the opt-out is enabled.\n\n## Technical Details",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-08T19:36:26Z",
+      "cve_ids": [
+        "CVE-2026-61435"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "ba8ac78f6915814cacfe5caa013821e452850ef3b7511668a9e8f8a8a3b013ee",
+      "url": "https://github.com/advisories/GHSA-q7m5-3jmv-vm48",
+      "title": "GHSA: PraisonAI: ContextGatherer include resolution permits absolute and traversal reads outside the workspace",
+      "summary": "# ContextGatherer include resolution permits absolute and traversal reads outside the workspace\n\n## Summary\n\nPraisonAI's `praisonai.ui.context.ContextGatherer` treats the configured `directory` as the project workspace, but project-controlled `.praisoncontext` and `.praisoninclude` files can name absolute paths or `..` traversal paths. When context gathering runs, PraisonAI opens those outside pat",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:58:30Z",
+      "cve_ids": [
+        "CVE-2026-61431"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "ede459a94967553100d29a25084ddac83c729e73005023807cb227c57f8cbe74",
+      "url": "https://github.com/advisories/GHSA-77xj-x4rm-935c",
+      "title": "GHSA: datamodel-code-generator: Protobuf weak-import path traversal allows files to be written outside the temporary directory",
+      "summary": "## Summary\n\nWhen processing an attacker-controlled Protobuf schema, vulnerable versions of\n`datamodel-code-generator` could write a generated weak-import stub outside the\nintended `__weak_imports__` temporary directory. Absolute import paths and relative\npaths containing `..` could escape this directory.\n\nAn attacker could create directories and new files at locations writable by the\nprocess. Rela",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:58:01Z",
+      "cve_ids": [
+        "CVE-2026-107377"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "692a3d69f92615b509e61ddd8c3df02de9da3453e31d1e79c161ada57ba407ee",
+      "url": "https://github.com/advisories/GHSA-xpx6-x8c2-mw5w",
+      "title": "GHSA: PraisonAI: Project custom command templates can read outside-workspace files into model prompts",
+      "summary": "# Project custom command templates can read outside-workspace files into model prompts\n\n## Summary\n\nPraisonAI's new file-based custom command feature auto-discovers project commands from `.praisonai/commands/*.md`. When a user runs `praisonai run --command <name>` inside a repository, the command body is interpolated before it is sent as the model prompt.\n\nThe interpolation code expands `@path` re",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-08T17:57:49Z",
+      "cve_ids": [
+        "CVE-2026-60088"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "ac270c7acdbfb3293a3ef932c8452934b3552db67a6db456d0537d02610df477",
+      "url": "https://github.com/advisories/GHSA-xw65-4hp5-5hc7",
+      "title": "GHSA: Handlebars: JavaScript Injection via Unsafe Inline Embedding of Precompiled Templates",
+      "summary": "## Summary\n\n`Handlebars.precompile()` generates JavaScript source that is commonly embedded in browser `<script>` elements. Before the fix, static template text containing `</script>` was emitted unchanged. HTML parsers recognize `</script>` even inside a JavaScript string literal, closing the surrounding script element and allowing following attacker-controlled markup to be parsed and executed.\n\n",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-08T17:52:37Z",
+      "cve_ids": [
+        "CVE-2026-106444"
+      ],
+      "cvss": 4.7,
+      "related_links": []
+    },
     {
       "id": "bc3f80914dd31a2071404a96b42711debdfccfa1455d5bd4af2c02f3de7fa4d4",
       "url": "https://github.com/advisories/GHSA-8r5x-fm3f-whwj",
@@ -324,6 +464,132 @@
       "related_links": []
     },
     {
+      "id": "b4cb7a1044753f91fd164c59427b8dc4aa499a7862cee82b85ea7fdffa0467af",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-85490",
+      "title": "CVE-2026-85490 — CVSS 8.8",
+      "summary": "When Brocade ASCG before 3.5.0 processes support bundle archives ingested from remote compromised endpoints, the application fails to sanitize path traversal sequences contained within archive entries prior to extraction. An unauthenticated remote attacker capable of sending or intercepting ingested archive files can leverage this flaw to write arbitrary files to restricted locations on the underl",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-08T07:16:32.860",
+      "cve_ids": [
+        "CVE-2026-85490"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "9cd4631c502d4df9d4ea5bedc4c7a265e3abe1302b9130ffb5f44a6caabd4791",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-85489",
+      "title": "CVE-2026-85489 — CVSS 8.8",
+      "summary": "An authentication flaw exists in the Brocade ASCG administrative management service component. An unauthenticated network user can issue direct API requests to perform privileged actions, including accessing sensitive system configuration mapping data, modifying managed device inventories, and altering operational settings. This vulnerability affects all versions of Brocade ASCG before 3.5.0.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-08T07:16:32.727",
+      "cve_ids": [
+        "CVE-2026-85489"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "cf9e33bfa49a657ac036f4b05a6ecebdf9011e4ece5ad8ebb6986773496544bb",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-85488",
+      "title": "CVE-2026-85488 — CVSS 7.8",
+      "summary": "Brocade ASCG before 3.5.0 has a well-known Brocade default password embedded in a script distributed to every customer. Any local authenticated user with read access to the installation path can discover this credential and perform privilege escalation on affected Open Virtual Appliance (OVA) deployments, where default configuration settings remain in place.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-10-08T07:16:32.590",
+      "cve_ids": [
+        "CVE-2026-85488"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "628dcc7bff24d46dc80c8d4d18832d5b2ee7c1f455e25e1e30230f7d84af5b65",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-85487",
+      "title": "CVE-2026-85487 — CVSS 8.8",
+      "summary": "A path traversal vulnerability exists in the HTTP service component of Brocade ASCG versions before 3.5.0. An unauthenticated attacker on the local network could send a manipulated API request to the service endpoint bypassing path restrictions to arbitrary file read, file write, or file deletion operations.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-08T07:16:32.450",
+      "cve_ids": [
+        "CVE-2026-85487"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "1e4430f92d52f8a2f839597fdd2b4f4d4d961f02d5250872321e92df8654065b",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-85486",
+      "title": "CVE-2026-85486 — CVSS 8.0",
+      "summary": "Brocade ASCG before 3.5.0 improperly processes user input by evaluating form data prior to validation. When an authenticated user submits a configuration form, the submitted text could immediately be processed. A malicious actor with basic access can supply crafted input to execute arbitrary code on the server and take control of the application.",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-10-08T07:16:32.317",
+      "cve_ids": [
+        "CVE-2026-85486"
+      ],
+      "cvss": 8.0,
+      "related_links": []
+    },
+    {
+      "id": "d079ff8348b44db2d36bd22b25112ffcc80e72f045abd51268e85d07abb9eccd",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-85423",
+      "title": "CVE-2026-85423 — CVSS 8.8",
+      "summary": "A vulnerability has been identified in the data collection service of Brocade ASCG versions before 3.5.0. An API endpoint within the data collector service fails to perform authentication or authorization checks on incoming requests. An attacker with network access to the service can instruct the application to establish SSH connections to arbitrary hosts and execute arbitrary system commands, eff",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-08T07:16:32.177",
+      "cve_ids": [
+        "CVE-2026-85423"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "dd5b7f9968cf72c43d724e94b8dfb4ac7a13e07999a3c8d24f5347e9a32f3b4f",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-85422",
+      "title": "CVE-2026-85422 — CVSS 7.8",
+      "summary": "A vulnerability in Brocade ASCG version before 3.5.0 could allow an attacker to obtain a static cryptographic key hardcoded into the software binaries to secure sensitive data at rest and to protect inter-node communication protocols. An attacker who extracts this key can decrypt stored management credentials or craft forged administrative synchronization messages.",
+      "source": "NVD/NIST",
+      "category": "cloud",
+      "date": "2026-10-08T07:16:32.033",
+      "cve_ids": [
+        "CVE-2026-85422"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "e8b54b1cf0dfcd2c750b0abe0bd42cea0f65710113b786c2f306b78b997a1782",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-85421",
+      "title": "CVE-2026-85421 — CVSS 8.8",
+      "summary": "A critical security vulnerability has been identified in Brocade ASCG versions before 3.5.0. The HTTPS service fails to properly enforce authentication or access control checks on incoming requests. An unauthenticated attacker with network access can issue control commands, alter cluster states, and modify system configurations, leading to a complete compromise of the streaming service control pla",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-08T07:16:31.883",
+      "cve_ids": [
+        "CVE-2026-85421"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "1a920cb3cab92b8ce9699c8a71c208b6dcc5734bb79e7cb94b29193cb18533fc",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-85097",
+      "title": "CVE-2026-85097 — CVSS 9.8",
+      "summary": "The Bricksforge plugin for WordPress is vulnerable to unauthenticated arbitrary file upload in versions up to, and including, 3.1.8.9. This is due to insufficient validation of the attacker-controlled URL field in the 'temporaryFileUploads' parameter during form submission. An unauthenticated attacker can first obtain a valid nonce via the bricksforge_regenerate_nonce AJAX endpoint, then upload a ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-08T07:16:31.710",
+      "cve_ids": [
+        "CVE-2026-85097"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
       "id": "958c66cc09d0fc86e60f55e3962b4476bd6981bdcad8830fd5b47915020d135e",
       "url": "https://www.bleepingcomputer.com/news/security/samsung-galaxy-s26-hacked-three-more-times-at-pwn2own-ireland/",
       "title": "Samsung Galaxy S26 hacked three more times at Pwn2Own Ireland",
@@ -336,353 +602,87 @@
       "related_links": []
     },
     {
-      "id": "373ee4b138d85d0c9908252ad29e93552c65026cba92272dbb610c85c48530c7",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2015-5477",
-      "title": "CVE-2015-5477:  ISC BIND Data Processing Errors Vulnerability",
-      "summary": "ISC BIND contains a data processing errors vulnerability that could allow remote attackers to cause a denial of service via TKEY queries. Affected product: BIND by ISC. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance and CISA’s “Forensics Triage Requirements”",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-10-08T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2015-5477"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f12c64964ed917d773d8219344f07ca6e24d6a38116eff39e721ab764a4da875",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2016-3081",
-      "title": "CVE-2016-3081: Apache Struts Command Injection Vulnerability",
-      "summary": "Apache Struts contains a command injection vulnerability that could allow remote attackers to execute arbitrary code via method:prefix when Dynamic Method Invocation is enabled. Affected product: Struts by Apache. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidan",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-10-08T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2016-3081"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "9e8c1fb28446f75c78c32b3d998c7bbf585df5e1992993580e34f9e0a384e88c",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2023-22894",
-      "title": "CVE-2023-22894: Strapi Cleartext Storage of Sensitive Information Vulnerability",
-      "summary": "Strapi contains a cleartext storage of sensitive information vulnerability that could allow attackers with access to the admin panel to discover sensitive user details via the query filter. The impacted product(s) could be end-of-life (EoL) and/or end-of-service (EoS). Users are advised to discontinue use and/or transition to a supported version. This vulnerability can be chained with CVE-2023-226",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-10-08T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2023-22894"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c3acaaaad4f2b7ee168ae797e7d77be9e20717fc5826829268aa9ac92c2fddf6",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2021-3199",
-      "title": "CVE-2021-3199: ONLYOFFICE Docs Server Path Traversal Vulnerability",
-      "summary": "ONLYOFFICE Docs contains a path traversal vulnerability that can occur when JWT is used, via a /.. sequence in an image upload parameter and could allow for remote code execution. Affected product: Docs by ONLYOFFICE. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) gu",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-10-08T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2021-3199"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "acfa7316f2b25bfedf86d6ed1015e5ea81bbc6fbab8a3759eb7e93b83e2b5c85",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2015-3306",
-      "title": "CVE-2015-3306: ProFTPD Improper Access Control Vulnerability",
-      "summary": "ProFTPD contains an improper access control vulnerability that could allow remote attackers to read and write to arbitrary files via the site cpfr and site cpto commands. Affected product: ProFTPD by ProFTPD. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidance an",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-10-08T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2015-3306"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "8112fe6fe7db20cd324e4148613672ce8e1e11a778d704365cafc0d544f24736",
-      "url": "https://www.bleepingcomputer.com/news/security/ransomware-recovery-ceo-charged-over-secret-ransom-payments/",
-      "title": "Ransomware recovery CEO charged over secret ransom payments",
-      "summary": "The owner of ransomware remediation company MonsterCloud has been charged with allegedly defrauding ransomware victims by secretly paying their attackers for decryptors while claiming to use proprietary technology to recover encrypted data. [...]",
-      "source": "Bleeping Computer",
-      "category": "cloud",
-      "date": "2026-10-07T23:04:37+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "049aad3b8e0ab1a7e8fd67558036fcacc93a9cf5f273d12a22ce91937892a5b8",
-      "url": "https://www.bleepingcomputer.com/news/security/fbi-ongoing-fortibleed-attacks-lock-out-fortigate-vpn-admins/",
-      "title": "FBI: Ongoing FortiBleed attacks lock out FortiGate VPN admins",
-      "summary": "The FBI is warning that FortiBleed attacks are still ongoing, targeting exposed Fortinet FortiGate firewalls and SSL VPN gateways and locking out legitimate administrators. [...]",
-      "source": "Bleeping Computer",
-      "category": "infrastructure",
-      "date": "2026-10-07T21:28:54+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c7d2c8da0730b24891eded1dcea6a352de80879cb6b896d41e7c2237b95a69b6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76275",
-      "title": "CVE-2026-76275 — CVSS 4.3",
-      "summary": "In Splunk Enterprise versions below 10.4.3, 10.2.7, 10.0.10, and 9.4.15, a user who does not hold the \"admin\" or \"power\" Splunk roles could access search query text and job metadata for jobs that belong to other users, including job identifiers, dispatch parameters, result counts, and execution metadata, through an Application Programming Interface (API) implemented as a Representational State Tra",
+      "id": "4407b428e0e683a89f30877294a67027e0b0c0c316785a019445a22106b91383",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-94275",
+      "title": "CVE-2026-94275 — CVSS 5.3",
+      "summary": "The Track Orders for WooCommerce  WordPress plugin before 1.2.7 does not verify ownership of an order before returning its billing details, allowing unauthenticated attackers to obtain a customer's name, email address, phone number, postal address and order history by supplying that customer's email address.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-10-07T21:17:18.617",
+      "date": "2026-10-08T06:16:47.457",
       "cve_ids": [
-        "CVE-2026-76275"
+        "CVE-2026-94275"
       ],
-      "cvss": 4.3,
+      "cvss": 5.3,
       "related_links": []
     },
     {
-      "id": "ba0d9425c995b9eb85dd4a9ee60baaaba9bde8de7bdb524e9e5eca3e5dfd4906",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76270",
-      "title": "CVE-2026-76270 — CVSS 6.5",
-      "summary": "In Splunk Enterprise versions below 10.4.3, a user that holds a role with the list_spl2_modules capability could use SQL injection in SPL2 module filtering to access all relevant data available through the affected Representational State Transfer (REST) API, including private SPL2 module definitions belonging to other users. The vulnerability is possible because Splunk Enterprise and Splunk Cloud ",
+      "id": "9cd109e60ca2c5a79f6a0f373d1898f4bce06fb27b13fbc0b8b6743fc8069f2c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-94246",
+      "title": "CVE-2026-94246 — CVSS 6.3",
+      "summary": "The Wallet System for WooCommerce  WordPress plugin before 2.8.0 does not verify that the wallet account named in a withdrawal submission belongs to the user making it, allowing any authenticated user, such as a subscriber, to file a withdrawal request against another user's wallet for an amount and a payout destination of their choosing, and to indefinitely prevent that user from submitting withd",
       "source": "NVD/NIST",
-      "category": "web_app",
-      "date": "2026-10-07T21:17:17.907",
+      "category": "emergency",
+      "date": "2026-10-08T06:16:46.863",
       "cve_ids": [
-        "CVE-2026-76270"
+        "CVE-2026-94246"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "6c0ed08b562ea1869442da85c72d92c162f3966c586d5dbdad3fbe3d64c7437a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-94245",
+      "title": "CVE-2026-94245 — CVSS 6.5",
+      "summary": "The Wallet System for WooCommerce  WordPress plugin before 2.8.0 does not verify that the user submitting a wallet transfer owns the wallet being debited, allowing any authenticated user, including one with only the Subscriber role, to move an arbitrary user's wallet balance, including an administrator's, into an account they control.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-08T06:16:46.533",
+      "cve_ids": [
+        "CVE-2026-94245"
       ],
       "cvss": 6.5,
       "related_links": []
     },
     {
-      "id": "d5dfa4019cb5671ee9d2136b872cae4cfb23acc5b80c854d7c592b614999eac9",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76268",
-      "title": "CVE-2026-76268 — CVSS 9.8",
-      "summary": "In Splunk Enterprise versions below 10.4.3 and 10.2.7, an unauthenticated user with network access to the Patroni Representational State Transfer (REST) Application Programming Interface (API) on a search head cluster member could execute attacker-controlled operating-system commands. The vulnerability is possible because this interface does not require authentication for critical configuration op",
+      "id": "b6173c5070421ad563b63362608a0e7b181392aef01cb741ec5cb80cd55a84a1",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-94244",
+      "title": "CVE-2026-94244 — CVSS 4.3",
+      "summary": "The Wallet System for WooCommerce  WordPress plugin before 2.8.0 does not perform any capability check, and relies on a token any authenticated user can obtain from a front-end page, before generating a report containing every customer's wallet transaction history, allowing any authenticated user, such as a subscriber, to disclose all users' names, email addresses, roles, transaction amounts, paym",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-10-07T21:17:17.607",
+      "date": "2026-10-08T06:16:46.197",
       "cve_ids": [
-        "CVE-2026-76268"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "362bf6dbca0880d8a2954574003df7771b9b51c8fa9acc276ef12dcfc9db1755",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76266",
-      "title": "CVE-2026-76266 — CVSS 7.7",
-      "summary": "In Splunk Enterprise versions below 10.4.3, 10.2.7, 10.0.10, and 9.4.15 on Linux, a local user who can run commands as the user account running Splunk Enterprise could cause an affected Linux package upgrade to run attacker-controlled operating-system commands with root privileges. The vulnerability is possible because the Linux package maintainer script trusts existing Splunk Enterprise installat",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-07T21:17:17.310",
-      "cve_ids": [
-        "CVE-2026-76266"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "d0920b2781a9a6386e608ab177c359131a0a4fe9c145889e5755d7af5a73d0c6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76265",
-      "title": "CVE-2026-76265 — CVSS 6.5",
-      "summary": "In Splunk Enterprise versions below 10.4.3, 10.2.7, 10.0.10, and 9.4.15, and Splunk Secure Gateway versions below 3.10.11, 3.9.25, and 3.8.72, a user who does not hold the \"admin\" or \"power\" Splunk roles could access privileged Splunk Secure Gateway functionality. With this access, the user could cause Splunk Secure Gateway to sign attacker-controlled payloads. The vulnerability is possible becaus",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-07T21:17:17.150",
-      "cve_ids": [
-        "CVE-2026-76265"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "f8b2e0bd1090bd694cbfb4ffa118631b3d1a1cd1258b714abf1d2411fd914754",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-107352",
-      "title": "CVE-2026-107352 — CVSS 7.7",
-      "summary": "Missing authorization checks in Amazon Athena engine version 3 request handling could have allowed an authenticated user to read limited query metadata (AWS account identifiers and SQL statement text) from other AWS accounts. Query results, credentials, and Amazon S3 data were not affected. AWS remediated the issue on September 1, 2026, and has confirmed no customer metadata was accessed. No custo",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-07T21:17:15.373",
-      "cve_ids": [
-        "CVE-2026-107352"
-      ],
-      "cvss": 7.7,
-      "related_links": []
-    },
-    {
-      "id": "7c5a05abc64579d113564478bf289598fcac2ccc9971a7a3067989b357f5c314",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-107227",
-      "title": "CVE-2026-107227 — CVSS 7.5",
-      "summary": "The AsyncHttpClient (AHC) library allows Java applications to easily execute HTTP requests and asynchronously process HTTP responses. From 2.2.0 until 3.0.14, WebSocket permessage-deflate decompression is unbounded when compression is enabled. The inbound pipeline aggregates compressed frames before WebSocketClientCompressionHandler inflates them, so webSocketMaxFrameSize and webSocketMaxBufferSiz",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-07T21:17:14.283",
-      "cve_ids": [
-        "CVE-2026-107227"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "068b4945d58ddf1e7ac0dc3c1bb9e3f9845c4eb309f761ab8f47cc9fb731ea38",
-      "url": "https://github.com/advisories/GHSA-fj8f-m44g-c479",
-      "title": "GHSA: PraisonAI: Prompt Injection Defense Bypassed for HIGH-Level Threats",
-      "summary": "### Summary\nInjection Defense is a purpose-built prompt injection defense layer. It scans LLM inputs through six detection categories: instruction overrides, authority claims, boundary manipulation, obfuscation, financial manipulation, and self-harm instructions.\n\nThe defense is misconfigured by default. The block threshold defaults to Threat Level. CRITICAL, which is only reached when 3 or more d",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:43:58Z",
-      "cve_ids": [
-        "CVE-2026-61439"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "91c8a67886995b1c6d152c5834a374de5ce31e8aeb7b1060bbfd481487d944a1",
-      "url": "https://github.com/advisories/GHSA-788w-68h3-cvxp",
-      "title": "GHSA: Ghost: Remote Code Execution via Bookmark Card Images",
-      "summary": "### Impact\n\nAn image processing library bundled with Ghost contained a vulnerability in its SVG handling. Any staff user, including Contributors, could create a bookmark card for an attacker-controlled website, resulting in arbitrary commands being run on the Ghost server.\n\n### Vulnerable versions\n\nThis vulnerability is present in Ghost from v6.56.0 up to v6.65.0.\n\n### Patches\n\nv6.67.0 contains a ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:43:08Z",
-      "cve_ids": [
-        "CVE-2026-105642"
-      ],
-      "cvss": 8.8,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-105642"
-      ]
-    },
-    {
-      "id": "4aae5aef0f3bd646597b9b35f4d07d1bfe4601405abf5aaf25221516c78ae038",
-      "url": "https://github.com/advisories/GHSA-69qc-f5m6-889c",
-      "title": "GHSA: Ghost: Stored XSS via Embed Card Previews",
-      "summary": "### Impact\n\nEmbed cards in the Ghost editor could be used to bypass the fix for GHSA-8vhf-xxpj-4qrg. Any staff user, including Contributors, could store scripts in post content that ran when another staff user opened the post in the editor, possibly resulting in compromise of that user's admin session.\n\nSelf-hosted sites should leave the new `security.embedPreviewUrl` config option at its default.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:43:05Z",
-      "cve_ids": [
-        "CVE-2026-105643"
-      ],
-      "cvss": 7.3,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-105643"
-      ]
-    },
-    {
-      "id": "2439978966e1c7f6dd59a7b206ab5ba5e3de8e411e24eb429d955689e68b09c8",
-      "url": "https://github.com/advisories/GHSA-hqq2-xqr2-fmx2",
-      "title": "GHSA: Ghost : Stored XSS via SVG Files in Content Imports",
-      "summary": "### Impact\n\nSVG images included in content imports were stored without sanitization. An attacker who convinced an Administrator to import a crafted file could host scripts on the site's domain, possibly resulting in compromise of staff users' admin sessions.\n\n### Vulnerable versions\n\nThis vulnerability is present in Ghost from v4.0.0 up to v6.65.0.\n\n### Patches\n\nv6.67.0 contains a fix for this iss",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:43:03Z",
-      "cve_ids": [
-        "CVE-2026-105644"
-      ],
-      "cvss": 6.8,
-      "related_links": []
-    },
-    {
-      "id": "10f6eec16eed0a7ad1c34831054ab2ae8ad7e897d4ac8eefc9216babe9dfc8a6",
-      "url": "https://github.com/advisories/GHSA-9m4w-fmjw-fvjq",
-      "title": "GHSA: Ghost: Regular Expression Denial of Service in External Media Inliner",
-      "summary": "### Impact\n\nA crafted request to the external media inliner could cause excessive CPU usage, making the Ghost server unresponsive. Exploiting this requires Administrator access.\n\n### Vulnerable versions\n\nThis vulnerability is present in Ghost from v5.37.0 up to v6.65.0.\n\n### Patches\n\nv6.67.0 contains a fix for this issue.\n\n### How to update\n\nFor self-hosters using Docker, find [Docker's official G",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:43:00Z",
-      "cve_ids": [
-        "CVE-2026-105645"
-      ],
-      "cvss": 4.9,
-      "related_links": []
-    },
-    {
-      "id": "5806c791aa980d178d60d40df6fb6b07a09d60ed3932fc8b92d396d9c2ea675c",
-      "url": "https://github.com/advisories/GHSA-fwh9-qg68-vxp4",
-      "title": "GHSA: Ghost: Regular Expression Denial of Service in Content Import",
-      "summary": "### Impact\n\nA crafted content import file could cause excessive CPU usage, making the Ghost server unresponsive. Exploiting this requires Administrator access.\n\n### Vulnerable versions\n\nThis vulnerability is present in Ghost from v4.0.0 up to v6.65.0.\n\n### Patches\n\nv6.67.0 contains a fix for this issue.\n\n### How to update\n\nFor self-hosters using Docker, find [Docker's official Ghost image here](ht",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:42:53Z",
-      "cve_ids": [
-        "CVE-2026-105646"
-      ],
-      "cvss": 4.9,
-      "related_links": []
-    },
-    {
-      "id": "0ff3114dbd3e2a10ecb2479722bf9b64c0e2f9c019421c71629a1951293e17c9",
-      "url": "https://github.com/advisories/GHSA-cqgh-8p3p-mx4m",
-      "title": "GHSA: RabbitMQ: JSONReader in the default JSON-RPC mapper never terminates on truncated input, causing DoS",
-      "summary": "## Summary\n\n`com.rabbitmq.tools.json.JSONReader.read()` never returns when its input ends inside a quoted string or a `//` line comment. Both scanners walk the input with `StringCharacterIterator.next()` but only compare against a delimiter, so once the iterator reaches `CharacterIterator.DONE` (`￿`) they loop forever. The string scanner (`string()`, line 210, `while (c != sep)`) also appends `￿` ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:42:33Z",
-      "cve_ids": [
-        "CVE-2026-106121"
-      ],
-      "cvss": 4.9,
-      "related_links": []
-    },
-    {
-      "id": "4f6857ac60a064f5c44904b78b5ba5ccfcef50a1e5d57014aec3dc814a52c98d",
-      "url": "https://github.com/advisories/GHSA-p3fw-7699-7926",
-      "title": "GHSA: Docling: Configured HTTP headers sent to every remote image host named by a document",
-      "summary": "### Summary\n\n`HTMLBackendOptions.headers` is documented for passing authentication headers (API keys, bearer tokens) when fetching remote images. docling sends these headers on every remote image request, to whichever host the document names. An untrusted document that references an attacker-controlled image URL receives the caller's credentials.\n\n### Details\n\n`docling/backend/utils/image_resource",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:42:24Z",
-      "cve_ids": [
-        "CVE-2026-105742"
-      ],
-      "cvss": 3.7,
-      "related_links": []
-    },
-    {
-      "id": "f157c508963e377325fce298c68ff74686985e398a6e32e7988a3777c9e8aa90",
-      "url": "https://github.com/advisories/GHSA-pc36-qwjq-x68c",
-      "title": "GHSA: Docling has SSRF guard bypass in remote resource fetching (DNS rebinding / multi-record resolution; no IP validation in HTML render mode)",
-      "summary": "### Summary\n\nWhen remote fetching is enabled (`enable_remote_fetch=True`, together with `fetch_images=True` or HTML `render_page=True`), docling's protection against requests to private and loopback addresses can be bypassed.\n\n- The URL check resolves the host name once, to a single IPv4 address. The HTTP request then resolves it again. A name that returns a public A record together with an intern",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-07T20:42:19Z",
-      "cve_ids": [
-        "CVE-2026-105743"
-      ],
-      "cvss": 4.0,
-      "related_links": []
-    },
-    {
-      "id": "3363edf28512cbaeb01cc730170a743ddf5b8256e674a7dfb3ac4356323d4f1d",
-      "url": "https://github.com/advisories/GHSA-x3q2-h9hx-4r4j",
-      "title": "GHSA: Docling has arbitrary file read/write (and command execution when shell-escape is enabled) when rendering untrusted TikZ with the opt-in Tectonic engine",
-      "summary": "### Summary\n\nWhen the LaTeX backend is configured to render TikZ pictures with the Tectonic engine (`LatexBackendOptions(tikz_engine=\"tectonic\")`), the TikZ body and the document preamble from the input file are compiled by Tectonic without any restriction on TeX's file primitives. A crafted `.tex` file can read files the process can read and write files at paths the process can write. If the call",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:42:05Z",
-      "cve_ids": [
-        "CVE-2026-105744"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "c5299da6d728c7672a100280c4a50f3a225fa842c46a64fae9f1a3f805c01933",
-      "url": "https://github.com/advisories/GHSA-p944-4xh2-x776",
-      "title": "GHSA: Docling: Crafted DoclingDocument JSON embeds local image files into converted output",
-      "summary": "### Summary\n\ndocling accepts serialized `DoclingDocument` JSON as an input format (`InputFormat.JSON_DOCLING`, enabled by default). A crafted JSON file can set a picture's image `uri` to a local file path. When the converted document is exported with embedded images (`ImageRefMode.EMBEDDED`, the CLI default for Markdown and HTML), the referenced file is read and embedded as base64 in the output.\n\n",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-07T20:41:08Z",
-      "cve_ids": [
-        "CVE-2026-105748"
+        "CVE-2026-94244"
       ],
       "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "950d5a66eae0f921329b74e4ddb520ef47c75f46a5b6a56961d757a3d27837fb",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-86828",
+      "title": "CVE-2026-86828 — CVSS 6.6",
+      "summary": "The BackWPup  WordPress plugin before 5.7.7 does not properly restrict the destination path of files extracted during a backup restore when its fallback archive library is used, allowing high-privileged users to write files outside the intended restore directory, potentially leading to remote code execution.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-08T06:16:45.287",
+      "cve_ids": [
+        "CVE-2026-86828"
+      ],
+      "cvss": 6.6,
+      "related_links": []
+    },
+    {
+      "id": "f899464ff92e6efeecf5ca0292931bec43499cdb8fc288096a2e9a9e8d0e9fa1",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-86827",
+      "title": "CVE-2026-86827 — CVSS 5.3",
+      "summary": "The BackWPup  WordPress plugin before 5.7.7 does not verify that a request to its cron-triggered backup execution handler actually originates from WordPress's internal scheduled-event dispatch, allowing unauthenticated attackers to force any existing backup job to run immediately, independent of its configured trigger type or schedule.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-08T06:16:44.987",
+      "cve_ids": [
+        "CVE-2026-86827"
+      ],
+      "cvss": 5.3,
       "related_links": []
     }
   ]
