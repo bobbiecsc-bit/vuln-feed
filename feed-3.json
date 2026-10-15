@@ -1,10 +1,52 @@
 {
-  "updated": "2026-10-15T08:54:37.593796+00:00",
+  "updated": "2026-10-15T16:25:22.329467+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "997dc0c51a4907c156eb8ce4a9982afc0f4540897d52fce4ee063ec38ce266ed",
+      "url": "https://github.com/advisories/GHSA-9ff2-p842-45wq",
+      "title": "GHSA: Contao: Cross-site request forgery in custom backend actions",
+      "summary": "`RequestTokenListener` is the only generic `REQUEST_TOKEN` validator in Contao and it only runs on POST. On the GET side the guard is local and declarative, and it only fires when an `act` parameter is present. Every back end action dispatched through a different parameter therefore has no CSRF protection at all. This is a family rather than a single bug.\n\n### Impact\n\nAn attacker who gets a logged",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-09T20:54:00Z",
+      "cve_ids": [
+        "CVE-2026-107848"
+      ],
+      "cvss": 3.5,
+      "related_links": []
+    },
+    {
+      "id": "95c4609846c3ffb2778a05c8137c6716650d0e3d550532fce8b988930f7f8ed3",
+      "url": "https://github.com/advisories/GHSA-mrvp-7wmx-5m4h",
+      "title": "GHSA: Contao: Path traversal in the images controller",
+      "summary": "`ImagesController` joins the user controlled `{path}` onto the configured image target directory with `Path::join()`, which canonicalises `..` segments, and never calls `Path::isBasePath()` to confirm the result stayed inside that directory. An unauthenticated GET with percent encoded dot segments therefore escapes the directory and the file is returned by `BinaryFileResponse`. Reads are bounded t",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-09T20:53:55Z",
+      "cve_ids": [
+        "CVE-2026-107844"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "b4c610e643515af36eef1bbb9d405cc53c67767b85d0a62ddfeebf00ccc5f7ee",
+      "url": "https://github.com/advisories/GHSA-628f-v4f6-p37r",
+      "title": "GHSA: Contao: Cross-site scripting in the comments bundle",
+      "summary": "An unauthenticated front end visitor can post a comment containing a XSS injection. The victim is any back end user who opens the Comments module, and moderation makes exposure certain rather than preventing it. No `Content-Security-Policy` header is sent on the Contao back end, so nothing mitigates the inline handler.\n\n### Impact\n\nAnyone on the internet can inject script that executes in the Cont",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-09T20:53:50Z",
+      "cve_ids": [
+        "CVE-2026-107845"
+      ],
+      "cvss": 9.3,
+      "related_links": []
+    },
     {
       "id": "64be650cc06ee5e8f29baacedab447754ebc3f3157162a6a76f4f9db07c0635a",
       "url": "https://github.com/advisories/GHSA-q6wp-fr43-gm9v",
@@ -2102,48 +2144,6 @@
         "CVE-2026-61442"
       ],
       "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "e23fe8b98d3c4e07a883ad6f12ea8bb362f5799bbe5d1e32b07c78067c74e796",
-      "url": "https://github.com/advisories/GHSA-cv3g-hj65-pcfh",
-      "title": "GHSA: PraisonAI: Shell command allowlist bypass via find -exec built-in action",
-      "summary": "### Summary\n\nThe shell command execution hardening introduced in PraisonAI npm 1.7.2 / Python 4.6.58 to fix GHSA-5jv7-2mjm-h6qj (utility-tools shell chaining) and GHSA-vjv9-7m7j-h833 (SandboxExecutor chaining) can be bypassed via `find`'s built-in `-exec` action.\n\nThe fix blocks shell metacharacters (`` ;|&`><$()${} ``) and uses `spawn()` with `shell: false`. However, `find` remains in the safe co",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-08T22:00:55Z",
-      "cve_ids": [
-        "CVE-2026-61434"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "d5c550d0cc5d5c20499a418348124aef3e6f5f9e658f05262ae1fdce52b273dd",
-      "url": "https://github.com/advisories/GHSA-9mp3-24cc-77mg",
-      "title": "GHSA: PraisonAI: AICoder Arbitrary File Write and Command Execution via LLM Tool Calls",
-      "summary": "### Summary\nThe `AICoder` UI component exposes `write_to_file` and `execute_command` tools to the LLM with no path validation and no command sanitization. An attacker can achieve arbitrary file write to any location on the filesystem (including `/root/.ssh/authorized_keys`, `/etc/crontab`) and arbitrary command execution through prompt injection in the chat interface. Docker containers run as root",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-08T22:00:40Z",
-      "cve_ids": [
-        "CVE-2026-61445"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "658c26a628bba03efaff11d887f2cabb57d3221c0bd80fcb4a510c1bffdbdf4e",
-      "url": "https://github.com/advisories/GHSA-hc5v-gxvj-58wh",
-      "title": "GHSA: PraisonAI: MCP HTTP-stream transport is unauthenticated by default, exposing tool enumeration and an unvalidated tool-call surface",
-      "summary": "## Summary\n\nPraisonAI's MCP HTTP-stream server authenticates requests only when an API key is configured; the CLI defaults `--api-key` to `None`, so `praisonai mcp serve --transport http-stream` exposes the full MCP surface unauthenticated. A request with no `Authorization` (and no `Origin`) can `initialize` and `tools/list` (~50 tools), and the dispatcher forwards tool-call arguments to handlers ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-08T21:58:42Z",
-      "cve_ids": [
-        "CVE-2026-61427"
-      ],
-      "cvss": 7.3,
       "related_links": []
     }
   ]
