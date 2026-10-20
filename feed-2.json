@@ -1,10 +1,82 @@
 {
-  "updated": "2026-10-20T09:11:16.996056+00:00",
+  "updated": "2026-10-20T16:26:04.506600+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "b8f7d6f7114b3a28b19005637cdb84a3d223a08bc4b9e6b3e1c06556013e26e8",
+      "url": "https://github.com/advisories/GHSA-23vg-4cjm-66q5",
+      "title": "GHSA: kin-openapi: ValidationHandler security-requirement bypass via encoded-path operation confusion",
+      "summary": "## Summary\n\n`openapi3filter.ValidationHandler.Middleware` validates requests with kin-openapi's\nlegacy router, which selects an OpenAPI operation from the decoded `URL.Path`. The\nmethod is documented as implementing `gorilla/mux.MiddlewareFunc`, but a downstream\ngorilla/mux router configured with `UseEncodedPath()` selects its handler from the\nencoded representation (`URL.RawPath`).\n\nAn unauthenti",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-10-15T20:19:20Z",
+      "cve_ids": [
+        "CVE-2026-100351"
+      ],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "89d89517eac688efc8f7f4b71f8abd13c2fd96ceb6ae78f4775e3511e7b53f9f",
+      "url": "https://github.com/advisories/GHSA-qfxx-c367-67f8",
+      "title": "GHSA: Appium: Symlink based Zip Slip in @appium/support ZIP extraction",
+      "summary": "### Summary\n\nCVE-2026-30973 [(GHSA-rfx7-4xw3-gh4m)](https://github.com/appium/appium/security/advisories/GHSA-rfx7-4xw3-gh4m) was a plain path traversal in the entry name. The containment check built an Error object without throwing it, so an entry literally named something like `../evil.txt` was written outside the destination. That issue was fixed in @appium/support 7.0.6 by actually rejecting o",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-15T20:18:56Z",
+      "cve_ids": [
+        "CVE-2026-103975"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "9984bbba1f954676d4688b23e3bc7e81e288e232148911b26254049ca260e263",
+      "url": "https://github.com/advisories/GHSA-cr65-55v9-xhvv",
+      "title": "GHSA: Dio: Cross-origin redirect leaks sensitive request headers in `dio_http2_adapter`",
+      "summary": "### Summary\n\n`dio_http2_adapter` follows HTTP `Location` redirects without stripping sensitive request headers when the redirect target is a different origin. An attacker who can cause any origin server to return a cross-origin `302` redirect receives the victim's `Authorization`, `Cookie`, and `Proxy-Authorization` headers verbatim. This vulnerability has a CVSS v3.1 base score of **7.5 (High)** ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-15T20:18:37Z",
+      "cve_ids": [
+        "CVE-2026-103030"
+      ],
+      "cvss": 7.5,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-103030"
+      ]
+    },
+    {
+      "id": "d1859dfcadfa29b1c60f64f5ceabbc49fd6bc883d14118955bc4add2cb4198ad",
+      "url": "https://github.com/advisories/GHSA-h4r5-mxv5-8mjc",
+      "title": "GHSA: kin-openapi deepObject query decoding repeatedly compiles an invariant regular expression",
+      "summary": "### Summary\n\n`openapi3filter` decodes `deepObject`-style query parameters by looping over **every** key in the request's query string. Inside that loop it recompiles a **loop-invariant** regular expression on every iteration. The pattern depends only on the spec-defined parameter name, not on the loop variable, so it is compiled `N` times for `N` query keys instead of once. Because the number of q",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-15T20:18:15Z",
+      "cve_ids": [
+        "CVE-2026-100350"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "db4cf70ade392c41ba544769ec1b996d398611d02564cad1828136db5874e6ae",
+      "url": "https://github.com/advisories/GHSA-24cc-9352-h2pg",
+      "title": "GHSA: tinytag: Infinite loop when parsing certain M4A files containing invalid atoms",
+      "summary": "### Impact\nAn M4A file containing a sub-atom with a size of zero in the `----` atom makes the parser enter an infinite loop, resulting in a denial-of-service for programs reading such files with tinytag.\n\n### Patches\nThe issue has been fixed in tinytag 2.3.0, by reusing the primary atom parsing code path that contains appropriate size checks.\n\n### Workarounds\nNo workarounds exist. Users must upgra",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-15T20:16:47Z",
+      "cve_ids": [
+        "CVE-2026-104266"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
     {
       "id": "2919b44a0f5dbbf25a2a3eabaab049f2ff6aa9b287c93f4f1ca94f1e31ac323f",
       "url": "https://github.com/advisories/GHSA-v75v-6fpf-gvw8",
@@ -25,13 +97,15 @@
       "title": "GHSA: unstructured: Stored XSS via unescaped HTML generation",
       "summary": "### Summary\n\nWhen `unstructured` parses an untrusted document and outputs the result as HTML, malicious markup contained in the document (e.g. `<img src=x onerror=...>`) is left in the output HTML without escaping. When that output is displayed in a browser, the script embedded in the document executes in the viewer's browser.\n\n### Details\n\n`partition_html(html_parser_version=\"v2\")` (and the VLM p",
       "source": "GitHub Advisory",
-      "category": "web_app",
+      "category": "emergency",
       "date": "2026-10-15T20:16:18Z",
       "cve_ids": [
         "CVE-2026-104250"
       ],
       "cvss": 6.1,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-104250"
+      ]
     },
     {
       "id": "ad2011a452f2f038c6cd68742e62ffec91fccfaebb57b8cf605711c8c152e5b5",
@@ -123,13 +197,15 @@
       "title": "GHSA: Leantime: Any Authenticated User Can Self-Escalate to Admin via Unauthorized JSON-RPC Methods",
       "summary": "### Summary\n\nAny authenticated Leantime user - including the lowest-privilege `readonly` role - can escalate to full administrative access by calling the JSON-RPC method `leantime.rpc.api.api.createApiKeyWithProjects` with an attacker-chosen `role` value. The server creates a new account at that role with no authorization check, and the resulting credentials work as a fully interactive admin login",
       "source": "GitHub Advisory",
-      "category": "web_app",
+      "category": "emergency",
       "date": "2026-10-15T20:14:43Z",
       "cve_ids": [
         "CVE-2026-85990"
       ],
       "cvss": 8.8,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-85990"
+      ]
     },
     {
       "id": "c25da1b0a694e41b8289867b5417af898df2c00a4c192a5c42c3a97f445ef2d6",
@@ -137,13 +213,15 @@
       "title": "GHSA: FrankenPHP: Cross-request PHP session ID leak in worker mode when the session extension is a shared module",
       "summary": "## Summary\nIn worker mode under concurrency, FrankenPHP can hand a PHP session id from one request to another when PHP's `session` extension is loaded as a shared module instead of being statically linked into the FrankenPHP binary. A request presenting `Cookie: session=A` can have `session_id()` resolve to `B` (a different concurrent client's id) or to a stale id from a previous request served by",
       "source": "GitHub Advisory",
-      "category": "web_app",
+      "category": "infrastructure",
       "date": "2026-10-15T20:14:29Z",
       "cve_ids": [
         "CVE-2026-82416"
       ],
       "cvss": 7.7,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-82416"
+      ]
     },
     {
       "id": "76c7b1b38bd742705cf080d72a03a0306b4b81ba5f3f0b05cc3f7df4a7207298",
@@ -615,76 +693,6 @@
       "cve_ids": [
         "CVE-2018-10388",
         "CVE-2018-10389"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a22ff6246f65f7d05ba3f4163d3d360bb48f40e0b96f1b1854c6ed598fb38ca4",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-775/",
-      "title": "ZDI-26-775: GStreamer rtpL16depay Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of GStreamer. Interaction with this library is required to exploit this vulnerability but attack vectors may vary depending on the implementation. The ZDI has assigned a CVSS rating of 9.8. The following CVEs are assigned: CVE-2026-111183.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-111183"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "67b8b8c97bf62177564a42cc94decca9bba246ed34afd1b01e23fd53da689dbb",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-772/",
-      "title": "ZDI-26-772: Fortinet FortiSandbox Admin Profile Improper Handling of Exceptional Conditions Denial-of-Service Vulnerability",
-      "summary": "This vulnerability allows remote attackers to create a denial-of-service condition on affected installations of Fortinet FortiSandbox. Authentication is required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 4.9. The following CVEs are assigned: CVE-2026-106170.",
-      "source": "Zero Day Initiative",
-      "category": "infrastructure",
-      "date": "2026-10-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-106170"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "7bf40cd1efde742075f0a2f232be87278a7fd29c8d722877313086ec6c80a0dd",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-771/",
-      "title": "ZDI-26-771: Fortinet FortiSandbox login_user_profile Hard-Coded Credentials Authentication Bypass Vulnerability",
-      "summary": "This vulnerability allows remote attackers to bypass authentication on affected installations of Fortinet FortiSandbox. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.3. The following CVEs are assigned: CVE-2026-107656.",
-      "source": "Zero Day Initiative",
-      "category": "infrastructure",
-      "date": "2026-10-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-107656"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f4cb2e9c5bde6fa5cdd5191223b09c711e0ef353d4db34f898577bb84aff6a77",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-770/",
-      "title": "ZDI-26-770: SonicWall Secure Mobile Access unzip Directory Traversal Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of SonicWall Secure Mobile Access. Authentication is required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.2. The following CVEs are assigned: CVE-2026-102257.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-102257"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "5d25d22e8c9d249bbb6ab32513db797b4206fd728f9f32d282e439f884795e83",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-758/",
-      "title": "ZDI-26-758: Docker Buildx Filesystem Entitlements Protection Mechanism Failure Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Docker Buildx. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-93325.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-15T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-93325"
       ],
       "cvss": null,
       "related_links": []
