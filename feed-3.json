@@ -1,10 +1,188 @@
 {
-  "updated": "2026-10-22T16:43:34.326127+00:00",
+  "updated": "2026-10-22T22:58:50.125596+00:00",
   "page": 3,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "ffe0fd00b77e1a4997ecebbdd2a0d84a8c9059a5e840a7c935448bb2432516f1",
+      "url": "https://github.com/advisories/GHSA-cv27-6wvh-8x7j",
+      "title": "GHSA: ApostropheCMS: Incomplete CVE-2026-53606: `meta http-equiv=refresh` `content` still ships `javascript:` / `data:` URLs",
+      "summary": "### Summary\n\nCVE-2026-53606 expanded `allowedSchemesAppliedToAttributes` so named URL attributes (`action`, `formaction`, `data`, `poster`, `background`, later `ping`, `xlink:href`, …) go through `naughtyHref()`. A **URL nested inside `meta` `content`** (`http-equiv=refresh`) is not an attribute name on that list, so the embedded destination is never scheme-checked.\n\nDefault `allowedTags` still om",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-20T18:15:33Z",
+      "cve_ids": [
+        "CVE-2026-113661"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "87ea7a4da9c9e4689ed61e471e38d25e2289f258781f1fbcd60734ce71121815",
+      "url": "https://github.com/advisories/GHSA-gqh3-7856-rjjg",
+      "title": "GHSA: ApostropheCMS: :_id/locales REST route omits the public-API authorization gate its sibling read routes enforce (unauthenticated doc-existence + locale metadata disclosure)",
+      "summary": "## Summary\nThe REST route `GET /api/v1/<piece-type>/:_id/locales` (and the equivalent page route) does not apply the `publicApiCheckAsync` gate that ApostropheCMS's other read routes enforce. An unauthenticated caller can therefore query this route for any document `_id` and learn whether the document exists and which locales it is published in — a document-existence and locale-metadata disclosure",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-20T18:14:32Z",
+      "cve_ids": [
+        "CVE-2026-113668"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "282c08ae28ff65210a4d16616b1f5b5a9d79f964bb55d7f88edb93271d2e1c30",
+      "url": "https://github.com/advisories/GHSA-2j32-q6rx-h844",
+      "title": "GHSA: ApostropheCMS: Page REST API authorization bypass",
+      "summary": "**Summary**\nThe core page REST API reads full page documents with `.permission(false)` in `getOne` and in the `all=1` tree dump, bypassing page-type `viewRole`, `visibility: private`, and `visibility: loginRequired` checks. Unauthenticated visitors and low-privilege contributors can read admin-only and non-public page content by `_id`/slug.\n\n**Details**\n`packages/apostrophe/modules/@apostrophecms/",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-20T18:13:08Z",
+      "cve_ids": [
+        "CVE-2026-113670"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "f59f2a460157ec93a6357f6069d6e9afa8b15c5953b91875c46adf932cb2c33f",
+      "url": "https://github.com/advisories/GHSA-527g-ff96-x6wj",
+      "title": "GHSA: ApostropheCMS: Host header controls server-side image fetch origin in @apostrophecms/ai-helper, enabling authenticated SSRF",
+      "summary": "## Summary\n\nThe `@apostrophecms/ai-helper` package builds the URL for a server-side image fetch by resolving a storage-relative path against `req.baseUrl`. When the site does not set a global base URL (the default), `req.baseUrl` is derived from the incoming HTTP `Host` header. An authenticated editor can generate a base64 AI image (which is persisted without a stored `url`) and then send an unaut",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-20T18:11:01Z",
+      "cve_ids": [
+        "CVE-2026-113671"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "8b3632706c44ac47a6fe8323cd82f6162ed777d05101d015763833419e8e583f",
+      "url": "https://github.com/advisories/GHSA-qhcq-9pm2-c9w9",
+      "title": "GHSA: ApostropheCMS: Unauthenticated CSV import requests leave rejected uploads in the system temporary directory",
+      "summary": "### Summary\n\nA rejected upload can remain in the operating system temporary directory.\n\nMulter writes the file before its extension is checked, and the rejection path does not remove that temporary file. An unauthenticated requester can repeat this with large files and steadily consume temporary disk space.\n\n### Details\n\nThe endpoint is:\n\n```text\nPOST /api/v1/@apostrophecms/rich-text-widget/genera",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-20T18:10:32Z",
+      "cve_ids": [
+        "CVE-2026-113658"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "e34fd8a4d98a8a5ce2bf6fa606991e95ec413ca4a57fb94dd0f2b50f80101f0b",
+      "url": "https://github.com/advisories/GHSA-89mh-mm8c-mv7f",
+      "title": "GHSA: ApostropheCMS: Unauthenticated unbounded multipart upload → disk-exhaustion DoS",
+      "summary": "**Summary**\nThe form submission endpoint runs `multer({ dest: os.tmpdir() }).any()` before authentication, API-key, CSRF-equivalent, or form-existence logic, with no size/count/rate limits. Unauthenticated users can stream unbounded bodies to disk per request; cleanup occurs only after the full body is received.\n\n**Details**\n`packages/form/index.js` `apiRoutes.post.submit` (L274–296): `[ multer({ ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-20T18:08:31Z",
+      "cve_ids": [
+        "CVE-2026-113656"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "b3f0d681eb01d19a92c849a9c8386448537cccf24e8f7cf4e14e0b93d20585c1",
+      "url": "https://ubuntu.com/security/notices/USN-8943-1",
+      "title": "USN-8943-1: Protocol Buffers vulnerability",
+      "summary": "It was discovered that Protocol Buffers did not properly handle negative varint lengths or enforce recursion limits when parsing input in the PHP library. An attacker could possibly use this issue to cause applications using Protocol Buffers to crash or consume resources, resulting in a denial of service.",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-10-20T14:49:32+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "dff9ce873686f069c7c0f89666a3afea5a9ba24b4e08b517ed7abbd89937cd41",
+      "url": "https://github.com/advisories/GHSA-5r4p-p66f-jhc7",
+      "title": "GHSA: Hono: `serveStatic` decodes the request path a second time, leading to bypass of middleware on static paths",
+      "summary": "### Summary\n\n`serveStatic` decodes the request path a second time after Hono has already decoded it for routing. A crafted request can be routed as one path and served as another, so middleware mounted on a static prefix does not run for a file under that prefix.\n\n### Details\n\nHono decodes the request path once before routing. `serveStatic` decoded it again before resolving the file. With a malfor",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-20T14:36:11Z",
+      "cve_ids": [
+        "CVE-2026-111757"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "0329eb09363c5c2da93b881442c32f858a363bdb6eb4183e9efef19429d7fcf5",
+      "url": "https://github.com/advisories/GHSA-r7fv-28h4-cvq7",
+      "title": "GHSA: markdown-it: Quadratic complexity in smartquotes with unmatched closing quotes",
+      "summary": "### Impact\n\nWhen `typographer: true` is enabled, specially crafted Markdown can cause quadratic processing time in the smartquotes rule, potentially leading to denial of service in applications processing untrusted input.\n\nMany opening double quotes followed by unmatched closing single quotes cause repeated scans of the entire opener stack. The same issue occurs with the quote types reversed.\n\nThe",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-20T14:34:50Z",
+      "cve_ids": [
+        "CVE-2026-111759"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "2f5755426179d50a58dd1197e71b6accb842c7cfe0dccabb09e776824bb58f0a",
+      "url": "https://github.com/advisories/GHSA-259r-337f-4rfw",
+      "title": "GHSA: Compress/s2: Integer Overflow or Wraparound and Out-of-bounds Write in compress",
+      "summary": "# Signed Integer Overflow in s2.NewDict\n\n## Summary\n\nA signed integer overflow vulnerability in `s2.NewDict()` allows an attacker to bypass repeat index validation by supplying a dictionary with a uvarint-encoded repeat value exceeding `MaxInt64`. When `Dict.Encode()` is subsequently called, the overflowed negative repeat value causes an out-of-bounds memory access via `unsafe.Pointer` arithmetic,",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-20T14:33:33Z",
+      "cve_ids": [
+        "CVE-2026-63209"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "801ded0a23165ffdab55b71ae4a28d50b4b111c1818e982ad552c651ed7e4176",
+      "url": "https://www.bleepingcomputer.com/news/microsoft/windows-server-2025-gets-support-for-quick-machine-recovery/",
+      "title": "Windows Server 2025 gets support for quick machine recovery",
+      "summary": "Microsoft announced that IT administrators can now use quick machine recovery on Windows Server 2025 after installing the October 2026 security update. [...]",
+      "source": "Bleeping Computer",
+      "category": "infrastructure",
+      "date": "2026-10-20T12:16:32+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "a6071b39af0b080aa3b40eac42fdb15fd36704016bccfc63ab5c00c7a84a6883",
+      "url": "https://www.bleepingcomputer.com/news/security/ovhcloud-cli-releases-backdoored-on-github-to-steal-developer-secrets/",
+      "title": "OVHcloud CLI releases backdoored on GitHub to steal developer secrets",
+      "summary": "French cloud and hosting provider OVHcloud is warning users that attackers compromised its open-source command-line interface (CLI) tool to distribute information-stealing malware. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-10-20T11:31:22+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "9b569463d5a2836422a8cf162743b2914ec77b04a68e3ea60810db90b057d40d",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-106931",
+      "title": "CVE-2026-106931: EG Secure Solutions SiteGuard Server Edition OS Command Injection Vulnerability",
+      "summary": "EG Secure Solutions SiteGuard Server Edition contains an OS command injection vulnerability which may allow an attacker to execute arbitrary OS commands with root or SYSTEM privileges on the system running the affected product. Affected product: SiteGuard Server Edition by EG Secure Solutions. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’",
+      "source": "CISA KEV",
+      "category": "emergency",
+      "date": "2026-10-20T00:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-106931"
+      ],
+      "cvss": 7.8,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-106931"
+      ]
+    },
     {
       "id": "b44e83326e6d3c4ffe4fee15f348930ab3e8dd37647170f7e7784fb00294208e",
       "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-96656",
@@ -432,286 +610,87 @@
       "related_links": []
     },
     {
-      "id": "ac500fa4ccfdfbb4a1ee13e9ce9dfd0e6a6b7cefb5ed43d245be3e703c053cac",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-783/",
-      "title": "ZDI-26-783: LibreOffice PDF File Parsing Out-Of-Bounds Write Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of LibreOffice. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-63273.",
-      "source": "Zero Day Initiative",
+      "id": "1967b53c16eb57c0a096d78e770b18ea2bac1950569ebffe6b665feea4dc2ecd",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-12272",
+      "title": "CVE-2026-12272 — CVSS 5.3",
+      "summary": "The Lightweight Cookie Notice – Cookie Banner for Cookie Consent plugin for WordPress is vulnerable to Sensitive Information Exposure in all versions up to, and including, 1.19 This is due to the W3TC_DYNAMIC_SECURITY constant being hardcoded to a publicly known value. This makes it possible for unauthenticated attackers to know the W3 Total Cache mfunc security key, which when W3 Total Cache is i",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-10-16T05:00:00+00:00",
+      "date": "2026-10-16T06:17:09.910",
       "cve_ids": [
-        "CVE-2026-63273"
+        "CVE-2026-12272"
       ],
-      "cvss": null,
+      "cvss": 5.3,
       "related_links": []
     },
     {
-      "id": "dc08e139242f6b336f621569b6dec8f289bd119477fe9ccd7c050f6044839b54",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-782/",
-      "title": "ZDI-26-782: LibreOffice PDF File Parsing Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of LibreOffice. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-63274.",
-      "source": "Zero Day Initiative",
+      "id": "d30b2f7a110d1a6a5d59204dec6f91ff3c3fa2bc93d9b9f10db7551399a63991",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-111122",
+      "title": "CVE-2026-111122 — CVSS 7.2",
+      "summary": "The SiteOrigin CSS plugin for WordPress is vulnerable to Stored DOM-Based Cross-Site Scripting via the 'href' parameter in all versions up to, and including, 1.6.7 due to insufficient input sanitization and output escaping. This makes it possible for unauthenticated attackers to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page. Successful exploitati",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-10-16T05:00:00+00:00",
+      "date": "2026-10-16T06:17:09.250",
       "cve_ids": [
-        "CVE-2026-63274"
+        "CVE-2026-111122"
       ],
-      "cvss": null,
+      "cvss": 7.2,
       "related_links": []
     },
     {
-      "id": "fa9d4bf8cb14072778f1d2fac35bb856609c65e1ad817e8faca907772df545c3",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-781/",
-      "title": "ZDI-26-781: LibreOffice EMF+ Brush Integer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of LibreOffice. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-6045.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-16T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-6045"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c06cf521522e7eb0cf54f891dc10d0db91bf8ba68a72d909396e9fb990e413d3",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-102764",
-      "title": "CVE-2026-102764: BeyondTrust Remote Support Authentication Bypass by Spoofing Vulnerability",
-      "summary": "BeyondTrust Remote Support contains an authentication bypass by spoofing vulnerability that could allow a remote attacker to perform file operations on the appliance. Affected product: Remote Support by BeyondTrust. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guid",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-10-16T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-102764",
-        "CVE-2026-1731"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://www.rapid7.com/blog/post/etr-cve-2026-102764-critical-beyondtrust-remote-support-authentication-bypass-exploited-in-the-wild"
-      ]
-    },
-    {
-      "id": "14ceebc4f5c30c35fc6f4c1f26fd526cc4fa4ae0747ecdea72f90806d1d47e09",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2025-61624",
-      "title": "CVE-2025-61624: Fortinet Multiple Products Path Traversal Vulnerability",
-      "summary": "FortiOS, FortiPAM, FortiProxy, and FortiSwitchManager contain a path traversal vulnerability that may allow an authenticated attacker with admin profile and at least read-write permissions to write or delete arbitrary files via specific CLI commands. Affected product: Multiple Products by Fortinet. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with ",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-10-16T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2025-61624"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d0b52638beda04f741558ff3a4b1bf5e4271e447d13f875536d8d12aef6061c5",
-      "url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-collabora-rce-flaw-to-backdoor-nextcloud-servers/",
-      "title": "Hackers exploit Collabora RCE flaw to backdoor Nextcloud servers",
-      "summary": "Threat actors are exploiting a critical command execution flaw, now tracked as CVE-2026-110447, in the Collabora Online - Built-in CODE Server app (richdocumentscode) for Nextcloud. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-10-15T20:25:04+00:00",
-      "cve_ids": [
-        "CVE-2026-110447"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-110447"
-      ]
-    },
-    {
-      "id": "a51e71cb58d97cefa64fa72461035d46dd1c0018ba726fdbb98da049c9717139",
-      "url": "https://github.com/advisories/GHSA-qx66-fv34-fjm8",
-      "title": "GHSA: TanStack Router: Unauthenticated reflected XSS in TanStack Start server-function responses",
-      "summary": "## Impact\n\nAn unauthenticated attacker can craft a URL to a server function in an affected TanStack Start app. If someone opens the link, the app can return attacker-controlled HTML from its own origin and run the attacker's JavaScript there. The script can access same-origin data available to that visitor and make requests with their authority.\n\n## Cause\n\nThe server-function transport can pass re",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-15T20:22:20Z",
-      "cve_ids": [
-        "CVE-2026-102989"
-      ],
-      "cvss": 9.3,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-102989"
-      ]
-    },
-    {
-      "id": "12a69a53a9a44b46b958d4939755644b81998f3225c4ee7f9eb5a3a91f022e6a",
-      "url": "https://github.com/advisories/GHSA-hqm2-cfx2-2vgh",
-      "title": "GHSA: Pipecat: Public exposure of Pipecat’s development runner can allow unauthenticated bot session creation",
-      "summary": "Pipecat’s built-in development runner exposes endpoints that create bot sessions and, for the Daily transport, paid Daily rooms. These development endpoints intentionally do not authenticate callers.\n\nThe runner binds to localhost by default and is designed exclusively for local development. It is not built or supported as a production server. Exploitation therefore requires an operator to deliber",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-15T20:22:18Z",
-      "cve_ids": [
-        "CVE-2026-102682"
-      ],
-      "cvss": 5.6,
-      "related_links": []
-    },
-    {
-      "id": "a24113ad129f9731addab2956802cc5a1504884ad3f18d4d92968013b923d4b2",
-      "url": "https://github.com/advisories/GHSA-2cvf-wqm6-wr9g",
-      "title": "GHSA: Podman: The `podman run` command can be instructed to disable almost all sandboxing by image annotation",
-      "summary": "### Impact\nPodman v4.4.0 added a feature where container checkpoints (from the `podman container checkpoint` command) could be distributed via OCI registry, and pulled from that registry and run via the `podman run` command. This allowed easy transfer of checkpoints between systems. However, checkpoints allow complete control of how the container is created - including full control of the containe",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-15T20:22:16Z",
-      "cve_ids": [
-        "CVE-2026-94603"
-      ],
-      "cvss": 10.0,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-94603"
-      ]
-    },
-    {
-      "id": "98fe6e75608d5d87593db8528c42ae11b3740d8798c4e8f17cc36088fb17fe9b",
-      "url": "https://github.com/advisories/GHSA-jwrc-gm9j-263p",
-      "title": "GHSA: JupyterLab: Command link trust prompt in JupyterLab can trust a document other than the one clicked",
-      "summary": "## Description\n\nA Markdown file or a notebook output can carry a button that runs a JupyterLab command. Since 4.5.7 the first click on such a button opens a prompt naming the command, with Cancel, Run Once and Trust. Choosing Trust runs the command and marks the document trusted, so its later buttons run without a prompt.\n\nWhich document gets marked is decided when the user answers, not when they ",
-      "source": "GitHub Advisory",
+      "id": "9bc05b02f8c5b9d7d9fe5abb6f6840eec8af24b3da0e9e176210575cd9eb51c6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110017",
+      "title": "CVE-2026-110017 — CVSS 6.4",
+      "summary": "The Quick PayPal Payments: Payment Button & Form plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'form' parameter in all versions up to, and including, 6.0.4 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with contributor-level access and above, to inject arbitrary web scripts in pages that will execute when",
+      "source": "NVD/NIST",
       "category": "web_app",
-      "date": "2026-10-15T20:22:13Z",
+      "date": "2026-10-16T06:17:08.810",
       "cve_ids": [
-        "CVE-2026-102832"
+        "CVE-2026-110017"
       ],
-      "cvss": 4.2,
+      "cvss": 6.4,
       "related_links": []
     },
     {
-      "id": "184c6bd717346ee4f3f0574c29f4fc1958c48d8aad845f0f62a7aa811987f243",
-      "url": "https://github.com/advisories/GHSA-wwv9-g5x4-966q",
-      "title": "GHSA: SFTPGo source-side file-pattern filter bypass during copy operations",
-      "summary": "### Summary\n\nFile pattern filters (`denied_patterns` / `allowed_patterns`) were evaluated on the destination of a copy only. A user holding the copy permission could copy a file denied by the filters to a permitted name and then read it. A recursive directory copy reproduced the contents of a restricted directory under a path where the filters do not deny them, and the hide policy was affected in ",
-      "source": "GitHub Advisory",
+      "id": "22174e17b168eaf1b90d5ba082580c9a75c9fc6903ae7d0ae9c2930e5a01327e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109513",
+      "title": "CVE-2026-109513 — CVSS 7.2",
+      "summary": "The NotificationX – FOMO, Live Sales Notification, WooCommerce Sales Popup, GDPR, Social Proof, Announcement Banner & Floating Notification Bar plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'name' parameter in all versions up to, and including, 3.3.3 due to insufficient input sanitization and output escaping. This makes it possible for unauthenticated attackers to injec",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-10-15T20:22:10Z",
+      "date": "2026-10-16T06:17:08.407",
       "cve_ids": [
-        "CVE-2026-103028"
+        "CVE-2026-109513"
       ],
-      "cvss": 4.3,
+      "cvss": 7.2,
       "related_links": []
     },
     {
-      "id": "9d6a364128a6ca27691f1a91c720775b4f41bc8690c7d061f82f47f31b5451bb",
-      "url": "https://github.com/advisories/GHSA-685w-q87j-wqw3",
-      "title": "GHSA: Distribution: Client `manifests.Get()` does not verify returned content against requested digest",
-      "summary": "### Summary\n\n`registry/client.(*manifests).Get(ctx, dgst, …)` fetches a manifest by digest but never hashes the returned body and compares it against the requested digest. A malicious or compromised registry, or any MITM on the registry connection, can serve arbitrary manifest bytes in response to a digest-pinned request and the client returns the substituted content transparently to the caller. A",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-15T20:22:02Z",
+      "id": "422a60e227177f416bb760b8c04e98017d32ce508a89b07f774dfda6459a4ebe",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109447",
+      "title": "CVE-2026-109447 — CVSS 8.1",
+      "summary": "The User Profile Builder – Beautiful User Registration Forms, User Profiles & User Role Editor plugin for WordPress is vulnerable to Privilege Escalation in all versions up to, and including, 4.0.3 via the `role` parameter handled by the `wppb_add_meta_to_user_on_activation()` function. The vulnerability exists because the activation handler passes the attacker-supplied role value directly to `WP_",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-16T06:17:08.020",
       "cve_ids": [
-        "CVE-2026-85747"
+        "CVE-2026-109447"
       ],
-      "cvss": 6.8,
+      "cvss": 8.1,
       "related_links": []
     },
     {
-      "id": "a1ca32cb8d7f4d7544e9be41f841a4ecdd3df4149237f708b64a18e6e139dc88",
-      "url": "https://github.com/advisories/GHSA-p7v4-vr35-mj6f",
-      "title": "GHSA: containerd CRI plugin: Checkpoint restore bypasses destination security context",
-      "summary": "### Impact\n\nA vulnerability in containerd's CRI implementation allows a container restored from an untrusted checkpoint via the `CreateContainer` API to bypass the destination security context and execute with elevated privileges. When restoring a container from a checkpoint archive or annotated OCI image, CRIU restores process credentials, Linux capabilities, `no_new_privs`, and seccomp state dir",
-      "source": "GitHub Advisory",
+      "id": "38446a89ddace8b6c484310615147267130dec7f7e5a7edf0faf9e839bd5e8e3",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109414",
+      "title": "CVE-2026-109414 — CVSS 6.5",
+      "summary": "The Vitepos – Point of Sale (POS) for WooCommerce plugin for WordPress is vulnerable to blind SQL Injection via the 'src_by[].val.start / src_by[].val.end (operator 'bt')' parameter in all versions up to, and including, 3.6.1 due to insufficient escaping on the user supplied parameter and lack of sufficient preparation on the existing SQL query. This makes it possible for authenticated attackers, ",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-10-15T20:21:57Z",
+      "date": "2026-10-16T06:17:07.450",
       "cve_ids": [
-        "CVE-2026-95837"
+        "CVE-2026-109414"
       ],
-      "cvss": 7.8,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-95837"
-      ]
-    },
-    {
-      "id": "0ad4e0d792ca5f33df47a5249fd189e21506fa07a87a7fea50de910ddae8b532",
-      "url": "https://github.com/advisories/GHSA-3xr5-8w6c-p5gw",
-      "title": "GHSA: Backstage: Improper access control in backend action invocation",
-      "summary": "### Impact\n\nAn authenticated user could invoke actions that an operator had excluded through action configuration. Existing action permissions and downstream authorization remain enforced.\n\n### Patches\n\nPatched in `@backstage/backend-defaults` version `0.17.8`\n\n### Workarounds\n\nLimit access to action invocation endpoints to trusted service callers until upgrading.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-15T20:21:54Z",
-      "cve_ids": [
-        "CVE-2026-106495"
-      ],
-      "cvss": 4.3,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-106495"
-      ]
-    },
-    {
-      "id": "c7deeca452925bc5fa1b73e4645a63c91bc7ffd62332130c431f2da96a3a007e",
-      "url": "https://github.com/advisories/GHSA-vrcc-3ch7-hppw",
-      "title": "GHSA: kin-openapi: Incomplete Fix for GHSA-p6wj-qrr4-pgh5: Three Unpatched nil-Items Panic Paths in openapi3filter",
-      "summary": "## Summary\n\nThe fix for GHSA-p6wj-qrr4-pgh5 addressed a nil-pointer dereference that occurs when an OpenAPI 3.1 array schema omits the `items` keyword (which is legal under JSON Schema 2020-12). That fix patched three decoder paths: the standalone `parseArray` function, the top-level array check in `UrlencodedBodyDecoder`, and `MultipartBodyDecoder`.\n\nThree additional crash paths were missed. All ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-15T20:20:47Z",
-      "cve_ids": [
-        "CVE-2026-100353"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-100353"
-      ]
-    },
-    {
-      "id": "d421c00ed9a9319fd5d6739e20571d4f7efa24d52584f8d7dd41cf90dd5b8787",
-      "url": "https://github.com/advisories/GHSA-g8cf-rcjf-c8cf",
-      "title": "GHSA: kin-openapi: Uncontrolled Recursion on Circular allOf/anyOf/oneOf Schemas Causes Fatal Process Crash",
-      "summary": "## Summary\n\nkin-openapi's spec loader and spec-time validator both handle circular schema references safely: the loader resolves circular `$ref`s on purpose (to support recursive data structures), and `Schema.validate()` uses stack-based cycle detection. `Validate()` therefore accepts a schema whose `allOf` / `anyOf` / `oneOf` chain refers back to itself, returning no error.\n\nThe runtime validator",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-10-15T20:20:37Z",
-      "cve_ids": [
-        "CVE-2026-100354"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-100354"
-      ]
-    },
-    {
-      "id": "51bd8760b9f4cc9a7218b628209c69febea21f4cdf498ea2d91f7b88b93776da",
-      "url": "https://github.com/advisories/GHSA-rj39-cv6w-8wv7",
-      "title": "GHSA: kin-openapi: YAML NaN/Inf Values Bypass Built-in Guards and Panic via OAS 3.1 Validation Path",
-      "summary": "## Summary\n\nkin-openapi guards against `NaN` and `Inf` values in its built-in schema visitor (`visitJSON`) by returning `ErrSchemaInputNaN` / `ErrSchemaInputInf` when a `float64` input violates those constraints. For OAS 3.1 specs, however, `Schema.VisitJSON` routes through `useJSONSchema2020`, which hands the value directly to `santhosh-tekuri/jsonschema/v6` v6.0.2 without applying the same guard",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-15T20:20:27Z",
-      "cve_ids": [
-        "CVE-2026-100352"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "92b3041c38c9dc12e95f0c3cb472890ffa22328fca58755ebc2db963d1e4ca3b",
-      "url": "https://github.com/advisories/GHSA-7cxh-94cf-mfp6",
-      "title": "GHSA: Talos Linux: Support bundle does not redact registry credentials",
-      "summary": "### Summary\nWhen generating a support bundle with `talosctl support` the credentials entered for private registries are included in the bundle.\n\n\n### Details\n\nWithin the generated support bundle, inside `resources/registryconfigs.cri.talos.dev.yaml` the `auth` field of the spec is retained.\nThe same, potentially sensitive information is present within `etcfilespecs.files.talos.dev.yaml`.\n\n### PoC\n",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-15T20:20:16Z",
-      "cve_ids": [
-        "CVE-2026-77564"
-      ],
-      "cvss": 3.3,
-      "related_links": []
-    },
-    {
-      "id": "863d54b7baef7eb7f3643bcb9075526c757d89268a9004145e733cdd549bd1bc",
-      "url": "https://github.com/advisories/GHSA-637c-6jxx-4rwm",
-      "title": "GHSA: KEDA: Privilege escalation from namespace admin to cluster admin via KEDA TriggerAuthentication",
-      "summary": "## Summary\n\nA namespace admin who creates a `TriggerAuthentication` and a `ScaledObject` in their own namespace can make the KEDA operator send its own ServiceAccount token to a tenant-controlled URL. That token holds `[\"*\"]/[\"*\"] get` cluster-wide, so it reads every Secret in every namespace, plus `batch/jobs` and `horizontalpodautoscalers` create/delete cluster-wide, `*/scale` update on any work",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-15T20:19:42Z",
-      "cve_ids": [
-        "CVE-2026-77524"
-      ],
-      "cvss": 9.9,
+      "cvss": 6.5,
       "related_links": []
     }
   ]
