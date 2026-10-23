@@ -1,10 +1,52 @@
 {
-  "updated": "2026-10-22T22:58:50.125596+00:00",
+  "updated": "2026-10-23T03:38:25.911800+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "f4efc4a8b7a156f5481ddcbbdd3aa5c3d9b994bbb3a02401fe68b768769d9a84",
+      "url": "https://github.com/advisories/GHSA-7jg5-frgc-c67w",
+      "title": "GHSA: ApostropheCMS: Stored XSS via Unescaped Widget Style Attribute Serialization",
+      "summary": "## Summary\n\nApostropheCMS widget styles support project-defined schema fields. If a project defines a free-form `string` style field with a CSS `property` and no selector, an editor-controlled value is rendered as an inline CSS declaration. The resulting declaration is then inserted into the widget wrapper's `style=\"...\"` attribute without HTML-attribute escaping.\n\nAn attacker who can edit the wid",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-21T17:15:07Z",
+      "cve_ids": [
+        "CVE-2026-112958"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "1f9a369bba4d31355666863e64ae8583ce043f1dcdcb943520ca7830f83f4d05",
+      "url": "https://github.com/advisories/GHSA-rw26-wwfc-9wvm",
+      "title": "GHSA: ApostropheCMS: Missing Authentication in `cleanExport` Route",
+      "summary": "#### 1. Summary\nThe API endpoint `POST /api/v1/@apostrophecms/import-export/clean-export` in `@apostrophecms/import-export` lacks authentication and authorization checks. Any client—including unauthenticated anonymous users who have obtained the standard CSRF cookie from visiting the site—can directly invoke this route and trigger the underlying `self.cleanExport(req)` method.\n\n---\n\n#### 2. Affect",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-21T17:13:28Z",
+      "cve_ids": [
+        "CVE-2026-113648"
+      ],
+      "cvss": 3.1,
+      "related_links": []
+    },
+    {
+      "id": "c7c68d101dc48ca2659ff321f1f574d882b845ea6bc10c82e4c18eedf01afb0e",
+      "url": "https://github.com/advisories/GHSA-rqgm-cfrp-4hx8",
+      "title": "GHSA: ApostropheCMS: Unauthenticated publicApiProjection bypass via search and sort query builders in the public REST API",
+      "summary": "### Summary\nApostropheCMS lets a module expose an anonymous read API by setting `publicApiProjection`, which whitelists the document fields unauthenticated callers may see. The public REST GET handler applies every launderable query builder from the query string *before* forcing that projection. Two of those builders, `search` and `sort`, operate on the underlying documents rather than the project",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-21T17:12:15Z",
+      "cve_ids": [
+        "CVE-2026-112954"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
     {
       "id": "ea67f757cc6fcd6f1cf8a6fbd21cb3032ca4e1015fced46ade9edf946e98c265",
       "url": "https://github.com/advisories/GHSA-vmgj-9cwm-cf3h",
@@ -647,48 +689,6 @@
         "CVE-2026-113660"
       ],
       "cvss": 4.3,
-      "related_links": []
-    },
-    {
-      "id": "bb11f0a189459d1dc46f68527507d112123a1b8fe1e0e5629c620c426f4d0623",
-      "url": "https://github.com/advisories/GHSA-jqw5-w6h3-44g6",
-      "title": "GHSA: ApostropheCMS import-export: NoSQL injection via update-key value lets a crafted import match and overwrite an unidentified document",
-      "summary": "## Summary\n\n`@apostrophecms/import-export`'s update-by-key feature lets an imported\ndocument carry a `<field>:key` property (for example `slug:key`) whose\nvalue is used to find an existing document to update instead of inserting\na new one. `getUpdateKey()`/`insertOrUpdateDocWithKey()`\n(`lib/methods/import.js`) use that value directly as a MongoDB query value\nwith no laundering:\n\n```js\nconst matchi",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-20T18:19:19Z",
-      "cve_ids": [
-        "CVE-2026-113662"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "bdc7172d54fa1616b607ec743076dda0afca10e522ca405b2a0761c6afdae684",
-      "url": "https://github.com/advisories/GHSA-m2m5-rw3w-cwmj",
-      "title": "GHSA: ApostropheCMS: Client-side Prototype Pollution in apos.http.parseQuery leading to DOM-based XSS against authenticated users",
-      "summary": "## Summary\n\nThe client-side helper `apos.http.parseQuery()` in ApostropheCMS builds a nested object\nfrom a URL query string without sanitizing the keys `__proto__`, `constructor`, or\n`prototype`. Parsing an attacker-controlled query string therefore writes arbitrary\nproperties onto `Object.prototype` (client-side prototype pollution).\n\nApostropheCMS's admin UI calls this parser with `window.locati",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-20T18:18:49Z",
-      "cve_ids": [
-        "CVE-2026-113659"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "53bb6d23084c3ae5f445b6cbedd21e34f8b6017ca160e7b65decc7e242bb338f",
-      "url": "https://github.com/advisories/GHSA-653j-g8j7-gh54",
-      "title": "GHSA: ApostropheCMS: No Attempt Throttling on Authenticated Password-Change Endpoint Enables Unlimited Current-Password Guessing",
-      "summary": "**Summary**\nThe self-service password-change endpoint verifies the current password but does not use the login module’s failed-attempt counter, throttle, delay, or lockout mechanism. An attacker with a valid authenticated session can submit repeated guesses for the current password without receiving a lockout or throttle response.\n\n**Exact source path**\npackages/apostrophe/modules/@apostrophecms/s",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-20T18:17:50Z",
-      "cve_ids": [
-        "CVE-2026-113710"
-      ],
-      "cvss": 5.9,
       "related_links": []
     }
   ]
