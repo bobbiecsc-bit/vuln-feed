@@ -1,10 +1,286 @@
 {
-  "updated": "2026-10-27T17:33:17.221848+00:00",
+  "updated": "2026-10-27T23:32:17.177444+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "280d3a8e0f1333863ac6abcf967261e05b392c739c0bdc4343028035371c431d",
+      "url": "https://github.com/advisories/GHSA-4rm8-3hmm-39fg",
+      "title": "GHSA: Pillow: Reachable undefined behavior in native integer operations, potentially leading to denial of service or logic integrity compromise",
+      "summary": "### Summary\nAffected Object and Source\n\nPackage: Pillow 12.3.0\nSource: PyPI sdist pillow-12.3.0.tar.gz\nSHA-256: 3b8182a766685eaa002637e28b4ec8d6b18819a0c71f579bf0dbaa5830297cce\nSink: src/_imaging.c:2809:15, xsize += dx\n\n### Details\nThe code in Pillow 12.3.0 is:\n```c\nfor (xsize = 0; *text; text++) {\n    int dx = self->glyphs[*text].dx;\n    if (dx > 0 && xsize > INT_MAX - dx) {\n        PyErr_SetStri",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-22T16:01:14Z",
+      "cve_ids": [
+        "CVE-2026-96641"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "96f130b54aa76051a81c140596a1e670337174acf11276077377c1179b79d0ed",
+      "url": "https://github.com/advisories/GHSA-v9pv-5gc8-w2m6",
+      "title": "GHSA: Pillow multi-frame loaders can reuse stale native image storage after mode transitions",
+      "summary": "### Summary\nPillow multi-frame image loaders can retain native `ImagingCore` storage allocated for one frame while changing the Python-side image `mode` and decoder tiles for a later frame.\n\nIf frame 0 allocates storage for a narrow mode such as `L`, and a later frame of the same dimensions switches to a wider mode such as `RGB` or `CMYK`, Pillow may decode wider pixels into the stale narrow nativ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-22T16:00:15Z",
+      "cve_ids": [
+        "CVE-2026-96639"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "13b1c9f63f6afa89eec95d01bc2cf5c8971b5f4baa603dd9241bdb45ef67eb33",
+      "url": "https://github.com/advisories/GHSA-24rc-8hj2-v98c",
+      "title": "GHSA: Pillow: BMP RLE decoder memory-amplification DoS via unbounded delta escape / absolute mode",
+      "summary": "## Summary\nBmpRleDecoder can be forced to allocate gigabytes of memory from a kilobyte-sized crafted BMP file via unbounded growth in the delta escape and absolute mode branches.\n\n## Affected versions\nAll versions up to and including current HEAD (v13.0.0.dev0, commit e7a7ea84)\n\n## Root cause\nBmpRleDecoder.decode() (BmpImagePlugin.py:327-395) builds a Python bytearray `data` with dest_length = xsi",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-22T15:59:35Z",
+      "cve_ids": [
+        "CVE-2026-96638"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "80bcd0f1207280e1ddc53114b4c11dc57d0bae6f6d36393c9fa03a2f9dfe450c",
+      "url": "https://github.com/advisories/GHSA-p8hx-v2p6-rp84",
+      "title": "GHSA: Pillow: Decompression-bomb protection bypass via multi-frame seek() in MPO and DCX (MpoImageFile.seek / DcxImageFile.seek)",
+      "summary": "### Summary\nPillow's decompression-bomb protection (`Image._decompression_bomb_check`, gated by `Image.MAX_IMAGE_PIXELS`) is enforced only on the **first frame**, inside `Image.open()`. For multi-frame formats, `seek()` re-parses the target frame's header and resets `self._size`. `GifImagePlugin` and `TiffImagePlugin` re-run the bomb check on `seek()`, but **`MpoImageFile.seek()` and `DcxImageFile",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-22T15:56:37Z",
+      "cve_ids": [
+        "CVE-2026-96636"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "7f66609b9dc07e688a2194817924ab79f721846133de05c555979cbf8b3110d7",
+      "url": "https://github.com/advisories/GHSA-cpvr-w4j5-2mpg",
+      "title": "GHSA: Librsvg: Use-after-free when XML includes have duplicated entities",
+      "summary": "Librsvg uses libxml2, a C library, to parse XML.  When librsvg parses\nan SVG document which has a nested Xinclude, an XML entity declaration\nwith a duplicate name as an existing one can cause a use-after-free error.\n\nWhile libxml2 is expanding an internal entity, a recursive XInclude\ncan parse another document that declares an entity with the same\nname. Both parses use the same `XmlState` entity\nm",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-22T15:52:48Z",
+      "cve_ids": [
+        "CVE-2026-96889"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "c4f3766d25b2ab352334236cbb018896ec69f072c5223f9656c95114da9fbe56",
+      "url": "https://github.com/advisories/GHSA-jj87-hc4r-jwfw",
+      "title": "GHSA: stream-json: FlexAssembler string/RegExp path filters join the full key stack per container start, giving O(depth^2) CPU denial of service",
+      "summary": "## Summary\n\n`FlexAssembler`, the custom-container assembler shipped in the `stream-json` package (`src/core/utils/flex-assembler.js`, re-exported at `stream-json/utils/flex-assembler.js` and `stream-json/web/utils/flex-assembler.js`), compiles a string or RegExp path `filter` into a matcher that runs `keyStack.join(separator)` on every container start. Because the key stack grows one entry per ope",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-22T15:49:54Z",
+      "cve_ids": [
+        "CVE-2026-114129"
+      ],
+      "cvss": 6.2,
+      "related_links": []
+    },
+    {
+      "id": "eeeb9ea7dd8ae8913e1a445911de086efa1bb5b2923dfa383d8cd0cbd3831860",
+      "url": "https://github.com/advisories/GHSA-pxh4-856f-4h89",
+      "title": "GHSA: PyJWT: HS256/384/512 verify accepts empty HMAC key via oct JWK (PyJWK/PyJWKClient) enabling token forgery",
+      "summary": "### Summary\n\n`HMACAlgorithm.from_jwk` accepts a symmetric (`kty=oct`) JWK whose `k` value is\nthe empty string and returns a zero-length key without raising. When a token is\nthen verified with that key object (a `PyJWK`, or a `PyJWK` resolved by\n`PyJWKSet` / `PyJWKClient`), the HMAC verifier computes\n`HMAC(key=b\"\", signing_input)` and accepts any token an attacker forged with the\nsame empty key. Th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-22T15:48:04Z",
+      "cve_ids": [],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "a2400b035bdc213cc39b311ed09b3752069af04a254890df4588590e33c241fd",
+      "url": "https://github.com/advisories/GHSA-354v-3q48-cv69",
+      "title": "GHSA: Jupyter Server: Gateway WebSocket handler bypasses kernel execute authorization",
+      "summary": "### Summary\n\nJupyter Server's gateway WebSocket handler checks that a user is authenticated, but it does not ask the configured Authorizer whether that user may execute kernels.\n\nIn Jupyter Server 2.0.0 through 2.5.0, enabling GatewayClient.url automatically replaced the normal kernel channel handler with this gateway-specific handler. An authenticated user who is denied the `execute` action on th",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-22T15:46:31Z",
+      "cve_ids": [
+        "CVE-2026-114135"
+      ],
+      "cvss": 8.8,
+      "related_links": []
+    },
+    {
+      "id": "32ea969a27fc0c323b056161c878523f00bf94289045e2799c00c74a075a178c",
+      "url": "https://www.bleepingcomputer.com/news/security/machine-speed-attacks-require-machine-speed-detection-and-response/",
+      "title": "Machine speed attacks require machine speed detection and response",
+      "summary": "Attackers can steal credentials and begin exfiltrating data within minutes, often before security teams can respond. Exaforce examines real-world attacks involving stolen GitHub tokens, malicious AI installers, and MFA phishing, explaining why faster detection and automated containment are critical. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-10-22T14:02:12+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "e476028eb9f1368a202b77ef3565e3037db64d8573cb258982de027eec9d36cd",
+      "url": "https://www.bleepingcomputer.com/news/security/authorities-disrupt-nearly-11-000-cybercrime-networks-in-africa/",
+      "title": "Authorities disrupt nearly 11,000 cybercrime networks in Africa",
+      "summary": "Law enforcement agencies have disrupted nearly 11,000 cybercriminal networks and arrested more than 1,400 people in Operation Serengeti III, which targeted business email compromise, ransomware, and online scams. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-10-22T08:27:11+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "7a47b9c253138b6f077cd403bf63031199b42021c7ea6fffdf1b50327102fe4e",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-788/",
+      "title": "ZDI-26-788: Cisco Snort OLE VBA Decompression Stack-based Buffer Overflow Remote Code Execution Vulnerability",
+      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Cisco Snort. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.1. The following CVEs are assigned: CVE-2026-20218.",
+      "source": "Zero Day Initiative",
+      "category": "emergency",
+      "date": "2026-10-22T05:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-20218"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "d21f4ffa8dda3895df370c5403942f0711378a4c828f33f219b279e13972f574",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-787/",
+      "title": "ZDI-26-787: NVIDIA Megatron Bridge YAML File Parsing Code Injection Remote Code Execution Vulnerability",
+      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of NVIDIA Megatron Bridge. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-24250.",
+      "source": "Zero Day Initiative",
+      "category": "emergency",
+      "date": "2026-10-22T05:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-24250"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "2e9490d5f9377cd9d73130c1f332f4a8bb06b85a064b596d076c6fd4adb7de58",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-786/",
+      "title": "ZDI-26-786: NoMachine nxwebrunner Heap-based Buffer Overflow Remote Code Execution Vulnerability",
+      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of NoMachine. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 9.8. The following CVEs are assigned: CVE-2026-114549.",
+      "source": "Zero Day Initiative",
+      "category": "emergency",
+      "date": "2026-10-22T05:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-114549"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "b5e7c8d6d5da0188a29136bde4855a7824ec8141514dc25c38a6e7063b2d1f59",
+      "url": "https://github.com/advisories/GHSA-cw65-gx24-rc82",
+      "title": "GHSA: virtualenv: Builtin creation follows linked environment directories",
+      "summary": "## Summary\n\nThe builtin creator accepts existing directory symlinks through ensure_dir() and writes environment files through those\ndirectories. This permits writes outside the requested destination.\n\nAnthropic's OSS Scanner reported this as `ANT-2026-MUFJEG11` in `virtualenv-20261015-005`, received on 15 October 2026.\n\n## Affected area\n\nDirectory preparation before environment files are created.\n",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-21T21:35:56Z",
+      "cve_ids": [
+        "CVE-2026-113716"
+      ],
+      "cvss": 4.5,
+      "related_links": []
+    },
+    {
+      "id": "068e59d21829344eee72126473fda4ff3946019f20007e1b82f41101ee3555de",
+      "url": "https://github.com/advisories/GHSA-43mp-35q3-x3fq",
+      "title": "GHSA: virtualenv: Deletion recovery can change a symlink target's mode",
+      "summary": "## Summary\n\nThe deletion error handler obtains permission bits with lstat() but applies them through chmod(), which follows\nsymlinks. On an eligible unlink failure this can change permissions outside the destination.\n\nAnthropic's OSS Scanner reported this as `ANT-2026-UK90QC27` in `virtualenv-20261015-005`, received on 15 October 2026.\n\n## Affected area\n\nPermission recovery after a filesystem dele",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-21T21:31:34Z",
+      "cve_ids": [
+        "CVE-2026-113724"
+      ],
+      "cvss": 4.5,
+      "related_links": []
+    },
+    {
+      "id": "5e911ab7323333d315ee06b7516618d69a0066aad1c0225bfff0e2812cda70fb",
+      "url": "https://github.com/advisories/GHSA-c978-59m8-c77v",
+      "title": "GHSA: virtualenv: Generated POSIX console launchers interpret destination paths as shell syntax",
+      "summary": "## Summary\n\nA destination path supplied to virtualenv can be interpreted as shell syntax by a generated POSIX console launcher. The\napp-data seeder and pip delegate launcher generation to distlib but supply the interpreter path in a form that does not\npreserve it as literal data in the shell wrapper.\n\n## Affected area\n\nPOSIX console scripts generated by the app-data seeder or pip when the interpre",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-10-21T21:30:12Z",
+      "cve_ids": [
+        "CVE-2026-113722"
+      ],
+      "cvss": 7.8,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-113722"
+      ]
+    },
+    {
+      "id": "eae6a8d3302745f33b0409f2e0a3423ca098fe4c8e4ac32b52e13836cd05fe4c",
+      "url": "https://github.com/advisories/GHSA-4rr5-89j8-mwwm",
+      "title": "GHSA: Pillow: Heap use-after-free when encoding TIFF to an in-memory buffer",
+      "summary": "### Summary\nSaving an image as TIFF to an in-memory buffer can trigger a heap use-after-free if libtiff rejects a tag at encode time. When `TIFFWriteScanline` fails, the encoder frees its output buffer but leaves the libtiff handle open. Later, when the encoder object is torn down, `TIFFClose` flushes buffered bytes through the write callback and writes into the freed buffer. An application that r",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-21T21:24:19Z",
+      "cve_ids": [
+        "CVE-2026-112396"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "10a0da73c5f2ca8826aa1fd3994c6b6034bc2d7f38ebcd89ab1ca63e5681ee9a",
+      "url": "https://github.com/advisories/GHSA-p458-7748-mcp3",
+      "title": "GHSA: Vitest: Servers misapply `server.fs.deny`, serving `.env`, private keys, `.git`, and the API token file",
+      "summary": "### Summary\n\nIn Vitest 5, Vite's `server.fs.deny` is not applied as intended on Vitest's dev servers. Depending on the server, files that Vite refuses to serve by default (such as `.env`, private keys and certificates, `.npmrc`, and `.git`) or Vitest's own API token file (`.vitest-secret-token`) can be read over plain HTTP by a client that can reach the server. In Browser Mode with `test.projects`",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-10-21T19:57:00Z",
+      "cve_ids": [
+        "CVE-2026-112948"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "9ddf702a2817218eebce5e28194b2286c3729f1e4e15e46d40fe04d62720a8a1",
+      "url": "https://github.com/advisories/GHSA-qxg6-89mg-rqv8",
+      "title": "GHSA: Vitest: Code injection via unauthenticated manual mock registration",
+      "summary": "### Summary\n\n`@vitest/mocker`'s `interceptorPlugin` accepts mock registrations on Vite's dev-server WebSocket with no authentication, and interpolates the mock's `url` into generated module source without escaping. A client that can reach the dev server can make it serve arbitrary JavaScript in place of any project module, which then runs in the developer's browser on the dev-server origin.\n\nSame ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-21T19:54:26Z",
+      "cve_ids": [
+        "CVE-2026-112949"
+      ],
+      "cvss": 4.7,
+      "related_links": []
+    },
+    {
+      "id": "aacc954ab575df1ccdf05bae73f30e924aecd1250804e86bc63b9793241c1ee5",
+      "url": "https://github.com/advisories/GHSA-xp26-3454-mjgp",
+      "title": "GHSA: Vitest: Windows backslash traversal bypasses the @vitest/mocker redirect allowlist fix",
+      "summary": "## Summary\n\nThe path traversal fix released for [GHSA-82fw-gwwq-j7x9](https://github.com/vitest-dev/vitest/security/advisories/GHSA-82fw-gwwq-j7x9) can be bypassed on Windows by using a backslash in the redirect URL pathname.\n\nThe fixed code joins an attacker-controlled URL pathname with the Vite root using `node:path/posix`, then passes that string to Vite's file allowlist check. On Windows, a va",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-21T19:48:38Z",
+      "cve_ids": [
+        "CVE-2026-112950"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
     {
       "id": "c0856415db1bfcf6611fa78ba0cd8bcb430f1bd1e7fb8b4341ad68e22f351bb8",
       "url": "https://github.com/advisories/GHSA-3x84-qq85-fj65",
@@ -420,305 +696,31 @@
       "related_links": []
     },
     {
-      "id": "4143cb126c8e3bd1fd72ff33e3c3487cf7d8667e3b8c6f537f51a06bb0a75c1b",
-      "url": "https://msrc.microsoft.com/update-guide/releaseNote/2007-Aug",
-      "title": "MSRC: Mariner Release Notes",
-      "summary": "Microsoft security update: Mariner Release Notes. Alias: 2007-Aug.",
-      "source": "Microsoft MSRC",
-      "category": "infrastructure",
-      "date": "2026-10-21T01:03:21Z",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "180a70471c5d441f9eb75f920dbe22ab0541b9ae6bb3c4569d67e39fe80f2606",
-      "url": "https://www.exploit-db.com/exploits/52699",
-      "title": "[webapps] Keycloak 26.7.2 - Unauthenticated Account Takeover",
-      "summary": "Keycloak 26.7.2 - Unauthenticated Account Takeover",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-10-21T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "db0f3e069a634a4dc40b64963bbe5a1502b9afe0d302e8928d1d8abaf70ffd46",
-      "url": "https://www.exploit-db.com/exploits/52698",
-      "title": "[webapps] Open eClass 3.15 - RCE",
-      "summary": "Open eClass 3.15 - RCE",
-      "source": "Exploit-DB",
-      "category": "emergency",
-      "date": "2026-10-21T00:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "5eb1287845dfc8c4ee25634c98a6d3430389deb9ac8ef140e35720ee6f48302e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-28763",
-      "title": "CVE-2026-28763 — CVSS 9.1",
-      "summary": "A stack-based buffer overflow vulnerability exists in the boa formMapDelDevice hostname functionality of X2000R (version(s): TOTOLINK-X2000R-Gh-V1.0.0-B20250421.1327). A specially crafted HTTP request can lead to arbitrary code execution. An attacker can make an authenticated HTTP request to trigger this vulnerability.",
+      "id": "96ab27e43690d1de9d027be79df7c50e426b5118bf5b6429141439d94ed5fdc0",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-114119",
+      "title": "CVE-2026-114119 — CVSS 9.8",
+      "summary": "Best Practice Software Bp Premier before 1.14.1.1128 uses a hardcoded Microsoft SQL Server administrative password that is shared across all installations and cannot be changed without breaking the application. Attackers with network access to the database instance can authenticate as sysadmin, bypass application authentication, and execute operating system commands as SYSTEM.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-10-20T21:17:18.037",
+      "date": "2026-10-21T01:17:38.353",
       "cve_ids": [
-        "CVE-2026-28763"
+        "CVE-2026-114119"
       ],
-      "cvss": 9.1,
+      "cvss": 9.8,
       "related_links": []
     },
     {
-      "id": "c1fe83ab5942893c521fceb89adbe24ac5ea26aa45d60082e7a1c71f9d5ac529",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-112712",
-      "title": "CVE-2026-112712 — CVSS 9.1",
-      "summary": "@fastify/middie is the Express-style middleware engine for Fastify. In versions from 9.0.0 through 9.3.5, the use() function joined a path-scoped middleware's mount path to the plugin scope prefix in a way that could diverge from the path Fastify's router serves, most often when the scope prefix ended in a slash, and also for array mount paths and for mount paths written without a leading slash. W",
+      "id": "25e7962c0f7b82040f03fed67e7247a85b52b98d5e553e11db4ac28af4c0f951",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-114116",
+      "title": "CVE-2026-114116 — CVSS 5.3",
+      "summary": "Vyper 0.1.0b1 before 0.1.0b17 and 0.4.1 through 0.5.0b1 builds its source-line table with str.splitlines(), which treats characters like form feed and U+2028 as line breaks the Python parser ignores, so numeric literals are classified and validated from shifted source text. An attacker contributing source code can hide these characters in comments, strings or indentation to silently change address",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-10-20T21:17:17.910",
+      "date": "2026-10-21T01:17:37.930",
       "cve_ids": [
-        "CVE-2026-112712"
+        "CVE-2026-114116"
       ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "20c35e7532dde3d2b0724ad2d06962467bd2ea11bdb7d39609745ba269ef68b9",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-112407",
-      "title": "CVE-2026-112407 — CVSS 8.8",
-      "summary": "Incorrect privilege assignment in the IAM policy of AWS CICD-toolchain-for-serverless-applications 1.0.7 through 1.0.10 allows remote authenticated users with push access to the application source repository to escalate privileges and access or modify resources outside the application stack in the same AWS account via application templates deployed by the toolchain pipeline.\n\n\n\nTo remediate this i",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:17.773",
-      "cve_ids": [
-        "CVE-2026-112407"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "c26b1fb03edee52597ac5881c8bb96e91fec4a90fe5e3d5ed600aabcd9bde49b",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-10141",
-      "title": "CVE-2026-10141 — CVSS 9.1",
-      "summary": "A Unsigned Firmware vulnerability exists in the boa Firmware Update functionality of X2000R (version(s): TOTOLINK-X2000R-Gh-V1.0.0-B20250421.1327). A specially crafted firmware binary can lead to arbitrary firmware update. An attacker can make an authenticated HTTP request to trigger this vulnerability.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:16.843",
-      "cve_ids": [
-        "CVE-2026-10141"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "db52fc5154b0e3485c3dd6e5b6649cc39b161fee6849d2805d979b60f01599c1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-10139",
-      "title": "CVE-2026-10139 — CVSS 9.1",
-      "summary": "A stack-based buffer overflow vulnerability exists in the Mcli functionality of X2000R (version(s): TOTOLINK-X2000R-Gh-V1.0.0-B20250421.1327). A specially crafted HTTP request can lead to arbitrary code execution. An attacker can make an authenticated HTTP request to trigger this vulnerability.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:16.720",
-      "cve_ids": [
-        "CVE-2026-10139"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "90ef9ff9999226e3022130c002de11ba2e99e419b89d098f338064c725fd99ef",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-10138",
-      "title": "CVE-2026-10138 — CVSS 9.1",
-      "summary": "A OS command injection vulnerability exists in the boa formUpload() functionality of X2000R (version(s): TOTOLINK-X2000R-Gh-V1.0.0-B20250421.1327). A specially crafted HTTP request can lead to arbitrary code execution. An attacker can make an authenticated HTTP request to trigger this vulnerability.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:16.597",
-      "cve_ids": [
-        "CVE-2026-10138"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "5a153ecacd43665313a25eefdf1a2183664f7a8da19936a94e22ba64ee467c07",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-10137",
-      "title": "CVE-2026-10137 — CVSS 9.1",
-      "summary": "A stack-based buffer overflow vulnerability exists in the boa formUpload() functionality of X2000R (version(s): TOTOLINK-X2000R-Gh-V1.0.0-B20250421.1327). A specially crafted HTTP request can lead to arbitrary code execution. An attacker can make an authenticated HTTP request to trigger this vulnerability.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:16.480",
-      "cve_ids": [
-        "CVE-2026-10137"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "9a2704ef273fd5fe0d01eb67a2a790f83efb864993163c850d91e34f267f3eb1",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-10136",
-      "title": "CVE-2026-10136 — CVSS 9.1",
-      "summary": "A heap-based buffer overflow vulnerability exists in the boa formUpload() functionality of X2000R (version(s): TOTOLINK-X2000R-Gh-V1.0.0-B20250421.1327). A specially crafted HTTP request can lead to arbitrary code execution. An attacker can make an authenticated HTTP request to trigger this vulnerability.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:16.360",
-      "cve_ids": [
-        "CVE-2026-10136"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "b6b6c2c35f7c3a15e1596972086a5b0affb2dc4a9d34251688ea57ef6757b6fd",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-10135",
-      "title": "CVE-2026-10135 — CVSS 9.1",
-      "summary": "A OS command injection vulnerability exists in the batchupg functionality of X2000R (version(s): TOTOLINK-X2000R-Gh-V1.0.0-B20250421.1327). A specially crafted HTTP request can lead to arbitrary code execution. An attacker can make an authenticated HTTP request to trigger this vulnerability.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:16.240",
-      "cve_ids": [
-        "CVE-2026-10135"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "0ce59d518c36024a5e1849ea3d74065a972ff5d40b090ad9d3ef05efd2dad7dc",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-10133",
-      "title": "CVE-2026-10133 — CVSS 9.1",
-      "summary": "A stack-based buffer overflow vulnerability exists in the batchupg functionality of X2000R (version(s): TOTOLINK-X2000R-Gh-V1.0.0-B20250421.1327). A specially crafted HTTP request can lead to arbitrary code execution. An attacker can make an authenticated HTTP request to trigger this vulnerability.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:16.117",
-      "cve_ids": [
-        "CVE-2026-10133"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "b7e689b984f85fb25aa96a1f7fabafe8de73d6df2053ee67de33512ef0dc3c7e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-10132",
-      "title": "CVE-2026-10132 — CVSS 9.1",
-      "summary": "A stack-based buffer overflow vulnerability exists in the boa formIpQos mac functionality of X2000R (version(s): TOTOLINK-X2000R-Gh-V1.0.0-B20250421.1327). A specially crafted HTTP request can lead to arbitrary code execution. An attacker can make an authenticated HTTP request to trigger this vulnerability.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:15.993",
-      "cve_ids": [
-        "CVE-2026-10132"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "ea9fe2f7a7fbc1ecb2f08387612ab0e91f545800ebb69a8b07a7337d99c9052c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-10131",
-      "title": "CVE-2026-10131 — CVSS 9.1",
-      "summary": "An OS command injection vulnerability exists in the boa formPasswordSetup functionality of X2000R (version(s): TOTOLINK-X2000R-Gh-V1.0.0-B20250421.1327). A specially crafted HTTP request can lead to arbitrary code execution. An attacker can make an authenticated HTTP request to trigger this vulnerability.",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:15.853",
-      "cve_ids": [
-        "CVE-2026-10131"
-      ],
-      "cvss": 9.1,
-      "related_links": []
-    },
-    {
-      "id": "a9305a867192926d070a90c3ee7d6c0c1cf772c82086aa76efb018f7fd371444",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-107929",
-      "title": "CVE-2026-107929",
-      "summary": "When `CURLOPT_INTERFACE` (or the command line tool's `--interface` option) is\nset with one of the documented prefixes (`if!`, `host!`, `ifhost!`), that\nbinding is not part of the connection reuse key, so a later transfer asking\nfor a different source can silently reuse an existing connection and go out\nfrom the earlier transfer's source address",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:15.593",
-      "cve_ids": [
-        "CVE-2026-107929"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3b69e8f29480d36b4e1d554534efc212b91c9567eb6214c0f4221ec077138913",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-103672",
-      "title": "CVE-2026-103672 — CVSS 7.1",
-      "summary": "The PEAK-System PCAN parser indexes a length table using attacker-controlled DLC without enforcing DLC <= 0x0f, then copies attacker payload from record+0x1c into a fixed-size stack destination.",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-20T21:17:14.843",
-      "cve_ids": [
-        "CVE-2026-103672"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "c69daa1d57063462473149964f29bcfdcd1c5f64b8d7f88e7c008d50faeae2b7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-20104",
-      "title": "CVE-2016-20104 — CVSS 7.5",
-      "summary": "EyeLock nano NXT 3.05.1193, 3.04.1108, 3.03.944, and 3.01.646 contain a path traversal vulnerability that allows unauthenticated attackers to read arbitrary files via the 'path' parameter. Attackers can send GET requests to /scripts/logdownload.php with traversal sequences like ../../etc/passwd, which readfile() returns unvalidated, disclosing local system files. Exploitation evidence was first ob",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:14.193",
-      "cve_ids": [
-        "CVE-2016-20104"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "4eb1d5b015b6c17272f98f95415336bc65682e04054a28b1b9759ae87bab99ee",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-20103",
-      "title": "CVE-2016-20103 — CVSS 7.5",
-      "summary": "Cherry Plugin for WordPress before 1.2.7 contains a path traversal vulnerability that allows unauthenticated attackers to download arbitrary files via the 'file' parameter. Attackers can send GET requests to /admin/import-export/download-content.php with traversal sequences like ../../../../../wp-config.php to read database credentials, since the script passes input directly to readfile(). Exploit",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:14.043",
-      "cve_ids": [
-        "CVE-2016-20103"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "8009a52c0daa28e9ad89985909dc679439e00851353691c95d8f05781b3a7ee4",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-20102",
-      "title": "CVE-2016-20102 — CVSS 6.1",
-      "summary": "JavaMelody before 1.60.0 contains a reflected cross-site scripting vulnerability that allows unauthenticated attackers to inject script by supplying crafted values in the graph parameter of /monitoring?part=graph. Attackers can include a closing script tag in the graph value, which is only JavaScript-escaped in HtmlCounterReport, to execute script in victims' browsers. Exploitation evidence was fi",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:13.893",
-      "cve_ids": [
-        "CVE-2016-20102"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "c944ee463c574ec1fe6d8d4ffb3055e0366d6c47cbd4234f08dfe72beb6a5ae0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-20101",
-      "title": "CVE-2016-20101 — CVSS 8.1",
-      "summary": "Issuu Panel plugin for WordPress before 1.6.6 contains a PHP file inclusion vulnerability that allows unauthenticated attackers to include remote or local files through the 'abspath' parameter. Attackers can send GET requests to menu/documento/requests/ajax-docs.php with a crafted abspath value passed to require() to execute remote PHP code or include local files. Exploitation evidence was first o",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:13.727",
-      "cve_ids": [
-        "CVE-2016-20101"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "e3f2db8e1b43fdc4a1e19356d3905acfb8588f46840a7d0001c30334a042c094",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2016-20100",
-      "title": "CVE-2016-20100 — CVSS 7.5",
-      "summary": "Memphis Documents Library plugin for WordPress before 3.1.6 contains a path traversal vulnerability that allows unauthenticated attackers to read arbitrary files via the mdocs-img-preview parameter. Attackers can send GET requests with traversal sequences to mdocs_img_preview() in mdocs-downloads.php to download wp-config.php containing database credentials. Exploitation evidence was first observe",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-10-20T21:17:13.520",
-      "cve_ids": [
-        "CVE-2016-20100"
-      ],
-      "cvss": 7.5,
+      "cvss": 5.3,
       "related_links": []
     }
   ]
