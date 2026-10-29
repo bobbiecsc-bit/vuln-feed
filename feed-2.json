@@ -1,10 +1,374 @@
 {
-  "updated": "2026-10-29T14:58:12.515813+00:00",
+  "updated": "2026-10-29T20:53:29.872009+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "a759514c9021d24525b227efd2ade619f2d0491f819a8b4ce55c60297fe6e364",
+      "url": "https://github.com/advisories/GHSA-m4pr-6v3c-6fgr",
+      "title": "GHSA: ONNX: Null Pointer Dereference in ScanInferenceFunction Due to Missing Required Attribute",
+      "summary": "## Summary\n\nONNX shape inference did not safely validate the required Scan `num_scan_inputs` attribute. Two malformed values could terminate or disrupt the process:\n\n1. If the attribute was missing, `ctx.getAttribute(\"num_scan_inputs\")` returned null and was dereferenced.\n2. If the attribute was negative, conversion to `size_t` produced a very large value that reached a vector allocation and raise",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:16:30Z",
+      "cve_ids": [
+        "CVE-2026-115921"
+      ],
+      "cvss": 6.2,
+      "related_links": []
+    },
+    {
+      "id": "abffa3c159fd5c4c34a2b4dd8c8ac13889669a26c54864b7d0d6cebcfaa31a2e",
+      "url": "https://github.com/advisories/GHSA-48m4-24cq-37qf",
+      "title": "GHSA: ONNX: Out-of-Bounds Read in RNN/GRU/LSTM Shape Inference (Old Opsets, Missing Rank Check)",
+      "summary": "## Summary\n\nONNX shape inference performed an out-of-bounds read when processing a malformed RNN, GRU, or LSTM node from opsets 1–6 whose first input had a rank other than three.\n\n`RNNShapeInference_opset1_to_6()` checked whether the input shape was present but accessed `dim(0)` and `dim(1)` without first checking its rank. A crafted model could therefore terminate a process that called `onnx.shap",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:16:24Z",
+      "cve_ids": [
+        "CVE-2026-115919"
+      ],
+      "cvss": 6.2,
+      "related_links": []
+    },
+    {
+      "id": "1a4a12ed2c4f09193599894a4af6120c1a86ac8485dbd132e717c0992ad85982",
+      "url": "https://github.com/advisories/GHSA-vvpg-rrww-wpmh",
+      "title": "GHSA: vLLM: Permissive default CORS origins allow cross-origin requests to the vLLM HTTP server",
+      "summary": "### Summary\n\nThe OpenAI-compatible server registers Starlette `CORSMiddleware` with\n`allowed_origins` defaulting to `[\"*\"]`, and performs no authentication unless\n`--api-key` (or `VLLM_API_KEY`) is configured. A web page on any origin can send\nrequests to a vLLM server that the victim's browser can reach (for example\n`localhost` or an internal/VPN address) and read the responses. The default\n`allo",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:15:49Z",
+      "cve_ids": [
+        "CVE-2026-115917"
+      ],
+      "cvss": 3.4,
+      "related_links": []
+    },
+    {
+      "id": "a15b576ec72b55d41262d1df15c4ae2d6e093f711d1dec560a1c6e677ca6e6a1",
+      "url": "https://github.com/advisories/GHSA-8397-8qf6-f2gm",
+      "title": "GHSA: vLLM: Phi-4 multimodal audio encoder materializes and retains full attention matrices: a single max-length audio OOM-crashes the vLLM engine",
+      "summary": "### Summary\n\nThe Phi-4 multimodal audio encoder (`phi4mm_audio.py` / `phi4mm_utils.py`) runs its conformer attention in **eager mode by default**: the official HF config of `microsoft/Phi-4-multimodal-instruct` does not set `use_pt_scaled_dot_product_attention`, so the default `False` applies (`phi4mm_audio.py:166`, `:876`; `phi4mm_utils.py:1669`). The eager path fully materializes the attention p",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:15:41Z",
+      "cve_ids": [
+        "CVE-2026-115913"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "bad9163dd40770321273b45a8c8a36e1b95dbbbda86c879e2a79b4ecefa5f34a",
+      "url": "https://github.com/advisories/GHSA-gq5q-89c7-vhvx",
+      "title": "GHSA: vLLM DeepSeek-OCR image processing vulnerable to denial of service",
+      "summary": "## Summary\n\nAny vLLM deployment serving a model of the DeepSeek-OCR family — `deepseek-ai/DeepSeek-OCR`, `deepseek-ai/DeepSeek-OCR-2`, or `baidu/Unlimited-OCR` (whose `UnlimitedOCRForCausalLM` subclasses `DeepseekOCRForCausalLM`) — can be **killed by a single unauthenticated chat request carrying an ordinary, schema-valid PNG image**, under completely default server configuration.\n\nThe image model",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-28T21:15:35Z",
+      "cve_ids": [
+        "CVE-2026-115914"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "2fcefec0015a02e0e2b15e62e0e198aa942b3aa4f4a09bc29f930475e35f2d56",
+      "url": "https://github.com/advisories/GHSA-h3rc-j82p-2c3h",
+      "title": "GHSA: vLLM: Untrusted EPS inputs can trigger denial of service or Ghostscript RCE",
+      "summary": "### Summary\n\nIn vLLM 0.30.0, `ImageMediaIO` passes attacker-controlled image bytes to Pillow's format autodetection without restricting the accepted formats; the request's MIME label does not constrain decoder selection. An EPS payload labeled `image/png` reached the host's Ghostscript executable. On a host with Ghostscript affected by CVE-2024-29510, this exposes the known Ghostscript sandbox esc",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-28T21:15:29Z",
+      "cve_ids": [
+        "CVE-2026-115915"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "f6981fe127251fba410d52d9bd90e4957394f9b0fe55ed1f49e91bcf46763a03",
+      "url": "https://github.com/advisories/GHSA-6757-hggm-hp2w",
+      "title": "GHSA: vLLM: Public multimodal SHM handle forgery reaches worker-side `pickle.loads()` with insecure serialization disabled",
+      "summary": "## Affected\n\n- **Ecosystem / package:** pip / `vllm`\n- **Affected versions:** vLLM < 0.32.0.\n\n## Summary\n\nWhen `--mm-processor-cache-type shm` is enabled, vLLM's multimodal SHM cache represents a cached item with an `address` and `monotonic_id` pair and treats that pair as authority to dereference shared memory in the worker. A public scale-out request can supply its own multimodal `features.kwarg",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:15:15Z",
+      "cve_ids": [
+        "CVE-2026-115912"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "de3b71af996a226e7d945877ad01d2673db5c4d2f4efa76490eca567b06d4681",
+      "url": "https://github.com/advisories/GHSA-q97c-p368-75c4",
+      "title": "GHSA: vLLM: Out-of-vocabulary prompt token id passes input validation and triggers a CUDA device-side assert (engine crash / DoS)",
+      "summary": "For a model whose vocabulary size is an exact multiple of the embedding padding size (64) — e.g. any Llama-2-family model, vocab 32000 — a single request carrying a pre-tokenized prompt with token id equal to the vocab size (32000) passes vLLM's input-id validation but is one past the last embedding row. At tensor-parallel size 1 the embedding lookup does not mask indices, so the id reaches `F.emb",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:15:08Z",
+      "cve_ids": [
+        "CVE-2026-115916"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "8579a74f90a2443ebc26a9d29eb688fbbd1dddb1030df0e2752c483dcfb7a7b0",
+      "url": "https://github.com/advisories/GHSA-x567-49g5-p4cf",
+      "title": "GHSA: vLLM: Responses API bypasses trust_request_chat_template for chat_template_kwargs",
+      "summary": "## Summary\n\nvLLM's `/v1/responses` endpoint accepts request-level `chat_template_kwargs`, but does not apply the `--trust-request-chat-template` gate that protects Chat Completions, render, tokenize, and pooling paths.\n\nWhen the server is run with the documented default `trust_request_chat_template=False` and no explicit `--chat-template`, a Responses request can pass:\n\n```json\n{\"chat_template_kwa",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:14:59Z",
+      "cve_ids": [
+        "CVE-2026-115918"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "fb19da3f248833b50e8647b1a8269952fb4576d46a723e01ee82a24699153043",
+      "url": "https://github.com/advisories/GHSA-542m-9234-8gvf",
+      "title": "GHSA: vLLM: DoS via unbounded chat_template Jinja2 rendering exhausts the renderer thread pool",
+      "summary": "### Summary\nvLLM renders chat templates by passing the resolved Jinja2 source to `tokenizer.apply_chat_template()`, which compiles and `.render()`s it in an `ImmutableSandboxedEnvironment`. The sandbox prevents code-execution escapes but imposes **no wall-clock timeout, no output-size cap, and no nested-loop or binop limit**. The render runs in a `ThreadPoolExecutor` whose `max_workers` defaults t",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-28T21:14:52Z",
+      "cve_ids": [
+        "CVE-2026-115911"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "81869fcbc8bb807a734e31d1fb173fae2b89ea3b5aed21b99fb4005ac1122ae3",
+      "url": "https://github.com/advisories/GHSA-mghf-wjfp-p5xm",
+      "title": "GHSA: Wasmtime: Cranelift backend on aarch64 can jump to incorrect target on large Wasm `br_table` instruction",
+      "summary": "## Summary\n\nWhen running with the Cranelift compiler backend on an aarch64 target, Wasmtime can compile a Wasm module with more than ~256k targets on one `br_table` instruction in a way that results in an incorrect conditional branch target. This conditional branch could then jump to arbitrary other code (at an user-controlled offset), leading to arbitrary sandbox escapes.\n\n## Impact\n\nAny Wasmtime",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-28T21:14:14Z",
+      "cve_ids": [
+        "CVE-2026-115893"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "7d2ffc715ffdf0568c65e110d99831e26458cc97970b3312a84017c44987e859",
+      "url": "https://github.com/advisories/GHSA-4vjg-vx72-qq4g",
+      "title": "GHSA: systeminformation has path traversal in Linux networkStats() that allows symlink-based file disclosure outside /sys/class/net",
+      "summary": "### Summary\n\nOn Linux, `systeminformation@5.33.13` builds `/sys/class/net/<iface>` paths from the caller-supplied `networkStats(iface)` value without checking that the resolved path stays inside `/sys/class/net`. A caller who can create a symlink fixture and control the value passed to this API can make the function return the first line of a file readable by the Node process.\n\n### Details\n\nThe st",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:13:50Z",
+      "cve_ids": [
+        "CVE-2026-116673"
+      ],
+      "cvss": 3.3,
+      "related_links": []
+    },
+    {
+      "id": "1a40e095a969b41b5b1166dfbee9313d608a68f1916474d7ae7735fdae268d9a",
+      "url": "https://github.com/advisories/GHSA-7648-jmwf-vw7j",
+      "title": "GHSA: systeminformation has prototype pollution in `networkStats()` via the interface name",
+      "summary": "## Summary\n\n`networkStats()` keeps a per interface cache for computing `rx_sec` / `tx_sec` between calls.\nThe cache is a plain JavaScript object and is indexed with the interface name the caller\nsupplied. Passing the name `__proto__` makes every cache write land on `Object.prototype`\ninstead of the cache, polluting every object in the Node.js process.\n\nAn application is affected if it passes untru",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:13:32Z",
+      "cve_ids": [
+        "CVE-2026-116674"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "bf298c58eefc5a915be88629ed9fb2361b06995776da85353f45db5ca761a480",
+      "url": "https://github.com/advisories/GHSA-8prr-f582-jqq3",
+      "title": "GHSA: LangGraph CLI prints the registry push token in `langgraph deploy --verbose` output",
+      "summary": "### Summary\n\n`langgraph deploy --verbose` printed the temporary registry push token that the CLI uses to log Docker in to the deployment's image registry. Anyone who could read that output, for example in CI logs, could use the token until it expired.\n\n### Details\n\nWhen Docker is available, `langgraph deploy` builds the image locally, requests a push token from LangSmith, and runs `docker login --",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:13:18Z",
+      "cve_ids": [
+        "CVE-2026-115885"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "2104c39127055c83052013dd2ce8e3be2f495aa57be52ce5de95d795f71147e5",
+      "url": "https://github.com/advisories/GHSA-x8rm-f576-gq67",
+      "title": "GHSA: graphql-scalars PhoneNumber scalar is vulnerable to regular expression denial of service",
+      "summary": "## Summary\n\nThe regular expression behind `GraphQLPhoneNumber` since 1.24.1 backtracks exponentially. A string made of a run of digits followed by one character that makes the match fail (for example `\"1\".repeat(30) + \"x\"`) blocks the JavaScript thread for seconds, and every additional digit doubles the time.\n\ngraphql-js calls `parseLiteral` while *validating* a document and `parseValue` while coe",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:13:10Z",
+      "cve_ids": [
+        "CVE-2026-115887"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "4bf9f0755b3bfd7f6d8a0c3ed75539b741eda03569378828916a95cbcd54fee1",
+      "url": "https://github.com/advisories/GHSA-pjh6-c8mg-3x7m",
+      "title": "GHSA: Autobahn Python: permessage-brotli inflates a whole frame before maxMessagePayloadSize is checked (incomplete fix of GHSA-hxp9-w8x3-p566)",
+      "summary": "### Summary\n\npermessage-brotli inflates each frame fully before checking maxMessagePayloadSize, so one 421-byte frame makes the server allocate about 545 MiB even with a 1 MiB message limit (brotli expands about 1,000,000:1). Any unauthenticated client can exhaust server memory this way on servers that enable permessage-brotli. This bypasses the GHSA-hxp9-w8x3-p566 fix.\n\n### Details\n\nIn 26.7.1 the",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-28T21:10:17Z",
+      "cve_ids": [
+        "CVE-2026-116579"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "4a2915f1e8ec213eaf7f220a16e7f58c63f461dd82f6d169b59c991985d3c700",
+      "url": "https://github.com/advisories/GHSA-3cmx-xjww-583x",
+      "title": "GHSA: i18next-http-backend: Query-parameter injection through & and = in lng when loadPath/addPath puts {{lng}} in the query string",
+      "summary": "### Summary\n\nThe URL-segment check added for GHSA-q89c-q3h5-w34g blocks `?`, `#`, `%`, `:`, `/` and `@` in `lng`, but not `&` or `=`, and the checked value is inserted into the URL without encoding. The README documents a multiload loadPath of the form `/locales/resources.json?lng=de+en&ns=ns1+ns2`. With a template like that, an attacker who controls the language value can add or override query pa",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-28T21:10:08Z",
+      "cve_ids": [
+        "CVE-2026-118258"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "f6c0bfab8100306bb1028525e15e8d78fb465459bc1ca26d3a026d507206ef2d",
+      "url": "https://github.com/advisories/GHSA-gg6h-894w-4m9c",
+      "title": "GHSA: RE2JS: Quadratic-time denial of service in re2js lookbehind matching",
+      "summary": "### Summary\n\nUsing the opt-in `LOOKBEHINDS` flag together with any repeated-matching API\n(`matcher().find()` in a loop, `matchAll()`, `split()`, `matcher().replaceAll()`)\ncauses quadratic-time (Θ(n²)) matching, contradicting the library's own\n\"linear time matching\" guarantee. A single call with a 16,000-character input\ntakes **36.7–38.7 seconds of CPU**.\n\n### Description\n\n#### Root cause\n\nIn `buil",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:10:01Z",
+      "cve_ids": [
+        "CVE-2026-116795"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "c3291c3423998a0f7f176d85bb201e37e85b0f6ac242e14eadd6b911b586f320",
+      "url": "https://github.com/advisories/GHSA-wfhq-q4j2-c37m",
+      "title": "GHSA: filelock: SoftReadWriteLock follows a lock tree swapped in after its first acquire and writes lock records into directories of the user running the lock",
+      "summary": "`SoftReadWriteLock` (and `AsyncSoftReadWriteLock`, which wraps one) checks once per lock object, by name, that `<path>.rw`, `<path>.rw/gen` and `<path>.rw/holders` are real directories and not symbolic links (files that redirect to another path). It then keeps only a boolean. Every later record operation resolves the full path again, and `O_NOFOLLOW` (a flag that makes an open fail when the final ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:09:09Z",
+      "cve_ids": [
+        "CVE-2026-112941"
+      ],
+      "cvss": 3.3,
+      "related_links": []
+    },
+    {
+      "id": "71b95a6ec7330eb57da468262acb29fa7fd41c3b914802ba802c3bddab80875c",
+      "url": "https://github.com/advisories/GHSA-6627-m3xw-93mp",
+      "title": "GHSA: filelock: StrictSoftFileLock creates its claim directories without the lock mode, so another local user with a write bit on them can end a live hold",
+      "summary": "`StrictSoftFileLock` and `AsyncStrictSoftFileLock` apply the caller's `mode` to the sentinel (the lock file at `<path>`) and to both claim files (the files whose presence says a process wants or holds the lock). They create the two directories that hold the claims, `<path>.filelock` and `<path>.filelock/claims`, with a bare `mkdir()`. That gives `0o777` filtered through the umask (a per-process ma",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:09:04Z",
+      "cve_ids": [
+        "CVE-2026-112908"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "6682cb47b99d61f7a217723d020ca0b89ecc32253ee7882c121dade451544713",
+      "url": "https://github.com/advisories/GHSA-9c4x-gm8v-wgc4",
+      "title": "GHSA: filelock: StrictSoftFileLock and SoftReadWriteLock adopt a protocol directory another user created first, losing mutual exclusion",
+      "summary": "`StrictSoftFileLock`, `AsyncStrictSoftFileLock`, `SoftReadWriteLock` and `AsyncSoftReadWriteLock` keep their whole ownership state as files in a directory derived from the lock path (`<path>.filelock/claims`, `<path>.rw/{gen,holders}`). When that directory already exists they adopt it after checking only that it is a real directory, not who owns it. Another local user who can create names in the l",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:59Z",
+      "cve_ids": [
+        "CVE-2026-112911"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "e791662956e5eaf85ebdc44e0971ef1c7478931321d4774ef4e98aec8aadc65f",
+      "url": "https://github.com/advisories/GHSA-8mx5-7m5m-r77g",
+      "title": "GHSA: filelock: WindowsFileLock ignores mode: a 0o600 lock file and the ReadWriteLock database inherit the directory ACL",
+      "summary": "filelock on Windows ignores the `mode` argument. `FileLock(path, mode=0o600)` creates the same file as `FileLock(path)`: one with no security descriptor of its own (the Windows record that says who may access a file). Its access list, or ACL, is whatever the lock directory hands down to new files. filelock creates the `ReadWriteLock` database, which it asks to be `0o600`, the same way. In a direct",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:55Z",
+      "cve_ids": [
+        "CVE-2026-112910"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "79a140c60576217de87574f19187dcb2fbb82852e0b6a4fb6bd5502281a19ed9",
+      "url": "https://github.com/advisories/GHSA-cwqr-hh33-gh44",
+      "title": "GHSA: filelock ReadWriteLock: a crafted lock database makes every acquire stall or hang regardless of timeout",
+      "summary": "`ReadWriteLock` and `AsyncReadWriteLock` (the SQLite-backed reader/writer lock) run `PRAGMA journal_mode=MEMORY` on a fresh connection for every acquire. That statement makes SQLite load the whole schema (the `sqlite_master` table, which lists every table and index with its `CREATE` text) of whatever file sits at the lock path. The caller's `timeout` reaches SQLite only as `busy_timeout`, which bo",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:49Z",
+      "cve_ids": [
+        "CVE-2026-112915"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "cea5b0be21b8e42931521633df8616e0e6a0718966c73ccf7df8a62db5bc447d",
+      "url": "https://github.com/advisories/GHSA-rfpc-qcw5-3pc4",
+      "title": "GHSA: filelock: SoftFileLock removes a live holder's marker when another user forges the PID in a writable marker",
+      "summary": "`SoftFileLock`, `MarkerSoftFileLock`, `SoftFileLease`, their async variants and a `FileLock` that has fallen back to a soft lock on `ENOSYS` decide from the record inside the marker file whether its owner is gone. The marker is the file whose presence says a process holds the lock. They do not check who could have written that record.\n\nA local user who can write the marker but cannot remove it rew",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:45Z",
+      "cve_ids": [
+        "CVE-2026-112939"
+      ],
+      "cvss": 4.7,
+      "related_links": []
+    },
+    {
+      "id": "a38baf1e920b99ee80d12d930c5b4591e19fddb69127cb16e9a214cee9adccaf",
+      "url": "https://github.com/advisories/GHSA-9j6q-wvj5-jgjg",
+      "title": "GHSA: filelock: Symlink swap during SoftFileLock's writability check leaks whether a path exists and is writable by the lock taker",
+      "summary": "`raise_on_not_writable_file()` is the check that `SoftFileLock` and the locks sharing its acquire path run before every attempt. It looks at the lock path with `os.lstat`, so that it judges a planted symlink (a file that points at another path) by itself. When the node has no owner-write bit, it then calls `os.access(filename, os.W_OK)`, which follows symlinks. A local user who can create entries ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:40Z",
+      "cve_ids": [
+        "CVE-2026-112912"
+      ],
+      "cvss": 2.5,
+      "related_links": []
+    },
+    {
+      "id": "cd81c78b8fbedd72e4a90e13b7098bdc6fcaa3a25001a4ede0a6c842d6d92524",
+      "url": "https://github.com/advisories/GHSA-69hj-f68j-2879",
+      "title": "GHSA: filelock: UnixFileLock truncates and chmods any regular file another user renames or hard-links onto the lock path",
+      "summary": "`UnixFileLock`, the backend of `FileLock` and `AsyncFileLock` on Unix, empties whatever regular file it finds at the lock path once it holds the `flock` (a kernel lock on an open file). With an explicit `mode` it also chmods that file (sets its permission bits), whether or not this acquire created it. Another local user who can rename or hard-link one of the files of the user running the lock (bel",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:35Z",
+      "cve_ids": [
+        "CVE-2026-112909"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
     {
       "id": "e1c9ff6e8f9e367a6b046b54d381489bc640b22fd6212450ebfa418e7b6fa6dd",
       "url": "https://github.com/advisories/GHSA-j8f7-rjxc-mr56",
@@ -321,364 +685,6 @@
         "CVE-2026-118603"
       ],
       "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "e315ff5cc1f8848720e923ba039ca9ce80b703cc1433ee65b7d1d5d72b30e289",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-819/",
-      "title": "ZDI-26-819: (0Day) (Pwn2Own) Alpine iLX-F511 SSH Hard-Coded Credentials Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 6.3. The following CVEs are assigned: CVE-2026-118601.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118601"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d7312143b3c9bdd956209b1f5e89313a817e87daaa2c8a8fb3dc84dffe86e533",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-818/",
-      "title": "ZDI-26-818: (0Day) Ultralytics Google Drive Download Path Traversal Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 8.8. The following CVEs are assigned: CVE-2026-118619.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118619"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c4de9306bbc3a9dec894985c9162f1352592d325df068e085a08c581a5585c0d",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-817/",
-      "title": "ZDI-26-817: (0Day) Ultralytics parse_model Code Injection Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-118618.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118618"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "83aa1843c8be202a219ea71c957758fa83243a1b9b6e2c45b642b8cbdaf70e92",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-816/",
-      "title": "ZDI-26-816: (0Day) Ultralytics load_dataset_cache_file Deserialization of Untrusted Data Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-118617.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118617"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "475bf949f42181fe3dde0d0689ebee959d6684c345781b8a0f7babd78d9d8ff6",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-815/",
-      "title": "ZDI-26-815: (0Day) Ultralytics parse_model Code Injection Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-118616.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118616"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a54a141ce5257edf28e0d8a38144aa1eae18b66af16fc813dcf5edff384f9226",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-814/",
-      "title": "ZDI-26-814: (0Day) Ultralytics torch_safe_load Command Injection Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-118615.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118615"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "8a12422ab9748deafeb6fcc09c9e96c79cd5cd815e707f1face9ce19e03bf35e",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-813/",
-      "title": "ZDI-26-813: (0Day) Ultralytics check_det_dataset Code Injection Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-118614.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118614"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "98e32d760cab8ef47cdcaf646ddcebce1d75156e2ca16eca9d3c9eeb70772210",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-812/",
-      "title": "ZDI-26-812: (0Day) Ultralytics torch_load Deserialization of Untrusted Data Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-118613.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118613"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "94d71ea79d711984e72b511a7da3fde0f73df9e156ab38c7769fcfe929bb5f81",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-833/",
-      "title": "ZDI-26-833: Valkey clusterCreatePublishMsgBlock Numeric Truncation Error Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Valkey. Authentication is required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b586633763146d35dac531f197f80229a4265a7a32052ddc6c973c1c7546742c",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-830/",
-      "title": "ZDI-26-830: Apple Safari jsToWasm IC Entrypoint Type Confusion Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Apple Safari. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 8.8. The following CVEs are assigned: CVE-2026-86974.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-86974"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4143cb126c8e3bd1fd72ff33e3c3487cf7d8667e3b8c6f537f51a06bb0a75c1b",
-      "url": "https://msrc.microsoft.com/update-guide/releaseNote/2007-Aug",
-      "title": "MSRC: Mariner Release Notes",
-      "summary": "Microsoft security update: Mariner Release Notes. Alias: 2007-Aug.",
-      "source": "Microsoft MSRC",
-      "category": "infrastructure",
-      "date": "2026-10-28T01:47:14Z",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c619bd9992741f822ed225f2c0e628172045520000c585e4d798f5f682562619",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-41709",
-      "title": "CVE-2026-41709: Broadcom VMWare ESX Insufficient Logging Vulnerability",
-      "summary": "Broadcom VMWare ESX contains an insufficient logging vulnerability that could allow a malicious actor with admin access to perform certain operations without being logged. Affected product: VMware ESX by Broadcom. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidan",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-10-28T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-41709"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "806b3f3d60f1c54e181f1a93c76cfdacfa1f15202088577833598d22d3ce3da7",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-46300",
-      "title": "CVE-2026-46300: Linux Kernel Missing Initialization of a Variable Vulnerability",
-      "summary": "Linux Kernel contains a missing initialization of a variable vulnerability that could allow for unintended modification of page-cache-backed data via failure to preserve the shared-fragment marker during socket buffer coalescing, causing ESP input processing to decrypt shared fragments in place. This vulnerability can be chained with CVE-2026-109618 and CVE-2026-109619 to implant PHP webshells and",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-10-28T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-46300"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "355adf4fe0ab50b00c08aff957eaf737448cdbe9cde079b29a493179d72e9f8a",
-      "url": "https://github.com/advisories/GHSA-m65p-9j7q-6w33",
-      "title": "GHSA: MLflow vulnerable to arbitrary file read on unauthenticated servers via prompt model version source",
-      "summary": "### Summary\nOn MLflow tracking servers running without authentication, which is the default for mlflow server, a remote attacker can read arbitrary files from the server’s filesystem by creating a model version tagged as a prompt whose source is a schemeless local path.\n\nThe fix for CVE-2026-2614 in 3.10.0 added a prompt-specific branch to the `CreateModelVersion` handler that rejects `file://` UR",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-27T21:26:56Z",
-      "cve_ids": [
-        "CVE-2026-116690"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "cbbd81f8c245ee58d0dec88b1373aa2d744f1ceae7e0f477e80c3781dbd15217",
-      "url": "https://github.com/advisories/GHSA-j7qq-vr8c-xvw3",
-      "title": "GHSA: MLflow CrewAI autologging records LLM provider API keys in logged trace spans",
-      "summary": "### Summary\n\n`mlflow.crewai.autolog()` leaks CrewAI LLM provider API keys into MLflow trace telemetry.\n\nWhen a CrewAI `Agent` is instrumented with MLflow autologging, MLflow serializes the agent's `__dict__` and converts its fields to strings. The `llm` field contains the CrewAI LLM object, whose string representation includes its `api_key` in plaintext.\n\nAs a result, an application that calls `ml",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-27T21:26:39Z",
-      "cve_ids": [
-        "CVE-2026-116691"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "c07c4478224783d861238f0d5b69d72daf37d9e9f96178da014312cec40c8d71",
-      "url": "https://github.com/advisories/GHSA-26p8-2jq9-3vq9",
-      "title": "GHSA: MLflow vulnerable to remote code execution on unauthenticated servers via third-party scorer deserialization importing caller-placed artifact modules",
-      "summary": "## Summary\n\nMLflow 3.12.0 introduced registration and deserialization support for third-party scorers in OSS MLflow. During scorer deserialization, the server accepts a request-controlled Python module path beneath one of four allowed package prefixes, imports that module, obtains a request-controlled class, and instantiates it synchronously.\n\nAn HTTP caller can combine this behavior with MLflow's",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-27T21:26:32Z",
-      "cve_ids": [
-        "CVE-2026-116692"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "98e61938904a6e6eadd6b6cf563f0487b3b4c72888abf66d7ce2033d2014e403",
-      "url": "https://github.com/advisories/GHSA-w4fh-qvv9-3v23",
-      "title": "GHSA: Model Context Protocol Python SDK: Server bearer-token authentication accepts tokens issued for a different resource server",
-      "summary": "### Summary\nIn affected versions, the SDK's server-side bearer authentication had no way to check that a token was issued for your server (its audience). Where one authorization server issues tokens for several services, a valid token for another service was also accepted by your MCP server.\n\n### Am I affected?\nYes, if your HTTP server uses the SDK's bearer authentication (`auth=AuthSettings(...)`",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-27T21:06:59Z",
-      "cve_ids": [
-        "CVE-2026-116684"
-      ],
-      "cvss": 6.8,
-      "related_links": []
-    },
-    {
-      "id": "ef9aa2cd6aa2e244c24f02569afc9af3de618d1e8ab16d6b6ef7af123f638a84",
-      "url": "https://github.com/advisories/GHSA-5h93-6whr-6q8j",
-      "title": "GHSA: Model Context Protocol Python SDK: HTTP client transports followed cross-origin redirects carrying custom headers and bodies",
-      "summary": "### Summary\nIn affected versions, the SDK's Streamable HTTP and SSE client transports followed HTTP redirects to any host. If the configured MCP endpoint answered with a redirect to a different origin:\n\n- custom headers set on the client (for example an `X-API-Key` credential) were sent to that origin, and\n- on a `307` or `308` redirect the request body was re-sent there too.\n\nThe SDK's OAuth clie",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-27T21:05:34Z",
-      "cve_ids": [
-        "CVE-2026-116685"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "98810b525952f2d0b8e0fddd8ab13b3854d09cf80dea96bfbe68c5100101d6b6",
-      "url": "https://github.com/advisories/GHSA-rwrf-2pqf-9j8j",
-      "title": "GHSA: Model Context Protocol Python SDK: Client fetched server-chosen $ref URLs while validating tool results against output schemas",
-      "summary": "### Summary\nIn affected versions, when a connected MCP server declared an `outputSchema` for a tool, the SDK's client validated each `call_tool` result with `jsonschema`'s default resolver, which fetches any `$ref` it cannot resolve locally by opening the URL. A server could therefore put an `http://`, `https://` or `file://` reference in a tool's output schema and make the client:\n\n- request that",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-27T21:05:29Z",
-      "cve_ids": [
-        "CVE-2026-116686"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "cf79144f2ec63372e4ec87013796a77c0316f6ca0bb78f27f04a9d03bfee1fda",
-      "url": "https://github.com/advisories/GHSA-v6mg-96c6-gmpq",
-      "title": "GHSA: CKEditor: Cross-site scripting (XSS) in the engine package",
-      "summary": "### Impact\nA Cross-Site Scripting (XSS) vulnerability has been discovered in the CKEditor 5 engine. This vulnerability could be triggered by inserting specially crafted markup under a specific General HTML Support configuration that allows inserting objects, leading to unauthorized JavaScript code execution in a browser context isolated from the origin of the application embedding the editor.\n\nThi",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-27T21:05:13Z",
-      "cve_ids": [
-        "CVE-2026-116687"
-      ],
-      "cvss": 3.1,
-      "related_links": []
-    },
-    {
-      "id": "7db756f793e2f4e1bf97a3d980cd8e978b0f801703c79ddfa56fddd792fcc1e1",
-      "url": "https://github.com/advisories/GHSA-rh54-vffm-5fvp",
-      "title": "GHSA: CKEditor: Cross-site scripting (XSS) in the engine package",
-      "summary": "### Impact\nA Cross-Site Scripting (XSS) vulnerability has been discovered in the CKEditor 5 engine. This vulnerability is caused by a prototype pollution issue in the `es-toolkit` library used in the CKEditor 5 codebase. This vulnerability could lead to unauthorized JavaScript code execution when the editor processes incoming `style` attribute values.\n\nThe underlying issue has been patched by the ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-27T21:05:06Z",
-      "cve_ids": [
-        "CVE-2026-116688"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "8542e3b3c7d5c4f2aa41e0fe3440df046ee133796be2edddb40ea510378aea66",
-      "url": "https://github.com/advisories/GHSA-5cp7-fp4j-wwcv",
-      "title": "GHSA: Neko: Authorization bypass in legacy WebRTC input handling",
-      "summary": "### Impact\n\nWhen legacy mode is enabled and `session.implicit_hosting` is enabled, the legacy WebRTC data channel incorrectly authorizes input events due to a logic error in `LegacyIsHost()`.\n\nAs a result, an authenticated room member may be able to send mouse and keyboard input through the legacy WebRTC control channel even when controls are locked or the member would otherwise not be authorized ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-27T21:04:57Z",
-      "cve_ids": [
-        "CVE-2026-116679"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "82b9b977d4e024125c3b432a237a45b971e1ffa86b72ef4639d4e80f68a1d472",
-      "url": "https://github.com/advisories/GHSA-rjh2-4xgw-p2hj",
-      "title": "GHSA: Atlantis: OS command injection through PR-controlled Terraform workspace enables RCE during plan",
-      "summary": "### Summary\n\nAtlantis passes the Terraform `workspace` value from a pull request's `atlantis.yaml` into a shell command without quoting or escaping it.\n\nA contributor whose pull request is eligible for an Atlantis plan can include shell metacharacters in the workspace name and execute arbitrary commands as the Atlantis service account. This does not require custom workflows, `allow_custom_workflow",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-27T21:04:50Z",
-      "cve_ids": [
-        "CVE-2026-116676"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "ca6fb1546078af090ef5483c842e676904dd62218f0edb18fa900aadfba54440",
-      "url": "https://github.com/advisories/GHSA-mgqf-5mf5-prfj",
-      "title": "GHSA: FileBrowser: Symlink following escapes user scope allowing arbitrary file read outside the served directory",
-      "summary": "## Summary\n\nFile read paths resolve symbolic links with `filepath.EvalSymlinks` and then operate on the resolved target without re-checking that the target still lies inside the user's source/scope. \n\nA symlink located inside a user's accessible directory that points outside the scope (for example to `/etc/passwd`, another tenant's directory, SSH keys, or container secrets) is followed transparent",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-27T21:04:40Z",
-      "cve_ids": [
-        "CVE-2026-116682"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "02aa5589116e9160e37e11ee58e4b4b6d5ebbfeb6f0422c211fd18dbf0c8767f",
-      "url": "https://www.bleepingcomputer.com/news/security/hackers-hijack-convertr-analytics-script-to-steal-payment-card-data/",
-      "title": "Hackers hijack Convertr analytics script to steal payment card data",
-      "summary": "A credit card skimming group reportedly compromised a shared analytics script used by e-commerce platform Convertr to steal shoppers' payment data during checkout. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-10-27T20:57:25+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "584e19bb9b5424ad09996908816359a466b603d53b6e49ad59891de3536d0621",
-      "url": "https://github.com/advisories/GHSA-4w7w-5xrc-9h26",
-      "title": "GHSA: undici vulnerable to cache poisoning and cross-user disclosure via cross-origin redirects",
-      "summary": "### Impact\n\nWhen an originless `Agent` composes the redirect and cache interceptors as `compose(redirect(), cache())` with a shared cache (`type: 'shared'`), the cache builds its key from the original request URL before the redirect handler changes the origin. The response produced after a redirect is then stored under the original key, even when the redirect crossed to a different origin.\n\nAn att",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-27T19:02:31Z",
-      "cve_ids": [
-        "CVE-2026-109829"
-      ],
-      "cvss": 7.4,
       "related_links": []
     }
   ]

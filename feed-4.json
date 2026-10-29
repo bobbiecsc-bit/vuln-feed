@@ -1,10 +1,368 @@
 {
-  "updated": "2026-10-29T14:58:12.515813+00:00",
+  "updated": "2026-10-29T20:53:29.872009+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "2140213a4b3c23bde09570de80c33057ce60a23e264bf7244df1f33ccf0c0d88",
+      "url": "https://github.com/advisories/GHSA-gwq9-9ffj-mvrv",
+      "title": "GHSA: snappy-java: Heap buffer overflow in Snappy.uncompress*Array typed-array methods",
+      "summary": "### Impact\n`Snappy.uncompressCharArray`, `uncompressShortArray`, `uncompressIntArray`, `uncompressLongArray`, `uncompressFloatArray` and `uncompressDoubleArray` sized the result array by dividing the declared uncompressed byte length by the element size, but native code wrote the full byte length. If the declared length is not a multiple of the element size, up to 7 bytes are written past the end ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:33:42Z",
+      "cve_ids": [
+        "CVE-2026-93451"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "3dfd9147b017855fb4f2ba58bcc9050811a9384c04bc704c99c78a94590c4ffa",
+      "url": "https://github.com/advisories/GHSA-xqrx-qh46-34m7",
+      "title": "GHSA: snappy-java: JVM crash from unchecked ranges in Snappy.arrayCopy and SnappyOutputStream.rawWrite",
+      "summary": "### Impact\n`Snappy.arrayCopy(Object src, int offset, int byteLength, Object dest, int destOffset)` called a native `memcpy` without validating the ranges. A negative or oversized `byteLength` or offset read or wrote outside the arrays and crashed the JVM. `SnappyOutputStream.rawWrite` and `SnappyInputStream.rawRead`, and therefore the typed-array `write`/`read` methods, pass caller-supplied ranges",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:33:30Z",
+      "cve_ids": [
+        "CVE-2026-116590"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "28027d388feb4bb894278edd5cb83a3db60c259c7f8d3db373c15163589feb28",
+      "url": "https://github.com/advisories/GHSA-q233-g92q-qxp6",
+      "title": "GHSA: snappy-java: Unbounded memory allocation from attacker-declared uncompressed lengtha",
+      "summary": "### Impact\nSeveral decompression paths in snappy-java allocate an output buffer sized by the uncompressed length declared in the first bytes of the compressed data, before decompressing or validating it. A few bytes of crafted input can therefore force an allocation of up to 2 GB, causing `OutOfMemoryError` (denial of service), or a `NegativeArraySizeException` for declared lengths of 2^31 or more",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-27T15:33:22Z",
+      "cve_ids": [
+        "CVE-2026-108106"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "58091e95a97be08d8c70440f8f09730fbc0443d5ff127fde472afc1ee35ce310",
+      "url": "https://github.com/advisories/GHSA-vqrg-773h-4wxc",
+      "title": "GHSA: Flexible GraphRAG: Cypher/Graph Injection via broken string-escaping in FalkorDB adapter (_escape()) - full graph wipe from ingested-document content",
+      "summary": "**Description**\ndef _escape(v: str) -> str:\n    return str(v).replace(\"'\", \"\\\\'\").replace(\"\\\\\", \"\\\\\\\\\")\nThe escaping order is backwards, exactly like the classic HTML double-escape bug: step 1 inserts a literal backslash in front of every ', then step 2 re-matches that just-inserted backslash and doubles it. For an input ending in a single quote, the two steps combined produce \\\\' (two backslashes",
+      "source": "GitHub Advisory",
+      "category": "infrastructure",
+      "date": "2026-10-27T15:32:45Z",
+      "cve_ids": [
+        "CVE-2026-114510"
+      ],
+      "cvss": 7.1,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-114510"
+      ]
+    },
+    {
+      "id": "b5a39a685a4f5392c38b776006a7e86bcc0b217dfceaa2e80edbc0deef5afa96",
+      "url": "https://github.com/advisories/GHSA-g5ff-637f-6q2m",
+      "title": "GHSA: LiteLLM: internal_user_viewer arbitrary local file read via `vertex_ai_credentials`",
+      "summary": "## Summary\n\nAn authenticated LiteLLM proxy user could read arbitrary local files from the proxy runtime by sending a crafted `vertex_ai_credentials` value to `/utils/transform_request`. The request-body safety blocklist rejected `vertex_credentials` but missed its alias `vertex_ai_credentials`, which let the value reach the Vertex AI credential loader and trigger a file read that is sent to an att",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:32:36Z",
+      "cve_ids": [],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "26a47a6b1324a4da5c05bb9ad64ab03b7dd2ca5ef18d662a0a2f61874aa98060",
+      "url": "https://github.com/advisories/GHSA-44jh-23m7-hpcf",
+      "title": "GHSA: @better-auth/drizzle-adapter: Concurrent requests can exceed rate limits on PostgreSQL",
+      "summary": "## Am I affected?\n\nYou are affected if you use `@better-auth/drizzle-adapter` from 1.6.17 through versions before 1.7.7 (including the 1.7.0 prereleases from beta.6 through rc.6) or `@better-auth/kysely-adapter` 1.6.17 through 1.6.31, and keep rate-limit records in a PostgreSQL database.\n\nAll of these must be true:\n\n- Rate limiting is enabled.\n- Rate-limit records are stored in the database.\n- The",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:32:25Z",
+      "cve_ids": [],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "1589766fed9d850cb550337ceb8c6cd3f347ea684de5ce695fa0c5fee665b847",
+      "url": "https://github.com/advisories/GHSA-r4xp-prcw-77qf",
+      "title": "GHSA: better-auth: OAuth Proxy lets an attacker sign in as another user",
+      "summary": "## Am I affected?\n\nYou may be affected if you use `better-auth` from 1.5.0-beta.12 through versions before 1.7.7 with the OAuth Proxy plugin. You are affected only if **all** of these are also true:\n\n- On a participating environment, the OAuth Proxy plugin has no dedicated `secret`, or its `secret` equals that environment's global Better Auth secret.\n- Sign-in state is stored in a cookie (`account",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-10-27T15:32:16Z",
+      "cve_ids": [],
+      "cvss": 7.4,
+      "related_links": []
+    },
+    {
+      "id": "041399ac461cf076ec32d8dac3cc203cabd2f25d46b3852bfb46d2b18be4eeac",
+      "url": "https://github.com/advisories/GHSA-965c-763c-88jm",
+      "title": "GHSA: better-auth: OAuth state can be used as a Magic Link to sign in as another user",
+      "summary": "## Am I affected?\n\nYou may be affected if you use `better-auth` from `1.4.0-beta.18` through versions before `1.7.7` with the Magic Link plugin and social or Generic OAuth sign-in.\n\nYou are affected if **all** of these are true:\n\n- Magic Link is enabled with default `storeToken: \"plain\"`, or with `storeToken: \"hashed\"` and global `verification.storeIdentifier: \"hashed\"` (including a hashed default",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-27T15:32:05Z",
+      "cve_ids": [
+        "CVE-2026-114607"
+      ],
+      "cvss": 9.1,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-114607"
+      ]
+    },
+    {
+      "id": "8a6d42799fef6c6d4649da626b7d452db4c5bbfbbbfde18c08ba9656a1cb1cc0",
+      "url": "https://github.com/advisories/GHSA-hhww-mrg2-969h",
+      "title": "GHSA: LiteLLM vulnerable to reflected XSS in /sso/debug/callback",
+      "summary": "### Summary\n\nThe `/sso/debug/callback` endpoint reflected identity-provider-controlled fields into an inline `<script>` block via `json.dumps`, which escapes JSON string syntax but not HTML context characters such as `</script>`. An IdP-returned string field containing `</script>` (for example a user-editable display name) closed the script block and executed attacker JavaScript in the proxy's ori",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:31:56Z",
+      "cve_ids": [],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "9a8ff1ec7b33355f289dc0b2b72283efee78b7096b3919ba4de28b57bbc8c32d",
+      "url": "https://github.com/advisories/GHSA-f9j4-qggq-h239",
+      "title": "GHSA: GitPython Remote.pull() refspec bypasses the --upload-pack unsafe-option guard, enabling arbitrary command execution",
+      "summary": "## Summary\n\n`Remote.pull()` in GitPython forwards its positional `refspec` argument directly to the `git pull` child process while its unsafe-option guard inspects only keyword arguments. An application that passes attacker-influenced data as the `refspec` (for example a user-supplied branch or refspec parameter in a web or CI service) can supply an option-shaped value such as `--upload-pack=<comm",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:26:50Z",
+      "cve_ids": [],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "f1487690542bcc6b3223e4f950a1c1e9d1d2726ad4c1bd5e44111baaa49550df",
+      "url": "https://github.com/advisories/GHSA-w8jc-g24h-crhw",
+      "title": "GHSA: GitPython command wrappers omit unsafe protocol and option checks",
+      "summary": "### Summary\n\nGitPython has spent 2022-2026 rolling out two reusable guards method-by-method: `Git.check_unsafe_protocols(url)` (raises `UnsafeProtocolError` for `<transport>::` remote-helper URLs - CVE-2022-24439) and `Git.check_unsafe_options(...)` (raises `UnsafeOptionError` for denylisted option spellings - CVE-2023-40267, CVE-2026-42215, CVE-2026-67323). Three wrapper methods that build a `git",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:26:43Z",
+      "cve_ids": [],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "a05110693ce30ff83bca8c4610f7054b56440322852ead9e0aad8adc5f8ae709",
+      "url": "https://github.com/advisories/GHSA-fx3j-rwgx-fr94",
+      "title": "GHSA: GitPython: separate_git_dir leaks env vars via crafted .gitmodules submodule name",
+      "summary": "### Summary\n`Repo._clone()`'s handling of `separate_git_dir` never disables `Git.polish_url()`'s environment-variable expansion, unlike every other caller of that helper that handles attacker-influenced data. Since `separate_git_dir` can be derived from an attacker-controlled `.gitmodules` submodule name, a completely ordinary `clone` + `submodule_update(init=True, recursive=True)` on a malicious ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:26:32Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "bddd6bde105d39f36eb1b1b14283be554a3cf11e017352899608f19c2ac0442e",
+      "url": "https://github.com/advisories/GHSA-4ffr-jq9g-5ffx",
+      "title": "GHSA: Nodemailer: Quadratic backtracking in SMTP AUTH mechanism detection regexes allows pre-auth remote denial of service",
+      "summary": "## Summary\n\nNodemailer's SMTP client applies four regular expressions to a peer's EHLO response to detect the supported SASL mechanisms. Each pattern uses an alternation with two overlapping whitespace-matching sub-patterns, which produces quadratic (O(n^2)) backtracking whenever the mechanism name is absent from the line. A malicious or MITM SMTP server that answers EHLO with `250-AUTH` followed ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:04:39Z",
+      "cve_ids": [],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "b34ca949213cd67cd555b3b23ec6ea2b58e7150013fe9ba7df2a4ddcbacacc65",
+      "url": "https://github.com/advisories/GHSA-g73g-hqqh-jr95",
+      "title": "GHSA: Nodemailer: RFC 5322 comment inside an angle-bracket address is never stripped",
+      "summary": "## Summary\n\nNodemailer's address parser has three published, patched fixes for RFC 5322 comment `( ... )` handling inside an addr-spec: GHSA-cc9r-2j5m-2m83 (comment glued two domain atoms into one), GHSA-g57g-f23g-4646 (the same glue for a quoted local part), and the related ReDoS fixes GHSA-prgh-xp8r-p3m5 / GHSA-v53p-9fqp-m79j. All three fixes live in `_handleAddress()`'s `joins` / `_recoverAddrS",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:04:36Z",
+      "cve_ids": [],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "dc6bb98ed35de9b133032cfd7f3ba14d5b7e527b83c151c736d743298fbbbca9",
+      "url": "https://github.com/advisories/GHSA-4g23-2xm8-66gc",
+      "title": "GHSA: Nodemailer: Quadratic (O(n^2)) SMTP client reply parsing lets a malicious server or MITM cause a pre-auth remote denial of service",
+      "summary": "## Summary\n\nThe SMTP client response parser reassembles multiline server replies by appending each continuation line onto a single response-queue entry and re-testing whether that entry is still a partial (continuation) reply on every line. The partial-response test runs `str.slice(str.lastIndexOf('\\n') + 1)` on the growing entry, which forces a full flatten of the entire accumulated string on eac",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-27T15:04:33Z",
+      "cve_ids": [],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "32b3f7ce9e2c71dc6a3fb215e0a07ce943f95abfc132eef2497dc5ff1b7b3722",
+      "url": "https://github.com/advisories/GHSA-7hp6-4w63-5g45",
+      "title": "GHSA: LiteLLM: Privilege Escalation to Proxy Admin via Cross-Domain Reuse of the Salt Key",
+      "summary": "### Summary\n\nAn authenticated user with `internal_user` privileges can escalate to `proxy_admin` and achieve remote code execution. The proxy uses one encryption key for two purposes: sealing secrets at rest and minting session tokens. An attacker exploits this by requesting a new API key with a crafted metadata field containing a forged admin credential as the \"secret\" value. The proxy encrypts a",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-27T15:04:14Z",
+      "cve_ids": [
+        "CVE-2026-114612"
+      ],
+      "cvss": 9.9,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-114612"
+      ]
+    },
+    {
+      "id": "ce078c7f11dac46490e91e81c944602d3cf9575d08994db7c074fdd2b148e55f",
+      "url": "https://github.com/advisories/GHSA-j586-36cw-2gc2",
+      "title": "GHSA: MessagePack: Unbounded memory leak in msgpack C extension on strict_map_key validation failure",
+      "summary": "### Impact\n\nThe msgpack-python C extension (`msgpack._cmsgpack`) leaks a decoded map value when deserialization rejects a key with `strict_map_key=True` (the default). Repeated malformed inputs can cause unbounded process memory growth and denial of service in applications that deserialize attacker-controlled MessagePack data. Both `unpackb()` and the streaming `Unpacker` API are affected. The pur",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:04:07Z",
+      "cve_ids": [
+        "CVE-2026-114613"
+      ],
+      "cvss": 7.5,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-114613"
+      ]
+    },
+    {
+      "id": "c3ac2aad0fd5b0501f341e7f09a62839aeb43a01fd1098b357fae5170e8eadfd",
+      "url": "https://github.com/advisories/GHSA-j456-xh4h-cpf2",
+      "title": "GHSA: NLTK: WekaClassifier passes an unvalidated caller-controlled model path to the weka JVM, bypassing nltk.pathsec containment",
+      "summary": "## Summary\n`WekaClassifier` in NLTK passes a caller-controlled model file path to the weka Java VM without any `nltk.pathsec` validation. `WekaClassifier.train` puts the caller's `model_filename` verbatim into the weka argv `[\"-d\", model_filename, ...]` (weka *writes* the trained model there), and `WekaClassifier._classify_many` puts `self._model` into `[\"-l\", self._model, ...]` (weka *reads* it).",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T14:50:30Z",
+      "cve_ids": [],
+      "cvss": 8.6,
+      "related_links": []
+    },
+    {
+      "id": "2f4aa9b55936841921ed0dd9f403d12ad4973d14f64a320b10167720745df25f",
+      "url": "https://github.com/advisories/GHSA-6v38-4h7w-rj9h",
+      "title": "GHSA: Authlib: empty signatures validation in JWS JSON deserialization",
+      "summary": "Authlib (prior to 1.9.0) contains a signature verification bypass vulnerability. The JsonWebSignature.deserialize_json() method accepts a JSON Serialization JWS object and returns the payload as successfully verified without checking for a signature and without requiring a cryptographic key.\n\n## Root cause\n\n`authlib/jose/rfc7515/jws.py`, read on the installed 1.8.0 artifact:\n\n```python\nis_valid = ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-27T14:50:18Z",
+      "cve_ids": [
+        "CVE-2026-96760"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "738f107670c003769d45d6556f349e3c7a80cd33d73b0423c77f4544c03fa1e7",
+      "url": "https://github.com/advisories/GHSA-q84f-53jg-9ppm",
+      "title": "GHSA: better-auth: Device login approval does not show the requesting client or permissions",
+      "summary": "## Am I affected?\n\nYou may be affected if you use `better-auth` from `1.3.8-beta.3` up to, but not including, `1.7.0-rc.3`, and you enable the `deviceAuthorization()` plugin. This range includes all 1.6 releases.\n\nYou are affected only if all of these are also true:\n\n- An attacker can start a device request: `validateClient` is not configured, or the attacker can use a valid public client.\n- Befor",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T14:49:53Z",
+      "cve_ids": [],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "a40721cff07a0d8ded284c44fb2fc26a5c11fea5b7b432c0a68625104358a7e6",
+      "url": "https://www.bleepingcomputer.com/news/apple/apple-backports-coregraphics-zero-day-patches-to-older-iphones/",
+      "title": "Apple backports CoreGraphics zero-day patches to older iPhones",
+      "summary": "​Apple has backported security patches released last month to older iPhones and iPads, addressing a zero-day bug exploited in \"extremely sophisticated\" targeted attacks on iOS devices. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-10-27T10:36:12+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "c79b9055e5fe5a0b9f95d9adf74b405b9399568a9ef59292c6165576eafd7249",
+      "url": "https://www.bleepingcomputer.com/news/security/cisa-confirms-php2shell-vulnerabilities-now-exploited-in-attacks/",
+      "title": "CISA confirms PHP2Shell vulnerabilities now exploited in attacks",
+      "summary": "The U.S. Cybersecurity and Infrastructure Security Agency (CISA) has added the PHP2Shell vulnerabilities to its catalog of actively exploited security flaws and ordered federal agencies to patch their systems by Thursday. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-10-27T08:20:54+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "a294d9add5272b0e1bd50a5c3c59aa4257c41de8732a116273a9e1c3b3c75ffd",
+      "url": "https://seclists.org/fulldisclosure/2026/Oct/38",
+      "title": "CVE-2026-109618: PHP-CGI Pointer Underflow → Remote Code Execution (CVSS 9.2)",
+      "summary": "Posted by jose on Oct 27CVE-2026-109618: Pointer underflow in PHP&apos;s CGI SAPI enables unauthenticated remote code execution. Affected: ALL PHP versions 5.x through 8.4.26 with cgi.fix_pathinfo=1 (default configuration). Same vulnerability class as CVE-2019-11043 (PHP-FPM, CVSS 9.8, patched 2019) — the CGI SAPI never received the equivalent fix. Fix: PHP 8.5.12, 8.4.27, 8.3.36, 8.2.35 (schedule",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-10-27T07:29:58+00:00",
+      "cve_ids": [
+        "CVE-2019-11043",
+        "CVE-2026-109618",
+        "CVE-2026-1096189",
+        "CVE-2026-109619",
+        "CVE-2026-1096199",
+        "CVE-2026-115560"
+      ],
+      "cvss": null,
+      "related_links": [
+        "https://www.exploit-db.com/exploits/52704",
+        "https://www.rapid7.com/blog/post/etr-cve-2026-109618-and-cve-2026-109619-critical-unauthenticated-remote-code-execution-in-php",
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-109618",
+        "https://seclists.org/fulldisclosure/2026/Oct/51",
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-109619"
+      ]
+    },
+    {
+      "id": "c66f219ffd00450408448bacc1828bbab2b0f795da4d3186e4ddd0b4e7d3ad63",
+      "url": "https://seclists.org/fulldisclosure/2026/Oct/37",
+      "title": "SEC Consult SA-20261023-0 :: Multiple Cross-Site Scripting Vulnerabilities in VertiGIS WebOrderSystem",
+      "summary": "Posted by SEC Consult Vulnerability Lab via Fulldisclosure on Oct 27SEC Consult Vulnerability Lab Security Advisory &lt; 20261023-0 &gt; ======================================================================= title: Multiple Cross-Site Scripting Vulnerabilities product: VertiGIS WebOrderSystem (KundenManager, AuftragsManager) vulnerable version: &lt;=7.0.8.6 fixed version: unknown CVE number: CVE-",
+      "source": "Full Disclosure",
+      "category": "emergency",
+      "date": "2026-10-27T07:29:06+00:00",
+      "cve_ids": [
+        "CVE-2026-4950",
+        "CVE-2026-4951",
+        "CVE-2026-4952"
+      ],
+      "cvss": null,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-4951",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-4952"
+      ]
+    },
+    {
+      "id": "52c0ca0548256934c88eeff8077cb6073def86221e1610561f143cb1c6c51c7c",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-48356",
+      "title": "CVE-2026-48356: Adobe Commerce and Magento Unrestricted Upload of File with Dangerous Type Vulnerability",
+      "summary": "Adobe Commerce and Magento contain an unrestricted upload of file with dangerous type vulnerability that could result in arbitrary code execution in the context of the current user, potentially gaining elevated access or control over the victim's account or session. Affected product: Commerce and Magento by Adobe. Required action: Apply mitigations in accordance with vendor instructions, ensuring ",
+      "source": "CISA KEV",
+      "category": "emergency",
+      "date": "2026-10-27T00:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-48356"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "e83553d746d52cddc9e1adfe33b695c7b3ecf7de96554ec1b935c5820e525080",
+      "url": "https://www.bleepingcomputer.com/news/security/dreamhost-forces-email-ftp-sftp-password-resets-in-ongoing-incident/",
+      "title": "DreamHost forces password resets in ongoing \"incident\"",
+      "summary": "DreamHost has forced password resets for email and FTP/SFTP users following an incident that disrupted connections to the File Manager interface. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-10-26T19:26:20+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
     {
       "id": "0099907153cfc09e508a048b97b54589010554d837860ffbc359fdd35f31abb3",
       "url": "https://www.rapid7.com/blog/post/etr-cve-2026-111497-critical-out-of-bounds-write-in-the-node-js-brotli-decoder",
@@ -303,369 +661,6 @@
       "cve_ids": [],
       "cvss": null,
       "related_links": []
-    },
-    {
-      "id": "3ac833fb839c0b3442160cf4b27517891135ea7b8315c5432db823b85aa2d82a",
-      "url": "https://blog.qualys.com/category/vulnerabilities-threat-research",
-      "title": "How to Identify Compromised eMudhra Certificates With Qualys (CVE-2026-111943 and CVE-2026-111944)",
-      "summary": "Executive Summary A critical certificate authority incident disclosed on October 17, 2026, impacts eight eMudhra intermediate CA certificates. A flaw in the key generation process could allow attackers to recover private keys and issue fraudulent TLS or code-signing certificates. The affected intermediates have been revoked and blocked by major platform vendors, including Chrome, Mozilla, Apple, [",
-      "source": "Qualys Blog",
-      "category": "emergency",
-      "date": "2026-10-24T02:03:52+00:00",
-      "cve_ids": [
-        "CVE-2026-111943",
-        "CVE-2026-111944"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "db2e959ab0ad325eb40f148c5eeb9c9635f140544204bb497ea1242682fb2286",
-      "url": "https://github.com/advisories/GHSA-jqc4-5cvw-7w85",
-      "title": "GHSA: filelock: ReadWriteLock on the hard-link route deletes any directory another user renames onto its .filelock-* link directory name",
-      "summary": "`ReadWriteLock` and `AsyncReadWriteLock` (the SQLite-backed reader/writer lock) remove their private `.filelock-*` link directories with `shutil.rmtree` (a recursive delete) on a remembered path. They do not check that the path still names the directory they created. This happens on the hard-link route (a hard link is a second name for the same file). That route is every connection on macOS since ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T22:28:41Z",
-      "cve_ids": [
-        "CVE-2026-112937"
-      ],
-      "cvss": 6.1,
-      "related_links": []
-    },
-    {
-      "id": "a39f833adf97c6f2b92b8cb6608ac8198fb44db38b568075eb220f3e0aa5d940",
-      "url": "https://github.com/advisories/GHSA-9vhv-jxww-xfm5",
-      "title": "GHSA: filelock: ReadWriteLock on Windows acts on SQLite side files another local user places beside its database",
-      "summary": "On Windows, `ReadWriteLock` and `AsyncReadWriteLock` (the SQLite-backed reader/writer lock) connect SQLite to the lock database by its path, in every directory. SQLite derives three side files from that path: `<database>-journal`, the rollback journal (pages saved to undo an interrupted write); `<database>-wal`, the write-ahead log (changes kept outside the main file); and `<database>-shm`, the sh",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T22:28:19Z",
-      "cve_ids": [
-        "CVE-2026-112913"
-      ],
-      "cvss": 3.3,
-      "related_links": []
-    },
-    {
-      "id": "ed0cae80686ff14506d4587dede11635cdb1b653c075c1d779bbf895b0d1d460",
-      "url": "https://github.com/advisories/GHSA-567q-5qvw-pf92",
-      "title": "GHSA: filelock: On Windows an oplock on a soft lock's marker holds SoftFileLock.acquire() past its timeout and blocks the stale break",
-      "summary": "On Windows the soft locks (`SoftFileLock`, `MarkerSoftFileLock`, `SoftFileLease`, their async forms, and a `FileLock` that fell back to a soft lock) read their marker by path. The marker is the lock file whose presence says a process holds the lock. Each `acquire()` attempt that finds a marker opens it with `os.open` to read the holder's process id, and the lock renames and deletes a marker it jud",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T22:27:32Z",
-      "cve_ids": [
-        "CVE-2026-112907"
-      ],
-      "cvss": 2.5,
-      "related_links": []
-    },
-    {
-      "id": "f5ce06f33b87bb82d1ff95554e3195124f612c9e7c13bcba2384f22cacc5b12b",
-      "url": "https://github.com/advisories/GHSA-hhxq-47xx-j5xx",
-      "title": "GHSA: virtualenv: Seed replacement does not contain metadata deletion paths",
-      "summary": "## Summary\n\nThe app-data seeder joins paths from existing distribution metadata to site-packages and deletes the resulting paths\nwithout checking containment within the environment.\n\nAnthropic's OSS Scanner reported this as `ANT-2026-SXOEHWP7` in `virtualenv-20261015-005`, received on 15 October 2026.\n\n## Affected area\n\nRemoval of a previously installed seed package.\n\n## Attacker-controlled input\n",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T22:19:15Z",
-      "cve_ids": [
-        "CVE-2026-113719"
-      ],
-      "cvss": 4.5,
-      "related_links": []
-    },
-    {
-      "id": "2eee695ef6ea6ecc2ac15d24354558caee59fa46b870771856c32b0bd832a399",
-      "url": "https://github.com/advisories/GHSA-xcx6-jx8p-x3h5",
-      "title": "GHSA: MSAL Node authorization code flow may disclose parameters to an attacker-controlled endpoint",
-      "summary": "### Impact\n\nOrigin validation error in Microsoft Authentication Library (MSAL) for Node.js allows an unauthorized attacker to disclose information over a network. This affects the auth_code flow.\n\n### Patches\n\nVersion 7.1.0 and higher are patched.\n\n### Workarounds\n\nEnsure you pass in only the auth_code to to acquireTokenByCode",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T22:16:44Z",
-      "cve_ids": [
-        "CVE-2026-109461"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "b58e7d0425db9aaa35b4d57be73a7367efc46b1e691513ab1488e19f57251978",
-      "url": "https://github.com/advisories/GHSA-xjj6-f33q-929c",
-      "title": "GHSA: undici vulnerable to Denial of Service via unhandled error on excessive content-encodings",
-      "summary": "### Impact\n\nundici's `fetch()` crashes the Node.js process when a malicious server returns a response with more than five content codings and closes the connection before sending the body. undici rejects such responses (a content-encoding limit), but it created the internal response stream before that check and returned without attaching an error listener or aborting the request. The early close t",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T22:14:31Z",
-      "cve_ids": [
-        "CVE-2026-109869"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "283f7e3fcdabb9b390be0d7a7b1d299b028e8b35cf65610e5f6ceed3e99fd828",
-      "url": "https://github.com/advisories/GHSA-4qv8-2p9j-2685",
-      "title": "GHSA: undici vulnerable to Denial of Service via unbounded memory in the EventSource parser",
-      "summary": "### Impact\n\nundici's `EventSource` client can be driven to exhaust process memory by a malicious or compromised Server-Sent Events peer. By sending millions of tiny completed `data:` fields with no blank event separator, or a single unfinished line split across many chunks, the parser retains a growing amount of per-field and per-chunk state. The byte-based `maxEventSize` and `maxResponseSize` lim",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-23T22:13:29Z",
-      "cve_ids": [
-        "CVE-2026-109924"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "a63815c4ff45fb4244f4fbb0521b74d8c78a1ba5cfe5fe71c84a2a35264056c6",
-      "url": "https://github.com/advisories/GHSA-f72v-6w45-q472",
-      "title": "GHSA: undici vulnerable to Subresource Integrity bypass via non-lowercase algorithm tokens",
-      "summary": "### Impact\n\nundici's `fetch()` verifies Subresource Integrity (SRI) metadata by looking up the algorithm token in a lowercase-only set, but the SRI specification defines a valid token by its ASCII-lowercase form. A correct but non-lowercase token such as `SHA256-...` or `Sha256-...` is therefore treated as unknown and skipped. When no recognized algorithm remains, undici treats the integrity list ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-23T22:12:57Z",
-      "cve_ids": [
-        "CVE-2026-109841"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "d5ca5d096483e3c6ef32aa573e2222f624c956222b3963bfc11627f7530f4923",
-      "url": "https://github.com/advisories/GHSA-q7qp-rjg7-q26m",
-      "title": "GHSA: multer vulnerable to Denial of Service via a pending asynchronous fileFilter after request teardown",
-      "summary": "### Impact\n\nWhen `multer` is configured with an asynchronous `fileFilter`, a single request can crash the Node.js process. If a request is aborted (for example when one file is rejected) while another file's async `fileFilter` is still pending, the pending callback later resumes a parsing stream that multer has already torn down. busboy then emits an error on a stream that no longer has an error l",
-      "source": "GitHub Advisory",
-      "category": "infrastructure",
-      "date": "2026-10-23T22:08:22Z",
-      "cve_ids": [
-        "CVE-2026-113872"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-113872"
-      ]
-    },
-    {
-      "id": "33f776ccbf5b79330ea18516c708fa0eeef4966e67440ee666a1a9c5ad5779b4",
-      "url": "https://github.com/advisories/GHSA-2wqp-q3c6-ccj5",
-      "title": "GHSA: MLflow: SSRF on unauthenticated MLflow servers via third-party scorer kwargs in the scorer invoke, register, and GenAI evaluate endpoints",
-      "summary": "### Summary\nMLflow's tracking server exposes `POST /ajax-api/3.0/mlflow/scorer/invoke` with **no authentication**, and the handler reflectively instantiates an attacker-named class from attacker-supplied JSON with unconstrained constructor kwargs. With the optional `trulens` + `trulens-providers-litellm` packages installed, an unauthenticated attacker can force the server to make an outbound HTTP ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-23T22:07:26Z",
-      "cve_ids": [
-        "CVE-2026-115886"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "b542c31a04f3ea1bb8ccfee77c89e4dbbd4f5919aba8be7e84e1b59932d8a15f",
-      "url": "https://github.com/advisories/GHSA-834v-8h66-3h79",
-      "title": "GHSA: Happy DOM: Incomplete fix for CVE-2026-33943: unsanitized import alias leads to host code execution",
-      "summary": "## Summary\n\nThe ESM compiler in `happy-dom@20.14.5` does not validate imported local binding aliases before interpolating them into generated JavaScript.\n\nAs a result, an invalid ESM import alias can be transformed into a valid JavaScript destructuring default initializer and executed.\n\nThis appears to be an alternate injection path and incomplete remediation of GHSA-6q6h-j7hj-3r64 / CVE-2026-3394",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T22:06:13Z",
-      "cve_ids": [
-        "CVE-2026-115895"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "743a5d3303bcf744391df3b777fde1f5366e0186befc9930578b102a138d9db6",
-      "url": "https://github.com/advisories/GHSA-897f-g5gm-fmxm",
-      "title": "GHSA: Wasmtime: Bit-packing in Cranelift compiler causes silent overflow and miscompilation",
-      "summary": "## Summary\n\nIn Wasmtime prior to v43, the Cranelift compiler backend bit-packs its SSA value indices in a way that can result in silent overflow in release builds, and result in incorrect value references in the IR resulting in arbitrary miscompilation. A very large Wasm function body, or one that is specially crafted to use many SSA values, can use this to force type-confusion or other arbitrary ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-23T22:02:20Z",
-      "cve_ids": [
-        "CVE-2026-115889"
-      ],
-      "cvss": 9.9,
-      "related_links": []
-    },
-    {
-      "id": "f1e87eab1cd9e1a58d2262c66f2de7a3df798f57d64f9e4ba3a8e138834dede3",
-      "url": "https://github.com/advisories/GHSA-2g95-wg33-c5x2",
-      "title": "GHSA: filelock: SoftFileLock evicts a fresh lock file whose watched age another local user's pre-dated file passed on through inode reuse",
-      "summary": "`SoftFileLock` and `MarkerSoftFileLock` evict an unparsable marker (the lock file at `<path>`, whose presence says a process holds the lock) once a waiting contender has watched it unchanged for two seconds. `SoftFileLease` expires a lease the same way. The watch tells two looks apart by the marker's modification time (mtime) and inode number (the kernel's identity for a file, independent of its n",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T22:00:33Z",
-      "cve_ids": [
-        "CVE-2026-112906"
-      ],
-      "cvss": 4.7,
-      "related_links": []
-    },
-    {
-      "id": "1aa4b6bc64ecb361ceefd5aec178a3399bf7dc3ee441eb096a44e9404f748c75",
-      "url": "https://github.com/advisories/GHSA-crv4-6mhj-j5jh",
-      "title": "GHSA: filelock: SoftFileLock stale-break restore follows a swapped-in symbolic link and hard-links a file of the user running the lock into the lock directory",
-      "summary": "When a soft-lock stale break finds that the marker (the lock file at `<path>`) it renamed aside was a live one recreated by a successor, the restore branch of `break_lock_file()` checks the break name with `lstat` (a check that reads a name without following a symbolic link) and then calls `os.link(break_path, lock_file)` by name. On CPython 3.12 and later on Linux (and on macOS) that call follows",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-10-23T22:00:11Z",
-      "cve_ids": [
-        "CVE-2026-112914"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "6462cc46a71e7ed0b3532e18cecb961e6525b4efc29666908069cf78a3a8f9b5",
-      "url": "https://github.com/advisories/GHSA-v4x8-3wr5-3wq8",
-      "title": "GHSA: filelock ReadWriteLock: SQLite reopens the lock database by name, so a planted symlink or journal file makes the lock user's process overwrite or unlink its own files",
-      "summary": "`ReadWriteLock` and `AsyncReadWriteLock` (the SQLite-backed reader/writer lock) hand SQLite a name they do not control. On Linux the lock validates its database through a descriptor (the number the kernel gives a process for an open file). It then connects SQLite to `/proc/self/fd/<n>`, a Linux path that names the process's own open file `n`. SQLite turns that path back into a plain path and reope",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T21:59:08Z",
-      "cve_ids": [
-        "CVE-2026-112940"
-      ],
-      "cvss": 7.1,
-      "related_links": []
-    },
-    {
-      "id": "9379d22f90b391feb647d62967ad3df16c18293dc82ffdc3189ac799331c03c8",
-      "url": "https://github.com/advisories/GHSA-h4fr-cmh5-qr62",
-      "title": "GHSA: Fallow: A `.*` glob segment let an analyzed repository make Fallow test paths in the parent of the project root",
-      "summary": "### Impact\n\nFallow expands some globs from the analyzed repository on disk. Before 3.34.0, a segment such as `.*`, `.?` or `..*` in such a glob also matched the special `..` entry. The `glob` crate tests `..` against a segment that starts with a literal `.`. Fallow validates plugin glob patterns and refuses absolute paths and `..` segments, but these segments passed that validation.\n\nThe attacker ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T21:58:16Z",
-      "cve_ids": [],
-      "cvss": 3.3,
-      "related_links": []
-    },
-    {
-      "id": "8fc91d9203fed001e879ae6f6f6400b61164239a62371f54e9a8d1541ec9073f",
-      "url": "https://github.com/advisories/GHSA-jfwm-3p3c-6hx5",
-      "title": "GHSA: Fallow: Jest and Vitest `projects` entries let an analyzed repository make Fallow read files outside the project root",
-      "summary": "### Impact\n\nFallow reads the Jest and Vitest configs of the repository that it analyzes. A Jest `projects` entry or a Vitest `test.projects` entry can name a path. Fallow followed such an entry to a config file and read that file, also when the file was outside the project root. These forms reached outside the root:\n\n- an absolute path or glob, for example `/etc/*`;\n- a path with `..` segments, fo",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T21:57:37Z",
-      "cve_ids": [
-        "CVE-2026-115569"
-      ],
-      "cvss": 3.3,
-      "related_links": []
-    },
-    {
-      "id": "d492595fb970bcea136aeb4215f57c28baa776c662f31c4fcac1c7c92d128eab",
-      "url": "https://github.com/advisories/GHSA-f2hq-32vh-53cc",
-      "title": "GHSA: postal-mime: Quadratic CPU consumption when decoding a header of many joinable RFC 2047 base64 encoded words",
-      "summary": "### Impact\n\nDecoding a header that holds a long run of joinable RFC 2047 base64 encoded words, such as `=?utf-8?B?QUJD?=` repeated tens of thousands of times in a `Subject`, `From`, `To`, a filename or a description, took time quadratic in the number of words. The join check ran a regex over the text joined so far for every word, which flattens the accumulated string each time. A single well forme",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T21:54:36Z",
-      "cve_ids": [],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "b53e896524eb4467436d974b3f6869b9effdda2e352e8aa6bead35d224ed5314",
-      "url": "https://github.com/advisories/GHSA-8c8m-p3m8-cjg8",
-      "title": "GHSA: Nodemailer: A nested comment ends early in addressparser, releasing the rest of the comment as a recipient",
-      "summary": "### Vulnerability summary\n\nRFC 5322 comments nest. addressparser ended a comment at the first `)`, including the one that closes a nested comment, and parsed the rest of the outer comment as header text. `Victim (x(y) <evil@evil.com>) <v@victim.com>` names `v@victim.com` with `x(y) <evil@evil.com>` as a comment, and Nodemailer read it as the address `evil@evil.com`. This is the same shape as the e",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T21:53:04Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "e1409e8ca9ddfc21c980f7ef2645bc631aebe74dbfddc9635026ec59c79cafef",
-      "url": "https://github.com/advisories/GHSA-m943-m63m-w62w",
-      "title": "GHSA: Nodemailer: A \";\" inside a quoted string or comment ends an address group early in addressparser, turning display text into a recipient",
-      "summary": "### Vulnerability summary\n\naddressparser ends an RFC 5322 group at the first `;`, including one inside a quoted display name or a comment. The text after it is parsed again as top level recipients with the quoting flipped, so text that every conformant parser reads as a display name or comment becomes a live address. `G: (a; <evil@evil.com>) <v@victim.com>;` names only `v@victim.com`, and Nodemail",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T21:51:52Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "b0e30cd4907d38aefb695cd605a4c4d3eff8c76fad583fed7e9bc7335d694aeb",
-      "url": "https://github.com/advisories/GHSA-85x2-q946-cp5h",
-      "title": "GHSA: Nodemailer: A \">\" inside a quoted local part ends an angle-addr early in addressparser, delivering to a domain the header does not name",
-      "summary": "### Vulnerability summary\n\naddressparser ends an angle-addr at the first `>` it sees, including one inside a quoted local part, a comment or a domain literal. The domain is then read off the text in front of that `>`. `<\"a@evil.com>\"@good.com>` is the mailbox `\"a@evil.com>\"@good.com` under RFC 5322, and Nodemailer read it as an address at `evil.com`. The unbracketed spelling of the same value was ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T21:51:18Z",
-      "cve_ids": [],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "51fbb91aabfb5e598d74b858838cef578998d8f3c9e95575237d49faa27f8193",
-      "url": "https://github.com/advisories/GHSA-5wcm-3v2w-8362",
-      "title": "GHSA: Laravel relationship inclusion can trigger unauthorized data destruction",
-      "summary": "A vulnerability in how relationship inclusion is processed on certain read endpoints. Under specific conditions, a request to a read-only endpoint can be crafted to trigger a destructive database operation on a related table, rather than simply retrieving data.\n\n### Impact\nA user with only read access could cause irreversible data loss (e.g., a related table being emptied), without needing any wri",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-23T21:47:48Z",
-      "cve_ids": [
-        "CVE-2026-114508"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "dbbb190380244095f2f0b43c37311d3033117ae226cb26d50cb5c8312e9f4fa6",
-      "url": "https://github.com/advisories/GHSA-w74x-v6f9-j3xg",
-      "title": "GHSA: fast-uri vulnerable to URI scheme spoofing via percent-encoded scheme decoding",
-      "summary": "### Impact\n\n`fast-uri` percent-decodes the scheme component with the legacy global `unescape()` before validating it, so an input whose decoded scheme is a valid but dangerous token is emitted as a live scheme. RFC 3986 section 3.1 does not allow percent-encoding in a scheme, so no RFC or WHATWG parser treats such input as having that scheme, but `fast-uri` does.\n\nFor example, `normalize('%6Aavasc",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-23T21:41:36Z",
-      "cve_ids": [
-        "CVE-2026-110306"
-      ],
-      "cvss": 6.1,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-110306"
-      ]
-    },
-    {
-      "id": "96e40a69455540499c0cbd42e49f09c06b0050e9ef02b6af56edd2fff507ddaa",
-      "url": "https://github.com/advisories/GHSA-xhq7-xmqj-769h",
-      "title": "GHSA: fast-uri vulnerable to improper path equivalence in relative reference normalization",
-      "summary": "### Impact\n\n`fast-uri`'s `normalize()` and `serialize()` apply RFC 3986 dot-segment removal (`remove_dot_segments`) to the path of a relative-path reference. RFC 3986 section 5.2.4 defines that algorithm only for the merged target path during resolution, not for the reference itself, so applied to the reference it drops leading `..` segments and can turn a document-relative reference into a root-r",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-23T21:39:34Z",
-      "cve_ids": [
-        "CVE-2026-110095"
-      ],
-      "cvss": 3.7,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-110095"
-      ]
-    },
-    {
-      "id": "dcc2a2792951c9b1e0dfe578249d2bb6c20a5a0819cabbd418dabd73ee0195b5",
-      "url": "https://github.com/advisories/GHSA-wjr9-j795-jxcr",
-      "title": "GHSA: fast-uri vulnerable to host confusion via unchecked WHATWG host canonicalization",
-      "summary": "### Impact\n\n`fast-uri` versions `>= 2.4.2, <= 2.4.7`, `>= 3.1.3, <= 3.1.8`, and `>= 4.0.1, <= 4.2.2` can silently rewrite the host of an HTTP-family URL (`http`, `https`, `ws`, `wss`, or any scheme with `domainHost: true`). For those schemes `canonicalizeHost()` passes the parsed host to the WHATWG `URL` parser and adopts its `.hostname` without checking that the parser read the whole input as a h",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-10-23T21:37:59Z",
-      "cve_ids": [
-        "CVE-2026-110180"
-      ],
-      "cvss": 4.8,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-110180"
-      ]
     }
   ]
 }
