@@ -1,10 +1,38 @@
 {
-  "updated": "2026-10-29T04:40:11.641154+00:00",
+  "updated": "2026-10-29T14:58:12.515813+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "e1c9ff6e8f9e367a6b046b54d381489bc640b22fd6212450ebfa418e7b6fa6dd",
+      "url": "https://github.com/advisories/GHSA-j8f7-rjxc-mr56",
+      "title": "GHSA: filelock: ReadWriteLock follows a symlink at the lock path into SQLite",
+      "summary": "### Summary\n\n`ReadWriteLock` and `AsyncReadWriteLock` resolve the lock path with `pathlib.Path.resolve()` and pass it to `sqlite3.connect()` without refusing a symlink. A local user who can create names in the lock's directory, such as `/tmp` or a shared cache, can plant a symlink at the lock path and make the victim's process create, lock, or write the file it points to, or break mutual exclusion",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:30Z",
+      "cve_ids": [
+        "CVE-2026-112936"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "d96089b27a4073e22bed08ad45ad390a52b4876c450dc92c4d7c9ba8a28e38fe",
+      "url": "https://github.com/advisories/GHSA-m462-7rxw-wvpg",
+      "title": "GHSA: filelock: StrictSoftFileLock follows a symbolic link swapped in at <path>.filelock and creates claim files in a directory another local user chooses",
+      "summary": "`StrictSoftFileLock` and `AsyncStrictSoftFileLock` check `<path>.filelock` (the coordination directory that holds the lock's state) with one `lstat` call on its name. `lstat` reports what a name is without following a symbolic link (a file that redirects to another path). After that check, the code reaches `<path>.filelock/claims` by pathname for every later operation (`mkdir`, scan, publish, link",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:23Z",
+      "cve_ids": [
+        "CVE-2026-112938"
+      ],
+      "cvss": 5.8,
+      "related_links": []
+    },
     {
       "id": "bce6775540c21858e0d8d569f728711b439bddbe012c592787089da8e9bee4e4",
       "url": "https://www.bleepingcomputer.com/news/security/police-seize-virtualine-bulletproof-service-tied-to-ransowmare-cybercrime/",
@@ -651,34 +679,6 @@
         "CVE-2026-109829"
       ],
       "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "daf377406f4a4fcce258eee5460ae804b8997adbf365eb93d793a75a96f3ad9b",
-      "url": "https://github.com/advisories/GHSA-2m5v-pch6-74hx",
-      "title": "GHSA: undici vulnerable to TLS certificate validation bypass via dropped tls options in Agent",
-      "summary": "### Impact\n\nundici's `Agent` passes its constructor options through a JSON-based deep clone (`JSON.parse(JSON.stringify(...))`) before forwarding them to each per-origin `Pool`. JSON cannot represent functions, so a caller-supplied `tls` option containing a `checkServerIdentity` callback is silently dropped before it reaches the TLS layer. As a result, a TLS peer whose certificate a custom `checkS",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-27T19:02:26Z",
-      "cve_ids": [
-        "CVE-2026-109383"
-      ],
-      "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "89f9a965b841dee392c1adc5b6f8d63d108dc08cb84329f8c43f5f6b89a2cd87",
-      "url": "https://github.com/advisories/GHSA-qrxm-fqhp-jwvm",
-      "title": "GHSA: undici vulnerable to Denial of Service via TLS 1.2 certificate-changing renegotiation",
-      "summary": "## Impact\n\nundici crashes the client process when a TLS 1.2 server renegotiates after the connection is established and presents a different, CA-trusted certificate whose hostname does not match the requested host. Node.js re-runs hostname verification on the renegotiated handshake and destroys the socket with `ERR_TLS_CERT_ALTNAME_INVALID`. undici's established socket error handler asserted that ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-10-27T19:02:21Z",
-      "cve_ids": [
-        "CVE-2026-87018"
-      ],
-      "cvss": 7.5,
       "related_links": []
     }
   ]
