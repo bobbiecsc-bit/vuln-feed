@@ -1,10 +1,90 @@
 {
-  "updated": "2026-10-30T14:51:43.359393+00:00",
+  "updated": "2026-10-30T20:26:49.417722+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "26258a5364ae267a76be6ef94b4a08b713e189108564ef04c7e5cef7718ab390",
+      "url": "https://github.com/advisories/GHSA-2hw4-c9m4-f2fj",
+      "title": "GHSA: knative.dev/pkg admission webhooks allow unbounded request-body memory exhaustion",
+      "summary": "## ⚠️ Update (verification, 2026-05-19): C-2 confirmed end-to-end — **4.5× amplification observed** (worse than the advisory's conservative 2× claim)\n\nBuilt a Go PoC ([`cmd/poc-c2/main.go`](https://github.com/knative/pkg/blob/1ad5a1ce0ee7043081cb50fd1acc6d36a9126844/cmd/poc-c2/main.go)) that runs the exact 8-line vulnerable snippet from [`webhook/admission.go:109-117`](https://github.com/knative/p",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:20:53Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "013304945f902472651fd162e81b731c2ffe354ef25ae34ab4348cb5c04bbc9f",
+      "url": "https://github.com/advisories/GHSA-jf75-q64q-g65r",
+      "title": "GHSA: Waline login accepts a non-string email as a match-all MongoDB query",
+      "summary": "## Summary\n\nThe login endpoint POST /api/token reads the `email` field from the request body without checking its type and passes it straight into the MongoDB storage query. When `email` is not a string (for example a JSON object such as {\"$ne\": null}), the MongoDB storage adapter's parseWhere silently DROPS the field rather than rejecting the request, producing an empty filter that matches ALL us",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:17:58Z",
+      "cve_ids": [],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "ab48ee086ddd143ce0540c4c62f406dd4d9db7e6a974fab85f5349515875e96c",
+      "url": "https://github.com/advisories/GHSA-9wx9-5pv9-3349",
+      "title": "GHSA: Seroval: Script injection through RegExp sources in serialized output",
+      "summary": "### Summary\n\nseroval writes a `RegExp` as a regular expression literal. In affected versions, the `<` character in a `RegExp` source is written without escaping. A source built from untrusted input can then end the HTML `<script>` element that the serialized output is placed in, and run script in the page.\n\n### Details\n\nseroval escapes `<` in strings, so string values cannot end a `<script>` eleme",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-28T21:17:31Z",
+      "cve_ids": [
+        "CVE-2026-116582"
+      ],
+      "cvss": 4.7,
+      "related_links": []
+    },
+    {
+      "id": "c1090cb13dbcb334668fdc907305d249606fcad577ae13d882d0d6dd0ddaac56",
+      "url": "https://github.com/advisories/GHSA-97r2-qh9m-474h",
+      "title": "GHSA: Seroval: fromJSON deserializer trusts node-supplied array length and sequence doneAt (unauthenticated event-loop DoS)",
+      "summary": "### Summary\n\n`fromJSON` and `fromCrossJSON` used two node fields without checking them.\n\n- An array node's element list was not checked to be an array. A small payload could set the length the decoder looped over. This part is also tracked in GHSA-wp97-x4hv-qvhp.\n- A sequence node's done index was not checked. A crafted value produced an iterator that never finished.\n\n### Impact\n\nA service that pa",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-28T21:17:27Z",
+      "cve_ids": [
+        "CVE-2026-116581"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "675c7bfdda18113d8f820db40b7ea14ff2fb817c224401f64446fccc6fecf6a9",
+      "url": "https://github.com/advisories/GHSA-wp97-x4hv-qvhp",
+      "title": "GHSA: Seroval `fromJSON`/`fromCrossJSON` denial of service via unvalidated array node length",
+      "summary": "### Summary\n\n`fromJSON` and `fromCrossJSON` did not check that an array node's element list is an array. A small crafted payload could set the length the decoder used. That length controlled how much memory was allocated and how many times the decoder looped, and it did not depend on the size of the payload.\n\n### Impact\n\nA service that passes untrusted input to `fromJSON` or `fromCrossJSON` can be",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:17:20Z",
+      "cve_ids": [
+        "CVE-2026-116584"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "4e4e0b768d0e7935d327e5d215499c84f6dab4625bf842b9d82727a4712006e3",
+      "url": "https://github.com/advisories/GHSA-7rv5-mrxv-xcr9",
+      "title": "GHSA: Seroval: Deserialization invokes attacker-chosen callables: AsyncIteratorFactoryInstance calls source.on(listener) without type check",
+      "summary": "### Summary\n\nWhen `fromJSON` rebuilt an async iterator, it called `on()` on the iterator's source without checking that the source was a seroval stream. A crafted payload could pick another value as the source, such as a function returned by an application plugin. The deserializer then called that value's `on` method.\n\nThis is a variant of GHSA-mv8w-475r-vwqw. That fix covered the promise and stre",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-28T21:17:15Z",
+      "cve_ids": [
+        "CVE-2026-116580"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
     {
       "id": "48ab998b284ced90baf2d6d7f6246639f947e556506f7b1e45ef06e1ee0bcc58",
       "url": "https://github.com/advisories/GHSA-5324-3w58-qpp2",
@@ -610,84 +690,6 @@
       "category": "emergency",
       "date": "2026-10-28T13:50:59+00:00",
       "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "175bfb278242a819cf4f7feec6a84c1076dec01825c425f75793b356714fe52c",
-      "url": "https://www.rapid7.com/blog/post/pt-insightgovcloud-supports-bod-22-01-compliance",
-      "title": "How Rapid7 InsightGovCloud Supports BOD 22-01 Compliance",
-      "summary": "An introduction to CISA’s BOD 22-01Issued nearly four years ago, the U.S. Cybersecurity and Infrastructure Security Agency (CISA) Binding Operational Directive 22-01 (BOD 22-01) has been adopted across both public and private sector organizations as a framework to ensure timely remediation of vulnerabilities being exploited by adversaries. By establishing a catalog of known exploited vulnerabiliti",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-10-28T13:16:39+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "cc84d8476e5ff18d61a22822c707d64e8cc8277f30ab9efd627c6b9907dc789a",
-      "url": "https://www.bleepingcomputer.com/news/security/hackers-now-scanning-systems-for-recently-patched-oracle-flaw/",
-      "title": "Hackers now scanning systems for recently-patched Oracle flaw",
-      "summary": "Attackers have begun probing the Internet for systems unpatched against a recently disclosed critical Oracle E-Business Suite (EBS) vulnerability. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-10-28T12:19:57+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "dfcccddd5281b01bc25a06ed761ce8fbe59b5880453c5f1eb94798e20a8c90bf",
-      "url": "https://www.bleepingcomputer.com/news/security/cisa-warns-of-hackers-now-exploiting-critical-node2shell-flaw/",
-      "title": "CISA warns of hackers now exploiting critical Node2Shell flaw",
-      "summary": "On Tuesday, the US Cybersecurity and Infrastructure Security Agency (CISA) confirmed that hackers have begun exploiting a critical Brotli vulnerability known as Node2Shell, Broccoli2Shell, and HTTP2Shell. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-10-28T10:46:23+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "781a8caa014d69bcfb455ebf9922c708c030884509035971702e6c12edba0d0f",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-829/",
-      "title": "ZDI-26-829: (0Day) (Pwn2Own) Alpine iLX-F511 Bluetooth OBEX Packet Handling Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows physically present attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 6.8. The following CVEs are assigned: CVE-2026-118611.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118611"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "bbee48ce6d3a46a102c4acfa79f796e23aaeecca70868d2c7eb1919191c726b6",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-828/",
-      "title": "ZDI-26-828: (0Day) (Pwn2Own) Alpine iLX-F511 Android Auto Service Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.8. The following CVEs are assigned: CVE-2026-118610.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118610"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "bace36f43c08e15c2706cd969b7a82a19de79c0b27d5ee7aa697afcd19a6efc0",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-827/",
-      "title": "ZDI-26-827: (0Day) (Pwn2Own) Alpine iLX-F511 Android Auto Connection Handler Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows physically present attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 6.8. The following CVEs are assigned: CVE-2026-118609.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118609"
-      ],
       "cvss": null,
       "related_links": []
     }

@@ -1,10 +1,98 @@
 {
-  "updated": "2026-10-30T14:51:43.359393+00:00",
+  "updated": "2026-10-30T20:26:49.417722+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "5c8d706283eb94315dfe1e7e819047e2eb558fa2276478f9c99d83ceb3dd2838",
+      "url": "https://github.com/advisories/GHSA-x4rv-c3wx-4cr8",
+      "title": "GHSA: Authlib: Unvalidated request_uri fetch in JWT-secured authorization request (JAR) leading to SSRF",
+      "summary": "### Summary\n\nAuthlib's RFC 9101 (JAR) extension passes the attacker-controlled `request_uri` authorization parameter straight to the `get_request_object()` fetch hook with no validation, at a pre-authentication endpoint. Authlib already defines the pre-registration allowlist for this (`request_uris` client metadata and `require_request_uri_registration` server metadata) but the extension never con",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-27T15:39:18Z",
+      "cve_ids": [
+        "CVE-2026-114620"
+      ],
+      "cvss": 5.4,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-114620"
+      ]
+    },
+    {
+      "id": "fc346fca7cafe3af7009eb30f5b2681adfa7bf6b2254c45d84bb6d9b1e42d2a3",
+      "url": "https://github.com/advisories/GHSA-c5mf-xmp2-59rc",
+      "title": "GHSA: Authlib: ID token can disable its own nonce validation via the nonce_supported claim",
+      "summary": "### Summary\n\n`OpenIDMixin.parse_id_token()` reads the `nonce_supported` claim from the ID token it is validating. When that claim is boolean `false`, the expected nonce is set to `None` and nonce validation is skipped for that token.\n\nAn ID token that carries this claim is therefore accepted in a session whose nonce does not match. A captured, validly signed ID token belonging to a victim can be r",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:39:13Z",
+      "cve_ids": [
+        "CVE-2026-114617"
+      ],
+      "cvss": 4.2,
+      "related_links": []
+    },
+    {
+      "id": "0fe82e704e7411e72f35d4ce633b45632d89bb55d30fb24214437aca9f63cbb1",
+      "url": "https://github.com/advisories/GHSA-fch4-3c6x-j4gc",
+      "title": "GHSA: Authlib: Default JWT bearer grant accepts assertions for the wrong audience",
+      "summary": "## Description\n\n### Summary\n\nAuthlib's default RFC 7523 JWT bearer grant leaves `get_audiences()` empty, so `verify_claims()` only checks that an `aud` claim *exists* instead of requiring it to match the current authorization server's token endpoint. An attacker holding a legitimately issued JWT assertion for *any* audience can present it to a different authorization server sharing the same signin",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:39:08Z",
+      "cve_ids": [
+        "CVE-2026-114618"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "67152bd483fcead46d99bbda950b8915f1183f782520aa677c484cc5c085e5e3",
+      "url": "https://github.com/advisories/GHSA-q686-2qmg-hqc7",
+      "title": "GHSA: Authlib: OpenID implicit grant checks raw scope instead of allowed scope before issuing ID tokens",
+      "summary": "## Report metadata\n\n| Field | Value |\n| --- | --- |\n| Package | `authlib` (PyPI, `pkg:pypi/authlib`) |\n| Repository | https://github.com/authlib/authlib |\n| Component | `authlib.oidc.core.grants.implicit.OpenIDImplicitGrant.validate_authorization_request` |\n| Vulnerability class | Authorization bypass: a client's scope restriction is bypassed for OpenID Connect ID token issuance |\n| Verified again",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:38:53Z",
+      "cve_ids": [
+        "CVE-2026-114619"
+      ],
+      "cvss": 4.6,
+      "related_links": []
+    },
+    {
+      "id": "67b6747bea5193c8eb6bd93696809572d29cd74b6231da6f0207dcace939209d",
+      "url": "https://github.com/advisories/GHSA-7vr2-2fgp-9w7p",
+      "title": "GHSA: Authlib incomplete algorithm-confusion fix permits HMAC forgery with prefixed public keys",
+      "summary": "## Summary\n\n`OctKey.import_key()` carries the only guard that stops an asymmetric public key from being used as an\nHMAC secret in `authlib.jose`. That guard is `raw_key.startswith(POSSIBLE_UNSAFE_KEYS)` — anchored at\nbyte 0 — while the loader that consumes the identical bytes on the asymmetric path\n(`cryptography.hazmat.primitives.serialization.load_pem_public_key` / `load_pem_x509_certificate`)\ns",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-27T15:38:48Z",
+      "cve_ids": [
+        "CVE-2026-114615"
+      ],
+      "cvss": 7.4,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-114615"
+      ]
+    },
+    {
+      "id": "056bca27f3dd949352c244f063953a14aaea7c0b4cc064db9e0ddd91511c80e6",
+      "url": "https://github.com/advisories/GHSA-2phh-27fw-q4gc",
+      "title": "GHSA: PhpSpreadsheet: SSRF whitelist bypass via unre-validated HTTP redirect in Drawing::setPath external image loading",
+      "summary": "## Summary\nPhpSpreadsheet's `Worksheet\\Drawing::setPath()` validates an external-image URL against an operator-supplied `isWhitelisted` callback **once**, on the initial URL only, then fetches it with `file_get_contents()` using a stream context that does **not** set `follow_location => 0`. A whitelisted host that returns an HTTP `302 Location:` redirect to an internal target is therefore followed",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-27T15:38:39Z",
+      "cve_ids": [
+        "CVE-2026-108360"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
     {
       "id": "dd5e60d80b517b885948554d1cb140a504c8395a3e62a45003deaa5b6f5a07a2",
       "url": "https://github.com/advisories/GHSA-jj7h-c3hg-m23x",
@@ -588,78 +676,6 @@
       "id": "2806d97630ed66fe4e268a109698bb412cd49f5c31497e00a8aca6572c106b86",
       "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-799/",
       "title": "ZDI-26-799: Meta FAIRChem Solvent Deserialization of Untrusted Data Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Meta FAIRChem. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-26T05:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "f9a39c30a16b090f334d69da8afb2cb994947e7f4c98b3b4b16f7b19035cde71",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-798/",
-      "title": "ZDI-26-798: Meta FAIRChem dense_eval results-file Deserialization of Untrusted Data Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Meta FAIRChem. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-26T05:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "12142b45dd86ae54bb8b0c5f846b7d96b20a56dbfbb7eb7e6701a8c2891d9b9e",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-797/",
-      "title": "ZDI-26-797: Meta FAIRChem dense_eval dft-compute Deserialization of Untrusted Data Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Meta FAIRChem. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-26T05:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "0623385b155c7b0ee40f8baede5976d42df45961930b7f66ad10f1daeba4445b",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-796/",
-      "title": "ZDI-26-796: Meta FAIRChem reaction adsorbate_db_path Deserialization of Untrusted Data Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Meta FAIRChem. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-26T05:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d74ee5bbad57fd09484c11428170f3ed9927e6ae9685ed3b603f0a039b7d4527",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-795/",
-      "title": "ZDI-26-795: Meta FAIRChem reaction_db_path Deserialization of Untrusted Data Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Meta FAIRChem. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-26T05:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "06dd5842b8a19dcf5801a483de5738a35020ea5536e96eab73d5bf08209de72f",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-794/",
-      "title": "ZDI-26-794: Meta FAIRChem ion_db_path Deserialization of Untrusted Data Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Meta FAIRChem. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-26T05:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "208e508785f767575a47088321b14fe28667e260ca77db938e986d653508da2b",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-793/",
-      "title": "ZDI-26-793: Meta FAIRChem load_and_preprocess_data Deserialization of Untrusted Data Remote Code Execution Vulnerability",
       "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Meta FAIRChem. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
       "source": "Zero Day Initiative",
       "category": "emergency",
