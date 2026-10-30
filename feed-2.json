@@ -1,10 +1,66 @@
 {
-  "updated": "2026-10-30T04:39:48.751740+00:00",
+  "updated": "2026-10-30T14:51:43.359393+00:00",
   "page": 2,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "48ab998b284ced90baf2d6d7f6246639f947e556506f7b1e45ef06e1ee0bcc58",
+      "url": "https://github.com/advisories/GHSA-5324-3w58-qpp2",
+      "title": "GHSA: Mem0: Cross-tenant conversation leak via unescaped delimiter collision in session-scope key (_build_session_scope)",
+      "summary": "Summary\n\n_build_session_scope() in mem0/memory/main.py builds the conversation-history scope key used to fetch/store the last N raw messages by naively joining caller-supplied user_id/agent_id/run_id values with unescaped & and = delimiters:\n\ndef _build_session_scope(filters):\n    parts = []\n    for key in sorted([\"user_id\", \"agent_id\", \"run_id\"]):\n        val = filters.get(key)\n        if val:\n  ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:17:08Z",
+      "cve_ids": [
+        "CVE-2026-116575"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "f6f0f0bbae2a3fb017bdaa32ea4f62fa69e2807c8ae1615a95c9b93cb85e63e8",
+      "url": "https://github.com/advisories/GHSA-h2r5-x5m7-3935",
+      "title": "GHSA: Python Social Auth: OpenID Connect nonce is not bound to the browser session, so a stolen authorization code logs the attacker in as the victim",
+      "summary": "### Summary\n\nThe generic OpenID Connect backend (`OpenIdConnectAuth` and every backend built on it) stores the `nonce` in the shared Association table, not in the user's session. When the ID token comes back, `validate_claims` only checks that the nonce exists in that table and is not expired. It does not check that the nonce was issued to the browser that is finishing the login.\n\nSo the nonce doe",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:16:51Z",
+      "cve_ids": [
+        "CVE-2026-115910"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "92c5d09884f8ed976e068e012e4f4ea1325fa18110f8080f17a8f4b82ca4686f",
+      "url": "https://github.com/advisories/GHSA-6pwm-x34p-fvj2",
+      "title": "GHSA: ONNX: Out-of-bounds read in ConvTranspose shape inference via undersized weight rank",
+      "summary": "## Summary\n\nONNX ConvTranspose shape inference performed an out-of-bounds read when the weight tensor had fewer than three dimensions and the model did not provide a `kernel_shape` attribute.\n\nThe inference function derived an empty `effective_kernel_shape` vector from the undersized weight tensor, then indexed that vector once for each spatial dimension of the input tensor. A crafted model passed",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:16:42Z",
+      "cve_ids": [
+        "CVE-2026-115920"
+      ],
+      "cvss": 6.2,
+      "related_links": []
+    },
+    {
+      "id": "17136682f26c4e80ef1dc61fe61fb6a13c4b8f615a94f5a66a419359fb307b62",
+      "url": "https://github.com/advisories/GHSA-q69g-f4f5-v8m7",
+      "title": "GHSA: ONNX: Denial of service via unchecked expansion of packed sub-byte tensors in ONNX Python APIs",
+      "summary": "## Summary\n\nONNX's Python tensor-materialization helpers could allocate memory according to attacker-controlled tensor dimensions without verifying that a packed sub-byte payload contained the declared number of elements.\n\nA very small model could therefore cause a disproportionately large allocation when an application called `onnx.numpy_helper.to_array()` or constructed `onnx.reference.Reference",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:16:37Z",
+      "cve_ids": [
+        "CVE-2026-115922"
+      ],
+      "cvss": 6.2,
+      "related_links": []
+    },
     {
       "id": "a759514c9021d24525b227efd2ade619f2d0491f819a8b4ce55c60297fe6e364",
       "url": "https://github.com/advisories/GHSA-m4pr-6v3c-6fgr",
@@ -157,7 +213,9 @@
         "CVE-2026-115893"
       ],
       "cvss": 9.9,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-115893"
+      ]
     },
     {
       "id": "7d2ffc715ffdf0568c65e110d99831e26458cc97970b3312a84017c44987e859",
@@ -207,13 +265,15 @@
       "title": "GHSA: graphql-scalars PhoneNumber scalar is vulnerable to regular expression denial of service",
       "summary": "## Summary\n\nThe regular expression behind `GraphQLPhoneNumber` since 1.24.1 backtracks exponentially. A string made of a run of digits followed by one character that makes the match fail (for example `\"1\".repeat(30) + \"x\"`) blocks the JavaScript thread for seconds, and every additional digit doubles the time.\n\ngraphql-js calls `parseLiteral` while *validating* a document and `parseValue` while coe",
       "source": "GitHub Advisory",
-      "category": "web_app",
+      "category": "emergency",
       "date": "2026-10-28T21:13:10Z",
       "cve_ids": [
         "CVE-2026-115887"
       ],
       "cvss": 7.5,
-      "related_links": []
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-115887"
+      ]
     },
     {
       "id": "4bf9f0755b3bfd7f6d8a0c3ed75539b741eda03569378828916a95cbcd54fee1",
@@ -627,62 +687,6 @@
       "date": "2026-10-28T05:00:00+00:00",
       "cve_ids": [
         "CVE-2026-118609"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "62142aeffcd8b7b8f5c1b6e10f75fa8dc018248e213c3e623d14cd23d79e8b74",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-824/",
-      "title": "ZDI-26-824: (0Day) (Pwn2Own) Alpine iLX-F511 Framework Service Exposed Dangerous Function Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.8. The following CVEs are assigned: CVE-2026-118606.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118606"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4dca39fc28bb1080829d04b0f3d3f2c5099602377613b78e7eeff222fd0168be",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-823/",
-      "title": "ZDI-26-823: (0Day) (Pwn2Own) Alpine iLX-F511 prh_sdp_service_search_decode Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. An attacker must first obtain the ability to pair a malicious Bluetooth device with the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.0. The following CVEs are assigned: CVE-2026-118605.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118605"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ad074fb6a6c8b9c5fc59e39479b167e8df851a6a685a00cc4ca7ff4130ff0c55",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-822/",
-      "title": "ZDI-26-822: (0Day) (Pwn2Own) Alpine iLX-F511 Framework Service Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows physically present attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 6.8. The following CVEs are assigned: CVE-2026-118604.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118604"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "8abce3405c1a8648852fe9e58cbf9e58cd4eb214a83260d6bad08fc600c3f6f0",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-821/",
-      "title": "ZDI-26-821: (0Day) (Pwn2Own) Alpine iLX-F511 vCard Parsing Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected Alpine iLX-F511 devices. User interaction is required to exploit this vulnerability in that the target must connect to a malicious Bluetooth device. The ZDI has assigned a CVSS rating of 8.0. The following CVEs are assigned: CVE-2026-118603.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118603"
       ],
       "cvss": null,
       "related_links": []
