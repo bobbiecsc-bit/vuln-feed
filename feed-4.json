@@ -1,10 +1,236 @@
 {
-  "updated": "2026-11-03T19:08:56.712005+00:00",
+  "updated": "2026-11-04T00:24:42.610181+00:00",
   "page": 4,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "7d2ffc715ffdf0568c65e110d99831e26458cc97970b3312a84017c44987e859",
+      "url": "https://github.com/advisories/GHSA-4vjg-vx72-qq4g",
+      "title": "GHSA: systeminformation has path traversal in Linux networkStats() that allows symlink-based file disclosure outside /sys/class/net",
+      "summary": "### Summary\n\nOn Linux, `systeminformation@5.33.13` builds `/sys/class/net/<iface>` paths from the caller-supplied `networkStats(iface)` value without checking that the resolved path stays inside `/sys/class/net`. A caller who can create a symlink fixture and control the value passed to this API can make the function return the first line of a file readable by the Node process.\n\n### Details\n\nThe st",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:13:50Z",
+      "cve_ids": [
+        "CVE-2026-116673"
+      ],
+      "cvss": 3.3,
+      "related_links": []
+    },
+    {
+      "id": "1a40e095a969b41b5b1166dfbee9313d608a68f1916474d7ae7735fdae268d9a",
+      "url": "https://github.com/advisories/GHSA-7648-jmwf-vw7j",
+      "title": "GHSA: systeminformation has prototype pollution in `networkStats()` via the interface name",
+      "summary": "## Summary\n\n`networkStats()` keeps a per interface cache for computing `rx_sec` / `tx_sec` between calls.\nThe cache is a plain JavaScript object and is indexed with the interface name the caller\nsupplied. Passing the name `__proto__` makes every cache write land on `Object.prototype`\ninstead of the cache, polluting every object in the Node.js process.\n\nAn application is affected if it passes untru",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:13:32Z",
+      "cve_ids": [
+        "CVE-2026-116674"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "bf298c58eefc5a915be88629ed9fb2361b06995776da85353f45db5ca761a480",
+      "url": "https://github.com/advisories/GHSA-8prr-f582-jqq3",
+      "title": "GHSA: LangGraph CLI prints the registry push token in `langgraph deploy --verbose` output",
+      "summary": "### Summary\n\n`langgraph deploy --verbose` printed the temporary registry push token that the CLI uses to log Docker in to the deployment's image registry. Anyone who could read that output, for example in CI logs, could use the token until it expired.\n\n### Details\n\nWhen Docker is available, `langgraph deploy` builds the image locally, requests a push token from LangSmith, and runs `docker login --",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:13:18Z",
+      "cve_ids": [
+        "CVE-2026-115885"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "2104c39127055c83052013dd2ce8e3be2f495aa57be52ce5de95d795f71147e5",
+      "url": "https://github.com/advisories/GHSA-x8rm-f576-gq67",
+      "title": "GHSA: graphql-scalars PhoneNumber scalar is vulnerable to regular expression denial of service",
+      "summary": "## Summary\n\nThe regular expression behind `GraphQLPhoneNumber` since 1.24.1 backtracks exponentially. A string made of a run of digits followed by one character that makes the match fail (for example `\"1\".repeat(30) + \"x\"`) blocks the JavaScript thread for seconds, and every additional digit doubles the time.\n\ngraphql-js calls `parseLiteral` while *validating* a document and `parseValue` while coe",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-28T21:13:10Z",
+      "cve_ids": [
+        "CVE-2026-115887"
+      ],
+      "cvss": 7.5,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-115887"
+      ]
+    },
+    {
+      "id": "4bf9f0755b3bfd7f6d8a0c3ed75539b741eda03569378828916a95cbcd54fee1",
+      "url": "https://github.com/advisories/GHSA-pjh6-c8mg-3x7m",
+      "title": "GHSA: Autobahn Python: permessage-brotli inflates a whole frame before maxMessagePayloadSize is checked (incomplete fix of GHSA-hxp9-w8x3-p566)",
+      "summary": "### Summary\n\npermessage-brotli inflates each frame fully before checking maxMessagePayloadSize, so one 421-byte frame makes the server allocate about 545 MiB even with a 1 MiB message limit (brotli expands about 1,000,000:1). Any unauthenticated client can exhaust server memory this way on servers that enable permessage-brotli. This bypasses the GHSA-hxp9-w8x3-p566 fix.\n\n### Details\n\nIn 26.7.1 the",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-28T21:10:17Z",
+      "cve_ids": [
+        "CVE-2026-116579"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "4a2915f1e8ec213eaf7f220a16e7f58c63f461dd82f6d169b59c991985d3c700",
+      "url": "https://github.com/advisories/GHSA-3cmx-xjww-583x",
+      "title": "GHSA: i18next-http-backend: Query-parameter injection through & and = in lng when loadPath/addPath puts {{lng}} in the query string",
+      "summary": "### Summary\n\nThe URL-segment check added for GHSA-q89c-q3h5-w34g blocks `?`, `#`, `%`, `:`, `/` and `@` in `lng`, but not `&` or `=`, and the checked value is inserted into the URL without encoding. The README documents a multiload loadPath of the form `/locales/resources.json?lng=de+en&ns=ns1+ns2`. With a template like that, an attacker who controls the language value can add or override query pa",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-10-28T21:10:08Z",
+      "cve_ids": [
+        "CVE-2026-118258"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "f6c0bfab8100306bb1028525e15e8d78fb465459bc1ca26d3a026d507206ef2d",
+      "url": "https://github.com/advisories/GHSA-gg6h-894w-4m9c",
+      "title": "GHSA: RE2JS: Quadratic-time denial of service in re2js lookbehind matching",
+      "summary": "### Summary\n\nUsing the opt-in `LOOKBEHINDS` flag together with any repeated-matching API\n(`matcher().find()` in a loop, `matchAll()`, `split()`, `matcher().replaceAll()`)\ncauses quadratic-time (Θ(n²)) matching, contradicting the library's own\n\"linear time matching\" guarantee. A single call with a 16,000-character input\ntakes **36.7–38.7 seconds of CPU**.\n\n### Description\n\n#### Root cause\n\nIn `buil",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:10:01Z",
+      "cve_ids": [
+        "CVE-2026-116795"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "c3291c3423998a0f7f176d85bb201e37e85b0f6ac242e14eadd6b911b586f320",
+      "url": "https://github.com/advisories/GHSA-wfhq-q4j2-c37m",
+      "title": "GHSA: filelock: SoftReadWriteLock follows a lock tree swapped in after its first acquire and writes lock records into directories of the user running the lock",
+      "summary": "`SoftReadWriteLock` (and `AsyncSoftReadWriteLock`, which wraps one) checks once per lock object, by name, that `<path>.rw`, `<path>.rw/gen` and `<path>.rw/holders` are real directories and not symbolic links (files that redirect to another path). It then keeps only a boolean. Every later record operation resolves the full path again, and `O_NOFOLLOW` (a flag that makes an open fail when the final ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:09:09Z",
+      "cve_ids": [
+        "CVE-2026-112941"
+      ],
+      "cvss": 3.3,
+      "related_links": []
+    },
+    {
+      "id": "71b95a6ec7330eb57da468262acb29fa7fd41c3b914802ba802c3bddab80875c",
+      "url": "https://github.com/advisories/GHSA-6627-m3xw-93mp",
+      "title": "GHSA: filelock: StrictSoftFileLock creates its claim directories without the lock mode, so another local user with a write bit on them can end a live hold",
+      "summary": "`StrictSoftFileLock` and `AsyncStrictSoftFileLock` apply the caller's `mode` to the sentinel (the lock file at `<path>`) and to both claim files (the files whose presence says a process wants or holds the lock). They create the two directories that hold the claims, `<path>.filelock` and `<path>.filelock/claims`, with a bare `mkdir()`. That gives `0o777` filtered through the umask (a per-process ma",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:09:04Z",
+      "cve_ids": [
+        "CVE-2026-112908"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "6682cb47b99d61f7a217723d020ca0b89ecc32253ee7882c121dade451544713",
+      "url": "https://github.com/advisories/GHSA-9c4x-gm8v-wgc4",
+      "title": "GHSA: filelock: StrictSoftFileLock and SoftReadWriteLock adopt a protocol directory another user created first, losing mutual exclusion",
+      "summary": "`StrictSoftFileLock`, `AsyncStrictSoftFileLock`, `SoftReadWriteLock` and `AsyncSoftReadWriteLock` keep their whole ownership state as files in a directory derived from the lock path (`<path>.filelock/claims`, `<path>.rw/{gen,holders}`). When that directory already exists they adopt it after checking only that it is a real directory, not who owns it. Another local user who can create names in the l",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:59Z",
+      "cve_ids": [
+        "CVE-2026-112911"
+      ],
+      "cvss": 6.3,
+      "related_links": []
+    },
+    {
+      "id": "e791662956e5eaf85ebdc44e0971ef1c7478931321d4774ef4e98aec8aadc65f",
+      "url": "https://github.com/advisories/GHSA-8mx5-7m5m-r77g",
+      "title": "GHSA: filelock: WindowsFileLock ignores mode: a 0o600 lock file and the ReadWriteLock database inherit the directory ACL",
+      "summary": "filelock on Windows ignores the `mode` argument. `FileLock(path, mode=0o600)` creates the same file as `FileLock(path)`: one with no security descriptor of its own (the Windows record that says who may access a file). Its access list, or ACL, is whatever the lock directory hands down to new files. filelock creates the `ReadWriteLock` database, which it asks to be `0o600`, the same way. In a direct",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:55Z",
+      "cve_ids": [
+        "CVE-2026-112910"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "79a140c60576217de87574f19187dcb2fbb82852e0b6a4fb6bd5502281a19ed9",
+      "url": "https://github.com/advisories/GHSA-cwqr-hh33-gh44",
+      "title": "GHSA: filelock ReadWriteLock: a crafted lock database makes every acquire stall or hang regardless of timeout",
+      "summary": "`ReadWriteLock` and `AsyncReadWriteLock` (the SQLite-backed reader/writer lock) run `PRAGMA journal_mode=MEMORY` on a fresh connection for every acquire. That statement makes SQLite load the whole schema (the `sqlite_master` table, which lists every table and index with its `CREATE` text) of whatever file sits at the lock path. The caller's `timeout` reaches SQLite only as `busy_timeout`, which bo",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:49Z",
+      "cve_ids": [
+        "CVE-2026-112915"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "cea5b0be21b8e42931521633df8616e0e6a0718966c73ccf7df8a62db5bc447d",
+      "url": "https://github.com/advisories/GHSA-rfpc-qcw5-3pc4",
+      "title": "GHSA: filelock: SoftFileLock removes a live holder's marker when another user forges the PID in a writable marker",
+      "summary": "`SoftFileLock`, `MarkerSoftFileLock`, `SoftFileLease`, their async variants and a `FileLock` that has fallen back to a soft lock on `ENOSYS` decide from the record inside the marker file whether its owner is gone. The marker is the file whose presence says a process holds the lock. They do not check who could have written that record.\n\nA local user who can write the marker but cannot remove it rew",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:45Z",
+      "cve_ids": [
+        "CVE-2026-112939"
+      ],
+      "cvss": 4.7,
+      "related_links": []
+    },
+    {
+      "id": "a38baf1e920b99ee80d12d930c5b4591e19fddb69127cb16e9a214cee9adccaf",
+      "url": "https://github.com/advisories/GHSA-9j6q-wvj5-jgjg",
+      "title": "GHSA: filelock: Symlink swap during SoftFileLock's writability check leaks whether a path exists and is writable by the lock taker",
+      "summary": "`raise_on_not_writable_file()` is the check that `SoftFileLock` and the locks sharing its acquire path run before every attempt. It looks at the lock path with `os.lstat`, so that it judges a planted symlink (a file that points at another path) by itself. When the node has no owner-write bit, it then calls `os.access(filename, os.W_OK)`, which follows symlinks. A local user who can create entries ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:40Z",
+      "cve_ids": [
+        "CVE-2026-112912"
+      ],
+      "cvss": 2.5,
+      "related_links": []
+    },
+    {
+      "id": "cd81c78b8fbedd72e4a90e13b7098bdc6fcaa3a25001a4ede0a6c842d6d92524",
+      "url": "https://github.com/advisories/GHSA-69hj-f68j-2879",
+      "title": "GHSA: filelock: UnixFileLock truncates and chmods any regular file another user renames or hard-links onto the lock path",
+      "summary": "`UnixFileLock`, the backend of `FileLock` and `AsyncFileLock` on Unix, empties whatever regular file it finds at the lock path once it holds the `flock` (a kernel lock on an open file). With an explicit `mode` it also chmods that file (sets its permission bits), whether or not this acquire created it. Another local user who can rename or hard-link one of the files of the user running the lock (bel",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:35Z",
+      "cve_ids": [
+        "CVE-2026-112909"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
+    {
+      "id": "e1c9ff6e8f9e367a6b046b54d381489bc640b22fd6212450ebfa418e7b6fa6dd",
+      "url": "https://github.com/advisories/GHSA-j8f7-rjxc-mr56",
+      "title": "GHSA: filelock: ReadWriteLock follows a symlink at the lock path into SQLite",
+      "summary": "### Summary\n\n`ReadWriteLock` and `AsyncReadWriteLock` resolve the lock path with `pathlib.Path.resolve()` and pass it to `sqlite3.connect()` without refusing a symlink. A local user who can create names in the lock's directory, such as `/tmp` or a shared cache, can plant a symlink at the lock path and make the victim's process create, lock, or write the file it points to, or break mutual exclusion",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-10-28T21:08:30Z",
+      "cve_ids": [
+        "CVE-2026-112936"
+      ],
+      "cvss": 6.1,
+      "related_links": []
+    },
     {
       "id": "d96089b27a4073e22bed08ad45ad390a52b4876c450dc92c4d7c9ba8a28e38fe",
       "url": "https://github.com/advisories/GHSA-m462-7rxw-wvpg",
@@ -212,6 +438,146 @@
       "related_links": []
     },
     {
+      "id": "753703182ffbac0d2a1c5ea68a2e577dccb867c21e94d6f244d0352e66fa4ac0",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109370",
+      "title": "CVE-2026-109370 — CVSS 6.4",
+      "summary": "The Document Embedder – let visitors read files without downloading plugin for WordPress is vulnerable to Stored DOM-Based Cross-Site Scripting via the 'content (post_content containing block JSON documentSource.doc)' parameter in all versions up to, and including, 2.4.0 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with contributor",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-28T07:16:44.270",
+      "cve_ids": [
+        "CVE-2026-109370"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "4581f37246b12f7e5475c71c1c2596a103b176c33c937b83ad41a367adab7a59",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109218",
+      "title": "CVE-2026-109218 — CVSS 9.8",
+      "summary": "The Contact Manager plugin for WordPress is vulnerable to Arbitrary File Upload in all versions up to, and including, 9.1.2 via the add_message function. This is due to an incomplete extension blacklist that fails to detect dangerous extensions when a trailing dot causes the extension-derivation routine to return an empty string, which sanitize_file_name() then silently removes before the file is ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-28T07:16:44.120",
+      "cve_ids": [
+        "CVE-2026-109218"
+      ],
+      "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "e7f3272f68be8c0bbf10c1354e78e9eacead3880971532a0f30676c5383c7a7b",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-108366",
+      "title": "CVE-2026-108366 — CVSS 6.4",
+      "summary": "The easy.jobs – AI powered Job Listing, Job Board, Career Page, Recruitment & Hiring Solution plugin for WordPress is vulnerable to Authenticated (Contributor+) Stored Cross-Site Scripting via the 'icon' attribute of the easyjobs/job-list Gutenberg block in all versions up to, and including, 2.8.2 due to insufficient input sanitization and output escaping on user supplied attributes. This makes it",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-10-28T07:16:43.963",
+      "cve_ids": [
+        "CVE-2026-108366"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "2da13fefdc0dd783224e51ca60a05a2b49128ca22654e734152b4f959cb8fa75",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-107710",
+      "title": "CVE-2026-107710 — CVSS 6.4",
+      "summary": "The Hustle – Email Marketing, Lead Generation, Optins, Popups plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'content[title]' parameter in all versions up to, and including, 7.8.14.3 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with custom-level access and above, to inject arbitrary web scripts in pages t",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-10-28T07:16:43.810",
+      "cve_ids": [
+        "CVE-2026-107710"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "4ee168f66d383d2f2ef18a4812db4a0bfbe61bc6fbdb5a304a7732563902d85d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104743",
+      "title": "CVE-2026-104743 — CVSS 4.9",
+      "summary": "The Tainacan plugin for WordPress is vulnerable to Directory Traversal in all versions up to, and including, 1.3.0 via the 'tmp_file' parameter parameter. This makes it possible for authenticated attackers, with editor-level access and above, to read the contents of arbitrary files on the server, which can contain sensitive information. The poisoned importer path is persisted to the database and l",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-28T07:16:43.653",
+      "cve_ids": [
+        "CVE-2026-104743"
+      ],
+      "cvss": 4.9,
+      "related_links": []
+    },
+    {
+      "id": "5a455c4bc49c9a03c82f29763c749029cc38f97cfed0190849a5a650e50eba0e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104740",
+      "title": "CVE-2026-104740 — CVSS 6.4",
+      "summary": "The If-So Dynamic Content – Elementor & All Page Builders Personalization plugin for WordPress is vulnerable to Stored Cross-Site Scripting via 'conversion' Shortcode Attribute in all versions up to, and including, 1.10.2 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with contributor-level access and above, to inject arbitrary web s",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-10-28T07:16:43.513",
+      "cve_ids": [
+        "CVE-2026-104740"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "e7846b721c01dd4c230f8f433901cb875a91bb457955ffcb5d5cffc5d6817617",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104729",
+      "title": "CVE-2026-104729 — CVSS 6.4",
+      "summary": "The Avada (Fusion) Builder plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'tab_index, empty_notice' parameter in all versions up to, and including, 3.16.2 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with contributor-level access and above, to inject arbitrary web scripts in pages that will execute whenev",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-10-28T07:16:43.370",
+      "cve_ids": [
+        "CVE-2026-104729"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "53870f662b9051ba2544d173affc49de3952f321642fb209e167e5fb7968be0e",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-103996",
+      "title": "CVE-2026-103996 — CVSS 6.4",
+      "summary": "The If-So Dynamic Content – Elementor & All Page Builders Personalization plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'url' parameter in all versions up to, and including, 1.10.2 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with contributor-level access and above, to inject arbitrary web scripts in pag",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-10-28T07:16:43.223",
+      "cve_ids": [
+        "CVE-2026-103996"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "8afe4279734c237dd1a5ab1d20145046f491f60caf298453be1132fe735d4f19",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-103370",
+      "title": "CVE-2026-103370 — CVSS 6.4",
+      "summary": "The Awesome Support – WordPress HelpDesk & Support Plugin plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'wpas_files' parameter in all versions up to, and including, 6.4.1 due to insufficient input sanitization and output escaping. This makes it possible for authenticated attackers, with custom-level access and above, to inject arbitrary web scripts in pages that will ex",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-10-28T07:16:43.070",
+      "cve_ids": [
+        "CVE-2026-103370"
+      ],
+      "cvss": 6.4,
+      "related_links": []
+    },
+    {
+      "id": "a544fd582631b6ff754b1491daf0dd24cfd5d58ee8885b36ae74a38b7a4732cb",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-100175",
+      "title": "CVE-2026-100175 — CVSS 5.4",
+      "summary": "The Postie plugin for WordPress is vulnerable to Stored Cross-Site Scripting via Email Body URL Autolink in all versions up to, and including, 1.9.87 due to insufficient input sanitization and output escaping. This makes it possible for unauthenticated attackers to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page. This is possible because the ?posti",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-10-28T07:16:42.883",
+      "cve_ids": [
+        "CVE-2026-100175"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
       "id": "3ac833fb839c0b3442160cf4b27517891135ea7b8315c5432db823b85aa2d82a",
       "url": "https://blog.qualys.com/category/vulnerabilities-threat-research",
       "title": "Waiting on a Node.js Upgrade? Build a Stopgap with the Controls You Own",
@@ -229,461 +595,101 @@
       ]
     },
     {
-      "id": "781a8caa014d69bcfb455ebf9922c708c030884509035971702e6c12edba0d0f",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-829/",
-      "title": "ZDI-26-829: (0Day) (Pwn2Own) Alpine iLX-F511 Bluetooth OBEX Packet Handling Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows physically present attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 6.8. The following CVEs are assigned: CVE-2026-118611.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118611"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "bbee48ce6d3a46a102c4acfa79f796e23aaeecca70868d2c7eb1919191c726b6",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-828/",
-      "title": "ZDI-26-828: (0Day) (Pwn2Own) Alpine iLX-F511 Android Auto Service Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.8. The following CVEs are assigned: CVE-2026-118610.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118610"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "bace36f43c08e15c2706cd969b7a82a19de79c0b27d5ee7aa697afcd19a6efc0",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-827/",
-      "title": "ZDI-26-827: (0Day) (Pwn2Own) Alpine iLX-F511 Android Auto Connection Handler Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows physically present attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 6.8. The following CVEs are assigned: CVE-2026-118609.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118609"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "62142aeffcd8b7b8f5c1b6e10f75fa8dc018248e213c3e623d14cd23d79e8b74",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-824/",
-      "title": "ZDI-26-824: (0Day) (Pwn2Own) Alpine iLX-F511 Framework Service Exposed Dangerous Function Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.8. The following CVEs are assigned: CVE-2026-118606.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118606"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4dca39fc28bb1080829d04b0f3d3f2c5099602377613b78e7eeff222fd0168be",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-823/",
-      "title": "ZDI-26-823: (0Day) (Pwn2Own) Alpine iLX-F511 prh_sdp_service_search_decode Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. An attacker must first obtain the ability to pair a malicious Bluetooth device with the target system in order to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.0. The following CVEs are assigned: CVE-2026-118605.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118605"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "ad074fb6a6c8b9c5fc59e39479b167e8df851a6a685a00cc4ca7ff4130ff0c55",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-822/",
-      "title": "ZDI-26-822: (0Day) (Pwn2Own) Alpine iLX-F511 Framework Service Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows physically present attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 6.8. The following CVEs are assigned: CVE-2026-118604.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118604"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "8abce3405c1a8648852fe9e58cbf9e58cd4eb214a83260d6bad08fc600c3f6f0",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-821/",
-      "title": "ZDI-26-821: (0Day) (Pwn2Own) Alpine iLX-F511 vCard Parsing Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected Alpine iLX-F511 devices. User interaction is required to exploit this vulnerability in that the target must connect to a malicious Bluetooth device. The ZDI has assigned a CVSS rating of 8.0. The following CVEs are assigned: CVE-2026-118603.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118603"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "e315ff5cc1f8848720e923ba039ca9ce80b703cc1433ee65b7d1d5d72b30e289",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-819/",
-      "title": "ZDI-26-819: (0Day) (Pwn2Own) Alpine iLX-F511 SSH Hard-Coded Credentials Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of Alpine iLX-F511 devices. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 6.3. The following CVEs are assigned: CVE-2026-118601.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118601"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d7312143b3c9bdd956209b1f5e89313a817e87daaa2c8a8fb3dc84dffe86e533",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-818/",
-      "title": "ZDI-26-818: (0Day) Ultralytics Google Drive Download Path Traversal Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 8.8. The following CVEs are assigned: CVE-2026-118619.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118619"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c4de9306bbc3a9dec894985c9162f1352592d325df068e085a08c581a5585c0d",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-817/",
-      "title": "ZDI-26-817: (0Day) Ultralytics parse_model Code Injection Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-118618.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118618"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "83aa1843c8be202a219ea71c957758fa83243a1b9b6e2c45b642b8cbdaf70e92",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-816/",
-      "title": "ZDI-26-816: (0Day) Ultralytics load_dataset_cache_file Deserialization of Untrusted Data Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-118617.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118617"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "475bf949f42181fe3dde0d0689ebee959d6684c345781b8a0f7babd78d9d8ff6",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-815/",
-      "title": "ZDI-26-815: (0Day) Ultralytics parse_model Code Injection Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-118616.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118616"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a54a141ce5257edf28e0d8a38144aa1eae18b66af16fc813dcf5edff384f9226",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-814/",
-      "title": "ZDI-26-814: (0Day) Ultralytics torch_safe_load Command Injection Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-118615.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118615"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "8a12422ab9748deafeb6fcc09c9e96c79cd5cd815e707f1face9ce19e03bf35e",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-813/",
-      "title": "ZDI-26-813: (0Day) Ultralytics check_det_dataset Code Injection Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-118614.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118614"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "98e32d760cab8ef47cdcaf646ddcebce1d75156e2ca16eca9d3c9eeb70772210",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-812/",
-      "title": "ZDI-26-812: (0Day) Ultralytics torch_load Deserialization of Untrusted Data Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Ultralytics. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8. The following CVEs are assigned: CVE-2026-118613.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-118613"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "94d71ea79d711984e72b511a7da3fde0f73df9e156ab38c7769fcfe929bb5f81",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-833/",
-      "title": "ZDI-26-833: Valkey clusterCreatePublishMsgBlock Numeric Truncation Error Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Valkey. Authentication is required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b586633763146d35dac531f197f80229a4265a7a32052ddc6c973c1c7546742c",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-830/",
-      "title": "ZDI-26-830: Apple Safari jsToWasm IC Entrypoint Type Confusion Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Apple Safari. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 8.8. The following CVEs are assigned: CVE-2026-86974.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-10-28T05:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-86974"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4143cb126c8e3bd1fd72ff33e3c3487cf7d8667e3b8c6f537f51a06bb0a75c1b",
-      "url": "https://msrc.microsoft.com/update-guide/releaseNote/2007-Aug",
-      "title": "MSRC: Mariner Release Notes",
-      "summary": "Microsoft security update: Mariner Release Notes. Alias: 2007-Aug.",
-      "source": "Microsoft MSRC",
-      "category": "infrastructure",
-      "date": "2026-10-28T01:47:14Z",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "c619bd9992741f822ed225f2c0e628172045520000c585e4d798f5f682562619",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-41709",
-      "title": "CVE-2026-41709: Broadcom VMWare ESX Insufficient Logging Vulnerability",
-      "summary": "Broadcom VMWare ESX contains an insufficient logging vulnerability that could allow a malicious actor with admin access to perform certain operations without being logged. Affected product: VMware ESX by Broadcom. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see URL in Notes) guidan",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-10-28T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-41709"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "806b3f3d60f1c54e181f1a93c76cfdacfa1f15202088577833598d22d3ce3da7",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-46300",
-      "title": "CVE-2026-46300: Linux Kernel Missing Initialization of a Variable Vulnerability",
-      "summary": "Linux Kernel contains a missing initialization of a variable vulnerability that could allow for unintended modification of page-cache-backed data via failure to preserve the shared-fragment marker during socket buffer coalescing, causing ESP input processing to decrypt shared fragments in place. This vulnerability can be chained with CVE-2026-109618 and CVE-2026-109619 to implant PHP webshells and",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-10-28T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-46300"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "90c7d9c87d218d91c3581d2e329c3a02a0e128bc86c8e57647d1e045ba530dac",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118353",
-      "title": "CVE-2026-118353 — CVSS 8.8",
-      "summary": "Use after free in Paint in Google Chrome prior to 156.0.8078.73 allowed a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-27T23:17:04.380",
-      "cve_ids": [
-        "CVE-2026-118353"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "b6e83562e5f4491887936098bdb15151db20ebae2a91219b2071246325dee5da",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118352",
-      "title": "CVE-2026-118352 — CVSS 8.8",
-      "summary": "Memory corruption in Cache in Google Chrome prior to 156.0.8078.73 allowed a remote attacker to potentially execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-27T23:17:04.263",
-      "cve_ids": [
-        "CVE-2026-118352"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "72370f34bcc8a529564e3243d62c36a052521116cb901971ebb78b1f727cb015",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118351",
-      "title": "CVE-2026-118351 — CVSS 8.8",
-      "summary": "Memory corruption in Skia in Google Chrome prior to 156.0.8078.73 allowed a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-27T23:17:04.157",
-      "cve_ids": [
-        "CVE-2026-118351"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "a3b4d645be58b2c355b6618f9b7ce68ab663341d8d60e90391cf691f214122c0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118350",
-      "title": "CVE-2026-118350 — CVSS 8.8",
-      "summary": "Use after free in Turbolev in Google Chrome prior to 156.0.8078.73 allowed a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-27T23:17:04.050",
-      "cve_ids": [
-        "CVE-2026-118350"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "2f637665ed4cc2518f7209626bb6484ced1b9f14cbbc108326f68319b22486a7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118349",
-      "title": "CVE-2026-118349 — CVSS 8.8",
-      "summary": "Memory corruption in Payments in Google Chrome prior to 156.0.8078.73 allowed a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-27T23:17:03.943",
-      "cve_ids": [
-        "CVE-2026-118349"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "a005ea6d4c83630f8108a477d690cc91d46dc85a1fb2f65bfc789057170b0f1c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118348",
-      "title": "CVE-2026-118348 — CVSS 8.8",
-      "summary": "Improper input validation in Skia in Google Chrome prior to 156.0.8078.73 allowed a remote attacker to potentially execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: Critical)",
+      "id": "bf7b5171f5ec53eccdd7d6fd0d8d2847c62604f63541716270000251643fa400",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-15323",
+      "title": "CVE-2026-15323 — CVSS 7.5",
+      "summary": "The Product Designer for WooCommerce WordPress | Lumise plugin for WordPress is vulnerable to Directory Traversal in all versions up to, and including, 2.1.2 via the process_checkout function. This makes it possible for unauthenticated attackers to read the contents of arbitrary files on the server, which can contain sensitive information. The lumise_security nonce required to reach the vulnerable",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-10-27T23:17:03.833",
+      "date": "2026-10-28T06:16:36.043",
       "cve_ids": [
-        "CVE-2026-118348"
+        "CVE-2026-15323"
       ],
-      "cvss": 8.8,
+      "cvss": 7.5,
       "related_links": []
     },
     {
-      "id": "2ec8a897d9fefb6cbb842e0744a57433ff58ac067ffe040c67e738916eca86c6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118347",
-      "title": "CVE-2026-118347 — CVSS 8.8",
-      "summary": "Use after free in FileSystem in Google Chrome prior to 156.0.8078.73 allowed a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "id": "76c058708bc2e1d6ad24b45d64caf74da7d5a3aab8a8151cfb9a536078647d2a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-115281",
+      "title": "CVE-2026-115281 — CVSS 6.8",
+      "summary": "The Recipe Card Blocks Lite WordPress plugin before 3.6.4 does not sanitize and cast a block and shortcode attribute before concatenating it into SQL queries, allowing authenticated users with Contributor-level access or above to perform SQL injection attacks.",
       "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-27T23:17:03.723",
+      "category": "web_app",
+      "date": "2026-10-28T06:16:35.930",
       "cve_ids": [
-        "CVE-2026-118347"
+        "CVE-2026-115281"
       ],
-      "cvss": 8.8,
+      "cvss": 6.8,
       "related_links": []
     },
     {
-      "id": "c77b55085ba30269ec61b82dbddd50d791493c73a4a2b30b76aa1a5254994510",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118346",
-      "title": "CVE-2026-118346 — CVSS 8.8",
-      "summary": "Use after free in Compositing in Google Chrome prior to 156.0.8078.73 allowed a remote attacker to potentially execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-27T23:17:03.613",
-      "cve_ids": [
-        "CVE-2026-118346"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "0164c56165e3cafa53420a15db52b5c43d3acc4337efdd15ee2512f4bbb2d10e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118345",
-      "title": "CVE-2026-118345 — CVSS 8.8",
-      "summary": "Use after free in PDFium in Google Chrome prior to 156.0.8078.73 allowed a remote attacker to potentially execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-27T23:17:03.503",
-      "cve_ids": [
-        "CVE-2026-118345"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "7e821382bf0e1c00ee37f2cf2d184ec67a9295ca8a5944e437306834077aa7c2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118344",
-      "title": "CVE-2026-118344 — CVSS 8.8",
-      "summary": "Use after free in Layout in Google Chrome prior to 156.0.8078.73 allowed a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: Critical)",
+      "id": "9b90d456d95e9dac9e9f270976c12414a103ee4b4417f32fb8f4dffe1115fa62",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-115255",
+      "title": "CVE-2026-115255 — CVSS 5.3",
+      "summary": "The WP Roster WordPress plugin before 2.35 does not perform any capability or nonce checks on one of its AJAX actions, allowing unauthenticated attackers to delete the WordPress user accounts of roster members.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-10-27T23:17:03.393",
+      "date": "2026-10-28T06:16:35.830",
       "cve_ids": [
-        "CVE-2026-118344"
+        "CVE-2026-115255"
       ],
-      "cvss": 8.8,
+      "cvss": 5.3,
       "related_links": []
     },
     {
-      "id": "f2e9ba3b5fb009613f5c1a5430d4d989759d54ef29a2d60840ee0bdf5d0c45e0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118343",
-      "title": "CVE-2026-118343 — CVSS 8.8",
-      "summary": "Improper input validation in ReadingList in Google Chrome prior to 156.0.8078.73 allowed a remote attacker to potentially execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)",
-      "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-27T23:17:03.283",
-      "cve_ids": [
-        "CVE-2026-118343"
-      ],
-      "cvss": 8.8,
-      "related_links": []
-    },
-    {
-      "id": "247d94dc8e81e23a46280ecb7874adae045bb22fe648fedcd2f34b9758a7b757",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118342",
-      "title": "CVE-2026-118342 — CVSS 9.6",
-      "summary": "Out of bounds write in Editing in Google Chrome prior to 156.0.8078.73 allowed a remote attacker to potentially execute arbitrary code outside the sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "id": "3002dd3f7cb132ffa63a17ba77d73a40af5550b85b1bb5c4e34fbec4d3e44802",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-115225",
+      "title": "CVE-2026-115225 — CVSS 5.8",
+      "summary": "The Customer Engagement System  WordPress plugin before 2.0.2 does not restrict access to its MailChimp interest-group lookup or validate the API key supplied to it, allowing unauthenticated users to make the server open connections to arbitrary internal hosts and ports and infer from response timing which ones are reachable.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-10-27T23:17:03.180",
+      "date": "2026-10-28T06:16:35.723",
       "cve_ids": [
-        "CVE-2026-118342"
+        "CVE-2026-115225"
       ],
-      "cvss": 9.6,
+      "cvss": 5.8,
       "related_links": []
     },
     {
-      "id": "234c234ca938555eaacc72ff6eff14e281dc9423cc33635b1e7909f337f224d4",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118341",
-      "title": "CVE-2026-118341 — CVSS 8.8",
-      "summary": "Use after free in Modularization in Google Chrome prior to 156.0.8078.73 allowed a remote attacker to execute arbitrary code inside the sandbox via a crafted HTML page. (Chromium security severity: High)",
+      "id": "4bf43edd61e79f3731996e20d8515462d60d2e78deeec57ebdc25ecb818b9337",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113813",
+      "title": "CVE-2026-113813 — CVSS 6.5",
+      "summary": "The PayPlug for WooCommerce (Official) WordPress plugin before 3.1.1 does not perform any capability or ownership check on a set of unauthenticated AJAX actions that operate on a caller-supplied order identifier, allowing unauthenticated attackers to modify, read the contents of, and permanently delete arbitrary WooCommerce orders.",
       "source": "NVD/NIST",
-      "category": "infrastructure",
-      "date": "2026-10-27T23:17:03.077",
+      "category": "emergency",
+      "date": "2026-10-28T06:16:35.503",
       "cve_ids": [
-        "CVE-2026-118341"
+        "CVE-2026-113813"
       ],
-      "cvss": 8.8,
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "52fd4044d83891fb041396a505e2a5f9ca8d347b73ea564aa7067277c7de7720",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113488",
+      "title": "CVE-2026-113488 — CVSS 6.8",
+      "summary": "The GeoDirectory  WordPress plugin before 2.8.196 does not properly escape a post badge shortcode attribute for a JavaScript context before placing it in an inline event handler, allowing users with the Contributor role and above to perform Stored Cross-Site Scripting attacks against anyone who clicks the badge, including administrators.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-10-28T06:16:35.287",
+      "cve_ids": [
+        "CVE-2026-113488"
+      ],
+      "cvss": 6.8,
+      "related_links": []
+    },
+    {
+      "id": "9bbb2769dee97f3455a07015a75c096a087dfd11f07f9b5d71f557dc6c77572d",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-113487",
+      "title": "CVE-2026-113487 — CVSS 6.8",
+      "summary": "The GeoDirectory  WordPress plugin before 2.8.196 does not properly sanitise or escape a post badge click-through link value before outputting it in an anchor element on a listing, allowing users with the Contributor role and above to perform Stored Cross-Site Scripting attacks against higher-privileged users who view the listing, including an administrator reviewing moderated content.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-10-28T06:16:35.180",
+      "cve_ids": [
+        "CVE-2026-113487"
+      ],
+      "cvss": 6.8,
       "related_links": []
     }
   ]
