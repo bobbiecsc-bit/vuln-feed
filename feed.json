@@ -1,10 +1,515 @@
 {
-  "updated": "2026-11-19T12:31:56.962998+00:00",
+  "updated": "2026-11-19T22:54:59.551329+00:00",
   "page": 1,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "5ec9207018947189932b5cc1c464b822b58a7d35c8062eb1f38ba081d4e99295",
+      "url": "https://github.com/advisories/GHSA-gm9r-hvc9-96gv",
+      "title": "GHSA: Guard Core: Unvalidated X-Forwarded-For-derived string used as a Redis key component and interpolated into a KEYS glob pattern",
+      "summary": "### Summary\n\n`_extract_from_forwarded_header()` (`guard_core/utils.py:172-181` in 3.12.0; `:179` on master `08780f1`) returns the selected `X-Forwarded-For` entry **without any `ipaddress` validation**. When that entry is attacker-controlled, an arbitrary string becomes `client_ip` and flows into `BehaviorTracker` (`guard_core/handlers/behavior_handler.py:83-102`), which interpolates it verbatim i",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T22:50:33Z",
+      "cve_ids": [
+        "CVE-2026-129304"
+      ],
+      "cvss": 5.4,
+      "related_links": []
+    },
+    {
+      "id": "bba4801e0203afbb85b965c729f58f0f0665239c383cb55cdcf44fb20ec41ac2",
+      "url": "https://github.com/advisories/GHSA-w7wg-6q7v-44f2",
+      "title": "GHSA: Guard Core: Whitespace-collapse preprocessing permanently disables the CRLF-anchored http-splitting and command-injection detectors in the default detection mode",
+      "summary": "### Summary\n\nIn the default \"enhanced\" detection mode, `ContentPreprocessor.preprocess()` collapses all whitespace (`re.sub(r\"\\s+\", \" \", content)`, `guard_core/detection_engine/preprocessor.py:137` on master `08780f1`; `:384` in the 3.12.0 sdist) **before** pattern matching. This erases every `\\r` and `\\n` from the scanned value, rendering two built-in detectors structurally unmatchable regardless",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T22:50:13Z",
+      "cve_ids": [
+        "CVE-2026-129303"
+      ],
+      "cvss": 3.7,
+      "related_links": []
+    },
+    {
+      "id": "62b2224e726b4a83ed77b87f1b32347acdeb340ced7792000a350069979e11c8",
+      "url": "https://github.com/advisories/GHSA-r7hm-rjvg-xx7j",
+      "title": "GHSA: Guard Core: Quadratic ReDoS in built-in detection pattern freezes the event loop with a single request",
+      "summary": "### Summary\n\nA polynomial (quadratic) regular-expression denial of service in guard-core's built-in penetration-detection patterns allows any unauthenticated remote client to freeze **every** endpoint of an application for seconds per request, using only the default configuration. The triggering request completes without any detection match — no ban counter increments, no rate-limit violation is r",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-19T22:49:33Z",
+      "cve_ids": [
+        "CVE-2026-129302"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "7b60899e633d524b6a0e76521f525a165e537e22110d75d7fe7ddd04a8446814",
+      "url": "https://github.com/advisories/GHSA-3mgh-93r5-r7jf",
+      "title": "GHSA: CodeWhale: exec_shell parallel-readonly classifier auto-approves fd/rg/git grep exec flags enabling silent RCE",
+      "summary": "### Maintainer resolution\n\nThe CodeWhale maintainers validated this report. CodeWhale 0.8.67 and earlier are affected. Version 0.9.0 contains the fix in commit 208421b9d23d81cea3311a1eeb2a2ea81d637686. Users should upgrade to 0.9.0 or later. The original reporter analysis is preserved below.\n\n## Summary\nThe interactive Agent profile of DeepSeek-TUI (CodeWhale) is explicitly documented to gate **ev",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-19T22:48:14Z",
+      "cve_ids": [
+        "CVE-2026-83816"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "8465b5aa85cf1fac69049e87055ba62c12d6bd93bed8d8b9ae250a5a872028ba",
+      "url": "https://github.com/advisories/GHSA-8hp3-xxrg-v9c8",
+      "title": "GHSA: CodeWhale: Automation auto_approve defaults to true, bypassing the task-path hardening fix for silent recurring agent execution",
+      "summary": "### Maintainer resolution\n\nThe CodeWhale maintainers validated this report. CodeWhale 0.8.67 and earlier are affected. Version 0.9.0 contains the fix in commit 208421b9d23d81cea3311a1eeb2a2ea81d637686. Users should upgrade to 0.9.0 or later. The original reporter analysis is preserved below.\n\n## Summary\nCVE-2026-45374 (GHSA-72w5-pf8h-xfp4) hardened the task path so auto-approval must be opted into",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T22:47:33Z",
+      "cve_ids": [
+        "CVE-2026-83817"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "841feddc6f61ee4b5084e7bcffb094eb4d9f63c1f4d4182ce3c05af2f49bd21b",
+      "url": "https://github.com/advisories/GHSA-m4g8-47f9-h588",
+      "title": "GHSA: eml_parser: Algorithmic-complexity DoS (O(n^4) regex backtracking) in Received-header parsing",
+      "summary": "### Summary\n\n`eml_parser.routing.parserouting()` dynamically builds a regex from up to four greedy `.*` groups (`from (?P<from>.*)by (?P<by>.*)with (?P<with>.*)for (?P<for>.*)`) terminated by an escaped literal of the date extracted from a **normalized** copy of the `Received` header. Because the date literal comes from the normalized text but is searched in the original line, a crafted header can",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T22:47:08Z",
+      "cve_ids": [
+        "CVE-2026-129307"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "6f5361f59a0fdfd4dd17a2bf096490571029ad729ec3bc53887c0a5c50924b38",
+      "url": "https://github.com/advisories/GHSA-qx49-fqc8-xw99",
+      "title": "GHSA: Model Context Protocol Python SDK: OAuth client could send credentials to an authorization server chosen by the MCP server",
+      "summary": "### Summary\nIn affected versions, the SDK's OAuth client support (`mcp.client.auth`) let the MCP server a client connected to decide where the client's OAuth credentials were sent:\n\n- the authorization server metadata `issuer` was not validated on every discovery path, and\n- stored or pre-provisioned client credentials were not bound to the authorization server they belong to.\n\nA malicious or comp",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T22:45:40Z",
+      "cve_ids": [
+        "CVE-2026-115563"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "cd83b7bb45f94be612046f202752ab1b66fccf0ba47822f763fed5bae4c91ca6",
+      "url": "https://github.com/advisories/GHSA-phmp-hrw4-r36r",
+      "title": "GHSA: Mistune: Quadratic-time DoS in parse_link_href via unbounded parenthesis scan on empty-label links",
+      "summary": "## Resolution\n\n**Fixed in Mistune 3.3.4.** Upgrade to 3.3.4 or later.\n\n- Affected versions: `< 3.3.4`\n- First patched version: `3.3.4`\n- Fix: https://github.com/lepture/mistune/compare/v3.3.3...v3.3.4\n\nThe reported payload was reproduced against the 3.3.3 release tag and verified to scale approximately linearly against the 3.3.4 release tag.\n\n## Original report\n\nThe following report describes the ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T22:44:42Z",
+      "cve_ids": [
+        "CVE-2026-97698"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "104bcd3f275f248afe14a6a9b7dc3734f4ca7dd25c8564c33c6cd70e1652af68",
+      "url": "https://github.com/advisories/GHSA-ww7q-mxrj-5ffg",
+      "title": "GHSA: Mistune: Quadratic-time DoS in inline image parsing (precedence_scan) bypasses not-is-image guards",
+      "summary": "## Resolution\n\n**Fixed in Mistune 3.3.4.** Upgrade to 3.3.4 or later.\n\n- Affected versions: `< 3.3.4`\n- First patched version: `3.3.4`\n- Fix: https://github.com/lepture/mistune/compare/v3.3.3...v3.3.4\n\nThe reported payload was reproduced against the 3.3.3 release tag and verified to scale approximately linearly against the 3.3.4 release tag.\n\n## Original report\n\nThe following report describes the ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T22:44:00Z",
+      "cve_ids": [
+        "CVE-2026-97699"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "c92ffd7a97460c669516644c6912c26c8bc654a9bb3812b3847c2b7e9f0c28ac",
+      "url": "https://github.com/advisories/GHSA-7rj6-7pqx-v7rm",
+      "title": "GHSA: fzf: Predictable FIFO path in zsh completion allows local symlink attack / arbitrary file overwrite as the victim user (_fzf_feed_fifo)",
+      "summary": "### Summary\n\n`shell/completion.zsh` feeds every trigger-driven zsh completion through a FIFO at a predictable, PID-based path in shared `/tmp` (`fzf-complete-fifo-$$`), without checking the failure of `rm -f`/`mkfifo`. On a multi-user host, another local user can pre-create that path as a symlink to a victim-writable file (e.g. `~/.bashrc`), causing the victim's own completion to overwrite it with",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T22:43:12Z",
+      "cve_ids": [
+        "CVE-2026-121717"
+      ],
+      "cvss": 5.0,
+      "related_links": []
+    },
+    {
+      "id": "6287a40dcf72693413520e35c4c14d05e742e3c54860828a4df928d145b6f84c",
+      "url": "https://github.com/advisories/GHSA-w6x2-f5m4-xw82",
+      "title": "GHSA: fzf: Arbitrary command execution via bash arithmetic expansion on unvalidated layout size in fzf-tmux (-l/-u attached value)",
+      "summary": "### Summary\n\n`bin/fzf-tmux` fails to validate layout size values given in the *attached* form (e.g. `-l50`). For `-l`/`-u` these values reach bash arithmetic expansion (`$(( max - size ))`), where an operand like `a[$(cmd)]` executes `cmd` as the invoking user during option parsing — before any tmux interaction and even outside tmux. A second sink embeds unvalidated popup geometry (`-x/-y/-w/-h/-p",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T22:41:46Z",
+      "cve_ids": [
+        "CVE-2026-121716"
+      ],
+      "cvss": 7.0,
+      "related_links": []
+    },
+    {
+      "id": "9d99685fdc83748ec649a9d946a4023430a9957264d8072e8297ff2a1cf7d241",
+      "url": "https://github.com/advisories/GHSA-q433-mp6c-8v4f",
+      "title": "GHSA: sqlite-mcp: Read-only mode bypass via statement chaining and SQL injection in describe_table",
+      "summary": "### Summary\n\nIn read-only mode (the default), a client that can call the MCP tools can write to the database the server is meant to expose read-only, read other SQLite files, and create new SQLite files anywhere the server process can write. There are two ways in: statement chaining through `execute_query`, and SQL injection through `describe_table`.\n\n### Details\n\n- **Statement chaining in `execut",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T22:25:53Z",
+      "cve_ids": [
+        "CVE-2026-130008"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "8ea9e80818a4bc392e09ee059818d17b1e752fbfafc2d660b5b816bef36fb27f",
+      "url": "https://www.bleepingcomputer.com/news/security/asus-warns-of-critical-hard-coded-key-flaw-in-control-center-express/",
+      "title": "ASUS warns of critical hard-coded key flaw in Control Center Express",
+      "summary": "ASUS released Control Center Express v1.7.29 to fix three critical vulnerabilities that could let remote attackers gain administrative control of the management console and the devices it manages. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-11-19T21:15:59+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "ef2aad4e7e8b2da37c948c645ea357feb1c9d090d3f10b920abbd755a7ecfe1b",
+      "url": "https://www.rapid7.com/blog/post/etr-cve-2026-123890-critical-authentication-bypass-vmware-vcenter",
+      "title": "CVE-2026-123890: Critical Authentication Bypass in VMware vCenter",
+      "summary": "OverviewOn November 19, 2026, Broadcom published VMware Security Advisory VMSA-2026-0009, addressing five vulnerabilities in VMware products. The most severe of these, CVE-2026-123890, is an authentication bypass using an alternate path or channel (CWE-288) in the VMware Directory Service component of vCenter. Broadcom assigned the vulnerability a critical CVSSv3 score of 9.8.A malicious actor wit",
+      "source": "Rapid7",
+      "category": "emergency",
+      "date": "2026-11-19T21:06:24+00:00",
+      "cve_ids": [
+        "CVE-2026-123890",
+        "CVE-2026-59309"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "7d836947b7db58df8a457e4850f741dd25bd4846ca92c095c76426e5132096ac",
+      "url": "https://github.com/advisories/GHSA-56v3-jrq2-4q9m",
+      "title": "GHSA: iSponsorBlockTV: SSRF via Malicious SSDP Response Spoofing in Local Device Discovery",
+      "summary": "### Summary\niSponsorBlockTV discovers local smart TV devices via SSDP (Simple Service Discovery Protocol). The `LOCATION` URL from SSDP responses is used to fetch device capabilities without URL validation. A local network attacker can craft a malicious SSDP response with a `LOCATION` pointing to any internal HTTP service, causing SSRF when the application fetches device information.\n\n### Details\n",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T20:50:12Z",
+      "cve_ids": [
+        "CVE-2026-77597"
+      ],
+      "cvss": 3.5,
+      "related_links": []
+    },
+    {
+      "id": "1b2436d7f01fe4c409ac4fab0ff7f19327eb6ede6e574fcea30c5f08303d436d",
+      "url": "https://github.com/advisories/GHSA-5hj8-q7fv-qrj6",
+      "title": "GHSA: gosaml2: Unauthenticated panic decrypting an EncryptedAssertion with a short or empty CipherValue",
+      "summary": "### Summary\n\nAn attacker who can supply a crafted SAML Response for parsing can crash a `gosaml2` service provider by sending an `EncryptedAssertion` with AES-GCM encryption metadata and a `CipherValue` shorter than the GCM nonce size (12 bytes). The library panics with `slice bounds out of range` before any validation completes.\n\nThis is a **distinct issue from [GHSA-hwqm-qvj9-4jr2](https://githu",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-19T20:49:36Z",
+      "cve_ids": [
+        "CVE-2026-128073"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "57cf8d07a4b99641dfb2b9e3178eb5eeaefaadc016b764bf603509d87c79d8ec",
+      "url": "https://github.com/advisories/GHSA-464h-4j8h-q5mf",
+      "title": "GHSA: HtmlSanitizer: CSS Removal DoS",
+      "summary": "### Impact\n\nAn unauthenticated request can occupy one synchronous application worker for seconds. Concurrent requests add CPU cost and can keep all workers busy, sustaining denial of service without user interaction.\n\n### Patches\n\nThe issue has been patched in versions  9.0.967 and 9.1.968-beta.\n\n### Workarounds\n\nDisallow the style attribute.",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-19T20:49:01Z",
+      "cve_ids": [
+        "CVE-2026-102529"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "d2ae5022741cdf6b57356f6dc5d30c3eacbc4cd339cd55e4e074719060963d81",
+      "url": "https://github.com/advisories/GHSA-h5m9-42h9-vcq6",
+      "title": "GHSA: Doorkeeper: When using public clients, any client can revoke any access token",
+      "summary": "### Summary\n\nAn improper authorization issue affects Doorkeeper's OAuth token revocation flow when public (non-confidential) clients are in use. This vulnerability can lead to tokens being revoked without correct authorization. The issue is fixed in Doorkeeper 5.9.1.",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T20:47:25Z",
+      "cve_ids": [
+        "CVE-2026-115472"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "bbf13f87dd61751444ad505a327e74c77d3b0f1ca832601710e9385b00938d6f",
+      "url": "https://github.com/advisories/GHSA-w3w6-9m25-g88p",
+      "title": "GHSA: OmniFaces: SSE push channels are not bound to their owning HTTP session ",
+      "summary": "## Summary\n\n[GHSA-fp43-vj7g-pg92](https://github.com/omnifaces/omnifaces/security/advisories/GHSA-fp43-vj7g-pg92) (fixed 5.4.2) bound session- and view-scoped **WebSocket** (`o:socket`) push channels to the HTTP session that registered them, so a leaked channel ID can no longer be connected to from a foreign or absent HTTP session. The fix ([`d5cae243c4`](https://github.com/omnifaces/omnifaces/com",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T20:47:02Z",
+      "cve_ids": [
+        "CVE-2026-109549"
+      ],
+      "cvss": 5.9,
+      "related_links": []
+    },
+    {
+      "id": "02abc67f7ffe24402f8831a573b671337d7f2df9c00d02c22c04d6654b1adfe7",
+      "url": "https://github.com/advisories/GHSA-mqwx-84vv-mp26",
+      "title": "GHSA: October: Media Library Crop Handler Bypasses Upload Extension Allowlist",
+      "summary": "The Media Library upload handler validates the destination filename against an extension allowlist (`default_extensions`), rejecting types such as `php`, `phtml`, `html`, and `htm`. The image crop handler (`MediaManager::onCropImage` / `cropImage`) did not perform this check. The destination filename was taken from user input, the extension was extracted from it, and the staged bytes were written ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T20:46:36Z",
+      "cve_ids": [
+        "CVE-2026-63193"
+      ],
+      "cvss": 5.5,
+      "related_links": []
+    },
+    {
+      "id": "cca39cbf60a67799cb53b9bff06add7e3615e27d473848ca2ead51d185d7fa71",
+      "url": "https://github.com/advisories/GHSA-pxh3-4qqv-58mg",
+      "title": "GHSA: Servo Sandbox bypass: declarative refresh can auto-navigate a sandboxed iframe",
+      "summary": "A sandboxed iframe can auto-navigate itself via declarative refresh even when automatic features should be blocked. This allows attacker-controlled embedded content to redirect itself without user action.\n\n### Summary\nServo allows a sandboxed iframe to auto-navigate itself via declarative refresh in configurations that should block automatic features.\n\nThe issue reproduces in the must-block rows o",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T20:45:22Z",
+      "cve_ids": [
+        "CVE-2026-61713"
+      ],
+      "cvss": 8.3,
+      "related_links": []
+    },
+    {
+      "id": "cd421861f5b273c5964870d6115aa69e86d9b639c29650c724cb6d00ec707259",
+      "url": "https://github.com/advisories/GHSA-3h63-w8jq-rrf2",
+      "title": "GHSA: SharpIppNext: Unbounded IPP Document Stream Buffering Leads to Denial of Service",
+      "summary": "### Summary\n\nSharpIppNext's `IppProtocol.ReadIppRequestAsync()` unconditionally copies the entire attacker-supplied IPP document payload into an unbounded `MemoryStream` with no size limit. Because this behavior is enabled by default (`ReadDocumentStream = true`) and the official server documentation shows `HttpContext.Request.Body` being passed directly to `ReceiveRequestAsync()` without authenti",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T20:43:01Z",
+      "cve_ids": [
+        "CVE-2026-59975"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "1093a8e7f4f8f0dc287beb4b51d0a0073eac54393350ae8c5ce26fd42165d9ac",
+      "url": "https://github.com/advisories/GHSA-833v-v58w-294h",
+      "title": "GHSA: Todoist MCP Server: Browser DNS rebinding lets websites write and delete Todoist data through local MCP server",
+      "summary": "The self-hosted `todoist-mcp-http` server accepts browser-origin MCP requests with attacker-controlled `Host` and `Origin` headers. A malicious website can use DNS rebinding to route its own origin to a victim's local `127.0.0.1` MCP server, then invoke Todoist MCP tools without a caller credential.\n\nThis affects `github.com/Doist/todoist-mcp` at commit `d2903e0d945d2a559d71c091337ad6380511e62f`, ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-19T20:38:35Z",
+      "cve_ids": [
+        "CVE-2026-76807"
+      ],
+      "cvss": 9.3,
+      "related_links": []
+    },
+    {
+      "id": "69571f93e7affb06ce238f7eaf5ec2f90b3723ffd667540222eab47ab0da1296",
+      "url": "https://github.com/advisories/GHSA-w42c-h7hr-f67p",
+      "title": "GHSA: Gortex: Arbitrary file write / repo-confinement escape in `write_file` / `edit_file` / `move_inline` MCP tools → code execution",
+      "summary": "### Summary\nGortex is an MCP server exposing `write_file`, `edit_file`, and `move_inline` tools. `resolveFilePath` **exempts absolute paths** from confinement, and the write handlers — unlike `read_file` / `get_symbol_source` — **never call `guardSymlinkWithinRepo`**. A single MCP `write_file` call with an absolute path writes any file the daemon user can, **outside every indexed repo root** (`Ato",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-19T20:36:31Z",
+      "cve_ids": [
+        "CVE-2026-62964"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "fd7398314b492f89faf68d183b36b9021f729f88955c164df70c6d4285ffc678",
+      "url": "https://github.com/advisories/GHSA-4c2f-96cf-f5fc",
+      "title": "GHSA: OpenID4VP: X.509 chain validation accepts a forged certificate that reuses a trusted anchor's Subject DN without verifying its signature",
+      "summary": "## Summary\n\n`ChainBuilder` (the private RFC 5280 validator behind `TrustEvaluator` and the public credential-parsing API) terminated chain building on **Subject Distinguished Name string equality** rather than on cryptographic closure to a trust anchor. A certificate whose Subject DN string matched a trusted anchor's Subject DN was accepted as the chain terminus **with no signature verification** ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T20:35:57Z",
+      "cve_ids": [
+        "CVE-2026-75522"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "736986384922b0937cddd271297d8c01e69129ca321a6776b500bdf1bd56e14a",
+      "url": "https://github.com/advisories/GHSA-j282-pjg5-j643",
+      "title": "GHSA: keystore-go: Keystore integrity and password verification bypass via stripped trailing digest in Decode()",
+      "summary": "### Summary\n`keystore.Decode()` fails to check the error returned when reading the trailing SHA-1 integrity digest of a JKS keystore. If an attacker removes the final 20 bytes from a `.jks` file, the digest read returns an empty slice and the byte-comparison loop never executes, so `Decode()` returns the parsed keystore with `err == nil`. This defeats both tamper detection and — for certificate-on",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T20:35:35Z",
+      "cve_ids": [
+        "CVE-2026-76101"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "0d26c0bcf0e6ca19aaf6b76eab1b69719e8d650673cf74876e9769fbf468a6c2",
+      "url": "https://github.com/advisories/GHSA-r7wg-f7r2-8wf7",
+      "title": "GHSA: Axon: Download of Code Without Integrity Check in axon-mcp",
+      "summary": "### Summary\naxon rtk-install downloads a pre-built rtkx binary from GitHub releases and executes it via subprocess.run() on every text-compression call, without verifying its integrity — no checksum, signature, or attestation check anywhere in the download/install path. If the release pipeline or a maintainer token for sammyjdev/rtkx were ever compromised, every axon user who installs or auto-boot",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T20:34:53Z",
+      "cve_ids": [
+        "CVE-2026-76818"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "8e443c2964ac625708f2e93b14283c0905a867afb3a7b4a5912759b6b02e59d3",
+      "url": "https://www.bleepingcomputer.com/news/security/php-security-updates-fix-18-flaws-including-critical-rce-bugs/",
+      "title": "PHP security updates fix 18 flaws, including critical RCE bugs",
+      "summary": "The PHP development team released security updates addressing 18 vulnerabilities, including critical flaws that could allow unauthenticated attackers to remotely execute code on vulnerable servers. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-11-19T16:28:23+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "534e4afdade273ed08d9cc6ed658a1d6d41d005a6c9f6ab1f57a619e45c20c25",
+      "url": "https://github.com/advisories/GHSA-pj7p-238h-76pv",
+      "title": "GHSA: djangocms-moderation: Moderation comments disclosed to non-participant staff via the admin changelist",
+      "summary": "## Summary\n\nThe Django admin views for moderation comments (`CollectionCommentAdmin` and `RequestCommentAdmin`) render the full comment body but scope access only by an attacker-controlled `id` in the URL and Django's model-level `view_*comment` permission. They perform no per-object participant check. As a result, any authenticated staff user who holds the comment *view* permission can read the c",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-19T16:09:30Z",
+      "cve_ids": [
+        "CVE-2026-69139"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "159d3efc459d85cdfcccfcc7c6247dd5ec9aa6f5a7906a6ba35d5f42be379e72",
+      "url": "https://github.com/advisories/GHSA-8776-qf3h-26r3",
+      "title": "GHSA: Mareforma: Unsigned Claims Can Be Promoted to REPLICATED via Missing Signature Enforcement in Convergence Path",
+      "summary": "### Summary\n\n`mareforma` 0.3.3 contains a critical integrity flaw in the REPLICATED convergence logic (`_maybe_update_replicated_unlocked()` in `mareforma/db/core.py:1300-1319`). The peer-selection SQL query that determines whether two independent claims \"agree\" on the same anchor does not verify that either claim carries a valid cryptographic signature from an enrolled validator key. Because `rek",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-19T16:07:36Z",
+      "cve_ids": [
+        "CVE-2026-71535"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "9b95db0695a36123d9b7996c0c3256ac0f8500fadd2f6be853ed635d527fa177",
+      "url": "https://github.com/advisories/GHSA-4g68-3pwx-5vfj",
+      "title": "GHSA: NATS Server MQTT subscribe permission bypass exposes internal QoS 2 metadata",
+      "summary": "### Background\n\nNATS.io is a high performance open source pub-sub distributed communication technology, built for the cloud, on-premise, IoT and edge computing.\n\nThe NATS Server MQTT support uses internal `$MQTT.*` subjects to implement MQTT protocol features such as QoS handling.\n\n### Problem Description\n\nAn authenticated MQTT client could subscribe to an internal MQTT delivery subject that was n",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-19T16:00:12Z",
+      "cve_ids": [
+        "CVE-2026-58214"
+      ],
+      "cvss": 4.3,
+      "related_links": []
+    },
+    {
+      "id": "4af394aff724c0a1f281b7a61c31cd0b914aca57422bd80278131043f2d3bde4",
+      "url": "https://www.rapid7.com/blog/post/dr-what-is-preemptive-mdr-security-leaders-guide",
+      "title": "What Is Preemptive MDR? A Guide For Security Leaders",
+      "summary": "When an MDR provider contains a compromised endpoint, your team needs to know whether the weakness that enabled the attack exists elsewhere and who is responsible for addressing it. Without that follow-through, the immediate incident may be resolved while another attacker still has a way in.Preemptive managed detection and response (MDR) is Rapid7's approach to connecting exposure context, threat ",
+      "source": "Rapid7",
+      "category": "emergency",
+      "date": "2026-11-19T15:58:53+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "fad07fae780d253e707cd3d5d25af8e2cb0de204d45f84910e35c797a8a75016",
+      "url": "https://github.com/advisories/GHSA-qrcv-3558-gj4f",
+      "title": "GHSA: NATS Server: MQTT SUBSCRIBE Protocol Injection via Leaf Node/Route Forwarding allows arbitrary NATS command injection",
+      "summary": "### Background\n\nNATS.io is a high performance open source pub-sub distributed communication technology, built for the cloud, on-premise, IoT and edge computing.\n\nThe NATS Server supports MQTT clients and can bridge MQTT activity into NATS subjects across routes and leafnode connections.\n\n### Problem Description\n\nAn MQTT client could include protocol control characters in subscription filters that ",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-19T15:56:55Z",
+      "cve_ids": [
+        "CVE-2026-58213"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "62fd7d8cf0fbc73a97d921d400188616911c1a4e634cb3cf069f07f0b6df2ac5",
+      "url": "https://www.rapid7.com/blog/post/tr-spying-on-governments-no-malware-custom-webworms-toolkit-softether-bridge",
+      "title": "Spying on Governments with Zero Lines of Malware: A Custom SoftEther Bridge in Webworm’s Toolkit",
+      "summary": "IntroductionFor a threat actor, the perfect malware is one they don’t have to write, and already does all they need. One example of this is shown by the China-aligned APT known as Webworm, which has been known to deploy the open-source SoftEther VPN into the networks of compromised governmental organizations to maintain low-profile, long-term access.After this was publicly documented and defenders",
+      "source": "Rapid7",
+      "category": "emergency",
+      "date": "2026-11-19T15:05:34+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "eb38241a0eaffa222fca6e705c871d41fcd430c8c121bff935e39b82e2b821e2",
+      "url": "https://www.bleepingcomputer.com/news/security/five-warning-signs-of-ransomware-breach-before-encryption-or-data-theft/",
+      "title": "Five warning signs of ransomware breach before encryption or data theft",
+      "summary": "Ransomware attacks often involve credential theft, lateral movement, and attempts to disable security controls long before encryption begins. Acronis examines five warning signs that can help defenders detect intrusions earlier, contain malicious activity, and protect critical systems and backups. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-11-19T15:00:10+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "03c656aa7f6268581691b1b59c240ddb9910cbe11a4249d75b125d40ed49d083",
+      "url": "https://www.bleepingcomputer.com/news/security/critical-nginx-nginx2root-bugs-let-attackers-hijack-servers/",
+      "title": "Critical NGINX ‘NGINX2Root’ bugs let attackers hijack servers",
+      "summary": "Two critical NGINX vulnerabilities dubbed \"nginx2root\" allow unauthenticated attackers to execute code remotely on vulnerable web servers, with researchers demonstrating how the flaws can be chained with a Linux kernel bug to gain root access. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-11-19T14:57:24+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "9ca9ce7f9de58cb64d6a02093143b03672575191ca107498b1ede7dc2e5c1470",
+      "url": "https://www.bleepingcomputer.com/news/security/drupal-patches-critical-rce-flaw-warns-exploits-may-surface-quickly/",
+      "title": "Drupal patches critical RCE flaw, warns exploits may surface quickly",
+      "summary": "The Drupal Security Team has patched a critical remote code execution vulnerability that can let attackers take over vulnerable sites. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-11-19T13:08:08+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
     {
       "id": "c319dc995f46f7b07dacac6fef18a814a1253348bd502aa0221e0697108137b3",
       "url": "https://ubuntu.com/security/notices/USN-9163-1",
@@ -34,6 +539,34 @@
       "related_links": [
         "https://ubuntu.com/security/notices/USN-9161-1"
       ]
+    },
+    {
+      "id": "0990e8e6650e90f5ddea3f31c33bc379177d9bc77a19498d2c033142dc65aad2",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1039/",
+      "title": "ZDI-26-1039: Oracle PeopleSoft register Incorrect Authorization Remote Code Execution Vulnerability",
+      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Oracle PeopleSoft. Authentication is required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 9.9. The following CVEs are assigned: CVE-2026-35273.",
+      "source": "Zero Day Initiative",
+      "category": "emergency",
+      "date": "2026-11-19T06:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-35273"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "86db71c717433a421aea65bf3175941163b508bcd26f7fef57f5e4e0ffc2f85b",
+      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1038/",
+      "title": "ZDI-26-1038: (0Day) (Pwn2Own) United Chargers Grizzl-E Smart 40A OCPP UpdateFirmware Out-Of-Bounds Write Remote Code Execution Vulnerability",
+      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of United Chargers Grizzl-E Smart 40A EV chargers. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.5. The following CVEs are assigned: CVE-2026-131813.",
+      "source": "Zero Day Initiative",
+      "category": "emergency",
+      "date": "2026-11-19T06:00:00+00:00",
+      "cve_ids": [
+        "CVE-2026-131813"
+      ],
+      "cvss": null,
+      "related_links": []
     },
     {
       "id": "cb9e63d001018486010fbc0535b016e936a906b98439784a9360411d49cf8acb",
@@ -157,522 +690,6 @@
         "CVE-2026-73864"
       ],
       "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "821eea283c1e677e55096cb9079f75fea81982f2ca3cbe8e9becf2bba5980bc1",
-      "url": "https://github.com/advisories/GHSA-wq26-3j2m-4hvv",
-      "title": "GHSA: Chainguard SDK: AWS SigV4 token replay in auth/aws.VerifyToken — Chainguard-Audience/Chainguard-Identity binding headers not required in SignedHeaders",
-      "summary": "### Summary\n\nThe `auth/aws` package of the `chainguard.dev/sdk` Go library provides Chainguard's AWS-backed identity federation (an AWS workload proves its identity to Chainguard by signing an AWS STS `GetCallerIdentity` request). Its verifier, `VerifyToken`, reads the `Chainguard-Audience` and `Chainguard-Identity` binding headers from a presented token but does not require them to be covered by ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-18T21:16:44Z",
-      "cve_ids": [
-        "CVE-2026-71861"
-      ],
-      "cvss": 7.4,
-      "related_links": []
-    },
-    {
-      "id": "0659920f1c79828cbbfc0a5ccb5b1cddada5307aba50d51280a4f0a935ea6b29",
-      "url": "https://github.com/advisories/GHSA-82w8-65qw-gch6",
-      "title": "GHSA: ALTCHA PHP: verifySolution bypasses HMAC signature check when challenge signature is absent",
-      "summary": "In altcha-org/altcha v2, the verifySolution method skips HMAC signature verification when the signature field is absent from the challenge payload, even when hmacSignatureSecret is configured.\n\nAn attacker who strips the signature key from the challenge JSON passes the condition as false, bypassing tamper-detection entirely. The PoW solution check then runs against unverified parameters — allowing",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-11-18T20:48:18Z",
-      "cve_ids": [
-        "CVE-2026-71481"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "df04c6d48e5beb558043b80e96c5ac0e09e965bf50a699412d4dcba499383bd6",
-      "url": "https://github.com/advisories/GHSA-7jvc-9xq8-frff",
-      "title": "GHSA: Outstatic: Authenticated GitHub REST proxy can send OAuth token to non-GitHub origins",
-      "summary": "### Impact\nOutstatic’s authenticated GitHub REST proxy accepted an unvalidated endpoint parameter and constructed an upstream GitHub API URL by string concatenation while attaching the authenticated user’s GitHub OAuth token.\n\nA user with access to the Outstatic dashboard could craft a request that caused the server to send their own GitHub OAuth token to a non-GitHub host. If that token was captu",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-18T20:43:43Z",
-      "cve_ids": [
-        "CVE-2026-71425"
-      ],
-      "cvss": 6.5,
-      "related_links": []
-    },
-    {
-      "id": "005640849bb28f2e4576ea5bbd5b25738efb15e1e38af7a5d08cea5f3e5a3ce9",
-      "url": "https://github.com/advisories/GHSA-ff87-73jp-f3v4",
-      "title": "GHSA: Atomic Server: Unauthenticated full-response SSRF in Atomic-Server /bookmark endpoint",
-      "summary": "## Summary\n\nAtomic-Server exposes a `GET /bookmark` endpoint that fetches an attacker-supplied URL server-side, parses the response, and reflects the fetched content back to the caller. The endpoint requires no authentication and performs no authorization of its own, and the underlying fetch helper applies no allow-list or private-IP deny-list. An unauthenticated attacker with network reach to the",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-11-18T20:42:50Z",
-      "cve_ids": [
-        "CVE-2026-69158"
-      ],
-      "cvss": 8.6,
-      "related_links": []
-    },
-    {
-      "id": "2f94d185a782351fedaee76a1e1b05bee9a0766b628e6ab62cf7ac9466b76d01",
-      "url": "https://github.com/advisories/GHSA-pfwx-xjp4-qxcj",
-      "title": "GHSA: Atomic Server: Unauthenticated `/setup` invite grants write access to the entire Drive",
-      "summary": "## Summary\n\natomic-server provisions a well-known invite at `{server}/setup` with `write = true`, `target` = the Drive root, and `usagesLeft = 1`. Invite redemption **ignores the redeemer's identity** (`for_agent: _` in `server/src/plugins/invite.rs:22`), so possession of the URL is the only requirement. An **unauthenticated** attacker who sends `GET /setup?public-key=<attacker_key>` has the serve",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-11-18T20:42:33Z",
-      "cve_ids": [
-        "CVE-2026-69157"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "775064d81c812e6e88c91249d949840f73ea54b6840b6b6ece8969898317060d",
-      "url": "https://github.com/advisories/GHSA-8vc4-8hjq-988p",
-      "title": "GHSA: Atomic Server: Arbitrary file read via user-controlled `internalId` in the `/download` handler (leaks root agent private key)",
-      "summary": "## Summary\n\nThe Commit apply path enforces **no allowlist of writable properties**, so any authenticated Agent can set the `internalId` string (datatype `string`, no character validation) on a resource it owns. The `/download` handler then uses that value **verbatim** as a filesystem path — `file_path.push(internal_id); NamedFile::open(file_path)` — with **no sanitization and no containment check*",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-11-18T20:42:15Z",
-      "cve_ids": [
-        "CVE-2026-69156"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "6e81100e408cbe5f8cc8c6c23a4b074a58219f9211ea4cb22a47d4f4c35f3171",
-      "url": "https://github.com/advisories/GHSA-x277-3wcg-g9r2",
-      "title": "GHSA: Atomic Server: Stored XSS via uploaded files served inline (same-origin) on `/download` → account takeover",
-      "summary": "## Summary\n\nFiles uploaded via `POST /upload` are served back by `GET /download/{path}` using `actix_files::NamedFile`. For `text/html` and `image/svg+xml`, actix-files (0.6.6) sets `Content-Disposition: inline`, so the browser **renders** the file instead of downloading it. The `/download` route sets **no `Content-Security-Policy`, no `X-Content-Type-Options: nosniff`, and no forced `attachment`*",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-11-18T20:41:46Z",
-      "cve_ids": [
-        "CVE-2026-69155"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "97ef079b76eaf6ad0d5ceb7c22d6098b99ce6dbf28e13d300758046911a3e8fc",
-      "url": "https://www.bleepingcomputer.com/news/security/microsofts-agent-framework-pypi-package-compromised-to-steal-credentials/",
-      "title": "Microsoft’s Agent Framework PyPI package compromised to steal credentials",
-      "summary": "Hackers compromised Microsoft's official Agent Framework Python package on PyPI, publishing two malicious versions designed to steal cloud credentials and other sensitive information from developers' systems. [...]",
-      "source": "Bleeping Computer",
-      "category": "web_app",
-      "date": "2026-11-18T16:58:42+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3b6c31d89811161b82ef642eabdaa1468139a250d01fa72c476cb6069d5ff0fb",
-      "url": "https://github.com/advisories/GHSA-5hrj-7fc3-cmx9",
-      "title": "GHSA: Mustache for Ruby: RCE using built-in method access",
-      "summary": "> [!NOTE]\n> The vulnerability was fully disclosed to the maintainer in private prior to security advisories were enabled for the project.\n> This advisory presents a limited information for initial release to provide a time window for installing updates. Full information with PoCs would be added later.\n\n## Summary\nMustache template engine for Ruby in versions 1.1.2 and earlier allows remote attacke",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-11-18T16:28:29Z",
-      "cve_ids": [
-        "CVE-2026-130001"
-      ],
-      "cvss": 9.8,
-      "related_links": []
-    },
-    {
-      "id": "de4842c933d42b23d99029a2a348218297fcd71ba592ab7bed452c5cfe9c0c0e",
-      "url": "https://github.com/advisories/GHSA-xvcc-vqjv-phqh",
-      "title": "GHSA: augment-virShell allows Command Injection in `grep()` via Unsanitized `searchPattern`",
-      "summary": "## Shell Command Injection in `grep()` via Unsanitized `searchPattern`\n\n### Summary\n\nThe `grep()` function exported by `@augment-vir/node` inserts caller-controlled search patterns directly into a double-quoted shell command string without sanitization (`grep.ts:310`). When the constructed command is passed to `spawn()` with `shell: 'bash'` (`shell.ts:98-99`), bash evaluates `$()` command substitu",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-18T16:15:52Z",
-      "cve_ids": [
-        "CVE-2026-63496"
-      ],
-      "cvss": 7.8,
-      "related_links": []
-    },
-    {
-      "id": "3ac833fb839c0b3442160cf4b27517891135ea7b8315c5432db823b85aa2d82a",
-      "url": "https://blog.qualys.com/category/vulnerabilities-threat-research",
-      "title": "Oracle Critical Security Patch Update, November 2026 Review",
-      "summary": "Oracle released its November edition of Critical Security Patch Update. The update received patches for 655 security vulnerabilities. Some of the vulnerabilities addressed in this update impact more than one product. These patches address vulnerabilities in various product families, including third-party components in Oracle products. Out of the 655 security updates published, a total of 62 (9.5%)",
-      "source": "Qualys Blog",
-      "category": "emergency",
-      "date": "2026-11-18T14:21:51+00:00",
-      "cve_ids": [
-        "CVE-2026-114938"
-      ],
-      "cvss": null,
-      "related_links": [
-        "https://www.rapid7.com/blog/post/etr-cve-2026-114938-reported-critical-pre-authentication-remote-code-execution-java-17"
-      ]
-    },
-    {
-      "id": "5b5336a0cca929aba980bf4b1e6b601f07f0a5edbab3cdfd0a840e2edb7c3875",
-      "url": "https://www.rapid7.com/blog/post/ve-cve-2026-123007-critical-nginx-http-2-integer-underflow-leads-to-rce-fixed",
-      "title": "CVE-2026-123007: Critical NGINX HTTP/2 Integer Underflow Leads to RCE (FIXED)",
-      "summary": "OverviewToday, both Rapid7 and F5 are disclosing CVE-2026-123007, a critical integer underflow vulnerability affecting nginx HTTP/2, which can allow for unauthenticated remote code execution (RCE) against affected servers under certain conditions.CVE IDDescriptionCWECVSSv4CVE-2026-123007HTTP/2 flow-control memory corruption permitting worker-context RCECWE-191 (Integer Underflow)9.2 (Critical)ngin",
-      "source": "Rapid7",
-      "category": "emergency",
-      "date": "2026-11-18T13:56:42+00:00",
-      "cve_ids": [
-        "CVE-2026-123007"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4d4692262fd008a52dd7f0b39d781200bd090d3d88b7da9f030a8631a566b0da",
-      "url": "https://www.bleepingcomputer.com/news/security/apache-warns-of-roller-rce-vulnerability-exploited-in-attacks/",
-      "title": "Apache warns of Roller RCE vulnerability exploited in attacks",
-      "summary": "Apache has released security updates to address a critical Roller flaw that threat actors are exploiting to gain code execution on vulnerable servers. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-11-18T10:35:05+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "3cc7c52171142a720117a1ae7b8a9d878f70260acd88ce4edb4a5cdae18e8876",
-      "url": "https://www.bleepingcomputer.com/news/microsoft/microsoft-announces-windows-server-2028-with-hardened-security/",
-      "title": "Microsoft announces Windows Server 2028 with hardened security",
-      "summary": "Microsoft has announced Windows Server 2028, the next major release of its server operating system, at the Ignite 2026 conference on Tuesday. [...]",
-      "source": "Bleeping Computer",
-      "category": "infrastructure",
-      "date": "2026-11-18T09:24:31+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "41f007d85ec23ddb8b9b19efe45e03dd2bc22d2332902918626323ac1e7cea47",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1027/",
-      "title": "ZDI-26-1027: (0Day) Open Robotics RViz fillIndexBuffer Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of Open Robotics RViz. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 8.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "09beae1efdcd8b56b54d953e3e6c4a314ba6891462bb0aeb74cc8295161ea450",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1018/",
-      "title": "ZDI-26-1018: (0Day) Krita TIF File Parsing Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Krita. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "626c679a02ffd3cfa16954e39acce79e358f24e057332d34a7a327e556d78469",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1017/",
-      "title": "ZDI-26-1017: (0Day) Krita HEIC File Parsing Out-Of-Bounds Write Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Krita. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b872313a5f60750db2f5a7977fa10aeef665c3301a3e2f726e864d908a0181da",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1016/",
-      "title": "ZDI-26-1016: (0Day) Krita EXR File Parsing Integer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Krita. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "0e3b48b264d0832992b22c889a0c56e44c21b71d60ca94e210e7b4dc9e113b91",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1015/",
-      "title": "ZDI-26-1015: (0Day) Krita HEIC File Parsing Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Krita. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "6330aaea42f6556e90317a91ab6d0a6519a6a1cf340a97002a2ccf6b44befb7c",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1014/",
-      "title": "ZDI-26-1014: (0Day) Krita TIFF File Parsing Out-Of-Bounds Write Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Krita. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a16677ae0c859945eeda6a5fbbfbfe0b427c3ce06d805d11cce13362f02abfec",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1013/",
-      "title": "ZDI-26-1013: (0Day) Krita PSB File Parsing Integer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Krita. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "24d256cc60b97b5ec2a82331ef3a99bd6658cfa1824ea97fc290d2f14495a0da",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1012/",
-      "title": "ZDI-26-1012: (0Day) Krita ASL File Parsing Integer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Krita. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "79fa1f2cbc9365416f9a6f6dc71dea56528a1239ec72bd940ecc89d4d0675d81",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1011/",
-      "title": "ZDI-26-1011: (0Day) Krita ABR File Parsing Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Krita. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "78f5784ac42801509be5390fa3fdc489adf2b76c6ee05936c0f3445302f13b31",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1010/",
-      "title": "ZDI-26-1010: (0Day) Krita JC2 File Parsing Heap-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of Krita. User interaction is required to exploit this vulnerability in that the target must visit a malicious page or open a malicious file. The ZDI has assigned a CVSS rating of 7.8.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "60edf89b3956fca1117e94f78fe7271735c8fc1a7c42c20ab4ce0ff914a9b03f",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1035/",
-      "title": "ZDI-26-1035: (0Day) (Pwn2Own) United Chargers Grizzl-E Smart 40A Download of Code Without Integrity Check Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of United Chargers Grizzl-E Smart 40A EV chargers. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.5. The following CVEs are assigned: CVE-2026-131810.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-131810"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "431b44ba185a3a3bb580d2a3d5fe49d7655263a65c536ae8de0280dae5c620ab",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1034/",
-      "title": "ZDI-26-1034: (0Day) (Pwn2Own) United Chargers Grizzl-E Smart 40A FTP URL Path Parsing Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of United Chargers Grizzl-E Smart 40A EV chargers. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.5. The following CVEs are assigned: CVE-2026-131812.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-131812"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "33b3d1565a2ed3261678f338daa2d2753ea13610097abd28db0ff1d6e88a38f8",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1033/",
-      "title": "ZDI-26-1033: (0Day) (Pwn2Own) United Chargers Grizzl-E Smart 40A OCPP GetConfiguration Stack-based Buffer Overflow Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows network-adjacent attackers to execute arbitrary code on affected installations of United Chargers Grizzl-E Smart 40A EV chargers. Authentication is not required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.5. The following CVEs are assigned: CVE-2026-131807.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-131807"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "154eb4d1c2b08aa0eb9c55288dfeb560d0dcaf5f292d1b61bdb03062e5dcbb91",
-      "url": "http://www.zerodayinitiative.com/advisories/ZDI-26-1031/",
-      "title": "ZDI-26-1031: (0Day) LiteLLM MCP Command Injection Remote Code Execution Vulnerability",
-      "summary": "This vulnerability allows remote attackers to execute arbitrary code on affected installations of LiteLLM. Authentication is required to exploit this vulnerability. The ZDI has assigned a CVSS rating of 7.2.",
-      "source": "Zero Day Initiative",
-      "category": "emergency",
-      "date": "2026-11-18T06:00:00+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "7decc3343ee3ef01d3357c8d1149c82956cda99b2d2f3fa974ff5c99c24b7b48",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2024-10441",
-      "title": "CVE-2024-10441: Synology DiskStation Manager (DSM) Improper Encoding or Escaping of Output Vulnerability",
-      "summary": "Synology DSM contains an improper encoding or escaping of output vulnerability in the system plugin daemon in Synology BeeStation OS (BSM) that could allow a remote attacker to execute arbitrary code via unspecified vectors. Affected product: DiskStation Manager (DSM) by Synology. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 P",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-11-18T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2024-10441"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "a033e53bd551d6960a8834f2a1be92682341440ff85d178c2052e7b56e2c6657",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-40217",
-      "title": "CVE-2026-40217: BerriAI LiteLLM Unprotected Alternate Channel Vulnerability",
-      "summary": "BerriAI LiteLLM contains an unprotected alternate channel vulnerability that could allow remote attackers to execute arbitrary code via bytecode rewriting at the /guardrails/test_custom_code URI. Affected product: LiteLLM by BerriAI. Required action: Apply mitigations in accordance with vendor instructions, ensuring compliance with CISA’s BOD 26-04 Prioritizing Security Updates Based on Risk (see ",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-11-18T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-40217"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "b6450e2150b84f571bbad4edc03c20a27db2e7a118cdc0a134745ee0c0b5b472",
-      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-90817",
-      "title": "CVE-2026-90817: Vanderbilt University Research Electronic Data Capture (REDCap) Code Injection Vulnerability",
-      "summary": "Vanderbilt University Research Electronic Data Capture (REDCap) contains a code injection vulnerability which could allow an unauthenticated attacker to execute arbitrary code on the server. An attacker could exploit this via crafted HTTP requests that access an unintended controller route from a public survey context and supply a crafted file-path or stream parameter during data import processing",
-      "source": "CISA KEV",
-      "category": "emergency",
-      "date": "2026-11-18T00:00:00+00:00",
-      "cve_ids": [
-        "CVE-2026-90817"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "fca3dc2fb77689c74c126f3134f3c8bb6edce29d1c049c2bb1353a2e03b9b0d2",
-      "url": "https://www.bleepingcomputer.com/news/security/critical-java4shell-flaw-allows-rce-attacks-on-major-java-applications/",
-      "title": "Critical Java4Shell flaw allows RCE attacks on major Java applications",
-      "summary": "A critical vulnerability dubbed Java4Shell in OpenJDK, the open-source implementation of Java, can allow unauthenticated attackers to remotely execute code on popular enterprise applications, including Jenkins, Atlassian Jira, Confluence, and Keycloak. [...]",
-      "source": "Bleeping Computer",
-      "category": "emergency",
-      "date": "2026-11-17T23:04:21+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "2cac7202a964b936fe17a115c7422d93a838bc2c77b38bd0f7a41cc387feb148",
-      "url": "https://www.bleepingcomputer.com/news/security/cloud-keys-leaked-in-docker-hub-images-are-stolen-within-seconds/",
-      "title": "Cloud keys leaked in Docker Hub images are stolen within seconds",
-      "summary": "Credentials and access secrets exposed in public Docker Hub images are being extracted and exploited by attackers within as little as eight seconds of publication. [...]",
-      "source": "Bleeping Computer",
-      "category": "cloud",
-      "date": "2026-11-17T21:27:17+00:00",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "1add797f2a5158c773e59682db3e54cb3916c41dfddb528b924690d54f6bbd51",
-      "url": "https://github.com/advisories/GHSA-x2vm-cf3p-m2w8",
-      "title": "GHSA: libp2p: gossipsub creates a permanent topics-map entry per distinct subscription with no cap in the default config",
-      "summary": "### Summary\nA single gossipsub peer can grow a node's `topics` map without bound by flooding subscription RPCs, because the default configuration has no global, per-peer, or topic-length cap and peer scoring does not penalise subscription volume. The peer is never greylisted, so the growth continues toward OOM.\n\n### Details\n`handleReceivedSubscription` (`packages/gossipsub/src/gossipsub.ts:1028`, ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-17T21:06:20Z",
-      "cve_ids": [
-        "CVE-2026-119793"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "3ec4ea0985995b2e6bf9d0cfd6198e3d1c94d092d53bbf9e67114144ea3b5f46",
-      "url": "https://github.com/advisories/GHSA-rvfr-cqwq-rc4j",
-      "title": "GHSA: libp2p: ASN.1 DER decoder drives an unbounded synchronous loop on attacker-controlled length fields, stalling the Node event loop pre-auth",
-      "summary": "### Summary\nA remote peer can stall a js-libp2p node's entire event loop for ~4–5 seconds per connection (and transiently allocate ~2 GB) by sending a ~15-byte crafted `publicKey` inside an Identify message. The malformed key reaches the DER decoder before any peer-id/signature check, so the attack is pre-auth and repeatable indefinitely by reconnecting.\n\n### Details\n`packages/crypto/src/keys/rsa/",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-17T21:05:08Z",
-      "cve_ids": [
-        "CVE-2026-110789"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "0ae4cefcca7feb3bce68b539d71ac0d7161bf1d2a42be718b3e77628f5926af7",
-      "url": "https://github.com/advisories/GHSA-r7hw-jx6r-756g",
-      "title": "GHSA: SAML2: Incomplete fix of CVE-2026-49283: unsigned embedded Response bypasses HTTP-Artifact signature verification (no embedded-Issuer binding)",
-      "summary": "## Summary\nCVE-2026-49283 / GHSA-6929-8p9f-26jx (\"HTTP-Artifact TLS validator confusion allows cross-IdP authentication bypass\") was fixed so that `HTTPArtifact::receive()` verifies the embedded SAML `Response` using the IdP metadata signing keys. The current implementation (master `31c72c1d`, released **v6.2.3**) reaches that verification **only when the embedded Response is signed**:\n\n```php\n// ",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-17T21:00:58Z",
-      "cve_ids": [
-        "CVE-2026-110782"
-      ],
-      "cvss": 8.7,
-      "related_links": []
-    },
-    {
-      "id": "55d635828a04b9a1d4ff52a6b5d871d524fbcf65c96d723f20b7bbad3f8d07bc",
-      "url": "https://github.com/advisories/GHSA-8vm9-f75m-5h2m",
-      "title": "GHSA: Filament Curator: Stored XSS via unsanitized SVG upload served inline",
-      "summary": "## Summary\n\n  SVG files uploaded through the Curator media panel are stored and served inline without any\n  sanitization. An authenticated user with permission to upload media can upload an SVG\n  containing embedded JavaScript. When another panel user opens that file via the **View**\n  action (which opens the media as a top-level browser document), the embedded script executes\n  in the origin of t",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-17T20:54:26Z",
-      "cve_ids": [
-        "CVE-2026-69241"
-      ],
-      "cvss": 5.4,
-      "related_links": []
-    },
-    {
-      "id": "ebfa5e2bd0b4ee7a6155aa8b8290278665f00cbc29d27ac1b45824690a90e18c",
-      "url": "https://github.com/advisories/GHSA-828w-6qgx-3rcf",
-      "title": "GHSA: Filament Curator: Cross-tenant media metadata disclosure via Curator picker search",
-      "summary": "Summary\n\n  In multitenant Filament panels, an authenticated user could retrieve media metadata belonging to other tenants\n  by typing in the Curator media-picker search box. The search query omitted the tenant ownership scope that the\n  normal file listing applies.\n\n  Details\n\n  CuratorPanel::updatedSearch() built its Eloquent query independently of getFiles() and did not apply the\n  filament()->h",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-17T20:49:28Z",
-      "cve_ids": [
-        "CVE-2026-63389"
-      ],
-      "cvss": 5.0,
-      "related_links": []
-    },
-    {
-      "id": "b152ecb0255b27467c132076f32cd761ded75338f9f90d9fcf288330ed8412ad",
-      "url": "https://github.com/advisories/GHSA-pr4x-6fj4-gm4h",
-      "title": "GHSA: EGroupware: User-Controlled Identity Provider Selection in SAML Authentication",
-      "summary": "### Summary\nThe login() function at line 130 passes the raw user-supplied value `$_REQUEST['idp']` directly to SimpleSAMLphp's `requireAuth()` with only a regex check that the string starts with 'https://'. No validation is performed against a list of configured, trusted IdP entity IDs. An unauthenticated attacker can supply any HTTPS URL pointing to an IdP they control.\n\n### PoC\n```php\n//api/src/",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-11-17T20:47:22Z",
-      "cve_ids": [
-        "CVE-2026-63672"
-      ],
-      "cvss": 6.1,
       "related_links": []
     }
   ]
