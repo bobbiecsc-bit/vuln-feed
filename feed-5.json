@@ -1,10 +1,296 @@
 {
-  "updated": "2026-11-20T16:44:25.589015+00:00",
+  "updated": "2026-11-21T01:06:29.075011+00:00",
   "page": 5,
   "total_pages": 5,
   "total_articles": 250,
   "page_size": 50,
   "articles": [
+    {
+      "id": "7ef9a040a3e4504a8bb0984fd3cbcd6870547b77ab7ccfbc600f71ac4f00c65d",
+      "url": "https://github.com/advisories/GHSA-24mq-4vc6-2prf",
+      "title": "GHSA: mail-parser: Uncaught exceptions and silent header loss in mail-parser on attacker-controlled input",
+      "summary": "### Impact\n\nTwo effects, sharing the root cause of Advisory 1 — header names chosen by the sender were\nresolved through Python attribute lookup and rewritten before lookup.\n\n**Uncaught exceptions.** A crafted message raises an exception that is *outside* the\n`MailParser*` hierarchy, so a caller catching only mail-parser exceptions does not catch it\nand the worker dies.\n\n*Header named after a metho",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-16T22:12:51Z",
+      "cve_ids": [
+        "CVE-2026-129299"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "fe5dc2d3ebbf53c3c44eaf05bf6434776e86e3d8b93610245545295eb354ec90",
+      "url": "https://github.com/advisories/GHSA-72px-j8gh-p79x",
+      "title": "GHSA: mail-parser: Sender IP address spoofing in get_server_ipaddress()",
+      "summary": "### Patches\n\nFixed in **4.6.2**. Upgrade with `pip install --upgrade mail-parser`.\n\nCandidate addresses are now selected by position, not by appearance — a bracketed address\nthe sender wrote is byte-identical to one the MTA wrote, so no amount of pattern matching\ncan tell them apart:\n\n- the first token of the `from` clause is the HELO name, whatever its shape, and is never a\n  candidate;\n- an expl",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-16T22:11:54Z",
+      "cve_ids": [
+        "CVE-2026-129297"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "b210058f1052fca81b359803a230ca1284982012819e82b8335add4072500123",
+      "url": "https://github.com/advisories/GHSA-r7w7-vpq8-c5vv",
+      "title": "GHSA: mail-parser is vulnerable to polynomial ReDoS in email header parsing",
+      "summary": "### Summary\n\nTwo regular expressions used while parsing email headers backtrack\npolynomially on attacker-controlled input. Parsing a single small, well-formed\nemail can consume minutes to hours of CPU, denying service to any process that\nparses untrusted mail.\n\nBoth are reachable from an ordinary `parse_from_string()`, `parse_from_bytes()`\nor `parse_from_file()` call — no special API, option, or m",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-16T22:11:08Z",
+      "cve_ids": [
+        "CVE-2026-129295"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "6eb5f6863d1c54cb44fc95a3d9b300cadb343314d9815921ea6cd60377efc5e1",
+      "url": "https://github.com/advisories/GHSA-fr3h-cpq2-9496",
+      "title": "GHSA: mail-parser: Path Traversal vulnerability in attachment extraction",
+      "summary": "A path traversal vulnerability was identified in mail-parser when extracting email attachments using the write_attachments() and write_sample() APIs.\n\nA specially crafted email containing malicious attachment filenames (for example, using directory traversal sequences such as \"../\" or absolute filesystem paths) could cause files to be written outside the intended output directory. Depending on how",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-16T22:10:55Z",
+      "cve_ids": [
+        "CVE-2026-129296"
+      ],
+      "cvss": 6.5,
+      "related_links": []
+    },
+    {
+      "id": "0cda23acc6f160303ef5e49e1985daa743f9575fd873937da0ec7831e0b2c624",
+      "url": "https://github.com/advisories/GHSA-259w-wmqg-fp76",
+      "title": "GHSA: termux-sync: Arbitrary file write during restore via attacker-controlled manifest source path",
+      "summary": "termux-sync restore trusts fields inside an untrusted backup manifest and uses them as the extraction destination without validation.\n\nDuring restore, each archive entry is handled as:\n\n  src_dir = Path(info.get(\"source\", ...)).parent\n  extract_archive(archive, src_dir, ...)\n\nextract_archive opens the archive and runs tarfile.extract for every member with no path jail and no filter:\n\n  with tarfil",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-16T22:09:24Z",
+      "cve_ids": [
+        "CVE-2026-86046"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "517720204a7de40bad2069592537fd53aed2bec1707d9e110ff0597822daa207",
+      "url": "https://github.com/advisories/GHSA-w553-pwx6-3mg9",
+      "title": "GHSA: lightsaml allows Signature wrapping bypass",
+      "summary": "### Summary\n\nLightSaml 5.0.0 (latest release; also confirmed on 4.6.1) validates an inbound `samlp:Response` by collecting its direct-child `saml:Assertion` elements and validating each one's `ds:Signature` via robrichards/xmlseclibs. The two layers disagree on which element a signature actually covers: LightSaml reads claims from the assertion node it collected, while xmlseclibs resolves the sign",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-16T22:08:38Z",
+      "cve_ids": [
+        "CVE-2026-63182"
+      ],
+      "cvss": 8.1,
+      "related_links": []
+    },
+    {
+      "id": "2aca141bca42ac972c5cb85bf846c71450bd7c12e0c5290c37a4f67ada37fc45",
+      "url": "https://github.com/advisories/GHSA-7mxv-7h3q-9324",
+      "title": "GHSA: NLTK dot2img runs Graphviz 'dot' without the trusted-exec chokepoint, enabling local code execution via a writable PATH element",
+      "summary": "## Summary\n\n`nltk.parse.dependencygraph.dot2img` invokes the Graphviz `dot` executable without the trusted-execution guarantees that NLTK applies to its other native-tool wrappers. The function resolves `dot` by bare name and then runs the resolved absolute path with a raw `subprocess.run`, omitting the ownership/writability check and the loader-environment scrub that `nltk.pathsec.spawn_trusted` ",
+      "source": "GitHub Advisory",
+      "category": "web_app",
+      "date": "2026-11-16T18:45:51Z",
+      "cve_ids": [
+        "CVE-2026-128134"
+      ],
+      "cvss": 7.8,
+      "related_links": []
+    },
+    {
+      "id": "427b0584b51a025a3cfd0183d1aecbc7618328d21c499e824dc6da208baea065",
+      "url": "https://www.rapid7.com/blog/post/etr-rapid7-detected-exploitation-of-cve-2026-90436-against-atlassian-confluence-data-center-n-able-n-central-also-exploited",
+      "title": "Rapid7 Detected Exploitation of CVE-2026-90436 against Atlassian Confluence Data Center, N-able N-central also Exploited",
+      "summary": "OverviewOn November 6, 2026, the Apache Software Foundation disclosed CVE-2026-90436, a critical unsafe reflection vulnerability (CWE-470) in Axis 1.x that allows for unauthenticated remote code execution (RCE). Apache Axis is a Simple Object Access Protocol (SOAP) implementation used for the creation of Java Web services. CISA has assigned CVE-2026-90436 a CVSS score of 9.8 Critical.Since the ini",
+      "source": "Rapid7",
+      "category": "emergency",
+      "date": "2026-11-16T18:14:14+00:00",
+      "cve_ids": [
+        "CVE-2026-90436"
+      ],
+      "cvss": null,
+      "related_links": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog#CVE-2026-90436"
+      ]
+    },
+    {
+      "id": "2af3baf771e2e985d61883ee775968455307cf5859b9e3594294b24a3ce2388a",
+      "url": "https://ubuntu.com/security/notices/USN-9064-2",
+      "title": "USN-9064-2: Pillow regression",
+      "summary": "USN-9064-1 fixed vulnerabilities in Pillow. Unfortunately, the fix for CVE-2026-112402 introduced a regression that caused resizing images with the NEAREST filter, and resizing any \"1\" or \"P\" mode image, to fail. This update fixes the problem. We apologize for the inconvenience. Original advisory details: It was discovered that Pillow could enter an infinite loop while determining the frame count ",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-11-16T18:07:22+00:00",
+      "cve_ids": [
+        "CVE-2026-112390",
+        "CVE-2026-112391",
+        "CVE-2026-112392",
+        "CVE-2026-112393",
+        "CVE-2026-112394",
+        "CVE-2026-112395",
+        "CVE-2026-112396",
+        "CVE-2026-112397",
+        "CVE-2026-112398",
+        "CVE-2026-112399",
+        "CVE-2026-112400",
+        "CVE-2026-112401",
+        "CVE-2026-112402",
+        "CVE-2026-112403",
+        "CVE-2026-112404",
+        "CVE-2026-112405",
+        "CVE-2026-112406",
+        "CVE-2026-112891",
+        "CVE-2026-112892",
+        "CVE-2026-112893",
+        "CVE-2026-112894",
+        "CVE-2026-112895",
+        "CVE-2026-112896",
+        "CVE-2026-112897",
+        "CVE-2026-112898",
+        "CVE-2026-112900",
+        "CVE-2026-112901",
+        "CVE-2026-114501",
+        "CVE-2026-42308",
+        "CVE-2026-42310",
+        "CVE-2026-96636",
+        "CVE-2026-96637",
+        "CVE-2026-96638",
+        "CVE-2026-96639",
+        "CVE-2026-96640",
+        "CVE-2026-96641",
+        "CVE-2026-96642",
+        "CVE-2026-96643",
+        "CVE-2026-96778"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "f99fdb44752116a2e3ae60318969673b3737c79bb280ff2a3898d86438219840",
+      "url": "https://www.rapid7.com/blog/post/ve-from-view-only-access-to-container-root-five-vulnerabilities-in-onlyoffice-docs-fixed",
+      "title": "From view-only access to container root: five vulnerabilities in ONLYOFFICE Docs (FIXED)",
+      "summary": "OverviewAs part of our research into Zimbra Collaboration Suite, Rapid7 reported five findings in ONLYOFFICE Docs. An attacker with view-only access to a document can chain vulnerabilities in ONLYOFFICE Docs to execute arbitrary operating system commands as root inside the official DocumentServer container.The findings also expose server files and document data that the viewer never displays, even",
+      "source": "Rapid7",
+      "category": "emergency",
+      "date": "2026-11-16T16:24:38+00:00",
+      "cve_ids": [
+        "CVE-2026-110385",
+        "CVE-2026-113627",
+        "CVE-2026-113630",
+        "CVE-2026-113631",
+        "CVE-2026-97727"
+      ],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "eba3b67125d8fa10c86b02c6947f6197861fe53c7129487e95c7d80f389d82df",
+      "url": "https://ubuntu.com/security/notices/USN-8997-2",
+      "title": "USN-8997-2: Net-SNMP vulnerability",
+      "summary": "USN-8997-1 fixed a vulnerability in Net-SNMP. This update provides the corresponding fix for Net-SNMP on Ubuntu 20.04 LTS, Ubuntu 18.04 LTS, Ubuntu 16.04 LTS and Ubuntu 14.04 LTS. Original advisory details: It was discovered that Net-SNMP incorrectly handled newly accepted connections in the SMUX module. An unauthenticated remote attacker could possibly use this issue to cause Net-SNMP to block in",
+      "source": "Ubuntu Security",
+      "category": "emergency",
+      "date": "2026-11-16T15:28:07+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "984c664065ca2feb640726276959bb0e420115b13aa011d2000cec26a8a56b50",
+      "url": "https://github.com/advisories/GHSA-hf59-9xwc-2g4p",
+      "title": "GHSA: Nuxt: Colliding island props can share one `/__nuxt_island` path (incomplete fix for CVE-2026-46342)",
+      "summary": "### Summary\n\nThe fix for CVE-2026-46342 (GHSA-g8wj-3cr3-6w7v) binds each `/__nuxt_island/<Name>_<hash>.json` path to its props by hashing the `(name, props, context, source)` tuple. That hash was computed over `ohash`'s serialization, which does not escape quotes inside strings or delimiters inside keys, so two different prop objects can produce the same hash. A request with crafted props can ther",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-16T15:02:22Z",
+      "cve_ids": [
+        "CVE-2026-128076"
+      ],
+      "cvss": 3.1,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-128076"
+      ]
+    },
+    {
+      "id": "4a5ec4f43c612620075584e2a1058fe754e42189413f9c11023ce3718022088d",
+      "url": "https://github.com/advisories/GHSA-96x6-fvhx-49hg",
+      "title": "GHSA: Nuxt exposes the message and data of unhandled errors thrown during server rendering",
+      "summary": "### Summary\n\nWhen a page, plugin or route middleware throws an error that is not an HTTP error, Nuxt wraps it with `createError` before rendering the error page. The wrapped error was treated as one the app raised deliberately, so in production its `message` and `data` were sent to the client in the error page payload (`__NUXT_DATA__`) and in JSON error responses. For a failed `$fetch`, that is th",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-16T15:01:26Z",
+      "cve_ids": [
+        "CVE-2026-128075"
+      ],
+      "cvss": 5.3,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-128075"
+      ]
+    },
+    {
+      "id": "b138a94eb9b25779d0756e114c0331d0b42b9e717fda055a7bd4eb37daee819d",
+      "url": "https://www.bleepingcomputer.com/news/security/7-tips-for-complying-with-cjis-password-and-mfa-requirements/",
+      "title": "7 Tips For Complying with CJIS Password and MFA Requirements",
+      "summary": "The FBI's latest CJIS Security Policy requires law enforcement agencies to strengthen password protections and enforce MFA across privileged and non-privileged accounts. Specops Software outlines seven practical steps to meet these requirements, block compromised passwords, and maintain compliance. [...]",
+      "source": "Bleeping Computer",
+      "category": "emergency",
+      "date": "2026-11-16T15:01:11+00:00",
+      "cve_ids": [],
+      "cvss": null,
+      "related_links": []
+    },
+    {
+      "id": "b0b7cb98edb13fa5efe0c879e1d4f0980971312219890dd66db76993253c5209",
+      "url": "https://github.com/advisories/GHSA-x2wv-5868-p7v2",
+      "title": "GHSA: @nuxt/webpack-builder and @nuxt/rspack-builder dev server serves built source to DNS rebinding pages",
+      "summary": "### Summary\n\nWhen using the webpack or rspack builder, the dev server serves built client chunks to any request whose `Host` header matches its `Origin`/`Referer`, or that carries `Sec-Fetch-Site: same-origin`. After a DNS rebinding attack both headers name the attacker's hostname, so a malicious page opened while `nuxt dev` is running can read `/_nuxt/*.js` and exfiltrate the app's source. This b",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-16T15:00:09Z",
+      "cve_ids": [
+        "CVE-2026-128072"
+      ],
+      "cvss": 3.1,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-128072"
+      ]
+    },
+    {
+      "id": "b65a99d65d546565a2713100ae4362040ec56b543e8bdac1b5f2e51df40ba94d",
+      "url": "https://github.com/advisories/GHSA-f3x9-2chm-73c8",
+      "title": "GHSA: Nuxt: Incomplete fix for GHSA-6gq8-jgmh-3ffp: an encoded slash (`%2F`) in the request path bypasses route rules on catch-all page routes",
+      "summary": "### Summary\n\nNuxt matches route rules against the request path with encoded slashes (`%2F`) left encoded, while the page router decodes them into route params. A request that spells a slash as `%2F` can therefore render a page through a catch-all route without the route rules configured for the path it resolves to. The fix for [GHSA-6gq8-jgmh-3ffp](https://github.com/nuxt/nuxt/security/advisories/",
+      "source": "GitHub Advisory",
+      "category": "emergency",
+      "date": "2026-11-16T14:59:45Z",
+      "cve_ids": [
+        "CVE-2026-128071"
+      ],
+      "cvss": 6.5,
+      "related_links": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-128071"
+      ]
+    },
+    {
+      "id": "6ccae541a9af2b68f8f7ff3e9c4d61dd2104df2dc7ca35ff33c9bb0b9e7c28b1",
+      "url": "https://github.com/advisories/GHSA-m9j8-jcmv-hp69",
+      "title": "GHSA: SvelteKit: Build-time server-only module import guard could fail, resulting in server secrets being statically replaced in client bundle",
+      "summary": "Under certain circumstances, server-only imports, which typically cannot be included in the client bundle, could make their way into it, potentially exposing secrets. This could only occur when those server-only imports were made through `src/params.js`.",
+      "source": "GitHub Advisory",
+      "category": "cloud",
+      "date": "2026-11-16T14:59:00Z",
+      "cve_ids": [
+        "CVE-2026-128118"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
     {
       "id": "d4a3402be345b2dd68e97223fd8bcbf253c2e8f452a92e03af26222075dac0ac",
       "url": "https://github.com/advisories/GHSA-3r8g-jcqq-3p5j",
@@ -142,561 +428,325 @@
       "related_links": []
     },
     {
-      "id": "ba4fe4fa2bf566bab500823be4aa23bd715d40e4db07b51647a5dea2b4f268a9",
-      "url": "https://msrc.microsoft.com/update-guide/releaseNote/2007-Dec",
-      "title": "MSRC: Mariner Release Notes",
-      "summary": "Microsoft security update: Mariner Release Notes. Alias: 2007-Dec.",
-      "source": "Microsoft MSRC",
+      "id": "458fe9c3ea4f600abe385f942499f0e4d3a0e09051f50a4a1107ef35990905fe",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129452",
+      "title": "CVE-2026-129452 — CVSS 9.1",
+      "summary": "A vulnerability has been found in DrayTek Vigor2960 1.5.1.6. This vulnerability affects the function set_table of the file /cgi-bin/mainfunction.cgi. Such manipulation of the argument jsondata leads to command injection. The attack can be launched remotely. The exploit has been disclosed to the public and may be used. Upgrading to version 1.5.1.7 is able to resolve this issue. It is suggested to u",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-11-15T13:16:59.703",
+      "cve_ids": [
+        "CVE-2026-129452"
+      ],
+      "cvss": 9.1,
+      "related_links": []
+    },
+    {
+      "id": "434f4a2471d7829b8410591fb4cb016e0fa4e85096e9f14ab721a0e63a25269c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129451",
+      "title": "CVE-2026-129451 — CVSS 9.9",
+      "summary": "A flaw has been found in DrayTek Vigor2960 up to 1.5.1.6. This affects the function app_guest_export of the file /cgi-bin/mainfunction.cgi. This manipulation of the argument filename causes path traversal. The attack can be initiated remotely. The exploit has been published and may be used. Upgrading to version 1.5.1.7 is able to mitigate this issue. The affected component should be upgraded. The ",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-11-15T13:16:58.600",
+      "cve_ids": [
+        "CVE-2026-129451"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "391452edb70ecc2dc756e7a1b268a6f86d145e4258893f1cbf4814f226bfe491",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129450",
+      "title": "CVE-2026-129450 — CVSS 9.9",
+      "summary": "A vulnerability was detected in DrayTek Vigor2960 1.5.1.6. Affected by this issue is the function sub_1E084 of the file /cgi-bin/mainfunction.cgi?action=doWebBackup. The manipulation of the argument option results in path traversal. It is possible to launch the attack remotely. The exploit is now public and may be used. Upgrading to version 1.5.1.7 can resolve this issue. You should upgrade the af",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-11-15T12:17:20.913",
+      "cve_ids": [
+        "CVE-2026-129450"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "4e4b75dccf8ed928c99a676d2fb43a1684ebfa677c5592fc360106fbcf7fc9db",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129449",
+      "title": "CVE-2026-129449 — CVSS 9.9",
+      "summary": "A security vulnerability has been detected in DrayTek Vigor2960 up to 1.5.1.6. Affected by this vulnerability is the function sub_14914 of the file /cgi-bin/mainfunction.cgi. The manipulation of the argument swmconfigupload leads to command injection. It is possible to initiate the attack remotely. The exploit has been disclosed publicly and may be used. Upgrading to version 1.5.1.7 addresses this",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-11-15T11:17:10.620",
+      "cve_ids": [
+        "CVE-2026-129449"
+      ],
+      "cvss": 9.9,
+      "related_links": []
+    },
+    {
+      "id": "7ea0c529cd357d49937b1309de7e8e4d7684ba8b1efb76749862ebf2c6c889c5",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-82663",
+      "title": "CVE-2026-82663 — CVSS 7.5",
+      "summary": "The Give - Peer-to-Peer plugin for WordPress is vulnerable to authorization bypass in all versions up to, and including, 2.9.5. This is due to the plugin not properly verifying that a user is authorized to perform an action. This makes it possible for unauthenticated attackers who know or discover an existing campaign and team ID to modify the team's name, story, goal, access and notification sett",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-11-15T10:16:54.410",
+      "cve_ids": [
+        "CVE-2026-82663"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "d754c311a5442f18ea7c2a3788e7b50e93e757ecbb9dbf7f293ea930db7c27db",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-82568",
+      "title": "CVE-2026-82568 — CVSS 7.5",
+      "summary": "The Give - Peer-to-Peer plugin for WordPress is vulnerable to time-based SQL Injection via the 'sort' parameter in all versions up to, and including, 2.9.3 due to insufficient escaping on the user supplied parameter and lack of sufficient preparation on the existing SQL query. This makes it possible for unauthenticated attackers to append additional SQL queries into already existing queries that c",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-11-15T10:16:54.217",
+      "cve_ids": [
+        "CVE-2026-82568"
+      ],
+      "cvss": 7.5,
+      "related_links": []
+    },
+    {
+      "id": "b9d9c7e29b3a641c40f66bd1152cd3fcdf5f0c9443a0bd624cd643b65651242c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129445",
+      "title": "CVE-2026-129445 — CVSS 8.2",
+      "summary": "A security flaw has been discovered in D-Link DIR-850L FW1.20WWb03. This impacts an unknown function of the file /usr/sbin/consolepwd of the component Console Login. Performing a manipulation results in hard-coded credentials. The attack requires a local approach. The exploit has been released to the public and may be used for attacks.",
+      "source": "NVD/NIST",
       "category": "infrastructure",
-      "date": "2026-11-14T01:06:13Z",
-      "cve_ids": [],
+      "date": "2026-11-15T10:16:53.970",
+      "cve_ids": [
+        "CVE-2026-129445"
+      ],
+      "cvss": 8.2,
+      "related_links": []
+    },
+    {
+      "id": "5a6748a27b133e96b25f80f02f8e06fa8ad2e1249d9e8508606aec5ff142b145",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129349",
+      "title": "CVE-2026-129349",
+      "summary": "When authentication caching is enabled on DefaultLdapRealm, after a user logs in successfully once, subsequent logins for that user succeed with any password.\nA cached authentication skips the LDAP bind, and the AllowAllCredentialsMatcher installed by default in DefaultLdapRealm accepts any credentials, allowing an attacker who knows a valid username to authenticate as that user.\nThis issue affect",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-11-15T10:16:53.020",
+      "cve_ids": [
+        "CVE-2026-129349"
+      ],
       "cvss": null,
       "related_links": []
     },
     {
-      "id": "28fbb67b0043a4c8df65615349e81351411a4473852c475858efae5403a744bb",
-      "url": "https://msrc.microsoft.com/update-guide/releaseNote/2006-Mar",
-      "title": "MSRC: Mariner Release Notes",
-      "summary": "Microsoft security update: Mariner Release Notes. Alias: 2006-Mar.",
-      "source": "Microsoft MSRC",
-      "category": "infrastructure",
-      "date": "2026-11-14T01:06:05Z",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "8e630ac1e0ae4393548796cab8c2f380380c448beda29837e93c8d0690fb1005",
-      "url": "https://msrc.microsoft.com/update-guide/releaseNote/2005-Mar",
-      "title": "MSRC: Mariner Release Notes",
-      "summary": "Microsoft security update: Mariner Release Notes. Alias: 2005-Mar.",
-      "source": "Microsoft MSRC",
-      "category": "infrastructure",
-      "date": "2026-11-14T01:05:26Z",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "d6d0a0fb74ba9063408eb5d9c42c9fa76d51fbf545a1c3229436fb38095c65ed",
-      "url": "https://msrc.microsoft.com/update-guide/releaseNote/2000-Jan",
-      "title": "MSRC: Mariner Release Notes",
-      "summary": "Microsoft security update: Mariner Release Notes. Alias: 2000-Jan.",
-      "source": "Microsoft MSRC",
-      "category": "infrastructure",
-      "date": "2026-11-14T01:04:55Z",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "948adf134288e16217c7888cae8d82b1c7944a1d54995fe2fc4823f4a8e69de3",
-      "url": "https://msrc.microsoft.com/update-guide/releaseNote/2000-Oct",
-      "title": "MSRC: Mariner Release Notes",
-      "summary": "Microsoft security update: Mariner Release Notes. Alias: 2000-Oct.",
-      "source": "Microsoft MSRC",
-      "category": "infrastructure",
-      "date": "2026-11-14T01:04:21Z",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "34152ca74c4b5113b5cdc0d476b0f72c3c05331281ac76960d500351d67b856f",
-      "url": "https://github.com/advisories/GHSA-89p3-fcch-88ph",
-      "title": "GHSA: NLTK: Quadratic-time CPU denial of service in CCG lexicon parser (fromstring) on wide bracket bodies and operator chains",
-      "summary": "## Summary\n\nThe public CCG lexicon parser `nltk.ccg.lexicon.fromstring` parses caller-influenced lexicon text with two pure-Python loops whose cost is quadratic in the input width. A service that parses an untrusted CCG lexicon string can be driven into tens of seconds of single-threaded CPU by a few-megabyte input, starving the request worker. No authentication or user interaction is required.\n\n#",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-14T00:08:50Z",
-      "cve_ids": [
-        "CVE-2026-126299"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "018b82a1dca8485097e7924b837367373d820cd16a7a487aba5bb03be6a3f726",
-      "url": "https://github.com/advisories/GHSA-r53h-rw34-8h97",
-      "title": "GHSA: NLTK: Quadratic-time CPU denial of service in Tree.chomsky_normal_form right-factor binarization via list.pop(0)",
-      "summary": "## Summary\n\n`Tree.chomsky_normal_form()` binarizes a parse tree and defaults to right factoring. For a node with N children the right-factor branch repeatedly removes the first element of a working list with `list.pop(0)`, which shifts all remaining elements each time, so binarizing one wide node costs O(N^2). An application that converts an attacker-supplied treebank tree to Chomsky Normal Form c",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-14T00:07:59Z",
-      "cve_ids": [
-        "CVE-2026-126298"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "29b4c5ec6220b55ee645def0c8df21c2d11434543ff57b647fd0a320ecdc885c",
-      "url": "https://github.com/advisories/GHSA-v8f3-6phw-6mh9",
-      "title": "GHSA: NLTK: Quadratic-time CPU denial of service in ConllCorpusReader SRL instance builder via nested span rescan",
-      "summary": "## Summary\n\n`ConllCorpusReader.srl_instances()` builds semantic-role-labeling instances from a CoNLL corpus block. For a sentence block with P predicates and P span columns, the instance builder rescans every span column (and every span within it) once per predicate while searching for each predicate's head, giving O(P^2 * R) work. A single well-formed block that places the head span in the last c",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-14T00:05:57Z",
-      "cve_ids": [
-        "CVE-2026-126297"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "4fdd281b55b6d9f8e44511a0ec9b56fcb43ebd8132a7fb3ed450a51daf950d6b",
-      "url": "https://github.com/advisories/GHSA-fg9w-wfp5-j933",
-      "title": "GHSA: NLTK: BllipParser passes caller-supplied model paths to the bllipparser C extension with no pathsec check, enabling arbitrary read",
-      "summary": "## Summary\n\n`BllipParser` in `nltk/parse/bllip.py` hands caller-supplied filesystem paths to the native `bllipparser` C extension without routing them through NLTK's `pathsec` validation. The constructor parameters `parser_model`, `reranker_features`, and `reranker_weights`, and the alternative `from_unified_model_dir()` entry point, flow directly to the C extension's `load_parser_model()` and `lo",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-13T23:20:56Z",
-      "cve_ids": [
-        "CVE-2026-126295"
-      ],
-      "cvss": 6.8,
-      "related_links": []
-    },
-    {
-      "id": "c299b31ec415d8b0a4b75e5fccebecb51500a976651b3874253ccba565eeb6ca",
-      "url": "https://github.com/advisories/GHSA-qfx6-q44v-9qqw",
-      "title": "GHSA: ag-psd can exhaust memory when parsing crafted PSD dimensions",
-      "summary": "### Summary\nreadPsd() commits the image/layer buffers from the declared header geometry (width x height x channels x depth, and per-layer rectangles) before validating those values against the actual data. A tiny crafted PSD declaring huge geometry forces a multi-gigabyte allocation.\n\n### Impact\nOn ag-psd 30.2.0, Node 24, a 52-byte PSD makes readPsd(buf) commit ~3.17 GB (measured peak RSS) in ~0.4",
-      "source": "GitHub Advisory",
+      "id": "6b7fd15f2c8002f0da8a5e432babc1c68d9ba25f39a91d091ee6662a2a1fb1ee",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129444",
+      "title": "CVE-2026-129444 — CVSS 10.0",
+      "summary": "A vulnerability was identified in D-Link DSL-6740C 20131126. This affects an unknown function of the file /etc/templates/ftpd/ftpd_conf.php of the component FTP Daemon. Such manipulation leads to hard-coded credentials. The attack can be executed remotely. The exploit is publicly available and might be used.",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-11-13T23:19:38Z",
+      "date": "2026-11-15T09:16:44.570",
       "cve_ids": [
-        "CVE-2026-62297"
+        "CVE-2026-129444"
       ],
-      "cvss": 7.5,
+      "cvss": 10.0,
       "related_links": []
     },
     {
-      "id": "cdd2b1f99bcd2c0f3879a87c061b7cfdd4602c0b14a1b80f01b0cced69340d0b",
-      "url": "https://github.com/advisories/GHSA-pp88-jhwj-5qh5",
-      "title": "GHSA: File Browser: Trailing-slash directory deletion leaves public shares active for recreated paths",
-      "summary": "## Summary\n\nFile Browser v2.63.15 can leave a public directory share behind when the shared directory is deleted through a path with a trailing slash. The share cleanup path calls `DeleteWithPathPrefix(file.Path, userID)`, but the Bolt backend performs the database prefix query with the unnormalized argument before trimming the slash for boundary checks. For a stored share at `/a`, deleting `/a/` ",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-11-13T23:12:06Z",
-      "cve_ids": [
-        "CVE-2026-62683"
-      ],
-      "cvss": 3.1,
-      "related_links": []
-    },
-    {
-      "id": "6d9ae49b0c83e98e1ab1b3888e05462a55a14495924d2b56dc7cd63089475108",
-      "url": "https://github.com/advisories/GHSA-gpwc-27cw-rh9r",
-      "title": "GHSA: NLTK: Quadratic CPU exhaustion in LegalitySyllableTokenizer.tokenize via unguarded onset reversal loop",
-      "summary": "## Summary\n\n`LegalitySyllableTokenizer.tokenize` in the NLTK tokenizer package contains an unguarded O(n^2) processing loop. When the method is called on a single token that consists of a long run of vowels (for example `\"a\" * n`), it consumes CPU time proportional to the square of the token length. An attacker who can supply an untrusted token to this public tokenizer API can force a single reque",
-      "source": "GitHub Advisory",
+      "id": "e7f9c40190debe6db48f57eb968bc7859b7d08e8604dbd7461446620213ef8c9",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129443",
+      "title": "CVE-2026-129443 — CVSS 6.3",
+      "summary": "A vulnerability was determined in itsourcecode Airline Reservation System 1.0. The impacted element is an unknown function of the file /admin/manage_user.php. This manipulation of the argument ID causes sql injection. Remote exploitation of the attack is possible. The exploit has been publicly disclosed and may be utilized.",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-11-13T21:16:34Z",
+      "date": "2026-11-15T08:17:21.573",
       "cve_ids": [
-        "CVE-2026-126301"
+        "CVE-2026-129443"
       ],
-      "cvss": 5.3,
+      "cvss": 6.3,
       "related_links": []
     },
     {
-      "id": "634864f85a0d63da223d507e9be6fa1c67ab47d5c9e798635467c7cc894174d1",
-      "url": "https://github.com/advisories/GHSA-ffr9-mgrr-wcvr",
-      "title": "GHSA: NLTK: Quadratic CPU exhaustion in TreebankWordTokenizer.span_tokenize via list.pop(0) in quote-restore loop",
-      "summary": "## Summary\n\n`TreebankWordTokenizer.span_tokenize` in the NLTK tokenizer package contains an unguarded O(n^2) processing loop in its quote-restoration step. When the method is invoked on text containing a long run of double-quote characters (for example `'\"' * n`), it performs a `list.pop(0)` operation once per quote token, and because `list.pop(0)` is O(length), the total cost grows with the squar",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-13T21:08:55Z",
-      "cve_ids": [
-        "CVE-2026-126300"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "a916613e690dfacb5b612a423502661971ee91360eca08e6e6b9e8f70bca25b2",
-      "url": "https://github.com/advisories/GHSA-8fx7-8jr8-84rv",
-      "title": "GHSA: NLTK: Unbounded CPU consumption in SteppingRecursiveDescentParser.parse() with ambiguous or self-embedding grammars",
-      "summary": "## Summary\n\n`nltk.parse.recursivedescent.SteppingRecursiveDescentParser.parse()` performs an unbounded top-down search over ambiguous or self-embedding context-free grammars with no wall-clock or step limit. An actor who can influence the grammar and supply a short input to a caller that uses this parser can force a single `parse()` call to pin a CPU core indefinitely, producing a denial of servic",
-      "source": "GitHub Advisory",
+      "id": "a3333c8495f6f708d6e733de5869c72754e842b40b37cde8a192b267766e15ee",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-127048",
+      "title": "CVE-2026-127048 — CVSS 9.8",
+      "summary": "The Custom Block Builder  WordPress plugin before 3.0.0 does not properly deny unauthorised requests to its REST routes, as its permission checks return a non-error response that WordPress treats as granted, allowing unauthenticated users to execute arbitrary PHP code on the server.",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-11-13T21:02:19Z",
+      "date": "2026-11-15T07:16:54.633",
       "cve_ids": [
-        "CVE-2026-126303"
+        "CVE-2026-127048"
       ],
-      "cvss": 7.5,
+      "cvss": 9.8,
       "related_links": []
     },
     {
-      "id": "be917cdecf5d6256d5a7d7aa063f7a8e27f04b4fbe0c32377708e5aba10e37a5",
-      "url": "https://github.com/advisories/GHSA-qg35-44qx-7vrr",
-      "title": "GHSA: NLTK: Symlink escape in YCOECorpusReader lets a psd/pos directory symlink read files outside the corpus root within the data sandbox",
-      "summary": "## Summary\n\n`YCOECorpusReader` builds two nested corpus sub-readers whose roots are derived from `self.root.join(\"psd\")` and `self.root.join(\"pos\")` (nltk/corpus/reader/ycoe.py). Because `FileSystemPathPointer.join()` (nltk/data.py) performs a purely lexical containment check and never resolves symlinks, and because `CorpusReader.__init__` (nltk/corpus/reader/api.py) validates a sub-reader root on",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-13T20:55:16Z",
-      "cve_ids": [
-        "CVE-2026-126304"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "115c358ca685e444e4edafd9261129cb3e952716b050f7f9ec266b62012b8bdd",
-      "url": "https://github.com/advisories/GHSA-mw6w-2fmv-pvw3",
-      "title": "GHSA: SvelteKit: adapter-node crashes with an unhandled URIError when `reroute` rewrites malformed pathnames",
-      "summary": "When `reroute` turned an invalid percent-encoded path into a valid path, it could potentially trigger a comparison that would crash the server.",
-      "source": "GitHub Advisory",
+      "id": "50b03e09656bd008a44c84a1c08eb9c0e1619e6ea8912e0337bfb634ec9c5647",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-124673",
+      "title": "CVE-2026-124673 — CVSS 3.7",
+      "summary": "The Burst Statistics  WordPress plugin before 3.7.5 does not check that a reported page view belongs to published content, nor check post status before listing post titles and links in its public statistics output, allowing unauthenticated attackers to disclose the titles and permalinks of draft, pending and private posts.",
+      "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-11-13T20:51:44Z",
+      "date": "2026-11-15T07:16:54.527",
       "cve_ids": [
-        "CVE-2026-128117"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "45cee3d41a731f3f307b2d9c80ddbc384774a456d95347c3d0726bbf0e8f7009",
-      "url": "https://github.com/advisories/GHSA-jf9x-2fg2-hx4w",
-      "title": "GHSA: SvelteKit: Prerendered paths are interpreted as regular expressions in Vercel route config generated by @sveltejs/adapter-vercel and @sveltejs/adapter-static",
-      "summary": "If an attacker could influence a link that was crawled during the prerender phase, that link could later be interpreted as a regex in the Vercel routing configuration.",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-11-13T20:43:23Z",
-      "cve_ids": [
-        "CVE-2026-128121"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "543503e48391f9ab0fdc4f1ae4f8cde15f9c74b5e106cb5ec73a4ea3d8c0fe68",
-      "url": "https://github.com/advisories/GHSA-5wg4-q3ww-283h",
-      "title": "GHSA: SvelteKit: Prerendered redirect paths can inject arbitrary rules into the `_redirects` file generated by `@sveltejs/adapter-cloudflare`",
-      "summary": "If an attacker can influence the links crawled during prerendering, they can influence the redirects entries that are added to the Cloudflare platform redirects generated during the adapt phase of the build.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-13T20:39:15Z",
-      "cve_ids": [
-        "CVE-2026-128122"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "073783c113dac6886671996cddf7697ec3427756faa9f5f5d269f90fa3016a76",
-      "url": "https://msrc.microsoft.com/update-guide/releaseNote/2007-Mar",
-      "title": "MSRC: Mariner Release Notes",
-      "summary": "Microsoft security update: Mariner Release Notes. Alias: 2007-Mar.",
-      "source": "Microsoft MSRC",
-      "category": "infrastructure",
-      "date": "2026-11-13T20:38:10Z",
-      "cve_ids": [],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "420dd5f5067eb520f60344a36a8f0696c8e93ccc275849517a42f45182742481",
-      "url": "https://github.com/advisories/GHSA-rqw3-x7hx-mm3p",
-      "title": "GHSA: SvelteKit: `@sveltejs/adapter-node` crashes when proxying certain requests via `fetch`",
-      "summary": "In affected versions, `@sveltejs/adapter-node` can attempt to add a header to an immutable request in a context that causes the server to crash, denying service to any other requests routed to that server.",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-13T20:36:53Z",
-      "cve_ids": [
-        "CVE-2026-128123"
-      ],
-      "cvss": 5.9,
-      "related_links": []
-    },
-    {
-      "id": "9f9612f6229929ee915ce65ccca969b7659134382acb6de52737982ea83d925d",
-      "url": "https://github.com/advisories/GHSA-5cjw-f85j-cv6r",
-      "title": "GHSA: Tornado: Open redirect via triple-slash redirect paths",
-      "summary": "### Summary\n\nDue to differences in the way browsers and Python's `urllib` parse urls, browsers treat a string starting with three or more slashes as a protocol-level redirect, while `urllib` does not. This means that the 6.6.0 fix for the RedirectHandler open redirect (CVE-2026-116578, commit cc75ab0e) is incomplete. Tornado 6.6.1 improves the open-redirect detection to handle this case correctly,",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-13T20:31:22Z",
-      "cve_ids": [
-        "CVE-2026-126347"
-      ],
-      "cvss": 3.1,
-      "related_links": []
-    },
-    {
-      "id": "d8d13a21e5f1e36389d1cdba7b9a5b66343af4cc34ad2c1a8e72d5f4c89341fe",
-      "url": "https://github.com/advisories/GHSA-vvf4-9x63-8xvv",
-      "title": "GHSA: dnspython has excessive memory and CPU use",
-      "summary": "### Summary\n\nA maliciously crafted zone file could use a WKS record to consume excessive memory and CPU, possibly causing the process to exit due to memory exhaustion.\n\n### Details\n\nThe `from_text()` parser does not check that a WKS record service number is between 0 and 65535 inclusive.  It then uses this number to resize the bitmap to accommodate a bit with that offset.  This can cause extremely",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-13T20:19:13Z",
-      "cve_ids": [
-        "CVE-2026-128089"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "20fc99f60921d8ffdc225100061568cfbc3779fd4ab20e6cbb1b379844100730",
-      "url": "https://github.com/advisories/GHSA-r99w-jh2x-3mg9",
-      "title": "GHSA: Nuxt: Incomplete fix for GHSA-9v7c-q64q-vv33: a leading `//` in the request path bypasses `server/middleware` path checks and server route rules on page routes",
-      "summary": "### Summary\n\nSince `4.6.0`, Nuxt parses a request path that starts with `//` as a URL with a host before rendering a page, so `//x/admin` renders the page at `/admin`. Nitro's routing, Nitro's route rules and `server/middleware` see the path as `//x/admin`, so server-side checks keyed on `/admin` do not apply. The fix for [GHSA-9v7c-q64q-vv33](https://github.com/nuxt/nuxt/security/advisories/GHSA-",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-11-13T19:32:21Z",
-      "cve_ids": [
-        "CVE-2026-128077"
-      ],
-      "cvss": 6.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-128077"
-      ]
-    },
-    {
-      "id": "be4e212bc0b6d1cc95f778e92403b7788eb52ebce041a3eca471b1f861eb8743",
-      "url": "https://github.com/advisories/GHSA-3v2p-hm54-8qcq",
-      "title": "GHSA: OpenTelemetry JavaScript: Insertion of Sensitive Information into Log File and Exposure of Sensitive Information to an Unauthorized Actor in @opentelemetry/instrumentation-http",
-      "summary": "### Summary\n\n`@opentelemetry/instrumentation-http` redacts sensitive URL query parameters on **outgoing (client) spans** but not on **incoming (server) spans**. The server-span path writes the raw query string verbatim into the `url.query` attribute, so credentials embedded in inbound request URLs — AWS presigned-URL signatures, Azure SAS tokens (`sig`), GCS signed-URL signatures — are exported in",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-13T19:29:20Z",
-      "cve_ids": [
-        "CVE-2026-128080"
-      ],
-      "cvss": 5.8,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-128080"
-      ]
-    },
-    {
-      "id": "67869764de6160b3978433ea38f0e2bce1c85d5fa4cedf7ca2511c2da3c78c90",
-      "url": "https://github.com/advisories/GHSA-6vhm-j9h7-f9gh",
-      "title": "GHSA: AutoMapper: Uncontrolled Recursion with Constructor Parameters",
-      "summary": "### Summary\n`MaxDepth`, whether set explicitly or applied by default (64) to self-referential type maps, was not enforced when the recursion goes through constructor parameters. Mapping a deeply nested source to a destination built through its constructor, such as a positional `record`, recurses without bound and throws a `StackOverflowException`. That exception can't be caught and terminates the ",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-11-13T19:21:02Z",
-      "cve_ids": [
-        "CVE-2026-128082"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-128082"
-      ]
-    },
-    {
-      "id": "7ed0778f6156637e7057aebb41625baeb333f565082e2d32dad4a6ae2062f660",
-      "url": "https://github.com/advisories/GHSA-9264-jvgf-6w2f",
-      "title": "GHSA: russh kex_done: Shared-secret callback runs before server host-key verification",
-      "summary": "### Summary\n\nA malicious SSH server whose host key is rejected can still cause russh's `client::Handler::kex_done()` callback to execute with the raw key-exchange shared secret. Applications using the callback for its documented protocol-bridging purpose may derive keys, initialize a secondary data channel, or perform another externally visible action before russh calls `check_server_key()` and re",
-      "source": "GitHub Advisory",
-      "category": "cloud",
-      "date": "2026-11-13T19:20:16Z",
-      "cve_ids": [
-        "CVE-2026-128087"
+        "CVE-2026-124673"
       ],
       "cvss": 3.7,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-128087"
-      ]
+      "related_links": []
     },
     {
-      "id": "a8e725258e8ecec2faf3ee6edd591a25771aa8a5c9cceab4da635611c4d72b8c",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-62975",
-      "title": "CVE-2026-62975",
-      "summary": "BACnet Stack is a BACnet open source protocol stack C library for embedded systems. Prior to version 1.5.1, the RAMFS-backed FILE implementation accepts AtomicWriteFile(record-access) requests that replace existing records with caller-controlled content. If a client replaces a record with shorter data, the backend can shrink the heap allocation and then continue processing with a trailing-copy len",
+      "id": "bc726a326546f4dfad659903c2c5104630aa9dcfc9052d980cb88f2d6482aa1a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-124671",
+      "title": "CVE-2026-124671 — CVSS 4.3",
+      "summary": "The Burst Statistics  WordPress plugin before 3.7.5 does not enforce a shared report's date range on the analytics it serves to the report's share link, allowing anyone holding the link to read the report's statistics for any period the site retains rather than the period the report was shared for.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-11-13T19:19:32.980",
+      "date": "2026-11-15T07:16:54.407",
       "cve_ids": [
-        "CVE-2026-62975"
+        "CVE-2026-124671"
       ],
-      "cvss": null,
+      "cvss": 4.3,
       "related_links": []
     },
     {
-      "id": "8ff85762b1a590976a0896802ddc56b366ae1b736b12e79cf7562c254ea24ac0",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-128083",
-      "title": "CVE-2026-128083",
-      "summary": "Laravel is a web application framework. Prior to 12.71.0 and 13.40.0, Laravel's Concurrency::run process driver can treat a forged internal result message in child standard output as framework output. An application route must invoke Concurrency::run, and a task must write attacker-controlled bytes at the start of the child's standard output that form a complete JSON document followed by gzip magi",
+      "id": "efb2e5eb4babd3097d9a438def99596dac54862d945b1004a17974e32538d3f6",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-116559",
+      "title": "CVE-2026-116559 — CVSS 6.5",
+      "summary": "The A2Reviews WordPress plugin through 1.2.3 does not properly verify authorization on several of its API command handlers, relying on a signature keyed on a value that is empty by default on an unconnected install, allowing unauthenticated attackers to modify A2Reviews WordPress plugin through 1.2.3 settings and product review metadata and to read non-public product metadata.",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-11-13T19:19:30.893",
+      "date": "2026-11-15T07:16:54.163",
       "cve_ids": [
-        "CVE-2026-128083"
+        "CVE-2026-116559"
       ],
-      "cvss": null,
+      "cvss": 6.5,
       "related_links": []
     },
     {
-      "id": "ca31d9505c713a4bc8aec0696a71e89d75351f079e521bf5177748136efb2937",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-104204",
-      "title": "CVE-2026-104204",
-      "summary": "BACnet Stack is a BACnet open source protocol stack C library for embedded systems. Prior to version 1.6.1, there is a server-side denial-of-service issue affecting the Structured View object implementation. This issue has been patched in versions 1.6.1 and 1.7.0.",
+      "id": "557990502e971e91792d353e514ff19c98e82adcabf892972212dd6bf2bd575c",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-114452",
+      "title": "CVE-2026-114452 — CVSS 5.4",
+      "summary": "The Membership Plugin  WordPress plugin before 4.0.6 does not verify that the membership referenced in a saved-card payment request belongs to the user making it, allowing subscriber-level members to disclose another member's Stripe payment client secret and attach a payment method of their choosing to another member's pending payment.",
       "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-11-13T19:17:37.973",
+      "category": "cloud",
+      "date": "2026-11-15T07:16:54.053",
       "cve_ids": [
-        "CVE-2026-104204"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "4697ae325036be26276dce827d29bab92b2cbc5aca2eed6071b1c4ad283c89f2",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102612",
-      "title": "CVE-2026-102612 — CVSS 8.1",
-      "summary": "BACnet Stack is a BACnet open source protocol stack C library for embedded systems. Prior to versions 1.4.6, 1.5.2, and 1.6.1, bws_srv_start() in ports/linux/websocket-srv.c builds the libwebsockets server context with a CA certificate loaded but never sets LWS_SERVER_OPTION_REQUIRE_VALID_OPENSSL_CLIENT_CERT, so the hub accepts TLS connections from clients presenting no certificate at all. Any net",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-11-13T19:17:37.630",
-      "cve_ids": [
-        "CVE-2026-102612"
-      ],
-      "cvss": 8.1,
-      "related_links": []
-    },
-    {
-      "id": "c37ac7bcb67e75147f3af1972fec611a5b86cb36044310b9ac6cb99c46a917d7",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102537",
-      "title": "CVE-2026-102537",
-      "summary": "BACnet Stack is a BACnet open source protocol stack C library for embedded systems. Prior to versions 1.4.6, 1.5.2, and 1.6.1, bws_cli_connect() in ports/linux/websocket-cli.c loads the trusted CA cert into the libwebsockets context, then always sets LCCSCF_ALLOW_SELFSIGNED in the connection flags. So lws accepts any self-signed hub certificate, whether or not it chains to the loaded CA. A BACnet/",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-11-13T19:17:37.470",
-      "cve_ids": [
-        "CVE-2026-102537"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "cc65965d8e635e32a703fddf42e465b8b8024705c3b1e1994817495c3ef6cb4e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-100403",
-      "title": "CVE-2026-100403 — CVSS 7.5",
-      "summary": "BACnet Stack is a BACnet open source protocol stack C library for embedded systems. Prior to versions 1.4.6, 1.5.2, and 1.6.1, the BACnet/SC hub's Linux WebSocket server reassembles fragmented WebSocket messages into a per-connection fragment_buffer. It grows that buffer with realloc() on every non-final frame, with no upper bound. A peer that streams binary continuation fragments and never sets F",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-11-13T19:17:36.427",
-      "cve_ids": [
-        "CVE-2026-100403"
-      ],
-      "cvss": 7.5,
-      "related_links": []
-    },
-    {
-      "id": "e41c1cb5efc4edf9263e2989cb15ccfd9003fc494e97edc0827c9516bfd967c4",
-      "url": "https://github.com/advisories/GHSA-736f-c93q-9fwx",
-      "title": "GHSA: russh try_sign: asynchronous confirmation can sign after agent lock",
-      "summary": "### Summary\n\nIn russh `0.65.0`, a sign request for a confirmation-constrained key can retain\nand use the private key after another connection locks the agent. `try_sign()`\nsnapshots an `Arc<PrivateKey>` before awaiting `Agent::confirm()` and does not\nrevalidate the shared lock state after the await. An agent-forwarding peer can\ntherefore obtain a signature while the agent is locked and every new r",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-13T19:10:46Z",
-      "cve_ids": [
-        "CVE-2026-128088"
-      ],
-      "cvss": 2.2,
-      "related_links": []
-    },
-    {
-      "id": "238c1d2da92313ee3ae52b3a3cadaed1dec8fb1c92e8a5a5dd9ad16f87fd0f96",
-      "url": "https://github.com/advisories/GHSA-rrfc-gjm9-cgrj",
-      "title": "GHSA: OpenTelemetry-Go: Eager W3C baggage-property materialization causes bounded memory-allocation amplification",
-      "summary": "## Summary\n\nOpenTelemetry Go eagerly materializes W3C baggage metadata into property objects during parsing. Slice growth, serialization, and copying into the internal representation cause **bounded but disproportionate memory-allocation amplification** for a valid, densely populated header. In v1.46.0 and v1.47.0-rc.1, the 8,192-byte raw-input limit is checked before member parsing; this is not u",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-13T19:08:10Z",
-      "cve_ids": [
-        "CVE-2026-128086"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "eddcd6690298781a69dd56e9ab5c9a1a1ce122373d71f579090685b7bd99afe4",
-      "url": "https://github.com/advisories/GHSA-q7gw-24fr-5p69",
-      "title": "GHSA: opentelemetry-go: AttributeValueLengthLimit is fully bypassed by attribute values composed of valid U+FFFD runes",
-      "summary": "## Summary\n\nThe `AttributeValueLengthLimit` span/log-record limit can be bypassed entirely with attribute values that consist of valid U+FFFD (REPLACEMENT CHARACTER) runes. The counting-based truncation introduced by the fix for GHSA-p9f8-wvj8-2fg8 (commit `e016a78c9`, first released in v1.33.0) has an \"optimistic\" fast path that skips every U+FFFD without counting it and without falling back to t",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-13T19:00:55Z",
-      "cve_ids": [
-        "CVE-2026-128085"
-      ],
-      "cvss": 5.3,
-      "related_links": []
-    },
-    {
-      "id": "dc9ccd942367504e46c410ee87b1436f1e2c96a469c6dc530eadbb18c6610421",
-      "url": "https://github.com/advisories/GHSA-4fqr-96q8-xrfx",
-      "title": "GHSA: sqlite3-ruby: Possible SQL query truncation when a string is 4 GiB or larger",
-      "summary": "### Summary\n\nsqlite3-ruby cast Ruby string lengths (`long`) to `int` before passing them to SQLite. On 64-bit platforms, a string of 4 GiB (2^32 bytes) or larger had its length wrap, so SQLite saw only the first `length mod 2^32` bytes. An attacker who controls the length of a SQL string could truncate the query, for example dropping a trailing `WHERE` clause. The affected paths are:\n\n- the SQL pa",
-      "source": "GitHub Advisory",
-      "category": "web_app",
-      "date": "2026-11-13T18:57:58Z",
-      "cve_ids": [
-        "CVE-2026-128084"
-      ],
-      "cvss": 4.8,
-      "related_links": []
-    },
-    {
-      "id": "892a0396a7b813683f46d0053b3c285bbd53145a5e0339f5bd0e781096e4633a",
-      "url": "https://github.com/advisories/GHSA-gpwp-5797-mjff",
-      "title": "GHSA: AutoMapper: Denial of Service via uncontrolled recursion that bypasses MaxDepth",
-      "summary": "### Summary\nThe default and explicit `MaxDepth` limits added for CVE-2026-32933 don't apply to several mapping paths. Mapping a deeply nested source through any of them recurses without bound and throws a `StackOverflowException`, which can't be caught and terminates the process.\n\n### Affected paths\n- **Polymorphic maps:** derived type maps (`Include` / `IncludeBase`) didn't inherit the base map's",
-      "source": "GitHub Advisory",
-      "category": "emergency",
-      "date": "2026-11-13T18:47:17Z",
-      "cve_ids": [
-        "CVE-2026-128081"
-      ],
-      "cvss": 7.5,
-      "related_links": [
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-128081"
-      ]
-    },
-    {
-      "id": "6742099b12dede9b7163a1549d0317159776cec41ff4e433d3deb756251e946e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-97358",
-      "title": "CVE-2026-97358",
-      "summary": "An inclusion of web functionality from an untrusted source could allow remote code execution on SpaceCom",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-11-13T18:17:50.140",
-      "cve_ids": [
-        "CVE-2026-97358"
-      ],
-      "cvss": null,
-      "related_links": []
-    },
-    {
-      "id": "37650de2572cb519242a522412e457fd2415aeeedfc1b4cda5f8b319ab9a0bf6",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129172",
-      "title": "CVE-2026-129172 — CVSS 5.4",
-      "summary": "EdgeEver 1.9.0 before 2.13.0 contains a stored cross-site scripting vulnerability in the backup restore endpoint PUT /api/v1/restores/json/resources/:id, which accepts a resource kind of image paired with a text/html MIME type without checking consistency. Authenticated members can share the note and send the public blob link to a victim, whose browser executes the script to mint a non-expiring AP",
-      "source": "NVD/NIST",
-      "category": "emergency",
-      "date": "2026-11-13T18:17:42.697",
-      "cve_ids": [
-        "CVE-2026-129172"
+        "CVE-2026-114452"
       ],
       "cvss": 5.4,
       "related_links": []
     },
     {
-      "id": "71ef47dce788d0eaee57c6889f990d9d78a4ff64ee5030d406ec8874a723252e",
-      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129171",
-      "title": "CVE-2026-129171 — CVSS 9.8",
-      "summary": "NginxPulse 1.5.0 before 1.6.26 contains an unauthenticated sql injection vulnerability that allows remote attackers to append SQL via the id and locationType parameters of /api/stats/:type. Attackers can close the quoted table-name identifier and use error-based output to read database contents, and read or write server files via PostgreSQL superuser functions.",
+      "id": "6a42155a9ae6d7c291485f5bcf7955ea86244079a625d58a6e629e2d09ae8062",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-114451",
+      "title": "CVE-2026-114451 — CVSS 5.3",
+      "summary": "The Membership Plugin  WordPress plugin before 4.0.6 does not perform any authorization or CSRF check before running a schema-altering database maintenance routine, allowing unauthenticated users to convert the Membership Plugin  WordPress plugin before 4.0.6's own tables to a narrower character set, which irreversibly replaces every 4-byte character (such as emoji and some CJK characters) in the ",
       "source": "NVD/NIST",
       "category": "emergency",
-      "date": "2026-11-13T18:17:42.530",
+      "date": "2026-11-15T07:16:53.930",
       "cve_ids": [
-        "CVE-2026-129171"
+        "CVE-2026-114451"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "fddb58b4e03a5ebf0b232775f15cc3ab0da61891dc4128edb41e6499aa3dfaef",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110989",
+      "title": "CVE-2026-110989 — CVSS 5.3",
+      "summary": "The RegistrationMagic  WordPress plugin before 6.1.0.4 does not verify ownership of the submitted email address before updating the associated WordPress user account, allowing unauthenticated attackers to overwrite the profile fields of arbitrary non-administrator users by submitting a public form that contains name and primary-email fields.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-11-15T07:16:53.827",
+      "cve_ids": [
+        "CVE-2026-110989"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "66489693ed3a6d1b9b88756d290e54d3721281f0e2c0ef2e220b6a9c1b38dd79",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110987",
+      "title": "CVE-2026-110987 — CVSS 7.1",
+      "summary": "The RegistrationMagic  WordPress plugin before 6.1.0.4 does not properly escape a user-supplied value before printing it inside an inline script block on several of its admin screens, allowing unauthenticated attackers to inject arbitrary JavaScript that executes in the session of an administrator who is tricked into opening a crafted link.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-11-15T07:16:53.717",
+      "cve_ids": [
+        "CVE-2026-110987"
+      ],
+      "cvss": 7.1,
+      "related_links": []
+    },
+    {
+      "id": "a6857b2e5db3c834f11b7627027eb48df7640923323959f7d8fdfede195d0335",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110984",
+      "title": "CVE-2026-110984 — CVSS 4.1",
+      "summary": "The RegistrationMagic  WordPress plugin before 6.1.0.4 does not sanitise and escape a parameter before using it in a SQL statement, which could allow high privilege users such as admin to perform SQL injection attacks.",
+      "source": "NVD/NIST",
+      "category": "web_app",
+      "date": "2026-11-15T07:16:53.600",
+      "cve_ids": [
+        "CVE-2026-110984"
+      ],
+      "cvss": 4.1,
+      "related_links": []
+    },
+    {
+      "id": "83b1d82908881cb0efa259bdd5598ad0f9699a12db10c794836a9f4db1cd4ca0",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-110960",
+      "title": "CVE-2026-110960 — CVSS 9.8",
+      "summary": "The Auth Armor  WordPress plugin through 1.0.3 does not require authentication on several handlers available to logged-out users, which leak the site's stored API credentials and allow an unauthenticated attacker to reset an administrator's enrollment and take over that administrator account.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-11-15T07:16:53.477",
+      "cve_ids": [
+        "CVE-2026-110960"
       ],
       "cvss": 9.8,
+      "related_links": []
+    },
+    {
+      "id": "26b41ba2e92431d71520434a87239fde299ad6c012f43c1aa72fa0f5342f9249",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-103361",
+      "title": "CVE-2026-103361 — CVSS 5.3",
+      "summary": "The Payment Gateway via Valitor for WooCommerce WordPress plugin before 1.9.41 does not properly validate the authenticity of payment callbacks, relying on a verification secret that ships with a hard-coded default value used by every store that has not changed it, allowing unauthenticated attackers to forge a valid payment confirmation and mark arbitrary orders as paid.",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-11-15T07:16:49.253",
+      "cve_ids": [
+        "CVE-2026-103361"
+      ],
+      "cvss": 5.3,
+      "related_links": []
+    },
+    {
+      "id": "f7c388ebf70aa0985adfe9376c97931d7dab0c7b678b90e24e7e8e7b8e931030",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129360",
+      "title": "CVE-2026-129360 — CVSS 7.3",
+      "summary": "A weakness has been identified in Linux Foundation Magma up to 1.9.0. The impacted element is an unknown function of the file orc8r/cloud/go/services/obsidian/access/operator.go of the component Obsidian REST. Executing a manipulation of the argument X-Magma-Client-Cert-Serial can lead to authentication bypass by spoofing. The attack can be launched remotely. The vendor was contacted early about t",
+      "source": "NVD/NIST",
+      "category": "infrastructure",
+      "date": "2026-11-15T04:16:45.090",
+      "cve_ids": [
+        "CVE-2026-129360"
+      ],
+      "cvss": 7.3,
+      "related_links": []
+    },
+    {
+      "id": "cc4b7814a180d3ad7dbcc1ce9e0003ba80ed0df04d78e1cf50ac8495bf2c481a",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129359",
+      "title": "CVE-2026-129359 — CVSS 7.3",
+      "summary": "A security flaw has been discovered in Linux Foundation Magma up to 1.9.0. The affected element is an unknown function of the file orc8r/lib/go/registry/interceptors.go. Performing a manipulation results in hard-coded credentials. The attack can be initiated remotely. The exploit has been released to the public and may be used for attacks. The vendor was contacted early about this disclosure but d",
+      "source": "NVD/NIST",
+      "category": "emergency",
+      "date": "2026-11-15T03:16:51.997",
+      "cve_ids": [
+        "CVE-2026-129359"
+      ],
+      "cvss": 7.3,
       "related_links": []
     }
   ]
